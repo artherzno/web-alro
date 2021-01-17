@@ -1,0 +1,405 @@
+:root {
+  /* Colors: */
+  --font-color: #262626;
+  --table-head: #fafafa;
+  --lightgreen: #effff6;
+  --lightyellow: #ffff76;
+  --darkblue: #2284d0;
+  --footer: #f2f2f2;
+  --step-border: #bfbfbf;
+  --white: #ffffff;
+  --green: #27ae60;
+  --text-input-border: #d9d9d9;
+  --blue: #16c5e5;
+  --yellow: #fcbd0a;
+  --red: #da2828;
+}
+
+// Reset Style ------------------------------//
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote {
+  &:before,
+  &:after {
+    content: "";
+    content: none;
+  }
+}
+
+q {
+  &:before,
+  &:after {
+    content: "";
+    content: none;
+  }
+}
+
+p {
+  line-height: 1.6;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// Main Style ------------------------------//
+body {
+  background-color: var(--white);
+  font-family: "Kanit", sans-serif;
+  font-size: 16px;
+  color: var(--font-color);
+  line-height: 1.6;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.font-24 {
+  font-size: 24px;
+}
+
+.err {
+  color: var(--red);
+  border-radius: 3px;
+  // border: 1px solid var(--red);
+  // padding: 5px 10px;
+}
+
+.btn {
+  border-radius: 2px;
+  padding: 10px;
+  width: 100%;
+  height: 45px;
+  font-size: 16px;
+  font-family: "Kanit", sans-serif;
+  margin: 8px 0;
+
+  &.btn-blue {
+    background-color: var(--darkblue);
+    border: none;
+    color: var(--white);
+  }
+}
+
+.bg-green {
+  background-color: var(--green);
+}
+
+.bg-light-green {
+  background-color: var(--lightgreen);
+}
+
+.header {
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 75px;
+  box-shadow: 0px 2px 3px #00000029;
+  opacity: 1;
+  padding: 10px 20px;
+  display: flex;
+
+  &.login {
+    p {
+      color: var(--lightyellow);
+    }
+    span {
+      color: var(--white);
+    }
+  }
+
+  &.logged {
+    p {
+      color: var(--green);
+    }
+    span {
+      color: var(--green);
+    }
+  }
+
+  .logo {
+    // display: flex;
+    flex: 1;
+
+    img {
+      width: 55px;
+      height: 54px;
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 10px;
+    }
+
+    p {
+      display: inline-block;
+      font: normal normal 600 16px/24px Taviraj;
+      letter-spacing: 0px;
+      opacity: 1;
+
+      span {
+        text-align: left;
+        font: normal normal 500 14px/24px Taviraj;
+        letter-spacing: 0px;
+        opacity: 1;
+      }
+    }
+  }
+
+  .admin-info {
+    text-align: right;
+    flex: 1;
+
+    svg {
+      // width: 55px;
+      // height: 54px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    p {
+      display: inline-block;
+      font: normal normal 600 16px/24px Kanit;
+      letter-spacing: 0px;
+      vertical-align: sub;
+      opacity: 1;
+
+      span {
+        text-align: left;
+        font: normal normal 500 14px/24px Kanit;
+        letter-spacing: 0px;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.nav {
+  width: 100vw;
+  height: 64px;
+  padding: 0 10px;
+  background: var(--green) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 2px 3px #00000029;
+
+  ul {
+    display: flex;
+
+    li {
+      padding: 20px 26px;
+
+      a {
+        display: inline-block;
+        text-decoration: none;
+        color: var(--white);
+      }
+    }
+  }
+}
+
+.footer {
+  width: 100vw;
+  height: 40px;
+  background-color: var(--footer);
+  text-align: left;
+  font: normal normal normal 14px/57px Kanit;
+  letter-spacing: 0px;
+  color: #939393;
+  opacity: 1;
+  padding: 10px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+// Card Style ----------------------//
+.card {
+  max-width: 486px;
+  width: 100%;
+  background: var(--white) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 1px 3px #00000038;
+  border-radius: 3px;
+}
+
+.card-color {
+  background: var(--white) 0% 0% no-repeat padding-box;
+  border: 1px solid var(--text-input-border);
+  border-radius: 2px;
+}
+
+// Input Sytle ---------------------//
+.form-input {
+  margin-bottom: 8px;
+
+  label {
+    display: block;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    background: var(--white) 0% 0% no-repeat padding-box;
+    border: 1px solid var(--text-input-border);
+    border-radius: 2px;
+    padding: 0 10px;
+
+    &[type="text"],
+    &[type="password"] {
+      height: 40px;
+    }
+  }
+}
+
+// Login Style ---------------------//
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./assets/login-bg.jpg);
+  background-size: cover;
+
+  .card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 24px;
+    height: 310px;
+    p {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+  }
+}
