@@ -25,7 +25,7 @@ function LoginPage() {
         if(dataLogin.username === 'admin' && dataLogin.password === '1234') {
             setErr(false);
             alert('A name was submitted: ' + dataLogin.username +', '+dataLogin.password);
-            history.push('/search');
+            history.push('/searchmember');
         } else {
             setErr(true);
             setDataLogin({
