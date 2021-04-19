@@ -14,9 +14,9 @@ import ManageInfo from './ManageInfo';
 import CloseContact from './CloseContact';
 import DebtInfo from './DebtInfo'
 
-function Container() {
+function Main() {
     return (
-        <div className="container">
+        <div className="main">
             <Router>
                 <Switch>
                     <Route path="/" exact component={LoginPage} />
@@ -33,4 +33,4 @@ function Container() {
     )
 }
 
-export default Container;
+export default Main;
