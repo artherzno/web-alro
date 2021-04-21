@@ -1,16 +1,15 @@
-import React from 'react';
+import React from 'react'
 
 import Header from '../components/Header';
 import Nav from '../components/Nav';
 
-function ManageInfo() {
+function Home() {
     return (
-        <div>
+        <div className="home">
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
-            Manage Info
         </div>
     )
 }
 
-export default ManageInfo;
+export default Home

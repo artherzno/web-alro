@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useRef, useEffect, createRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -22,52 +23,127 @@ const useStyles = makeStyles((theme) => ({
 const listmenu = [
     {
         title: 'คำขอกู้ยืมเงิน',
-        component: 'SearchMemberPage',
-        path: '/searchmember',
+        component: 'LoanRequestPage',
+        path: '/home',
         submenu: [
             {
                 subtitle: 'ยื่นคำขอกู้ยืมเงิน',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'พิมพ์สัญญากู้ยืมเงิน',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'พิมพ์ใบสำคัญการรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'บันทึกปิดสัญญาเดิม',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'ค้นหาสัญญาทั้งหมด',
-                subpath: '/'
+                subpath: '/home'
             }
         ]
     },{
         title: 'ข้อมูลการให้บริการสินเชื่อ',
-        component: 'SearchMemberPage',
-        path: '/searchmember',
+        component: 'CreditInfoPage',
+        path: '/home',
         submenu: [
             {
                 subtitle: 'บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'แก้ไขใบเสร็จรับเงิน',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'Upload file ข้อมูล ธกส.',
-                subpath: '/'
+                subpath: '/home'
             },{
                 subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
-                subpath: '/'
+                subpath: '/home'
+            }
+        ]
+    },{
+        title: 'ข้อมูลเร่งรัดจัดเก็บหนี้',
+        component: 'DebtInfoPage',
+        path: '/home',
+        submenu: [
+            {
+                subtitle: 'พิมพ์ใบแจ้งหนี้',
+                subpath: '/home'
+            },{
+                subtitle: 'ใบเตือนหนี้ค้างชำระ',
+                subpath: '/home'
+            },{
+                subtitle: 'บันทึกขอผ่อนผัน',
+                subpath: '/home'
+            },{
+                subtitle: 'คำขอขยาย',
+                subpath: '/home'
+            },{
+                subtitle: 'เงื่อนไขปรับโครงสร้างหนี้',
+                subpath: '/home'
+            },{
+                subtitle: 'รับสภาพหนี้/รับสภาพความผิด',
+                subpath: '/home'
+            }
+        ]
+    },{
+        title: 'รายงาน',
+        component: 'ReportPage',
+        path: '/home',
+        submenu: [
+            {
+                subtitle: 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานการจ่ายเงินกู้',
+                subpath: '/home'
+            },{
+                subtitle: 'คำขอขยรายงานคำขอกู้ยืมรายสัญญาาย',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานการทำสัญญา',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานการทำสัญญาแปลงหนี้',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานสัญญาการดำเนินคดีทางศาล',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานการทำสัญญาปรับปรุงโครงสร้างหนี้',
+                subpath: '/home'
+            },{
+                subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
+                subpath: '/home'
+            }
+        ]
+    },{
+        title: 'จัดการข้อมูลพื้นฐาน',
+        component: 'ManageInfoPage',
+        path: '/home',
+        submenu: [
+            {
+                subtitle: 'จัดการงบประมาณโครงการ',
+                subpath: '/home'
+            },{
+                subtitle: 'โครงการขอกู้เงิน',
+                subpath: '/home'
+            },{
+                subtitle: 'ค้นหาสมาชิก',
+                subpath: '/searchmember'
             }
         ]
     },
@@ -75,6 +151,7 @@ const listmenu = [
 
 export default function Nav() {
   const classes = useStyles();
+  const history = useHistory();
 
   function navItem(title, subtitle, key) {
 
@@ -93,6 +170,11 @@ export default function Nav() {
 
             setOpen(false);
         };
+
+        const goto = (subpath) => {
+            console.log(subpath)
+            history.push(subpath);
+        }
 
         function handleListKeyDown(event) {
             if (event.key === 'Tab') {
@@ -131,7 +213,7 @@ export default function Nav() {
                     <Paper>
                         <ClickAwayListener onClickAway={handleClose}>
                         <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                            { subtitle.map((item,i)=><MenuItem key={i} onClick={handleClose}>{item.subtitle}</MenuItem>)}
+                            { subtitle.map((item,i)=><MenuItem key={i} onClick={(event)=>{handleClose(event); goto(item.subpath)}}>{item.subtitle}</MenuItem>)}
                         </MenuList>
                         </ClickAwayListener>
                     </Paper>

@@ -1,15 +1,21 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiLogout} from '@mdi/js'
 
 import LogoImg from '../assets/logo-alro.png';
 
 function Header(props) {
+    const history = useHistory();
     const { bgColor, status } = props;
+
+    const goto = () => {
+        history.push('/home');
+    }
 
     return (
         <div className={`header ${bgColor} ${status}`}>
-            <div className="logo">
+            <div className="logo" onClick={()=>goto()}>
                 <img src={LogoImg} alt="สำนักงานการปฏิรูปที่ดินเพื่อเกษตรกรรม" />
                 <p>
                     ระบบสินเชื่อกองทุนการปฏิรูปที่ดินเพื่อเกษตรกรรม<br/>

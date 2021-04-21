@@ -254,6 +254,7 @@ body {
   .logo {
     // display: flex;
     flex: 1;
+    cursor: pointer;
 
     img {
       width: 55px;
@@ -412,7 +413,7 @@ body {
 .login-page {
   width: 100vw;
   height: 100vh;
-  background-image: url(./assets/login-bg.jpg);
+  background-image: url(./assets/login-bg.png);
   background-size: cover;
 
   .card {

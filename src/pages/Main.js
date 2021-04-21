@@ -6,13 +6,8 @@ import {
 } from "react-router-dom";
 
 import LoginPage from './LoginPage';
-import SearchMember from './SearchMember';
-import ApplyLoan from './ApplyLoan';
-import AllContact from './AllContact';
-import Report from './Report';
-import ManageInfo from './ManageInfo';
-import CloseContact from './CloseContact';
-import DebtInfo from './DebtInfo'
+import Home from './Home';
+import SearchMember from './SearchMemberPage';
 
 function Main() {
     return (
@@ -20,13 +15,8 @@ function Main() {
             <Router>
                 <Switch>
                     <Route path="/" exact component={LoginPage} />
+                    <Route path="/home" component={Home} />
                     <Route path="/searchmember" component={SearchMember} />
-                    <Route path="/applyloan" component={ApplyLoan} />
-                    <Route path="/allcontact" component={AllContact} />
-                    <Route path="/report" component={Report} />
-                    <Route path="/manageinfo" component={ManageInfo} />
-                    <Route path="/closecontact" component={CloseContact} />
-                    <Route path="/debtinfo" component={DebtInfo} />
                 </Switch>
             </Router>
         </div>

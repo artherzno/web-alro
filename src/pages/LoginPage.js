@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Header from '../components/Header';
-import BgImg from '../assets/login-bg.jpg';
+import BgImg from '../assets/login-bg.png';
 
 function LoginPage() {
     const history = useHistory();
@@ -25,7 +25,7 @@ function LoginPage() {
         if(dataLogin.username === 'admin' && dataLogin.password === '1234') {
             setErr(false);
             alert('A name was submitted: ' + dataLogin.username +', '+dataLogin.password);
-            history.push('/searchmember');
+            history.push('/home');
         } else {
             setErr(true);
             setDataLogin({
