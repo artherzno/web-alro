@@ -1,0 +1,19 @@
+.header-tab{
+    padding: 8px 16px 8px 16px;
+    border: 1px solid $gray-border;
+    border-radius: 5px 5px 0px 0px;
+    cursor: pointer;
+    border-bottom: 0px;
+    font-size: 14px;
+    background-color: rgb(250, 250, 250);
+
+    &:hover{
+        background-color: rgba($color: $bg-header-tab, $alpha: 1);
+        color: $text-color-header-tab;
+    }
+}
+
+.line-horizontal{
+    background-color: $gray-border;
+    height: 1px;
+}

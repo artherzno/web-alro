@@ -8,6 +8,7 @@ import {
 import LoginPage from './LoginPage';
 import Home from './Home';
 import SearchMember from './SearchMemberPage';
+import ListFarmerPayLoan from './ListFarmerPayLoan'
 
 function Main() {
     return (
@@ -17,6 +18,7 @@ function Main() {
                     <Route path="/" exact component={LoginPage} />
                     <Route path="/home" component={Home} />
                     <Route path="/searchmember" component={SearchMember} />
+                    <Route path="/listfarmerpayloan" component={ListFarmerPayLoan} />
                 </Switch>
             </Router>
         </div>
