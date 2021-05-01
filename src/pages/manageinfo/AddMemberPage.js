@@ -159,7 +159,7 @@ function AddMemberPage(props) {
 
     const FormLandInfo = (i) => {
         return (
-                <Grid container spacing={3}>
+                <Grid container spacing={3} className="paper-container">
                     <Grid item xs={12}>
                         <FormControl className={classes.textbox}>
                             <InputLabel className={classes.labelHeader}  shrink htmlFor="addmember-type-input">
@@ -335,10 +335,6 @@ function AddMemberPage(props) {
                             <BootstrapInput defaultValue="" endAdornment={<InputAdornment position="end">วา</InputAdornment>} id="addmember-landinfo-field4-input" /> 
                             
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-
-                    <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={() => setCountAddLandInfo(countAddLandInfo + 1)}>เพิ่มข้อมูล</Button>
                     </Grid>
                 </Grid>
         );
@@ -755,6 +751,9 @@ function AddMemberPage(props) {
                                         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                                             { <FormLandInfo /> }
                                             { [...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />) }
+                                            <Grid item xs={12}>
+                                                <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={() => setCountAddLandInfo(countAddLandInfo + 1)}>เพิ่มข้อมูล</Button>
+                                            </Grid>
                                         </form>
                                     </Grid>
                                 </Paper>
