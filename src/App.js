@@ -3,6 +3,7 @@ import Footer from './components/Footer';
 import './App.scss';
 import { fade, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import { mdiScale } from '@mdi/js';
 
 const theme = createMuiTheme();
 const themeGlobal = createMuiTheme({
@@ -15,10 +16,51 @@ const themeGlobal = createMuiTheme({
   palette: {
     primary: {
       main: '#2284d0',
+      outline: 'transparent'
     },
     secondary: {
       main: '#da2828',
+      outline: 'transparent'
     },
+    green: {
+      color: '#27AE60',
+      fill: '#27AE60',
+      outline: 'transparent'
+    },
+  },
+  paletteCheck: {
+    color: '#2284d0',
+    '&$checked': {
+      color: '#2284d0',
+    },
+  },
+  iconGreen: {
+    color: '#27AE60',
+    fill: '#27AE60',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: '0',
+    userSelect: 'none',
+  },
+  iconRed: {
+    color: '#da2828',
+    fill: '#da2828',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: '0',
+    userSelect: 'none',
+  },
+  boxDashed: {
+    border: '1px dashed #D9D9D9',
+    padding: '40px',
+    backgroundColor: '#FAFAFA',
+    width: '100%',
   },
   paper: {
     padding: theme.spacing(3),
@@ -38,12 +80,34 @@ const themeGlobal = createMuiTheme({
   h2: {
     fontSize: '20px',
   },
+  buttonNormal: {
+    fontSize: '16px',
+  },
   buttonFluid: {
     width: '100%',
+    fontSize: '16px',
+  },
+  buttonRow: {
+    margin: '35px 0',
+  },
+  buttonFluidOutlinePrimary: {
+    backgroundColor: 'transparent',
+    border: '1px solid #2284d0',
+    color: '#2284d0',
+    width: '100%',
+  },
+  buttonOutlinePrimary: {
+    backgroundColor: 'transparent',
+    border: '1px solid #2284d0',
+    color: '#2284d0',
+    minWidth: '190px',
   },
   textbox: {
     width: '100%',
     fontSize: '16px',
+  },
+  inputfile: {
+    display: 'none',
   },
   tableNoResult: {
     backgroundColor: '#FAFAFA',
@@ -71,9 +135,15 @@ const themeGlobal = createMuiTheme({
     },
   },
   boostrapInputLabel: {
+    fontSize: '16px',
+    color: '#262626',
+    transform: 'scale(1)',
+  },
+  boostrapInputLabelHeader: {
     fontSize: '18px',
     color: '#262626',
-  }
+    transform: 'scale(1)',
+  },
 })
 
 function App() {
