@@ -140,7 +140,7 @@ const listmenu = [
                 subpath: '/home'
             },{
                 subtitle: 'โครงการขอกู้เงิน',
-                subpath: '/home'
+                subpath: '/loanrequestproject'
             },{
                 subtitle: 'ค้นหาสมาชิก',
                 subpath: '/searchmember'

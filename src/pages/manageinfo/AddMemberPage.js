@@ -344,7 +344,7 @@ function AddMemberPage(props) {
         <div className="search-page">
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
-            { classes.colorGreen }
+            
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="sm">
