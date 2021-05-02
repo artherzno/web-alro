@@ -105,6 +105,12 @@ const themeGlobal = createMuiTheme({
     color: '#2284d0',
     minWidth: '190px',
   },
+  buttonOutlineGrey: {
+    backgroundColor: 'transparent',
+    border: '1px solid #E2E2E2',
+    color: '#262626',
+    minWidth: '190px',
+  },
   textbox: {
     width: '100%',
     fontSize: '16px',

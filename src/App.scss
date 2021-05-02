@@ -167,9 +167,61 @@ p {
   line-height: 1.6;
 }
 
+.table-box {
+  border: 1px solid rgba(234, 234, 243, 1);
+  width: 100%;
+  overflow: scroll;
+  margin: 35px 0 0;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
+
+  th {
+    background-color: rgba(250, 250, 250, 1);
+  }
+  td {
+    background-color: #fff;
+    &.sticky {
+      background-color: rgba(250, 250, 250, 1);
+    }
+  }
+
+  .sticky {
+    position: sticky;
+    width: 18em;
+    right: 0;
+    top: auto;
+    border-left: 1px solid rgba(234, 234, 243, 1);
+  }
+
+  .tb-w-8em {
+    min-width: 8em;
+  }
+
+  .tb-w-8em {
+    min-width: 8em;
+  }
+  .tb-w-10em {
+    min-width: 10em;
+  }
+
+  .tb-w-12em {
+    min-width: 12em;
+  }
+
+  .tb-w-14em {
+    min-width: 14em;
+  }
+
+  .tb-w-16em {
+    min-width: 16em;
+  }
+
+  .tb-w-18em {
+    min-width: 18em;
+  }
 }
 
 // Main Style ------------------------------//
@@ -449,6 +501,40 @@ body {
     p {
       text-align: center;
       margin-bottom: 16px;
+    }
+  }
+}
+
+
+// Material UI (Mui) --------------------------//
+.MuiTableCell-root {
+  border-top: none;
+  border-right: none;
+  border-left: 1px solid rgba(234, 234, 243, 1);
+  &:first-child {
+    border-left: none;
+  }
+
+  button {
+    min-width: auto;
+    margin: 0 5px;
+  }
+}
+
+.MuiDataGrid-root {
+  .MuiDataGrid-colCellWrapper {
+    background-color: rgba(250, 250, 250, 1);
+  }
+  .MuiDataGrid-cell,
+  .MuiDataGrid-colCell {
+    border-top: none;
+    border-right: none;
+    border-left: 1px solid rgba(234, 234, 243, 1);
+    &:first-child {
+      border-left: none;
+    }
+    .MuiDataGrid-iconSeparator {
+      display: none;
     }
   }
 }
