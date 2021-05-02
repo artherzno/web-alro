@@ -203,6 +203,21 @@ body {
   // padding: 5px 10px;
 }
 
+.line-top-green {
+  border-top: 4px solid var(--green);
+}
+
+.paper {
+  margin-top: 35px;
+
+  .paper-container {
+    margin: 10px -12px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
 .btn {
   border-radius: 2px;
   padding: 10px;
@@ -338,6 +353,7 @@ body {
       span {
         font-size: 18px;
         color: var(--white);
+        line-height: 1;
         & > span {
           display: inherit;
           vertical-align: text-top;
@@ -357,7 +373,7 @@ body {
 }
 
 .main {
-  margin-bottom: 180px;
+  margin-bottom: 80px;
 }
 
 .footer {

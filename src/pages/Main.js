@@ -7,8 +7,9 @@ import {
 
 import LoginPage from './LoginPage';
 import Home from './Home';
-import SearchMember from './SearchMemberPage';
 import ListFarmerPayLoan from './ListFarmerPayLoan'
+import AddMember from './manageinfo/AddMemberPage';
+import SearchMember from './manageinfo/SearchMemberPage';
 
 function Main() {
     return (
@@ -17,6 +18,9 @@ function Main() {
                 <Switch>
                     <Route path="/" exact component={LoginPage} />
                     <Route path="/home" component={Home} />
+                    
+                    {/* Manage Info Page */}
+                    <Route path="/addmember" component={AddMember} />
                     <Route path="/searchmember" component={SearchMember} />
                     <Route path="/listfarmerpayloan" component={ListFarmerPayLoan} />
                 </Switch>

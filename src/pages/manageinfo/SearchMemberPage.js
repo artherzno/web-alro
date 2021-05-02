@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {  } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
@@ -15,8 +15,8 @@ import Button from '@material-ui/core/Button';
 // import Icon from '@material-ui/core/Icon';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-import Header from '../components/Header';
-import Nav from '../components/Nav';
+import Header from '../../components/Header';
+import Nav from '../../components/Nav';
 
 const useStyles = makeStyles((themeGlobal) => ({
     root: {
@@ -29,6 +29,7 @@ const useStyles = makeStyles((themeGlobal) => ({
     h2: themeGlobal.h2,
     textbox: themeGlobal.textbox,
     buttonFluid: themeGlobal.buttonFluid,
+    buttonNormal: themeGlobal.buttonNormal,
     label: themeGlobal.boostrapInputLabel,
     tableNoResult: themeGlobal.tableNoResult, 
   }));
@@ -40,6 +41,7 @@ const useStyles = makeStyles((themeGlobal) => ({
 
 function SearchMemberPage(props) {
     const classes = useStyles();
+    const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
 
@@ -47,13 +49,18 @@ function SearchMemberPage(props) {
         setLoaded(true);
     }, [])
 
+    const gotoAddMember = () => {
+        history.push('/addmember');
+    }
+
     return (
         <div className="search-page">
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
             
-            <Fade in={loaded} timeout={1200}>
+            <Fade in={loaded} timeout={800}>
                 <div className="fade">
+                    {/* Search Condition */}
                     <Container maxWidth="sm">
                         <Grid container spacing={1}>
                             <Grid item xs={12} className={classes.headerTop}> 
@@ -61,7 +68,7 @@ function SearchMemberPage(props) {
                             </Grid>
                             <Grid item xs={12}>
                                 <Box  display="flex" justifyContent="flex-end">
-                                    <Button edge="end" variant="contained" color="primary" size="large" startIcon={<PersonAddIcon />}>เพิ่มสมาชิก</Button>
+                                    <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()}>เพิ่มสมาชิก</Button>
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
@@ -109,7 +116,8 @@ function SearchMemberPage(props) {
                             </Grid>
                         </Grid>
                     </Container>
-
+                    
+                    {/* Search Result */}
                     <Container maxWidth="md">
                         <Grid item xs={12} className={classes.headerResult}> 
                             <h2 className={classes.h2}>ผลการค้นหา 0 รายการ</h2>
@@ -128,7 +136,7 @@ function SearchMemberPage(props) {
                                         ไม่มีข้อมูล
                                     </Box>
                                     <Box p={1}>
-                                        <Button edge="end" variant="contained" color="primary" size="large" startIcon={<PersonAddIcon />}>เพิ่มสมาชิก</Button>
+                                        <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()}>เพิ่มสมาชิก</Button>
                                     </Box>
                                 </Box>
                             </Box>
