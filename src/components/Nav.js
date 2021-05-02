@@ -106,10 +106,10 @@ const listmenu = [
                 subpath: '/report/listfarmerpayloan'
             },{
                 subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
-                subpath: '/home'
+                subpath: '/report/listnewfarmerpayloan'
             },{
                 subtitle: 'รายงานการจ่ายเงินกู้',
-                subpath: '/home'
+                subpath: '/report/payLoan'
             },{
                 subtitle: 'คำขอขยรายงานคำขอกู้ยืมรายสัญญาาย',
                 subpath: '/home'

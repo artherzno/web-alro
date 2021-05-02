@@ -4,19 +4,19 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import ListFarmPayLoanTab from './ListFarmPayLoanTab'
-import SummaryListFarmPayLoanTab from './SummaryListFarmPayLoanTab'
+import ListNewFarmerPayLoanTab from './ListNewFarmerPayLoanTab'
+import ListNewFarmerPayLoanSectionTab from './ListNewFarmerPayLoanSectionTab'
 
 const tabs = [{
-    title: 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
-    id: "list_farmer_pay"
+    title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
+    id: "list_new_farmer_pay"
 },
 {
-    title: 'สรุปบัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
-    id: "sum_list_farmer_pay"
+    title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่ รายภาค',
+    id: "list_new_farmer_pay_sector"
 }]
 
-class ListFarmerPayLoan extends React.Component {
+class ListNewFarmerPayLoan extends React.Component {
 
     constructor(props) {
         super(props)
@@ -41,9 +41,9 @@ class ListFarmerPayLoan extends React.Component {
                                 {tabs.map((tab, index) => {
                                     return (
                                         <Grid item key={index}>
-                                            <div className={`header-tab ${tab.id === this.state.tabSelected ? 'active' : ''}`} onClick={() =>{
+                                            <div className={`header-tab ${tab.id === this.state.tabSelected ? 'active' : ''}`} onClick={() => {
                                                 this.setState({
-                                                    tabSelected:tab.id
+                                                    tabSelected: tab.id
                                                 })
                                             }}> {tab.title} </div>
                                         </Grid>
@@ -70,14 +70,14 @@ class ListFarmerPayLoan extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <ListFarmPayLoanTab />
+                <ListNewFarmerPayLoanTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <SummaryListFarmPayLoanTab />
+                <ListNewFarmerPayLoanSectionTab />
             )
         }
     }
 }
 
-export default ListFarmerPayLoan
+export default ListNewFarmerPayLoan

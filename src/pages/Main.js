@@ -8,6 +8,8 @@ import {
 import LoginPage from './LoginPage';
 import Home from './Home';
 import ListFarmerPayLoan from './report/ListFarmerPayLoan'
+import ListNewFarmerPayLoan from './report/ListNewFarmerPayLoan'
+import PayLoan from './report/PayLoan'
 import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
@@ -23,6 +25,8 @@ function Main() {
                     {/* Manage Info Page */}
                     <Route path="/searchmember" component={SearchMember} />
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
+                    <Route path="/report/listnewfarmerpayloan" component={ListNewFarmerPayLoan} />
+                    <Route path="/report/payLoan" component={PayLoan} />
                     <Route path="/addmember" component={AddMember} />
                     <Route path="/loanrequestproject" component={LoanRequestProject} />
                 </Switch>

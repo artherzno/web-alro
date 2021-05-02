@@ -16,11 +16,11 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 
-class ListFarmPayLoanTab extends React.Component {
+class SummaryListFarmPayLoanTab extends React.Component {
 
     render() {
 
-        const { classes} = this.props;
+        const { classes } = this.props;
 
         return (<div>
             <Grid container spacing={2}>
@@ -36,7 +36,7 @@ class ListFarmPayLoanTab extends React.Component {
                     </Grid>
 
                 </Grid>
-                <Grid item/>
+                <Grid item />
                 <Grid item>
                     <Grid container spacing={1}>
                         <Grid item>
@@ -68,7 +68,7 @@ class ListFarmPayLoanTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้ จังหวัดกรุงเทพ</Typography>
+                    <Typography variant="h6" align="center">สรุปบัญชีรายชื่อเกษตรกรที่ชำระเงินกู้ จังหวัดกรุงเทพ</Typography>
                     <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
                     <Typography variant="h6" align="center">ประเภทใบเสร็จรับเงิน ส.ป.ก.จังหวัด</Typography>
                 </Box>
@@ -89,24 +89,18 @@ class ListFarmPayLoanTab extends React.Component {
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                <StyledTableCell align="center">สัญญาเลขที่</StyledTableCell>
-                                <StyledTableCell align="center">ชื่อ-นามสกุล</StyledTableCell>
-                                <StyledTableCell align="center">เลขที่ใบแจ้งหนี้</StyledTableCell>
-                                <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบแจ้งนี้</Typography></div></StyledTableCell>
-                                <StyledTableCell align="center">เลขที่ใบเสร็จ</StyledTableCell>
-                                <StyledTableCell align="center">ช่องทางการชำระเงิน</StyledTableCell>
+                                <StyledTableCell align="center">ส.ป.ก.จังหวัด</StyledTableCell>
                                 <StyledTableCell align="center">ชำระเงินกู้</StyledTableCell>
                                 <StyledTableCell align="center">เงินต้น</StyledTableCell>
                                 <StyledTableCell align="center" colSpan={2}>
-                                  <div>
+                                    <div>
                                         <div className="sub-header-table">
-                                           <Box p={2}>
-                                                <Typography align="center" variant="body2">ค้างรับ</Typography>
-                                           </Box>
-                                      </div>
+                                            <Box p={2}>
+                                                <Typography align="center" variant="body2">ดอกเบี้ย</Typography>
+                                            </Box>
+                                        </div>
 
-                                       
+
                                         <Box mt={2}>
                                             <Grid container>
                                                 <Grid item xs>
@@ -117,8 +111,8 @@ class ListFarmPayLoanTab extends React.Component {
                                                 </Grid>
                                             </Grid>
                                         </Box>
-                                  </div>
-                                 
+                                    </div>
+
                                 </StyledTableCell>
                                 <StyledTableCell align="center">ค่าปรับ</StyledTableCell>
                                 <StyledTableCell align="center">ชำระเกิน</StyledTableCell>
@@ -132,12 +126,6 @@ class ListFarmPayLoanTab extends React.Component {
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right" colSpan={2}> <Grid container>
                                     <Grid item xs>
                                         <Typography align="center" variant="body2">ค้างรับ</Typography>
@@ -149,32 +137,9 @@ class ListFarmPayLoanTab extends React.Component {
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                             </TableRow>
-                            <TableRow>
-                                <StyledTableCellLine component="th" scope="row">
-                                    xxxx
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right" colSpan={2}> <Grid container>
-                                    <Grid item xs>
-                                        <Typography align="center" variant="body2">ค้างรับ</Typography>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Typography align="center" variant="body2">รับ</Typography>
-                                    </Grid>
-                                </Grid></StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                            </TableRow>
+                       
                             <TableRow  >
-                                <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} colSpan={2} align="right">รวมทั้งสิ้น</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="right" colSpan={2}> <Grid container>
@@ -196,4 +161,4 @@ class ListFarmPayLoanTab extends React.Component {
     }
 }
 
-export default withStyles(styles)(ListFarmPayLoanTab)
+export default withStyles(styles)(SummaryListFarmPayLoanTab)
