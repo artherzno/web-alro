@@ -26,6 +26,7 @@ const useStyles = makeStyles((themeGlobal) => ({
     buttonFluid: themeGlobal.buttonFluid,
     buttonFluidOutlinePrimary: themeGlobal.buttonFluidOutlinePrimary,
     buttonOutlinePrimary: themeGlobal.buttonOutlinePrimary,
+    buttonOutlineGrey: themeGlobal.buttonOutlineGrey,
     label: themeGlobal.boostrapInputLabel,
     labelHeader: themeGlobal.boostrapInputLabelHeader,
     tableNoResult: themeGlobal.tableNoResult, 
@@ -46,9 +47,10 @@ function Prototye() {
     
     return (
         <div className="search-page">
-            <Header bgColor="bg-light-green" status="logged" />
-            <Nav />
-            
+            <div className="header-nav">
+                <Header bgColor="bg-light-green" status="logged" />
+                <Nav />
+            </div>
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="sm">

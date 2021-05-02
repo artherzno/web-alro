@@ -157,6 +157,10 @@ function AddMemberPage(props) {
         history.push('/searchmember');
     }
 
+    const cancelData = () => {
+        history.push('/searchmember');
+    }
+
     const FormLandInfo = (i) => {
         return (
                 <Grid container spacing={3} className="paper-container">
@@ -342,8 +346,10 @@ function AddMemberPage(props) {
 
     return (
         <div className="search-page">
-            <Header bgColor="bg-light-green" status="logged" />
-            <Nav />
+            <div className="header-nav">
+                <Header bgColor="bg-light-green" status="logged" />
+                <Nav />
+            </div>
             
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
@@ -763,7 +769,7 @@ function AddMemberPage(props) {
                         <Grid container spacing={2} className={classes.buttonRow}>
                             {/* Button Row -------------------------------------------------- */}
                             <Grid item xs={6}>
-                                <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="" size="large">ยกเลิก</Button>    
+                                <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="" size="large" onClick={()=>cancelData()}>ยกเลิก</Button>    
                             </Grid>
 
                             <Grid item xs={6}>

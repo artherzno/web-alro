@@ -11,10 +11,14 @@ import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Box from '@material-ui/core/Box'
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputBase from '@material-ui/core/InputBase';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -49,6 +53,11 @@ const useStyles = makeStyles((themeGlobal) => ({
     buttonRow: themeGlobal.buttonRow,
 }));
 
+const BootstrapInput = withStyles((themeGlobal) => ({
+    root: themeGlobal.boostrapRoot,
+    input: themeGlobal.boostrapInput,
+}))(InputBase);
+
 // All Data for DataGrid & Table ---------------------------------------------//
 
 const rows = [
@@ -63,7 +72,7 @@ const rows = [
         loan_type: '',
         loan_period: '',
         loan_objective: '',
-        loan_user: ''
+        loan_farmer: ''
     },
     { 
         id: 2, 
@@ -76,7 +85,7 @@ const rows = [
         loan_type: '',
         loan_period: '',
         loan_objective: '',
-        loan_user: ''
+        loan_farmer: ''
     },
     { 
         id: 3, 
@@ -89,7 +98,7 @@ const rows = [
         loan_type: '',
         loan_period: '',
         loan_objective: '',
-        loan_user: ''
+        loan_farmer: ''
     },
     { 
         id: 4, 
@@ -102,7 +111,7 @@ const rows = [
         loan_type: '',
         loan_period: '',
         loan_objective: '',
-        loan_user: ''
+        loan_farmer: ''
     },
     { 
         id: 5, 
@@ -115,7 +124,7 @@ const rows = [
         loan_type: '',
         loan_period: '',
         loan_objective: '',
-        loan_user: '',
+        loan_farmer: '',
     },
 ];
 
@@ -132,14 +141,16 @@ function LoanRequestProject() {
     }, [])
 
     const gotoAddLoanRequestProject = () => {
-        history.push('/');
+        history.push('/loanaddproject');
     }
     
     return (
         <div className="loanrequestproject-page">
-            <Header bgColor="bg-light-green" status="logged" />
-            <Nav />
-            
+            <div className="header-nav">
+                <Header bgColor="bg-light-green" status="logged" />
+                <Nav />
+            </div>
+
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container>
@@ -147,7 +158,31 @@ function LoanRequestProject() {
                             <Grid item xs={12} className={classes.headerTop}> 
                                 <h1 className={classes.h1}>โครงการขอกู้เงิน</h1>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={2}>
+                                <Box  display="flex" justifyContent="flex-start">
+                                    {/* Field Select ---------------------------------------------------*/}
+                                    <FormControl className={classes.textbox}>
+                                        <InputLabel className={classes.label} shrink htmlFor="loanrequestproject-year-select">
+                                        ปีงบประมาณ
+                                        </InputLabel>
+                                        <Select
+                                            labelId="loanrequestproject-year-select"
+                                            id="loanrequestproject-year-select"
+                                            // value={age}
+                                            // onChange={handleChange}
+                                            input={<BootstrapInput />}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={1}>2564</MenuItem>
+                                            <MenuItem value={2}>2563</MenuItem>
+                                            <MenuItem value={3}>2562</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>  
+                            </Grid>
+                            <Grid item xs={10}>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()}>เพิ่มโครงการ</Button>
                                 </Box>  
@@ -183,7 +218,7 @@ function LoanRequestProject() {
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_type}</TableCell>
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_period}</TableCell>
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_objective}</TableCell>
-                                                    <TableCell align="center" className="tb-w-12em">{row.loan_user}</TableCell>
+                                                    <TableCell align="center" className="tb-w-12em">{row.loan_farmer}</TableCell>
                                                     <TableCell align="center" className="sticky tb-w-14em">
                                                         <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={<EditOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}>แก้ไข</Button>
                                                         <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}>ลบ</Button>
