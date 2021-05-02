@@ -7,7 +7,7 @@ import {
 
 import LoginPage from './LoginPage';
 import Home from './Home';
-import ListFarmerPayLoan from './ListFarmerPayLoan'
+import ListFarmerPayLoan from './report/ListFarmerPayLoan'
 import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 
@@ -22,7 +22,7 @@ function Main() {
                     {/* Manage Info Page */}
                     <Route path="/addmember" component={AddMember} />
                     <Route path="/searchmember" component={SearchMember} />
-                    <Route path="/listfarmerpayloan" component={ListFarmerPayLoan} />
+                    <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
                 </Switch>
             </Router>
         </div>

@@ -27,6 +27,9 @@ const themeGlobal = createMuiTheme({
       fill: '#27AE60',
       outline: 'transparent'
     },
+    common: {
+      headerTable: "#F1F1F1"
+    },
   },
   paletteCheck: {
     color: '#2284d0',

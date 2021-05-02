@@ -103,7 +103,7 @@ const listmenu = [
         submenu: [
             {
                 subtitle: 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
-                subpath: '/home'
+                subpath: '/report/listfarmerpayloan'
             },{
                 subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
                 subpath: '/home'
