@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 
-class SumaryPayLoanTab extends React.Component {
+class SummarySignTab extends React.Component {
 
     render() {
 
@@ -52,7 +52,7 @@ class SumaryPayLoanTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">สรุปรายงานการจ่ายเงินกู้ ภาคตะวันออก</Typography>
+                    <Typography variant="h6" align="center">สรุปรายงานการทำสัญญา ภาคตะวันออก</Typography>
                     <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
                 </Box>
             </div>
@@ -71,50 +71,31 @@ class SumaryPayLoanTab extends React.Component {
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center">ส.ป.ก.จังหวัด</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนราย</StyledTableCell>
-                                <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
-                                <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
-                                <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
-                                <StyledTableCell align="center">รายเดิม</StyledTableCell>
-                                <StyledTableCell align="center">รายใหม่</StyledTableCell>
-                                <StyledTableCell align="center">น้อยกว่า 15 วันทำการ</StyledTableCell>
-                                <StyledTableCell align="center">มากกว่า 15 วันทำการ</StyledTableCell>
+                                <StyledTableCell align="center">เดือน</StyledTableCell>
+                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
+                                <StyledTableCell align="center">จำนวนเงิน (บาท)</StyledTableCell>
+                                <StyledTableCell align="center">อำนาจ</StyledTableCell>
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
-                                <StyledTableCellLine >
-                                    xxxx
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine > xxxx </StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
 
                             </TableRow>
-                
+
                             <TableRow>
                                 <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                     รวมทั้งสิ้น
                                 </StyledTableCellLine>
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                             </TableRow>
                         </TableBody>
@@ -125,4 +106,4 @@ class SumaryPayLoanTab extends React.Component {
     }
 }
 
-export default withStyles(styles)(SumaryPayLoanTab)
+export default withStyles(styles)(SummarySignTab)

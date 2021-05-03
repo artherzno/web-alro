@@ -112,10 +112,10 @@ const listmenu = [
                 subpath: '/report/payLoan'
             },{
                 subtitle: 'คำขอขยรายงานคำขอกู้ยืมรายสัญญาาย',
-                subpath: '/home'
+                subpath: '/report/requestloan'
             },{
                 subtitle: 'รายงานการทำสัญญา',
-                subpath: '/home'
+                subpath: '/report/listsign'
             },{
                 subtitle: 'รายงานการทำสัญญาแปลงหนี้',
                 subpath: '/home'

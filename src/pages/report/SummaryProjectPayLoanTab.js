@@ -43,9 +43,6 @@ class SumaryProjectPayLoanTab extends React.Component {
                             <DisplayMonthSelect />
                         </Grid>
                         <Grid item>
-                            <MonthSelect />
-                        </Grid>
-                        <Grid item>
                             <YearSelect />
                         </Grid>
                     </Grid>
@@ -53,9 +50,10 @@ class SumaryProjectPayLoanTab extends React.Component {
 
             </Grid>
 
+
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">รายงานการจ่ายเงินกู้ ภาคตะวันออก</Typography>
+                    <Typography variant="h6" align="center">สรุปโครงการจ่ายเงินกู้ ภาคตะวันออก</Typography>
                     <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
                 </Box>
             </div>
@@ -90,9 +88,25 @@ class SumaryProjectPayLoanTab extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            
                             <TableRow>
-                                <StyledTableCellLine  align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                <StyledTableCellLine >
+                                    xxxx
+                                </StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+
+                            </TableRow>
+                            <TableRow>
+                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                     รวมทั้งสิ้น
                                 </StyledTableCellLine>
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
@@ -104,7 +118,7 @@ class SumaryProjectPayLoanTab extends React.Component {
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                
+
 
                             </TableRow>
 
