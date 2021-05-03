@@ -295,6 +295,14 @@ body {
   background-color: var(--lightgreen);
 }
 
+.header-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
 .header {
   top: 0px;
   left: 0px;
@@ -442,6 +450,19 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
+}
+
+.footer-button {
+  div:first-child {
+    text-align: right;
+  }
+  button {
+    max-width: 275px;
+  }
+}
+
+.fade {
+  margin-top: 144px;
 }
 
 // Card Style ----------------------//

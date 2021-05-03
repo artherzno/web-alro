@@ -15,6 +15,7 @@ import ListSign from './report/ListSign'
 import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
+import LoanAddProject from './manageinfo/LoanAddProject';
 
 function Main() {
     return (
@@ -33,6 +34,7 @@ function Main() {
                     <Route path="/report/listsign" component={ListSign} />
                     <Route path="/addmember" component={AddMember} />
                     <Route path="/loanrequestproject" component={LoanRequestProject} />
+                    <Route path="/loanaddproject" component={LoanAddProject} />
                 </Switch>
             </Router>
         </div>
