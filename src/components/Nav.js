@@ -111,7 +111,7 @@ const listmenu = [
                 subtitle: 'รายงานการจ่ายเงินกู้',
                 subpath: '/report/payLoan'
             },{
-                subtitle: 'คำขอขยรายงานคำขอกู้ยืมรายสัญญาาย',
+                subtitle: 'คำขอขยรายงานคำขอกู้ยืมรายสัญญา',
                 subpath: '/report/requestloan'
             },{
                 subtitle: 'รายงานการทำสัญญา',
