@@ -118,7 +118,7 @@ const listmenu = [
                 subpath: '/report/listsign'
             },{
                 subtitle: 'รายงานการทำสัญญาแปลงหนี้',
-                subpath: '/home'
+                subpath: '/report/convertloan'
             },{
                 subtitle: 'รายงานสัญญาการดำเนินคดีทางศาล',
                 subpath: '/home'

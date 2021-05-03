@@ -89,7 +89,7 @@ class PayLoanTab extends React.Component {
                                 <StyledTableCell align="center">ว/ด/ป ครบกำหนด</StyledTableCell>
                                 <StyledTableCell align="center">การจ่ายเงิน (งวด)</StyledTableCell>
                                 <StyledTableCell align="center">จ่ายเงินงวดแรก</StyledTableCell>
-                                <StyledTableCell align="center">อัตตราดอกเบี้ย</StyledTableCell>
+                                <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
                                 <StyledTableCell align="center">สถานะสมาชิก</StyledTableCell>
                                 <StyledTableCell align="center">จำนวนวันทำการ</StyledTableCell>
                                

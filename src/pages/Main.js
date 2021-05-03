@@ -11,6 +11,7 @@ import ListFarmerPayLoan from './report/ListFarmerPayLoan'
 import ListNewFarmerPayLoan from './report/ListNewFarmerPayLoan'
 import PayLoan from './report/PayLoan'
 import RequestLoan from './report/RequestLoan'
+import ConvertLoan from './report/ConvertLoan'
 import ListSign from './report/ListSign'
 import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -32,6 +33,7 @@ function Main() {
                     <Route path="/report/payLoan" component={PayLoan} />
                     <Route path="/report/requestloan" component={RequestLoan} />
                     <Route path="/report/listsign" component={ListSign} />
+                    <Route path="/report/convertloan" component={ConvertLoan} />
                     <Route path="/addmember" component={AddMember} />
                     <Route path="/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/loanaddproject" component={LoanAddProject} />

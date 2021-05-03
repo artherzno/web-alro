@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 
-class SignProjectTab extends React.Component {
+class SummaryConvertLoanTab extends React.Component {
 
     render() {
 
@@ -43,9 +43,6 @@ class SignProjectTab extends React.Component {
                             <DisplayMonthSelect />
                         </Grid>
                         <Grid item>
-                            <MonthSelect />
-                        </Grid>
-                        <Grid item>
                             <YearSelect />
                         </Grid>
                     </Grid>
@@ -55,7 +52,7 @@ class SignProjectTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">รายงานการทำสัญญารายโครงการ ภาคตะวันออก</Typography>
+                    <Typography variant="h6" align="center">สรุปรายงานการทำสัญญาแปลงหนี้ ภาคตะวันออก</Typography>
                     <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
                 </Box>
             </div>
@@ -74,18 +71,13 @@ class SignProjectTab extends React.Component {
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell align="center">จังหวัด</StyledTableCell>
-                                <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนงวดชำระ</StyledTableCell>
-                                <StyledTableCell align="center">จำนวน (งวด)</StyledTableCell>
-                                <StyledTableCell align="center">หลักฐานค้ำประกัน</StyledTableCell>
-                                <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>
-
+                                <StyledTableCell  align="center">เดือน</StyledTableCell>
+                                <StyledTableCell  align="center">เลขที่สัญญา</StyledTableCell>
+                                <StyledTableCell  align="center">จำนวนสัญญา</StyledTableCell>
+                                <StyledTableCell  align="center">จำนวนเงิน (บาท)</StyledTableCell>
+                                <StyledTableCell align="center">อำนาจ</StyledTableCell>
                             </TableRow>
+                            
                         </TableHead>
                         <TableBody>
                             <TableRow>
@@ -94,20 +86,16 @@ class SignProjectTab extends React.Component {
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                              
+
                             </TableRow>
 
                             <TableRow>
-                                <StyledTableCellLine colSpan={4} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                     รวมทั้งสิ้น
                                 </StyledTableCellLine>
                                 <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" colSpan={6} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                             </TableRow>
                         </TableBody>
@@ -118,4 +106,4 @@ class SignProjectTab extends React.Component {
     }
 }
 
-export default withStyles(styles)(SignProjectTab)
+export default withStyles(styles)(SummaryConvertLoanTab)

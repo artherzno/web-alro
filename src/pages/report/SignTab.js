@@ -87,7 +87,7 @@ class SignTab extends React.Component {
                                 <StyledTableCell align="center">ที่ตั้งที่ดิน</StyledTableCell>
                                 <StyledTableCell align="center">จุดประสงค์การกู้ยืม</StyledTableCell>
                                 <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">อัตตราดอกเบี้ย</StyledTableCell>
+                                <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
                                 <StyledTableCell align="center">จำนวนงวดชำระ</StyledTableCell>
                                 <StyledTableCell align="center">หลักฐานค้ำประกัน</StyledTableCell>
                                 <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>

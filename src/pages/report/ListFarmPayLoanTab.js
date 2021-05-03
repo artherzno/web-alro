@@ -88,40 +88,23 @@ class ListFarmPayLoanTab extends React.Component {
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                <StyledTableCell align="center">สัญญาเลขที่</StyledTableCell>
-                                <StyledTableCell align="center">ชื่อ-นามสกุล</StyledTableCell>
-                                <StyledTableCell align="center">เลขที่ใบแจ้งหนี้</StyledTableCell>
-                                <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบแจ้งนี้</Typography></div></StyledTableCell>
-                                <StyledTableCell align="center">เลขที่ใบเสร็จ</StyledTableCell>
-                                <StyledTableCell align="center">ช่องทางการชำระเงิน</StyledTableCell>
-                                <StyledTableCell align="center">ชำระเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">เงินต้น</StyledTableCell>
-                                <StyledTableCell align="center" colSpan={2}>
-                                  <div>
-                                        <div className="sub-header-table">
-                                           <Box p={2}>
-                                                <Typography align="center" variant="body2">ค้างรับ</Typography>
-                                           </Box>
-                                      </div>
-
-                                       
-                                        <Box mt={2}>
-                                            <Grid container>
-                                                <Grid item xs>
-                                                    <Typography align="center" variant="body2">ค้างรับ</Typography>
-                                                </Grid>
-                                                <Grid item xs>
-                                                    <Typography align="center" variant="body2">รับ</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </Box>
-                                  </div>
-                                 
-                                </StyledTableCell>
-                                <StyledTableCell align="center">ค่าปรับ</StyledTableCell>
-                                <StyledTableCell align="center">ชำระเกิน</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>ชื่อ-นามสกุล</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>เลขที่ใบแจ้งหนี้</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบแจ้งนี้</Typography></div></StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>เลขที่ใบเสร็จ</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>ช่องทางการชำระเงิน</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>ชำระเงินกู้</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>เงินต้น</StyledTableCell>
+                                <StyledTableCell align="center" colSpan={2}> ค้างรับ</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>ค่าปรับ</StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}>ชำระเกิน</StyledTableCell>
+                            </TableRow>
+                            <TableRow>
+                                <StyledTableCell align="center">ค้างรับ</StyledTableCell>
+                                <StyledTableCell align="center">รับ</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -138,53 +121,19 @@ class ListFarmPayLoanTab extends React.Component {
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right" colSpan={2}> <Grid container>
-                                    <Grid item xs>
-                                        <Typography align="center" variant="body2">ค้างรับ</Typography>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Typography align="center" variant="body2">รับ</Typography>
-                                    </Grid>
-                                </Grid></StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine align="right">xxx</StyledTableCellLine>
                             </TableRow>
-                            <TableRow>
-                                <StyledTableCellLine component="th" scope="row">
-                                    xxxx
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right" colSpan={2}> <Grid container>
-                                    <Grid item xs>
-                                        <Typography align="center" variant="body2">ค้างรับ</Typography>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Typography align="center" variant="body2">รับ</Typography>
-                                    </Grid>
-                                </Grid></StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                            </TableRow>
+                            
                             <TableRow  >
                                 <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right" colSpan={2}> <Grid container>
-                                    <Grid item xs>
-                                        <Typography className={classes.cellSummary} align="center" variant="body2">ค้างรับ</Typography>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Typography className={classes.cellSummary} align="center" variant="body2">รับ</Typography>
-                                    </Grid>
-                                </Grid></StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
+                               
                                 <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
                             </TableRow>
