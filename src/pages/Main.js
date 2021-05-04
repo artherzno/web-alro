@@ -13,6 +13,9 @@ import PayLoan from './report/PayLoan'
 import RequestLoan from './report/RequestLoan'
 import ConvertLoan from './report/ConvertLoan'
 import ListSign from './report/ListSign'
+import LawSuit from './report/LawSuit'
+import ModifyLoan from './report/ModifyLoan'
+import Billed from './report/Billed'
 import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
@@ -34,6 +37,9 @@ function Main() {
                     <Route path="/report/requestloan" component={RequestLoan} />
                     <Route path="/report/listsign" component={ListSign} />
                     <Route path="/report/convertloan" component={ConvertLoan} />
+                    <Route path="/report/lawsuit" component={LawSuit} />
+                    <Route path="/report/modify" component={ModifyLoan} />
+                    <Route path="/report/billed" component={Billed} />
                     <Route path="/addmember" component={AddMember} />
                     <Route path="/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/loanaddproject" component={LoanAddProject} />

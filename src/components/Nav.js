@@ -121,13 +121,13 @@ const listmenu = [
                 subpath: '/report/convertloan'
             },{
                 subtitle: 'รายงานสัญญาการดำเนินคดีทางศาล',
-                subpath: '/home'
+                subpath: '/report/lawsuit'
             },{
                 subtitle: 'รายงานการทำสัญญาปรับปรุงโครงสร้างหนี้',
-                subpath: '/home'
+                subpath: '/report/modify'
             },{
                 subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
-                subpath: '/home'
+                subpath: '/report/billed'
             }
         ]
     },{
