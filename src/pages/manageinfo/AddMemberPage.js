@@ -1,72 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputBase from '@material-ui/core/InputBase';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Checkbox from '@material-ui/core/Checkbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-
-// import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-// import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
+import { 
+    MuiLabelHeader, 
+    MuiTextfield, 
+    MuiTextfieldEndAdornment,
+    MuiCheckbox, 
+    MuiSelect, 
+    MuiRadioButton, 
+    MuiTextNumber, 
+    MuiDatePicker, 
+    MuiUpload, 
+    ButtonFluidPrimary, 
+    ButtonFluidOutlinePrimary 
+} from '../../components/MUIinputs';
 
-const useStyles = makeStyles((themeGlobal) => ({
-    root: {
-      flexGrow: 1,
-    },
-    iconGreen: themeGlobal.iconGreen,
-    iconRoot: themeGlobal.iconRoot,
-    paper: themeGlobal.paper,
-    headerTop: themeGlobal.headerTop,
-    headerResult: themeGlobal.headerResult,
-    h1: themeGlobal.h1,
-    h2: themeGlobal.h2,
-    textbox: themeGlobal.textbox,
-    buttonNormal: themeGlobal.buttonNormal,
-    buttonFluid: themeGlobal.buttonFluid,
-    buttonFluidOutlinePrimary: themeGlobal.buttonFluidOutlinePrimary,
-    buttonOutlinePrimary: themeGlobal.buttonOutlinePrimary,
-    label: themeGlobal.boostrapInputLabel,
-    labelHeader: themeGlobal.boostrapInputLabelHeader,
-    tableNoResult: themeGlobal.tableNoResult, 
-    inputfile: themeGlobal.inputfile,
-    boxDashed: themeGlobal.boxDashed,
-    buttonRow: themeGlobal.buttonRow,
-  }));
-
-const BootstrapInput = withStyles((themeGlobal) => ({
-    root: themeGlobal.boostrapRoot,
-    input: themeGlobal.boostrapInput,
-}))(InputBase);
 
 function AddMemberPage(props) {
     const history = useHistory();
-    const classes = useStyles();
 
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
@@ -74,7 +33,7 @@ function AddMemberPage(props) {
         prefix: undefined,
         name: undefined,
         surname: undefined,
-        idNum: undefined,
+        idNum: '',
         telNum: undefined,
         imgUpload: [],
     })
@@ -87,21 +46,11 @@ function AddMemberPage(props) {
 
     // Radio Button
 
-    const BlueRadio = withStyles({
-        root: {
-          color: '#bfbfbf',
-          '&$checked': {
-            color: '#2284d0',
-          },
-        },
-        checked: {},
-    })((props) => <Radio color="default" {...props} />);
-
     const handleChangeTypeMember = (event) => {
         setInputData({...inputData,
             typeMember: event.target.value
         })
-        console.log(event.target.value)
+        console.log('typeMember ',event.target.value)
     };
     // End Radio Button
 
@@ -112,6 +61,7 @@ function AddMemberPage(props) {
         setInputData({...inputData,
             idNum: event.target.value
         })
+        console.log('idNum ',event.target.value)
     }
     // End Input ID Number
 
@@ -161,186 +111,66 @@ function AddMemberPage(props) {
         history.push('/searchmember');
     }
 
+    const addFormLandInfo = () => {
+        setCountAddLandInfo(countAddLandInfo + 1)
+    }
+
     const FormLandInfo = (i) => {
         return (
-                <Grid container spacing={3} className="paper-container">
-                    <Grid item xs={12}>
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.labelHeader}  shrink htmlFor="addmember-type-input">
-                            ที่ตั้งที่ดิน
-                            </InputLabel>&nbsp;
-                        </FormControl>
-                        <Divider variant="middle" style={{ margin: '0'}} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        {/* Field Radio Button ---------------------------------------------------*/}
-                        <FormGroup row>
-                            <FormControlLabel
-                                control={
-                                <Checkbox
-                                defaultChecked
-                                    // checked={state.checkedB}
-                                    // onChange={handleChange}
-                                    name="checkedB"
-                                    color="primary"
-                                />
-                                }
-                                label="Alro Land"
-                            />
-                        </FormGroup>
-                    </Grid>
-                    <Grid item xs={12}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-addr1-input">
-                            หมู่ที่
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" id="addmember-landinfo-addr1-input" />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        {/* Field Select ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label} shrink htmlFor="addmember-landinfo-province-select">
-                            จังหวัด
-                            </InputLabel>
-                            <Select
-                                labelId="addmember-landinfo-province-select"
-                                id="addmember-landinfo-province-select"
-                                // value={age}
-                                // onChange={handleChange}
-                                input={<BootstrapInput />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                <MenuItem value={2}>นนทบุรี</MenuItem>
-                                <MenuItem value={3}>นครปฐม</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        {/* Field Select ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label} shrink htmlFor="addmember-landinfo-district-select">
-                            เขต / อำเภอ
-                            </InputLabel>
-                            <Select
-                                labelId="addmember-landinfo-district-select"
-                                id="addmember-landinfo-district-select"
-                                // value={age}
-                                // onChange={handleChange}
-                                input={<BootstrapInput />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                <MenuItem value={2}>นนทบุรี</MenuItem>
-                                <MenuItem value={3}>นครปฐม</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        {/* Field Select ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label} shrink htmlFor="addmember-landinfo-subdistrict-select">
-                            แขวง / ตำบล
-                            </InputLabel>
-                            <Select
-                                labelId="addmember-landinfo-subdistrict-select"
-                                id="addmember-landinfo-subdistrict-select"
-                                // value={age}
-                                // onChange={handleChange}
-                                input={<BootstrapInput />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                <MenuItem value={2}>นนทบุรี</MenuItem>
-                                <MenuItem value={3}>นครปฐม</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        {/* Field Select ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label} shrink htmlFor="addmember-landinfo-typebook-input">
-                            ประเภทหนังสือสำคัญ
-                            </InputLabel>
-                            <Select
-                                labelId="addmember-landinfo-typebook-input"
-                                id="addmember-landinfo-typebook-input"
-                                // value={age}
-                                // onChange={handleChange}
-                                input={<BootstrapInput />}
-                            >
-                                <MenuItem value={1}>ส.ป.ก. 4-01, โฉนด, นส 3, นส 3 ก และอื่นๆ</MenuItem>
-                                <MenuItem value={2}>ส.ป.ก. 4-01</MenuItem>
-                                <MenuItem value={3}>โฉนด</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-number-input">
-                            เลขที่
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" id="addmember-landinfo-number-input" />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-group-input">
-                            กลุ่ม
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" id="addmember-landinfo-group-input" />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-field1-input">
-                            แปลง
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" id="addmember-landinfo-field1-input" />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-field2-input">
-                            แปลง
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" endAdornment={<InputAdornment position="end">ไร่</InputAdornment>} id="addmember-landinfo-field2-input" /> 
-                            
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-field3-input">
-                            &nbsp;
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" endAdornment={<InputAdornment position="end">งาน</InputAdornment>} id="addmember-landinfo-field3-input" /> 
-                            
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* Field Text ---------------------------------------------------*/}
-                        <FormControl className={classes.textbox}>
-                            <InputLabel className={classes.label}  shrink htmlFor="addmember-landinfo-field4-input">
-                            &nbsp;
-                            </InputLabel>
-                            <BootstrapInput defaultValue="" endAdornment={<InputAdornment position="end">วา</InputAdornment>} id="addmember-landinfo-field4-input" /> 
-                            
-                        </FormControl>
-                    </Grid>
+            <Grid container spacing={3} className="paper-container">
+                <Grid item xs={12}>
+                    <MuiLabelHeader label="ที่ตั้งที่ดิน" />
+                    <Divider variant="middle" style={{ margin: '0'}} />
                 </Grid>
+                <Grid item xs={12}>
+                    {/* Field Radio Button ---------------------------------------------------*/}
+                    <MuiCheckbox label="Alro Land" id="addmember-landinfo-alro-checkbox"  />
+                </Grid>
+                <Grid item xs={12}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfield label="หมู่ที่" id="addmember-landinfo-addr1-input" defaultValue="" />
+                </Grid>
+                <Grid item xs={6}>
+                    {/* Field Select ---------------------------------------------------*/}
+                    <MuiSelect label="จังหวัด" id="addmember-landinfo-province-select" lists={['กรุงเทพฯ','ปทุมธานี','นนทบุรี','นครปฐม']} />
+                </Grid>
+                <Grid item xs={6}>
+                    {/* Field Select ---------------------------------------------------*/}
+                    <MuiSelect label="เขต / อำเภอ" id="addmember-landinfo-district-select" lists={['เขต/อำเภอ 1','เขต/อำเภอ 2','เขต/อำเภอ 3']} />
+                </Grid>
+                <Grid item xs={6}>
+                    {/* Field Select ---------------------------------------------------*/}
+                    <MuiSelect label="แขวง / ตำบล" id="addmember-landinfo-subdistrict-select" lists={['แขวง/ตำบล 1','แขวง/ตำบล 2','แขวง/ตำบล 3']} />
+                </Grid>
+                <Grid item xs={12}>
+                    {/* Field Select ---------------------------------------------------*/}
+                    <MuiSelect label="ประเภทหนังสือสำคัญ" id="addmember-landinfo-typebook-select" lists={['ส.ป.ก. 4-01, โฉนด, นส 3, นส 3 ก และอื่นๆ','ส.ป.ก. 4-01','โฉนด']} />
+                </Grid>
+                <Grid item xs={4}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfield label="เลขที่" id="addmember-landinfo-number-input" defaultValue="" />
+                </Grid>
+                <Grid item xs={4}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfield label="กลุ่ม" id="addmember-landinfo-group-input" defaultValue="" />
+                </Grid>
+                <Grid item xs={4}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfield label="แปลง" id="addmember-landinfo-field1-input" defaultValue="" />
+                </Grid>
+                <Grid item xs={4}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfieldEndAdornment label="แปลง" id="addmember-landinfo-field2-input" defaultValue="" endAdornment="ไร่"/>
+                </Grid>
+                <Grid item xs={4}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfieldEndAdornment label="แปลง" id="addmember-landinfo-field3-input" defaultValue="" endAdornment="งาน"/>
+                </Grid>
+                <Grid item xs={4}>
+                    {/* Field Text ---------------------------------------------------*/}
+                    <MuiTextfieldEndAdornment label="แปลง" id="addmember-landinfo-fieldภ-input" defaultValue="" endAdornment="วา"/>
+                </Grid>
+            </Grid>
         );
     }
 
@@ -355,138 +185,49 @@ function AddMemberPage(props) {
                 <div className="fade">
                     <Container maxWidth="sm">
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className={classes.headerTop}> 
-                                <h1 className={classes.h1}>ข้อมูลสมาชิก</h1>
+                            <Grid item xs={12} className="title-page"> 
+                                <h1>ข้อมูลสมาชิก</h1>
                             </Grid>
 
                             {/* Paper 1 -------------------------------------------------- */}
                             <Grid item xs={12}>
-                                <Paper className={classes.paper+' line-top-green paper'}>
-                                    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                <Paper className="paper line-top-green paper">
+                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12}>
-                                                {/* Field Radio Button ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-type-input">
-                                                    ประเภทสมาชิก
-                                                    </InputLabel>&nbsp;
-                                                    <RadioGroup row aria-label="addmember-type-input" name="addmember-type-input" value={inputData.typeMember} onChange={handleChangeTypeMember}>
-                                                        <FormControlLabel value="1" control={<BlueRadio />} label="รายบุคคล" />
-                                                        <FormControlLabel value="2" control={<BlueRadio />} label="สถาบัน" />
-                                                    </RadioGroup>
-                                                </FormControl>
+                                                <MuiRadioButton label="ประเภทสมาชิก" id="addmember-type-input" lists={['รายบุคคล','สถาบัน']} value={inputData.typeMember} onChange={handleChangeTypeMember} />
                                             </Grid>
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-prefix-input">
-                                                    คำนำหน้า
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-prefix-input"
-                                                        id="addmember-prefix-input"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>นาย</MenuItem>
-                                                        <MenuItem value={2}>นาง</MenuItem>
-                                                        <MenuItem value={3}>นางสาว</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="คำนำหน้า" id="addmember-prefix-input" lists={['นาย','นาง','นางสาว']} />
                                             </Grid>
                                             <Grid item xs={4}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-name-input">
-                                                    ชื่อ
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-surname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="ชื่อ" id="addmember-name-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-surname-input">
-                                                    นามสกุล
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-surname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="นามสกุลชื่อ" id="addmember-name-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-id-number-input">
-                                                    หมายเลขประจำตัว 13 หลัก
-                                                    </InputLabel>
-                                                    <BootstrapInput type="number" placeholder="ตัวอย่าง 3 8517 13368 44 4" id="addmember-id-number-input" value={inputData.idNum} onInput = {handleIdNumber} />
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={12}>
-
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-birthday-input">
-                                                    วัน เดือน ปี เกิด
-                                                    </InputLabel>
-                                                    <BootstrapInput type="date" defaultValue="2017-05-24" id="addmember-birthday-input" />
-                                                </FormControl>
+                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-expire-id-card-input">
-                                                    วันหมดอายุบัตรประจำตัวประชาชน
-                                                    </InputLabel>
-                                                    <BootstrapInput type="date" defaultValue="2017-05-24" id="addmember-expire-id-card-input" />
-                                                </FormControl>
+                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" defaultValue="2017-05-24" />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                {/* Field Date Picker ---------------------------------------------------*/}
+                                                <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input" defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-tel-number-input">
-                                                    เบอร์โทรศัพท์
-                                                    </InputLabel>
-                                                    <BootstrapInput type="number" placeholder="ตัวอย่าง 0812345678" id="addmember-tel-number-input" value={inputData.telNum} onInput = {handleTelNumber} />
-                                                </FormControl>
+                                                <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel-number-input" defaultValue="" placeholder="ตัวอย่าง 0812345678" value={inputData.telNum} onInput = {handleTelNumber}  />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 {/* File upload ---------------------------------------------------*/}
-                                                <FormControl className={classes.boxDashed}>
-                                                    {inputData.imgUpload.map((item,i)=>
-                                                    <List>
-                                                        <ListItem key={i}>
-                                                            <ListItemIcon>
-                                                                <AttachFileIcon  class={classes.iconGreen}/>
-                                                            </ListItemIcon>
-                                                            <ListItemText
-                                                                primary={item}
-                                                            />
-                                                            <ListItemSecondaryAction>
-                                                                <IconButton edge="end" aria-label="delete">
-                                                                    <RemoveCircleOutlineIcon color="secondary"  />
-                                                                </IconButton>
-                                                            </ListItemSecondaryAction>
-                                                        </ListItem>
-                                                    </List>
-                                                    )}
-                                                    <input
-                                                        accept="image/*"
-                                                        className={classes.inputfile}
-                                                        id="contained-button-file"
-                                                        multiple
-                                                        type="file"
-                                                        onChange={handleUploadImg}
-                                                    />
-                                                    <label htmlFor="contained-button-file">
-                                                        <Button variant="contained" className={classes.buttonOutlinePrimary} component="span">
-                                                        เลือกไฟล์
-                                                        </Button>
-                                                    </label>
-                                                </FormControl>
+                                                <MuiUpload imgUpload={inputData.imgUpload} id="addmember-img-upload-input" onChange={handleUploadImg} />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -495,118 +236,40 @@ function AddMemberPage(props) {
 
                             {/* Paper 2 -------------------------------------------------- */}
                             <Grid item xs={12}>
-                                <Paper className={classes.paper+' line-top-green paper'}>
-                                    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                <Paper className="paper line-top-green paper">
+                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12}>
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.labelHeader}  shrink htmlFor="addmember-type-input">
-                                                    ที่อยู่ตามบัตรประชาชน
-                                                    </InputLabel>&nbsp;
-                                                </FormControl>
+                                                <MuiLabelHeader label="ที่อยู่ตามบัตรประชาชน" />
                                                 <Divider variant="middle" style={{ margin: '0'}} />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-idcard-addr1-input">
-                                                    บ้านเลขที่
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-idcard-addr1-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="บ้านเลขที่" id="addmember-idcard-addr1-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-idcard-addr2-input">
-                                                    หมู่ที่
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-idcard-addr2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="หมู่ที่" id="addmember-idcard-addr2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-idcard-addr3-input">
-                                                    ซอย / ถนน
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-idcard-addr3-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-idcard-addr3-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-idcard-province-select">
-                                                    จังหวัด
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-idcard-province-select"
-                                                        id="addmember-idcard-province-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="จังหวัด" id="addmember-idcard-province-select" lists={['กรุงเทพมหานคร','นนทบุรี','นครปฐม']} />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-idcard-district-select">
-                                                    เขต / อำเภอ
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-idcard-district-select"
-                                                        id="addmember-idcard-district-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-idcard-subdistrict-select">
-                                                    แขวง / ตำบล
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-idcard-subdistrict-select"
-                                                        id="addmember-idcard-subdistrict-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={['แขวง/ตำบล1','แขวง/ตำบล1','แขวง/ตำบล1']} />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-idcard-postcode-input">
-                                                    รหัสไปรษณีย์
-                                                    </InputLabel>
-                                                    <BootstrapInput type="number" defaultValue="" id="addmember-idcard-postcode-input" />
-                                                </FormControl>
+                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-tel-postcode-input" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.telNum} onInput = {handleTelNumber}  />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -615,150 +278,59 @@ function AddMemberPage(props) {
                         
                             {/* Paper 3 -------------------------------------------------- */}
                             <Grid item xs={12}>
-                                <Paper className={classes.paper+' line-top-green paper'}>
-                                    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3}>
-                                            <Grid item xs={12}>
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.labelHeader}  shrink htmlFor="addmember-type-input">
-                                                    ที่อยู่ที่ติดต่อได้
-                                                    </InputLabel>&nbsp;
-                                                </FormControl>
-                                                <Divider variant="middle" style={{ margin: '0'}} />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                {/* Field Radio Button ---------------------------------------------------*/}
-                                                <FormGroup row>
-                                                    <FormControlLabel
-                                                        control={
-                                                        <Checkbox
-                                                        defaultChecked
-                                                            // checked={state.checkedB}
-                                                            // onChange={handleChange}
-                                                            name="checkedB"
-                                                            color="primary"
-                                                        />
-                                                        }
-                                                        label="ที่อยู่ตามบัตรประชาชน"
-                                                    />
-                                                </FormGroup>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-contact-addr1-input">
-                                                    บ้านเลขที่
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-contact-addr1-input" />
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-contact-addr2-input">
-                                                    หมู่ที่
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-contact-addr2-input" />
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-contact-addr3-input">
-                                                    ซอย / ถนน
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="addmember-contact-addr3-input" />
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-contact-province-select">
-                                                    จังหวัด
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-contact-province-select"
-                                                        id="addmember-contact-province-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-contact-district-select">
-                                                    เขต / อำเภอ
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-contact-district-select"
-                                                        id="addmember-contact-district-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="addmember-contact-subdistrict-select">
-                                                    แขวง / ตำบล
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="addmember-contact-subdistrict-select"
-                                                        id="addmember-contact-subdistrict-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="addmember-contact-postcode-input">
-                                                    รหัสไปรษณีย์
-                                                    </InputLabel>
-                                                    <BootstrapInput type="number" defaultValue="" id="addmember-contact-postcode-input" />
-                                                </FormControl>
-                                            </Grid>
+                                <Paper className="paper line-top-green paper">
+                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                    <Grid container spacing={3} className="paper-container">
+                                        <Grid item xs={12}>
+                                            <MuiLabelHeader label="ที่อยู่ที่ติดต่อได้" />
+                                            <Divider variant="middle" style={{ margin: '0'}} />
                                         </Grid>
+                                        <Grid item xs={12}>
+                                            {/* Field Radio Button ---------------------------------------------------*/}
+                                            <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox"  />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            <MuiTextfield label="บ้านเลขที่" id="addmember-contact-addr1-input" defaultValue="" />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            <MuiTextfield label="หมู่ที่" id="addmember-contact-addr2-input" defaultValue="" />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-contact-addr3-input" defaultValue="" />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* Field Select ---------------------------------------------------*/}
+                                            <MuiSelect label="จังหวัด" id="addmember-contact-province-select" lists={['กรุงเทพมหานคร','นนทบุรี','นครปฐม']} />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* Field Select ---------------------------------------------------*/}
+                                            <MuiSelect label="เขต / อำเภอ" id="addmember-contact-district-select" lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* Field Select ---------------------------------------------------*/}
+                                            <MuiSelect label="แขวง / ตำบล" id="addmember-contact-subdistrict-select" lists={['แขวง/ตำบล1','แขวง/ตำบล1','แขวง/ตำบล1']} />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-contact-tel-postcode-input" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.telNum} onInput = {handleTelNumber}  />
+                                        </Grid>
+                                    </Grid>
                                     </form>
                                 </Paper>
                             </Grid>
                         
                             {/* Paper 4 -------------------------------------------------- */}
                             <Grid item xs={12}>
-                                <Paper className={classes.paper+' line-top-green paper'}>
+                                <Paper className="paper line-top-green paper">
                                     <Grid item xs={12}>
-                                        <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                        <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                             { <FormLandInfo /> }
                                             { [...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />) }
                                             <Grid item xs={12}>
-                                                <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={() => setCountAddLandInfo(countAddLandInfo + 1)}>เพิ่มข้อมูล</Button>
+                                                <ButtonFluidPrimary label="เพิ่มข้อมูล" onClick={addFormLandInfo}/>
                                             </Grid>
                                         </form>
                                     </Grid>
@@ -766,14 +338,13 @@ function AddMemberPage(props) {
                             </Grid>
                         </Grid>
 
-                        <Grid container spacing={2} className={classes.buttonRow}>
+                        <Grid container spacing={2} className="btn-row">
                             {/* Button Row -------------------------------------------------- */}
                             <Grid item xs={6}>
-                                <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="" size="large" onClick={()=>cancelData()}>ยกเลิก</Button>    
+                                <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData}/>
                             </Grid>
-
                             <Grid item xs={6}>
-                                <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={()=>postData()}>บันทึกข้อมูล</Button>    
+                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={postData}/>
                             </Grid>
                         </Grid>
                     </Container>

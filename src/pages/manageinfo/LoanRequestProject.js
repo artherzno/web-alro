@@ -14,12 +14,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Box from '@material-ui/core/Box'
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputBase from '@material-ui/core/InputBase';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
 
 import AddIcon from '@material-ui/icons/Add';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -27,36 +21,12 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
+import { 
+    MuiSelect, 
+    ButtonNormalIconStartPrimary,
+    ButtonOutlineIconStartGrey,
+} from '../../components/MUIinputs';
 
-const useStyles = makeStyles((themeGlobal) => ({
-    root: {
-      flexGrow: 1,
-    },
-    iconGreen: themeGlobal.iconGreen,
-    iconRoot: themeGlobal.iconRoot,
-    paper: themeGlobal.paper,
-    headerTop: themeGlobal.headerTop,
-    headerResult: themeGlobal.headerResult,
-    h1: themeGlobal.h1,
-    h2: themeGlobal.h2,
-    textbox: themeGlobal.textbox,
-    buttonNormal: themeGlobal.buttonNormal,
-    buttonFluid: themeGlobal.buttonFluid,
-    buttonFluidOutlinePrimary: themeGlobal.buttonFluidOutlinePrimary,
-    buttonOutlinePrimary: themeGlobal.buttonOutlinePrimary,
-    buttonOutlineGrey: themeGlobal.buttonOutlineGrey,
-    label: themeGlobal.boostrapInputLabel,
-    labelHeader: themeGlobal.boostrapInputLabelHeader,
-    tableNoResult: themeGlobal.tableNoResult, 
-    inputfile: themeGlobal.inputfile,
-    boxDashed: themeGlobal.boxDashed,
-    buttonRow: themeGlobal.buttonRow,
-}));
-
-const BootstrapInput = withStyles((themeGlobal) => ({
-    root: themeGlobal.boostrapRoot,
-    input: themeGlobal.boostrapInput,
-}))(InputBase);
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
@@ -131,7 +101,6 @@ const rows = [
 // End All Data for DataGrid ---------------------------------------------//
 
 function LoanRequestProject() {
-    const classes = useStyles();
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
@@ -155,42 +124,24 @@ function LoanRequestProject() {
                 <div className="fade">
                     <Container>
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className={classes.headerTop}> 
-                                <h1 className={classes.h1}>โครงการขอกู้เงิน</h1>
+                            <Grid item xs={12} className="title-page"> 
+                                <h1>โครงการขอกู้เงิน</h1>
                             </Grid>
                             <Grid item xs={2}>
                                 <Box  display="flex" justifyContent="flex-start">
                                     {/* Field Select ---------------------------------------------------*/}
-                                    <FormControl className={classes.textbox}>
-                                        <InputLabel className={classes.label} shrink htmlFor="loanrequestproject-year-select">
-                                        ปีงบประมาณ
-                                        </InputLabel>
-                                        <Select
-                                            labelId="loanrequestproject-year-select"
-                                            id="loanrequestproject-year-select"
-                                            // value={age}
-                                            // onChange={handleChange}
-                                            input={<BootstrapInput />}
-                                        >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            <MenuItem value={1}>2564</MenuItem>
-                                            <MenuItem value={2}>2563</MenuItem>
-                                            <MenuItem value={3}>2562</MenuItem>
-                                        </Select>
-                                    </FormControl>
+                                    <MuiSelect label="ปีงบประมาณ" id="loanrequestproject-year-select" lists={['2565','2563','2562']} />
                                 </Box>  
                             </Grid>
                             <Grid item xs={10}>
                                 <Box  display="flex" justifyContent="flex-end">
-                                    <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()}>เพิ่มโครงการ</Button>
+                                    <ButtonNormalIconStartPrimary label="เพิ่มโครงการ" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()} />
                                 </Box>  
                             </Grid>
 
                             <Grid item xs={12}>
                                 <div className="table-box">
-                                    <Table className={classes.table} aria-label="simple table">
+                                    <Table aria-label="simple table">
                                         <TableHead>
                                         <TableRow>
                                             <TableCell align="center" className="tb-w-8em">รหัสโครงการ</TableCell>
@@ -220,8 +171,8 @@ function LoanRequestProject() {
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_objective}</TableCell>
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_farmer}</TableCell>
                                                     <TableCell align="center" className="sticky tb-w-14em">
-                                                        <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={<EditOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}>แก้ไข</Button>
-                                                        <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}>ลบ</Button>
+                                                        <ButtonOutlineIconStartGrey label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
+                                                        <ButtonOutlineIconStartGrey label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
                                                 </TableCell>
                                                 </TableRow>
                                             ))}

@@ -1,55 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputBase from '@material-ui/core/InputBase';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
-
-const useStyles = makeStyles((themeGlobal) => ({
-    root: {
-      flexGrow: 1,
-    },
-    iconGreen: themeGlobal.iconGreen,
-    iconRoot: themeGlobal.iconRoot,
-    paper: themeGlobal.paper,
-    headerTop: themeGlobal.headerTop,
-    headerResult: themeGlobal.headerResult,
-    h1: themeGlobal.h1,
-    h2: themeGlobal.h2,
-    textbox: themeGlobal.textbox,
-    buttonNormal: themeGlobal.buttonNormal,
-    buttonFluid: themeGlobal.buttonFluid,
-    buttonFluidOutlinePrimary: themeGlobal.buttonFluidOutlinePrimary,
-    buttonOutlinePrimary: themeGlobal.buttonOutlinePrimary,
-    buttonOutlineGrey: themeGlobal.buttonOutlineGrey,
-    label: themeGlobal.boostrapInputLabel,
-    labelHeader: themeGlobal.boostrapInputLabelHeader,
-    tableNoResult: themeGlobal.tableNoResult, 
-    inputfile: themeGlobal.inputfile,
-    boxDashed: themeGlobal.boxDashed,
-    buttonRow: themeGlobal.buttonRow,
-  }));
-
-  const BootstrapInput = withStyles((themeGlobal) => ({
-      root: themeGlobal.boostrapRoot,
-      input: themeGlobal.boostrapInput,
-  }))(InputBase);
+import { 
+    MuiTextfield,
+    MuiSelect, 
+    ButtonFluidPrimary,
+    ButtonFluidOutlinePrimary,
+} from '../../components/MUIinputs';
 
 function LoanAddProject() {
     const history = useHistory();
-    const classes = useStyles();
 
     const [loaded, setLoaded] = useState(false);
 
@@ -102,310 +69,109 @@ function LoanAddProject() {
                 <div className="fade">
                     <Container maxWidth="md">
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className={classes.headerTop}> 
-                                <h1 className={classes.h1}>เพิ่มโครงการขอกู้เงิน</h1>
+                            <Grid item xs={12} className="title-page"> 
+                                <h1>เพิ่มโครงการขอกู้เงิน</h1>
                             </Grid>
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Paper className={classes.paper+' line-top-green paper'}>
+                            <Paper className="paper line-top-green paper">
                                 <Grid item xs={12}>
-                                    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={3}>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-projectcode-input">
-                                                    รหัสโครงการ
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-projectcode-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="รหัสโครงการชื่อ" id="loanadd-projectcode-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-projectname-input">
-                                                    ชื่อโครงการ
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-projectname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="ชื่อโครงการ" id="loanadd-projectname-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-projectplanyear-input">
-                                                    แผนปี
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-projectplanyear-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="แผนปี" id="loanadd-projectplanyear-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-province-select">
-                                                    จังหวัด
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-province-select"
-                                                        id="loanadd-province-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>กรุงเทพมหานคร</MenuItem>
-                                                        <MenuItem value={2}>นนทบุรี</MenuItem>
-                                                        <MenuItem value={3}>นครปฐม</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="จังหวัด" id="loanadd-province-select" lists={['กรุงเทพมหานคร','นนทบุรี','นครปฐม']} />
                                             </Grid>
 
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-projectmaincode1-select">
-                                                    รหัสโครงการหลัก
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-projectmaincode1-select"
-                                                        id="loanadd-projectmaincode1-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>00001</MenuItem>
-                                                        <MenuItem value={2}>00002</MenuItem>
-                                                        <MenuItem value={3}>00003</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="รหัสโครงการหลัก" id="loanadd-projectcode2-select" lists={['00001','00002','00003']} />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-projectcode2-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-projectcode2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-projectcode2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={7}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-projectmainname-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-projectmainname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-projectmainname-input" defaultValue="" />
                                             </Grid>
 
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-subprojectmaincode1-select">
-                                                    รหัสโครงการรอง
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-subprojectmaincode1-select"
-                                                        id="loanadd-subprojectmaincode1-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>00001</MenuItem>
-                                                        <MenuItem value={2}>00002</MenuItem>
-                                                        <MenuItem value={3}>00003</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="รหัสโครงการรอง" id="loanadd-subprojectmaincode1-select" lists={['00001','00002','00003']} />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-subprojectcode2-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-subprojectcode2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-subprojectcode2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={7}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-subprojectmainname-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-subprojectmainname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-subprojectmainname-input" defaultValue="" />
                                             </Grid>
 
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-loantypecode1-select">
-                                                    ประเภทกู้ยืม
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-loantypecode1-select"
-                                                        id="loanadd-loantypecode1-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>00001</MenuItem>
-                                                        <MenuItem value={2}>00002</MenuItem>
-                                                        <MenuItem value={3}>00003</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="ประเภทกู้ยืม" id="loanadd-loantypecode1-select" lists={['00001','00002','00003']} />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loantypecode2-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loantypecode2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loantypecode2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={7}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loantypename-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loantypename-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loantypename-input" defaultValue="" />
                                             </Grid>
                                             
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-loanperiodcode1-select">
-                                                    ระยะเวลากู้ยืม
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-loanperiodcode1-select"
-                                                        id="loanadd-loanperiodcode1-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>00001</MenuItem>
-                                                        <MenuItem value={2}>00002</MenuItem>
-                                                        <MenuItem value={3}>00003</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="ระยะเวลากู้ยืม" id="loanadd-loanperiodcode1-select" lists={['00001','00002','00003']} />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loanperiodcode2-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loanperiodcode2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loanperiodcode2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={7}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loanperiodname-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loanperiodname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loanperiodname-input" defaultValue="" />
                                             </Grid>
                                                                                         
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-loanobjid1-select">
-                                                    วัตถุประสงค์การกู้ยืม
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-loanobjid1-select"
-                                                        id="loanadd-loanobjid1-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>00001</MenuItem>
-                                                        <MenuItem value={2}>00002</MenuItem>
-                                                        <MenuItem value={3}>00003</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="วัตถุประสงค์การกู้ยืม" id="loanadd-loanobjid1-select" lists={['00001','00002','00003']} />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loanobjid2-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loanobjid2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loanobjid2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={7}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loanobjname-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loanobjname-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loanobjname-input" defaultValue="" />
                                             </Grid>
-                                                                                       
+
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label} shrink htmlFor="loanadd-loanfarmertypeid1-select">
-                                                    ประเภทผู้กู้
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="loanadd-loanfarmertypeid1-select"
-                                                        id="loanadd-loanfarmertypeid1-select"
-                                                        // value={age}
-                                                        // onChange={handleChange}
-                                                        input={<BootstrapInput />}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        <MenuItem value={1}>00001</MenuItem>
-                                                        <MenuItem value={2}>00002</MenuItem>
-                                                        <MenuItem value={3}>00003</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <MuiSelect label="ประเภทผู้กู้" id="loanadd-loanfarmertypeid1-select" lists={['00001','00002','00003']} />
                                             </Grid>
                                             <Grid item xs={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loanfarmertypeid2-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loanfarmertypeid2-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loanfarmertypeid2-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={7}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <FormControl className={classes.textbox}>
-                                                    <InputLabel className={classes.label}  shrink htmlFor="loanadd-loanfarmertypename-input">
-                                                    &nbsp;
-                                                    </InputLabel>
-                                                    <BootstrapInput defaultValue="" id="loanadd-loanfarmertypename-input" />
-                                                </FormControl>
+                                                <MuiTextfield label="&nbsp;" id="loanadd-loanfarmertypename-input" defaultValue="" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -413,16 +179,16 @@ function LoanAddProject() {
                             </Paper>
                         </Grid>
 
-                        <Grid container spacing={2} className={classes.buttonRow+' footer-button'}>
+                        <Grid container spacing={2} className="btn-row footer-button">
                             {/* Button Row -------------------------------------------------- */}
                             <Grid item xs={6}>
-                                <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="" size="large" onClick={()=>cancelData()}>ยกเลิก</Button>    
+                                <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData}/>
                             </Grid>
-
                             <Grid item xs={6}>
-                                <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={()=>postData()}>บันทึกข้อมูล</Button>    
+                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={postData}/>
                             </Grid>
                         </Grid>
+
                     </Container>
                 </div>
             </Fade>
