@@ -56,10 +56,14 @@ function LoanRequestContactSearch() {
         setPage(newPage);
       };
     
-      const handleChangeRowsPerPage = (event) => {
+    const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
       };
+
+    const gotoAddLoanRequestContact = () => {
+        history.push('/loanrequestcontact');
+    }
 
 
     return (
@@ -116,8 +120,8 @@ function LoanRequestContactSearch() {
                                                         <TableCell align="center">{row.b}</TableCell>
                                                         <TableCell align="center">{row.c}</TableCell>
                                                         <TableCell align="center">
-                                                            <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} />
-                                                            <ButtonNormalIconStartPrimary label="ดูข้อมูล" startIcon={<DeleteOutlineOutlinedIcon />}/>
+                                                            <ButtonNormalIconStartPrimary label="แก้ไข" onClick={()=>gotoAddLoanRequestContact()} />
+                                                            <ButtonNormalIconStartPrimary label="ดูข้อมูล" onClick={()=>gotoAddLoanRequestContact()} />
                                                         </TableCell>
                                                     </TableRow>
                                                 ))
