@@ -20,6 +20,7 @@ import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
 import LoanAddProject from './manageinfo/LoanAddProject';
+import LoanRequestContactSearch from './loanrequest/LoanRequestContactSearch';
 import LoanRequestContact from './loanrequest/LoanRequestContact';
 
 function Main() {
@@ -31,6 +32,7 @@ function Main() {
                     <Route path="/home" component={Home} />
                     
                     {/* Loan Contact Page */}
+                    <Route path="/loanrequestcontactsearch" component={LoanRequestContactSearch} />
                     <Route path="/loanrequestcontact" component={LoanRequestContact} />
                     {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />

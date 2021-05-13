@@ -27,6 +27,10 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
+                subtitle: 'ค้นหาคำขอกู้ยืมเงิน',
+                subpath: '/loanrequestcontactsearch'
+            },
+            {
                 subtitle: 'ยื่นคำขอกู้ยืมเงิน',
                 subpath: '/loanrequestcontact'
             },{

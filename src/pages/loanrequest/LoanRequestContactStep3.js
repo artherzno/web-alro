@@ -33,15 +33,7 @@ import {
     ButtonNormalIconStartPrimary,
 } from '../../components/MUIinputs';
 
-
-const useStyles = makeStyles({
-    table: {
-      minWidth: 650,
-    },
-  });
-
 function LoanRequestContactStep3() {
-    const classes = useStyles();
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
         typeMember: '1',
@@ -310,7 +302,7 @@ function LoanRequestContactStep3() {
                         <div className="table">
                             <h1>ประวัติการชำระเงินคืน</h1>
                             <TableContainer className="table-box">
-                                <Table className={classes.table} aria-label="normal table">
+                                <Table aria-label="normal table">
                                     <TableHead>
                                     <TableRow>
                                         <TableCell align="center">งวดที่</TableCell>

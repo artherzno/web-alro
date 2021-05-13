@@ -214,7 +214,11 @@ h3 {
 
 // Margin Style --------------------------------//
 .mg-t-35 {
-  margin-top: 35px;
+  margin-top: 35px !important;
+}
+
+.mg-t-20 {
+  margin-top: 20px !important;
 }
 
 // Display Style ------------------------------//
@@ -237,6 +241,14 @@ h3 {
   h1 {
     font-size: 20px;
     margin: 35px 0 -20px;
+    font-weight: 400;
+  }
+
+  td {
+    button {
+      padding: 4px 10px;
+      font-size: 0.8125rem;
+    }
   }
 }
 
@@ -537,6 +549,7 @@ body {
     text-align: center;
     h1 {
       font-size: 24px;
+      font-weight: 400;
     }
     h2 {
       font-size: 20px;
