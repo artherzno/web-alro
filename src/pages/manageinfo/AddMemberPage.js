@@ -195,7 +195,7 @@ function AddMemberPage(props) {
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12}>
-                                                <MuiRadioButton label="ประเภทสมาชิก" id="addmember-type-input" lists={['รายบุคคล','สถาบัน']} value={inputData.typeMember} onChange={handleChangeTypeMember} />
+                                                <MuiRadioButton label="ประเภทสมาชิก" id="addmember-type-input" lists={['รายบุคคล','สถาบัน']} value={inputData.typeMember} onChange={handleChangeTypeMember} type="row" />
                                             </Grid>
                                             <Grid item xs={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
@@ -330,7 +330,7 @@ function AddMemberPage(props) {
                                             { <FormLandInfo /> }
                                             { [...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />) }
                                             <Grid item xs={12}>
-                                                <ButtonFluidPrimary label="เพิ่มข้อมูล" onClick={addFormLandInfo}/>
+                                                <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormLandInfo}/>
                                             </Grid>
                                         </form>
                                     </Grid>

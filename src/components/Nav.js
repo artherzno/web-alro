@@ -28,7 +28,7 @@ const listmenu = [
         submenu: [
             {
                 subtitle: 'ยื่นคำขอกู้ยืมเงิน',
-                subpath: '/home'
+                subpath: '/loanrequestcontact'
             },{
                 subtitle: 'พิมพ์สัญญากู้ยืมเงิน',
                 subpath: '/home'

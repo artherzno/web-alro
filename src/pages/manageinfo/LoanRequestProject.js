@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { DataGrid } from '@material-ui/data-grid';
-
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';

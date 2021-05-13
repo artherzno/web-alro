@@ -167,6 +167,40 @@ p {
   line-height: 1.6;
 }
 
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+.txt-green {
+  color: var(--green);
+}
+
+.txt-red {
+  color: var(--red);
+}
+
+.txt-blue {
+  color: var(--darkblue);
+}
+
+.txt-left {
+  text-align: left;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.txt-right {
+  text-align: right;
+}
+
+.txt-f-center {
+  align-self: center;
+}
+
 .root {
   flex-grow: 1;
 }
@@ -175,6 +209,34 @@ p {
   margin-top: 35px;
   h2 {
     font-size: 20px;
+  }
+}
+
+// Margin Style --------------------------------//
+.mg-t-35 {
+  margin-top: 35px;
+}
+
+// Display Style ------------------------------//
+.dsp-f {
+  display: flex;
+}
+.dsp-ib {
+  display: inline-block;
+}
+.dsp-i {
+  display: inline;
+}
+.dsp-b {
+  display: block;
+}
+
+// Table Style --------------------------------//
+
+.table {
+  h1 {
+    font-size: 20px;
+    margin: 35px 0 -20px;
   }
 }
 
@@ -278,9 +340,24 @@ body {
   border-top: 4px solid var(--green);
 }
 
+.line-top-red {
+  border-top: 4px solid var(--red);
+}
 .paper {
-  padding: 24px;
+  padding: 18px 24px;
   margin-top: 35px;
+
+  .paper-head-green {
+    color: var(--green);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .paper-head-red {
+    color: var(--red);
+    // font-size: 20px;
+    font-weight: 600;
+  }
 
   .paper-container {
     margin: 10px -12px;
@@ -319,7 +396,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
 }
 
 .header {
@@ -502,6 +579,41 @@ body {
   margin-top: 144px;
 }
 
+// Box Style ------------------------//
+.box {
+  position: relative;
+  &.box-grey {
+    padding: 18px;
+    margin: 8px 0;
+    background-color: var(--table-head);
+    border: 1px solid var(--text-input-border);
+  }
+  .box-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--red);
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0;
+    z-index: 1;
+  }
+
+  &.result-list {
+    .result-item {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 10px;
+      min-width: 180px;
+    }
+
+    .box-button {
+      text-align: center;
+    }
+  }
+}
+
 // Card Style ----------------------//
 .card {
   max-width: 486px;
@@ -539,6 +651,36 @@ body {
     }
   }
 }
+.radio-group-content {
+  &__flex {
+    margin-left: 30px;
+    display: flex;
+    button {
+      padding: 8px;
+    }
+  }
+  margin: 10px 0 0 30px;
+  .lists {
+    margin-top: -20px;
+    .list-item {
+      padding: 10px 0;
+    }
+    .list-item-del {
+      fill: var(--red);
+    }
+  }
+}
+
+// Lists Style ---------------------//
+.lists {
+  margin-top: -20px;
+  .list-item {
+    padding: 10px 0;
+  }
+  .list-item-del {
+    fill: var(--red);
+  }
+}
 
 // Login Style ---------------------//
 .login-page {
@@ -563,7 +705,94 @@ body {
   }
 }
 
+// Lona Request Contact Style ------------------//
+.loanrequestcontact-page {
+  .custom-stepper {
+    &:last-child {
+      .custom-stepper-item {
+        border: 2px dashed #bfbfbf;
+        &.active {
+          border-color: #27ae60;
+        }
+        &.completed {
+          border-style: solid;
+          border-color: #27ae60;
+        }
+        p {
+          line-height: 0.6;
+        }
+      }
+    }
+  }
+}
+
+.loanrequestcontact-step-page {
+  .fade {
+    margin: 0;
+  }
+  .loanrequestcontact-num-box {
+    position: relative;
+    .loanrequestcontact-num {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      color: #27ae60;
+      font-size: 18px;
+    }
+  }
+
+  .loanrequestcontact-loan-amount {
+    span {
+      font-size: 20px;
+    }
+  }
+
+  input {
+    &#loanrequestcontact-step3-no1-farmeraward-input {
+      margin-top: 20px;
+    }
+  }
+}
+
 // Material UI (Mui) --------------------------//
+
+.custom-stepper-box {
+  width: 80%;
+  margin: auto;
+}
+.custom-stepper {
+  .custom-stepper-item {
+    width: 47px;
+    height: 47px;
+    fill: white;
+    border: 2px solid #bfbfbf;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #bfbfbf;
+    &.active {
+      color: #fff;
+      fill: #27ae60;
+      border-color: #27ae60;
+      background-color: #27ae60;
+    }
+    &.completed {
+      color: #27ae60;
+      fill: #fff;
+      border-color: #27ae60;
+      background-color: #fff;
+    }
+  }
+
+  .MuiStepConnector-alternativeLabel {
+    top: 24px;
+    left: calc(-50% + 30px);
+    right: calc(50% + 30px);
+    position: absolute;
+  }
+}
+
 .MuiTableCell-root {
   border-top: none;
   border-right: none;

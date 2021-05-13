@@ -20,6 +20,7 @@ import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
 import LoanAddProject from './manageinfo/LoanAddProject';
+import LoanRequestContact from './loanrequest/LoanRequestContact';
 
 function Main() {
     return (
@@ -29,8 +30,9 @@ function Main() {
                     <Route path="/" exact component={LoginPage} />
                     <Route path="/home" component={Home} />
                     
-                    {/* Manage Info Page */}
-                    <Route path="/searchmember" component={SearchMember} />
+                    {/* Loan Contact Page */}
+                    <Route path="/loanrequestcontact" component={LoanRequestContact} />
+                    {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
                     <Route path="/report/listnewfarmerpayloan" component={ListNewFarmerPayLoan} />
                     <Route path="/report/payLoan" component={PayLoan} />
@@ -40,6 +42,8 @@ function Main() {
                     <Route path="/report/lawsuit" component={LawSuit} />
                     <Route path="/report/modify" component={ModifyLoan} />
                     <Route path="/report/billed" component={Billed} />
+                    {/* Manage Info Page */}
+                    <Route path="/searchmember" component={SearchMember} />
                     <Route path="/addmember" component={AddMember} />
                     <Route path="/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/loanaddproject" component={LoanAddProject} />
