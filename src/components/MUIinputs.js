@@ -64,8 +64,10 @@ const useStyles = makeStyles({
         transform: 'scale(1)',
     },labelHeader: {
         fontSize: '18px',
+        fontWeight: '400',
         color: '#262626',
         transform: 'scale(1)',
+        lineHeight: '1.3',
     },
     lists: {
         marginTop: '-10px'
@@ -174,39 +176,42 @@ const useStyles = makeStyles({
 
 const MuiLabelHeader = (props) => {
     const classes = useStyles();
-    const { label } = props;
+    const { topic, label } = props;
     return (
-        <FormControl className={classes.textbox}>
-            <InputLabel className={classes.labelHeader}  shrink htmlFor="addmember-type-input">
-            {label}
-            </InputLabel>&nbsp;
-        </FormControl>
+        // <FormControl className={classes.textbox}>
+        //     <InputLabel className={classes.labelHeader}  shrink htmlFor={label}>
+        //     {label}
+        //     </InputLabel>&nbsp;
+        // </FormControl>
+        <h3 className={classes.labelHeader} ><span className="txt-green">{topic}&nbsp;</span>{label}</h3>
         );
 }
 
 const MuiLabelHeaderCheckbox = (props) => {
     const classes = useStyles();
-    const { label } = props;
+    const { topic, label } = props;
     return (
         <FormControl className={classes.textbox}>
-            <InputLabel className={classes.label}  shrink htmlFor="addmember-type-input">
-            {label}
-            </InputLabel>&nbsp;
+            {/* <InputLabel className={classes.label}  shrink htmlFor={label}>
+                <span className="txt-green">{topic}&nbsp;</span>{label}
+            </InputLabel>&nbsp; */}
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
         </FormControl>
         );
 }
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { label, id, defaultValue, type, textAlign } = props;
+    const { topic, label, id, defaultValue, type, textAlign } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
             <BootstrapInput type={type} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
@@ -215,15 +220,16 @@ const MuiTextfield = (props) => {
 
 const MuiTextfieldMultiLine = (props) => {
     const classes = useStyles();
-    const { label, id, defaultValue, type, textAlign, row } = props;
+    const { topic, label, id, defaultValue, type, textAlign, row } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
             <BootstrapInput type={type} defaultValue={defaultValue} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
@@ -232,15 +238,16 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldEndAdornment = (props) => {
     const classes = useStyles();
-    const { label, id, defaultValue, type, endAdornment, textAlign } = props;
+    const { topic, label, id, defaultValue, type, endAdornment, textAlign } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
             <BootstrapInput type={type} defaultValue={defaultValue} id={id}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
@@ -249,15 +256,16 @@ const MuiTextfieldEndAdornment = (props) => {
 
 const MuiTextNumber = (props) => {
     const classes = useStyles();
-    const { label, id, defaultValue, placeholder, value, onInput } = props;
+    const { topic, label, id, defaultValue, placeholder, value, onInput } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
             <BootstrapInput type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} />
         </FormControl>
@@ -266,15 +274,16 @@ const MuiTextNumber = (props) => {
 
 const MuiDatePicker = (props) => {
     const classes = useStyles();
-    const { label, id, defaultValue } = props;
+    const { topic, label, id, defaultValue } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
             <BootstrapInput type="date" defaultValue={defaultValue} id={id} />
         </FormControl>
@@ -439,39 +448,49 @@ const MuiUpload = (props) => {
 
 const ButtonNormalIconStartPrimary = (props) => {
     const classes = useStyles();
-    const { label, startIcon, onClick } = props;
+    const { label, maxWidth, startIcon, onClick } = props;
 
     return (
-        <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick}>{label}</Button>
+        <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+                                            
+    );
+}
+
+const ButtonFluidIconStartPrimary = (props) => {
+    const classes = useStyles();
+    const { label, maxWidth, startIcon, onClick } = props;
+
+    return (
+        <Button className={classes.buttonFluid} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }
 
 const ButtonOutlineIconStartGrey = (props) => {
     const classes = useStyles();
-    const { label, startIcon, onClick } = props;
+    const { label, maxWidth, startIcon, onClick } = props;
 
     return (
-        <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={startIcon} onClick={onClick}>{label}</Button>                                   
+        <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>                                   
     );
 }
 
 const ButtonFluidPrimary = (props) => {
     const classes = useStyles();
-    const { label, onClick } = props;
+    const { label, maxWidth, onClick } = props;
 
     return (
-        <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={onClick}>{label}</Button>
+        <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }
 
 const ButtonFluidOutlinePrimary = (props) => {
     const classes = useStyles();
-    const { label, onClick } = props;
+    const { label, maxWidth, onClick } = props;
 
     return (
-        <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="primary" size="large" onClick={onClick}>{label}</Button>
+        <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }
@@ -488,6 +507,7 @@ export {
     MuiRadioButton,
     MuiSelect,
     MuiUpload,
+    ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,
     ButtonOutlineIconStartGrey,
     ButtonFluidPrimary,

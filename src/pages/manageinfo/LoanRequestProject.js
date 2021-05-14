@@ -120,22 +120,22 @@ function LoanRequestProject() {
                 <div className="fade">
                     <Container>
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>โครงการขอกู้เงิน</h1>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={12} md={2}>
                                 <Box  display="flex" justifyContent="flex-start">
                                     {/* Field Select ---------------------------------------------------*/}
                                     <MuiSelect label="ปีงบประมาณ" id="loanrequestproject-year-select" lists={['2565','2563','2562']} />
                                 </Box>  
                             </Grid>
-                            <Grid item xs={10}>
+                            <Grid item xs={12} md={10}>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <ButtonNormalIconStartPrimary label="เพิ่มโครงการ" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()} />
                                 </Box>  
                             </Grid>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <div className="table-box">
                                     <Table aria-label="simple table">
                                         <TableHead>

@@ -62,11 +62,11 @@ function LoanRequestContactStep5() {
                         <Grid container spacing={2}>
 
                             {/* Paper 1 - -------------------------------------------------- */}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-red paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3} className="paper-container">
-                                            <Grid item xs={12}>
+                                        <Grid container spacing={2} className="paper-container">
+                                            <Grid item xs={12} md={12}>
                                                 <h3 className="paper-head-red">Special Flow</h3>
                                                 <MuiRadioButton label="" id="loanrequestcontact-step3-no2-typeSuitability-input" lists={['ฟ้องศาล','แปลงหนี้', 'ใช้หนี้แทน', 'อื่นๆ']} color="red" value={inputData.typeSpecial} onChange={handleChangeTypeSpecial} type="row" />
                                                 
@@ -77,11 +77,11 @@ function LoanRequestContactStep5() {
                             </Grid>
 
                             {/* Paper 2 - -------------------------------------------------- */}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-red paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3} className="paper-container">
-                                            <Grid item xs={12}>
+                                        <Grid container spacing={2} className="paper-container">
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
                                                 <MuiDatePicker label="วันที่ส่งฟ้อง" id="loanrequestcontact-step5-no2-date-input" defaultValue="2017-05-24" />
                                             </Grid>

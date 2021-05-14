@@ -117,56 +117,56 @@ function AddMemberPage(props) {
 
     const FormLandInfo = (i) => {
         return (
-            <Grid container spacing={3} className="paper-container">
-                <Grid item xs={12}>
+            <Grid container spacing={2} className="paper-container">
+                <Grid item xs={12} md={12}>
                     <MuiLabelHeader label="ที่ตั้งที่ดิน" />
                     <Divider variant="middle" style={{ margin: '0'}} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={12}>
                     {/* Field Radio Button ---------------------------------------------------*/}
                     <MuiCheckbox label="Alro Land" id="addmember-landinfo-alro-checkbox"  />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={12}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfield label="หมู่ที่" id="addmember-landinfo-addr1-input" defaultValue="" />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     {/* Field Select ---------------------------------------------------*/}
                     <MuiSelect label="จังหวัด" id="addmember-landinfo-province-select" lists={['กรุงเทพฯ','ปทุมธานี','นนทบุรี','นครปฐม']} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     {/* Field Select ---------------------------------------------------*/}
                     <MuiSelect label="เขต / อำเภอ" id="addmember-landinfo-district-select" lists={['เขต/อำเภอ 1','เขต/อำเภอ 2','เขต/อำเภอ 3']} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     {/* Field Select ---------------------------------------------------*/}
                     <MuiSelect label="แขวง / ตำบล" id="addmember-landinfo-subdistrict-select" lists={['แขวง/ตำบล 1','แขวง/ตำบล 2','แขวง/ตำบล 3']} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={12}>
                     {/* Field Select ---------------------------------------------------*/}
                     <MuiSelect label="ประเภทหนังสือสำคัญ" id="addmember-landinfo-typebook-select" lists={['ส.ป.ก. 4-01, โฉนด, นส 3, นส 3 ก และอื่นๆ','ส.ป.ก. 4-01','โฉนด']} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfield label="เลขที่" id="addmember-landinfo-number-input" defaultValue="" />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfield label="กลุ่ม" id="addmember-landinfo-group-input" defaultValue="" />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfield label="แปลง" id="addmember-landinfo-field1-input" defaultValue="" />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfieldEndAdornment label="แปลง" id="addmember-landinfo-field2-input" defaultValue="" endAdornment="ไร่"/>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfieldEndAdornment label="แปลง" id="addmember-landinfo-field3-input" defaultValue="" endAdornment="งาน"/>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     {/* Field Text ---------------------------------------------------*/}
                     <MuiTextfieldEndAdornment label="แปลง" id="addmember-landinfo-fieldภ-input" defaultValue="" endAdornment="วา"/>
                 </Grid>
@@ -185,47 +185,47 @@ function AddMemberPage(props) {
                 <div className="fade">
                     <Container maxWidth="sm">
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ข้อมูลสมาชิก</h1>
                             </Grid>
 
                             {/* Paper 1 -------------------------------------------------- */}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3}>
-                                            <Grid item xs={12}>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} md={12}>
                                                 <MuiRadioButton label="ประเภทสมาชิก" id="addmember-type-input" lists={['รายบุคคล','สถาบัน']} value={inputData.typeMember} onChange={handleChangeTypeMember} type="row" />
                                             </Grid>
-                                            <Grid item xs={3}>
+                                            <Grid item xs={12} md={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
                                                 <MuiSelect label="คำนำหน้า" id="addmember-prefix-input" lists={['นาย','นาง','นางสาว']} />
                                             </Grid>
-                                            <Grid item xs={4}>
+                                            <Grid item xs={12} md={4}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="ชื่อ" id="addmember-name-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={5}>
+                                            <Grid item xs={12} md={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="นามสกุลชื่อ" id="addmember-name-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
                                                 <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
                                                 <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" defaultValue="2017-05-24" />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
                                                 <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input" defaultValue="2017-05-24" />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
                                                 <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel-number-input" defaultValue="" placeholder="ตัวอย่าง 0812345678" value={inputData.telNum} onInput = {handleTelNumber}  />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* File upload ---------------------------------------------------*/}
                                                 <MuiUpload imgUpload={inputData.imgUpload} id="addmember-img-upload-input" onChange={handleUploadImg} />
                                             </Grid>
@@ -235,39 +235,39 @@ function AddMemberPage(props) {
                             </Grid>
 
                             {/* Paper 2 -------------------------------------------------- */}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={3}>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 <MuiLabelHeader label="ที่อยู่ตามบัตรประชาชน" />
                                                 <Divider variant="middle" style={{ margin: '0'}} />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="บ้านเลขที่" id="addmember-idcard-addr1-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="หมู่ที่" id="addmember-idcard-addr2-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-idcard-addr3-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
                                                 <MuiSelect label="จังหวัด" id="addmember-idcard-province-select" lists={['กรุงเทพมหานคร','นนทบุรี','นครปฐม']} />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
                                                 <MuiSelect label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
                                                 <MuiSelect label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={['แขวง/ตำบล1','แขวง/ตำบล1','แขวง/ตำบล1']} />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-tel-postcode-input" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.telNum} onInput = {handleTelNumber}  />
                                             </Grid>
@@ -277,43 +277,43 @@ function AddMemberPage(props) {
                             </Grid>
                         
                             {/* Paper 3 -------------------------------------------------- */}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                    <Grid container spacing={3} className="paper-container">
-                                        <Grid item xs={12}>
+                                    <Grid container spacing={2} className="paper-container">
+                                        <Grid item xs={12} md={12}>
                                             <MuiLabelHeader label="ที่อยู่ที่ติดต่อได้" />
                                             <Divider variant="middle" style={{ margin: '0'}} />
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} md={12}>
                                             {/* Field Radio Button ---------------------------------------------------*/}
                                             <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox"  />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12} md={6}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="บ้านเลขที่" id="addmember-contact-addr1-input" defaultValue="" />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12} md={6}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="หมู่ที่" id="addmember-contact-addr2-input" defaultValue="" />
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} md={12}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-contact-addr3-input" defaultValue="" />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12} md={6}>
                                             {/* Field Select ---------------------------------------------------*/}
                                             <MuiSelect label="จังหวัด" id="addmember-contact-province-select" lists={['กรุงเทพมหานคร','นนทบุรี','นครปฐม']} />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12} md={6}>
                                             {/* Field Select ---------------------------------------------------*/}
                                             <MuiSelect label="เขต / อำเภอ" id="addmember-contact-district-select" lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12} md={6}>
                                             {/* Field Select ---------------------------------------------------*/}
                                             <MuiSelect label="แขวง / ตำบล" id="addmember-contact-subdistrict-select" lists={['แขวง/ตำบล1','แขวง/ตำบล1','แขวง/ตำบล1']} />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={12} md={6}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-contact-tel-postcode-input" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.telNum} onInput = {handleTelNumber}  />
                                         </Grid>
@@ -323,13 +323,13 @@ function AddMemberPage(props) {
                             </Grid>
                         
                             {/* Paper 4 -------------------------------------------------- */}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} md={12}>
                                         <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                             { <FormLandInfo /> }
                                             { [...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />) }
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormLandInfo}/>
                                             </Grid>
                                         </form>
@@ -340,10 +340,10 @@ function AddMemberPage(props) {
 
                         <Grid container spacing={2} className="btn-row">
                             {/* Button Row -------------------------------------------------- */}
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                                 <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData}/>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                                 <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={postData}/>
                             </Grid>
                         </Grid>

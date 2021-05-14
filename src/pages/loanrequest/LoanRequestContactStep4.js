@@ -50,10 +50,10 @@ function LoanRequestContactStep4() {
                     <Container maxWidth="sm">
                         <Grid container spacing={2}>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <MuiLabelHeader label="แนบเอกสารพิจารณาอนุมัติการกู้" />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 {/* File upload ---------------------------------------------------*/}
                                 <MuiUpload label="" imgUpload={inputData.imgUpload} id="loanrequestcontact-step4-imgupload-input" onChange={handleUploadImg} />
                             </Grid>

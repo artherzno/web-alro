@@ -61,35 +61,35 @@ function SearchMemberPage(props) {
                     {/* Search Condition */}
                     <Container maxWidth="sm">
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ค้นหาสมาชิก</h1>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <ButtonNormalIconStartPrimary label="เพิ่มสมาชิก" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
                                 </Box>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Paper className="paper">
                                     <form className="root" noValidate autoComplete="off">
-                                        <Grid container spacing={3}>
-                                            <Grid item xs={6}>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="ชื่อ" id="name-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="นามสกุล" id="surname-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
                                                 <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="เลขที่ดิน" id="contact-number-input" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} md={12}>
                                                 <ButtonFluidPrimary label="ค้นหา"/>   
                                             </Grid>
                                         </Grid>
@@ -101,7 +101,7 @@ function SearchMemberPage(props) {
                     
                     {/* Search Result */}
                     <Container maxWidth="md" className="result-box">
-                        <Grid item xs={12} className="result-header"> 
+                        <Grid item xs={12} md={12} className="result-header"> 
                             <h2>ผลการค้นหา 0 รายการ</h2>
                         </Grid>
                         <Box className="table-no-result">

@@ -88,22 +88,22 @@ function LoanRequestContactStep2() {
                     <Container maxWidth="sm">
                         <Grid container spacing={2}>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <MuiLabelHeader label="แนบเอกสารคำขอกู้ที่ลงนามแล้ว" />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 {/* File upload ---------------------------------------------------*/}
                                 <MuiUpload label="1. สำเนาบัตรประชาชน" imgUpload={inputData.imgUploadIdcard} id="loanrequestcontact-step2-imgupload-idcard-input" onChange={handleUploadImgIdcard} />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 {/* File upload ---------------------------------------------------*/}
                                 <MuiUpload label="2. สำเนาทะเบียนบ้าน" imgUpload={inputData.imgUploadHomeDoc} id="loanrequestcontact-step2-imgupload-homedoc-input" onChange={handleUploadImgHomeDoc} />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 {/* File upload ---------------------------------------------------*/}
                                 <MuiUpload label="3. สำเนาเอกสารสิทธิ์" imgUpload={inputData.imgUploadPrivilege} id="loanrequestcontact-step2-imgupload-home-input" onChange={handleUploadImgPrivilege} />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 {/* File upload ---------------------------------------------------*/}
                                 <MuiUpload label="4. เอกสารอื่นๆ" imgUpload={inputData.imgUploadOther} id="loanrequestcontact-step2-imgupload-other-input" onChange={handleUploadImgOther} />
                             </Grid>

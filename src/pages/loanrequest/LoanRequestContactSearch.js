@@ -76,28 +76,28 @@ function LoanRequestContactSearch() {
                 <div className="fade">
                     <Container maxWidth="md">
                         <Grid container spacing={1}>
-                            <Grid item xs={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>คำขอกู้ยืมเงิน</h1>
                             </Grid>
 
-                            <Grid item xs={12} className="mg-t-20">
+                            <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={1}>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={12} md={4}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ชื่อเกษตรกร" id="loanrequestcontactsearch-farmername-input" defaultValue="" />
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={12} md={4}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="loanrequestcontactsearch-farmerid-input" defaultValue="" />
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={12} md={4}>
                                         {/* Field Date Picker ---------------------------------------------------*/}
                                         <MuiDatePicker label="วันที่ยื่นคำขอ" id="loanrequestcontactsearch-date-input" defaultValue="2017-05-24" />
                                     </Grid>
                                 </Grid>
                             </Grid>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <TableContainer className="table-box">
                                         <Table aria-label="normal table">

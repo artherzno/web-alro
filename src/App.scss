@@ -173,6 +173,22 @@ h3 {
   font-weight: 600;
 }
 
+h3 {
+  font-size: 18px;
+}
+
+.txt-regular {
+  font-weight: 400;
+}
+
+.txt-medium {
+  font-weight: 500;
+}
+
+.txt-bold {
+  font-weight: 600;
+}
+
 .txt-green {
   color: var(--green);
 }
@@ -221,6 +237,10 @@ h3 {
   margin-top: 20px !important;
 }
 
+.mg-b--20 {
+  margin-bottom: -20px !important;
+}
+
 // Display Style ------------------------------//
 .dsp-f {
   display: flex;
@@ -250,6 +270,9 @@ h3 {
       font-size: 0.8125rem;
     }
   }
+  .table-item-del {
+    fill: var(--red);
+  }
 }
 
 .table-box {
@@ -257,6 +280,18 @@ h3 {
   width: 100%;
   overflow: scroll;
   margin: 35px 0 0;
+}
+
+.table-summary {
+  tr {
+    &:last-child {
+      border: 1px solid rgba(234, 234, 243, 1);
+      td {
+        background-color: rgba(250, 250, 250, 1);
+        border-color: transparent;
+      }
+    }
+  }
 }
 
 .table-no-result {
@@ -313,6 +348,27 @@ table {
 
   .tb-w-18em {
     min-width: 18em;
+  }
+}
+
+.table-loanrequestprint1 {
+  max-height: 320px;
+  overflow: scroll;
+  tr {
+    th {
+      &:last-child {
+        min-width: 400px;
+      }
+      &:nth-child(5) {
+        min-width: 200px;
+      }
+      &:nth-child(10) {
+        min-width: 200px;
+      }
+      &:nth-child(11) {
+        min-width: 200px;
+      }
+    }
   }
 }
 
@@ -376,6 +432,10 @@ body {
     &:first-child {
       margin-top: 0;
     }
+  }
+
+  .paper-p {
+    line-height: 2.6;
   }
 }
 
@@ -757,12 +817,6 @@ body {
   .loanrequestcontact-loan-amount {
     span {
       font-size: 20px;
-    }
-  }
-
-  input {
-    &#loanrequestcontact-step3-no1-farmeraward-input {
-      margin-top: 20px;
     }
   }
 }
