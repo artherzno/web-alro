@@ -24,6 +24,7 @@ import LoanRequestContactSearch from './loanrequest/LoanRequestContactSearch';
 import LoanRequestContact from './loanrequest/LoanRequestContact';
 import LoanRequestPrint from './loanrequest/LoanRequestPrint';
 import LoanRecivcePrint from './loanrequest/LoanRecivcePrint';
+import RecordCloseOldContact from './loanrequest/RecordCloseOldContact'
 
 function Main() {
     return (
@@ -38,6 +39,7 @@ function Main() {
                     <Route path="/loanrequestcontact" component={LoanRequestContact} />
                     <Route path="/loanrequestprint" component={LoanRequestPrint} />
                     <Route path="/loanrecivceprint" component={LoanRecivcePrint} />
+                    <Route path="/recordcloseoldcontact" component={RecordCloseOldContact} />
                     {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
                     <Route path="/report/listnewfarmerpayloan" component={ListNewFarmerPayLoan} />

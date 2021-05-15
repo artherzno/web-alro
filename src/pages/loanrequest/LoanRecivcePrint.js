@@ -23,17 +23,13 @@ import Nav from '../../components/Nav';
 
 import {
     MuiTextfield,
-    MuiRadioButton,
-    MuiTextNumber,
     MuiDatePicker,
-    MuiLabelHeader,
     MuiTextfieldEndAdornment,
     MuiTextfieldStartAdornment,
     MuiLabelHeaderCheckbox,
     MuiSelect,
     ButtonFluidPrimary,
     ButtonFluidIconStartPrimary,
-    ButtonNormalIconStartPrimary,
 } from '../../components/MUIinputs';
 
 function LoanRecivcePrint() {
@@ -229,7 +225,7 @@ function LoanRecivcePrint() {
 
                             <Grid item xs={12} md={12}>
                                 <div className="table">
-                                    <TableContainer className="table-box table-loanrecivecprint1">
+                                    <TableContainer className="table-box table-loanrecivecprint1 table-summary">
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>
@@ -260,7 +256,15 @@ function LoanRecivcePrint() {
                                                         <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่มรายการ" />
                                                     </TableCell>
                                                     <TableCell align="right">
-                                                        รวม 50,000 บาท
+                                                        <p>รวม 50,000 บาท</p>
+                                                    </TableCell>
+                                                </TableRow>
+                                                <TableRow>
+                                                    <TableCell align="center">
+                                                        &nbsp;
+                                                    </TableCell>
+                                                    <TableCell align="left">
+                                                        <p>จำนวนเงิน ................</p>
                                                     </TableCell>
                                                 </TableRow>
                                             </TableBody>

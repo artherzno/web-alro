@@ -310,13 +310,19 @@ table {
   border-spacing: 0;
 
   th {
+    font-size: 1rem;
     background-color: rgba(250, 250, 250, 1);
   }
   td {
+    font-size: 1rem;
     background-color: #fff;
     &.sticky {
       background-color: rgba(250, 250, 250, 1);
     }
+  }
+
+  p {
+    font-size: 1.2rem;
   }
 
   .sticky {
@@ -375,6 +381,11 @@ table {
       }
     }
   }
+}
+
+.table-recordcloseoldContact1 {
+  max-height: 320px;
+  overflow: scroll;
 }
 
 // Main Style ------------------------------//
@@ -708,6 +719,12 @@ body {
 }
 
 // Input Sytle ---------------------//
+input {
+  &[disabled] {
+    background-color: var(--text-input-border);
+  }
+}
+
 .form-input {
   margin-bottom: 8px;
 
@@ -783,7 +800,7 @@ body {
   }
 }
 
-// Lona Request Contact Style ------------------//
+// Loan Request Contact Style ------------------//
 .loanrequestcontact-page {
   .custom-stepper {
     &:last-child {
@@ -862,6 +879,12 @@ body {
     left: calc(-50% + 30px);
     right: calc(50% + 30px);
     position: absolute;
+  }
+}
+
+.MuiInputBase-root {
+  &.MuiInputBase-multiline {
+    padding: 0;
   }
 }
 

@@ -41,7 +41,7 @@ const listmenu = [
                 subpath: '/loanrecivceprint'
             },{
                 subtitle: 'บันทึกปิดสัญญาเดิม',
-                subpath: '/home'
+                subpath: '/recordcloseoldcontact'
             },{
                 subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
                 subpath: '/home'
