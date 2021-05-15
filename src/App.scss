@@ -364,6 +364,16 @@ table {
   .tb-w-18em {
     min-width: 18em;
   }
+  .tb-w-20em {
+    min-width: 20em;
+  }
+
+  .tb-w-22em {
+    min-width: 22em;
+  }
+  .tb-w-24em {
+    min-width: 24em;
+  }
 }
 
 .table-loanrequestprint1,
@@ -383,6 +393,27 @@ table {
       }
       &:nth-child(11) {
         min-width: 200px;
+      }
+    }
+  }
+}
+
+.table-allcontactsearch1 {
+  max-height: 320px;
+  overflow: scroll;
+  tr {
+    th {
+      &:nth-child(5) {
+        min-width: 200px;
+      }
+      &:nth-child(10) {
+        min-width: 200px;
+      }
+      &:nth-child(11) {
+        min-width: 200px;
+      }
+      &:nth-child(12) {
+        min-width: 400px;
       }
     }
   }
