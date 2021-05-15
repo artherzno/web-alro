@@ -145,7 +145,7 @@ function LoanRequestPrint() {
                         </Grid>
                     </Container>
 
-                    <Container maxWidth="false">
+                    <Container maxWidth={false}>
                         <Grid container spacing={1}>
                             <Grid item xs={12} md={12}>
                                 <div className="table">
@@ -206,83 +206,83 @@ function LoanRequestPrint() {
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={6}>
-                                                <MuiRadioButton label="ประเภทเงินกู้" id="" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} value={inputData.typeLoan} onChange={handleChangeTypeLoan} type="row" />
+                                                <MuiRadioButton label="ประเภทเงินกู้"  lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} value={inputData.typeLoan} onChange={handleChangeTypeLoan} type="row" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ชื่อ" id="" defaultValue="" />
+                                                <MuiTextfield label="ชื่อ"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ" id="" defaultValue="" />
+                                                <MuiTextfield label="นามสกุลชื่อ"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="อายุ" id="" defaultValue=""  />
+                                                <MuiTextNumber label="อายุ"  defaultValue=""  />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
                                                 {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
+                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก"  defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="สถานที่ออกบัตร อำเภอ/เขต" id="" defaultValue="" />
+                                                <MuiTextfield label="สถานที่ออกบัตร อำเภอ/เขต"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="จังหวัด" id="" defaultValue="" />
+                                                <MuiTextfield label="จังหวัด"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="สัญชาติ" id="" defaultValue="" />
+                                                <MuiTextfield label="สัญชาติ"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="อยู่บ้านเลขที่" id="" defaultValue="" />
+                                                <MuiTextfield label="อยู่บ้านเลขที่"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={1}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="หมู่ที่" id="" defaultValue="" />
+                                                <MuiTextfield label="หมู่ที่"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ถนน/ซอย" id="" defaultValue="" />
+                                                <MuiTextfield label="ถนน/ซอย"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ตำบล/แขวง" id="" defaultValue="" />
+                                                <MuiTextfield label="ตำบล/แขวง"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="อำเภอ/เขต" id="" defaultValue="" />
+                                                <MuiTextfield label="อำเภอ/เขต"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="จังหวัด" id="" defaultValue="" />
+                                                <MuiTextfield label="จังหวัด"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ประกอบอาชีพเกษตรกรรมอยู่ในเขตปฏิรูปที่ดินอำเภอ" id="" defaultValue="" />
+                                                <MuiTextfield label="ประกอบอาชีพเกษตรกรรมอยู่ในเขตปฏิรูปที่ดินอำเภอ"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="จังหวัด" id="" defaultValue="" />
+                                                <MuiTextfield label="จังหวัด"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ได้ทำสัญญากู้ยืมเงินให้ไว้แก่ ส.ป.ก. โดย" id="" defaultValue="" />
+                                                <MuiTextfield label="ได้ทำสัญญากู้ยืมเงินให้ไว้แก่ ส.ป.ก. โดย"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด" id="" defaultValue="" />
+                                                <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่" id="" defaultValue="" />
+                                                <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -302,11 +302,11 @@ function LoanRequestPrint() {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ก" id="" defaultValue="" />
+                                                <MuiTextfield label="ก"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfieldEndAdornment label="เป็นเงิน" id="" defaultValue="12,300" textAlign="right" endAdornment="บาท"/>
+                                                <MuiTextfieldEndAdornment label="เป็นเงิน"  defaultValue="12,300" textAlign="right" endAdornment="บาท"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiLabelHeader label="&nbsp;" />
@@ -314,11 +314,11 @@ function LoanRequestPrint() {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ข" id="" defaultValue="" />
+                                                <MuiTextfield label="ข"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfieldEndAdornment label="เป็นเงิน" id="" defaultValue="" textAlign="right" endAdornment="บาท"/>
+                                                <MuiTextfieldEndAdornment label="เป็นเงิน"  defaultValue="" textAlign="right" endAdornment="บาท"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiLabelHeader label="&nbsp;" />
@@ -326,11 +326,11 @@ function LoanRequestPrint() {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ค" id="" defaultValue="" />
+                                                <MuiTextfield label="ค"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfieldEndAdornment label="เป็นเงิน" id="" defaultValue="" textAlign="right" endAdornment="บาท"/>
+                                                <MuiTextfieldEndAdornment label="เป็นเงิน"  defaultValue="" textAlign="right" endAdornment="บาท"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiLabelHeader label="&nbsp;" />
@@ -354,7 +354,7 @@ function LoanRequestPrint() {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={7}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfieldEndAdornment label="งวดที่ 1 เป็นเงิน" id="" defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="งวดที่ 1 เป็นเงิน"  defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiLabelHeader label="&nbsp;" />
@@ -364,7 +364,7 @@ function LoanRequestPrint() {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={7}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfieldEndAdornment label="งวดที่ 1 เป็นเงิน" id="" defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="งวดที่ 1 เป็นเงิน"  defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiLabelHeader label="&nbsp;" />
@@ -374,7 +374,7 @@ function LoanRequestPrint() {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={7}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfieldEndAdornment label="งวดที่ 2 เป็นเงิน" id="" defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="งวดที่ 2 เป็นเงิน"  defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiLabelHeader label="&nbsp;" />
@@ -384,7 +384,7 @@ function LoanRequestPrint() {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={7}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfieldEndAdornment label="งวดที่ 3 เป็นเงิน" id="" defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="งวดที่ 3 เป็นเงิน"  defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiLabelHeader label="&nbsp;" />
@@ -394,7 +394,7 @@ function LoanRequestPrint() {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={7}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfieldEndAdornment label="งวดที่ 4 เป็นเงิน" id="" defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="งวดที่ 4 เป็นเงิน"  defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiLabelHeader label="&nbsp;" />
@@ -404,7 +404,7 @@ function LoanRequestPrint() {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={7}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfieldEndAdornment label="งวดที่ 5 เป็นเงิน" id="" defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="งวดที่ 5 เป็นเงิน"  defaultValue="100,000" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiLabelHeader label="&nbsp;" />
@@ -429,7 +429,7 @@ function LoanRequestPrint() {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="" id="" defaultValue="" />
+                                                <MuiTextfield label=""  defaultValue="" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -463,7 +463,7 @@ function LoanRequestPrint() {
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -482,97 +482,97 @@ function LoanRequestPrint() {
                                                 <MuiLabelHeaderCheckbox label="ในการกู้เงินรายนี้ ผู้กู้ได้มอบหลักประกันดังต่อไปนี้" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield topic="ก." label="อสังหาริมทรัพย์ที่ปราศจากข้อผู้กพันใดๆ คือ" id="" defaultValue="" />
+                                                <MuiTextfield topic="ก." label="อสังหาริมทรัพย์ที่ปราศจากข้อผู้กพันใดๆ คือ"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <MuiLabelHeaderCheckbox label="นำมาจำนองไว้กับผู้ให้กู้ตามหนังสือสัญญาจำนองที่" />
                                                 <div className="dsp-f">
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={1} className="txt-center txt-f-center">
                                                         <span>/</span>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                    <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <MuiLabelHeaderCheckbox topic="ข." label="หนังสือสัญญารับรองผูกพันคนรับผิดอย่างลูกหนี้ร่วมกันต่อ ส.ป.ก. ของเกษตรกร"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfieldEndAdornment label="รวม" id="" defaultValue="" textAlign="right" endAdornment="ราย"/>
+                                                <MuiTextfieldEndAdornment label="รวม"  defaultValue="" textAlign="right" endAdornment="ราย"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญารับรองฯ ที่" />
                                                 <div className="dsp-f">
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                         <span>/</span>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                    <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <MuiLabelHeaderCheckbox topic="ค." label="หนังสือสัญญาค้ำประกันของ"/>
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="(1)" id="" defaultValue="" />
+                                                <MuiTextfield label="(1)"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                 <div className="dsp-f">
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                         <span>/</span>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                    <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="(2)" id="" defaultValue="" />
+                                                <MuiTextfield label="(2)"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                 <div className="dsp-f">
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                         <span>/</span>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                    <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -593,28 +593,28 @@ function LoanRequestPrint() {
                                                 <div className="dsp-f">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="" id="" defaultValue="" />
+                                                            <MuiTextfield label=""  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiRadioButton label="" id="" lists={['เดือน','ปี']} value={inputData.typePay} onChange={handleChangeTypePay} type="row" />
+                                                            <MuiRadioButton label=""  lists={['เดือน','ปี']} value={inputData.typePay} onChange={handleChangeTypePay} type="row" />
                                                         </Grid>
                                                     </Grid>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={2}>
-                                                <MuiTextfieldEndAdornment label="รวม" id="" defaultValue="" textAlign="right" endAdornment="งวด"/>
+                                                <MuiTextfieldEndAdornment label="รวม"  defaultValue="" textAlign="right" endAdornment="งวด"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfieldEndAdornment label="พร้อมทั้งดอกเบี้ยในอัตราร้อยละ" id="" defaultValue="" textAlign="right" endAdornment="ต่อปี"/>
+                                                <MuiTextfieldEndAdornment label="พร้อมทั้งดอกเบี้ยในอัตราร้อยละ"  defaultValue="" textAlign="right" endAdornment="ต่อปี"/>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" id="" defaultValue="" />
+                                                <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด"  defaultValue="" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -644,14 +644,14 @@ function LoanRequestPrint() {
                                                     <TableRow key={i}>
                                                         <TableCell align="center">{i+1}</TableCell>
                                                         <TableCell align="center">
-                                                            <MuiDatePicker label="" id="" defaultValue="2017-05-24" />
+                                                            <MuiDatePicker label=""  defaultValue="2017-05-24" />
                                                         </TableCell>
                                                         <TableCell align="center">
                                                             { 
                                                                 i === 0 ? 
-                                                                    <MuiTextfield label="" id="" defaultValue=""/>
+                                                                    <MuiTextfield label=""  defaultValue=""/>
                                                                     :
-                                                                    <MuiTextfieldEndAdornment label="" id="" defaultValue="" endAdornment={<CloseIcon  className="table-item-del"/>}/>
+                                                                    <MuiTextfieldEndAdornment label=""  defaultValue="" endAdornment={<CloseIcon  className="table-item-del"/>}/>
                                                             }
                                                         </TableCell>
                                                     </TableRow>
@@ -682,35 +682,35 @@ function LoanRequestPrint() {
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextfield label="1. ชื่อพยาน" id="" defaultValue="" />
+                                <MuiTextfield label="1. ชื่อพยาน"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={7}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextfield label="ที่อยู่" id="" defaultValue="" />
+                                <MuiTextfield label="ที่อยู่"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="" defaultValue="" />
+                                <MuiTextNumber label="บัตรประชาชนเลขที่"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={7}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextfield label="สถานที่ออกบัตร" id="" defaultValue="" />
+                                <MuiTextfield label="สถานที่ออกบัตร"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextfield label="2. ชื่อพยาน" id="" defaultValue="" />
+                                <MuiTextfield label="2. ชื่อพยาน"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={7}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextfield label="ที่อยู่" id="" defaultValue="" />
+                                <MuiTextfield label="ที่อยู่"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="" defaultValue="" />
+                                <MuiTextNumber label="บัตรประชาชนเลขที่"  defaultValue="" />
                             </Grid>
                             <Grid item xs={12} md={7}>
                                 {/* Field Text ---------------------------------------------------*/}
-                                <MuiTextfield label="สถานที่ออกบัตร" id="" defaultValue="" />
+                                <MuiTextfield label="สถานที่ออกบัตร"  defaultValue="" />
                             </Grid>
                         </Grid>
                     </Container>
@@ -730,36 +730,36 @@ function LoanRequestPrint() {
                                                 <MuiLabelHeaderCheckbox label="ตามคำสั่ง ส.ป.ก. ที่" />
                                                 <div className="dsp-f">
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                         <span>/</span>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="" id="" defaultValue="" />
+                                                        <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="โดย" id="" defaultValue="" />
+                                                <MuiTextfield label="โดย"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด" id="" defaultValue="" />
+                                                <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่" id="" defaultValue="" />
+                                                <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่" id="" defaultValue="" />
+                                                <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="ลงวันที่" id="" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -777,38 +777,38 @@ function LoanRequestPrint() {
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แบ่งเป็นเงินต้นค้างชำระ จำนวน" id="" defaultValue="" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="แบ่งเป็นเงินต้นค้างชำระ จำนวน"  defaultValue="" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แบ่งเป็นเงินต้นค้างชำระ จำนวน" id="" defaultValue="" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="แบ่งเป็นเงินต้นค้างชำระ จำนวน"  defaultValue="" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        <MuiTextfieldEndAdornment label="ดอกเบี้ยค้างชำระ จำนวน" id="" defaultValue="" textAlign="right" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="ดอกเบี้ยค้างชำระ จำนวน"  defaultValue="" textAlign="right" endAdornment="บาท"/>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiTextfieldEndAdornment label="ชำระเงินต้นค้างชำระพร้อมดอกเบี้ยในอัตราร้อยละ" id="" defaultValue="" textAlign="right" endAdornment="ต่อปี"/>
+                                                <MuiTextfieldEndAdornment label="ชำระเงินต้นค้างชำระพร้อมดอกเบี้ยในอัตราร้อยละ"  defaultValue="" textAlign="right" endAdornment="ต่อปี"/>
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiTextfieldEndAdornment label="รวมทั้งดอกเบี้ยค้างชำระคืนให้แก่ผู้ให้กู้ภายในเวลา" id="" defaultValue="" textAlign="right" endAdornment="ปี"/>
+                                                <MuiTextfieldEndAdornment label="รวมทั้งดอกเบี้ยค้างชำระคืนให้แก่ผู้ให้กู้ภายในเวลา"  defaultValue="" textAlign="right" endAdornment="ปี"/>
                                             </Grid>
                                             <Grid item xs={12} md={2}>
-                                                <MuiTextfieldEndAdornment label="แบ่งเป็นงวดละ" id="" defaultValue="" textAlign="right" endAdornment="เดือน"/>
+                                                <MuiTextfieldEndAdornment label="แบ่งเป็นงวดละ"  defaultValue="" textAlign="right" endAdornment="เดือน"/>
                                             </Grid>
                                             <Grid item xs={12} md={2}>
-                                                <MuiTextfieldEndAdornment label="รวม" id="" defaultValue="" textAlign="right" endAdornment="งวด"/>
+                                                <MuiTextfieldEndAdornment label="รวม"  defaultValue="" textAlign="right" endAdornment="งวด"/>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" id="" defaultValue="2017-05-24" />
+                                                        <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่"  defaultValue="2017-05-24" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" id="" defaultValue="2017-05-24" />
+                                                        <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่"  defaultValue="2017-05-24" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" id="" defaultValue="" />
+                                                        <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด"  defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -844,17 +844,17 @@ function LoanRequestPrint() {
                                                     <TableRow key={i}>
                                                         <TableCell align="center">{i+1}</TableCell>
                                                         <TableCell align="center">
-                                                            <MuiDatePicker label="" id="" defaultValue="2017-05-24" />
+                                                            <MuiDatePicker label=""  defaultValue="2017-05-24" />
                                                         </TableCell>
                                                         <TableCell align="center">
-                                                            <MuiTextfield label="" id="" defaultValue=""/>
+                                                            <MuiTextfield label=""  defaultValue=""/>
                                                         </TableCell>
                                                         <TableCell align="center">
                                                             { 
                                                                 i === 0 ? 
-                                                                    <MuiTextfield label="" id="" defaultValue=""/>
+                                                                    <MuiTextfield label=""  defaultValue=""/>
                                                                     :
-                                                                    <MuiTextfieldEndAdornment label="" id="" defaultValue="" endAdornment={<CloseIcon  className="table-item-del"/>}/>
+                                                                    <MuiTextfieldEndAdornment label=""  defaultValue="" endAdornment={<CloseIcon  className="table-item-del"/>}/>
                                                             }
                                                         </TableCell>
                                                     </TableRow>
@@ -886,35 +886,35 @@ function LoanRequestPrint() {
                         </Grid>
                         <Grid item xs={12} md={5}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextfield label="1. ชื่อพยาน" id="" defaultValue="" />
+                            <MuiTextfield label="1. ชื่อพยาน"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={7}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextfield label="ที่อยู่" id="" defaultValue="" />
+                            <MuiTextfield label="ที่อยู่"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={5}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextNumber label="บัตรประชาชนเลขที่" id="" defaultValue="" />
+                            <MuiTextNumber label="บัตรประชาชนเลขที่"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={7}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextfield label="สถานที่ออกบัตร" id="" defaultValue="" />
+                            <MuiTextfield label="สถานที่ออกบัตร"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={5}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextfield label="2. ชื่อพยาน" id="" defaultValue="" />
+                            <MuiTextfield label="2. ชื่อพยาน"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={7}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextfield label="ที่อยู่" id="" defaultValue="" />
+                            <MuiTextfield label="ที่อยู่"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={5}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextNumber label="บัตรประชาชนเลขที่" id="" defaultValue="" />
+                            <MuiTextNumber label="บัตรประชาชนเลขที่"  defaultValue="" />
                         </Grid>
                         <Grid item xs={12} md={7}>
                             {/* Field Text ---------------------------------------------------*/}
-                            <MuiTextfield label="สถานที่ออกบัตร" id="" defaultValue="" />
+                            <MuiTextfield label="สถานที่ออกบัตร"  defaultValue="" />
                         </Grid>
                     </Grid>
                 </Container>

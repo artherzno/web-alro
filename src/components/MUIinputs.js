@@ -236,6 +236,24 @@ const MuiTextfieldMultiLine = (props) => {
     );
 }
 
+const MuiTextfieldStartAdornment = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, defaultValue, type, startAdornment, textAlign } = props;
+
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+            }
+            <BootstrapInput type={type} defaultValue={defaultValue} id={id}  startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+        </FormControl>
+    );
+}
+
 const MuiTextfieldEndAdornment = (props) => {
     const classes = useStyles();
     const { topic, label, id, defaultValue, type, endAdornment, textAlign } = props;
@@ -500,6 +518,7 @@ export {
     MuiLabelHeaderCheckbox,
     MuiTextfield,
     MuiTextfieldMultiLine,
+    MuiTextfieldStartAdornment,
     MuiTextfieldEndAdornment,
     MuiTextNumber,
     MuiCheckbox,

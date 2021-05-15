@@ -38,7 +38,7 @@ const listmenu = [
                 subpath: '/loanrequestprint'
             },{
                 subtitle: 'พิมพ์ใบสำคัญการรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
-                subpath: '/home'
+                subpath: '/loanrecivceprint'
             },{
                 subtitle: 'บันทึกปิดสัญญาเดิม',
                 subpath: '/home'

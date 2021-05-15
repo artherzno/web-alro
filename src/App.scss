@@ -163,6 +163,10 @@ q {
   }
 }
 
+button {
+  min-height: 45px;
+}
+
 p {
   line-height: 1.6;
 }
@@ -351,7 +355,8 @@ table {
   }
 }
 
-.table-loanrequestprint1 {
+.table-loanrequestprint1,
+.table-loanrecivceprint1 {
   max-height: 320px;
   overflow: scroll;
   tr {
