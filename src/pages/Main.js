@@ -25,6 +25,7 @@ import LoanRequestContact from './loanrequest/LoanRequestContact';
 import LoanRequestPrint from './loanrequest/LoanRequestPrint';
 import LoanRecivcePrint from './loanrequest/LoanRecivcePrint';
 import RecordCloseOldContact from './loanrequest/RecordCloseOldContact'
+import AllContactSearch from './loanrequest/AllContactSearch'
 
 function Main() {
     return (
@@ -35,11 +36,12 @@ function Main() {
                     <Route path="/home" component={Home} />
                     
                     {/* Loan Contact Page */}
-                    <Route path="/loanrequestcontactsearch" component={LoanRequestContactSearch} />
-                    <Route path="/loanrequestcontact" component={LoanRequestContact} />
-                    <Route path="/loanrequestprint" component={LoanRequestPrint} />
-                    <Route path="/loanrecivceprint" component={LoanRecivcePrint} />
-                    <Route path="/recordcloseoldcontact" component={RecordCloseOldContact} />
+                    <Route path="/loanrequest/loanrequestcontactsearch" component={LoanRequestContactSearch} />
+                    <Route path="/loanrequest/loanrequestcontact" component={LoanRequestContact} />
+                    <Route path="/loanrequest/loanrequestprint" component={LoanRequestPrint} />
+                    <Route path="/loanrequest/loanrecivceprint" component={LoanRecivcePrint} />
+                    <Route path="/loanrequest/recordcloseoldcontact" component={RecordCloseOldContact} />
+                    <Route path="/loanrequest/allcontactsearch" component={AllContactSearch} />
                     {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
                     <Route path="/report/listnewfarmerpayloan" component={ListNewFarmerPayLoan} />
@@ -51,10 +53,10 @@ function Main() {
                     <Route path="/report/modify" component={ModifyLoan} />
                     <Route path="/report/billed" component={Billed} />
                     {/* Manage Info Page */}
-                    <Route path="/searchmember" component={SearchMember} />
-                    <Route path="/addmember" component={AddMember} />
-                    <Route path="/loanrequestproject" component={LoanRequestProject} />
-                    <Route path="/loanaddproject" component={LoanAddProject} />
+                    <Route path="/manageinfo/searchmember" component={SearchMember} />
+                    <Route path="/manageinfo/addmember" component={AddMember} />
+                    <Route path="/manageinfo/loanrequestproject" component={LoanRequestProject} />
+                    <Route path="/manageinfo/loanaddproject" component={LoanAddProject} />
                 </Switch>
             </Router>
         </div>

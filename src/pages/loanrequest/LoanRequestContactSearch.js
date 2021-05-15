@@ -62,7 +62,7 @@ function LoanRequestContactSearch() {
       };
 
     const gotoAddLoanRequestContact = () => {
-        history.push('/loanrequestcontact');
+        history.push('/loanrequest/loanrequestcontact');
     }
 
 

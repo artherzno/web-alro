@@ -28,20 +28,20 @@ const listmenu = [
         submenu: [
             {
                 subtitle: 'ค้นหาคำขอกู้ยืมเงิน',
-                subpath: '/loanrequestcontactsearch'
+                subpath: '/loanrequest/loanrequestcontactsearch'
             },
             {
                 subtitle: 'ยื่นคำขอกู้ยืมเงิน',
-                subpath: '/loanrequestcontact'
+                subpath: '/loanrequest/loanrequestcontact'
             },{
                 subtitle: 'พิมพ์สัญญากู้ยืมเงิน',
-                subpath: '/loanrequestprint'
+                subpath: '/loanrequest/loanrequestprint'
             },{
                 subtitle: 'พิมพ์ใบสำคัญการรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
-                subpath: '/loanrecivceprint'
+                subpath: '/loanrequest/loanrecivceprint'
             },{
                 subtitle: 'บันทึกปิดสัญญาเดิม',
-                subpath: '/recordcloseoldcontact'
+                subpath: '/loanrequest/recordcloseoldcontact'
             },{
                 subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
                 subpath: '/home'
@@ -50,7 +50,7 @@ const listmenu = [
                 subpath: '/home'
             },{
                 subtitle: 'ค้นหาสัญญาทั้งหมด',
-                subpath: '/home'
+                subpath: '/loanrequest/allcontactsearch'
             }
         ]
     },{
@@ -144,10 +144,10 @@ const listmenu = [
                 subpath: '/home'
             },{
                 subtitle: 'โครงการขอกู้เงิน',
-                subpath: '/loanrequestproject'
+                subpath: '/manageinfo/loanrequestproject'
             },{
                 subtitle: 'ค้นหาสมาชิก',
-                subpath: '/searchmember'
+                subpath: '/manageinfo/searchmember'
             }
         ]
     },

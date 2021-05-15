@@ -13,6 +13,7 @@
   --blue: #16c5e5;
   --yellow: #fcbd0a;
   --red: #da2828;
+  --purple: #d51fd5;
 }
 
 $gray-border: rgb(214, 214, 214);
@@ -203,6 +204,10 @@ h3 {
 
 .txt-blue {
   color: var(--darkblue);
+}
+
+.txt-purple {
+  color: var(--purple);
 }
 
 .txt-left {

@@ -46,7 +46,7 @@ function SearchMemberPage(props) {
     // End Input ID Number
 
     const gotoAddMember = () => {
-        history.push('/addmember');
+        history.push('/manageinfo/addmember');
     }
 
     return (

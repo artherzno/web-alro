@@ -144,11 +144,11 @@ function LoanRequestContactStep1() {
 
     const postData = () => {
         console.log(inputData)
-        history.push('/searchmember');
+        history.push('/manageinfo/searchmember');
     }
 
     const cancelData = () => {
-        history.push('/searchmember');
+        history.push('/manageinfo/searchmember');
     }
 
     const addFormActivityProject = () => {

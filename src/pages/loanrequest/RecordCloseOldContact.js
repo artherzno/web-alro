@@ -196,7 +196,7 @@ function RecordCloseOldContact() {
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">จำนวนเงินต้นที่ชำระ</p>
+                                                        <p className="paper-p txt-right txt-purple">จำนวนเงินต้นที่ชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label=""  defaultValue="" />
@@ -209,7 +209,7 @@ function RecordCloseOldContact() {
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">จำนวนเงินที่ชำระ</p>
+                                                        <p className="paper-p txt-right txt-blue">จำนวนเงินที่ชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label=""  defaultValue="" />

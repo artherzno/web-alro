@@ -51,11 +51,11 @@ function LoanAddProject() {
 
     const postData = () => {
         console.log(inputData)
-        history.push('/loanrequestproject');
+        history.push('/manageinfo/loanrequestproject');
     }
 
     const cancelData = () => {
-        history.push('/loanrequestproject');
+        history.push('/manageinfo/loanrequestproject');
     }
     
     return (

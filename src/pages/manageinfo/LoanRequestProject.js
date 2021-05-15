@@ -106,7 +106,7 @@ function LoanRequestProject() {
     }, [])
 
     const gotoAddLoanRequestProject = () => {
-        history.push('/loanaddproject');
+        history.push('/manageinfo/loanaddproject');
     }
     
     return (
