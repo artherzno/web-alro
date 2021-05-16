@@ -63,7 +63,7 @@ const listmenu = [
                 subpath: '/loanserviceinfo/recordbillalro'
             },{
                 subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
-                subpath: '/home'
+                subpath: '/loanserviceinfo/recordbillclose'
             },{
                 subtitle: 'แก้ไขใบเสร็จรับเงิน',
                 subpath: '/home'

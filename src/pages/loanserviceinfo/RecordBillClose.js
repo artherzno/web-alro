@@ -24,7 +24,7 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
-function RecordBillAlro() {
+function RecordBillClose() {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
@@ -50,7 +50,7 @@ function RecordBillAlro() {
     ]
 
      // Radio Button
-     const handleChangeTypeBill = (event) => {
+     const RecordBillClose = (event) => {
         setInputData({...inputData,
             typeBill: event.target.value
         })
@@ -74,7 +74,7 @@ function RecordBillAlro() {
     };
 
     return (
-        <div className="recordbillalro-page">
+        <div className="recordbillclose-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -84,7 +84,7 @@ function RecordBillAlro() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด</h1>
+                                <h1>บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)</h1>
                             </Grid>
                         </Grid>
                     </Container>
@@ -513,4 +513,4 @@ function RecordBillAlro() {
     )
 }
 
-export default RecordBillAlro
+export default RecordBillClose
