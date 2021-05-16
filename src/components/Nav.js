@@ -60,7 +60,7 @@ const listmenu = [
         submenu: [
             {
                 subtitle: 'บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด',
-                subpath: '/home'
+                subpath: '/loanserviceinfo/recordbillalro'
             },{
                 subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
                 subpath: '/home'
