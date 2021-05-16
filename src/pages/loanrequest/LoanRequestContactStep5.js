@@ -11,6 +11,10 @@ import Nav from '../../components/Nav';
 import {
     MuiRadioButton,
     MuiDatePicker,
+    MuiTextfield,
+    ButtonFluidPrimary,
+    ButtonFluidSecondary,
+    ButtonFluidColor,
 } from '../../components/MUIinputs';
 
 
@@ -32,6 +36,18 @@ function LoanRequestContactStep5() {
         })
         console.log('typeSpecial ',event.target.value)
     };
+
+    const checkColorLineTop = () => {
+        if(inputData.typeSpecial === '1') {
+            return 'red';
+        } else if(inputData.typeSpecial === '2'){
+            return 'yellow';
+        } else if(inputData.typeSpecial === '3'){
+            return 'bluesky';
+        } else if(inputData.typeSpecial === '4'){
+            return 'grey';
+        }
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,12 +79,14 @@ function LoanRequestContactStep5() {
 
                             {/* Paper 1 - -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>
-                                <Paper className="paper line-top-red paper">
+                                {/* <Paper className="paper line-top-red"> */}
+
+                                <Paper className={"paper line-top-"+checkColorLineTop()}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2} className="paper-container">
                                             <Grid item xs={12} md={12}>
-                                                <h3 className="paper-head-red">Special Flow</h3>
-                                                <MuiRadioButton label="" id="loanrequestcontact-step3-no2-typeSuitability-input" lists={['ฟ้องศาล','แปลงหนี้', 'ใช้หนี้แทน', 'อื่นๆ']} color="red" value={inputData.typeSpecial} onChange={handleChangeTypeSpecial} type="row" />
+                                                <h3  className={"paper-head-"+checkColorLineTop()}>Special Flow</h3>
+                                                <MuiRadioButton label="" id="loanrequestcontact-step3-no2-typeSuitability-input" lists={['ฟ้องศาล','แปลงหนี้', 'ใช้หนี้แทน', 'อื่นๆ']} color={checkColorLineTop()} value={inputData.typeSpecial} onChange={handleChangeTypeSpecial} type="row" />
                                                 
                                             </Grid>
                                         </Grid>
@@ -78,16 +96,26 @@ function LoanRequestContactStep5() {
 
                             {/* Paper 2 - -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>
-                                <Paper className="paper line-top-red paper">
+                                <Paper  className={"paper mg-t-20 line-top-"+checkColorLineTop()}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2} className="paper-container">
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วันที่ส่งฟ้อง" id="loanrequestcontact-step5-no2-date-input" defaultValue="2017-05-24" />
+                                                {
+                                                    inputData.typeSpecial === '1' ? 
+                                                    <MuiDatePicker label="วันที่ส่งฟ้อง" id="loanrequestcontact-step5-no2-date-input" defaultValue="2017-05-24" />
+                                                    :
+                                                    <MuiTextfield label="ผู้ใช้หนี้แทน" defaultValue="" />
+                                                }
                                             </Grid>
                                         </Grid>
                                     </form>
                                 </Paper>
+                            </Grid>
+
+
+                            <Grid item xs={12} md={12} className="mg-t-20">
+                                <ButtonFluidColor label="บันทึก" color={checkColorLineTop()} />
                             </Grid>
 
                         </Grid>

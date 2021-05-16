@@ -21,6 +21,9 @@ const theme = createMuiTheme({
       main: '#da2828',
       outline: 'transparent'
     },
+    yellow: {
+      main: '#ffff00'
+    },
     common: {
       headerTable: "#F1F1F1"
     },

@@ -23,6 +23,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import { yellow } from '@material-ui/core/colors';
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -56,7 +57,48 @@ const BlueRadio = withStyles({
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
+const RedRadio = withStyles({
+    root: {
+      color: '#bfbfbf',
+      '&$checked': {
+        color: '#da2828',
+      },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
+
+const YellowRadio = withStyles({
+    root: {
+      color: '#bfbfbf',
+      '&$checked': {
+        color: '#fcbd0a',
+      },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
+
+const GreyRadio = withStyles({
+    root: {
+      color: '#bfbfbf',
+      '&$checked': {
+        color: '#959595',
+      },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
+
+const BlueskyRadio = withStyles({
+    root: {
+      color: '#bfbfbf',
+      '&$checked': {
+        color: '#16c5e5',
+      },
+    },
+    checked: {},
+})((props) => <Radio color="default" {...props} />);
+
 const theme = createMuiTheme();
+
 const useStyles = makeStyles({
     label: {
         fontSize: '16px',
@@ -99,6 +141,19 @@ const useStyles = makeStyles({
       padding: '20px',
       backgroundColor: '#FAFAFA',
       width: '100%',
+    },
+    buttonYellow: {
+        backgroundColor: '#fcbd0a',
+        color: '#000',
+    },
+    buttonBluesky: {
+        backgroundColor: '#16c5e5',
+    },
+    buttonRed: {
+        backgroundColor: '#da2828',
+    },
+    buttonGrey: {
+        backgroundColor: '#959595',
     },
     buttonNormal: {
       fontSize: '16px',
@@ -385,17 +440,29 @@ const MuiRadioButton = (props) => {
                 <RadioGroup row aria-label={id} name={id} value={value} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<Radio />} label={item} />
+                                <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
+                            : (color === 'yellow') ? 
+                                <FormControlLabel key={i} value={(i+1).toString()} control={<YellowRadio />} label={item} />
+                            : (color === 'grey') ? 
+                                <FormControlLabel key={i} value={(i+1).toString()} control={<GreyRadio />} label={item} />
+                            : (color === 'bluesky') ? 
+                                <FormControlLabel key={i} value={(i+1).toString()} control={<BlueskyRadio />} label={item} />
                             :
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
+                                <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
                     )}
                 </RadioGroup> 
                 :
                 <RadioGroup aria-label={id} name={id} value={value} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<Radio />} label={item} />
-                            :
+                            <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
+                        : (color === 'yellow') ? 
+                            <FormControlLabel key={i} value={(i+1).toString()} control={<YellowRadio />} label={item} />
+                        : (color === 'grey') ? 
+                            <FormControlLabel key={i} value={(i+1).toString()} control={<GreyRadio />} label={item} />
+                        : (color === 'bluesky') ? 
+                            <FormControlLabel key={i} value={(i+1).toString()} control={<BlueskyRadio />} label={item} />
+                        :
                             <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
                     )}
                 </RadioGroup>
@@ -525,6 +592,17 @@ const ButtonFluidSecondary = (props) => {
     );
 }
 
+const ButtonFluidColor = (props) => {
+    const classes = useStyles();
+    const { label, maxWidth, onClick, color } = props;
+    let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : '';
+
+    return (
+        <Button className={classes.buttonFluid+' '+bgColor} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+                                            
+    );
+}
+
 
 const ButtonFluidOutlinePrimary = (props) => {
     const classes = useStyles();
@@ -564,6 +642,7 @@ export {
     ButtonOutlineIconStartGrey,
     ButtonFluidPrimary,
     ButtonFluidSecondary,
+    ButtonFluidColor,
     ButtonFluidOutlinePrimary,
     ButtonFluidOutlineSecondary,
 }

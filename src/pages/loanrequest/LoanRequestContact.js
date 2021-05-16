@@ -94,8 +94,8 @@ function getStepContent(step) {
 function LoanRequestContact() {
     const history = useHistory();
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [completed, setCompleted] = React.useState({});
+    const [activeStep, setActiveStep] = React.useState(0); // ex. 3
+    const [completed, setCompleted] = React.useState({}); // ex. { 0: true, 1: true, 2:true}
     const steps = getSteps();
 
     const [loaded, setLoaded] = useState(false);
@@ -238,14 +238,14 @@ function LoanRequestContact() {
                                         >
                                             Next
                                         </Button> */}
-                                        {activeStep !== steps.length &&
-                                            (completed[activeStep] ? (
+                                        {activeStep !== steps.length && (completed[activeStep] ? (
                                             <p variant="caption" className={classes.completed}>
                                                 บันทึกการ { getSteps()[activeStep] } เสร็จแล้ว
-                                                <ButtonFluidPrimary label="บันทึกการแก้ไข" onClick={handleComplete}/>
+                                                <ButtonFluidPrimary label="บันทึกแก้ไข" onClick={handleComplete}/>
+                                                {activeStep+' '+completedSteps()}
                                             </p>
                                             ) : (
-                                                        <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึก'} onClick={handleComplete}/>
+                                                (activeStep < 4 ) ?  <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึก'+activeStep+' '+completedSteps()} onClick={handleComplete}/> : ''
                                                 
                                             ))}
                                     </div>
