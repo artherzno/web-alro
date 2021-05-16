@@ -26,7 +26,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
             <Grid container spacing={2}>
 
                 <Grid item>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={2}>
                         <Grid item>
                             <DisplaySelect />
                         </Grid>
@@ -38,7 +38,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
                 </Grid>
                 <Grid item />
                 <Grid item>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={2}>
                         <Grid item>
                             <DisplayMonthSelect />
                         </Grid>
@@ -53,7 +53,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
 
                 <Grid item />
                 <Grid item>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={2}>
 
                         <Grid item>
                             <TypeBillSelect />

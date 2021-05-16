@@ -75,13 +75,13 @@ function LoanRequestContactSearch() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="md">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>คำขอกู้ยืมเงิน</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={12} md={4}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ชื่อเกษตรกร" id="loanrequestcontactsearch-farmername-input" defaultValue="" />
@@ -137,6 +137,7 @@ function LoanRequestContactSearch() {
                                         page={page}
                                         onChangePage={handleChangePage}
                                         onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        labelRowsPerPage="แสดงจำนวนแถว"
                                     />
                                 </div>
                             </Grid>

@@ -68,7 +68,7 @@ function LoanAddProject() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="md">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>เพิ่มโครงการขอกู้เงิน</h1>
                             </Grid>
@@ -78,7 +78,7 @@ function LoanAddProject() {
                             <Paper className="paper line-top-green paper">
                                 <Grid item xs={12} md={12}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3}>
+                                        <Grid container spacing={2}>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="รหัสโครงการชื่อ" id="loanadd-projectcode-input" defaultValue="" />

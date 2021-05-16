@@ -84,13 +84,13 @@ function LoanRecivcePrint() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
@@ -105,7 +105,7 @@ function LoanRecivcePrint() {
                     </Container>
 
                     <Container maxWidth={false}>
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <TableContainer className="table-box table-loanrequestprint1">
@@ -154,7 +154,7 @@ function LoanRecivcePrint() {
                     </Container>
                 
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
 
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>

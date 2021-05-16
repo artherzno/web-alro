@@ -37,7 +37,7 @@ const BootstrapInput = withStyles((theme) => ({
         border: '1px solid #ced4da',
         fontSize: 16,
         width: '100%',
-        padding: '10px 12px',
+        padding: '10px 5px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
             boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
@@ -122,6 +122,18 @@ const useStyles = makeStyles({
       color: '#2284d0',
       minWidth: '190px',
     },
+    buttonFluidOutlineSecondary: {
+      backgroundColor: 'transparent',
+      border: '1px solid #da2828',
+      color: '#da2828',
+      width: '100%',
+    },
+    buttonOutlineSecondary: {
+      backgroundColor: 'transparent',
+      border: '1px solid #da2828',
+      color: '#da2828',
+      minWidth: '190px',
+    },
     buttonOutlineGrey: {
       backgroundColor: 'transparent',
       border: '1px solid #E2E2E2',
@@ -202,7 +214,7 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, textAlign } = props;
+    const { topic, label, id, defaultValue, type, textAlign, disabled } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -213,7 +225,7 @@ const MuiTextfield = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type={type} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput type={type} disabled={disabled} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
@@ -503,12 +515,33 @@ const ButtonFluidPrimary = (props) => {
     );
 }
 
+const ButtonFluidSecondary = (props) => {
+    const classes = useStyles();
+    const { label, maxWidth, onClick } = props;
+
+    return (
+        <Button className={classes.buttonFluid} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+                                            
+    );
+}
+
+
 const ButtonFluidOutlinePrimary = (props) => {
     const classes = useStyles();
     const { label, maxWidth, onClick } = props;
 
     return (
         <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+                                            
+    );
+}
+
+const ButtonFluidOutlineSecondary = (props) => {
+    const classes = useStyles();
+    const { label, maxWidth, onClick } = props;
+
+    return (
+        <Button className={classes.buttonFluidOutlineSecondary} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }
@@ -530,5 +563,7 @@ export {
     ButtonNormalIconStartPrimary,
     ButtonOutlineIconStartGrey,
     ButtonFluidPrimary,
+    ButtonFluidSecondary,
     ButtonFluidOutlinePrimary,
+    ButtonFluidOutlineSecondary,
 }

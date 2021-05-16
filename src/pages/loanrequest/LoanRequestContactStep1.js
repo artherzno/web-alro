@@ -161,7 +161,7 @@ function LoanRequestContactStep1() {
         const { num } = props;
         return (
             <Box component="div" className="box box-grey" m={1}>
-                 <Grid container spacing={3}>
+                 <Grid container spacing={2}>
                     <Grid item xs={12} md={12}>
                         {/* Field Text ---------------------------------------------------*/}
                         
@@ -193,13 +193,13 @@ function LoanRequestContactStep1() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="sm">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
 
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3}>
+                                        <Grid container spacing={2}>
                                             <Grid item xs={12} md={12} className="loanrequestcontact-num-box">
                                                 <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p>
                                                 <MuiRadioButton label="ประเภทเงินกู้" id="loanrequestcontact-step1-type-input" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} value={inputData.typeMember} onChange={handleChangeTypeMember} type="row" />
@@ -311,7 +311,7 @@ function LoanRequestContactStep1() {
                                             { [...Array(countAddActivityProject)].map((_, i) => <FormActivityProject key={i} num={i} />) }
 
                                             <Box component="div" className="box box-grey" m={1} textAlign="right">
-                                                <Grid container spacing={3}>
+                                                <Grid container spacing={2}>
                                                     <Grid item xs={12} md={12}>
                                                         <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">50,000 </span>บาท</p>
                                                     </Grid>

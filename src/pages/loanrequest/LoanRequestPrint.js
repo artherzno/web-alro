@@ -125,13 +125,13 @@ function LoanRequestPrint() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>พิมพ์สัญญากู้ยืมเงิน</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาชื่อ-นามสกุล" id="loanrequestprint-search-input" defaultValue="" />
@@ -146,7 +146,7 @@ function LoanRequestPrint() {
                     </Container>
 
                     <Container maxWidth={false}>
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <TableContainer className="table-box table-loanrequestprint1">
@@ -195,7 +195,7 @@ function LoanRequestPrint() {
                     </Container>
 
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1 className="txt-green mg-b--20">สัญญากู้ยืมเงินจาก ส.ป.ก.</h1>
                             </Grid>
@@ -625,7 +625,7 @@ function LoanRequestPrint() {
                     </Container>
                 
                     <Container maxWidth="sm">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <h1 className="txt-center">ตารางรายละเอียดการชำระคืนเงินกู้</h1>
@@ -676,7 +676,7 @@ function LoanRequestPrint() {
                     </Container>
                 
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12}> 
                                 <p className="mg-t-35">หมายเหตุ</p>
                             </Grid>
@@ -716,7 +716,7 @@ function LoanRequestPrint() {
                     </Container>
                         
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1 className="txt-green mg-b--20">ข้อตกลงต่อท้ายสัญญากู้ยืมเงิน</h1>
                             </Grid>
@@ -821,7 +821,7 @@ function LoanRequestPrint() {
                     </Container>
                     
                     <Container maxWidth="md">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <h1 className="txt-center">ตารางรายละเอียดการชำระคืนเงินกู้</h1>
@@ -880,7 +880,7 @@ function LoanRequestPrint() {
                     </Container>
                 
                 <Container maxWidth="lg">
-                    <Grid container spacing={1}>
+                    <Grid container spacing={2}>
                         <Grid item xs={12} md={12}> 
                             <p className="mg-t-35">หมายเหตุ</p>
                         </Grid>

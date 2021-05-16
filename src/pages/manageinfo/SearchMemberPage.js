@@ -60,7 +60,7 @@ function SearchMemberPage(props) {
                 <div className="fade">
                     {/* Search Condition */}
                     <Container maxWidth="sm">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ค้นหาสมาชิก</h1>
                             </Grid>

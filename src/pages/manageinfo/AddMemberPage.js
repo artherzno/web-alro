@@ -184,7 +184,7 @@ function AddMemberPage(props) {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="sm">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ข้อมูลสมาชิก</h1>
                             </Grid>
@@ -238,7 +238,7 @@ function AddMemberPage(props) {
                             <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={3}>
+                                        <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
                                                 <MuiLabelHeader label="ที่อยู่ตามบัตรประชาชน" />
                                                 <Divider variant="middle" style={{ margin: '0'}} />

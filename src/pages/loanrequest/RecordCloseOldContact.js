@@ -91,7 +91,7 @@ function RecordCloseOldContact() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="lg">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน</h1>
                             </Grid>
@@ -99,7 +99,7 @@ function RecordCloseOldContact() {
                     </Container>
 
                     <Container maxWidth={false}>
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={6}>
 
                                 {/* Paper 1 - -------------------------------------------------- */}
@@ -167,7 +167,7 @@ function RecordCloseOldContact() {
                                                 <MuiDatePicker label="วันที่จัดทำ"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" id="loanrequestcontact-step1-activityproject-obj-textarea" defaultValue="" row="3" />
+                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -379,7 +379,7 @@ function RecordCloseOldContact() {
 
                             <Grid item xs={12} md={6} >
                                 <div className="positionFixed mg-t-20"style={{position: 'fixed'}}>
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={2}>
                                         <Grid item xs={12} md={6}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />

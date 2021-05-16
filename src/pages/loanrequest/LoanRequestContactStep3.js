@@ -103,7 +103,7 @@ function LoanRequestContactStep3() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="sm">
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
 
                             {/* Paper 1 - -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>
@@ -219,7 +219,7 @@ function LoanRequestContactStep3() {
                                                         <FormControlLabel value="1" control={<Radio color="primary" />} label="เห็นควรอนุมัติเงินกู้" />
                                                         <div style={ inputData.approve === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
                                                             <div className="radio-group-content__flex">
-                                                                <Grid container spacing={1}>
+                                                                <Grid container spacing={2}>
                                                                     <Grid item xs={12} md={3}>
                                                                         {/* Field Select ---------------------------------------------------*/}
                                                                         <MuiSelect label="โครงการ" id="loanrequestcontact-step3-no3-projectcode-input" lists={['00001','00002','00003']} />

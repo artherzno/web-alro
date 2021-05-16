@@ -42,7 +42,7 @@ class ListSign extends React.Component {
                 <Box mt={5}>
                     <div >
                         <Box ml={2}>
-                            <Grid container spacing={1}>
+                            <Grid container spacing={2}>
                                 {tabs.map((tab, index) => {
                                     return (
                                         <Grid item key={index}>

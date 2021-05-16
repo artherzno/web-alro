@@ -7,11 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -39,14 +39,26 @@ const tableResult = [
 
 // End All Data for DataGrid ---------------------------------------------//
 
-function AllContactSearch() {
+
+function AllContractSearch() {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     useEffect(() => {
         setLoaded(true);
     }, [])
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+      };
 
     const gotoAddLoanRequestContact = () => {
         history.push('/loanrequest/loanrequestcontact');
@@ -62,12 +74,12 @@ function AllContactSearch() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth={false}>
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>สัญญาทั้งหมด</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-20">
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาชื่อ-นามสกุล" defaultValue="" />
@@ -80,7 +92,8 @@ function AllContactSearch() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table-box table-allcontactsearch1">
+                                <div className="table-box table-allcontractsearch1">
+                                    <TableContainer >
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
@@ -100,7 +113,11 @@ function AllContactSearch() {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {tableResult.map((row,i) => (
+                                            {
+                                                (rowsPerPage > 0
+                                                    ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                    : tableResult
+                                                  ).map((row,i) => (
                                                 <TableRow key={i}>
                                                    <TableCell align="center">{row.a}</TableCell>
                                                         <TableCell align="center">{row.b}</TableCell>
@@ -122,6 +139,17 @@ function AllContactSearch() {
                                             ))}
                                         </TableBody>
                                     </Table>
+                                    </TableContainer>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={tableResult.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        onChangePage={handleChangePage}
+                                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        labelRowsPerPage="แสดงจำนวนแถว"
+                                    />
                                 </div>
                                 {/* Data Grid --------------------------------*/}
                                     {/* <div style={{ height: 400, width: '100%' }}>
@@ -137,4 +165,4 @@ function AllContactSearch() {
     )
 }
 
-export default AllContactSearch
+export default AllContractSearch

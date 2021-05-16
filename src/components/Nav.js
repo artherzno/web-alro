@@ -47,10 +47,10 @@ const listmenu = [
                 subpath: '/home'
             },{
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
-                subpath: '/home'
+                subpath: '/loanrequest/editcontract'
             },{
                 subtitle: 'ค้นหาสัญญาทั้งหมด',
-                subpath: '/loanrequest/allcontactsearch'
+                subpath: '/loanrequest/allcontractsearch'
             }
         ]
     },{

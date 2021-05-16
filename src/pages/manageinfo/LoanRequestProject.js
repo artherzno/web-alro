@@ -119,7 +119,7 @@ function LoanRequestProject() {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container>
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>โครงการขอกู้เงิน</h1>
                             </Grid>

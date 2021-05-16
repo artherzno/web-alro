@@ -222,6 +222,10 @@ h3 {
   text-align: right;
 }
 
+.txt-center-v {
+  align-self: center;
+}
+
 .txt-f-center {
   align-self: center;
 }
@@ -244,6 +248,14 @@ h3 {
 
 .mg-t-20 {
   margin-top: 20px !important;
+}
+
+.mg-t-10 {
+  margin-top: 10px !important;
+}
+
+.mg-t-0 {
+  margin-top: 0 !important;
 }
 
 .mg-b--20 {
@@ -398,9 +410,9 @@ table {
   }
 }
 
-.table-allcontactsearch1 {
-  max-height: 320px;
-  overflow: scroll;
+.table-allcontractsearch1 {
+  // max-height: 320px;
+  // overflow: scroll;
   tr {
     th {
       &:nth-child(5) {
@@ -417,6 +429,10 @@ table {
       }
     }
   }
+}
+
+.table-EditContract {
+  max-height: 200px;
 }
 
 .table-recordcloseoldContact1 {
