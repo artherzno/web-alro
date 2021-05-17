@@ -155,6 +155,10 @@ const useStyles = makeStyles({
     buttonGrey: {
         backgroundColor: '#959595',
     },
+    buttonGreyLight: {
+        backgroundColor: '#D5D5D5',
+        color: '#6E6E6E',
+    },
     buttonNormal: {
       fontSize: '16px',
     },
@@ -595,7 +599,7 @@ const ButtonFluidSecondary = (props) => {
 const ButtonFluidColor = (props) => {
     const classes = useStyles();
     const { label, maxWidth, onClick, color } = props;
-    let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : '';
+    let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey :'';
 
     return (
         <Button className={classes.buttonFluid+' '+bgColor} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>

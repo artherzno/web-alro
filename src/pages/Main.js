@@ -30,6 +30,7 @@ import AllContractSearch from './loanrequest/AllContractSearch'
 import RecordBillAlro from './loanserviceinfo/RecordBillAlro'
 import RecordBillClose from './loanserviceinfo/RecordBillClose'
 import EditBill from './loanserviceinfo/EditBill'
+import UploadInfoBaac from './loanserviceinfo/UploadInfoBaac'
 import PrintBillBank from './loanserviceinfo/PrintBillBank'
 
 function Main() {
@@ -52,6 +53,7 @@ function Main() {
                     <Route path="/loanserviceinfo/recordbillalro" component={RecordBillAlro} />
                     <Route path="/loanserviceinfo/recordbillclose" component={RecordBillClose} />
                     <Route path="/loanserviceinfo/editbill" component={EditBill} />
+                    <Route path="/loanserviceinfo/uploadinfobaac" component={UploadInfoBaac} />
                     <Route path="/loanserviceinfo/printbillbank" component={PrintBillBank} />
                     {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />

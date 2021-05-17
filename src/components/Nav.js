@@ -69,7 +69,7 @@ const listmenu = [
                 subpath: '/loanserviceinfo/editbill'
             },{
                 subtitle: 'Upload file ข้อมูล ธกส.',
-                subpath: '/home'
+                subpath: '/loanserviceinfo/uploadinfobaac'
             },{
                 subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
                 subpath: '/loanserviceinfo/printbillbank'
