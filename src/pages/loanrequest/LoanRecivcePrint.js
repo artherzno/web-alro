@@ -108,7 +108,7 @@ function LoanRecivcePrint() {
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
                                 <div className="table">
-                                    <TableContainer className="table-box table-loanrequestprint1">
+                                    <TableContainer className="table-box table-loanrequestprint1 mg-t-10">
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>

@@ -81,7 +81,7 @@ function LoanRequestContactStep5() {
                             <Grid item xs={12} md={12}>
                                 {/* <Paper className="paper line-top-red"> */}
 
-                                <Paper className={"paper line-top-"+checkColorLineTop()}>
+                                <Paper className={"paper mg-t-20 line-top-"+checkColorLineTop()}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2} className="paper-container">
                                             <Grid item xs={12} md={12}>

@@ -136,7 +136,7 @@ function LoanRequestProject() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table-box">
+                                <div className="table-box mg-t-10">
                                     <Table aria-label="simple table">
                                         <TableHead>
                                         <TableRow>

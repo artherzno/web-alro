@@ -70,7 +70,7 @@ function SearchMemberPage(props) {
                                 </Box>
                             </Grid>
                             <Grid item xs={12} md={12}>
-                                <Paper className="paper">
+                                <Paper className="paper mg-t-0">
                                     <form className="root" noValidate autoComplete="off">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={6}>

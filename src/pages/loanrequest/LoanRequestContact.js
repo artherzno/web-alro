@@ -167,7 +167,7 @@ function LoanRequestContact() {
                         <div className={classes.root}>
                             <Stepper alternativeLabel nonLinear activeStep={activeStep} className="custom-stepper-box">
                                 {steps.map((label, index) => (
-                                    <Step key={label} className="custom-stepper">
+                                    <Step key={label} className="custom-stepper mg-t-20">
                                         <StepButton onClick={handleStep(index)} completed={completed[index]}>
                                             <StepLabel StepIconComponent={getStepIcon}>{label}</StepLabel>
                                         </StepButton>
