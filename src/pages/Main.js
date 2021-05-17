@@ -29,6 +29,8 @@ import EditContract from './loanrequest/EditContract'
 import AllContractSearch from './loanrequest/AllContractSearch'
 import RecordBillAlro from './loanserviceinfo/RecordBillAlro'
 import RecordBillClose from './loanserviceinfo/RecordBillClose'
+import EditBill from './loanserviceinfo/EditBill'
+import PrintBillBank from './loanserviceinfo/PrintBillBank'
 
 function Main() {
     return (
@@ -49,6 +51,8 @@ function Main() {
                     {/* Loan Service Info Page */}
                     <Route path="/loanserviceinfo/recordbillalro" component={RecordBillAlro} />
                     <Route path="/loanserviceinfo/recordbillclose" component={RecordBillClose} />
+                    <Route path="/loanserviceinfo/editbill" component={EditBill} />
+                    <Route path="/loanserviceinfo/printbillbank" component={PrintBillBank} />
                     {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
                     <Route path="/report/listnewfarmerpayloan" component={ListNewFarmerPayLoan} />

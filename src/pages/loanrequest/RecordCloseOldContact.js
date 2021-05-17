@@ -390,7 +390,7 @@ function RecordCloseOldContact() {
                                         </Grid>
                                         <Grid item xs={12} md={12}>
                                         <div className="table">
-                                            <TableContainer className="table-box table-recordcloseoldContact1">
+                                            <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
                                                 <Table aria-label="normal table">
                                                     <TableHead>
                                                     <TableRow>

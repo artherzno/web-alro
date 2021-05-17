@@ -66,13 +66,13 @@ const listmenu = [
                 subpath: '/loanserviceinfo/recordbillclose'
             },{
                 subtitle: 'แก้ไขใบเสร็จรับเงิน',
-                subpath: '/home'
+                subpath: '/loanserviceinfo/editbill'
             },{
                 subtitle: 'Upload file ข้อมูล ธกส.',
                 subpath: '/home'
             },{
                 subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
-                subpath: '/home'
+                subpath: '/loanserviceinfo/printbillbank'
             }
         ]
     },{
