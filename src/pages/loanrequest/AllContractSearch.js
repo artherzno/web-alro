@@ -92,7 +92,7 @@ function AllContractSearch() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table-box table-allcontractsearch1">
+                                <div className="table-box table-allcontractsearch1 mg-t-10">
                                     <TableContainer >
                                     <Table aria-label="simple table">
                                         <TableHead>
