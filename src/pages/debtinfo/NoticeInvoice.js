@@ -150,7 +150,7 @@ function NoticeInvoice() {
     };
 
     return (
-        <div className="loanrequestproject-page">
+        <div className="noticeinvoice-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

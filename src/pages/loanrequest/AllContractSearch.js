@@ -65,7 +65,7 @@ function AllContractSearch() {
     }
     
     return (
-        <div className="loanrequestproject-page">
+        <div className="allcontractsearch-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

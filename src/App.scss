@@ -786,6 +786,13 @@ body {
     background-color: var(--table-head);
     border: 1px solid var(--text-input-border);
   }
+  &.box-red-summary {
+    padding: 6px;
+    background-color: #fff4f4;
+    color: var(--red);
+    font-size: 30px;
+    text-align: right;
+  }
   .box-close {
     position: absolute;
     top: 10px;

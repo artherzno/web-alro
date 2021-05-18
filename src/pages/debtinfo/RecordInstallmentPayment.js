@@ -71,7 +71,7 @@ function RecordInstallmentPayment() {
     };
 
     return (
-        <div className="loanrequestproject-page">
+        <div className="recordinstallmentpayment-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

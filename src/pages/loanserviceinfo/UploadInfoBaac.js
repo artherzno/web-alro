@@ -53,7 +53,7 @@ function UploadInfoBaac() {
         // }
     };
     return (
-        <div className="loanrequestproject-page">
+        <div className="uploadinfobaac-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

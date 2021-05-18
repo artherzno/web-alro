@@ -463,8 +463,8 @@ function RecordBillAlro() {
                             
                             </Grid>
 
-                            <Grid item xs={12} md={6} >
-                                <div className="positionFixed mg-t-20"style={{position: 'fixed'}}>
+                            <Grid item xs={12} md={6}  style={{position: 'fixed', width: '100%', right: '0'}}>
+                                <div className="positionFixed mg-t-20">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={6}>
                                             {/* Field Text ---------------------------------------------------*/}

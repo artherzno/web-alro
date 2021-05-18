@@ -97,7 +97,7 @@ const listmenu = [
                 subpath: '/debtinfo/debtcondition'
             },{
                 subtitle: 'รับสภาพหนี้/รับสภาพความผิด',
-                subpath: '/home'
+                subpath: '/debtinfo/faultcondition'
             }
         ]
     },{

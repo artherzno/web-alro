@@ -89,7 +89,7 @@ function EditBill() {
     };
     
     return (
-        <div className="loanrequestproject-page">
+        <div className="editbill-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
