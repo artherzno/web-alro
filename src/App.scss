@@ -1015,7 +1015,9 @@ input {
     &:first-child {
       border-left: none;
     }
-    .MuiDataGrid-iconSeparator {
+    .MuiDataGrid-iconSeparator,
+    .MuiDataGrid-iconButtonContainer,
+    .MuiDataGrid-menuIcon {
       display: none;
     }
   }

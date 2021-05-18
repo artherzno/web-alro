@@ -82,7 +82,7 @@ const listmenu = [
         submenu: [
             {
                 subtitle: 'พิมพ์ใบแจ้งหนี้',
-                subpath: '/home'
+                subpath: '/debtinfo/printinvoice'
             },{
                 subtitle: 'ใบเตือนหนี้ค้างชำระ',
                 subpath: '/home'
