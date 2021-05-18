@@ -85,7 +85,7 @@ const listmenu = [
                 subpath: '/debtinfo/printinvoice'
             },{
                 subtitle: 'ใบเตือนหนี้ค้างชำระ',
-                subpath: '/home'
+                subpath: '/debtinfo/noticeinvoice'
             },{
                 subtitle: 'บันทึกขอผ่อนผัน',
                 subpath: '/home'
