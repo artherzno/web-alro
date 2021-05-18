@@ -163,7 +163,7 @@ function NoticeInvoice() {
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ใบเตือนหนี้ค้างชำระ</h1>
                             </Grid>
-                            <Grid item xs={12} md={12} className="mg-t-20">
+                            <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" />

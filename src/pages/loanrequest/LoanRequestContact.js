@@ -245,7 +245,7 @@ function LoanRequestContact() {
                                                 {activeStep+' '+completedSteps()}
                                             </p>
                                             ) : (
-                                                (activeStep < 4 ) ?  <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึก'+activeStep+' '+completedSteps()} onClick={handleComplete}/> : ''
+                                                (activeStep < 4 ) ?  <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึก'} onClick={handleComplete}/> : ''
                                                 
                                             ))}
                                     </div>

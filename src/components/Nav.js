@@ -88,7 +88,7 @@ const listmenu = [
                 subpath: '/debtinfo/noticeinvoice'
             },{
                 subtitle: 'บันทึกขอผ่อนผัน',
-                subpath: '/home'
+                subpath: '/debtinfo/recordinstallmentpayment'
             },{
                 subtitle: 'คำขอขยาย',
                 subpath: '/home'
