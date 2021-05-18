@@ -461,6 +461,14 @@ table {
   overflow: scroll;
 }
 
+.table-recordinstallmentpayment1 {
+  tr {
+    th {
+      min-width: 240px;
+    }
+  }
+}
+
 // Main Style ------------------------------//
 body {
   background-color: var(--white);

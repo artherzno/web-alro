@@ -91,7 +91,7 @@ const listmenu = [
                 subpath: '/debtinfo/recordinstallmentpayment'
             },{
                 subtitle: 'คำขอขยาย',
-                subpath: '/home'
+                subpath: '/debtinfo/recordrequestpayment'
             },{
                 subtitle: 'เงื่อนไขปรับโครงสร้างหนี้',
                 subpath: '/home'
