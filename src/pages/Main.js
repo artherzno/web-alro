@@ -36,6 +36,7 @@ import PrintInvoice from './debtinfo/PrintInvoice';
 import NoticeInvoice from './debtinfo/NoticeInvoice';
 import RecordInstallmentPayment from './debtinfo/RecordInstallmentPayment';
 import RecordRequestPayment from './debtinfo/RecordRequestPayment';
+import DebtCondition from './debtinfo/DebtCondition';
 
 function Main() {
     return (
@@ -59,11 +60,12 @@ function Main() {
                     <Route path="/loanserviceinfo/editbill" component={EditBill} />
                     <Route path="/loanserviceinfo/uploadinfobaac" component={UploadInfoBaac} />
                     <Route path="/loanserviceinfo/printbillbank" component={PrintBillBank} />
-                    {/* Loan Service Info Page */}
+                    {/* Debt Info Page */}
                     <Route path="/debtinfo/printinvoice" component={PrintInvoice} />
                     <Route path="/debtinfo/noticeinvoice" component={NoticeInvoice} />
                     <Route path="/debtinfo/recordinstallmentpayment" component={RecordInstallmentPayment} />
                     <Route path="/debtinfo/recordrequestpayment" component={RecordRequestPayment} />
+                    <Route path="/debtinfo/debtcondition" component={DebtCondition} />
                     {/* Report Page */}
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />
                     <Route path="/report/listnewfarmerpayloan" component={ListNewFarmerPayLoan} />

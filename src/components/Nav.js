@@ -94,7 +94,7 @@ const listmenu = [
                 subpath: '/debtinfo/recordrequestpayment'
             },{
                 subtitle: 'เงื่อนไขปรับโครงสร้างหนี้',
-                subpath: '/home'
+                subpath: '/debtinfo/debtcondition'
             },{
                 subtitle: 'รับสภาพหนี้/รับสภาพความผิด',
                 subpath: '/home'

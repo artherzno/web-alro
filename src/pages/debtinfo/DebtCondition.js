@@ -31,7 +31,7 @@ import {
     MuiTextfieldMultiLine,
 } from '../../components/MUIinputs';
 
-function RecordRequestPayment() {
+function DebtCondition() {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
@@ -53,6 +53,18 @@ function RecordRequestPayment() {
         { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
         { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
         { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
+    ]
+    const tableResult2 = [
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
+        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
     ]
 
     const handleSubmit = (event) => {
@@ -82,17 +94,16 @@ function RecordRequestPayment() {
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>บันทึกคำขอขยาย</h1>
+                                <h1>เงื่อนไขปรับโครงสร้างหนี้</h1>
                             </Grid>
-                            <Grid item xs={12} md={2}>
-                                <Box  display="flex" justifyContent="flex-start">
-                                    <MuiTextfield label="ค้นหาเลขที่สัญญา" />
-                                </Box>  
-                            </Grid>
-                            <Grid item xs={12} md={10}>
-                                <Box  display="flex" justifyContent="flex-end">
-                                    <ButtonNormalIconStartPrimary label="เพิ่มคำขอ" startIcon={<AddIcon />} />
-                                </Box>  
+                            <Grid item xs={12} md={12}>
+                                <Grid container spacing={2}>
+                                     <Grid item xs={12} md={3}>
+                                        <Box  display="flex" justifyContent="flex-start">
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" />
+                                        </Box>  
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={12} md={12}> 
                                 <div className="table">
@@ -156,7 +167,7 @@ function RecordRequestPayment() {
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="PNGA0001600005/00001" />
+                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-15" />
@@ -176,21 +187,11 @@ function RecordRequestPayment() {
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="อ้างถึง"  defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12} md={2}>
+                                            <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="อ้างถึง" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={1}>
                                                 <MuiTextfield label="&nbsp;"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่คำสั่ง"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <MuiDatePicker label="วันที่คำสั่ง"  defaultValue="2017-05-15" />
-                                                    </Grid>
-                                                </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="สัญญาเลขที่" defaultValue="" />
@@ -224,10 +225,10 @@ function RecordRequestPayment() {
                                                                 <MuiSelect label="รหัสโครงการ"  lists={['00001','00002','00003']} />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield label="รหัสโครงการ" defaultValue="" />
+                                                                <MuiTextfield label="รหัสโครงการรอง" defaultValue="" />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="ชื่อโครงการ"  defaultValue="" />
+                                                                <MuiTextfield label="ชื่อโครงการรอง"  defaultValue="" />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -259,11 +260,41 @@ function RecordRequestPayment() {
                                                     <Grid item xs={12} md={6}>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่ประมวล" defaultValue="2017-05-15" />
-                                                                </Grid>
                                                                 <Grid item xs={12} md={12}>
                                                                     <MuiTextfieldMultiLine label="หมายเหตุ" row="3" defaultValue="" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <MuiTextfield label="เลขที่คำสั่ง" disabled defaultValue="RIET2343525/00003" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <MuiDatePicker label="วันที่คำสั่ง" defaultValue="2017-05-15" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <MuiDatePicker label="วันที่เริ่มคำสั่ง" defaultValue="2017-05-15" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <MuiDatePicker label="วันที่สิ้นสุด" defaultValue="2017-05-15" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiSelect label="ประเภท" lists={['นาย','นาง','นางสาว']} />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiTextfield label="&nbsp;" defaultValue="" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <MuiTextfield label="&nbsp;" defaultValue="" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiTextfield label="ลำดับที่" defaultValue="" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiTextfield label="ครั้งที่" defaultValue="" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiTextfield label="Tps" defaultValue="" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiTextfield label="Tps_" defaultValue="" />
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -273,7 +304,7 @@ function RecordRequestPayment() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
+                                                                    <p className="paper-p txt-right">จำนวนเงินลดต้น</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                 <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
@@ -283,7 +314,7 @@ function RecordRequestPayment() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
+                                                                    <p className="paper-p txt-right">จำนวนเงินลดดอก</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                 <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
@@ -293,7 +324,7 @@ function RecordRequestPayment() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
+                                                                    <p className="paper-p txt-right">จำนวนเงินลดค่าปรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                 <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
@@ -303,7 +334,7 @@ function RecordRequestPayment() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
+                                                                    <p className="paper-p txt-right">จำนวนเงินปรับโครงสร้าง</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                 <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
@@ -313,30 +344,10 @@ function RecordRequestPayment() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">เปลี่ยนอัตราดอกเบี้ย</p>
+                                                                    <p className="paper-p txt-right">อัตราดอกเบี้ยที่เปลี่ยน</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">งวดชำระคงเหลือ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินขอผ่อนผันในงวดบัญชีนี้</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                                <MuiTextfield label="" defaultValue=""/>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -362,6 +373,50 @@ function RecordRequestPayment() {
                         </Grid>
                     </Container>
                 
+                    
+                    <Container maxWidth={false}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}> 
+                                <div className="table">
+                                    <TableContainer className="table-box table-recordinstallmentpayment1 max-h-250 mg-t-10">
+                                        <Table aria-label="normal table">
+                                            <TableHead>
+                                            <TableRow>
+                                                <TableCell align="center">รหัสบันทึก</TableCell>
+                                                <TableCell align="center">วันที่บันทึก</TableCell>
+                                                <TableCell align="center">คำสั่ง คปจ.</TableCell>
+                                                <TableCell align="center">วันที่คำสั่ง</TableCell>
+                                                <TableCell align="center">วันที่เริ่มปรับ</TableCell>
+                                                <TableCell align="center">วันที่สิ้นสุด</TableCell>
+                                                <TableCell align="center">ประเภท</TableCell>
+                                                <TableCell align="center">อัตราดอกเบี้ย</TableCell>
+                                                <TableCell align="center">จำนวนเงิน</TableCell>
+                                            </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                            {
+                                                tableResult2.map((row,i) => (
+                                                    <TableRow key={i}>
+                                                        <TableCell align="center">{row.a}</TableCell>
+                                                        <TableCell align="center">{row.b}</TableCell>
+                                                        <TableCell align="center">{row.c}</TableCell>
+                                                        <TableCell align="center">{row.d}</TableCell>
+                                                        <TableCell align="center">{row.e}</TableCell>
+                                                        <TableCell align="center">{row.f}</TableCell>
+                                                        <TableCell align="center">{row.g}</TableCell>
+                                                        <TableCell align="center">{row.h}</TableCell>
+                                                        <TableCell align="center">{row.i}</TableCell>
+                                                    </TableRow>
+                                                ))
+                                            }
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Container>
+
                 </div>
             </Fade>
             
@@ -369,4 +424,4 @@ function RecordRequestPayment() {
     )
 }
 
-export default RecordRequestPayment
+export default DebtCondition
