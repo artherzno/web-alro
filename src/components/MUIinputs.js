@@ -557,6 +557,16 @@ const ButtonNormalIconStartPrimary = (props) => {
     );
 }
 
+const ButtonNormalIconStartSecondary = (props) => {
+    const classes = useStyles();
+    const { label, maxWidth, startIcon, onClick } = props;
+
+    return (
+        <Button className={classes.buttonNormal} edge="end" variant="contained" color="secondary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+                                            
+    );
+}
+
 const ButtonFluidIconStartPrimary = (props) => {
     const classes = useStyles();
     const { label, maxWidth, startIcon, onClick } = props;
@@ -566,6 +576,7 @@ const ButtonFluidIconStartPrimary = (props) => {
                                             
     );
 }
+
 
 const ButtonOutlineIconStartGrey = (props) => {
     const classes = useStyles();
@@ -643,6 +654,7 @@ export {
     MuiUpload,
     ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,
+    ButtonNormalIconStartSecondary,
     ButtonOutlineIconStartGrey,
     ButtonFluidPrimary,
     ButtonFluidSecondary,

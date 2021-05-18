@@ -434,6 +434,7 @@ function LoanRequestContactStep1() {
                                                                             <p>หมายเลขบัตรประจำตัวประชาชน : 3 8517 13368 44 4</p>
                                                                         </div>
                                                                         <div className="box-button">
+                                                                            <p className="txt-red">ไม่มีข้อมูลผู้ค้ำในข้อมูลสมาชิก</p>
                                                                             <ButtonNormalIconStartPrimary label="+ เพิ่มผู้ค้ำ" />
                                                                         </div>
                                                                     </Box>
@@ -554,7 +555,7 @@ function LoanRequestContactStep1() {
                                                                 <Grid container spacing={2}>
                                                                     <Grid item xs={12} md={12}>
                                                                         {/* Field Select ---------------------------------------------------*/}
-                                                                        <MuiSelect label="โดยมีหนี้อยู่กับ" id="loanrequestcontact-step1-no6-bankdebt-select" lists={['ธกส.1','ธกส.2','ธกส.3']} />
+                                                                        <MuiSelect label="โดยมีหนี้อยู่กับ" id="loanrequestcontact-step1-no6-bankdebt-select" lists={['ธ.ก.ส.','กองทุนหมู่บ้าน/กองทุนนโยบายรัฐ','หนี้สหกรณ์','หนี้นอกระบบ','อื่น ๆ โปรดระบุ']} />
                                                                     </Grid>
                                                                     <Grid item xs={12} md={12}>
                                                                         {/* Field Text ---------------------------------------------------*/}

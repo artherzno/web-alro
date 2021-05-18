@@ -20,6 +20,7 @@ import Nav from '../../components/Nav';
 import { 
     MuiSelect, 
     ButtonNormalIconStartPrimary,
+    ButtonNormalIconStartSecondary,
     ButtonOutlineIconStartGrey,
 } from '../../components/MUIinputs';
 
@@ -150,7 +151,7 @@ function LoanRequestProject() {
                                             <TableCell align="center" className="tb-w-12em">ระยะเวลากู้ยืม</TableCell>
                                             <TableCell align="center" className="tb-w-12em">วัตถุประสงค์การกู้ยืม</TableCell>
                                             <TableCell align="center" className="tb-w-12em">ประเภทผู้กู้</TableCell>
-                                            <TableCell align="center" className="sticky tb-w-14em">&nbsp;</TableCell>
+                                            <TableCell align="center" className="sticky tb-w-24em">&nbsp;</TableCell>
                                         </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -167,8 +168,8 @@ function LoanRequestProject() {
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_objective}</TableCell>
                                                     <TableCell align="center" className="tb-w-12em">{row.loan_farmer}</TableCell>
                                                     <TableCell align="center" className="sticky tb-w-14em">
-                                                        <ButtonOutlineIconStartGrey label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
-                                                        <ButtonOutlineIconStartGrey label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
+                                                        <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
+                                                        <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
                                                 </TableCell>
                                                 </TableRow>
                                             ))}
