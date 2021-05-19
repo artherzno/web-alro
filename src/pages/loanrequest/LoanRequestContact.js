@@ -12,6 +12,11 @@ import StepButton from '@material-ui/core/StepButton';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Check from '@material-ui/icons/Check';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import AddIcon from '@material-ui/icons/Add';
 
@@ -24,7 +29,10 @@ import LoanRequestContactStep4 from './LoanRequestContactStep4';
 import LoanRequestContactStep5 from './LoanRequestContactStep5';
 
 import {
+    MuiRadioButton,
+    MuiTextfield,
     ButtonFluidPrimary, 
+    ButtonFluidOutlinePrimary, 
 } from '../../components/MUIinputs';
 
 
@@ -99,6 +107,28 @@ function LoanRequestContact() {
     const steps = getSteps();
 
     const [loaded, setLoaded] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const [inputData, setInputData] = useState({
+        typePrint: '1',
+    })
+
+    // Radio Button
+    const handleChangeTypePrint = (event) => {
+        setInputData({...inputData,
+            typePrint: event.target.value
+        })
+        console.log('typePrint ',event.target.value)
+    };
+    // End Radio Button
+
+    const handleOpenDialog = () => {
+        setOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         setLoaded(true);
@@ -245,8 +275,25 @@ function LoanRequestContact() {
                                                 {activeStep+' '+completedSteps()}
                                             </p>
                                             ) : (
-                                                (activeStep < 4 ) ?  <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึก'} onClick={handleComplete}/> : ''
-                                                
+                                                    <React.Fragment>
+                                                        { 
+                                                            (activeStep < 4 && activeStep !== 2) ?  
+                                                            <Grid container spacing={2} className="btn-row txt-center">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
+                                                                </Grid>
+                                                            </Grid>
+                                                            : 
+                                                            <Grid container spacing={2} className="btn-row txt-center">
+                                                                <Grid item xs={12} md={6}>
+                                                                    <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleOpenDialog}/> 
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
+                                                                </Grid>
+                                                            </Grid>
+                                                        }
+                                                    </React.Fragment>
                                             ))}
                                     </div>
                                     
@@ -256,6 +303,45 @@ function LoanRequestContact() {
                     </Container>
                 </div>
             </Fade>
+        
+            
+            <Dialog
+                open={open}
+                onClose={handleCloseDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth="xs"
+                fullWidth={true}
+            >
+                <DialogTitle id="alert-dialog-title">{"พิมพ์คำขอ"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <MuiRadioButton label="" lists={['ทุกหน้า','บางส่วน']} value={inputData.typePrint} onChange={handleChangeTypePrint} />
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} md={3} className="txt-center-v txt-right">
+                                        <p>ตั้งแต่หน้า</p>
+                                    </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        <MuiTextfield label="" defaultValue="" />
+                                    </Grid>
+                                    <Grid item xs={12} md={1} className="txt-center-v txt-center">
+                                        <p>ถึง</p>
+                                    </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        <MuiTextfield label="" defaultValue="" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <ButtonFluidOutlinePrimary label="ยกเลิก" maxWidth="100px" onClick={handleCloseDialog} color="primary" autoFocus />
+                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleCloseDialog} color="primary" />
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }
