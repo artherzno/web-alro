@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory,Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,17 +22,14 @@ import AddIcon from '@material-ui/icons/Add';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
-import LoanRequestContactStep1 from './LoanRequestContactStep1';
-import LoanRequestContactStep2 from './LoanRequestContactStep2';
-import LoanRequestContactStep3 from './LoanRequestContactStep3';
-import LoanRequestContactStep4 from './LoanRequestContactStep4';
-import LoanRequestContactStep5 from './LoanRequestContactStep5';
+import RecordDebtPaymentStep3 from './RecordDebtPaymentStep3';
 
 import {
     MuiRadioButton,
     MuiTextfield,
     ButtonFluidPrimary, 
     ButtonFluidOutlinePrimary, 
+    ButtonFluidColor,
 } from '../../components/MUIinputs';
 
 
@@ -45,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
     completed: {
       display: 'inline-block',
-      color: 'red',
+      color: 'yellow',
     },
     instructions: {
       marginTop: theme.spacing(1),
@@ -57,11 +54,9 @@ const useStyles = makeStyles((theme) => ({
 function getStepIcon(props) {
     const { active, completed } = props;
     const items = {
-        1: '1',
-        2: '2',
-        3: '3',
-        4: '4',
-        5: <AddIcon/>,
+        1: 'S0',
+        2: 'S1',
+        3: 'S2',
     }
     return (
       <div className={(active) ? 'custom-stepper-item active' : (completed) ? 'custom-stepper-item completed' : 'custom-stepper-item'}>
@@ -78,16 +73,14 @@ function getStepIcon(props) {
   
 // Get Step Label
 function getSteps() {
-    return ['ยื่นคำขอ', 'แนบเอกสาร 1', 'ความเห็นของเจ้าหน้าที่', 'แนบเอกสาร 2', 'Special Flow'];
+    return ['อนุมัติคำขอ', 'บันทึกผู้ใช้หนี้แทน', 'ออกสัญญาเงินกู้ใหม่'];
 }
 
-function LoanRequestContact(props) {
-
-
+function RecordDebtPayment() {
     const history = useHistory();
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState((props.location.state === undefined) ? 0 : props.location.state.activeStep); // ex. 3
-    const [completed, setCompleted] = React.useState((props.location.state === undefined) ? {} : props.location.state.completed); // ex. { 0: true, 1: true, 2:true}
+    const [activeStep, setActiveStep] = React.useState(2); // ex. 3
+    const [completed, setCompleted] = React.useState({ 0: true, 1: true}); // ex. { 0: true, 1: true, 2:true}
     const steps = getSteps();
 
     const [loaded, setLoaded] = useState(false);
@@ -101,21 +94,28 @@ function LoanRequestContact(props) {
     function getStepContent(step) {
         switch (step) {
             case 0:
-            return <LoanRequestContactStep1 />;
+                return <Redirect to={{
+                    pathname: '/loanrequest/loanrequestcontact',
+                    state: { 
+                        activeStep: 3,
+                        completed: { 0: true, 1: true, 2:true},
+                    }
+                  }}/>
             case 1:
-            return <LoanRequestContactStep2 />;
+                return <Redirect to={{
+                    pathname: '/loanrequest/loanrequestcontact',
+                    state: { 
+                        activeStep: 4,
+                        completed: { 0: true, 1: true, 2:true, 3:true},
+                        typeSpecial: '3',
+                        color: 'bluesky',
+                        page: 'recorddebtpayment'
+                    }
+                  }}/>
             case 2:
-            return <LoanRequestContactStep3 />;
-            case 3:
-            return <LoanRequestContactStep4 />;
-            case 4:
-            return <LoanRequestContactStep5 
-                        typeSpecial={(props.location.state === undefined) ? '1' : props.location.state.typeSpecial} 
-                        color={(props.location.state === undefined) ? 'red' : props.location.state.color} 
-                        page={(props.location.state === undefined) ? 'red' : props.location.state.page}
-                    />;
+                return <RecordDebtPaymentStep3 />;
             default:
-            return 'Unknown step';
+                return 'Unknown step';
         }
     }
 
@@ -192,14 +192,14 @@ function LoanRequestContact(props) {
     }
 
     return (
-        <div className="loanrequestcontact-page">
+        <div className="recorddebtpayment-page">
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
             </div>
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
-                    <Container maxWidth="md">
+                    <Container maxWidth="lg">
                         <div className={classes.root}>
                             <Stepper alternativeLabel nonLinear activeStep={activeStep} className="custom-stepper-box">
                                 {steps.map((label, index) => (
@@ -282,24 +282,13 @@ function LoanRequestContact(props) {
                                             </p>
                                             ) : (
                                                     <React.Fragment>
-                                                        { 
-                                                            (activeStep < 4 && activeStep !== 2) ?  
-                                                            <Grid container spacing={2} className="btn-row txt-center">
-                                                                <Grid item xs={12} md={12}>
-                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
-                                                                </Grid>
-                                                            </Grid>
-                                                            : (activeStep === 2) ?
-                                                            <Grid container spacing={2} className="btn-row txt-center">
-                                                                <Grid item xs={12} md={6}>
-                                                                    <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleOpenDialog}/> 
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
-                                                                </Grid>
-                                                            </Grid>
-                                                            : ''
-                                                        }
+                                                        {activeStep !== steps.length && (completed[activeStep] ? (
+                                                            <p variant="caption" className={classes.completed}>
+                                                                Step {activeStep + 1} already completed
+                                                            </p>
+                                                            ) : (
+                                                             <ButtonFluidColor label="ยืนยันการเพิ่ม" maxWidth="615px" color="bluesky" onClick={handleComplete} />
+                                                        ))}
                                                     </React.Fragment>
                                             ))}
                                     </div>
@@ -353,4 +342,4 @@ function LoanRequestContact(props) {
     )
 }
 
-export default withRouter(LoanRequestContact)
+export default RecordDebtPayment

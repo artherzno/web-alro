@@ -18,36 +18,46 @@ import {
 } from '../../components/MUIinputs';
 
 
-function LoanRequestContactStep5() {
+function LoanRequestContactStep5(props) {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
-        typeSpecial: '1',
+        typeSpecial: (props.typeSpecial === undefined) ? '1' : props.typeSpecial,
     });
+    const [pageSpecialFlow, setPageSpecialFlow] = useState((props.page === undefined) ? 'recordcourtcontract' : props.page);
+    const [pageColor, setPageColor] = useState((props.color === undefined) ? 'red' : props.color);
 
-    useEffect(() => {
-        setLoaded(true);
-    }, [])
 
     const handleChangeTypeSpecial = (event) => {
         setInputData({...inputData,
             typeSpecial: event.target.value
         })
-        console.log('typeSpecial ',event.target.value)
+        // console.log('typeSpecial ',event.target.value)
+        // checkColorLineTop();
+
+        if(event.target.value === '1') {
+            setPageColor('red');
+            setPageSpecialFlow('recordcourtcontract');
+        } else if (event.target.value === '2') {
+            setPageColor('yellow')
+            setPageSpecialFlow('recorddebtcontract');
+        } else if (event.target.value === '3') {
+            setPageColor('bluesky')
+            setPageSpecialFlow('recorddebtpayment');
+        } else if (event.target.value === '4') {
+            setPageColor('grey')
+            setPageSpecialFlow('recordcourtcontract');
+        }
     };
 
-    const checkColorLineTop = () => {
-        if(inputData.typeSpecial === '1') {
-            return 'red';
-        } else if(inputData.typeSpecial === '2'){
-            return 'yellow';
-        } else if(inputData.typeSpecial === '3'){
-            return 'bluesky';
-        } else if(inputData.typeSpecial === '4'){
-            return 'grey';
-        }
-    }
+    
+
+
+    useEffect(() => {
+        setLoaded(true);
+        // console.log(props.typeSpecial)
+    }, [pageColor, pageSpecialFlow])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,6 +73,10 @@ function LoanRequestContactStep5() {
         //   setError(true);
         // }
       };
+
+    const gotoSpecialFlow = () => {
+        history.push('/loanrequest/'+pageSpecialFlow)
+    }
 
 
     return (
@@ -81,12 +95,12 @@ function LoanRequestContactStep5() {
                             <Grid item xs={12} md={12}>
                                 {/* <Paper className="paper line-top-red"> */}
 
-                                <Paper className={"paper mg-t-20 line-top-"+checkColorLineTop()}>
+                                <Paper className={"paper mg-t-20 line-top-"+pageColor}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2} className="paper-container">
                                             <Grid item xs={12} md={12}>
-                                                <h3  className={"paper-head-"+checkColorLineTop()}>Special Flow</h3>
-                                                <MuiRadioButton label="" id="loanrequestcontact-step3-no2-typeSuitability-input" lists={['ฟ้องศาล','แปลงหนี้', 'ใช้หนี้แทน', 'อื่นๆ']} color={checkColorLineTop()} value={inputData.typeSpecial} onChange={handleChangeTypeSpecial} type="row" />
+                                                <h3  className={"paper-head-"+pageColor}>Special Flow</h3>
+                                                <MuiRadioButton label="" id="loanrequestcontact-step3-no2-typeSuitability-input" lists={['ฟ้องศาล','แปลงหนี้', 'ใช้หนี้แทน', 'อื่นๆ']} color={pageColor} value={inputData.typeSpecial} onChange={handleChangeTypeSpecial} type="row" />
                                                 
                                             </Grid>
                                         </Grid>
@@ -96,7 +110,7 @@ function LoanRequestContactStep5() {
 
                             {/* Paper 2 - -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>
-                                <Paper  className={"paper mg-t-20 line-top-"+checkColorLineTop()}>
+                                <Paper  className={"paper mg-t-20 line-top-"+pageColor}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2} className="paper-container">
                                             <Grid item xs={12} md={12}>
@@ -115,7 +129,12 @@ function LoanRequestContactStep5() {
 
 
                             <Grid item xs={12} md={12} className="mg-t-20">
-                                <ButtonFluidColor label="บันทึก" color={checkColorLineTop()} />
+                                { 
+                                    (inputData.typeSpecial === '4') ? 
+                                        <ButtonFluidColor label="บันทึก" color={pageColor} />
+                                    : 
+                                        <ButtonFluidColor label="บันทึก" color={pageColor} onClick={()=>{gotoSpecialFlow()}} />
+                                }
                             </Grid>
 
                         </Grid>

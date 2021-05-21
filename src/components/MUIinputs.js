@@ -144,13 +144,24 @@ const useStyles = makeStyles({
     },
     buttonYellow: {
         backgroundColor: '#fcbd0a',
+        '&:hover': {
+            backgroundColor: '#c49207',
+        },
         color: '#000',
     },
     buttonBluesky: {
         backgroundColor: '#16c5e5',
+        '&:hover': {
+            backgroundColor: '#13a5bf',
+        },
+        color: '#fff',
     },
     buttonRed: {
         backgroundColor: '#da2828',
+        '&:hover': {
+            backgroundColor: '#b52020',
+        },
+        color: '#fff',
     },
     buttonGrey: {
         backgroundColor: '#959595',
@@ -613,7 +624,7 @@ const ButtonFluidColor = (props) => {
     let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey :'';
 
     return (
-        <Button className={classes.buttonFluid+' '+bgColor} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+        <Button className={classes.buttonFluid+' '+bgColor} variant="contained" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }

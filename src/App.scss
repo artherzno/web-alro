@@ -959,6 +959,134 @@ input {
   }
 }
 
+.recordcourtcontract-page {
+  .custom-stepper {
+    .custom-stepper-item {
+      border: 2px solid #bfbfbf;
+      &.active {
+        color: #fff;
+        fill: var(--red);
+        border-color: var(--red);
+        background-color: var(--red);
+      }
+      &.completed {
+        color: var(--red);
+        fill: #fff;
+        border-color: var(--red);
+        background-color: #fff;
+      }
+      p {
+        line-height: 0.6;
+      }
+    }
+    // }
+    &:first-child {
+      .custom-stepper-item {
+        &.active {
+          color: #fff;
+          fill: #27ae60;
+          border-color: #27ae60;
+          background-color: #27ae60;
+        }
+        &.completed {
+          color: #27ae60;
+          fill: #fff;
+          border-color: #27ae60;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.recorddebtcontract-page {
+  .custom-stepper {
+    .custom-stepper-item {
+      border: 2px solid #bfbfbf;
+      &.active {
+        color: #fff;
+        fill: var(--yellow);
+        border-color: var(--yellow);
+        background-color: var(--yellow);
+      }
+      &.completed {
+        color: var(--yellow);
+        fill: #fff;
+        border-color: var(--yellow);
+        background-color: #fff;
+      }
+      p {
+        line-height: 0.6;
+      }
+    }
+    // }
+    &:first-child {
+      .custom-stepper-item {
+        &.active {
+          color: #fff;
+          fill: #27ae60;
+          border-color: #27ae60;
+          background-color: #27ae60;
+        }
+        &.completed {
+          color: #27ae60;
+          fill: #fff;
+          border-color: #27ae60;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.recorddebtpayment-page {
+  .custom-stepper {
+    .custom-stepper-item {
+      border: 2px solid #bfbfbf;
+      &.active {
+        color: #fff;
+        fill: var(--blue);
+        border-color: var(--blue);
+        background-color: var(--blue);
+      }
+      &.completed {
+        color: var(--blue);
+        fill: #fff;
+        border-color: var(--blue);
+        background-color: #fff;
+      }
+      p {
+        line-height: 0.6;
+      }
+    }
+    // }
+    &:first-child {
+      .custom-stepper-item {
+        &.active {
+          color: #fff;
+          fill: #27ae60;
+          border-color: #27ae60;
+          background-color: #27ae60;
+        }
+        &.completed {
+          color: #27ae60;
+          fill: #fff;
+          border-color: #27ae60;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.recordcourtcontract-step-page,
+.recorddebtcontract-step-page,
+.recorddebtpayment-step-page {
+  .fade {
+    margin: 0;
+  }
+}
+
 // Material UI (Mui) --------------------------//
 
 .custom-stepper-box {
