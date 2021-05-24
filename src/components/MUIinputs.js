@@ -208,7 +208,7 @@ const useStyles = makeStyles({
       backgroundColor: 'transparent',
       border: '1px solid #E2E2E2',
       color: '#262626',
-      minWidth: '190px',
+      minWidth: '120px',
     },
     textbox: {
       width: '100%',
@@ -391,7 +391,7 @@ const MuiDatePicker = (props) => {
 }
 
 const MuiCheckbox = (props) => {
-    const { label, id, value, type } = props;
+    const { label, id, value, type, defaultChecked } = props;
 
     return (
         <React.Fragment>
@@ -401,7 +401,7 @@ const MuiCheckbox = (props) => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            defaultChecked
+                            defaultChecked={defaultChecked}
                             // checked={state.checkedB}
                             // onChange={handleChange}
                             // name="checkedB"
@@ -417,7 +417,7 @@ const MuiCheckbox = (props) => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            defaultChecked
+                            defaultChecked={defaultChecked}
                             // checked={state.checkedB}
                             // onChange={handleChange}
                             // name="checkedB"
@@ -578,6 +578,16 @@ const ButtonNormalIconStartSecondary = (props) => {
     );
 }
 
+const ButtonNormalIconStartGrey = (props) => {
+    const classes = useStyles();
+    const { label, maxWidth, startIcon, onClick } = props;
+
+    return (
+        <Button className={classes.buttonNormal} edge="end" variant="contained" color="default" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+                                            
+    );
+}
+
 const ButtonFluidIconStartPrimary = (props) => {
     const classes = useStyles();
     const { label, maxWidth, startIcon, onClick } = props;
@@ -666,6 +676,7 @@ export {
     ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
+    ButtonNormalIconStartGrey,
     ButtonOutlineIconStartGrey,
     ButtonFluidPrimary,
     ButtonFluidSecondary,

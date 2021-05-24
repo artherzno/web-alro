@@ -20,6 +20,11 @@ import AddMember from './manageinfo/AddMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
 import LoanAddProject from './manageinfo/LoanAddProject';
+import ManageUser from './manageinfo/ManageUser';
+import ManagePermission from './manageinfo/ManagePermission';
+import AddUser from './manageinfo/AddUser';
+import AddMenu from './manageinfo/AddMenu';
+import AddRole from './manageinfo/AddRole';
 import LoanRequestContactSearch from './loanrequest/LoanRequestContactSearch';
 import LoanRequestContact from './loanrequest/LoanRequestContact';
 import LoanRequestPrint from './loanrequest/LoanRequestPrint';
@@ -89,6 +94,11 @@ function Main() {
                     <Route path="/manageinfo/addmember" component={AddMember} />
                     <Route path="/manageinfo/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/manageinfo/loanaddproject" component={LoanAddProject} />
+                    <Route path="/manageinfo/manageuser" component={ManageUser} />
+                    <Route path="/manageinfo/adduser" component={AddUser} />
+                    <Route path="/manageinfo/addmenu" component={AddMenu} />
+                    <Route path="/manageinfo/addrole" component={AddRole} />
+                    <Route path="/manageinfo/managepermission" component={ManagePermission} />
                 </Switch>
             </Router>
         </div>

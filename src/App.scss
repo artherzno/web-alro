@@ -270,6 +270,22 @@ h3 {
   margin-bottom: -20px !important;
 }
 
+.mg-l-10 {
+  margin-left: 10px !important;
+}
+
+.mg-r-10 {
+  margin-right: 10px !important;
+}
+
+.mg-l-20 {
+  margin-left: 20px !important;
+}
+
+.mg-r-20 {
+  margin-right: 20px !important;
+}
+
 // Max Height Style ---------------------------//
 .max-h-350 {
   max-height: 350px;
@@ -295,6 +311,11 @@ h3 {
 }
 .dsp-b {
   display: block;
+}
+
+// Algin Style --------------------------------//
+.jc-flex-end {
+  justify-content: flex-end;
 }
 
 // Table Style --------------------------------//
@@ -1087,6 +1108,76 @@ input {
   }
 }
 
+// Add Role Page ------------------------------//
+.addrole-page {
+  // .MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label
+  // .MuiTreeItem-root:focus > .MuiTreeItem-content .MuiTreeItem-label
+  .treeview {
+    li {
+      .MuiTreeItem-content {
+        top: 1.5em;
+        .MuiTreeItem-label {
+          padding: 10px 6px;
+          font-size: 1.3rem;
+        }
+        .MuiButton-contained {
+          min-width: 20px;
+          min-height: 20px;
+          width: 26px;
+          height: 26px;
+          padding: 2px;
+          .MuiButton-startIcon {
+            margin: 0;
+            svg {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Manage Permission Page ---------------------//
+.managepermission-page {
+  .treeview {
+    li {
+      &.Mui-selected {
+        > .MuiTreeItem-content {
+          border: 1px solid var(--green);
+          background-color: var(--lightgreen);
+          .MuiTreeItem-label {
+            background-color: transparent;
+          }
+        }
+      }
+      .MuiTreeItem-content {
+        top: 1.5em;
+        border: 1px solid var(--grey);
+        margin-bottom: 4px;
+
+        .MuiTreeItem-label {
+          padding: 10px 6px;
+          font-size: 1rem;
+        }
+        .MuiButton-contained {
+          min-width: 20px;
+          min-height: 20px;
+          width: 26px;
+          height: 26px;
+          padding: 2px;
+          .MuiButton-startIcon {
+            margin: 0;
+            svg {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 // Material UI (Mui) --------------------------//
 
 .custom-stepper-box {
@@ -1126,6 +1217,79 @@ input {
   }
 }
 
+.treeview {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .MuiCheckbox-root {
+    margin: 0;
+    padding: 4px;
+  }
+
+  .MuiTreeItem-root {
+    .tree-button {
+      display: none;
+      float: right;
+    }
+    .MuiTreeItem-label {
+      // height: 45px;
+      position: relative;
+      &:hover {
+        > .tree-button {
+          display: block;
+
+          button {
+            cursor: pointer;
+            padding: 5px;
+            margin: 0 4px;
+          }
+        }
+      }
+    }
+  }
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    padding-left: 1em;
+  }
+  li {
+    padding-left: 1em;
+    border: 1px solid black;
+    border-width: 0 0 1px 1px;
+  }
+  & > li {
+    border: none;
+  }
+  li.container {
+    border-bottom: 0px;
+  }
+  li.empty {
+    font-style: italic;
+    color: silver;
+    border-color: silver;
+  }
+  li .MuiTreeItem-content {
+    margin: 0;
+    background: white;
+    position: relative;
+    top: 1em;
+  }
+  li ul {
+    border-top: 1px solid black;
+    margin-left: 0;
+    padding-left: 2em;
+  }
+  ul li:last-child ul {
+    border-left: 1px solid white;
+    margin-left: -17px;
+  }
+}
+
 .MuiInputBase-root {
   &.MuiInputBase-multiline {
     padding: 0;
@@ -1138,6 +1302,13 @@ input {
   border-left: 1px solid rgba(234, 234, 243, 1);
   &:first-child {
     border-left: none;
+  }
+
+  &.MuiTableCell-head {
+    padding: 16px;
+  }
+  &.MuiTableCell-body {
+    padding: 4px 16px;
   }
 
   button {

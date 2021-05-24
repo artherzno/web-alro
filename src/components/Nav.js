@@ -148,6 +148,9 @@ const listmenu = [
             },{
                 subtitle: 'ค้นหาสมาชิก',
                 subpath: '/manageinfo/searchmember'
+            },{
+                subtitle: 'จัดการผู้ใช้งาน',
+                subpath: '/manageinfo/manageuser'
             }
         ]
     },
