@@ -13,6 +13,10 @@ function Header(props) {
         history.push('/home');
     }
 
+    const logout = () => {
+        history.push('/');
+    }
+
     return (
         <div className={`header ${bgColor} ${status}`}>
             <div className="logo" onClick={()=>goto()}>
@@ -32,6 +36,7 @@ function Header(props) {
                     title="Log Out"
                     size={1}
                     color="#27ae60"
+                    onClick={()=>logout()}
                     />
                 </div> : ''}
         </div>
