@@ -44,7 +44,7 @@ const listmenu = [
                 subpath: '/loanrequest/recordcloseoldcontact'
             },{
                 subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
-                subpath: '/home'
+                subpath: '/loanrequest/printcontractdebt'
             },{
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
                 subpath: '/loanrequest/editcontract'

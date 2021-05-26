@@ -46,6 +46,9 @@ import FaultCondition from './debtinfo/FaultCondition';
 import RecordCourtContract from './loanrequest/RecordCourtContract';
 import RecordDebtContract from './loanrequest/RecordDebtContract';
 import RecordDebtPayment from './loanrequest/RecordDebtPayment';
+import PrintContractDebt from './loanrequest/PrintContractDebt';
+import EditContractDebt from './loanrequest/EditContractDebt';
+import RecordContractDebt from './loanrequest/RecordContractDebt';
 
 function Main() {
     return (
@@ -62,10 +65,13 @@ function Main() {
                     <Route path="/loanrequest/loanrecivceprint" component={LoanRecivcePrint} />
                     <Route path="/loanrequest/recordcloseoldcontact" component={RecordCloseOldContact} />
                     <Route path="/loanrequest/editcontract" component={EditContract} />
+                    <Route path="/loanrequest/editcontractdebt" component={EditContractDebt} />
                     <Route path="/loanrequest/allcontractsearch" component={AllContractSearch} />
+                    <Route path="/loanrequest/recordcontractdebt" component={RecordContractDebt} />
                     <Route path="/loanrequest/recordcourtcontract" component={RecordCourtContract} />
                     <Route path="/loanrequest/recorddebtcontract" component={RecordDebtContract} />
                     <Route path="/loanrequest/recorddebtpayment" component={RecordDebtPayment} />
+                    <Route path="/loanrequest/printcontractdebt" component={PrintContractDebt} />
                     {/* Loan Service Info Page */}
                     <Route path="/loanserviceinfo/recordbillalro" component={RecordBillAlro} />
                     <Route path="/loanserviceinfo/recordbillclose" component={RecordBillClose} />

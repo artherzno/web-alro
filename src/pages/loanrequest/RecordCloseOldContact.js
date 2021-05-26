@@ -93,7 +93,7 @@ function RecordCloseOldContact() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน</h1>
+                                <h1>บันทึกปิดสัญญาเดิม</h1>
                             </Grid>
                         </Grid>
                     </Container>
