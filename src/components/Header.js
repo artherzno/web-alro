@@ -1,20 +1,51 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiLogout} from '@mdi/js'
 
 import LogoImg from '../assets/logo-alro.png';
+import { AuthContext } from '../App';
 
 function Header(props) {
+    const auth = useContext(AuthContext)
     const history = useHistory();
     const { bgColor, status } = props;
+
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const goto = () => {
         history.push('/home');
     }
 
-    const logout = () => {
+    let server_port = auth.port;
+    const logout = async () => {
+        const res = await fetch(`http://127.0.0.1:${server_port}/admin/api/logout`, {
+            method: 'POST',})
         history.push('/');
+
+        res
+        .json()
+        .then(res => {
+          if (res.code === 0 || res === null || res === undefined ) {
+            setIsLoaded(true);
+            setErr(true);
+            setErrMsg(res.message)
+          } else {
+
+              setIsLoaded(true);
+              console.log(res)
+              history.push('/');
+              // setDataCampaign(data); // from local
+          }
+
+        })
+        .catch(err => {
+          console.log(err);
+          setIsLoaded(true);
+          setErr(true);
+        });
     }
 
     return (

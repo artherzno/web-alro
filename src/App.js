@@ -1,9 +1,12 @@
+import React, { createContext } from 'react';
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import './App.scss';
 import { fade, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { mdiScale } from '@mdi/js';
+
+const AuthContext = createContext();
 
 const theme = createMuiTheme({
   typography: {
@@ -30,15 +33,20 @@ const theme = createMuiTheme({
   },
 })
 
+const AuthData = { port: 3800, password: '1234'}
+
 function App() {
   return (
+  <AuthContext.Provider value={AuthData}>
     <ThemeProvider theme={theme}>
       <div className="App">
         <Main />
         <Footer />
       </div>
     </ThemeProvider>
+  </AuthContext.Provider>
   );
 }
 
+export { AuthContext }
 export default App;
