@@ -1,7 +1,26 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {Select} from './select'
+import api from '../../services/webservice'
 
 export const ProvinceSelect = ({ onChange=() =>{}}) =>{
+
+    const [provinceList, setProvinceList] = useState([])
+
+    useEffect(() =>{
+
+        getProvinceList()
+        
+    },[])
+
+    function getProvinceList(){
+
+        api.getProvinceList().then(response =>{
+
+            setProvinceList(response.data.data)
+        }).catch(error =>{
+
+        })
+    }
 
     return(
         <div>
