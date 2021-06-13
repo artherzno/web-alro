@@ -16,7 +16,15 @@ export const ProvinceSelect = ({ onChange=() =>{}}) =>{
 
         api.getProvinceList().then(response =>{
 
-            setProvinceList(response.data.data)
+            const provinceList = []
+            response.data.data.forEach(element => {
+                provinceList.push({
+                    value: element.provinceID,
+                    label: element.nameTH
+                })
+            });
+
+            setProvinceList(provinceList)
         }).catch(error =>{
 
         })
@@ -24,7 +32,7 @@ export const ProvinceSelect = ({ onChange=() =>{}}) =>{
 
     return(
         <div>
-            <Select options={[{value:"p1",label:"p1"}]} emptyLabel="ทุกจังหวัด" label="จังหวัด"/>
+            <Select options={provinceList} emptyLabel="ทุกจังหวัด" label="จังหวัด"/>
         </div>
     )
 }

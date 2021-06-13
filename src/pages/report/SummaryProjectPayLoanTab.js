@@ -29,9 +29,6 @@ class SumaryProjectPayLoanTab extends React.Component {
                         <Grid item>
                             <DisplaySelect />
                         </Grid>
-                        <Grid item>
-                            <SectionSelect />
-                        </Grid>
                     </Grid>
                 </Grid>
 

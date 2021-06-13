@@ -1,11 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Select } from './select'
+import api from '../../services/webservice'
 
 export const MonthSelect = ({ onChange = () => { } }) => {
 
+    const [monthList, setMonthList] = useState([])
+
+    useEffect(() => {
+
+        getMonthList()
+
+    }, [])
+
+    function getMonthList() {
+
+        api.getMonthList().then(response => {
+
+            const monthList = []
+            response.data.data.forEach(element => {
+                monthList.push({
+                    value: element.id,
+                    label: element.nameTH
+                })
+            });
+
+            setMonthList(monthList)
+        }).catch(error => {
+
+        })
+    }
+
     return (
         <div>
-            <Select options={[{ value: "p1", label: "p1" }]} emptyLabel="ทุกเดือน" label="เดือน" />
+            <Select options={monthList} emptyLabel="ทุกเดือน" label="เดือน" />
         </div>
     )
 }

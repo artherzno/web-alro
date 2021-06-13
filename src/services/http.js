@@ -12,8 +12,8 @@ const setHeader = (isMultipart, token) => {
 
     axios.defaults.headers = {
         "Content-Type": isMultipart ? 'multipart/form-data' : "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Authorization": token == null ? "" : "bearer " + token,
+        // "Access-Control-Allow-Origin": "*",
+        // "Authorization": token == null ? "" : "bearer " + token,
     };
 
     axios.defaults.timeout = 60 * 4 * 1000;
@@ -44,6 +44,9 @@ const get = (path, parameter, token, config = {}) => {
     return new Promise((resolve, reject) => {
 
         setHeader(false, token)
+
+        // return axios.get("http://147.50.143.83:8080/api/ReportServices/GetProvinces")
+
         return axios
             .get(path, { params: parameter, ...config })
             .then(response => {

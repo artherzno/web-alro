@@ -34,9 +34,7 @@ class Billed extends React.Component {
                             <Grid item>
                                 <DisplaySelect />
                             </Grid>
-                            <Grid item>
-                                <ProvinceSelect />
-                            </Grid>
+                          
                         </Grid>
                     </Grid>
 
@@ -47,12 +45,7 @@ class Billed extends React.Component {
                             <Grid item>
                                 <DisplayMonthSelect />
                             </Grid>
-                            <Grid item>
-                                <MonthSelect />
-                            </Grid>
-                            <Grid item>
-                                <YearSelect />
-                            </Grid>
+                           
                         </Grid>
                     </Grid>
 
@@ -64,9 +57,7 @@ class Billed extends React.Component {
                             <Grid item>
                                 <TypeBillSelect />
                             </Grid>
-                            <Grid item>
-                                <ProvinceSelect />
-                            </Grid>
+                           
                         </Grid>
                     </Grid>
 

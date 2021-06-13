@@ -10,11 +10,24 @@ const api = {
     
     getProvinceList(){
 
-        // return post({
-        //     path:"api/ReportServices/GetProvinces"
-        // })
+        return get({
+            path:"api/ReportServices/GetProvinces"
+        })
 
-        return axios.post("http://147.50.143.83:8080/api/ReportServices/GetProvinces")
+    },
+    getMonthList() {
+
+        return get({
+            path: "api/ReportServices/GetMonth"
+        })
+
+    },
+    getZoneList() {
+
+        return get({
+            path: "api/ReportServices/GetZone"
+        })
+
     }
    
 };
@@ -139,6 +152,7 @@ export function showErrorDialog(error) {
             : error.message;
 
     dialog.showDialogWarning({ message });
+    
 }
 
 
