@@ -32,7 +32,7 @@ export const ProvinceSelect = ({ onChange=() =>{}}) =>{
 
     return(
         <div>
-            <Select options={provinceList} emptyLabel="ทุกจังหวัด" label="จังหวัด"/>
+            <Select options={provinceList} emptyLabel="ทุกจังหวัด" label="จังหวัด" onChange={onChange}/>
         </div>
     )
 }

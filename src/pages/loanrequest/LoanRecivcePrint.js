@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';

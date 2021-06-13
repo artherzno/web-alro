@@ -37,7 +37,7 @@ export const SectionSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={zoneList} emptyLabel="ทุกภาค" label="ภาค" />
+            <Select options={zoneList} emptyLabel="ทุกภาค" label="ภาค" onChange={onChange}/>
         </div>
     )
 }

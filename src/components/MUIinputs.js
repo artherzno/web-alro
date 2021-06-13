@@ -1,6 +1,7 @@
 import React from 'react';
-import { withStyles, makeStyles, fade, createMuiTheme } from '@material-ui/core/styles';
-
+import { createMuiTheme} from '@material-ui/core/styles';
+import { makeStyles, withStyles} from '@material-ui/styles';
+import { Fade, } from '@material-ui/core';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -41,7 +42,7 @@ const BootstrapInput = withStyles((theme) => ({
         padding: '10px 5px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
-            boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+            // boxShadow: `${Fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
             borderColor: theme.palette.primary.main,
         },
     },
@@ -97,7 +98,7 @@ const BlueskyRadio = withStyles({
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({});
 
 const useStyles = makeStyles({
     label: {
@@ -238,7 +239,7 @@ const useStyles = makeStyles({
       padding: '10px 12px',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
       '&:focus': {
-        boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        //   boxShadow: `${Fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
         borderColor: theme.palette.primary.main,
       },
     },

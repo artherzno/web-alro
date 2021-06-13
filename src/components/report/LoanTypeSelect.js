@@ -12,7 +12,7 @@ export const LoanTypeSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={typeList} emptyLabel="เลือก" label="ประเภทโครงสร้างหนี้" />
+            <Select options={typeList} emptyLabel="เลือก" label="ประเภทโครงสร้างหนี้" onChange={onChange}/>
         </div>
     )
 }

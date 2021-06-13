@@ -7,7 +7,11 @@ const displayList = [{ value: 1, label: "ทั้งประเทศ" },
 { value: 2, label: "รายภาค" },
 { value: 3, label: "รายจังหวัด" }]
 
-export const DisplaySelect = ({ onChange = () => { } }) => {
+export const DisplaySelect = ({ 
+    onChange = () => { } ,
+    onChangeSection = () => { },
+    onChangeProvince= () => { }
+}) => {
 
     const [display,setDisplay] = useState(0)
 
@@ -24,8 +28,8 @@ export const DisplaySelect = ({ onChange = () => { } }) => {
                     }} emptyLabel="เลือก" label="แสดง" />
                 </Grid>
 
-                {parseInt(display) === 2 && <Grid item><SectionSelect/></Grid>}
-                {parseInt(display) === 3 && <Grid item><ProvinceSelect /></Grid>}
+                {parseInt(display) === 2 && <Grid item><SectionSelect onChange={onChangeSection}/></Grid>}
+                {parseInt(display) === 3 && <Grid item><ProvinceSelect onChange={onChangeProvince}/></Grid>}
 
             </Grid>
 

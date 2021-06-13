@@ -1,9 +1,10 @@
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import './App.scss';
-import { fade, createMuiTheme } from '@material-ui/core/styles';
+import {  createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { mdiScale } from '@mdi/js';
+import { thTH } from '@material-ui/core/locale';
 
 const theme = createMuiTheme({
   typography: {
@@ -28,7 +29,7 @@ const theme = createMuiTheme({
       headerTable: "#F1F1F1"
     },
   },
-})
+}, thTH)
 
 function App() {
   return (

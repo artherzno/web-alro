@@ -4,15 +4,15 @@ import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect, LoanTypeSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
+
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 
 class ModifyTab extends React.Component {

@@ -32,7 +32,7 @@ export const MonthSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={monthList} emptyLabel="ทุกเดือน" label="เดือน" />
+            <Select options={monthList} emptyLabel="ทุกเดือน" label="เดือน" onChange={onChange}/>
         </div>
     )
 }

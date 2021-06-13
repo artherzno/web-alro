@@ -23,7 +23,7 @@ export const YearSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={years} emptyLabel="ทุกปี" label="ปี" />
+            <Select options={years} emptyLabel="ทุกปี" label="ปี" onChange={onChange}/>
         </div>
     )
 }
