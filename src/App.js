@@ -2,14 +2,14 @@ import React, { createContext } from 'react';
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import './App.scss';
-import {  createMuiTheme } from '@material-ui/core/styles';
+import {  createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { mdiScale } from '@mdi/js';
 import { thTH } from '@material-ui/core/locale';
 
 const AuthContext = createContext();
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       'Kanit',

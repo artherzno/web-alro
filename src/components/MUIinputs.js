@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMuiTheme} from '@material-ui/core/styles';
+import { createTheme} from '@material-ui/core/styles';
 import { makeStyles, withStyles} from '@material-ui/styles';
 import { Fade, } from '@material-ui/core';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -98,7 +98,7 @@ const BlueskyRadio = withStyles({
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
-const theme = createMuiTheme({});
+const theme = createTheme({});
 
 const useStyles = makeStyles({
     label: {
