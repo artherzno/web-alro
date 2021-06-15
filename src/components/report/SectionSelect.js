@@ -37,7 +37,12 @@ export const SectionSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={zoneList} emptyLabel="ทุกภาค" label="ภาค" onChange={onChange}/>
+            <Select options={zoneList} emptyLabel="ทุกภาค" label="ภาค" onChange={(event) => {
+
+                const found = zoneList.find(element => element.value.toString() === event.target.value)
+                onChange({ ...event, label: found ? found.label : "" })
+
+            }}/>
         </div>
     )
 }

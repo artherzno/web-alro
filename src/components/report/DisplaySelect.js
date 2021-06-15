@@ -15,6 +15,8 @@ export const DisplaySelect = ({
 
     const [display,setDisplay] = useState(0)
 
+    
+
     return (
         <div>
             <Grid container spacing={2}>
@@ -22,7 +24,8 @@ export const DisplaySelect = ({
                 <Grid item>
                     <Select options={displayList} onChange={(event) =>{
                         
-                        onChange(event)
+                        const found = displayList.find(element => element.value.toString() === event.target.value)
+                        onChange({ ...event, label: found ? found.label : "" })
                         setDisplay(event.target.value)
 
                     }} emptyLabel="เลือก" label="แสดง" />

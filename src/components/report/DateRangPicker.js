@@ -23,7 +23,6 @@ export const DateRange = ({ label,onChange}) => {
                     onChange={(newValue) => {
                         setValue(newValue);
                         onChange(newValue)
-                        console.log("data",newValue)
                     }}
                     renderInput={(startProps, endProps) => (
                         <React.Fragment>

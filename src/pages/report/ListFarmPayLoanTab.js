@@ -13,21 +13,28 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
+import moment from 'moment'
 
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
 
 class ListFarmPayLoanTab extends React.Component {
 
-    constructor(props){
+    constructor(props) {
 
         super(props)
 
         this.state = {
-            farmerPayLoanList:[],
-            displaySection:"",
-            section:0,
-            province:0
+            farmerPayLoanList: [],
+            displaySection: "",
+            sectionProvince: "",
+            month: "",
+            year: "",
+            display2: "",
+            startDate: "",
+            endDate: "",
+            receiptType: "",
+            receiptProvince: ""
 
         }
     }
@@ -40,20 +47,20 @@ class ListFarmPayLoanTab extends React.Component {
 
     loadPayLoan() {
 
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, receiptType, receiptProvince } = this.state
+
         const parameter = new FormData()
-        parameter.append('Display1', '1');
-        parameter.append('Month', '1');
-        parameter.append('Year', '2563');
-        parameter.append('ReceiptType', '1');
-        parameter.append('ALROProvince', '1');
-        parameter.append('ZoneProvince', '1');
-        parameter.append('Display2', '1');
-        parameter.append('StartDate', '2021-05-26');
-        parameter.append('EndDate', '2021-05-26');
+        parameter.append('Display1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('Year', year);
+        parameter.append('ReceiptType', receiptType);
+        parameter.append('ALROProvince', receiptProvince);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('Display2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
 
         api.getPayLoan(parameter).then(response => {
-
-            console.log("response", response.data)
 
             this.setState({
                 farmerPayLoanList: response.data.data
@@ -66,7 +73,7 @@ class ListFarmPayLoanTab extends React.Component {
 
     render() {
 
-        const { classes} = this.props;
+        const { classes } = this.props;
 
         return (<div>
             <Grid container spacing={2}>
@@ -74,19 +81,91 @@ class ListFarmPayLoanTab extends React.Component {
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <DisplaySelect />
+                            <DisplaySelect
+                                onChange={(event) => {
+
+                                    this.setState({
+                                        displaySection: event.target.value,
+                                        sectionProvince: "",
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeProvince={(event) => {
+                                    this.setState({
+                                        sectionProvince: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeSection={(event) => {
+                                    this.setState({
+                                        sectionProvince: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
                         </Grid>
-                      
+
                     </Grid>
 
                 </Grid>
-                <Grid item/>
+                <Grid item />
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <DisplayMonthSelect />
+                            <DisplayMonthSelect
+                                onChange={(event) => {
+
+                                    this.setState({
+                                        display2: event.target.value,
+                                        month: "",
+                                        year: "",
+                                        startDate: "",
+                                        endDate: ""
+
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeDate={(event) => {
+                                    console.log("event", event)
+
+                                    if (event.length >= 2) {
+
+                                        const startDate = moment(event[0]).format("YYYY-MM-DD")
+                                        const endDate = moment(event[1]).format("YYYY-MM-DD")
+
+                                        console.log("startDate", startDate)
+
+                                        this.setState({
+                                            startDate: startDate,
+                                            endDate: endDate
+                                        }, () => {
+                                            this.loadPayLoan()
+                                        })
+                                    }
+                                }}
+                                onChangeMonth={(event) => {
+
+                                    this.setState({
+                                        month: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+
+                                }}
+                                onChangeYear={(event) => {
+                                    this.setState({
+                                        year: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
                         </Grid>
-                       
+
                     </Grid>
                 </Grid>
 
@@ -95,9 +174,25 @@ class ListFarmPayLoanTab extends React.Component {
                     <Grid container spacing={2}>
 
                         <Grid item>
-                            <TypeBillSelect />
+                            <TypeBillSelect
+                                onChange={(event) => {
+                                    this.setState({
+                                        receiptType: event.target.value,
+                                        receiptProvince: ""
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeProvince={(event) => {
+                                    this.setState({
+                                        receiptProvince: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
                         </Grid>
-                        
+
                     </Grid>
                 </Grid>
 
@@ -145,13 +240,13 @@ class ListFarmPayLoanTab extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.farmerPayLoanList.map((farmer,index) =>{
+                            {this.state.farmerPayLoanList.map((farmer, index) => {
 
-                                return(
+                                return (
                                     <TableRow key={index}>
                                         <StyledTableCellLine component="th" scope="row">
                                             {farmer.no}
-                                </StyledTableCellLine>
+                                        </StyledTableCellLine>
                                         <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
                                         <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
                                         <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
@@ -168,15 +263,15 @@ class ListFarmPayLoanTab extends React.Component {
                                     </TableRow>
                                 )
                             })}
-                            
-                            
+
+
                             <TableRow  >
                                 <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
-                               
+
                                 <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                                 <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                             </TableRow>

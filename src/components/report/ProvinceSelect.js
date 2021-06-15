@@ -32,7 +32,12 @@ export const ProvinceSelect = ({ onChange=() =>{}}) =>{
 
     return(
         <div>
-            <Select options={provinceList} emptyLabel="ทุกจังหวัด" label="จังหวัด" onChange={onChange}/>
+            <Select options={provinceList} emptyLabel="ทุกจังหวัด" label="จังหวัด" onChange={(event) => {
+
+                const found = provinceList.find(element => element.value.toString() === event.target.value)
+                onChange({ ...event, label: found ? found.label : "" })
+
+            }}/>
         </div>
     )
 }

@@ -23,7 +23,12 @@ export const YearSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={years} emptyLabel="ทุกปี" label="ปี" onChange={onChange}/>
+            <Select options={years} emptyLabel="ทุกปี" label="ปี" onChange={(event) =>{
+                
+                const found = years.find(element => element.value.toString() === event.target.value)
+                onChange({ ...event, label: found ? found.label : "" })
+
+            }}/>
         </div>
     )
 }

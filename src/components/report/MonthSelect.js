@@ -32,7 +32,12 @@ export const MonthSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={monthList} emptyLabel="ทุกเดือน" label="เดือน" onChange={onChange}/>
+            <Select options={monthList} emptyLabel="ทุกเดือน" label="เดือน" onChange={(event) => {
+
+                const found = monthList.find(element => element.value.toString() === event.target.value)
+                onChange({ ...event, label: found ? found.label : "" })
+
+            }}/>
         </div>
     )
 }
