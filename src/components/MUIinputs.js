@@ -1,6 +1,6 @@
 import React from 'react';
-import { createTheme} from '@material-ui/core/styles';
-import { makeStyles, withStyles} from '@material-ui/styles';
+import { createTheme, alpha, styled } from '@material-ui/core/styles';
+import { makeStyles, withStyles,} from '@material-ui/styles';
 import { Fade, } from '@material-ui/core';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
@@ -27,6 +27,33 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { yellow } from '@material-ui/core/colors';
 
 const BootstrapInput = withStyles((theme) => ({
+
+    // 'label + &': {
+    //     marginTop: theme.spacing(3),
+    // },
+    // '& .MuiInputBase-input': {
+    //     borderRadius: 4,
+    //     position: 'relative',
+    //     backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+    //     border: '1px solid #ced4da',
+    //     fontSize: 16,
+    //     width: 'auto',
+    //     padding: '10px 12px',
+    //     transition: theme.transitions.create([
+    //         'border-color',
+    //         'background-color',
+    //         'box-shadow',
+    //     ]),
+    //     // Use the system font instead of the default Roboto font.
+    //     fontFamily: [
+    //         'kanit',
+    //     ].join(','),
+    //     '&:focus': {
+    //         boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+    //         borderColor: theme.palette.primary.main,
+    //     },
+    // },
+
     root: {
         'label + &': {
             marginTop: theme.spacing(3),
@@ -42,7 +69,6 @@ const BootstrapInput = withStyles((theme) => ({
         padding: '10px 5px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
-            // boxShadow: `${Fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
             borderColor: theme.palette.primary.main,
         },
     },
