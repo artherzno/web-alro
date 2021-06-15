@@ -28,6 +28,14 @@ const api = {
             path: "api/ReportServices/GetZone"
         })
 
+    },
+    getPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetFarmerPayLoan",
+            data
+        })
+
     }
    
 };
@@ -118,10 +126,10 @@ function deletes({
     });
 }
 
-function get({ path, params, isShowError = true, config = {}, context, token, isExternal }) {
+function get({ path, params,data, isShowError = true, config = {}, context, token, isExternal }) {
     return new Promise((resolve, reject) => {
         return http
-            .get(path, params, isExternal ? token : getToken(context), config)
+            .get(path, params, isExternal ? token : getToken(context), config, data)
             .then((response) => {
                 resolve(response);
             })

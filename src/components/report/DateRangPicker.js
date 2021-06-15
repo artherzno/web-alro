@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
 import defaultLocale from "date-fns/locale/th";
 
-export const DateRange = ({ label}) => {
+export const DateRange = ({ label,onChange}) => {
     const [value, setValue] = React.useState([null, null]);
 
     return (
@@ -22,6 +22,8 @@ export const DateRange = ({ label}) => {
                     inputFormat="dd MMMM yyyy"
                     onChange={(newValue) => {
                         setValue(newValue);
+                        onChange(newValue)
+                        console.log("data",newValue)
                     }}
                     renderInput={(startProps, endProps) => (
                         <React.Fragment>

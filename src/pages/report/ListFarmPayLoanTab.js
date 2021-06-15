@@ -15,8 +15,54 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
+import api from '../../services/webservice'
 
 class ListFarmPayLoanTab extends React.Component {
+
+    constructor(props){
+
+        super(props)
+
+        this.state = {
+            farmerPayLoanList:[],
+            displaySection:"",
+            section:0,
+            province:0
+
+        }
+    }
+
+    componentDidMount() {
+
+
+        this.loadPayLoan()
+    }
+
+    loadPayLoan() {
+
+        const parameter = new FormData()
+        parameter.append('Display1', '1');
+        parameter.append('Month', '1');
+        parameter.append('Year', '2563');
+        parameter.append('ReceiptType', '1');
+        parameter.append('ALROProvince', '1');
+        parameter.append('ZoneProvince', '1');
+        parameter.append('Display2', '1');
+        parameter.append('StartDate', '2021-05-26');
+        parameter.append('EndDate', '2021-05-26');
+
+        api.getPayLoan(parameter).then(response => {
+
+            console.log("response", response.data)
+
+            this.setState({
+                farmerPayLoanList: response.data.data
+            })
+
+        }).catch(error => {
+
+        })
+    }
 
     render() {
 
@@ -84,7 +130,7 @@ class ListFarmPayLoanTab extends React.Component {
                                 <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
                                 <StyledTableCell align="center" rowSpan={2}>ชื่อ-นามสกุล</StyledTableCell>
                                 <StyledTableCell align="center" rowSpan={2}>เลขที่ใบแจ้งหนี้</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบแจ้งนี้</Typography></div></StyledTableCell>
+                                <StyledTableCell align="center" rowSpan={2}><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบเสร็จ</Typography></div></StyledTableCell>
                                 <StyledTableCell align="center" rowSpan={2}>เลขที่ใบเสร็จ</StyledTableCell>
                                 <StyledTableCell align="center" rowSpan={2}>ช่องทางการชำระเงิน</StyledTableCell>
                                 <StyledTableCell align="center" rowSpan={2}>ชำระเงินกู้</StyledTableCell>
@@ -99,34 +145,40 @@ class ListFarmPayLoanTab extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <StyledTableCellLine component="th" scope="row">
-                                    xxxx
+                            {this.state.farmerPayLoanList.map((farmer,index) =>{
+
+                                return(
+                                    <TableRow key={index}>
+                                        <StyledTableCellLine component="th" scope="row">
+                                            {farmer.no}
                                 </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                            </TableRow>
+                                        <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.invoiceNo}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.receiptDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.payChannel}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.payLoan}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.principle}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.overdueAmount}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.amount}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.remaining}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.overPaid}</StyledTableCellLine>
+                                    </TableRow>
+                                )
+                            })}
+                            
                             
                             <TableRow  >
                                 <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                                
-                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
                             </TableRow>
                         </TableBody>
                     </Table>

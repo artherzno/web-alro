@@ -40,12 +40,20 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
     });
 }
 
-const get = (path, parameter, token, config = {}) => {
+const get = (path, parameter, token, config = {},data) => {
     return new Promise((resolve, reject) => {
 
         setHeader(false, token)
 
         // return axios.get("http://147.50.143.83:8080/api/ReportServices/GetProvinces")
+
+        if (data){
+
+            config = {
+                ...config,
+                ...data
+            }
+        }
 
         return axios
             .get(path, { params: parameter, ...config })
