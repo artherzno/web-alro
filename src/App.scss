@@ -1,4 +1,3 @@
-
 :root {
   /* Colors: */
   --font-color: #262626;
@@ -172,6 +171,17 @@ button {
 
 p {
   line-height: 1.6;
+}
+
+p,
+span,
+label,
+td,
+th,
+li,
+div,
+a {
+  font-family: "kanit" !important;
 }
 
 h1,
@@ -1340,4 +1350,4 @@ input {
 }
 
 @import "./styles/ListFarmerPayLoan.scss";
-@import "./styles/ReportStyle.scss"
+@import "./styles/ReportStyle.scss";

@@ -164,8 +164,8 @@ const useStyles = makeStyles({
       userSelect: 'none',
     },
     boxDashed: {
-      border: '1px dashed #D9D9D9',
-      padding: '20px',
+      border: '1px dashed #D9D9D9 !important',
+      padding: '20px !important',
       backgroundColor: '#FAFAFA',
       width: '100%',
     },
@@ -464,17 +464,18 @@ const MuiCheckbox = (props) => {
 
 const MuiRadioButton = (props) => {
     const classes = useStyles();
-    const { label, id, lists, value, onChange, type, color } = props;
+    const { topic, label, id, lists, value, onChange, type, color } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     {label}
+                // </InputLabel>
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            { (label) === '' ? '' : <span>&nbsp;</span> }  {/* For spacing */}
+            {/* { (label) === '' ? '' : <span>&nbsp;</span> }   */}
 
             {/* Check row or column */}
             {
@@ -515,45 +516,47 @@ const MuiRadioButton = (props) => {
 
 const MuiSelect = (props) => {
     const classes = useStyles();
-    const { label, id, lists } = props;
+    const { topic, label, id, lists } = props;
 
-    // return (
-    //     <FormControl className={classes.textbox}>
-    //         { 
-    //             (label) === '' ? '' :
-    //             <InputLabel shrink htmlFor={id} className={classes.label}>
-    //                 {label}
-    //             </InputLabel>
-    //         }
-    //         <Select
-    //             labelId={id}
-    //             id={id}
-    //             input={<BootstrapInput />}
-    //         >
-    //             {lists.map((item,i)=>
-    //                 <MenuItem key={i} value={i+1}>{item}</MenuItem>
-    //             )}
-    //         </Select>
-    //     </FormControl>
-    // );
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     {label}
+                // </InputLabel>
 
-    return(
-        <FormControl fullWidth>
-            {(label) === '' ? '' : <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                {label}
-  </InputLabel>}
-            
+                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+            }
             <Select
                 labelId={id}
                 id={id}
                 input={<BootstrapInput />}
             >
-                {lists.map((item, i) =>
-                    <MenuItem key={i} value={i + 1}>{item}</MenuItem>
+                {lists.map((item,i)=>
+                    <MenuItem key={i} value={i+1}>{item}</MenuItem>
                 )}
             </Select>
         </FormControl>
-    )
+    );
+
+//     return(
+//         <FormControl fullWidth>
+//             {(label) === '' ? '' : <InputLabel variant="standard" htmlFor="uncontrolled-native">
+//                 {label}
+//   </InputLabel>}
+            
+//             <Select
+//                 labelId={id}
+//                 id={id}
+//                 input={<BootstrapInput />}
+//             >
+//                 {lists.map((item, i) =>
+//                     <MenuItem key={i} value={i + 1}>{item}</MenuItem>
+//                 )}
+//             </Select>
+//         </FormControl>
+//     )
 }
 
 const MuiUpload = (props) => {
@@ -577,7 +580,7 @@ const MuiUpload = (props) => {
                         />
                         <ListItemSecondaryAction>
                             <IconButton edge="end" aria-label="delete">
-                                <RemoveCircleOutlineIcon color="secondary"  />
+                                <RemoveCircleOutlineIcon color="secondary" style={{backgroundColor: '#da2828' }}  />
                             </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
@@ -593,7 +596,7 @@ const MuiUpload = (props) => {
                 onChange={onChange}
             />
             <label htmlFor={id} className="btn-upload">
-                <Button variant="contained" className={classes.buttonOutlinePrimary} component="span">
+                <Button variant="contained" className={classes.buttonOutlinePrimary}  color="primary" component="span">
                 เลือกไฟล์
                 </Button>
             </label>
@@ -616,7 +619,7 @@ const ButtonNormalIconStartSecondary = (props) => {
     const { label, maxWidth, startIcon, onClick } = props;
 
     return (
-        <Button className={classes.buttonNormal} edge="end" variant="contained" color="secondary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+        <Button className={classes.buttonNormal} edge="end" variant="contained" color="secondary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828' }}>{label}</Button>
                                             
     );
 }
@@ -626,7 +629,7 @@ const ButtonNormalIconStartGrey = (props) => {
     const { label, maxWidth, startIcon, onClick } = props;
 
     return (
-        <Button className={classes.buttonNormal} edge="end" variant="contained" color="default" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+        <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }
@@ -647,7 +650,7 @@ const ButtonOutlineIconStartGrey = (props) => {
     const { label, maxWidth, startIcon, onClick } = props;
 
     return (
-        <Button className={classes.buttonOutlineGrey} edge="end" variant="contained" size="small" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>                                   
+        <Button className={classes.buttonOutlineGrey} edge="end" color="primary" variant="contained" size="small" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>                                   
     );
 }
 
@@ -666,7 +669,7 @@ const ButtonFluidSecondary = (props) => {
     const { label, maxWidth, onClick } = props;
 
     return (
-        <Button className={classes.buttonFluid} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+        <Button className={classes.buttonFluid} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828'  }}>{label}</Button>
                                             
     );
 }
@@ -677,7 +680,7 @@ const ButtonFluidColor = (props) => {
     let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey :'';
 
     return (
-        <Button className={classes.buttonFluid+' '+bgColor} variant="contained" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+        <Button className={classes.buttonFluid+' '+bgColor} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
                                             
     );
 }
@@ -698,7 +701,7 @@ const ButtonFluidOutlineSecondary = (props) => {
     const { label, maxWidth, onClick } = props;
 
     return (
-        <Button className={classes.buttonFluidOutlineSecondary} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+        <Button className={classes.buttonFluidOutlineSecondary} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828'  }}>{label}</Button>
                                             
     );
 }

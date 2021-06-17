@@ -305,6 +305,7 @@ function LoanRequestContactStep1() {
 
 
                                             <Grid item xs={12} md={12}>
+                                                <br/>
                                                 <MuiLabelHeader label="กิจกรรม/โครงการที่มีความประสงค์จะกู้ยืมเงิน" />
                                                 <Divider variant="middle" style={{ margin: '0'}} />
                                             </Grid>
