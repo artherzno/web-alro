@@ -26,53 +26,53 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { yellow } from '@material-ui/core/colors';
 
-const BootstrapInput = withStyles((theme) => ({
+// const BootstrapInput = withStyles((theme) => ({
 
-    // 'label + &': {
-    //     marginTop: theme.spacing(3),
-    // },
-    // '& .MuiInputBase-input': {
-    //     borderRadius: 4,
-    //     position: 'relative',
-    //     backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
-    //     border: '1px solid #ced4da',
-    //     fontSize: 16,
-    //     width: 'auto',
-    //     padding: '10px 12px',
-    //     transition: theme.transitions.create([
-    //         'border-color',
-    //         'background-color',
-    //         'box-shadow',
-    //     ]),
-    //     // Use the system font instead of the default Roboto font.
-    //     fontFamily: [
-    //         'kanit',
-    //     ].join(','),
-    //     '&:focus': {
-    //         boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-    //         borderColor: theme.palette.primary.main,
-    //     },
-    // },
+//     root: {
+//         'label + &': {
+//             marginTop: theme.spacing(3),
+//         },
+//     },
+//     input: {
+//         borderRadius: 4,
+//         position: 'relative',
+//         backgroundColor: theme.palette.common.white,
+//         border: '1px solid #ced4da',
+//         fontSize: 16,
+//         width: '100%',
+//         padding: '10px 5px',
+//         transition: theme.transitions.create(['border-color', 'box-shadow']),
+//         '&:focus': {
+//             borderColor: theme.palette.primary.main,
+//         },
+//     },
+// }))(InputBase);
 
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
+
+
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+    'label + &': {
+        marginTop: theme.spacing(3),
     },
-    input: {
+    '& .MuiInputBase-input': {
         borderRadius: 4,
         position: 'relative',
-        backgroundColor: theme.palette.common.white,
+        backgroundColor: theme.palette.background.paper,
         border: '1px solid #ced4da',
         fontSize: 16,
-        width: '100%',
-        padding: '10px 5px',
+        padding: '10px 26px 10px 12px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
+        // Use the system font instead of the default Roboto font.
+        fontFamily: [
+            'kanit',
+        ].join(','),
         '&:focus': {
+            boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
             borderColor: theme.palette.primary.main,
         },
     },
-}))(InputBase);
+}));
+
 
 const BlueRadio = withStyles({
     root: {
@@ -517,27 +517,43 @@ const MuiSelect = (props) => {
     const classes = useStyles();
     const { label, id, lists } = props;
 
-    return (
-        <FormControl className={classes.textbox}>
-            { 
-                (label) === '' ? '' :
-                <InputLabel shrink htmlFor={id} className={classes.label}>
-                    {label}
-                </InputLabel>
-            }
+    // return (
+    //     <FormControl className={classes.textbox}>
+    //         { 
+    //             (label) === '' ? '' :
+    //             <InputLabel shrink htmlFor={id} className={classes.label}>
+    //                 {label}
+    //             </InputLabel>
+    //         }
+    //         <Select
+    //             labelId={id}
+    //             id={id}
+    //             input={<BootstrapInput />}
+    //         >
+    //             {lists.map((item,i)=>
+    //                 <MenuItem key={i} value={i+1}>{item}</MenuItem>
+    //             )}
+    //         </Select>
+    //     </FormControl>
+    // );
+
+    return(
+        <FormControl fullWidth>
+            {(label) === '' ? '' : <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                {label}
+  </InputLabel>}
+            
             <Select
                 labelId={id}
                 id={id}
-                // value={age}
-                // onChange={handleChange}
                 input={<BootstrapInput />}
             >
-                {lists.map((item,i)=>
-                    <MenuItem key={i} value={i+1}>{item}</MenuItem>
+                {lists.map((item, i) =>
+                    <MenuItem key={i} value={i + 1}>{item}</MenuItem>
                 )}
             </Select>
         </FormControl>
-    );
+    )
 }
 
 const MuiUpload = (props) => {
