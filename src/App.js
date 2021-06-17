@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useEffect } from 'react';
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import './App.scss';
@@ -34,9 +34,26 @@ const theme = createTheme({
   },
 }, thTH)
 
-const AuthData = { port: 3800, password: '1234'}
+const AuthData = { port: 5441, hostname: '147.50.143.84'} ;
+const hostname = window.location.hostname;
+
 
 function App() {
+
+  useEffect(() => {
+    // Check Port
+    if(hostname !== 'localhost') {
+      console.log(':5441')
+      AuthData.port = 5441;
+      AuthData.hostname = '147.50.143.84';
+    } else {
+      console.log(':3800')
+      AuthData.port = 3800;
+      AuthData.hostname = '127.0.0.1';
+    }
+    console.log(AuthData);
+  }, [])
+
   return (
   <AuthContext.Provider value={AuthData}>
     <ThemeProvider theme={theme}>

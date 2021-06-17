@@ -17,9 +17,10 @@ function LoginPage() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     let server_port = auth.port;
+    let server_hostname = auth.hostname;
 
     async function fetchDataLogin() {
-        const res = await fetch(`http://127.0.0.1:${server_port}/admin/api/login`, {
+        const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/login`, {
             method: 'POST',
             body: JSON.stringify(dataLogin),
             headers: {
