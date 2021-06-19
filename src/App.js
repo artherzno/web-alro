@@ -1,4 +1,10 @@
 import React, { createContext, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import './App.scss';
@@ -34,32 +40,32 @@ const theme = createTheme({
   },
 }, thTH)
 
-const AuthData = { port: 5441, hostname: '147.50.143.84'} ;
+const AuthData = { port: 3800, hostname: '127.0.0.1' } ;
 const hostname = window.location.hostname;
 
 
 function App() {
 
-  useEffect(() => {
+  useEffect(() => {console.warn('hi app')
     // Check Port
     if(hostname !== 'localhost') {
-      console.log(':5441')
-      AuthData.port = 5441;
-      AuthData.hostname = '147.50.143.84';
-    } else {
-      console.log(':3800')
-      AuthData.port = 3800;
-      AuthData.hostname = '127.0.0.1';
-    }
+      AuthData.hostname = hostname;
+    } 
     console.log(AuthData);
+    console.log('process.env',process.env)
+    console.log('process.env.REACT_APP_API_HOST',process.env.REACT_APP_API_HOST)
   }, [])
 
   return (
   <AuthContext.Provider value={AuthData}>
     <ThemeProvider theme={theme}>
       <div className="App">
+
+      <Router>
         <Main />
         <Footer />
+      
+        </Router>
       </div>
     </ThemeProvider>
   </AuthContext.Provider>

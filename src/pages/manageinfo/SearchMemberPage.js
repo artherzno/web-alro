@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Fade from '@material-ui/core/Fade';
@@ -18,21 +18,90 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
+import { AuthContext } from '../../App';
 
 function SearchMemberPage(props) {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
-        name: undefined,
-        surname: undefined,
-        idNum: '',
-        landNum: undefined,
+        nMEMID: "",
+        nROLEID: "",   
+        FrontName: "",
+        Name: "",
+        Sirname: "",    
+        cUsername: "",
+        bActive: "",    
+        order_by: "nMEMID",
+        order_desc: "DESC",
+        page_number: 1,
+        page_length: 2
     })
 
     useEffect(() => {
+        async function fetchCheckLogin() {
+            const res = await fetch(`http://147.50.143.84:${server_port}/spk/api/checklogin`, {
+                method: 'GET',})
+            res
+            .json()
+            .then(res => {
+            if (res.code === 0 || res === null || res === undefined ) {
+                history.push('/');
+            } 
+            })
+            .catch(err => {
+                console.log(err);
+                setIsLoaded(true);
+                setErr(true);
+            });
+        }
+        
         setLoaded(true);
-    }, [])
+        fetchCheckLogin();
+    }, [history, server_hostname, server_port])
+
+    async function fetchSearchFarmer() {
+        const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/search_member`, {
+            method: 'POST',
+            body: JSON.stringify(inputData),
+            headers: {
+                // "x-application-secret-key": apiXKey,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        }); 
+
+        res
+        .json()
+        .then(res => {
+        if (res.code === 0 || res === null || res === undefined ) {
+            setIsLoaded(true);
+            setErr(true);
+        //   history.push('/error');
+            setErrMsg(res.message)
+        } else {
+
+            setIsLoaded(true);
+            console.log(res)
+            // history.push('/home');
+            // setDataCampaign(data); // from local
+        }
+
+        })
+        .catch(err => {
+            console.log(err);
+            setIsLoaded(true);
+            setErr(true);
+        });
+    }
 
     // Input ID Number
     const handleIdNumber = (event) => {
@@ -90,7 +159,8 @@ function SearchMemberPage(props) {
                                                 <MuiTextfield label="เลขที่ดิน" id="contact-number-input" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <ButtonFluidPrimary label="ค้นหา"/>   
+                                                <ButtonFluidPrimary label="ค้นหา" onClick={()=>fetchSearchFarmer()} />   
+                                                { err ? <p className="err font-14">{errMsg}</p> : ''}
                                             </Grid>
                                         </Grid>
                                     </form>

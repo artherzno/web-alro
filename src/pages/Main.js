@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useHistory,
 } from "react-router-dom";
 
 import LoginPage from './LoginPage';
@@ -51,6 +52,12 @@ import EditContractDebt from './loanrequest/EditContractDebt';
 import RecordContractDebt from './loanrequest/RecordContractDebt';
 
 function Main() {
+    const history = useHistory();
+
+    useEffect(() => {
+        console.warn('hi mainpage')
+    }, [])
+
     return (
         <div className="main">
             <Router>

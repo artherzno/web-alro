@@ -180,7 +180,8 @@ td,
 th,
 li,
 div,
-a {
+a,
+button {
   font-family: "kanit" !important;
 }
 
@@ -737,6 +738,8 @@ body {
   .nav-item {
     button {
       padding: 16px 26px;
+      color: #fff;
+      font-size: 1rem;
       span {
         font-size: 18px;
         color: var(--white);

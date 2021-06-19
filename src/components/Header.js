@@ -9,6 +9,10 @@ import { AuthContext } from '../App';
 function Header(props) {
     const auth = useContext(AuthContext)
     const history = useHistory();
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+
     const { bgColor, status } = props;
 
     const [err, setErr] = useState(false);
@@ -19,9 +23,8 @@ function Header(props) {
         history.push('/home');
     }
 
-    let server_port = auth.port;
     const logout = async () => {
-        const res = await fetch(`http://127.0.0.1:${server_port}/admin/api/logout`, {
+        const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/logout`, {
             method: 'POST',})
         history.push('/');
 

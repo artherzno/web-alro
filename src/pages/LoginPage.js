@@ -1,5 +1,11 @@
 import React, { useState, useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Header from '../components/Header';
 import BgImg from '../assets/login-bg.png';
@@ -30,31 +36,36 @@ function LoginPage() {
             }
         }); 
 
-        // const res = await fetch(`http://127.0.0.1:${server_port}/spk/api/healthcheck`, {
+        // const res = await fetch(`http://127.0.0.1:3800/spk/api/healthcheck`, {
         //     method: 'GET',})
   
         res
-          .json()
-          .then(res => {
-            if (res.code === 0 || res === null || res === undefined ) {
-              setIsLoaded(true);
-              setErr(true);
-              setErrMsg(res.message)
-            } else {
+        .json()
+        .then(res => {
+        if (res.code === 0 || res === null || res === undefined ) {
+            setIsLoaded(true);
+            setErr(true);
+        //   history.push('/error');
+            setErrMsg(res.message)
+        } else {
 
-                setIsLoaded(true);
-                console.log(res)
-                history.push('/home');
-                // setDataCampaign(data); // from local
-            }
-  
-          })
-          .catch(err => {
+            setIsLoaded(true);
+            console.log(res)
+            history.push('/home');
+            // setDataCampaign(data); // from local
+        }
+
+        })
+        .catch(err => {
             console.log(err);
             setIsLoaded(true);
             setErr(true);
-          });
-      }
+        });
+    }
+
+    const handleClose = () => {
+        setErr(false);
+    };
 
     const handleChange = event => {
         setDataLogin({
@@ -100,6 +111,27 @@ function LoginPage() {
                     { err ? <p className="err font-14">{errMsg}</p> : ''}
                 </form>
             </div>
+
+            {/* <Dialog
+                open={err}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Disagree
+                </Button>
+                <Button onClick={handleClose} color="primary" autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog> */}
         </div>
     )
 }
