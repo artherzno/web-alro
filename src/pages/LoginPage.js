@@ -33,7 +33,8 @@ function LoginPage() {
                 // "x-application-secret-key": apiXKey,
                 "Content-Type": "application/json",
                 "Accept": "application/json"
-            }
+            },
+            credentials: 'same-origin'
         }); 
 
         // const res = await fetch(`http://127.0.0.1:3800/spk/api/healthcheck`, {
@@ -50,7 +51,7 @@ function LoginPage() {
         } else {
 
             setIsLoaded(true);
-            console.log(res)
+            console.log(document.cookie)
             history.push('/home');
             // setDataCampaign(data); // from local
         }
