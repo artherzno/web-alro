@@ -162,6 +162,101 @@ const api = {
         })
 
     },
+    getRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetRequestLoan",
+            data
+        })
+
+    },
+    exportRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportRequestLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryRequestLoan",
+            data
+        })
+
+    },
+    exportSummaryRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryRequestLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSignLoan",
+            data
+        })
+
+    },
+    exportSignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSignLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSignProjLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSignProjLoan",
+            data
+        })
+
+    },
+    exportSignProjLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSignProjLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummarySignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummarySignLoan",
+            data
+        })
+
+    },
+    exportSummarySignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummarySignLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 

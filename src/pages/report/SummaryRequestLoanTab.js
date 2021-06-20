@@ -14,12 +14,117 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
+import moment from 'moment'
+import { formatNumber } from '../../utils/Utilities'
+import { ButtonExportExcel } from '../../components'
+import api from '../../services/webservice'
 
 class SummaryRequestLoanTab extends React.Component {
+
+    constructor(props) {
+
+        super(props)
+
+        this.state = {
+            isExporting: false,
+            farmerPayLoanList: [],
+            dataSummary: {},
+            displaySection: "",
+            sectionProvince: "",
+            month: "",
+            year: "",
+            display2: "",
+            startDate: "",
+            endDate: "",
+            resultRequest: "",
+            resultLabel: "",
+            provinceZoneLabel: "",
+            montLabel: "",
+            yearLabel: "",
+            dateRangLabel: "",
+
+
+        }
+    }
+
+    componentDidMount() {
+
+
+        this.loadPayLoan()
+    }
+
+    loadPayLoan() {
+
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Display1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('Display2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+        parameter.append("Result", resultRequest)
+
+        api.getSummaryRequestLoan(parameter).then(response => {
+
+            this.setState({
+                farmerPayLoanList: response.data.data,
+                dataSummary: response.data.dataSummary,
+            })
+
+        }).catch(error => {
+
+        })
+    }
+
+    exportExcel() {
+
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Display1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('Display2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+        parameter.append("Result", resultRequest)
+
+        this.setState({
+            isExporting: true
+        })
+
+        api.exportSummaryRequestLoan(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'สรุปรายงานคำขอกู้ยืมรายสัญญา.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isExporting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isExporting: false
+            })
+
+        })
+
+    }
 
     render() {
 
         const { classes } = this.props;
+        const { dataSummary } = this.state
+
 
         return (<div>
             <Grid container spacing={2}>
@@ -27,7 +132,34 @@ class SummaryRequestLoanTab extends React.Component {
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <DisplaySelect />
+                            <DisplaySelect
+                                onChange={(event) => {
+
+                                    this.setState({
+                                        displaySection: event.target.value,
+                                        sectionProvince: "",
+                                        provinceZoneLabel: ""
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeProvince={(event) => {
+                                    this.setState({
+                                        sectionProvince: event.target.value,
+                                        provinceZoneLabel: `จังหวัด${event.label}`
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeSection={(event) => {
+                                    this.setState({
+                                        sectionProvince: event.target.value,
+                                        provinceZoneLabel: `${event.label}`
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -37,24 +169,84 @@ class SummaryRequestLoanTab extends React.Component {
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <DisplayMonthSelect />
+                            <DisplayMonthSelect
+                                onChange={(event) => {
+
+                                    this.setState({
+                                        display2: event.target.value,
+                                        month: "",
+                                        year: "",
+                                        startDate: "",
+                                        endDate: "",
+                                        yearLabel: "",
+                                        montLabel: "",
+                                        dateRangLabel: ""
+
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeDate={(event) => {
+                                    console.log("event", event)
+
+                                    if (event.length >= 2) {
+
+                                        const startDate = moment(event[0]).format("YYYY-MM-DD")
+                                        const endDate = moment(event[1]).format("YYYY-MM-DD")
+
+
+                                        this.setState({
+                                            startDate: startDate,
+                                            endDate: endDate,
+                                            dateRangLabel: `${moment(event[0]).format("DD MMMM YYYY")} - ${moment(event[1]).format("DD MMMM YYYY")}`
+                                        }, () => {
+                                            this.loadPayLoan()
+                                        })
+                                    }
+                                }}
+                                onChangeMonth={(event) => {
+
+                                    this.setState({
+                                        month: event.target.value,
+                                        montLabel: `เดือน${event.label}`
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+
+                                }}
+                                onChangeYear={(event) => {
+                                    this.setState({
+                                        year: event.target.value,
+                                        yearLabel: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
                         </Grid>
-                        <Grid item>
-                            <YearSelect />
-                        </Grid>
+                       
                        
                     </Grid>
                 </Grid>
                 <Grid item ></Grid>
                 <Grid item>
-                    <ApproveStatusSelect />
+                    <ApproveStatusSelect onChange={(event) => {
+
+                        this.setState({
+                            resultRequest: event.target.value,
+                            resultLabel: event.target.label
+                        }, () => {
+                            this.loadPayLoan()
+                        })
+
+                    }} />
                 </Grid>
             </Grid>
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">สรุปรายงานคำขอกู้ยืมรายสัญญา ภาคตะวันออก</Typography>
-                    <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
+                    <Typography variant="h6" align="center">สรุปรายงานคำขอกู้ยืมรายสัญญา {`${this.state.provinceZoneLabel}`}</Typography>
+                    {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
             <Grid container>
@@ -63,7 +255,7 @@ class SummaryRequestLoanTab extends React.Component {
                 </Grid>
 
                 <Grid item>
-                    <Button variant="contained" color="primary"><Box mr={1}><i className="far fa-file-excel"></i> </Box>Export to Excel</Button>
+                    <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                 </Grid>
             </Grid>
 
@@ -76,33 +268,28 @@ class SummaryRequestLoanTab extends React.Component {
                                 <StyledTableCell align="center">เลฃที่คำขอกู้</StyledTableCell>
                                 <StyledTableCell align="center">จำนวนคำขอกู้</StyledTableCell>
                                 <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
-                                <StyledTableCell align="center">อำนาจ</StyledTableCell>
-                                <StyledTableCell align="center">วันที่อนุมัติ/ไม่อนุมัติ</StyledTableCell>
-                                <StyledTableCell align="center">เหตุผลที่ไม่อนุมัติ</StyledTableCell>
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <StyledTableCellLine >
-                                    xxxx
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                           {this.state.farmerPayLoanList.map((farmer,index) =>{
+                               return(
+                                   <TableRow key={index}>
+                                       <StyledTableCellLine align="center">{farmer.months}</StyledTableCellLine>
+                                       <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
+                                       <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                       <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
 
-                            </TableRow>
+                                   </TableRow>
+                               )
+                           })}
 
                             <TableRow>
                                 <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                     รวมทั้งสิ้น
                                 </StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" colSpan={3} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
+                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
                             </TableRow>
                         </TableBody>

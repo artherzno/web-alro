@@ -266,22 +266,22 @@ class SumaryProjectPayLoanTab extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.farmerPayLoanList.map((framer,index) =>{
+                            {this.state.farmerPayLoanList.map((farmer,index) =>{
 
                                 return(
                                     <TableRow key={index}>
-                                        <StyledTableCellLine align="center" >{framer.projName}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.numCase)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.loanAmount)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{framer.loanDate}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{framer.payDate}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{framer.dueDate}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.firstInstallment)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.original)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.new)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.interestRate)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.lessThan15)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(framer.moreThan15)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center" >{farmer.projName}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.loanDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.interestRate)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.lessThan15)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.moreThan15)}</StyledTableCellLine>
 
                                     </TableRow>
                                 )
