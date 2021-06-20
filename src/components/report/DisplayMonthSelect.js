@@ -33,7 +33,7 @@ export const DisplayMonthSelect = ({
 
                 {parseInt(display) === 1 && <Grid item><YearSelect onChange={onChangeYear} /></Grid>}
                 {parseInt(display) === 2 && <Grid item><MonthSelect onChange={onChangeMonth} /></Grid>}
-                {parseInt(display) === 2 && <Grid item><YearSelect onChange={onChangeMonth} /></Grid>}
+                {parseInt(display) === 2 && <Grid item><YearSelect onChange={onChangeYear} /></Grid>}
                 {parseInt(display) === 3 && <Grid item><DateRange onChange={onChangeDate} label="ช่วงเวลา" /></Grid>}
 
             </Grid>

@@ -25,7 +25,8 @@ export const TypeBillSelect = ({
                 <Grid item>
                     <Select options={typeList} emptyLabel="เลือก" label="ประเภทใบเสร็จรับเงิน" onChange={(event) => {
 
-                        onChange(event)
+                        const found = typeList.find(element => element.value.toString() === event.target.value)
+                        onChange({ ...event, label: found ? found.label : "" })
                         setDisplay(event.target.value)
 
                     }} />

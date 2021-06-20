@@ -36,7 +36,94 @@ const api = {
             data
         })
 
-    }
+    },
+    getSummaryFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryFarmerPayLoan",
+            data
+        })
+
+    },
+    exportPayloanExcel(data){
+
+        return get({
+            path: "api/ReportServices/ExportFarmerPayLoan",
+            data,
+            config:{
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportSummayPayloanExcel(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryFarmerPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getNewFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetNewFarmerPayLoan",
+            data
+        })
+
+    },
+    exportNewFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportNewFarmerPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getNewSummaryFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetNewSummaryFarmerPayLoan",
+            data
+        })
+
+    },
+    exportNewSummaryFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportNewSummaryFarmerPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getPayLoanList(data) {
+
+        return get({
+            path: "api/ReportServices/GetPayLoan",
+            data
+        })
+
+    },
+    exportPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
