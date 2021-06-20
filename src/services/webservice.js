@@ -257,6 +257,44 @@ const api = {
         })
 
     },
+    getConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetConvertLoan",
+            data
+        })
+
+    },
+    exportConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportConvertLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryConvertLoan",
+            data
+        })
+
+    },
+    exportSummaryConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryConvertLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
