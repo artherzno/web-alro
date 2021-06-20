@@ -124,6 +124,44 @@ const api = {
         })
 
     },
+    getSummaryPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryPayLoan",
+            data
+        })
+
+    },
+    exportSummaryPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryProjPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryProjPayLoan",
+            data
+        })
+
+    },
+    exportSummaryProjPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryProjPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
