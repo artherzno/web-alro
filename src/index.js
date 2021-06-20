@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import moment from 'moment'
+import 'moment/locale/th'  // without this line it didn't work
+moment.locale('th')
 
 ReactDOM.render(
   // <React.StrictMode>

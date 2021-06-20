@@ -36,7 +36,265 @@ const api = {
             data
         })
 
-    }
+    },
+    getSummaryFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryFarmerPayLoan",
+            data
+        })
+
+    },
+    exportPayloanExcel(data){
+
+        return get({
+            path: "api/ReportServices/ExportFarmerPayLoan",
+            data,
+            config:{
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportSummayPayloanExcel(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryFarmerPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getNewFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetNewFarmerPayLoan",
+            data
+        })
+
+    },
+    exportNewFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportNewFarmerPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getNewSummaryFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetNewSummaryFarmerPayLoan",
+            data
+        })
+
+    },
+    exportNewSummaryFarmerPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportNewSummaryFarmerPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getPayLoanList(data) {
+
+        return get({
+            path: "api/ReportServices/GetPayLoan",
+            data
+        })
+
+    },
+    exportPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryPayLoan",
+            data
+        })
+
+    },
+    exportSummaryPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryProjPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryProjPayLoan",
+            data
+        })
+
+    },
+    exportSummaryProjPayLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryProjPayLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetRequestLoan",
+            data
+        })
+
+    },
+    exportRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportRequestLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryRequestLoan",
+            data
+        })
+
+    },
+    exportSummaryRequestLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryRequestLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSignLoan",
+            data
+        })
+
+    },
+    exportSignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSignLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSignProjLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSignProjLoan",
+            data
+        })
+
+    },
+    exportSignProjLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSignProjLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummarySignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummarySignLoan",
+            data
+        })
+
+    },
+    exportSummarySignLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummarySignLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetConvertLoan",
+            data
+        })
+
+    },
+    exportConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportConvertLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryConvertLoan",
+            data
+        })
+
+    },
+    exportSummaryConvertLoan(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryConvertLoan",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 

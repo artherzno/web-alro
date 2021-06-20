@@ -14,44 +14,223 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
+import moment from 'moment'
+import { formatNumber } from '../../utils/Utilities'
+import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 
 class PayLoanTab extends React.Component {
 
-    
+    constructor(props) {
+
+        super(props)
+
+        this.state = {
+            isExporting: false,
+            farmerPayLoanList: [],
+            dataSummary: {},
+            displaySection: "",
+            sectionProvince: "",
+            month: "",
+            year: "",
+            display2: "",
+            startDate: "",
+            endDate: "",
+            receiptType: "",
+            receiptProvince: "",
+            provinceZoneLabel: "",
+            montLabel: "",
+            yearLabel: "",
+            dateRangLabel: "",
+
+
+        }
+    }
+
+    componentDidMount() {
+
+
+        this.loadPayLoan()
+    }
+
+    loadPayLoan() {
+
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Display1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('Display2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+
+        api.getPayLoanList(parameter).then(response => {
+
+            this.setState({
+                farmerPayLoanList: response.data.data,
+                dataSummary: response.data.dataSummary,
+            })
+
+        }).catch(error => {
+
+        })
+    }
+
+    exportExcel() {
+
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate,  } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Display1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('Display2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+
+        this.setState({
+            isExporting: true
+        })
+        api.exportPayLoan(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'รายงานการจ่ายเงินกู้.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isExporting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isExporting: false
+            })
+
+        })
+
+    }
 
     render() {
 
         const { classes } = this.props;
+        const {dataSummary} = this.state
 
         return (<div>
             <Grid container spacing={2}>
 
-               <Grid item>
-                    <Grid container spacing={2}>
-                        <Grid item>
-                            <DisplaySelect />
-                        </Grid>
-                    </Grid>
-               </Grid>
-                
-                <Grid item ></Grid>
-
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <DisplayMonthSelect />
+                            <DisplaySelect
+                                onChange={(event) => {
+
+                                    this.setState({
+                                        displaySection: event.target.value,
+                                        sectionProvince: "",
+                                        provinceZoneLabel: ""
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeProvince={(event) => {
+                                    this.setState({
+                                        sectionProvince: event.target.value,
+                                        provinceZoneLabel: `จังหวัด${event.label}`
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeSection={(event) => {
+                                    this.setState({
+                                        sectionProvince: event.target.value,
+                                        provinceZoneLabel: `${event.label}`
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
                         </Grid>
-                       
+
+                    </Grid>
+
+                </Grid>
+                <Grid item />
+                <Grid item>
+                    <Grid container spacing={2}>
+                        <Grid item>
+                            <DisplayMonthSelect
+                                onChange={(event) => {
+
+                                    this.setState({
+                                        display2: event.target.value,
+                                        month: "",
+                                        year: "",
+                                        startDate: "",
+                                        endDate: "",
+                                        yearLabel: "",
+                                        montLabel: "",
+                                        dateRangLabel: ""
+
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                                onChangeDate={(event) => {
+                                    console.log("event", event)
+
+                                    if (event.length >= 2) {
+
+                                        const startDate = moment(event[0]).format("YYYY-MM-DD")
+                                        const endDate = moment(event[1]).format("YYYY-MM-DD")
+
+
+                                        this.setState({
+                                            startDate: startDate,
+                                            endDate: endDate,
+                                            dateRangLabel: `${moment(event[0]).format("DD MMMM YYYY")} - ${moment(event[1]).format("DD MMMM YYYY")}`
+                                        }, () => {
+                                            this.loadPayLoan()
+                                        })
+                                    }
+                                }}
+                                onChangeMonth={(event) => {
+
+                                    this.setState({
+                                        month: event.target.value,
+                                        montLabel: `เดือน${event.label}`
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+
+                                }}
+                                onChangeYear={(event) => {
+                                    this.setState({
+                                        year: event.target.value,
+                                        yearLabel: event.target.value
+                                    }, () => {
+                                        this.loadPayLoan()
+                                    })
+                                }}
+                            />
+                        </Grid>
+
                     </Grid>
                 </Grid>
 
+    
             </Grid>
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">รายงานการจ่ายเงินกู้ ภาคตะวันออก</Typography>
-                    <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
+                    <Typography variant="h6" align="center">รายงานการจ่ายเงินกู้ {`${this.state.provinceZoneLabel}`}</Typography>
+                    {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
             <Grid container>
@@ -60,7 +239,7 @@ class PayLoanTab extends React.Component {
                 </Grid>
 
                 <Grid item>
-                    <Button variant="contained" color="primary"><Box mr={1}><i className="far fa-file-excel"></i> </Box>Export to Excel</Button>
+                    <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                 </Grid>
             </Grid>
 
@@ -91,38 +270,39 @@ class PayLoanTab extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <StyledTableCellLine >
-                                    xxxx
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine >
-                                    xxxx
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="right">xxx</StyledTableCellLine>
+                            {this.state.farmerPayLoanList.map((farmer,index) =>{
 
-                            </TableRow>
+                                return(
+                                    <TableRow key={index}>
+                                        <StyledTableCellLine > {farmer.no}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.provinceCode}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.projName}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.bank}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.bankNumber}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.loanDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.payout)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right">{formatNumber(farmer.payFirstInstallment)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.interestRate}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.memStatus}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{farmer.workingDay}</StyledTableCellLine>
+
+                                    </TableRow>
+                                )
+                            })}
                             <TableRow>
                                 <StyledTableCellLine colSpan={10} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    xxxx
+                                    รวมทั้งสิ้น
                                 </StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
                                 <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.payFirstInstallment)}</StyledTableCellLine>
                                 <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                             </TableRow>

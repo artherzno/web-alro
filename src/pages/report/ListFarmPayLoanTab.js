@@ -14,6 +14,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import moment from 'moment'
+import { formatNumber} from '../../utils/Utilities'
+import { ButtonExportExcel} from '../../components'
 
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
@@ -25,7 +27,9 @@ class ListFarmPayLoanTab extends React.Component {
         super(props)
 
         this.state = {
+            isExporting:false,
             farmerPayLoanList: [],
+            dataSummary:{},
             displaySection: "",
             sectionProvince: "",
             month: "",
@@ -34,7 +38,14 @@ class ListFarmPayLoanTab extends React.Component {
             startDate: "",
             endDate: "",
             receiptType: "",
-            receiptProvince: ""
+            receiptProvince: "",
+            provinceZoneLabel:"",
+            montLabel:"",
+            yearLabel:"",
+            dateRangLabel:"",
+            receiptTypeLabel:"",
+            provinceReiptLabel:"",
+
 
         }
     }
@@ -63,7 +74,8 @@ class ListFarmPayLoanTab extends React.Component {
         api.getPayLoan(parameter).then(response => {
 
             this.setState({
-                farmerPayLoanList: response.data.data
+                farmerPayLoanList: response.data.data,
+                dataSummary: response.data.dataSummary,
             })
 
         }).catch(error => {
@@ -71,9 +83,52 @@ class ListFarmPayLoanTab extends React.Component {
         })
     }
 
+    exportExcel(){
+
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, receiptType, receiptProvince } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Display1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('Year', year);
+        parameter.append('ReceiptType', receiptType);
+        parameter.append('ALROProvince', receiptProvince);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('Display2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+
+        this.setState({
+            isExporting: true
+        })
+
+        api.exportPayloanExcel(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้.xlsx');
+            document.body.appendChild(link);
+            link.click();
+         
+            this.setState({
+                isExporting:false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isExporting: false
+            })
+
+        })
+
+    }
+
     render() {
 
         const { classes } = this.props;
+        const {dataSummary} = this.state
 
         return (<div>
             <Grid container spacing={2}>
@@ -87,20 +142,23 @@ class ListFarmPayLoanTab extends React.Component {
                                     this.setState({
                                         displaySection: event.target.value,
                                         sectionProvince: "",
+                                        provinceZoneLabel:""
                                     }, () => {
                                         this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
                                     this.setState({
-                                        sectionProvince: event.target.value
+                                        sectionProvince: event.target.value,
+                                        provinceZoneLabel:`จังหวัด${event.label}`
                                     }, () => {
                                         this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
                                     this.setState({
-                                        sectionProvince: event.target.value
+                                        sectionProvince: event.target.value,
+                                        provinceZoneLabel: `${event.label}`
                                     }, () => {
                                         this.loadPayLoan()
                                     })
@@ -123,7 +181,10 @@ class ListFarmPayLoanTab extends React.Component {
                                         month: "",
                                         year: "",
                                         startDate: "",
-                                        endDate: ""
+                                        endDate: "",
+                                        yearLabel:"",
+                                        montLabel:"",
+                                        dateRangLabel:""
 
                                     }, () => {
                                         this.loadPayLoan()
@@ -137,11 +198,11 @@ class ListFarmPayLoanTab extends React.Component {
                                         const startDate = moment(event[0]).format("YYYY-MM-DD")
                                         const endDate = moment(event[1]).format("YYYY-MM-DD")
 
-                                        console.log("startDate", startDate)
 
                                         this.setState({
                                             startDate: startDate,
-                                            endDate: endDate
+                                            endDate: endDate,
+                                            dateRangLabel: `${moment(event[0]).format("DD MMMM YYYY")} - ${moment(event[1]).format("DD MMMM YYYY")}`
                                         }, () => {
                                             this.loadPayLoan()
                                         })
@@ -150,7 +211,8 @@ class ListFarmPayLoanTab extends React.Component {
                                 onChangeMonth={(event) => {
 
                                     this.setState({
-                                        month: event.target.value
+                                        month: event.target.value,
+                                        montLabel:`เดือน${event.label}`
                                     }, () => {
                                         this.loadPayLoan()
                                     })
@@ -158,7 +220,8 @@ class ListFarmPayLoanTab extends React.Component {
                                 }}
                                 onChangeYear={(event) => {
                                     this.setState({
-                                        year: event.target.value
+                                        year: event.target.value,
+                                        yearLabel: event.target.value
                                     }, () => {
                                         this.loadPayLoan()
                                     })
@@ -170,6 +233,7 @@ class ListFarmPayLoanTab extends React.Component {
                 </Grid>
 
                 <Grid item />
+                
                 <Grid item>
                     <Grid container spacing={2}>
 
@@ -178,14 +242,17 @@ class ListFarmPayLoanTab extends React.Component {
                                 onChange={(event) => {
                                     this.setState({
                                         receiptType: event.target.value,
-                                        receiptProvince: ""
+                                        receiptProvince: "",
+                                        receiptTypeLabel:event.label,
+                                        provinceReiptLabel:""
                                     }, () => {
                                         this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
                                     this.setState({
-                                        receiptProvince: event.target.value
+                                        receiptProvince: event.target.value,
+                                        provinceReiptLabel:event.label
                                     }, () => {
                                         this.loadPayLoan()
                                     })
@@ -200,9 +267,9 @@ class ListFarmPayLoanTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้ จังหวัดกรุงเทพ</Typography>
-                    <Typography variant="h6" align="center">เดือนมกราคม 2563</Typography>
-                    <Typography variant="h6" align="center">ประเภทใบเสร็จรับเงิน ส.ป.ก.จังหวัด</Typography>
+                    <Typography variant="h6" align="center">บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้ {`${this.state.provinceZoneLabel}`}</Typography>
+                    {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
+                    {this.state.receiptTypeLabel != "" ? <Typography variant="h6" align="center">ประเภทใบเสร็จรับเงิน {`${this.state.receiptTypeLabel} ${this.state.provinceReiptLabel}`}</Typography> : ""}
                 </Box>
             </div>
             <Grid container>
@@ -211,7 +278,7 @@ class ListFarmPayLoanTab extends React.Component {
                 </Grid>
 
                 <Grid item>
-                    <Button variant="contained" color="primary"><Box mr={1}><i className="far fa-file-excel"></i> </Box>Export to Excel</Button>
+                    <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
                 </Grid>
             </Grid>
 
@@ -254,12 +321,12 @@ class ListFarmPayLoanTab extends React.Component {
                                         <StyledTableCellLine align="center">{farmer.receiptDate}</StyledTableCellLine>
                                         <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
                                         <StyledTableCellLine align="center">{farmer.payChannel}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.payLoan}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.principle}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.overdueAmount}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.amount}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.remaining}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.overPaid}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{formatNumber(farmer.payLoan)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{formatNumber(farmer.principle)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{formatNumber(farmer.remaining)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
                                     </TableRow>
                                 )
                             })}
@@ -267,13 +334,13 @@ class ListFarmPayLoanTab extends React.Component {
 
                             <TableRow  >
                                 <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.payLoan)}</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
-                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="center">xxx</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
+                                <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
                             </TableRow>
                         </TableBody>
                     </Table>
