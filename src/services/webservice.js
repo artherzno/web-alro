@@ -295,6 +295,44 @@ const api = {
         })
 
     },
+    getLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/GetLawSuit",
+            data
+        })
+
+    },
+    exportLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/ExportLawSuit",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryLawSuit",
+            data
+        })
+
+    },
+    exportSummaryLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryLawSuit",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
