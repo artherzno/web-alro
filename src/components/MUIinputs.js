@@ -311,7 +311,7 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, textAlign, disabled } = props;
+    const { topic, label, id, defaultValue, type, textAlign, disabled, onChange } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -322,7 +322,7 @@ const MuiTextfield = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type={type} disabled={disabled} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput onChange={onChange} type={type} disabled={disabled} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }

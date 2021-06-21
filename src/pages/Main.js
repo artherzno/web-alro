@@ -18,6 +18,7 @@ import LawSuit from './report/LawSuit'
 import ModifyLoan from './report/ModifyLoan'
 import Billed from './report/Billed'
 import AddMember from './manageinfo/AddMemberPage';
+import EditMember from './manageinfo/EditMemberPage';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
 import LoanAddProject from './manageinfo/LoanAddProject';
@@ -105,6 +106,7 @@ function Main() {
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/searchmember" component={SearchMember} />
                     <Route path="/manageinfo/addmember" component={AddMember} />
+                    <Route path="/manageinfo/editmember" component={EditMember} />
                     <Route path="/manageinfo/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/manageinfo/loanaddproject" component={LoanAddProject} />
                     <Route path="/manageinfo/manageuser" component={ManageUser} />
