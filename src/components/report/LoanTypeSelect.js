@@ -12,7 +12,12 @@ export const LoanTypeSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={typeList} emptyLabel="เลือก" label="ประเภทโครงสร้างหนี้" onChange={onChange}/>
+            <Select options={typeList} emptyLabel="เลือก" label="ประเภทโครงสร้างหนี้" onChange={(event) =>{
+
+                const found = typeList.find(element => element.value.toString() === event.target.value)
+                onChange({ ...event, label: found ? found.label : "" })
+
+            }}/>
         </div>
     )
 }

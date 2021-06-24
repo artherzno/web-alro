@@ -333,6 +333,63 @@ const api = {
         })
 
     },
+    getModify(data) {
+
+        return get({
+            path: "api/ReportServices/GetModify",
+            data
+        })
+
+    },
+    exportModify(data) {
+
+        return get({
+            path: "api/ReportServices/ExportModify",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryModify(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryModify",
+            data
+        })
+
+    },
+    exportSummaryModify(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryModify",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getBilled(data) {
+
+        return get({
+            path: "api/ReportServices/GetBilled",
+            data
+        })
+
+    },
+    exportBilled(data) {
+
+        return get({
+            path: "api/ReportServices/ExportBilled",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
