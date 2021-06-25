@@ -295,6 +295,101 @@ const api = {
         })
 
     },
+    getLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/GetLawSuit",
+            data
+        })
+
+    },
+    exportLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/ExportLawSuit",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryLawSuit",
+            data
+        })
+
+    },
+    exportSummaryLawSuit(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryLawSuit",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getModify(data) {
+
+        return get({
+            path: "api/ReportServices/GetModify",
+            data
+        })
+
+    },
+    exportModify(data) {
+
+        return get({
+            path: "api/ReportServices/ExportModify",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getSummaryModify(data) {
+
+        return get({
+            path: "api/ReportServices/GetSummaryModify",
+            data
+        })
+
+    },
+    exportSummaryModify(data) {
+
+        return get({
+            path: "api/ReportServices/ExportSummaryModify",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getBilled(data) {
+
+        return get({
+            path: "api/ReportServices/GetBilled",
+            data
+        })
+
+    },
+    exportBilled(data) {
+
+        return get({
+            path: "api/ReportServices/ExportBilled",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
