@@ -311,7 +311,7 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, textAlign, disabled, onChange } = props;
+    const { topic, label, id, defaultValue, type, textAlign, disabled, onChange, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -322,14 +322,14 @@ const MuiTextfield = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput onChange={onChange} type={type} disabled={disabled} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} onChange={onChange} type={type} disabled={disabled} defaultValue={defaultValue} id={id} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextfieldMultiLine = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, textAlign, row } = props;
+    const { topic, label, id, defaultValue, type, textAlign, row, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -340,14 +340,14 @@ const MuiTextfieldMultiLine = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type={type} defaultValue={defaultValue} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} defaultValue={defaultValue} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextfieldStartAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, startAdornment, textAlign } = props;
+    const { topic, label, id, defaultValue, type, startAdornment, textAlign, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -358,14 +358,14 @@ const MuiTextfieldStartAdornment = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type={type} defaultValue={defaultValue} id={id}  startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} defaultValue={defaultValue} id={id}  startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextfieldEndAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, endAdornment, textAlign } = props;
+    const { topic, label, id, defaultValue, type, endAdornment, textAlign, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -376,14 +376,14 @@ const MuiTextfieldEndAdornment = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type={type} defaultValue={defaultValue} id={id}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} defaultValue={defaultValue} id={id}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextNumber = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, placeholder, value, onInput } = props;
+    const { topic, label, id, defaultValue, placeholder, value, onInput, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -394,14 +394,14 @@ const MuiTextNumber = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} />
+            <BootstrapInput name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} />
         </FormControl>
     );
 }
 
 const MuiDatePicker = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue } = props;
+    const { topic, label, id, defaultValue, name, value } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -412,13 +412,13 @@ const MuiDatePicker = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput type="date" defaultValue={defaultValue} id={id} />
+            <BootstrapInput name={name} type="date" defaultValue={defaultValue} value={value} id={id} />
         </FormControl>
     );
 }
 
 const MuiCheckbox = (props) => {
-    const { label, id, value, type, defaultChecked } = props;
+    const { label, id, value, type, defaultChecked, name } = props;
 
     return (
         <React.Fragment>
@@ -428,6 +428,7 @@ const MuiCheckbox = (props) => {
                 <FormControlLabel
                     control={
                         <Checkbox
+                            name={name}
                             defaultChecked={defaultChecked}
                             // checked={state.checkedB}
                             // onChange={handleChange}
@@ -444,6 +445,7 @@ const MuiCheckbox = (props) => {
                 <FormControlLabel
                     control={
                         <Checkbox
+                            name={name}
                             defaultChecked={defaultChecked}
                             // checked={state.checkedB}
                             // onChange={handleChange}
@@ -464,7 +466,7 @@ const MuiCheckbox = (props) => {
 
 const MuiRadioButton = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, value, onChange, type, color } = props;
+    const { topic, label, id, lists, value, onChange, type, color, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -480,7 +482,7 @@ const MuiRadioButton = (props) => {
             {/* Check row or column */}
             {
                 (type === 'row') ? 
-                <RadioGroup row aria-label={id} name={id} value={value} onChange={onChange}>
+                <RadioGroup row aria-label={id} name={name} value={value} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
                                 <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
@@ -495,7 +497,7 @@ const MuiRadioButton = (props) => {
                     )}
                 </RadioGroup> 
                 :
-                <RadioGroup aria-label={id} name={id} value={value} onChange={onChange}>
+                <RadioGroup aria-label={id} name={name} value={value} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
                             <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
@@ -516,7 +518,7 @@ const MuiRadioButton = (props) => {
 
 const MuiSelect = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists } = props;
+    const { topic, label, id, lists, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -529,6 +531,7 @@ const MuiSelect = (props) => {
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
             <Select
+                name={name}
                 labelId={id}
                 id={id}
                 input={<BootstrapInput />}
@@ -561,7 +564,7 @@ const MuiSelect = (props) => {
 
 const MuiUpload = (props) => {
     const classes = useStyles();
-    const { label, imgUpload, id, onChange } = props;
+    const { label, imgUpload, id, onChange, name } = props;
 
     return (
         <FormControl className={classes.boxDashed}>
@@ -594,6 +597,7 @@ const MuiUpload = (props) => {
                 multiple
                 type="file"
                 onChange={onChange}
+                name={name}
             />
             <label htmlFor={id} className="btn-upload">
                 <Button variant="contained" className={classes.buttonOutlinePrimary}  color="primary" component="span">

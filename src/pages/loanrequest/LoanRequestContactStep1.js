@@ -200,6 +200,10 @@ function LoanRequestContactStep1() {
                                 <Paper className="paper line-top-green paper mg-t-20">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                {/* Field Number ---------------------------------------------------*/}
+                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="loanrequestcontact-step1-id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
+                                            </Grid>
                                             <Grid item xs={12} md={12} className="loanrequestcontact-num-box">
                                                 <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p>
                                                 <MuiRadioButton label="ประเภทเงินกู้" id="loanrequestcontact-step1-type-input" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} value={inputData.typeMember} onChange={handleChangeTypeMember} type="row" />
@@ -215,10 +219,6 @@ function LoanRequestContactStep1() {
                                             <Grid item xs={12} md={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="นามสกุลชื่อ" id="loanrequestcontact-step1-name-input" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="loanrequestcontact-step1-id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}

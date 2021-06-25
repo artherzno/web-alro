@@ -27,6 +27,10 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
+                subtitle: 'ค้นหาเกษตกร',
+                subpath: '/manageinfo/searchmember'
+            },
+            {
                 subtitle: 'ค้นหาคำขอกู้ยืมเงิน',
                 subpath: '/loanrequest/loanrequestcontactsearch'
             },
@@ -145,9 +149,6 @@ const listmenu = [
             },{
                 subtitle: 'โครงการขอกู้เงิน',
                 subpath: '/manageinfo/loanrequestproject'
-            },{
-                subtitle: 'ค้นหาสมาชิก',
-                subpath: '/manageinfo/searchmember'
             },{
                 subtitle: 'จัดการผู้ใช้งาน',
                 subpath: '/manageinfo/manageuser'

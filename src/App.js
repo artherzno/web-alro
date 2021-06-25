@@ -42,6 +42,7 @@ const theme = createTheme({
   },
 }, thTH)
 
+// const AuthData = { port: 3800, hostname: '127.0.0.1' } ;
 const AuthData = { port: 3800, hostname: '147.50.143.84' } ;
 const hostname = window.location.hostname;
 

@@ -60,7 +60,7 @@ function SearchMemberPage(props) {
         order_by: "IDCard",
         order_desc: "DESC",
         page_number: 1,
-        page_length: 200
+        page_length: null,
     })
 
     useEffect(() => {
@@ -72,6 +72,7 @@ function SearchMemberPage(props) {
             res
             .json()
             .then(res => {
+                console.log(res.statuscode)
                 if (res.code === 0 || res === null || res === undefined ) {
                     history.push('/');
                     setErr(true);
@@ -81,6 +82,7 @@ function SearchMemberPage(props) {
                 console.log(err);
                 setIsLoaded(true);
                 setErr(true);
+                history.push('/');
             });
         }
         
@@ -180,6 +182,10 @@ function SearchMemberPage(props) {
         history.push('/manageinfo/editmember');
     }
 
+    const gotoLoanRequestContact = () => {
+        history.push('/loanrequest/loanrequestcontact');
+    }
+
     return (
         <div className="search-page">
             <div className="header-nav">
@@ -193,11 +199,11 @@ function SearchMemberPage(props) {
                     <Container maxWidth="sm">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>ค้นหาสมาชิก</h1>
+                                <h1>ค้นหาเกษตกร</h1>
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <Box  display="flex" justifyContent="flex-end">
-                                    <ButtonNormalIconStartPrimary label="เพิ่มสมาชิก" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
+                                    <ButtonNormalIconStartPrimary label="เพิ่มเกษตรกร" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
                                 </Box>
                             </Grid>
                             <Grid item xs={12} md={12}>
@@ -276,7 +282,7 @@ function SearchMemberPage(props) {
                                                                             cell.FarmerGrade ? 
                                                                                 '-' 
                                                                             : 
-                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoEditMember()} />
+                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact()} />
                                                                         }</TableCell>
                                                                         <TableCell align="center">
                                                                             <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember()} />
@@ -295,7 +301,7 @@ function SearchMemberPage(props) {
                                                 {
                                                     tableResult.length ? 
                                                         <TablePagination
-                                                            rowsPerPageOptions={[5, 10, 25]}
+                                                            rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
                                                             component="div"
                                                             count={tableResult.length}
                                                             rowsPerPage={rowsPerPage}
@@ -324,12 +330,12 @@ function SearchMemberPage(props) {
                                             m={1}
                                             css={{ height: '100%' }}
                                         >
-                                            <Box justifyContent="center" alignItems="center" css={{ textAlign: 'center' }}>
+                                            <Box justifyContent="center" textAlign='center' alignItems="center" css={{ textAlign: 'center' }}>
                                                 <Box p={1}>
                                                     ไม่มีข้อมูล
                                                 </Box>
                                                 <Box p={1}>
-                                                    <ButtonNormalIconStartPrimary label="เพิ่มสมาชิก" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
+                                                    <ButtonNormalIconStartPrimary label="เพิ่มเกษตรกร" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
                                                 </Box>
                                             </Box>
                                         </Box>

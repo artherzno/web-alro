@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, createContext } from 'react'
 import { useHistory } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiLogout} from '@mdi/js'
 
 import LogoImg from '../assets/logo-alro.png';
 import { AuthContext } from '../App';
+
+const dataUserContext = createContext();
 
 function Header(props) {
     const auth = useContext(AuthContext)
@@ -77,4 +79,5 @@ function Header(props) {
     )
 }
 
+export { dataUserContext }
 export default Header;
