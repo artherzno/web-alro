@@ -108,6 +108,10 @@ function EditBill() {
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" defaultValue="" />
                                     </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                    </Grid>
                                 </Grid>
                             </Grid>
 
@@ -133,8 +137,12 @@ function EditBill() {
                                                 <TableCell align="center">Pcap_1</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 tableResult.map((row,i) => (
                                                 <TableRow key={i}>
                                                     <TableCell align="center">{row.a}</TableCell>
@@ -152,7 +160,7 @@ function EditBill() {
                                                     <TableCell align="center">{row.n}</TableCell>
                                                     <TableCell align="center">{row.o}</TableCell>
                                                 </TableRow>
-                                            ))}
+                                            ))} */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>

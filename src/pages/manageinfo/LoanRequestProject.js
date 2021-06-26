@@ -21,6 +21,7 @@ import {
     MuiSelect, 
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
+    ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
 
@@ -123,13 +124,18 @@ function LoanRequestProject() {
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>โครงการขอกู้เงิน</h1>
                             </Grid>
-                            <Grid item xs={12} md={2}>
+                            <Grid item xs={12} md={3}>
                                 <Box  display="flex" justifyContent="flex-start">
                                     {/* Field Select ---------------------------------------------------*/}
-                                    <MuiSelect label="ปีงบประมาณ" id="loanrequestproject-year-select" lists={['2565','2563','2562']} />
+                                    {/* <MuiSelect label="ปีงบประมาณ" id="loanrequestproject-year-select" lists={['2565','2563','2562']} /> */}
+                                    <MuiSelect label="ปีงบประมาณ" id="loanrequestproject-year-select" lists={['']} />
                                 </Box>  
                             </Grid>
-                            <Grid item xs={12} md={10}>
+                            <Grid item xs={12} md={2}>
+                                <p>&nbsp;</p>
+                                <ButtonFluidPrimary label="ค้นหา" />  
+                            </Grid>
+                            <Grid item xs={12} md={7}>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <ButtonNormalIconStartPrimary label="เพิ่มโครงการ" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()} />
                                 </Box>  
@@ -153,8 +159,12 @@ function LoanRequestProject() {
                                             <TableCell align="center" className="sticky tb-w-24em">&nbsp;</TableCell>
                                         </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {rows.map((row) => (
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={11} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {rows.map((row) => (
                                                 <TableRow key={row.id}>
                                                     <TableCell align="center" className="tb-w-8em">{row.project_code}</TableCell>
                                                     <TableCell align="center" className="tb-w-8em">{row.project_year}</TableCell>
@@ -171,7 +181,7 @@ function LoanRequestProject() {
                                                         <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
                                                 </TableCell>
                                                 </TableRow>
-                                            ))}
+                                            ))} */}
                                         </TableBody>
                                     </Table>
                                 </div>

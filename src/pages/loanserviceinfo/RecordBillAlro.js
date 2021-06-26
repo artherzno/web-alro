@@ -466,13 +466,17 @@ function RecordBillAlro() {
                             <Grid item xs={12} md={6}  style={{position: 'fixed', width: '100%', right: '0'}}>
                                 <div className="positionFixed mg-t-20">
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12} md={6}>
+                                        <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
                                         </Grid>
-                                        <Grid item xs={12} md={6}>
+                                        <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา"  defaultValue="" />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <p>&nbsp;</p>
+                                            <ButtonFluidPrimary label="ค้นหา" />  
                                         </Grid>
                                         <Grid item xs={12} md={12}>
                                         <div className="table">
@@ -486,8 +490,12 @@ function RecordBillAlro() {
                                                         <TableCell align="center">&nbsp;</TableCell>
                                                     </TableRow>
                                                     </TableHead>
-                                                    <TableBody>
-                                                    {
+                                                    <TableBody>{/* // clear mockup */}
+                                                        <TableRow>
+                                                            <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
+                                                        </TableRow>
+                                            
+                                                    {/* {
                                                         tableResult.map((row,i) => (
                                                             <TableRow key={i}>
                                                                 <TableCell align="center">{row.a}</TableCell>
@@ -496,7 +504,7 @@ function RecordBillAlro() {
                                                                 <TableCell align="center">{row.d}</TableCell>
                                                             </TableRow>
                                                         ))
-                                                    }
+                                                    } */}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>

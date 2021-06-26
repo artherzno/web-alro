@@ -210,6 +210,9 @@ h3 {
 .txt-bold {
   font-weight: 600;
 }
+.txt-black {
+  color: var(--font-color);
+}
 
 .txt-green {
   color: var(--green);
@@ -605,6 +608,8 @@ body {
   font-size: 16px;
   font-family: "Kanit", sans-serif;
   margin: 8px 0;
+  cursor: pointer;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.6);
 
   &.btn-blue {
     background-color: var(--darkblue);
@@ -1194,6 +1199,16 @@ input {
 }
 
 // Material UI (Mui) --------------------------//
+
+.MuiDatePicker {
+  width: 100%;
+  input {
+    padding: 11px;
+  }
+  .MuiFormHelperText-root {
+    display: none;
+  }
+}
 
 .custom-stepper-box {
   width: 80%;

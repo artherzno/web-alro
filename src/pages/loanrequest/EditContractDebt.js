@@ -127,8 +127,12 @@ function EditContractDebt() {
                                                     <TableCell align="center">นามสกุล</TableCell>
                                                 </TableRow>
                                                 </TableHead>
-                                                <TableBody>
-                                                {
+                                                <TableBody>{/* // clear mockup */}
+                                                    <TableRow>
+                                                        <TableCell colSpan={8} align="center">ไม่พบข้อมูล</TableCell>
+                                                    </TableRow>
+                                            
+                                                {/* {
                                                     tableResult.map((row,i) => (
                                                         <TableRow key={i}>
                                                             <TableCell align="center">{row.a}</TableCell>
@@ -141,7 +145,7 @@ function EditContractDebt() {
                                                             <TableCell align="center">{row.h}</TableCell>
                                                         </TableRow>
                                                     ))
-                                                }
+                                                } */}
                                                 </TableBody>
                                             </Table>
                                         </TableContainer>
@@ -657,8 +661,12 @@ function EditContractDebt() {
                                                                     <TableCell align="center">Duedate</TableCell>
                                                                 </TableRow>
                                                                 </TableHead>
-                                                                <TableBody>
-                                                                {
+                                                                <TableBody>{/* // clear mockup */}
+                                                                    <TableRow>
+                                                                        <TableCell colSpan={6} align="center">ไม่พบข้อมูล</TableCell>
+                                                                    </TableRow>
+                                            
+                                                                {/* {
                                                                     [1,2,3,4,5].map((row,i) => (
                                                                         <TableRow key={i}>
                                                                             <TableCell align="center">1</TableCell>
@@ -669,7 +677,7 @@ function EditContractDebt() {
                                                                             <TableCell align="center">1 พฤศจิกายน</TableCell>
                                                                         </TableRow>
                                                                     ))
-                                                                }
+                                                                } */}
                                                                 </TableBody>
                                                             </Table>
                                                         </TableContainer>
@@ -699,8 +707,12 @@ function EditContractDebt() {
                                                                     <TableCell align="center">Duedate</TableCell>
                                                                 </TableRow>
                                                                 </TableHead>
-                                                                <TableBody>
-                                                                {
+                                                                <TableBody>{/* // clear mockup */}
+                                                                    <TableRow>
+                                                                        <TableCell colSpan={6} align="center">ไม่พบข้อมูล</TableCell>
+                                                                    </TableRow>
+                                            
+                                                                {/* {
                                                                     [1,2,3,4,5].map((row,i) => (
                                                                         <TableRow key={i}>
                                                                             <TableCell align="center">1</TableCell>
@@ -711,7 +723,7 @@ function EditContractDebt() {
                                                                             <TableCell align="center">1 พฤศจิกายน</TableCell>
                                                                         </TableRow>
                                                                     ))
-                                                                }
+                                                                } */}
                                                                 </TableBody>
                                                             </Table>
                                                         </TableContainer>

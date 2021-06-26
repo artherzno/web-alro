@@ -312,8 +312,12 @@ function LoanRequestContactStep3() {
                                         <TableCell align="center">ต้นเงินคงเหลือ(บาท)</TableCell>
                                     </TableRow>
                                     </TableHead>
-                                    <TableBody>
-                                    {
+                                    <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                    {/* {
                                         tableResult.map((row,i) => (
                                             <TableRow key={i}>
                                             <TableCell align="center">{row.a}</TableCell>
@@ -323,7 +327,7 @@ function LoanRequestContactStep3() {
                                             <TableCell align="center">{row.e}</TableCell>
                                             </TableRow>
                                         ))
-                                    }
+                                    } */}
                                     </TableBody>
                                 </Table>
                             </TableContainer>

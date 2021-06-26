@@ -23,6 +23,7 @@ import {
     MuiTextfield,
     MuiDatePicker,
     ButtonNormalIconStartPrimary,
+    ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
 function LoanRequestContactSearch() {
@@ -82,17 +83,21 @@ function LoanRequestContactSearch() {
 
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={4}>
+                                    <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ชื่อเกษตรกร" id="loanrequestcontactsearch-farmername-input" defaultValue="" />
                                     </Grid>
-                                    <Grid item xs={12} md={4}>
+                                    <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="loanrequestcontactsearch-farmerid-input" defaultValue="" />
                                     </Grid>
-                                    <Grid item xs={12} md={4}>
+                                    <Grid item xs={12} md={3}>
                                         {/* Field Date Picker ---------------------------------------------------*/}
                                         <MuiDatePicker label="วันที่ยื่นคำขอ" id="loanrequestcontactsearch-date-input" defaultValue="2017-05-24" />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="ค้นหา" />  
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -109,8 +114,12 @@ function LoanRequestContactSearch() {
                                                 <TableCell align="center">Action</TableCell>
                                             </TableRow>
                                             </TableHead>
-                                            <TableBody>
-                                            {
+                                            <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 (rowsPerPage > 0
                                                     ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                     : tableResult
@@ -125,7 +134,7 @@ function LoanRequestContactSearch() {
                                                         </TableCell>
                                                     </TableRow>
                                                 ))
-                                            }
+                                            } */}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>

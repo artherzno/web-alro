@@ -178,8 +178,13 @@ function SearchMemberPage(props) {
         history.push('/manageinfo/addmember');
     }
 
-    const gotoEditMember = () => {
-        history.push('/manageinfo/editmember');
+    const gotoEditMember = (id) => {
+        history.push(
+        {
+            pathname: '/manageinfo/editmember',
+            state: { FarmerID: id }
+          }
+        );
     }
 
     const gotoLoanRequestContact = () => {
@@ -285,7 +290,7 @@ function SearchMemberPage(props) {
                                                                                 <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact()} />
                                                                         }</TableCell>
                                                                         <TableCell align="center">
-                                                                            <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember()} />
+                                                                            <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember(cell.FarmerID)} />
                                                                         </TableCell>
                                                                     </TableRow>
                                                                 

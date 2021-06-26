@@ -166,14 +166,14 @@ function NoticeInvoice() {
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" />
+                                        <MuiDatePicker label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <MuiTextfield label="&nbsp;" defaultValue="เงินกู้" />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ออก" />
+                                        <ButtonFluidPrimary label="ค้นหา" />
                                     </Grid>
 
                                 </Grid>
@@ -195,8 +195,12 @@ function NoticeInvoice() {
                                                 <TableCell align="center">No</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={9} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 tableResult.map((row,i) => (
                                                 <TableRow key={i}>
                                                    <TableCell align="center">{row.a}</TableCell>
@@ -209,7 +213,7 @@ function NoticeInvoice() {
                                                     <TableCell align="center">{row.i}</TableCell>
                                                     <TableCell align="center">{row.j}</TableCell>
                                                 </TableRow>
-                                            ))}
+                                            ))} */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>
@@ -315,8 +319,12 @@ function NoticeInvoice() {
                                                 <TableCell align="center">เงินงวดชำระ</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 rows.map((row,i) => { 
                                                     const isItemSelected = isSelected(row.id);
                                                     const labelId = `enhanced-table-checkbox-${i}`;
@@ -352,7 +360,7 @@ function NoticeInvoice() {
                                                         </TableRow>
                                                     )
                                                 })
-                                            }
+                                            } */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>

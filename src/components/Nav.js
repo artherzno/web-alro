@@ -91,6 +91,12 @@ const listmenu = [
                 subtitle: 'ใบเตือนหนี้ค้างชำระ',
                 subpath: '/debtinfo/noticeinvoice'
             },{
+                subtitle: 'ใบแจ้งหนี้ล่วงหน้า 30 วัน',
+                subpath: '/home'
+            },{
+                subtitle: 'ใบแจ้งหนี้ครั้งที่ 1, 2',
+                subpath: '/home'
+            },{
                 subtitle: 'บันทึกขอผ่อนผัน',
                 subpath: '/debtinfo/recordinstallmentpayment'
             },{

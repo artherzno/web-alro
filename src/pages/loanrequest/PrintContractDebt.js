@@ -18,6 +18,7 @@ import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
     ButtonNormalIconStartPrimary,
+    ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
 
@@ -97,6 +98,10 @@ function PrintContractDebt() {
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="" />
                                     </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                    </Grid>
                                 </Grid>
                             </Grid>
 
@@ -112,8 +117,12 @@ function PrintContractDebt() {
                                                 <TableCell align="center" className="tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 (rowsPerPage > 0
                                                     ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                     : tableResult
@@ -127,7 +136,7 @@ function PrintContractDebt() {
                                                             <ButtonNormalIconStartPrimary label="ออกสัญญาแปลงหนี้" onClick={()=>gotoPrintContactDebt()}  />
                                                 </TableCell>
                                                 </TableRow>
-                                            ))}
+                                            ))} */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>

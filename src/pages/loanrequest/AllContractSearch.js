@@ -18,6 +18,7 @@ import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
     ButtonNormalIconStartPrimary,
+    ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
 
@@ -88,6 +89,10 @@ function AllContractSearch() {
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" defaultValue="" />
                                     </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                    </Grid>
                                 </Grid>
                             </Grid>
 
@@ -112,8 +117,12 @@ function AllContractSearch() {
                                                 <TableCell align="center" className="sticky tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={13} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 (rowsPerPage > 0
                                                     ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                     : tableResult
@@ -136,7 +145,7 @@ function AllContractSearch() {
                                                             <ButtonNormalIconStartPrimary label="พิมพ์การ์ดรายสัญญา" />
                                                 </TableCell>
                                                 </TableRow>
-                                            ))}
+                                            ))} */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>

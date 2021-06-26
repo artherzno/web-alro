@@ -195,8 +195,12 @@ function AddMenu(props) {
                                                 <TableCell align="center">Action</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 tableResult.map((row,i) => (
                                                     <React.Fragment >
                                                         <TableRow key={'main-'+i}>
@@ -223,7 +227,7 @@ function AddMenu(props) {
                                                 </React.Fragment>
                                             ))
                                             
-                                            }
+                                            } */}
                                             
                                         </TableBody>
                                     </Table>

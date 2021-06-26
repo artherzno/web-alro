@@ -11,6 +11,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import AddIcon from '@material-ui/icons/Add';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
@@ -21,8 +27,10 @@ import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
+    ButtonFluidPrimary,
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
+    ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
 
@@ -41,11 +49,13 @@ function ManageUser() {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
+    const [openPopup, setOpenPopup] = useState(false)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     useEffect(() => {
         setLoaded(true);
+        setOpenPopup(true);
     }, [])
 
     const handleChangePage = (event, newPage) => {
@@ -75,6 +85,32 @@ function ManageUser() {
 
     const gotoManagePermission = () => {
         history.push('/manageinfo/managepermission');
+    }
+
+    const handleClosePopup = () => {
+        setOpenPopup(false);
+    };
+
+    const handleCancel = () => {
+        setOpenPopup(false);
+        history.push('/home');
+    };
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        // fetchDataLogin();
+        // if(dataLogin.username === 'admin' && dataLogin.password === '1234') {
+        //     setErr(false);
+        //     alert('A name was submitted: ' + dataLogin.username +', '+dataLogin.password);
+        //     history.push('/home');
+        // } else {
+        //     setErr(true);
+        //     setDataLogin({
+        //         ...dataLogin,
+        //         username: '',
+        //         password: ''
+        //     })
+        // }
     }
     
     return (
@@ -116,8 +152,11 @@ function ManageUser() {
                                                 <TableCell align="center">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={10} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            {/* {
                                                 (rowsPerPage > 0
                                                     ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                     : tableResult
@@ -137,7 +176,7 @@ function ManageUser() {
                                                             <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoEditUser()}/>
                                                         </TableCell>
                                                 </TableRow>
-                                            ))}
+                                            ))} */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>
@@ -161,6 +200,36 @@ function ManageUser() {
                     </Container>
                 </div>
             </Fade>
+
+            <Dialog
+                open={openPopup}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth="xs"
+                fullWidth={true}
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        <p className="font-18 txt-black txt-center">เข้าสู่ระบบจัดการผู้ใช้งาน</p>
+                        <form  onSubmit={handleSubmit}>
+                            <div className="form-input">
+                                <label>Username</label>
+                                <input autoFocus type="text" name="username" value="" placeholder="" />
+                            </div>
+                            <div className="form-input">
+                                <label>Password</label>
+                                <input type="password" name="password" value="" placeholder=""  />
+                            </div>
+                            <button className="btn btn-blue" onClick={handleClosePopup}>เข้าสู่ระบบ</button>
+                            <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={handleCancel} />
+                        </form>
+                    </DialogContentText>
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
 
         </div>
     )

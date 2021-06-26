@@ -264,6 +264,10 @@ function FaultCondition() {
                                                 <Grid item xs={12} md={3}>
                                                     <MuiSelect label="ปี"  lists={[2564, 2563, 2562]} />
                                                 </Grid>
+                                                <Grid item xs={12} md={2}>
+                                                    <p>&nbsp;</p>
+                                                    <ButtonFluidPrimary label="ค้นหา" />  
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                        
@@ -288,8 +292,12 @@ function FaultCondition() {
                                                         <TableCell align="center">&nbsp;</TableCell>
                                                     </TableRow>
                                                     </TableHead>
-                                                    <TableBody>
-                                                    {
+                                                    <TableBody>{/* // clear mockup */}
+                                                        <TableRow>
+                                                            <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                                        </TableRow>
+                                            
+                                                    {/* {
                                                         tableResult.map((row,i) => { 
                                                             const isItemSelected = isSelected(row.id);
                                                             const labelId = `enhanced-table-checkbox-${i}`;
@@ -316,7 +324,7 @@ function FaultCondition() {
                                                             </TableRow>
                                                         )}
                                                         )
-                                                    }
+                                                    } */}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>

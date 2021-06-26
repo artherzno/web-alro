@@ -103,6 +103,10 @@ function DebtCondition() {
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา" />
                                         </Box>  
                                     </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={12}> 
@@ -128,8 +132,12 @@ function DebtCondition() {
                                                 <TableCell align="center">ที่อยู่</TableCell>
                                             </TableRow>
                                             </TableHead>
-                                            <TableBody>
-                                            {
+                                            <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={15} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 tableResult.map((row,i) => (
                                                     <TableRow key={i}>
                                                         <TableCell align="center">{row.a}</TableCell>
@@ -149,7 +157,7 @@ function DebtCondition() {
                                                         <TableCell align="center">{row.o}</TableCell>
                                                     </TableRow>
                                                 ))
-                                            }
+                                            } */}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
@@ -393,8 +401,12 @@ function DebtCondition() {
                                                 <TableCell align="center">จำนวนเงิน</TableCell>
                                             </TableRow>
                                             </TableHead>
-                                            <TableBody>
-                                            {
+                                            <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={9} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
                                                 tableResult2.map((row,i) => (
                                                     <TableRow key={i}>
                                                         <TableCell align="center">{row.a}</TableCell>
@@ -408,7 +420,7 @@ function DebtCondition() {
                                                         <TableCell align="center">{row.i}</TableCell>
                                                     </TableRow>
                                                 ))
-                                            }
+                                            } */}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>

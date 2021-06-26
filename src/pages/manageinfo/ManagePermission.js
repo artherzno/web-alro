@@ -252,8 +252,11 @@ function ManagePermission(props) {
                                                 <TableCell align="center">สิทธิ์</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-                                            {
+                                        <TableBody>  {/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={2} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            {/* {
                                                 tableResult.map((row,i) => (
                                                     <React.Fragment>
                                                         <TableRow>
@@ -272,7 +275,7 @@ function ManagePermission(props) {
                                                         ))}
                                                     </React.Fragment>
                                                 ))
-                                            }
+                                            } */}
                                         </TableBody>
                                     </Table>
                                     </TableContainer>
