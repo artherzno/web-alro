@@ -111,6 +111,12 @@ const listmenu = [
             }
         ]
     },{
+        title: 'ตรวจสอบ',
+        component: 'VerifyPage',
+        path: '/home',
+        submenu: [
+        ]
+    },{
         title: 'รายงาน',
         component: 'ReportPage',
         path: '/home',

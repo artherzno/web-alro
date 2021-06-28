@@ -22,6 +22,9 @@ function LoginPage() {
     const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
     const [isLoaded, setIsLoaded] = useState(false);
 
+    const [forgotDialog, setForgotDialog] = useState(false);
+    const [changeDialog, setChangeDialog] = useState(false);
+
     let server_port = auth.port;
     let server_hostname = auth.hostname;
 
@@ -68,6 +71,11 @@ function LoginPage() {
         setErr(false);
     };
 
+    const handleCloseDialog = () => {
+        setForgotDialog(false);
+        setChangeDialog(false);
+    };
+
     const handleChange = event => {
         setDataLogin({
             ...dataLogin,
@@ -110,29 +118,78 @@ function LoginPage() {
                     </div>
                     <button className="btn btn-blue">เข้าสู่ระบบ</button>
                     { err ? <p className="err font-14">{errMsg}</p> : ''}
+                    <div className="login-option">
+                        <div className="login-forgot-pwd">
+                            <p onClick={()=>setChangeDialog(true)}>เปลี่ยนรหัสผ่าน</p>
+                        </div>
+                        <div className="login-change-pwd">
+                            <p onClick={()=>setForgotDialog(true)}>ลืมรหัสผ่าน</p>
+                        </div>
+                    </div>
                 </form>
             </div>
 
-            {/* <Dialog
-                open={err}
+            <Dialog
+                open={forgotDialog}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
             >
-                <DialogTitle id="alert-dialog-title">{"เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title"><p>{"กรุณากรอกอีเมลเพื่อรับรหัสผ่านใหม่"}</p></DialogTitle>
                 <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                </DialogContentText>
+                    <DialogContentText id="alert-dialog-description">
+
+                    <form  onSubmit={handleSubmit}>
+                        <div className="form-input">
+                            <input autoFocus type="text" name="changeemail" placeholder="" />
+                        </div>
+                   </form>
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Disagree
-                </Button>
-                <Button onClick={handleClose} color="primary" autoFocus>
-                    Agree
-                </Button>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        ยกเลิก
+                    </Button>
+                    <Button onClick={handleCloseDialog} color="primary" autoFocus>
+                        ส่งอีเมล
+                    </Button>
                 </DialogActions>
-            </Dialog> */}
+            </Dialog>
+
+            <Dialog
+                open={changeDialog}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                <DialogTitle id="alert-dialog-title"><p>{"ลืมรหัสผ่าน"}</p></DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    <form  onSubmit={handleSubmit}>
+                        <div className="form-input">
+                            <label>รหัสผ่านเก่า</label>
+                            <input autoFocus type="text" name="oldpassword" placeholder="" onChange={handleChange}  />
+                        </div>
+                        <div className="form-input">
+                            <label>รหัสผ่านใหม่</label>
+                            <input type="text" name="newpassowd" placeholder="" onChange={handleChange}/>
+                        </div>
+                    </form>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        ยกเลิก
+                    </Button>
+                    <Button onClick={handleCloseDialog} color="primary" autoFocus>
+                        ยืนยัน
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

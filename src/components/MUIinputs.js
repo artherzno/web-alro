@@ -322,7 +322,7 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, textAlign, disabled, onChange, onBlur, name } = props;
+    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name } = props;
 
     return (
         <FormControl error className={classes.textbox}>
@@ -333,7 +333,7 @@ const MuiTextfield = (props) => {
                 // </InputLabel>
                 <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
             }
-            <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} defaultValue={defaultValue} id={id} error inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} />
             
         </FormControl>
     );
@@ -414,7 +414,7 @@ const MuiTextNumber = (props) => {
 const MuiDatePicker = (props) => {
     const classes = useStyles();
     const { topic, label, id, name, value, onChange } = props;
-
+console.log(value)
     return (
         <FormControl className="MuiDatePicker">
             { 
@@ -504,7 +504,7 @@ const MuiRadioButton = (props) => {
             {/* Check row or column */}
             {
                 (type === 'row') ? 
-                <RadioGroup row aria-label={id} name={name} defaultValue={value} onChange={onChange}>
+                <RadioGroup row aria-label={id} name={name} value={value.toString()} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
                                 <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
@@ -519,7 +519,7 @@ const MuiRadioButton = (props) => {
                     )}
                 </RadioGroup> 
                 :
-                <RadioGroup aria-label={id} name={name} defaultValue={value} onChange={onChange}>
+                <RadioGroup aria-label={id} name={name} value={value} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
                             <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
@@ -559,8 +559,9 @@ const MuiSelectProvince = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
+                <MenuItem value={0}>เลือกจังหวัด</MenuItem>
                 {lists.map((item,i)=>
-                    <MenuItem key={i} value={item.ProvinceID}>{item.NameTH}</MenuItem>
+                    <MenuItem key={i} value={item.ProvinceID}>{item.PV_NAME}</MenuItem>
                 )}
             </Select>
         </FormControl>
@@ -588,8 +589,9 @@ const MuiSelectDistrict = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
+                <MenuItem value={0}>เลือกเขต/อำเภอ</MenuItem>
                 {lists.map((item,i)=>
-                    <MenuItem key={i} value={item.DistrictID}>{item.NameTH}</MenuItem>
+                    <MenuItem key={i} value={item.DistrictID}>{item.AM_NAME}</MenuItem>
                 )}
             </Select>
         </FormControl>
@@ -617,8 +619,9 @@ const MuiSelectSubDistrict = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
+                <MenuItem value={0}>เลือกแขวง/ตำบล</MenuItem>
                 {lists.map((item,i)=>
-                    <MenuItem key={i} value={item.SubdistrictID}>{item.NameTH}</MenuItem>
+                    <MenuItem key={i} value={item.SubdistrictID}>{item.TB_NAME}</MenuItem>
                 )}
             </Select>
         </FormControl>
@@ -629,7 +632,7 @@ const MuiSelect = (props) => {
     const classes = useStyles();
     const { topic, label, id, lists, name, value, onChange } = props;
 
-    console.log('MuiSelect:', lists)
+    // console.log('MuiSelect:', lists)
 
     return (
         <FormControl className={classes.textbox}>
@@ -689,7 +692,7 @@ const MuiUpload = (props) => {
                 {imgUpload.map((item,i)=>
                     <ListItem key={i}>
                         <ListItemIcon>
-                            <AttachFileIcon  class={classes.iconGreen}/>
+                            <AttachFileIcon  className={classes.iconGreen}/>
                         </ListItemIcon>
                         <ListItemText
                             primary={item}

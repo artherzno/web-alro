@@ -281,7 +281,11 @@ function SearchMemberPage(props) {
                                                                     ).map((cell,i) => (
                                                                     <TableRow key={i}>
                                                                         <TableCell align="center">{cell.FarmerID}</TableCell>
-                                                                        <TableCell align="left">{cell.FrontName} {cell.Name} {cell.SirName}</TableCell>
+                                                                        <TableCell align="left">
+                                                                            {
+                                                                                cell.FrontName === '1' ? 'นาย' : cell.FrontName === '2' ? 'นาง' : 'นางสาว'
+                                                                            }&nbsp;
+                                                                            {cell.Name} {cell.SirName}</TableCell>
                                                                         <TableCell align="center">{cell.FarmerGrade || '-'}</TableCell>
                                                                         <TableCell align="center">{
                                                                             cell.FarmerGrade ? 

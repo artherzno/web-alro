@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useContext, useRef, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/material_green.css";
+import { Thai } from "flatpickr/dist/l10n/th.js"
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -47,6 +51,8 @@ function AddMemberPage(props) {
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasData, setHasData] = useState(false);
 
@@ -68,17 +74,17 @@ function AddMemberPage(props) {
         IDCARD_AddNo: '', // '123',
         IDCARD_AddMoo: '', // 'หมู่ 4',
         IDCARD_AddrSoiRoad: '', // 'ถ. มิตรภาพ',
-        IDCARD_AddrSubdistrictID: '', // 100102,
-        IDCARD_AddrDistrictID: '', // 1001,
-        IDCARD_AddrProvinceID: '', // 10,
+        IDCARD_AddrSubdistrictID: 0, // 100102,
+        IDCARD_AddrDistrictID: 0, // 1001,
+        IDCARD_AddrProvinceID: 0, // 10,
         IDCARD_Postcode: '', // 12345,
         IDCard_Addrzone: '',
         Contact_AddNo: '',
         Contact_AddMoo: '',
         Contact_AddrSoiRoad: '',
-        Contact_AddrSubdistrictID: '',
-        Contact_AddrDistrictID: '',
-        Contact_AddrProvinceID: '',
+        Contact_AddrSubdistrictID: 0,
+        Contact_AddrDistrictID: 0,
+        Contact_AddrProvinceID: 0,
         Contact_Postcode: '',
         Contact_Addrzone: '',
         FarmerGrade: '',
@@ -89,19 +95,27 @@ function AddMemberPage(props) {
 
     const [countAddLandInfo, setCountAddLandInfo] = useState(0);
 
-
     useEffect(() => {
-        console.log(document.cookie)
+        setInputData({
+            ...inputData,
+            BirthDate: moment(),
+            IDCardEXP_Date: moment(),
+        })
+        console.log(inputData.BirthDate)
         // Get Province
         async function fetchGetProvince() {
             const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/get_provinces`, {
                 method: 'POST',
-                credentials: 'same-origin',
                 body: JSON.stringify({
                     "ProvinceID": "",
                     "NameEN": "",
                     "NameTH": ""
-                })
+                }),
+                headers: {
+                    // "x-application-secret-key": apiXKey,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
             })
             res
                 .json()
@@ -109,7 +123,7 @@ function AddMemberPage(props) {
                     if (res.code === 0 || res === '' || res === undefined) {
                         console.log('ไม่พบจังหวัด');
                     }
-                    console.log(res.data)
+
                     setProvinceList(res.data)
                 })
                 .catch(err => {
@@ -145,7 +159,7 @@ function AddMemberPage(props) {
         setLoaded(true);
         fetchCheckLogin();
 
-    }, [history, server_hostname, server_port])
+    }, [])
 
 
         // Get District
@@ -153,13 +167,16 @@ function AddMemberPage(props) {
             console.log('fetchGetDistrict:proviceID',proviceID)
             const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/get_districts`, {
                 method: 'POST',
-                credentials: 'same-origin',
-                body: JSON.stringify({
-                    "ProvinceID": "10",
+                body: JSON.stringify({ 
+                    "ProvinceID": proviceID,
                     "DistrictID": "",
-                    "NameEN": "",
-                    "NameTH": ""
-                })
+                    "AM_NAME": ""
+                }),
+                headers: {
+                    // "x-application-secret-key": apiXKey,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
             })
             res
                 .json()
@@ -177,17 +194,22 @@ function AddMemberPage(props) {
         }
 
          // Get SubDistrict
-         async function fetchGetSubDistrict() {
+         async function fetchGetSubDistrict(districtID) {
             const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/get_subdistricts`, {
                 method: 'POST',
                 credentials: 'same-origin',
                 body: JSON.stringify({
                     "ProvinceID": "",
-                    "DistrictID": "1001",
+                    "DistrictID": districtID,
                     "SubdistrictID": "",
-                    "NameEN": "",
-                    "NameTH": ""
-                })
+                    "TB_NAME": ""
+                }),
+                headers: {
+                    // "x-application-secret-key": apiXKey,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+                   
             })
             res
                 .json()
@@ -259,13 +281,20 @@ function AddMemberPage(props) {
         console.log(event)
     }
 
-    // Input Province, District, Sub District
+    // Input Relation Province, District, Sub District
     const handleInputDataProvince = (event) => {
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value
         })
         fetchGetDistrict(event.target.value);
+    }
+    const handleInputDataDistrict = (event) => {
+        setInputData({
+            ...inputData,
+            [event.target.name]: event.target.value
+        })
+        fetchGetSubDistrict(event.target.value);
     }
 
     const handleValidateNumberOnBlur = (event) => {
@@ -297,14 +326,38 @@ function AddMemberPage(props) {
         }
     }
 
-    const handleChooseProvince = () => {
 
-    }
-
-
-    const handleSubmit = (event) => {
+    // Submit Data
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(inputData)
+        const myFile = document.querySelector("input[type=file]").files[0];
+
+        let addFarmerForm = document.getElementById('addFarmerForm');
+        let formData = new FormData(addFarmerForm);
+        // if(inputData.FrontName === 1) {
+        //     formData.append('FrontName', 'นาย')
+        // } else if (inputData.FrontName === 2) {
+        //     formData.append('FrontName', 'นาง')
+        // } else {
+        //     formData.append('FrontName', 'นางสาว')
+        // }
+
+        axios.post(
+            `http://${server_hostname}:${server_port}/admin/api/add_farmer`,
+            formData,
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    setErrMsg(data.message)
+                }else {
+                    // history.push('/manageinfo/searchmember')
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                }
+            }
+        ).catch(err => { console.log(err) });
     }
 
     const cancelData = () => {
@@ -323,7 +376,7 @@ function AddMemberPage(props) {
                     <Divider variant="middle" style={{ margin: '0' }} />
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    {/* Field Radio Button ---------------------------------------------------*/}
+                    {/* Field Checkbox Button ---------------------------------------------------*/}
                     <MuiCheckbox label="Alro Land" id="addmember-landinfo-alro-checkbox" />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -374,6 +427,11 @@ function AddMemberPage(props) {
         );
     }
 
+    const handleGotoSearch = () => {
+        setSuccess(false);
+        history.push('/manageinfo/searchmember');
+
+    };
 
     const handleClosePopup = () => {
         setErr(false);
@@ -404,7 +462,7 @@ function AddMemberPage(props) {
                                                 <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" name="IDCard" value={inputData.IDCard} onInput={handleInputData} onBlur={handleValidateNumberOnBlur} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiRadioButton label="ประเภทสมาชิก" id="addmember-type-input" lists={['รายบุคคล', 'สถาบัน']} defaultValue={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                <MuiRadioButton label="ประเภทสมาชิก" id="addmember-type-input" lists={['รายบุคคล', 'สถาบัน']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
@@ -418,13 +476,25 @@ function AddMemberPage(props) {
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="นามสกุลชื่อ" id="addmember-name-input" defaultValue="" value={inputData.SirName} name="SirName" onChange={handleInputData} />
                                             </Grid>
+
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" defaultValue="" onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                <Flatpickr
+                                                    lang={Thai}
+                                                    value={moment}
+                                                    options={{
+                                                        "locale": Thai
+                                                    }}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={12} md={12}>
+                                                {/* Field Date Picker ---------------------------------------------------*/}
+                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input" defaultValue="" onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
@@ -464,7 +534,7 @@ function AddMemberPage(props) {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelectDistrict label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={districtList} value={inputData.IDCARD_AddrDistrictID} name="IDCARD_AddrDistrictID" onChange={handleInputData}  />
+                                                <MuiSelectDistrict label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={districtList} value={inputData.IDCARD_AddrDistrictID} name="IDCARD_AddrDistrictID" onChange={handleInputDataDistrict}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
@@ -472,7 +542,7 @@ function AddMemberPage(props) {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.IDCARD_Postcode} name="IDCARD_Postcode" onChange={handleInputData} />
+                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.IDCARD_Postcode} name="IDCARD_Postcode" onInput={handleInputData} />
                                             </Grid>
                                         </Grid>
                                     </Paper>
@@ -492,31 +562,31 @@ function AddMemberPage(props) {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="บ้านเลขที่" id="addmember-contact-addr1-input" defaultValue="" />
+                                                <MuiTextfield label="บ้านเลขที่" id="addmember-idcard-addr1-input" defaultValue="" value={inputData.Contact_AddNo} name="Contact_AddNo" onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="หมู่ที่" id="addmember-contact-addr2-input" defaultValue="" />
+                                                <MuiTextfield label="หมู่ที่" id="addmember-idcard-addr2-input" defaultValue="" value={inputData.Contact_AddMoo} name="Contact_AddMoo" onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-contact-addr3-input" defaultValue="" />
+                                                <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-idcard-addr3-input" value={inputData.Contact_AddrSoiRoad} name="Contact_AddrSoiRoad" onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelectProvince label="จังหวัด" id="addmember-contact-province-select" lists={provinceList} />
+                                                <MuiSelectProvince label="จังหวัด" id="addmember-idcard-province-select" lists={provinceList}  value={inputData.Contact_AddrProvinceID} name="Contact_AddrProvinceID" onChange={handleInputDataProvince} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelect label="เขต / อำเภอ" id="addmember-contact-district-select" lists={districtList} />
+                                                <MuiSelectDistrict label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={districtList} value={inputData.Contact_AddrDistrictID} name="Contact_AddrDistrictID" onChange={handleInputDataDistrict}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelect label="แขวง / ตำบล" id="addmember-contact-subdistrict-select" lists={subDistrictList} />
+                                                <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-contact-tel-postcode-input" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.telNum} onInput={handleInputData} />
+                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />
                                             </Grid>
                                         </Grid>
                                     </Paper>
@@ -582,7 +652,7 @@ function AddMemberPage(props) {
                                             </Grid>
                                         </Grid>
                                     </Paper>
-                                    {/* <Paper className="paper line-top-green paper">
+                                    <Paper className="paper line-top-green paper">
                                         <Grid item xs={12} md={12}>
                                             {<FormLandInfo />}
                                             {[...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />)}
@@ -590,7 +660,7 @@ function AddMemberPage(props) {
                                                 <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormLandInfo} />
                                             </Grid>
                                         </Grid>
-                                    </Paper> */}
+                                    </Paper>
                                 </Grid>
                             </Grid>
 
@@ -609,20 +679,35 @@ function AddMemberPage(props) {
             </Fade>
 
             <Dialog
-                open={err}
+                open={err || success}
                 onClose={handleClosePopup}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
             >
                 {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <p>{errMsg}</p>
-                        <br/>
-                        <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
-                        </Box>
-                    </DialogContentText>
+                    {
+                        success ? 
+                        <DialogContentText className="dialog-success">
+                            <p className="txt-center txt-black">{successMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
+                                        <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
+                                    
+                            </Box>
+                        </DialogContentText>
+                        :
+                        <DialogContentText className="dialog-error">
+                            <p className="txt-center txt-black">{errMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            </Box>
+                        </DialogContentText>
+                    }
+                    
                 </DialogContent>
                 {/* <DialogActions>
                 </DialogActions> */}
