@@ -51,6 +51,7 @@ import RecordDebtPayment from './loanrequest/RecordDebtPayment';
 import PrintContractDebt from './loanrequest/PrintContractDebt';
 import EditContractDebt from './loanrequest/EditContractDebt';
 import RecordContractDebt from './loanrequest/RecordContractDebt';
+import BySign from './check/BySign'
 
 function Main() {
     const history = useHistory();
@@ -114,6 +115,8 @@ function Main() {
                     <Route path="/manageinfo/addmenu" component={AddMenu} />
                     <Route path="/manageinfo/addrole" component={AddRole} />
                     <Route path="/manageinfo/managepermission" component={ManagePermission} />
+                    {/* Manage Check Page */}
+                    <Route path="/check/bysign" component={BySign} />
                 </Switch>
             </Router>
         </div>
