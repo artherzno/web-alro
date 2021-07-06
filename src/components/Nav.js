@@ -31,13 +31,14 @@ const listmenu = [
                 subpath: '/manageinfo/searchmember'
             },
             {
-                subtitle: 'ค้นหาคำขอกู้ยืมเงิน',
+                subtitle: 'ตรวจสอบคำขอกู้ยืมเงิน',
                 subpath: '/loanrequest/loanrequestcontactsearch'
             },
+            // {
+            //     subtitle: 'ยื่นคำขอกู้ยืมเงิน',
+            //     subpath: '/loanrequest/loanrequestcontact'
+            // },
             {
-                subtitle: 'ยื่นคำขอกู้ยืมเงิน',
-                subpath: '/loanrequest/loanrequestcontact'
-            },{
                 subtitle: 'พิมพ์สัญญากู้ยืมเงิน',
                 subpath: '/loanrequest/loanrequestprint'
             },{
@@ -69,8 +70,8 @@ const listmenu = [
                 subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
                 subpath: '/loanserviceinfo/recordbillclose'
             },{
-                subtitle: 'แก้ไขใบเสร็จรับเงิน',
-                subpath: '/loanserviceinfo/editbill'
+                subtitle: 'ยกเลิกใบเสร็จรับเงิน',
+                subpath: '/loanserviceinfo/cancelbill'
             },{
                 subtitle: 'Upload file ข้อมูล ธกส.',
                 subpath: '/loanserviceinfo/uploadinfobaac'
@@ -85,17 +86,17 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'พิมพ์ใบแจ้งหนี้',
+                subtitle: 'รายงานใบแจ้งหนี้',
                 subpath: '/debtinfo/printinvoice'
             },{
-                subtitle: 'ใบเตือนหนี้ค้างชำระ',
+                subtitle: 'รายงานใบเตือนหนี้ค้างชำระ',
                 subpath: '/debtinfo/noticeinvoice'
             },{
                 subtitle: 'ใบแจ้งหนี้ล่วงหน้า 30 วัน',
-                subpath: '/home'
+                subpath: '/debtinfo/advanceinvoice'
             },{
-                subtitle: 'ใบแจ้งหนี้ครั้งที่ 1, 2',
-                subpath: '/home'
+                subtitle: 'ใบเตือนหนี้ครั้งที่ 1, 2',
+                subpath: '/debtinfo/debtreminder'
             },{
                 subtitle: 'บันทึกขอผ่อนผัน',
                 subpath: '/debtinfo/recordinstallmentpayment'
@@ -157,7 +158,7 @@ const listmenu = [
         submenu: [
             {
                 subtitle: 'จัดการงบประมาณโครงการ',
-                subpath: '/home'
+                subpath: '/manageinfo/manageprojectbudget'
             },{
                 subtitle: 'โครงการขอกู้เงิน',
                 subpath: '/manageinfo/loanrequestproject'

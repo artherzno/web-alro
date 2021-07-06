@@ -1,10 +1,12 @@
-import React, { useContext, useState, createContext } from 'react'
+import React, { useContext, useState, createContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import Icon from '@mdi/react'
 import { mdiLogout} from '@mdi/js'
 
 import LogoImg from '../assets/logo-alro.png';
 import { AuthContext } from '../App';
+import moment from 'moment'
+import axios from 'axios'
 
 const dataUserContext = createContext();
 
@@ -14,19 +16,32 @@ function Header(props) {
 
     let server_port = auth.port;
     let server_hostname = auth.hostname;
+    let username = localStorage.getItem('username');
+    let provincename = localStorage.getItem('provincename');
 
     const { bgColor, status } = props;
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
     const [isLoaded, setIsLoaded] = useState(false);
+    const [realDate, setRealDate] = useState('')
+    const [realTime, setRealTime] = useState('')
 
+    const timer = () => {
+        setRealDate(moment().format('Do MMMM YYYY'))
+        setRealTime(moment().format('hh:mm'))
+    }
+
+    setInterval(() => {
+        timer()
+    }, 1000);
+    
     const goto = () => {
         history.push('/home');
     }
 
     const logout = async () => {
-        const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/logout`, {
+        const res = await fetch(`${server_hostname}/admin/api/logout`, {
             method: 'POST',})
         history.push('/');
 
@@ -50,6 +65,7 @@ function Header(props) {
           console.log(err);
           setIsLoaded(true);
           setErr(true);
+          history.push('/');
         });
     }
 
@@ -63,17 +79,18 @@ function Header(props) {
                 </p>    
             </div>
 
-            { status === 'logged' ? <div className="admin-info">
-                <p>
-                    ยินดีต้อนรับ คุณกานต์พิชชา<br/>
-                    <span>ส.ป.ก. จังหวัดสมุทรปราการ วันที่ 4 มกราคม 2564 เวลา 9.30 น.</span>
-                </p>
-                <Icon path={mdiLogout}
-                    title="Log Out"
-                    size={1}
-                    color="#27ae60"
-                    onClick={()=>logout()}
-                    />
+            { status === 'logged' ? 
+                <div className="admin-info">
+                    <p>
+                        ยินดีต้อนรับ คุณ {username} <br/>
+                        <span>ส.ป.ก. จังหวัด{provincename} วันที่ {realDate} เวลา {realTime} น.</span>
+                    </p>
+                    <Icon path={mdiLogout}
+                        title="Log Out"
+                        size={1}
+                        color="#27ae60"
+                        onClick={()=>logout()}
+                        />
                 </div> : ''}
         </div>
     )

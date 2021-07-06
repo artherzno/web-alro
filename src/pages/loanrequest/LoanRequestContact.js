@@ -101,7 +101,7 @@ function LoanRequestContact(props) {
     function getStepContent(step) {
         switch (step) {
             case 0:
-            return <LoanRequestContactStep1 />;
+            return <LoanRequestContactStep1 FarmerID={props.location.state.FarmerID} />;
             case 1:
             return <LoanRequestContactStep2 />;
             case 2:

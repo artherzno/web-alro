@@ -1,11 +1,14 @@
 import React from 'react';
+import axios from 'axios';
+
 import { createTheme, alpha, styled } from '@material-ui/core/styles';
 import { makeStyles, withStyles,} from '@material-ui/styles';
-import { Fade, } from '@material-ui/core';
+// import { Fade, } from '@material-ui/core';
+// import Box from '@material-ui/core/Box';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputLabel from '@material-ui/core/InputLabel';
+// import InputLabel from '@material-ui/core/InputLabel';
 import InputBase from '@material-ui/core/InputBase';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
@@ -31,7 +34,7 @@ import thLocale from 'date-fns/locale/th';
 import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import { yellow } from '@material-ui/core/colors';
+// import { yellow } from '@material-ui/core/colors';
 
 // const BootstrapInput = withStyles((theme) => ({
 
@@ -315,7 +318,7 @@ const MuiLabelHeaderCheckbox = (props) => {
             {/* <InputLabel className={classes.label}  shrink htmlFor={label}>
                 <span className="txt-green">{topic}&nbsp;</span>{label}
             </InputLabel>&nbsp; */}
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
         </FormControl>
         );
 }
@@ -331,7 +334,7 @@ const MuiTextfield = (props) => {
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     <span className="txt-green">{topic}&nbsp;</span>{label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} />
             
@@ -341,7 +344,7 @@ const MuiTextfield = (props) => {
 
 const MuiTextfieldMultiLine = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, textAlign, row, name } = props;
+    const { topic, label, id, value, type, textAlign, row, name } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -350,16 +353,16 @@ const MuiTextfieldMultiLine = (props) => {
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     <span className="txt-green">{topic}&nbsp;</span>{label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} defaultValue={defaultValue} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextfieldStartAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, startAdornment, textAlign, name } = props;
+    const { topic, label, id, value, type, startAdornment, textAlign, name, onChange } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -368,16 +371,16 @@ const MuiTextfieldStartAdornment = (props) => {
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     <span className="txt-green">{topic}&nbsp;</span>{label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} defaultValue={defaultValue} id={id}  startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextfieldEndAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, type, endAdornment, textAlign, name } = props;
+    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -386,16 +389,16 @@ const MuiTextfieldEndAdornment = (props) => {
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     <span className="txt-green">{topic}&nbsp;</span>{label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} defaultValue={defaultValue} id={id}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
 
 const MuiTextNumber = (props) => {
     const classes = useStyles();
-    const { topic, label, id, defaultValue, placeholder, value, onInput, name, onBlur } = props;
+    const { topic, label, id, placeholder, value, onInput, name, onBlur } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -404,17 +407,29 @@ const MuiTextNumber = (props) => {
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     <span className="txt-green">{topic}&nbsp;</span>{label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <BootstrapInput name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur}  />
         </FormControl>
     );
 }
 
+let d = new Date();
+// const day = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+// const month = [1,2,3,4,5,6,7,8,9,10,11,12];
+// const month = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+let fullyear = d.getFullYear() + 543;
+let year = [];
+year.push('เลือกปี')
+for(let i=0; i<=100; i++) {
+    year.push(fullyear - i);
+}
+
 const MuiDatePicker = (props) => {
-    const classes = useStyles();
-    const { topic, label, id, name, value, onChange } = props;
-console.log(value)
+    // const classes = useStyles();
+    const { topic, label, value, onChange } = props;
+
+// console.log('MuiDatePicker',value)
     return (
         <FormControl className="MuiDatePicker">
             { 
@@ -422,8 +437,54 @@ console.log(value)
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     <span className="txt-green">{topic}&nbsp;</span>{label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
+            {/* <Box className="dsp-f">
+                <FormControl className="MuiDatePicker">
+                    <Select
+                            value={value}
+                            name={name}
+                            labelId={id}
+                            id={id}
+                            input={<BootstrapInput />}
+                            onChange={onChange}
+                        >
+                            {day.map((item,i)=>
+                                <MenuItem key={i} value={i}>{item}</MenuItem>
+                            )}
+                    </Select> 
+                </FormControl>
+                <Box style={{display: 'flex', alignItems: 'center', padding: '0 4px'}}>/</Box>
+                <FormControl className="MuiDatePicker">
+                <Select
+                        value={value}
+                        name={name}
+                        labelId={id}
+                        id={id}
+                        input={<BootstrapInput />}
+                        onChange={onChange}
+                    >
+                        {month.map((item,i)=>
+                            <MenuItem key={i} value={i}>{item}</MenuItem>
+                        )}
+                </Select> 
+                </FormControl>
+                <Box style={{display: 'flex', alignItems: 'center', padding: '0 4px'}}>/</Box>
+                <FormControl className="MuiDatePicker">
+                    <Select
+                            value={value}
+                            name={name}
+                            labelId={id}
+                            id={id}
+                            input={<BootstrapInput />}
+                            onChange={onChange}
+                        >
+                            {year.map((item,i)=>
+                                <MenuItem key={i} value={i}>{item}</MenuItem>
+                            )}
+                    </Select> 
+                </FormControl>
+            </Box> */}
             {/* <BootstrapInput name={name} type="date" value={value} id={id} /> */}
             <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
                 <DatePicker
@@ -440,7 +501,7 @@ console.log(value)
 }
 
 const MuiCheckbox = (props) => {
-    const { label, id, value, type, defaultChecked, name } = props;
+    const { label, id, type, defaultChecked, name, onChange } = props;
 
     return (
         <React.Fragment>
@@ -453,7 +514,7 @@ const MuiCheckbox = (props) => {
                             name={name}
                             defaultChecked={defaultChecked}
                             // checked={state.checkedB}
-                            // onChange={handleChange}
+                            onChange={onChange}
                             // name="checkedB"
                             color="primary"
                             id={id}
@@ -470,7 +531,7 @@ const MuiCheckbox = (props) => {
                             name={name}
                             defaultChecked={defaultChecked}
                             // checked={state.checkedB}
-                            // onChange={handleChange}
+                            onChange={onChange}
                             // name="checkedB"
                             color="primary"
                             id={id}
@@ -488,7 +549,12 @@ const MuiCheckbox = (props) => {
 
 const MuiRadioButton = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, value, onChange, type, color, name, defaultValue } = props;
+    const { topic, label, id, lists, value, onChange, type, color, name, } = props;
+
+    let radioValue = value;
+    if(value === null) {
+        radioValue = ''
+    }
 
     return (
         <FormControl className={classes.textbox}>
@@ -497,14 +563,14 @@ const MuiRadioButton = (props) => {
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
                 //     {label}
                 // </InputLabel>
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {/* { (label) === '' ? '' : <span>&nbsp;</span> }   */}
 
             {/* Check row or column */}
             {
                 (type === 'row') ? 
-                <RadioGroup row aria-label={id} name={name} value={value.toString()} onChange={onChange}>
+                <RadioGroup row aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
                                 <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
@@ -519,7 +585,7 @@ const MuiRadioButton = (props) => {
                     )}
                 </RadioGroup> 
                 :
-                <RadioGroup aria-label={id} name={name} value={value} onChange={onChange}>
+                <RadioGroup aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
                             <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
@@ -542,14 +608,14 @@ const MuiSelectProvince = (props) => {
     const classes = useStyles();
     const { topic, label, id, lists, name, value, onChange } = props;
 
-    // console.log('MuiSelect:', lists)
+    // console.log('MuiSelectProvince:', lists)
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
 
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -579,7 +645,7 @@ const MuiSelectDistrict = (props) => {
             { 
                 (label) === '' ? '' :
 
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -609,7 +675,7 @@ const MuiSelectSubDistrict = (props) => {
             { 
                 (label) === '' ? '' :
 
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -628,21 +694,34 @@ const MuiSelectSubDistrict = (props) => {
     );
 }
 
-const MuiSelect = (props) => {
+const MuiSelectObjYear = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange } = props;
+    const { topic, label, id, name, value, onChange, valueYaer } = props;
 
-    // console.log('MuiSelect:', lists)
+    // e.g. <MuiSelectObjYear label="แผนปี" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
+
+    let d = new Date();
+    let fullyear = d.getFullYear() + 543;
+    let yearList = [];
+    let countYaerNum = valueYaer || 50;
+    
+    for(let i=0; i<countYaerNum; i++) {
+        yearList.push(
+            {
+                yearname: fullyear - i,
+                yearvalue: (fullyear - i)-2500
+            }
+        );
+    }
+
+    // console.log('MuiSelectOBJYear:', lists, itemName, itemValue)
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     {label}
-                // </InputLabel>
 
-                <p><span className="txt-green">{topic}&nbsp;</span>{label}</p>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -652,10 +731,94 @@ const MuiSelect = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                {lists.map((item,i)=>
-                    <MenuItem key={i} value={i+1}>{item}</MenuItem>
+                <MenuItem value={0}>กรุณาเลือก</MenuItem>
+                {yearList.map((item,i)=>
+                    <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
                 )}
             </Select>
+        </FormControl>
+    );
+}
+
+const MuiSelectObj = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, lists, name, value, onChange, itemName, itemValue } = props;
+
+    // console.log('MuiSelectOBJ:', lists, itemName, itemValue)
+
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value={0}>กรุณาเลือก</MenuItem>
+                {lists.map((item,i)=>
+                    <MenuItem key={i} value={item[itemValue]}>{item[itemName]}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
+const MuiSelect = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, lists, listsValue, name, value, onChange } = props;
+
+    // console.log('MuiSelect:', listsValue)
+
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     {label}
+                // </InputLabel>
+
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            {
+
+                listsValue === undefined ? 
+                <Select
+                    value={value}
+                    name={name}
+                    labelId={id}
+                    id={id}
+                    input={<BootstrapInput />}
+                    onChange={onChange}
+                >
+                    {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
+                    {lists.map((item,i)=>
+                        <MenuItem key={i} value={i}>{item}</MenuItem>
+                    )}
+                </Select> 
+            :
+                <Select
+                    value={value}
+                    name={name}
+                    labelId={id}
+                    id={id}
+                    input={<BootstrapInput />}
+                    onChange={onChange}
+                >
+                    {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
+                    {lists.map((item,i)=>
+                        <MenuItem key={i} value={listsValue[i]}>{item}</MenuItem>
+                    )}
+                </Select>
+
+            }
+            
         </FormControl>
     );
 
@@ -680,14 +843,15 @@ const MuiSelect = (props) => {
 
 const MuiUpload = (props) => {
     const classes = useStyles();
-    const { label, imgUpload, id, onChange, name } = props;
+    const { label, imgUpload, id, onChange, name, onClick } = props;
 
     return (
         <FormControl className={classes.boxDashed}>
             { 
-                (label) === '' ? '' : <p>{label}</p>
+                (label) === '' ? '' : <label>{label}</label>
             }
-
+            { 
+            imgUpload ? 
             <List className={classes.lists}>
                 {imgUpload.map((item,i)=>
                     <ListItem key={i}>
@@ -698,14 +862,16 @@ const MuiUpload = (props) => {
                             primary={item}
                         />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
-                                <RemoveCircleOutlineIcon color="secondary" style={{backgroundColor: '#da2828' }}  />
+                            <IconButton edge="end" aria-label="delete"  onClick={onClick} >
+                                <RemoveCircleOutlineIcon color="secondary" style={{color: '#da2828' }} />
                             </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>
                 )}
 
             </List>
+            : ''
+                }
             <input
                 accept="image/*"
                 className={classes.inputfile}
@@ -838,9 +1004,11 @@ export {
     MuiDatePicker,
     MuiRadioButton,
     MuiSelect,
+    MuiSelectObj,
     MuiSelectProvince,
     MuiSelectDistrict,
     MuiSelectSubDistrict,
+    MuiSelectObjYear,
     MuiUpload,
     ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,

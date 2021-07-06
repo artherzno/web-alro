@@ -1,19 +1,13 @@
 import React, { createContext, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
 } from "react-router-dom";
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import './App.scss';
 import {  createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { mdiScale } from '@mdi/js';
 import { thTH } from '@material-ui/core/locale';
-
-import Cookies from 'js-cookie'
 
 const AuthContext = createContext();
 
@@ -43,21 +37,19 @@ const theme = createTheme({
 }, thTH)
 
 // const AuthData = { port: 3800, hostname: '127.0.0.1' } ;
-const AuthData = { port: 3800, hostname: '147.50.143.84' } ;
-const hostname = window.location.hostname;
+const AuthData = { port: 3800, production: 'https://spk.mirasoft.co.th', hostname: 'https://spkapi.mirasoft.co.th', portinvoice: 8055 } ;
+// const hostname = window.location.hostname;
+const hostname = 'https://spkapi.mirasoft.co.th';
 
 
 function App() {
 
   useEffect(() => {console.warn('hi app')
     // Check Port
-    if(hostname !== 'localhost') {
-      AuthData.hostname = hostname;
-    } 
-    console.warn('Cookie', document.cookie)
+    // if(hostname !== 'localhost') {
+    //   AuthData.hostname = hostname;
+    // } 
     console.log(AuthData);
-    console.log('process.env',process.env)
-    console.log('process.env.REACT_APP_API_HOST',process.env.REACT_APP_API_HOST)
   }, [])
 
   return (

@@ -78,7 +78,7 @@ function LoanRequestContactSearch() {
                     <Container maxWidth="md">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>คำขอกู้ยืมเงิน</h1>
+                                <h1>ตรวจสอบคำขอกู้ยืมเงิน</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">

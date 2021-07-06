@@ -185,6 +185,12 @@ button {
   font-family: "kanit" !important;
 }
 
+input[disabled] {
+  color: #000000;
+  -webkit-text-fill-color: #000000 !important;
+  background-color: var(--text-input-border) !important;
+}
+
 h1,
 h2,
 h3 {
@@ -279,6 +285,18 @@ h3 {
 
 .mg-t-0 {
   margin-top: 0 !important;
+}
+
+.mg-b-20 {
+  margin-bottom: 20px !important;
+}
+
+.mg-b-15 {
+  margin-bottom: 15px !important;
+}
+
+.mg-b-10 {
+  margin-bottom: 10px !important;
 }
 
 .mg-b--20 {
@@ -745,6 +763,8 @@ body {
       padding: 16px 26px;
       color: #fff;
       font-size: 1rem;
+      line-height: 1;
+      height: 4rem;
       span {
         font-size: 18px;
         color: var(--white);
@@ -860,6 +880,20 @@ body {
   }
 }
 
+.box-blue {
+  display: flex;
+  padding: 20px;
+  background-color: #e8f5ff;
+  border: 1px solid #4084ca;
+  .box-blue-item {
+    flex: 1;
+    text-align: center;
+    .box-blue-head {
+      color: #2284d0;
+    }
+  }
+}
+
 // Card Style ----------------------//
 .card {
   max-width: 486px;
@@ -937,9 +971,12 @@ input {
 // Login Style ---------------------//
 .login-page {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-image: url(./assets/login-bg.png);
   background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   .card {
     position: absolute;
@@ -949,10 +986,15 @@ input {
     bottom: 0;
     margin: auto;
     padding: 24px;
-    height: 330px;
+    height: 350px;
     p {
       text-align: center;
       margin-bottom: 16px;
+      &.err {
+        height: 20px;
+        padding: 0;
+        margin: 0;
+      }
     }
   }
   .login-option {
@@ -1222,6 +1264,15 @@ input {
 }
 
 // Material UI (Mui) --------------------------//
+label + .MuiInputBase-root {
+  &.MuiInputBase-formControl {
+    margin-top: 0;
+  }
+  &.Mui-Disabled {
+    background-color: #959595;
+    color: #000000;
+  }
+}
 
 .MuiDatePicker {
   width: 100%;

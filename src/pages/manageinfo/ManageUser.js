@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../App';
+import moment from 'moment';
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -33,29 +36,101 @@ import {
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
-
-// All Data for DataGrid & Table ---------------------------------------------//
-
-const tableResult = [
-    { a: '1', b: 'วิพรรษา ดิษสิน', c: 'wipansa.d', d: 'xxxxx', f: '2021-05-07', g: '1', h: '2021-05-07', i: 'ฝ่ายการเงิน', j:'alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx'},
-    { a: '2', b: 'วิพรรษา ดิษสิน', c: 'wipansa.d', d: 'xxxxx', f: '2021-05-07', g: '1', h: '2021-05-07', i: 'ฝ่ายการเงิน', j:'alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx'},
-    { a: '3', b: 'วิพรรษา ดิษสิน', c: 'wipansa.d', d: 'xxxxx', f: '2021-05-07', g: '1', h: '2021-05-07', i: 'ฝ่ายการเงิน', j:'alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx alro.go.th/xxxxxxxx'},
-]
-
 // End All Data for DataGrid ---------------------------------------------//
 
 
 function ManageUser() {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
 
     const [loaded, setLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [openPopup, setOpenPopup] = useState(false)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
+    const [tableResult, setTableResult] = useState([])
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
+
     useEffect(() => {
         setLoaded(true);
         setOpenPopup(true);
+
+        axios.post(
+            `${server_hostname}/admin/api/search_member`, '', { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data)
+                    setTableResult(data.data)
+                    
+                }
+            }
+        ).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+
+         const checkLogin = () => {
+            axios.post(
+                `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } 
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+        checkLogin();
+
+         // executed when component mounted
+        isMounted.current = true;
+        return () => {
+            // executed when unmount
+            isMounted.current = false;
+        }
+
     }, [])
 
     const handleChangePage = (event, newPage) => {
@@ -71,8 +146,13 @@ function ManageUser() {
         history.push('/manageinfo/adduser');
     }
 
-    const gotoEditUser = () => {
-        history.push('/manageinfo/adduser');
+    const gotoEditUser = (id) => {
+        history.push({
+            pathname: '/manageinfo/edituser',
+            state: {
+                nMEMID: id
+            }
+        });
     }
 
     const gotoAddMenu = () => {
@@ -128,9 +208,9 @@ function ManageUser() {
                                 <h1>จัดการผู้ใช้งาน</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-0 txt-right dsp-f jc-flex-end" >
-                                <div className="mg-r-10"><ButtonNormalIconStartPrimary label="เพิ่ม role" startIcon={<AddIcon />} onClick={()=>gotoAddRole()} /></div>
+                                {/* <div className="mg-r-10"><ButtonNormalIconStartPrimary label="เพิ่ม role" startIcon={<AddIcon />} onClick={()=>gotoAddRole()} /></div>
                                 <div className="mg-r-10"><ButtonNormalIconStartPrimary label="เพิ่มเมนู" startIcon={<AddIcon />} onClick={()=>gotoAddMenu()} /></div>
-                                <div className="mg-r-10"><ButtonNormalIconStartPrimary label="จัดการสิทธิ์" startIcon={<SettingsOutlinedIcon />} onClick={()=>gotoManagePermission()} /></div>
+                                <div className="mg-r-10"><ButtonNormalIconStartPrimary label="จัดการสิทธิ์" startIcon={<SettingsOutlinedIcon />} onClick={()=>gotoManagePermission()} /></div> */}
                                 <div className="mg-l-10"><ButtonNormalIconStartPrimary label="เพิ่มผู้ใช้งาน" startIcon={<AddIcon />} onClick={()=>gotoAddUser()}/></div>
                             </Grid>
 
@@ -143,40 +223,40 @@ function ManageUser() {
                                                 <TableCell align="center">UserID</TableCell>
                                                 <TableCell align="center">OfficerName</TableCell>
                                                 <TableCell align="center">UserName</TableCell>
-                                                <TableCell align="center">Password</TableCell>
                                                 <TableCell align="center">CreateDate</TableCell>
                                                 <TableCell align="center">ActiveStatus</TableCell>
                                                 <TableCell align="center">ExpireDate</TableCell>
                                                 <TableCell align="center">UserRole</TableCell>
-                                                <TableCell align="center">MenuAccess</TableCell>
-                                                <TableCell align="center">&nbsp;</TableCell>
+                                                <TableCell align="center" className="sticky tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={10} align="center">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            {/* {
-                                                (rowsPerPage > 0
-                                                    ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    : tableResult
-                                                  ).map((row,i) => (
-                                                <TableRow key={i}>
-                                                        <TableCell align="center">{row.a}</TableCell>
-                                                        <TableCell align="center">{row.b}</TableCell>
-                                                        <TableCell align="center">{row.c}</TableCell>
-                                                        <TableCell align="center">{row.d}</TableCell>
-                                                        <TableCell align="center">{row.f}</TableCell>
-                                                        <TableCell align="center">{row.g}</TableCell>
-                                                        <TableCell align="center">{row.h}</TableCell>
-                                                        <TableCell align="center">{row.i}</TableCell>
-                                                        <TableCell align="center">{row.j}</TableCell>
-                                                        <TableCell align="center" className="tb-w-18em">
-                                                            <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoEditUser()}/>
-                                                            <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoEditUser()}/>
-                                                        </TableCell>
+                                            {
+                                                tableResult.length ? 
+                                                    (rowsPerPage > 0
+                                                        ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                        : tableResult
+                                                    ).map((cell,i) => (
+                                                    <TableRow key={i}>
+                                                            <TableCell align="center" className="tb-w-8em">{cell.nMEMID}</TableCell>
+                                                            <TableCell align="center" className="tb-w-8em">{cell.OfficerName}</TableCell>
+                                                            <TableCell align="center" className="tb-w-14em">{cell.cUsername}</TableCell>
+                                                            <TableCell align="center" className="tb-w-12em">{(cell.dCreated === null) ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="center" className="tb-w-12em">{(cell.bActive) ? 1 : 0}</TableCell>
+                                                            <TableCell align="center" className="tb-w-12em">{(cell.ExpireDate === null) ? '' : moment(cell.ExpireDate).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="center" className="tb-w-12em">{cell.nRolename}</TableCell>
+                                                            <TableCell align="center" className="sticky tb-w-14em">
+                                                                <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>{gotoEditUser(cell.nMEMID)}} />
+                                                                {/* <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} /> */}
+                                                            </TableCell>
+                                                    </TableRow>
+                                                    
+                                                ))
+                                                : 
+                                                <TableRow>
+                                                    <TableCell colSpan={8} align="center">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
-                                            ))} */}
+                                            }
                                         </TableBody>
                                     </Table>
                                     </TableContainer>
@@ -186,8 +266,8 @@ function ManageUser() {
                                         count={tableResult.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
-                                        onChangePage={handleChangePage}
-                                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
                                         labelRowsPerPage="แสดงจำนวนแถว"
                                     />
                                 </div>
@@ -201,7 +281,7 @@ function ManageUser() {
                 </div>
             </Fade>
 
-            <Dialog
+            {/* <Dialog
                 open={openPopup}
                 onClose={handleClosePopup}
                 aria-labelledby="alert-dialog-title"
@@ -209,23 +289,55 @@ function ManageUser() {
                 maxWidth="xs"
                 fullWidth={true}
             >
-                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <p className="font-18 txt-black txt-center">เข้าสู่ระบบจัดการผู้ใช้งาน</p>
                         <form  onSubmit={handleSubmit}>
+                    <div id="alert-dialog-description">
+                        <p className="font-18 txt-black txt-center">เข้าสู่ระบบจัดการผู้ใช้งาน</p>
                             <div className="form-input">
                                 <label>Username</label>
-                                <input autoFocus type="text" name="username" value="" placeholder="" />
+                                <input autoFocus type="text" name="username" placeholder="" />
                             </div>
                             <div className="form-input">
                                 <label>Password</label>
-                                <input type="password" name="password" value="" placeholder=""  />
+                                <input type="password" name="password" placeholder=""  />
                             </div>
                             <button className="btn btn-blue" onClick={handleClosePopup}>เข้าสู่ระบบ</button>
                             <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={handleCancel} />
+                    </div>
                         </form>
-                    </DialogContentText>
+                </DialogContent>
+            </Dialog> */}
+
+            <Dialog
+                open={err || success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                    {
+                        success ? 
+                        <div className="dialog-success">
+                            <span className="txt-center txt-black" style={{display: 'block'}}>{successMsg}</span>
+                            <br/>
+                            <Box textAlign='center'>
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                                    
+                            </Box>
+                        </div>
+                        :
+                        <div className="dialog-error">
+                            <span className="txt-center txt-black" style={{display: 'block'}}>{errMsg}</span>
+                            <br/>
+                            <Box textAlign='center'>
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleCancel} color="primary" style={{justifyContent: 'center'}} />
+                            </Box>
+                        </div>
+                    }
+                    
                 </DialogContent>
                 {/* <DialogActions>
                 </DialogActions> */}
