@@ -22,13 +22,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 
-class BySign extends React.Component {
+class RealPay extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
-            loaded:true
+            loaded: true
         }
     }
 
@@ -48,7 +48,7 @@ class BySign extends React.Component {
                         <Container maxWidth="lg">
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={12} className="title-page">
-                                    <h1>ตรวจสอบงวดชำระตามสัญญา</h1>
+                                    <h1>ตรวจสอบงวดชำระตามจ่ายจริง</h1>
                                 </Grid>
 
                                 <Grid item xs={12} md={12} className="mg-t-0">
@@ -63,7 +63,7 @@ class BySign extends React.Component {
                                             <MuiTextfield label="ค้นหาชื่อโครงการ" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ดึงข้อมูลตั้งแต่ปีพ.ศ"  />
+                                            <MuiTextfield label="ดึงข้อมูลตั้งแต่ปีพ.ศ" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
@@ -81,43 +81,55 @@ class BySign extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <DisplayCheck />
                                         </Grid>
-                                        
+
 
                                     </Grid>
                                 </Grid>
 
                             </Grid>
-                        
+
                             <Box mt={2}>
                                 <TableContainer component={Paper}>
                                     <Table className={classes.table} aria-label="customized table">
                                         <TableHead>
                                             <TableRow>
                                                 <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell  align="center">Rid_it</StyledTableCell>
-                                                <StyledTableCell  align="center">วันที่บันทึก</StyledTableCell>
-                                                <StyledTableCell  align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell  align="center">ลำดับ</StyledTableCell>
-                                                <StyledTableCell  align="center">รหัส</StyledTableCell>
+                                                <StyledTableCell align="center">Rid_it</StyledTableCell>
+                                                <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
+                                                <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                <StyledTableCell align="center">ลำดับ</StyledTableCell>
+                                                <StyledTableCell align="center">รหัส</StyledTableCell>
                                                 <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                 <StyledTableCell align="center">Prentno</StyledTableCell>
                                                 <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
                                                 <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
                                                 <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
-                                                <StyledTableCell align="center">Reduce</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_r</StyledTableCell>
-                                                <StyledTableCell align="center">Dueamount</StyledTableCell>
+                                                <StyledTableCell align="center">Rcpno</StyledTableCell>
+                                                <StyledTableCell align="center">Rcapital</StyledTableCell>
+                                                <StyledTableCell align="center">Rinterest</StyledTableCell>
+                                                <StyledTableCell align="center">Rcharge</StyledTableCell>
+                                                <StyledTableCell align="center">Rate</StyledTableCell>
+                                                <StyledTableCell align="center">Rate_c</StyledTableCell>
+                                                <StyledTableCell align="center">Resuce</StyledTableCell>
+                                                <StyledTableCell align="center">Rate_n</StyledTableCell>
+                                                <StyledTableCell align="center">Stu</StyledTableCell>
                                                 <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                <StyledTableCell align="center">Date_e</StyledTableCell>
-                                                <StyledTableCell align="center">Code</StyledTableCell>
+                                                <StyledTableCell align="center">รหัสงาน</StyledTableCell>
+                                                <StyledTableCell align="center">Finish_flag</StyledTableCell>
                                             </TableRow>
-                                            
+
                                         </TableHead>
                                         <TableBody>
-                                            {[1,2,3,4].map((farmer, index) => {
+                                            {[1, 2, 3, 4].map((farmer, index) => {
 
                                                 return (
                                                     <TableRow key={index}>
+                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">XXX</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">XXX</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">XXX</StyledTableCellLine>
@@ -141,7 +153,7 @@ class BySign extends React.Component {
                                                 )
                                             })}
 
-                                            
+
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
@@ -155,4 +167,4 @@ class BySign extends React.Component {
     }
 }
 
-export default withStyles(styles)(BySign)
+export default withStyles(styles)(RealPay)

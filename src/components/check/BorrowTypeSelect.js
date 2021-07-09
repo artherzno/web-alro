@@ -3,12 +3,11 @@ import { Select } from '../report/select'
 import Grid from '@material-ui/core/Grid';
 
 const typeList = [
-    { value: 1, label: "ทั้งหมด" },
-    { value: 2, label: "ค้างชำระ" },
-    { value: 3, label: "จ่ายเงินครบ" },
+    { value: 1, label: "1 รายบุคคล" },
+    { value: 2, label: "2 รายโครงการ" },
 ]
 
-export const DisplayCheck = ({
+export const BorrowTypeSelect = ({
     onChange = () => { },
 
 }) => {
@@ -20,7 +19,7 @@ export const DisplayCheck = ({
             <Grid container spacing={2}>
 
                 <Grid item xs={12}>
-                    <Select options={typeList} emptyLabel="เลือก" label="แสดง" onChange={(event) => {
+                    <Select options={typeList} emptyLabel="เลือก" label="ประเภทกู้ยืม" onChange={(event) => {
 
                         const found = typeList.find(element => element.value.toString() === event.target.value)
                         onChange({ ...event, label: found ? found.label : "" })

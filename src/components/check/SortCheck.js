@@ -33,7 +33,7 @@ export const SortCheck = ({
         <div>
             <Grid container spacing={2}>
 
-                <Grid item>
+                <Grid item xs={12}>
                     <Select options={typeList} emptyLabel="เลือก" label="จัดเรียงตาม" onChange={(event) => {
 
                         const found = typeList.find(element => element.value.toString() === event.target.value)

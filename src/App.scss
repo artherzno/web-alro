@@ -891,16 +891,16 @@ input {
 
   input,
   textarea {
-    width: 100%;
-    background: var(--white) 0% 0% no-repeat padding-box;
-    border: 1px solid var(--text-input-border);
-    border-radius: 2px;
-    padding: 0 10px;
-
-    &[type="text"],
-    &[type="password"] {
-      height: 40px;
-    }
+    border-radius: 4px;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    padding: 10px 26px 10px 12px;
+    -webkit-transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 }
 .radio-group-content {

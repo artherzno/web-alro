@@ -115,6 +115,46 @@ const listmenu = [
         component: 'VerifyPage',
         path: '/home',
         submenu: [
+            {
+                subtitle: 'ตรวจสอบงวดชำระตามสัญญา',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบงวดชำระตามจ่ายจริง',
+                subpath: '/check/realpay'
+            },
+            {
+                subtitle: 'ตรวจสอบงวดชำระ&บัญชี',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบใบเสร็จรับเงิน',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบเงื่อนไข&ดอกเบี้ย',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบสัญญา',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบยอดการชำระเงิน',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบประมวล พิมพ์ลูกหนี้รายตัว',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบประมวลฟ้องศาล พิมพ์ลูกหนี้รายตัว',
+                subpath: '/check/bysign'
+            },
+            {
+                subtitle: 'ตรวจสอบใบแจ้งหนี้',
+                subpath: '/check/bysign'
+            }
         ]
     },{
         title: 'รายงาน',
