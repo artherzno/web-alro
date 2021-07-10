@@ -137,7 +137,7 @@ const listmenu = [
             },
             {
                 subtitle: 'ตรวจสอบสัญญา',
-                subpath: '/check/bysign'
+                subpath: '/check/checksign'
             },
             {
                 subtitle: 'ตรวจสอบยอดการชำระเงิน',

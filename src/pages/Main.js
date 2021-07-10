@@ -53,6 +53,7 @@ import EditContractDebt from './loanrequest/EditContractDebt';
 import RecordContractDebt from './loanrequest/RecordContractDebt';
 import BySign from './check/BySign'
 import RealPay from './check/RealPay'
+import CheckSign from './check/CheckSign'
 
 function Main() {
     const history = useHistory();
@@ -119,6 +120,7 @@ function Main() {
                     {/* Manage Check Page */}
                     <Route path="/check/bysign" component={BySign} />
                     <Route path="/check/realpay" component={RealPay} />
+                    <Route path="/check/checksign" component={CheckSign} />
 
                 </Switch>
             </Router>

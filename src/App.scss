@@ -901,6 +901,7 @@ input {
     box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    width: 100%;
   }
 }
 .radio-group-content {
@@ -1392,3 +1393,4 @@ input {
 
 @import "./styles/ListFarmerPayLoan.scss";
 @import "./styles/ReportStyle.scss";
+@import "./styles/check.scss"
