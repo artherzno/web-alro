@@ -5,7 +5,7 @@ export const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: theme.palette.common.headerTable,
         color: theme.palette.common.black,
-        minWidth:150
+        minWidth:props => props.minWidth || 150
     },
     body: {
         fontSize: 14,

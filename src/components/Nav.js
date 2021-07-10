@@ -145,15 +145,15 @@ const listmenu = [
             },
             {
                 subtitle: 'ตรวจสอบประมวล พิมพ์ลูกหนี้รายตัว',
-                subpath: '/check/bysign'
+                subpath: '/check/process-by-person'
             },
             {
                 subtitle: 'ตรวจสอบประมวลฟ้องศาล พิมพ์ลูกหนี้รายตัว',
-                subpath: '/check/bysign'
+                subpath: '/check/process-law-by-person'
             },
             {
                 subtitle: 'ตรวจสอบใบแจ้งหนี้',
-                subpath: '/check/bysign'
+                subpath: '/check/check-bill'
             }
         ]
     },{

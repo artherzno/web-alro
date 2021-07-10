@@ -54,6 +54,9 @@ import RecordContractDebt from './loanrequest/RecordContractDebt';
 import BySign from './check/BySign'
 import RealPay from './check/RealPay'
 import CheckSign from './check/CheckSign'
+import ProcessByPerson from './check/ProcessByPerson'
+import ProcessLawPerson from './check/ProcessLawPerson'
+import CheckBill from './check/CheckBill'
 
 function Main() {
     const history = useHistory();
@@ -121,7 +124,11 @@ function Main() {
                     <Route path="/check/bysign" component={BySign} />
                     <Route path="/check/realpay" component={RealPay} />
                     <Route path="/check/checksign" component={CheckSign} />
-
+                    <Route path="/check/process-by-person" component={ProcessByPerson} />
+                    <Route path="/check/process-law-by-person" component={ProcessLawPerson} />
+                    <Route path="/check/check-bill" component={CheckBill} />
+                    
+                    
                 </Switch>
             </Router>
         </div>
