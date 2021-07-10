@@ -16,6 +16,8 @@ import moment from 'moment';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
+import MUIdropdownProvince from '../../components/MUIdropdownProvince';
+import MUIdropdownDistrict from '../../components/MUIdropdownDistrict';
 import {
     MuiLabelHeader,
     MuiTextfield,
@@ -31,7 +33,8 @@ import {
     MuiDatePicker,
     MuiUpload,
     ButtonFluidPrimary,
-    ButtonFluidOutlinePrimary
+    ButtonFluidOutlinePrimary,
+    ButtonFluidOutlineSecondary,
 } from '../../components/MUIinputs';
 import { AuthContext } from '../../App';
 
@@ -89,6 +92,10 @@ function EditFarmer(props) {
     const [districtLand5List, setDistrictLand5List] = useState(['กรุณาเลือกจังหวัด']);
     const [subDistrictLand5List, setSubDistrictLand5List] = useState(['กรุณาเลือก เขต/อำเภอ']);
 
+    const [provinceLandAddList, setProvinceLandAddList] = useState(['กรุณาเลือกจังหวัด']);
+    const [districtLandAddList, setDistrictLandAddList] = useState(['กรุณาเลือกจังหวัด']);
+    const [subDistrictLandAddList, setSubDistrictLandAddList] = useState(['กรุณาเลือก เขต/อำเภอ']);
+
     const [inputData, setInputData] = useState({
         // IDCard: 1234567891017,
         IDCard: '', // 1234567891017,
@@ -122,14 +129,17 @@ function EditFarmer(props) {
     })
 
     const [pathIDCard_Image, setPathIDCard_Image] = useState(null);
+    const [landData, setLandData] = useState([]);
 
-    const [inputDataLand1, setInputDataLand1] = useState(
+    
+    const [inputDataLandAdd, setInputDataLandAdd] = useState(
         {  
             Land_AddMoo: '', // "นาย",
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: 0, // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -140,13 +150,31 @@ function EditFarmer(props) {
         },
     )
 
+    const [inputDataLand1, setInputDataLand1] = useState(
+        {  
+            Land_AddMoo: '', // "นาย",
+            Land_AddrSubdistrictID: 0, // 100101,
+            Land_AddrDistrictID: 0, // 1001,    
+            Land_AddrProvinceID: 0, // 10,
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
+            LandType: '', // 0,
+            LandNumber: '', // 0,
+            LandGroup: '', // 10,
+            plang: '', // 0,
+            Rai: '', // 0,
+            Ngan: '', // 0,
+            Wa: '', // 0
+        },
+    )
     const [inputDataLand2, setInputDataLand2] = useState(
         {  
             Land_AddMoo: '', // "นาย",
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -162,7 +190,8 @@ function EditFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -178,7 +207,8 @@ function EditFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -194,7 +224,8 @@ function EditFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -224,7 +255,8 @@ function EditFarmer(props) {
 
         console.log(inputData.BirthDate)
 
-        const farmerID = props.location.state.FarmerID;
+        // let landDataArr = [];
+        const farmerID = props.location.state.FarmerID || 0;
         const getFarmer = () => {
             axios.post(
                 `${server_hostname}/admin/api/get_farmer`, { "FarmerID": farmerID }, { headers: { "token": token } } 
@@ -247,52 +279,131 @@ function EditFarmer(props) {
                         console.log('Get Farmer:',data.data)
                     
                         let resEditData = data.data;
-                        setPathIDCard_Image(resEditData.IDCard_PicPatch.split('\\').join('/'))
-                        
+                        setPathIDCard_Image(resEditData.IDCard_PicPatch ? resEditData.IDCard_PicPatch.split('\\').join('/') : '')
+                        setLandData(resEditData.land_data);
+
+                        for(let i=0; i<data.data.land_data.length; i++) {
+                            
+                            if(i===0) {
+                                setInputDataLand1({
+                                    ...inputDataLand1,
+                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                    LandType: resEditData.land_data[i].LandType || '', // 0,
+                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Rai: resEditData.land_data[i].Rai || '', // 0,
+                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                    Wa: resEditData.land_data[i].Wa || '', // 0
+                                })                            
+                            } else if(i===1) {
+                                setInputDataLand2({
+                                    ...inputDataLand2,
+                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                    LandType: resEditData.land_data[i].LandType || '', // 0,
+                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Rai: resEditData.land_data[i].Rai || '', // 0,
+                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                    Wa: resEditData.land_data[i].Wa || '', // 0
+                                })   
+                            } else if(i===2) {
+                                setInputDataLand3({
+                                    ...inputDataLand2,
+                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                    LandType: resEditData.land_data[i].LandType || '', // 0,
+                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Rai: resEditData.land_data[i].Rai || '', // 0,
+                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                    Wa: resEditData.land_data[i].Wa || '', // 0
+                                })   
+                            } else if(i===3) {
+                                setInputDataLand4({
+                                    ...inputDataLand4,
+                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                    LandType: resEditData.land_data[i].LandType || '', // 0,
+                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Rai: resEditData.land_data[i].Rai || '', // 0,
+                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                    Wa: resEditData.land_data[i].Wa || '', // 0
+                                })   
+                            } else if(i===4) {
+                                setInputDataLand5({
+                                    ...inputDataLand5,
+                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                    LandType: resEditData.land_data[i].LandType || '', // 0,
+                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Rai: resEditData.land_data[i].Rai || '', // 0,
+                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                    Wa: resEditData.land_data[i].Wa || '', // 0
+                                })   
+                            }
+                        }
+
                         setInputData({
                             ...inputData,
-                            IDCard: resEditData.IDCard, // 1234567891017,
-                            file: resEditData.file,
-                            LoanFarmerTypeID: resEditData.LoanFarmerTypeID, // 1,
-                            FrontName: resEditData.FrontName, // 'นาย',
-                            Name: resEditData.Name, // 'จิมมี่',
-                            Sirname: resEditData.Sirname, // 'แซ่ฉ่วย',
-                            BirthDate: resEditData.BirthDate, // '2022-12-11',
-                            Tel: resEditData.Tel, // '087-712-8888',
-                            IDCardEXP_Date: resEditData.IDCardEXP_Date, // '2022-12-13',
-                            IDCARD_AddNo: resEditData.IDCARD_AddNo, // '123',
-                            IDCARD_AddMoo: resEditData.IDCARD_AddMoo, // 'หมู่ 4',
-                            IDCARD_AddrSoiRoad: resEditData.IDCARD_AddrSoiRoad, // 'ถ. มิตรภาพ',
-                            IDCARD_AddrSubdistrictID: resEditData.IDCARD_AddrSubdistrictID, // 100102,
-                            IDCARD_AddrDistrictID: resEditData.IDCARD_AddrDistrictID, // 1001,
-                            IDCARD_AddrProvinceID: resEditData.IDCARD_AddrProvinceID, // 10,
-                            IDCARD_Postcode: resEditData.IDCARD_Postcode, // 12345,
-                            IDCard_Addrzone: resEditData.IDCard_Addrzone,
-                            Contact_AddNo: resEditData.Contact_AddNo,
-                            Contact_AddMoo: resEditData.Contact_AddMoo,
-                            Contact_AddrSoiRoad: resEditData.Contact_AddrSoiRoad,
-                            Contact_AddrSubdistrictID: resEditData.Contact_AddrSubdistrictID,
-                            Contact_AddrDistrictID: resEditData.Contact_AddrDistrictID,
-                            Contact_AddrProvinceID: resEditData.Contact_AddrProvinceID,
-                            Contact_Postcode: resEditData.Contact_Postcode,
-                            Contact_Addrzone: resEditData.Contact_Addrzone,
-                            FarmerGrade: resEditData.FarmerGrade,
-                            Request: resEditData.Request,
-    
-                            // Land_AddMoo: resEditData.land_data[0].Land_AddMoo, // "นาย",
-                            // Land_AddrSubdistrictID: resEditData.land_data[0].Land_AddrSubdistrictID, // 100101,
-                            // Land_AddrDistrictID: resEditData.land_data[0].Land_AddrDistrictID, // 1001,    
-                            // Land_AddrProvinceID: resEditData.land_data[0].Land_AddrProvinceID, // 10,
-                            // DocLand_name: resEditData.land_data[0].DocLand_name, // "1234",
-                            // LandType: resEditData.land_data[0].LandType, // 0,
-                            // LandNumber: resEditData.land_data[0].LandNumber, // 0,
-                            // LandGroup: resEditData.land_data[0].LandGroup, // 10,
-                            // plang: resEditData.land_data[0].plang, // 0,
-                            // Rai: resEditData.land_data[0].Rai, // 0,
-                            // Ngan: resEditData.land_data[0].Ngan, // 0,
-                            // Wa: resEditData.land_data[0].Wa, // 0
+                            IDCard: resEditData.IDCard || '', // 1234567891017,
+                            file: resEditData.file || '',
+                            LoanFarmerTypeID: resEditData.LoanFarmerTypeID || '', // 1,
+                            FrontName: resEditData.FrontName || '', // 'นาย',
+                            Name: resEditData.Name || '', // 'จิมมี่',
+                            Sirname: resEditData.Sirname || '', // 'แซ่ฉ่วย',
+                            BirthDate: resEditData.BirthDate || '', // '2022-12-11',
+                            Tel: resEditData.Tel || '', // '087-712-8888',
+                            IDCardEXP_Date: resEditData.IDCardEXP_Date || ' ', // '2022-12-13',
+                            IDCARD_AddNo: resEditData.IDCARD_AddNo || '', // '123',
+                            IDCARD_AddMoo: resEditData.IDCARD_AddMoo || '', // 'หมู่ 4',
+                            IDCARD_AddrSoiRoad: resEditData.IDCARD_AddrSoiRoad || '', // 'ถ. มิตรภาพ',
+                            IDCARD_AddrSubdistrictID: resEditData.IDCARD_AddrSubdistrictID || '', // 100102,
+                            IDCARD_AddrDistrictID: resEditData.IDCARD_AddrDistrictID || '', // 1001,
+                            IDCARD_AddrProvinceID: resEditData.IDCARD_AddrProvinceID || '', // 10,
+                            IDCARD_Postcode: resEditData.IDCARD_Postcode || '', // 12345,
+                            IDCard_Addrzone: resEditData.IDCard_Addrzone || '',
+                            Contact_AddNo: resEditData.Contact_AddNo || '',
+                            Contact_AddMoo: resEditData.Contact_AddMoo || '',
+                            Contact_AddrSoiRoad: resEditData.Contact_AddrSoiRoad || '',
+                            Contact_AddrSubdistrictID: resEditData.Contact_AddrSubdistrictID || '',
+                            Contact_AddrDistrictID: resEditData.Contact_AddrDistrictID || '',
+                            Contact_AddrProvinceID: resEditData.Contact_AddrProvinceID || '',
+                            Contact_Postcode: resEditData.Contact_Postcode || '',
+                            Contact_Addrzone: resEditData.Contact_Addrzone || '',
+                            FarmerGrade: resEditData.FarmerGrade || '',
+                            Request: resEditData.Request || '',
     
                         })
+                        
                      fetchGetDistrict();
                      fetchGetSubDistrict();
                     }
@@ -321,7 +432,6 @@ function EditFarmer(props) {
                         history.push('/');
                         setErr(true);
                     }
-                    getFarmer();
                 })
                 .catch(err => {
                     console.log(err);
@@ -333,6 +443,7 @@ function EditFarmer(props) {
 
         setLoaded(true);
         fetchCheckLogin();
+        getFarmer();
 
         // executed when component mounted
       isMounted.current = true;
@@ -368,7 +479,7 @@ function EditFarmer(props) {
                 if (res.code === 0 || res === '' || res === undefined) {
                     console.log('ไม่พบ เขต/อำเภอ');
                 }
-                console.log('district',res.data)
+                // console.log('district',res.data)
                 if(type === 'IDCARD_AddrProvinceID') {
                     setDistrictIDCardList(res.data)
                     setSubDistrictIDCardList([])
@@ -441,15 +552,25 @@ function EditFarmer(props) {
                         Land_AddrDistrictID: 0,
                         Land_AddrSubdistrictID: 0
                     })
+                } else if(type === 'Land_AddrProvinceID_0')   {
+                    setDistrictLandAddList(res.data)
+                    setSubDistrictLandAddList([])
+                    setInputDataLandAdd({
+                        ...inputDataLandAdd,
+                        Land_AddrProvinceID: proviceID,
+                        Land_AddrDistrictID: 0,
+                        Land_AddrSubdistrictID: 0
+                    })
                 } else {
-                    setDistrictIDCardList(res.data)
-                    setDistrictContactList(res.data)
-                    setDistrictLandList(res.data)
-                    setDistrictLand1List(res.data)
-                    setDistrictLand2List(res.data)
-                    setDistrictLand3List(res.data)
-                    setDistrictLand4List(res.data)
-                    setDistrictLand5List(res.data)
+                    // setDistrictIDCardList(res.data)
+                    // setDistrictContactList(res.data)
+                    // setDistrictLandList(res.data)
+                    // setDistrictLand1List(res.data)
+                    // setDistrictLand2List(res.data)
+                    // setDistrictLand3List(res.data)
+                    // setDistrictLand4List(res.data)
+                    // setDistrictLand5List(res.data)
+                    // setDistrictLandAddList(res.data)
                 }
 
             })
@@ -484,7 +605,7 @@ function EditFarmer(props) {
                 if (res.code === 0 || res === '' || res === undefined) {
                     console.log('ไม่พบ แขวง/ตำบล');
                 }
-                console.log('district',res.data)
+                // console.log('district',res.data)
                 
                 if(type === 'IDCARD_AddrDistrictID') {
                     setSubDistrictIDCardList(res.data)
@@ -502,15 +623,18 @@ function EditFarmer(props) {
                     setSubDistrictLand4List(res.data)
                 } else if(type === 'Land_AddrDistrictID_5')  {
                     setSubDistrictLand5List(res.data)
+                } else if(type === 'Land_AddrDistrictID_0')  {
+                    setSubDistrictLandAddList(res.data)
                 } else {
-                    setSubDistrictIDCardList(res.data)
-                    setSubDistrictContactList(res.data)
-                    setSubDistrictLandList(res.data)
-                    setSubDistrictLand1List(res.data)
-                    setSubDistrictLand2List(res.data)
-                    setSubDistrictLand3List(res.data)
-                    setSubDistrictLand4List(res.data)
-                    setSubDistrictLand5List(res.data)
+                    // setSubDistrictIDCardList(res.data)
+                    // setSubDistrictContactList(res.data)
+                    // setSubDistrictLandList(res.data)
+                    // setSubDistrictLand1List(res.data)
+                    // setSubDistrictLand2List(res.data)
+                    // setSubDistrictLand3List(res.data)
+                    // setSubDistrictLand4List(res.data)
+                    // setSubDistrictLand5List(res.data)
+                    // setSubDistrictLandAddList(res.data)
                 }
             })
             .catch(err => {
@@ -542,9 +666,10 @@ function EditFarmer(props) {
         }
     }
 
-    const handleInputDataLandProvince = (event) => {
-        let num = event.target.name.slice(-1);
-        let name = event.target.name.slice(0, -2)
+    const handleInputDataLandProvince = (event, idname) => {
+        console.log(idname)
+        let num = idname.slice(-1);
+        let name = event.target.name
         console.log('event.target.value',event.target.value)
         if(num === '1') {
             if(event.target.value === 0) {
@@ -558,16 +683,35 @@ function EditFarmer(props) {
                 [name]: event.target.value
             })
         } else if(num === '2') {
+            if(event.target.value === 0) {
+                setDistrictLand2List([])
+                setSubDistrictLand2List([])
+                setDistrictLand2List([0])
+                setSubDistrictLand2List([0])
+            }
             setInputDataLand2({
                 ...inputDataLand2,
                 [name]: event.target.value
             })
         } else if(num === '3') {
+            if(event.target.value === 0) {
+                setDistrictLand3List([])
+                setSubDistrictLand3List([])
+                setDistrictLand3List([0])
+                setSubDistrictLand3List([0])
+            }
+            
             setInputDataLand3({
                 ...inputDataLand3,
                 [name]: event.target.value
             })
         } else if(num === '4') {
+            if(event.target.value === 0) {
+                setDistrictLand4List([])
+                setSubDistrictLand4List([])
+                setDistrictLand4List([0])
+                setSubDistrictLand4List([0])
+            }
             setInputDataLand4({
                 ...inputDataLand4,
                 [name]: event.target.value
@@ -576,22 +720,36 @@ function EditFarmer(props) {
             if(event.target.value === 0) {
                 setDistrictLand5List([])
                 setSubDistrictLand5List([])
+                setDistrictLand5List([0])
+                setSubDistrictLand5List([0])
             }
             setInputDataLand5({
                 ...inputDataLand5,
+                [name]: event.target.value
+            })
+        } else if(num === '0') {
+            if(event.target.value === 0) {
+                setDistrictLandAddList([])
+                setSubDistrictLandAddList([])
+                setDistrictLandAddList([0])
+                setSubDistrictLandAddList([0])
+            }
+            setInputDataLandAdd({
+                ...inputDataLandAdd,
                 [name]: event.target.value
             })
         } 
 
 
         if(event.target.value > 0) {
-            fetchGetDistrict(event.target.name, event.target.value);
+            fetchGetDistrict(idname, event.target.value);
         }
     }
     
-    const handleInputDataLandDistrict = (event) => {
-        let num = event.target.name.slice(-1);
-        let name = event.target.name.slice(0, -2)
+    const handleInputDataLandDistrict = (event,idname) => {
+        console.log(idname)
+        let num = idname.slice(-1);
+        let name = event.target.name
         console.log('event.target.value',event.target.value)
         
         if(num === '1') {
@@ -619,9 +777,14 @@ function EditFarmer(props) {
                 ...inputDataLand5,
                 [name]: event.target.value
             })
+        } else if(num === '0') {
+            setInputDataLandAdd({
+                ...inputDataLandAdd,
+                [name]: event.target.value
+            })
         } 
         if(event.target.value > 0) {
-            fetchGetSubDistrict(event.target.name, event.target.value);
+            fetchGetSubDistrict(idname, event.target.value);
         }
     }
     
@@ -690,7 +853,7 @@ function EditFarmer(props) {
     }
 
     const handleInputDataLand1 = (event) => {
-        let name = event.target.name.slice(0, -2)
+        let name = event.target.name
         setInputDataLand1({
             ...inputDataLand1,
             [name]: event.target.value
@@ -698,7 +861,7 @@ function EditFarmer(props) {
     }
 
     const handleInputDataLand2 = (event) => {
-        let name = event.target.name.slice(0, -2)
+        let name = event.target.name
         setInputDataLand2({
             ...inputDataLand2,
             [name]: event.target.value
@@ -706,7 +869,7 @@ function EditFarmer(props) {
     }
 
     const handleInputDataLand3 = (event) => {
-        let name = event.target.name.slice(0, -2)
+        let name = event.target.name
         setInputDataLand3({
             ...inputDataLand3,
             [name]: event.target.value
@@ -714,7 +877,7 @@ function EditFarmer(props) {
     }
 
     const handleInputDataLand4 = (event) => {
-        let name = event.target.name.slice(0, -2)
+        let name = event.target.name
         setInputDataLand4({
             ...inputDataLand4,
             [name]: event.target.value
@@ -722,9 +885,16 @@ function EditFarmer(props) {
     }
 
     const handleInputDataLand5 = (event) => {
-        let name = event.target.name.slice(0, -2)
+        let name = event.target.name
         setInputDataLand5({
             ...inputDataLand5,
+            [name]: event.target.value
+        })
+    }
+    const handleInputDataLandAdd = (event) => {
+        let name = event.target.name
+        setInputDataLandAdd({
+            ...inputDataLandAdd,
             [name]: event.target.value
         })
     }
@@ -797,13 +967,6 @@ function EditFarmer(props) {
         event.preventDefault();
         const myFile = document.querySelector("input[type=file]").files[0];
 
-
-        // var formData = new FormData;
-        // var arr = ['this', 'is', 'an', 'array'];
-        // for (var i = 0; i < arr.length; i++) {
-        //     formData.append('arr[]', arr[i]);
-        // }
-
         let landDataArr = []
         landDataArr.push(inputDataLand1)
         landDataArr.push(inputDataLand2)
@@ -817,22 +980,51 @@ function EditFarmer(props) {
         formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
         formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
         
-        // formData.append('Contact_AddNo', inputData.Contact_AddNo)
-        // formData.append('Contact_AddMoo', inputData.Contact_AddMoo)
-        // formData.append('Contact_AddrSoiRoad', inputData.Contact_AddrSoiRoad)
-        // formData.append('Contact_AddrSubdistrictID', inputData.Contact_AddrSubdistrictID)
-        // formData.append('Contact_AddrDistrictID', inputData.Contact_AddrDistrictID)
-        // formData.append('Contact_AddrProvinceID', inputData.Contact_AddrProvinceID)
-        // formData.append('Contact_Postcode', inputData.Contact_Postcode)
-        // formData.append('Contact_Addrzone', inputData.Contact_Addrzone)
-        // formData.append('file', inputData.imgUpload)
         formData.append('land_data', JSON.stringify(landDataArr));
-        // for (var i = 0; i < inputData.land_data.length; i++) {
-        //     formData.append('land_data[]', inputData.land_data[i]);
-        // }
 
         axios.post(
             `${server_hostname}/admin/api/edit_farmer`, formData, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    // history.push('/manageinfo/searchmember')
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const handleEdit = async (LandID, i) => {
+        // event.preventDefault();
+        console.log('LandID',LandID)
+
+        let editFarmerLandForm = document.getElementById('editFarmerLandForm'+(i+1));
+        let formData = new FormData(editFarmerLandForm);
+        formData.append('FarmerID', props.location.state.FarmerID)
+        formData.append('LandID', LandID)
+
+
+        axios.post(
+            `${server_hostname}/admin/api/edit_spkland`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -870,50 +1062,102 @@ function EditFarmer(props) {
         setCountAddLandInfo(countAddLandInfo + 1)
     }
 
-    const FormLandInfo = (i) => {
+
+    const FormLandEdit = (i, LandID, Land_AddMoo, Land_AddrProvinceID, Land_AddrDistrictID, Land_AddrSubdistrictID, DocLand_code, LandNumber, LandGroup, plang, Rai, Ngan, Wa, handleInputDataLand, districtLandList, subDistrictLandList) => {
+        
+        // Get District
+        let dataDistrictList = JSON.parse(localStorage.getItem('districtlist'))
+        let districtList = [];
+
+        for(let i=0; i<dataDistrictList.length; i++) {
+            if(Land_AddrProvinceID === dataDistrictList[i].ProvinceID) {
+                districtList.push({
+                    "ProvinceID": dataDistrictList[i].ProvinceID,
+                    "DistrictID": dataDistrictList[i].DistrictID,
+                    "AM_NAME": dataDistrictList[i].AM_NAME
+                })
+            }
+        }
+
+         // Get SubDistrict
+        let dataSubDistrictList = JSON.parse(localStorage.getItem('subdistrictlist'))
+        let subdistrictList = [];
+
+        for(let i=0; i<dataSubDistrictList.length; i++) {
+            if(Land_AddrDistrictID === dataSubDistrictList[i].DistrictID) {
+                subdistrictList.push({
+                    "ProvinceID": dataSubDistrictList[i].ProvinceID,
+                    "DistrictID": dataSubDistrictList[i].DistrictID,
+                    "SubdistrictID": dataSubDistrictList[i].SubdistrictID,
+                    "TB_NAME": dataSubDistrictList[i].TB_NAME,
+                    "POSTAL": dataSubDistrictList[i].POSTAL
+                })
+            }
+        }
+
         return (
-            <Grid container spacing={2} className="paper-container">
-                <Grid item xs={12} md={12}>
-                    <MuiLabelHeader label="ที่ตั้งที่ดิน" />
-                    <Divider variant="middle" style={{ margin: '0' }} />
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <MuiCheckbox label="Alro Land" />
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <MuiTextfield label="หมู่ที่" defaultValue="" name="Land_AddMoo" />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputData.Land_AddrProvinceID} name="Land_AddrProvinceID" onChange={handleInputDataProvince}/>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLandList} value={inputData.Land_AddrDistrictID} name="Land_AddrDistrictID" onChange={handleInputDataDistrict} />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLandList} value={inputData.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID" onChange={handleInputData} />
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputData.DocLand_name} name="DocLand_name" onChange={handleInputData}/>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <MuiTextfield label="เลขที่"  defaultValue="" name="LandNumber" />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <MuiTextfield label="กลุ่ม" defaultValue="" name="LandGroup" />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <MuiTextfield label="แปลง" defaultValue="" name="plang" />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="แปลง" defaultValue="" endAdornment="ไร่" name="Rai" />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="แปลง"  defaultValue="" endAdornment="งาน" name="Ngan" />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="แปลง" defaultValue="" endAdornment="วา" name="Wa" />
-                </Grid>
-            </Grid>
+                <React.Fragment key={i}>
+
+                    <form id={`editFarmerLandForm${i+1}`} noValidate autoComplete="off">
+                        <Grid item xs={12} md={12}>
+                            <Paper className="paper line-top-green paper">
+                                <Grid item xs={12} md={12}>
+                                    <Grid container spacing={2} className="paper-container">
+                                        <Grid item xs={12} md={12}>
+                                            <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                            <span className="txt-green fl-r"> ข้อมูลชุดที่ {i+1}</span>
+                                            <Divider variant="middle" style={{ margin: '0' }} />
+                                        </Grid>
+
+                                        <Grid item xs={12} md={12}>
+                                            <MuiCheckbox label="Alro Land" />
+                                        </Grid>
+                                        <Grid item xs={12} md={12}>
+                                            <MuiTextfield label="หมู่ที่" id={`Land_AddMoo_${i+1}`} defaultValue="" value={Land_AddMoo} name={`Land_AddMoo`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <MuiSelectProvince label="จังหวัด" id={`Land_AddrProvinceID_${i+1}`}  lists={provinceLandList}  value={Land_AddrProvinceID} name={`Land_AddrProvinceID`} onChange={(event)=>handleInputDataLandProvince(event, `Land_AddrProvinceID_${i+1}`)}/>
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <MuiSelectDistrict label="เขต / อำเภอ" id={`Land_AddrDistrictID_${i+1}`}  lists={districtList} value={Land_AddrDistrictID} name={`Land_AddrDistrictID`} onChange={(event)=>handleInputDataLandDistrict(event, `Land_AddrDistrictID_${i+1}`)} />
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <MuiSelectSubDistrict label="แขวง / ตำบล" id={`Land_AddrSubdistrictID_${i+1}`}  lists={subdistrictList} value={Land_AddrSubdistrictID} name={`Land_AddrSubdistrictID`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={12}>
+                                            <MuiSelectObj label="ประเภทหนังสือสำคัญ" id={`DocLand_code_${i+1}`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={DocLand_code} name={`DocLand_code`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfield label="เลขที่"  id={`LandNumber_${i+1}`}  value={LandNumber} name={`LandNumber`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfield label="กลุ่ม" id={`LandGroup_${i+1}`}  value={LandGroup} name={`LandGroup`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfield label="แปลง" id={`plang_${i+1}`}  value={plang || 0} name={`plang`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_${i+1}`} value={Rai || 0}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_${i+1}`} value={Ngan || 0}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfieldEndAdornment label="แปลง" id={`Wa_${i+1}`} value={Wa || 0}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLand} />
+                                        </Grid>
+                                        
+                                        <Grid item xs={12} md={6}>
+                                            <ButtonFluidOutlineSecondary label="ลบข้อมูล" />
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>handleEdit(LandID, i)} />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                    </form>
+                </React.Fragment>
         );
     }
 
@@ -942,7 +1186,7 @@ function EditFarmer(props) {
                                     <h1>แก้ไขข้อมูลเกษตรกร</h1>
                                 </Grid>
 
-                            <form id="addFarmerForm" className="root" noValidate autoComplete="off">
+                            <form id="addFarmerForm" noValidate autoComplete="off">
                                 {/* Paper 1 -------------------------------------------------- */}
                                 <Grid item xs={12} md={12}>
                                     <Paper className="paper line-top-green paper mg-t-20">
@@ -1105,251 +1349,109 @@ function EditFarmer(props) {
                                     </Paper>
                                 </Grid>
 
+                                <Grid container spacing={2} className="btn-row mg-t-10">
+                                    {/* Button Row -------------------------------------------------- */}
+                                    <Grid item xs={12} md={6}>
+                                        <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                    </Grid>
+                                </Grid>
+
                             </form>
-                            <form>
+                            
                                 {/* Paper 4 -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeader label="ที่ตั้งที่ดิน" />
-                                                    <Divider variant="middle" style={{ margin: '0' }} />
-                                                </Grid>
+                            
+                                {
+                                    landData.map((item, i) => {
+                                        if(i===0) {
+                                            return (
+                                                FormLandEdit(i, item.LandID, inputDataLand1.Land_AddMoo, inputDataLand1.Land_AddrProvinceID, inputDataLand1.Land_AddrDistrictID, inputDataLand1.Land_AddrSubdistrictID, inputDataLand1.DocLand_code, inputDataLand1.LandNumber, inputDataLand1.LandGroup, inputDataLand1.plang, inputDataLand1.Rai, inputDataLand1.Ngan, inputDataLand1.Wa, handleInputDataLand1, districtLand1List, subDistrictLand1List)
+                                            )
+                                        } else if(i===1) {
+                                            return (
+                                                FormLandEdit(i, item.LandID, inputDataLand2.Land_AddMoo, inputDataLand2.Land_AddrProvinceID, inputDataLand2.Land_AddrDistrictID, inputDataLand2.Land_AddrSubdistrictID, inputDataLand2.DocLand_code, inputDataLand2.LandNumber, inputDataLand2.LandGroup, inputDataLand2.plang, inputDataLand2.Rai, inputDataLand2.Ngan, inputDataLand2.Wa, handleInputDataLand2, districtLand2List, subDistrictLand2List)
+                                            )
+                                        } else if(i===2) {
+                                            return (
+                                                FormLandEdit(i, item.LandID, inputDataLand3.Land_AddMoo, inputDataLand3.Land_AddrProvinceID, inputDataLand3.Land_AddrDistrictID, inputDataLand3.Land_AddrSubdistrictID, inputDataLand3.DocLand_code, inputDataLand3.LandNumber, inputDataLand3.LandGroup, inputDataLand3.plang, inputDataLand3.Rai, inputDataLand3.Ngan, inputDataLand3.Wa, handleInputDataLand3, districtLand3List, subDistrictLand3List)
+                                            )
+                                        } else if(i===3) {
+                                            return (
+                                                FormLandEdit(i, item.LandID, inputDataLand4.Land_AddMoo, inputDataLand4.Land_AddrProvinceID, inputDataLand4.Land_AddrDistrictID, inputDataLand4.Land_AddrSubdistrictID, inputDataLand4.DocLand_code, inputDataLand4.LandNumber, inputDataLand4.LandGroup, inputDataLand4.plang, inputDataLand4.Rai, inputDataLand4.Ngan, inputDataLand4.Wa, handleInputDataLand4, districtLand4List, subDistrictLand4List)
+                                            )
+                                        }  else {
+                                            return (
+                                                FormLandEdit(i, item.LandID, inputDataLand5.Land_AddMoo, inputDataLand5.Land_AddrProvinceID, inputDataLand5.Land_AddrDistrictID, inputDataLand5.Land_AddrSubdistrictID, inputDataLand5.DocLand_code, inputDataLand5.LandNumber, inputDataLand5.LandGroup, inputDataLand5.plang, inputDataLand5.Rai, inputDataLand5.Ngan, inputDataLand5.Wa, handleInputDataLand5, districtLand5List, subDistrictLand5List)
+                                            )
+                                        }
+                                    })
+                                }
 
-                                                {/* ที่ตั้งที่ดิน 1.---------------------------------------------------- */}
-                                                <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 1.</span>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand1.Land_AddMoo} name="Land_AddMoo_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand1.Land_AddrProvinceID} name="Land_AddrProvinceID_1" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand1List} value={inputDataLand1.Land_AddrDistrictID} name="Land_AddrDistrictID_1" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand1List} value={inputDataLand1.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand1.DocLand_name} name="DocLand_name_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand1.LandNumber}  name="LandNumber_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand1.LandGroup}  name="LandGroup_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand1.plang}  name="plang_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-
-                                                {/* ที่ตั้งที่ดิน 2.---------------------------------------------------- */}
-                                                <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 2.</span>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand2.Land_AddMoo} name="Land_AddMoo_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand2.Land_AddrProvinceID} name="Land_AddrProvinceID_2" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand2List} value={inputDataLand2.Land_AddrDistrictID} name="Land_AddrDistrictID_2" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand2List} value={inputDataLand2.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand2.DocLand_name} name="DocLand_name_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand2.LandNumber}  name="LandNumber_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand2.LandGroup}  name="LandGroup_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand2.plang}  name="plang_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Ngan}  endAdornment="งาน" name="Ngan_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Wa}  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-
-                                               {/* ที่ตั้งที่ดิน 3.---------------------------------------------------- */}
-                                               <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 3.</span>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand3.Land_AddMoo} name="Land_AddMoo_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand3.Land_AddrProvinceID} name="Land_AddrProvinceID_3" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand3List} value={inputDataLand3.Land_AddrDistrictID} name="Land_AddrDistrictID_3" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand3List} value={inputDataLand3.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand3.DocLand_name} name="DocLand_name_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand3.LandNumber}  name="LandNumber_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand3.LandGroup}  name="LandGroup_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand3.plang}  name="plang_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Ngan}  endAdornment="งาน" name="Ngan_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Wa}  endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-                                                
-                                                {/* ที่ตั้งที่ดิน 4.---------------------------------------------------- */}
-                                               <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 4.</span>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand4.Land_AddMoo} name="Land_AddMoo_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand4.Land_AddrProvinceID} name="Land_AddrProvinceID_4" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand4List} value={inputDataLand4.Land_AddrDistrictID} name="Land_AddrDistrictID_4" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand4List} value={inputDataLand4.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand4.DocLand_name} name="DocLand_name_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand4.LandNumber}  name="LandNumber_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand4.LandGroup}  name="LandGroup_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand4.plang}  name="plang_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Ngan}  endAdornment="งาน" name="Ngan_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Wa}  endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-
-                                                {/* ที่ตั้งที่ดิน 5.---------------------------------------------------- */}
-                                               <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 5.</span>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand5.Land_AddMoo} name="Land_AddMoo_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand5.Land_AddrProvinceID} name="Land_AddrProvinceID_5" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand5List} value={inputDataLand5.Land_AddrDistrictID} name="Land_AddrDistrictID_5" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand5List} value={inputDataLand5.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand5.DocLand_name} name="DocLand_name_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand5.LandNumber}  name="LandNumber_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand5.LandGroup}  name="LandGroup_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand5.plang}  name="plang_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Ngan}  endAdornment="งาน" name="Ngan_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Wa}  endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    {/* <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            {<FormLandInfo />}
-                                            {[...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />)}
+                                {
+                                    (landData >= 5) ? 
+                                        '' 
+                                    : 
+                                        <form id={`addFarmerLandForm`} noValidate autoComplete="off">
                                             <Grid item xs={12} md={12}>
-                                                <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormLandInfo} />
-                                            </Grid>
-                                        </Grid>
-                                    </Paper> */}
-                                </Grid>
-                            </form>
-                            </Grid>
+                                                <Paper className="paper line-top-green paper">
+                                                    <Grid item xs={12} md={12}>
+                                                        <Grid container spacing={2} className="paper-container">
+                                                            <Grid item xs={12} md={12}>
+                                                                <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                                <span className="txt-green fl-r">เพิ่มข้อมูลที่ตั้งที่ดิน</span>
+                                                                <Divider variant="middle" style={{ margin: '0' }} />
+                                                            </Grid>
 
-                            <Grid container spacing={2} className="btn-row">
-                                {/* Button Row -------------------------------------------------- */}
-                                <Grid item xs={12} md={6}>
-                                    <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData} />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
-                                </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiCheckbox label="Alro Land" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="หมู่ที่" id={`Land_AddMoo_0`} defaultValue="" value={inputDataLandAdd.Land_AddMoo} name={`Land_AddMoo`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiSelectProvince label="จังหวัด" id={`Land_AddrProvinceID_0`}  lists={provinceLandList}  value={inputDataLandAdd.Land_AddrProvinceID} name={`Land_AddrProvinceID`} onChange={(event)=>handleInputDataLandProvince(event, `Land_AddrProvinceID_0`)}/>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiSelectDistrict label="เขต / อำเภอ" id={`Land_AddrDistrictID_0`}  lists={districtLandAddList} value={inputDataLandAdd.Land_AddrDistrictID} name={`Land_AddrDistrictID`} onChange={(event)=>handleInputDataLandDistrict(event, `Land_AddrDistrictID_0`)} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiSelectSubDistrict label="แขวง / ตำบล" id={`Land_AddrSubdistrictID_0`}  lists={subDistrictLandAddList} value={inputDataLandAdd.Land_AddrSubdistrictID} name={`Land_AddrSubdistrictID`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiSelectObj label="ประเภทหนังสือสำคัญ" id={`DocLand_code_0`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLandAdd.DocLand_code} name={`DocLand_code`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label="เลขที่"  id={`LandNumber_0`}  value={inputDataLandAdd.LandNumber} name={`LandNumber`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label="กลุ่ม" id={`LandGroup_0`}  value={inputDataLandAdd.LandGroup} name={`LandGroup`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label="แปลง" id={`plang_0`}  value={inputDataLandAdd.plang || 0} name={`plang`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_0`} value={inputDataLandAdd.Rai || 0}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_0`} value={inputDataLandAdd.Ngan || 0}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Wa_0`} value={inputDataLandAdd.Wa || 0}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLandAdd} />
+                                                            </Grid>
+                                                            
+                                                            <Grid item xs={12} md={12}>
+                                                                <ButtonFluidPrimary label="บันทึกข้อมูล"  />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Paper>
+                                            </Grid>
+                                        </form>
+        
+                                }    
+
                             </Grid>
                     </Container>
                 </div>
@@ -1367,22 +1469,22 @@ function EditFarmer(props) {
                 <DialogContent>
                     {
                         success ? 
-                        <DialogContentText className="dialog-success">
+                        <div className="dialog-success">
                             <p className="txt-center txt-black">{successMsg}</p>
                             <br/>
                             <Box textAlign='center'>
                                         <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
                                     
                             </Box>
-                        </DialogContentText>
+                        </div>
                         :
-                        <DialogContentText className="dialog-error">
+                        <div className="dialog-error">
                             <p className="txt-center txt-black">{errMsg}</p>
                             <br/>
                             <Box textAlign='center'>
                                 <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
                             </Box>
-                        </DialogContentText>
+                        </div>
                     }
                     
                 </DialogContent>

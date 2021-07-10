@@ -24,6 +24,7 @@ function Header(props) {
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
     const [isLoaded, setIsLoaded] = useState(false);
+    const [loadingStatus, setLoadingStatus] = useState(".");
     const [realDate, setRealDate] = useState('')
     const [realTime, setRealTime] = useState('')
 
@@ -32,9 +33,22 @@ function Header(props) {
         setRealTime(moment().format('hh:mm'))
     }
 
-    setInterval(() => {
-        timer()
-    }, 1000);
+    // setInterval(() => {
+    //     timer()
+    // }, 1000);
+
+    useEffect(() => {
+        // let getDateTime = setInterval(() => {
+        //     timer()
+        // }, 1000);
+        const intervalId = setInterval(() => {
+
+            timer()
+            setLoadingStatus(ls => ls + ".");
+          }, 1000);
+      
+          return () => clearInterval(intervalId);
+    }, [])
     
     const goto = () => {
         history.push('/home');

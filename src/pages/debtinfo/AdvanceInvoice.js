@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
+import { AuthContext } from '../../App';
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -52,7 +55,18 @@ import {
 
 function AdvanceInvoice() {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
 
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
+
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
     // Variable for Checkbox in Table
@@ -63,6 +77,78 @@ function AdvanceInvoice() {
 
     useEffect(() => {
         setLoaded(true);
+        const getFarmer = () => {
+            axios.post(
+                `${server_hostname}/AdvanceInvoice/GetAll`, {
+                    "start_date": "2561-08-11",
+                    "rentno" : "",
+                    "projname" :"",
+                    "farmer" : ""
+                  }, { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    }else {
+                        console.log('Get AdvanceInvoice:',data)
+                    
+                        
+                    }
+                }
+            ).catch(err => { console.log(err) })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+        // Check Login
+        async function fetchCheckLogin() {
+            const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    "token": token
+                }
+            })
+            res
+                .json()
+                .then(res => {
+                    if (res.code === 0 || res === '' || res === undefined) {
+                        history.push('/');
+                        setErr(true);
+                    }
+                    getFarmer();
+                })
+                .catch(err => {
+                    console.log(err);
+                    setIsLoaded(true);
+                    setErr(true);
+                    history.push('/');
+                });
+        }
+
+        setLoaded(true);
+        fetchCheckLogin();
+
+        // executed when component mounted
+      isMounted.current = true;
+      return () => {
+        // executed when unmount
+        isMounted.current = false;
+      }
     }, [])
 
 

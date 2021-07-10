@@ -34,14 +34,14 @@ function Home() {
                 }
             ).then(res => {
                 if (res.code === 0 || res === null || res === undefined ) {
-                    history.push('/');
+                    // history.push('/');
                     setErr(true);
                 } 
             }).catch(err => { 
                 console.log(err) 
                 setIsLoaded(true);
                 setErr(true);
-                history.push('/');
+                // history.push('/');
             })
             .finally(() => {
                 if (isMounted.current) {
