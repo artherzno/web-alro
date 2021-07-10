@@ -172,6 +172,9 @@ function FaultCondition() {
                                             <Grid item xs={12} md={4}>
                                                 <MuiTextfield label="&nbsp;" defaultValue="" />
                                             </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <MuiDatePicker label="ณ วันที่" defaultValue="" />
+                                            </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <MuiTextfield label="จำนวนเงินให้กู้" defaultValue="" />
                                             </Grid>
@@ -210,7 +213,7 @@ function FaultCondition() {
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ"  defaultValue="" />
+                                                <MuiTextfield label="นามสกุล"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <MuiTextfield label="ที่อยู่" defaultValue="" />

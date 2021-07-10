@@ -1,5 +1,7 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,6 +16,8 @@ import { AuthContext } from '../App';
 function LoginPage() {
     const auth = useContext(AuthContext);
     const history = useHistory();
+    const isMounted = useRef(null);
+
     const [dataLogin, setDataLogin] = useState({
         username: '',
         password: ''
@@ -21,6 +25,7 @@ function LoginPage() {
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [forgotDialog, setForgotDialog] = useState(false);
     const [changeDialog, setChangeDialog] = useState(false);
@@ -28,8 +33,99 @@ function LoginPage() {
     let server_port = auth.port;
     let server_hostname = auth.hostname;
 
+    let provinceList = [];
+    const fetchDataProvince = (token, provinceId) => {
+        axios.post(
+            `${server_hostname}/admin/api/get_provinces`, {
+                "ProvinceID": "",
+                "PV_NAME": ""
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                // console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    provinceList.push(data.data)
+                    
+                    for(let i=0; i<provinceList[0].length; i++) {
+                        if(provinceList[0][i].ProvinceID === parseInt(provinceId)) {
+                            localStorage.setItem('provincename',provinceList[0][i].PV_NAME)
+                            // setProviceName(provinceList[0][i].PV_NAME);
+                        }
+                    }
+                    
+                    let provinceListJSONString = JSON.stringify(provinceList[0]);
+                    localStorage.setItem('provincelist', provinceListJSONString)
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    let docLandTypeList = [];
+    const fetchDataDocLandType = (token) => {
+        axios.post(
+            `${server_hostname}/admin/api/get_doclandtype`, {
+                "DocLand_code": "",
+                "DocLand_name": ""
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                // console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    docLandTypeList.push(data.data)
+                    
+                    console.log('DOC_LAND_TYPE', data.data)
+                    let docLandTypeListJSONString = JSON.stringify(data.data);
+                    localStorage.setItem('doclandtypelist', docLandTypeListJSONString)
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    useEffect(() => {
+        // executed when component mounted
+      isMounted.current = true;
+      return () => {
+        // executed when unmount
+        isMounted.current = false;
+      }
+    }, [])
+
     async function fetchDataLogin() {
-        const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/login`, {
+        const res = await fetch(`${server_hostname}/admin/api/login`, {
             method: 'POST',
             body: JSON.stringify(dataLogin),
             headers: {
@@ -49,14 +145,22 @@ function LoginPage() {
         if (res.code === 0 || res === null || res === undefined ) {
             setIsLoaded(true);
             setErr(true);
-        //   history.push('/error');
-            setErrMsg(res.message)
+                if(Object.keys(res.message).length !== 0) {
+                    setErrMsg([res.message])
+                } else {
+                    setErrMsg(['Incorrect Username and/or Password!'])
+                }
         } else {
-
+            console.log('login:',res);
             setIsLoaded(true);
-            console.log(document.cookie)
+            localStorage.setItem('token',res.token)
+            localStorage.setItem('username',((res.recordset[0].Name === null) ? '' : res.recordset[0].Name)+' '+((res.recordset[0].Sirname === null) ? '' : res.recordset[0].Sirname))
+            localStorage.setItem('provinceid',res.recordset.ProvinceID)
+
+            fetchDataDocLandType(res.token);
+            fetchDataProvince(res.token, res.recordset[0].ProvinceID)
             history.push('/home');
-            // setDataCampaign(data); // from local
+
         }
 
         })
@@ -64,6 +168,7 @@ function LoginPage() {
             console.log(err);
             setIsLoaded(true);
             setErr(true);
+            history.push('/');
         });
     }
 
@@ -87,18 +192,6 @@ function LoginPage() {
     const handleSubmit = event => {
         event.preventDefault();
         fetchDataLogin();
-        // if(dataLogin.username === 'admin' && dataLogin.password === '1234') {
-        //     setErr(false);
-        //     alert('A name was submitted: ' + dataLogin.username +', '+dataLogin.password);
-        //     history.push('/home');
-        // } else {
-        //     setErr(true);
-        //     setDataLogin({
-        //         ...dataLogin,
-        //         username: '',
-        //         password: ''
-        //     })
-        // }
     }
 
     return (
@@ -106,7 +199,7 @@ function LoginPage() {
             <Header bgColor="bg-green" status="login" />
             
             <div className="card">
-                <p className="font-18">เข้าสู่ระบบสินเชื่อกองทุนการปฏิรูปที่ดินเพื่อเกษตรกรรม {auth.username}</p>
+                <p className="font-18">เข้าสู่ระบบสินเชื่อกองทุนการปฏิรูปที่ดินเพื่อเกษตรกรรม </p>
                 <form  onSubmit={handleSubmit}>
                     <div className="form-input">
                         <label>Username</label>
@@ -117,7 +210,9 @@ function LoginPage() {
                         <input type="password" name="password" value={dataLogin.password} placeholder="" onChange={handleChange}  onFocus={()=> setErr(false)} />
                     </div>
                     <button className="btn btn-blue">เข้าสู่ระบบ</button>
-                    { err ? <p className="err font-14">{errMsg}</p> : ''}
+                    <p className="err font-14">
+                        { err ? <span >{errMsg}</span> : ''}
+                    </p>
                     <div className="login-option">
                         <div className="login-forgot-pwd">
                             <p onClick={()=>setChangeDialog(true)}>เปลี่ยนรหัสผ่าน</p>

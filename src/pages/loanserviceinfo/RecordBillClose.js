@@ -167,7 +167,7 @@ function RecordBillClose() {
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ" defaultValue="สมชาย" />
+                                                <MuiTextfield label="นามสกุล" defaultValue="สมชาย" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Select ---------------------------------------------------*/}

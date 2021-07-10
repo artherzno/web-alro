@@ -40,9 +40,10 @@ function SearchMemberPage(props) {
 
     let server_port = auth.port;
     let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
 
     const [err, setErr] = useState(false);
-    const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasData, setHasData] = useState(false);
 
@@ -66,9 +67,13 @@ function SearchMemberPage(props) {
     useEffect(() => {
         console.log(document.cookie)
         async function fetchCheckLogin() {
-            const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/checklogin`, {
+            const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
                 method: 'POST',
-                credentials: 'same-origin'})
+                credentials: 'same-origin',
+                headers: {
+                    "token": token
+                }
+            })
             res
             .json()
             .then(res => {
@@ -91,17 +96,18 @@ function SearchMemberPage(props) {
 
         console.log(tableResult)
 
-    }, [history, server_hostname, server_port, tableResult])
+    }, [])
 
     async function fetchSearchFarmer() {
         console.warn('Cookie', document.cookie)
-        const res = await fetch(`http://${server_hostname}:${server_port}/admin/api/search_farmer`, {
+        const res = await fetch(`${server_hostname}/admin/api/search_farmer`, {
             method: 'POST',
             body: JSON.stringify(inputData),
             headers: {
                 // "x-application-secret-key": apiXKey,
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/json",
+                "token": token
             }
         }); 
 
@@ -112,7 +118,11 @@ function SearchMemberPage(props) {
             setIsLoaded(true);
             setErr(true);
         //   history.push('/error');
-            setErrMsg(res.message)
+            if(Object.keys(res.message).length !== 0) {
+                setErrMsg([res.message])
+            } else {
+                setErrMsg(['ไม่สามารถทำรายการได้'])
+            }
         } else {
             setHasData(true);
             setIsLoaded(true);
@@ -128,6 +138,7 @@ function SearchMemberPage(props) {
             console.log(err);
             setIsLoaded(true);
             setErr(true);
+            history.push('/');
         });
     }
 
@@ -175,20 +186,30 @@ function SearchMemberPage(props) {
 
     // Link another page
     const gotoAddMember = () => {
-        history.push('/manageinfo/addmember');
+        history.push('/manageinfo/addfarmer');
     }
 
     const gotoEditMember = (id) => {
         history.push(
         {
-            pathname: '/manageinfo/editmember',
+            pathname: '/manageinfo/editfarmer',
             state: { FarmerID: id }
           }
         );
     }
 
-    const gotoLoanRequestContact = () => {
-        history.push('/loanrequest/loanrequestcontact');
+    const gotoLoanRequestContact = (id) => {
+        // history.push('/loanrequest/loanrequestcontact');
+        history.push({
+            pathname: '/loanrequest/loanrequestcontact',
+            state: { 
+                FarmerID: id, 
+                activeStep: 0,
+                completed: {}
+            }
+          });
+        
+        
     }
 
     return (
@@ -282,16 +303,14 @@ function SearchMemberPage(props) {
                                                                     <TableRow key={i}>
                                                                         <TableCell align="center">{cell.FarmerID}</TableCell>
                                                                         <TableCell align="left">
-                                                                            {
-                                                                                cell.FrontName === '1' ? 'นาย' : cell.FrontName === '2' ? 'นาง' : 'นางสาว'
-                                                                            }&nbsp;
-                                                                            {cell.Name} {cell.SirName}</TableCell>
+                                                                            {cell.FrontName}&nbsp;
+                                                                            {cell.Name} {cell.Sirname}</TableCell>
                                                                         <TableCell align="center">{cell.FarmerGrade || '-'}</TableCell>
                                                                         <TableCell align="center">{
                                                                             cell.FarmerGrade ? 
                                                                                 '-' 
                                                                             : 
-                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact()} />
+                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact(cell.FarmerID)} />
                                                                         }</TableCell>
                                                                         <TableCell align="center">
                                                                             <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember(cell.FarmerID)} />

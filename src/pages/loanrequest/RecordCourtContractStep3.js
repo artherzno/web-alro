@@ -224,7 +224,7 @@ function RecordCourtContractStep3() {
                                                         <MuiTextfield label="ชื่อ" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield label="นามสกุลชื่อ" defaultValue="" />
+                                                        <MuiTextfield label="นามสกุล" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={9}>
                                                         <MuiTextfield label="ที่อยู่" defaultValue="" />
@@ -357,7 +357,7 @@ function RecordCourtContractStep3() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">ค่าปรับ</p>
+                                                                    <p className="paper-p txt-right">ค่าปรับค้างเดิม</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                     <MuiTextfield label="" defaultValue=""/>

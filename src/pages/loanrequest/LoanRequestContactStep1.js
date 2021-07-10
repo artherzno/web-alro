@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../App';
+import moment from 'moment';
 
 import Fade from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';
@@ -29,6 +32,7 @@ import {
     MuiTextfieldEndAdornment,
     MuiCheckbox, 
     MuiSelect, 
+    MuiSelectObjYear,
     MuiRadioButton, 
     MuiTextNumber, 
     MuiDatePicker, 
@@ -36,12 +40,25 @@ import {
     ButtonNormalIconStartPrimary,
 } from '../../components/MUIinputs';
 
-function LoanRequestContactStep1() {
-
+function LoanRequestContactStep1(props) {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
 
     const [loaded, setLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [inputData, setInputData] = useState({
+        ProjectPlanYear: 0,
+        typeLoan: '',
+
         typeMember: '1',
         typeId: '1',
         typeGuarantee: '1',
@@ -52,12 +69,103 @@ function LoanRequestContactStep1() {
         idNum: '',
         telNum: undefined,
         activityProject: [],
+
+        IDCard: '', // 1234567891017,
+        LoanFarmerTypeID: '', // 1,
+        FrontName: '', // 'นาย',
+        Name: '', // 'จิมมี่',
+        Sirname: '', // 'แซ่ฉ่วย',
+        BirthDate: '', // '2022-12-11',
+        Tel: '', // '087-712-8888',
+        IDCardEXP_Date: '',
     })
 
     const [countAddActivityProject, setCountAddActivityProject] = useState(1);
 
     useEffect(() => {
         setLoaded(true);
+
+        const getFarmer = () => {
+            axios.post(
+                `${server_hostname}/admin/api/get_farmer`, {"FarmerID": props.FarmerID}, { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } else {
+                        console.log(res.data.data)
+                        let resFarmer = res.data.data;
+                        setInputData({
+                            ...inputData,
+                            IDCard: resFarmer.IDCard, // 1234567891017,
+                            file: resFarmer.file,
+                            LoanFarmerTypeID: resFarmer.LoanFarmerTypeID, // 1,
+                            FrontName: resFarmer.FrontName, // 'นาย',
+                            Name: resFarmer.Name, // 'จิมมี่',
+                            Sirname: resFarmer.Sirname, // 'แซ่ฉ่วย',
+                            BirthDate: resFarmer.BirthDate, // '2022-12-11',
+                            Tel: resFarmer.Tel, // '087-712-8888',
+                            IDCardEXP_Date: resFarmer.IDCardEXP_Date,
+                        })
+                    }
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        }
+
+        const checkLogin = () => {
+            axios.post(
+                `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } else {
+                        getFarmer();
+                    }
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+        checkLogin();
+
+        // executed when component mounted
+        isMounted.current = true;
+        return () => {
+            // executed when unmount
+            isMounted.current = false;
+        }
     }, [])
 
     // Radio Button
@@ -75,27 +183,6 @@ function LoanRequestContactStep1() {
         console.log('typeId ',event.target.value)
     };
     // End Radio Button
-
-    // Input ID Number
-    const handleIdNumber = (event) => {
-        // Check digit tel number
-        event.target.value = event.target.value.toString().slice(0,13)
-        setInputData({...inputData,
-            idNum: event.target.value
-        })
-        console.log('idNum ',event.target.value)
-    }
-    // End Input ID Number
-
-    // Input Tel Number
-    const handleTelNumber = (event) => {
-        // Check digit tel number
-        event.target.value = event.target.value.toString().slice(0,10)
-        setInputData({...inputData,
-            telNum: event.target.value
-        })
-    }
-    // End Input Tel Number
 
     // Radio Guarantee
     const handleChangeTypeGuarantee = (event) => {
@@ -125,6 +212,48 @@ function LoanRequestContactStep1() {
         setInputData({...inputData,
             imgUpload: imgArr
         })
+    }
+
+    // Input Text field  ********************************
+    const handleInputData = (event) => {
+        console.log('event.target.name',event.target.name)
+        if(event.target.type === 'number') {
+            let typeNumber = event.target.id.toString().slice(-3);
+            if(typeNumber === 'tel') {
+                event.target.value = event.target.value.toString().slice(0, 10)
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'zip') {
+                event.target.value = event.target.value.toString().slice(0, 5)
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'idc') {
+                event.target.value = event.target.value.toString().slice(0, 13)
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            } else {
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            }
+        } else {
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
+        }
+        console.log(event)
     }
 
     const handleSubmit = (event) => {
@@ -168,7 +297,7 @@ function LoanRequestContactStep1() {
                         <IconButton aria-label="upload picture" component="span" className="box-close">
                         <CloseIcon />
                         </IconButton>
-                        <MuiTextfield label={(num+1)+". โครงการรอง"} id="loanrequestcontact-step1-activityproject-name-input" defaultValue="" />
+                        <MuiTextfield label={(num+1)+". กิจกรรม / โครงการ"} id="loanrequestcontact-step1-activityproject-name-input" defaultValue="" />
                     </Grid>
                     <Grid item xs={12} md={12}>
                         {/* Field Text ---------------------------------------------------*/}
@@ -200,41 +329,36 @@ function LoanRequestContactStep1() {
                                 <Paper className="paper line-top-green paper mg-t-20">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="loanrequestcontact-step1-id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
+                                            <Grid item xs={12} md={3}>
+                                                    <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                             </Grid>
-                                            <Grid item xs={12} md={12} className="loanrequestcontact-num-box">
-                                                <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p>
-                                                <MuiRadioButton label="ประเภทเงินกู้" id="loanrequestcontact-step1-type-input" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} value={inputData.typeMember} onChange={handleChangeTypeMember} type="row" />
+                                            <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
+                                                 {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
+                                                <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="typeLoan" value={inputData.typeLoan} onChange={handleInputData} type="row" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelect label="คำนำหน้า" id="loanrequestcontact-step1-prefix-input" lists={['นาย','นาง','นางสาว']} />
+                                                <MuiTextfield disabled label="คำนำหน้า" value={inputData.FrontName} />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ชื่อ" id="loanrequestcontact-step1-name-input" defaultValue="" />
+                                                <MuiTextfield disabled label="ชื่อ" value={inputData.Name} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ" id="loanrequestcontact-step1-name-input" defaultValue="" />
+                                                <MuiTextfield disabled label="นามสกุล" value={inputData.Sirname} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="loanrequestcontact-step1-birthday-input" defaultValue="2017-05-24" />
+                                                <MuiTextfield disabled label="วัน เดือน ปี เกิด" value={(inputData.BirthDate) ? moment(inputData.BirthDate).format('DD/MM/YYYY') : ''} />
                                             </Grid>
-                                            <Grid item xs={12} md={7}>
+                                            <Grid item xs={12} md={12}>
+                                                <MuiTextfield disabled label="หมายเลขประจำตัว 13 หลัก" value={inputData.IDCard} />
+                                            </Grid>
+                                            {/* <Grid item xs={12} md={7}>
                                                 <MuiRadioButton label="วันหมดอายุบัตรประจำตัวประชาชน" id="loanrequestcontact-step1-typeid-input" lists={['ตลอดชีพ','มีวันหมดอายุ']} value={inputData.typeId} onChange={handleChangeTypeId} type="row" />
-                                            </Grid>
-                                            <Grid item xs={12} md={5}>
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="&nbsp;" id="loanrequestcontact-step1-expire-id-card-input" defaultValue="2017-05-24" />
+                                            </Grid> */}
+                                            <Grid item xs={12} md={12}>
+                                                <MuiTextfield disabled label="วันหมดอายุบัตรประจำตัวประชาชน" value={(inputData.IDCardEXP_Date) ? moment(inputData.IDCardEXP_Date).format('DD/MM/YYYY') : ''} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="เบอร์โทรศัพท์" id="loanrequestcontact-step1-tel-number-input" defaultValue="" placeholder="ตัวอย่าง 0812345678" value={inputData.telNum} onInput = {handleTelNumber}  />
-                                            </Grid>
+                                                <MuiTextfield disabled label="เบอร์โทรศัพท์" value={inputData.Tel} /></Grid>
                                         </Grid>
                                     </form>
                                 </Paper>
@@ -309,19 +433,64 @@ function LoanRequestContactStep1() {
                                                 <MuiLabelHeader label="กิจกรรม/โครงการที่มีความประสงค์จะกู้ยืมเงิน" />
                                                 <Divider variant="middle" style={{ margin: '0'}} />
                                             </Grid>
-                                            { [...Array(countAddActivityProject)].map((_, i) => <FormActivityProject key={i} num={i} />) }
 
+                                            <Box component="div" className="box box-grey" m={1}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="1. กิจกรรม / โครงการ" defaultValue="" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiTextfieldEndAdornment label="จำนวนเงิน" defaultValue="50000" endAdornment="บาท" textAlign="right" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+                                            <Box component="div" className="box box-grey" m={1}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="2. กิจกรรม / โครงการ" defaultValue="" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiTextfieldEndAdornment label="จำนวนเงิน" defaultValue="50000" endAdornment="บาท" textAlign="right" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+                                            <Box component="div" className="box box-grey" m={1}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="3. กิจกรรม / โครงการ" defaultValue="" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiTextfieldEndAdornment label="จำนวนเงิน" defaultValue="50000" endAdornment="บาท" textAlign="right" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
                                             <Box component="div" className="box box-grey" m={1} textAlign="right">
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={12}>
-                                                        <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">50,000 </span>บาท</p>
+                                                        <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">150,000 </span>บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Box>
 
+                                            {/* { [...Array(countAddActivityProject)].map((_, i) => <FormActivityProject key={i} num={i} />) } 
                                             <Grid item xs={12} md={12}>
                                                 <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormActivityProject}/>
-                                            </Grid>
+                                            </Grid>*/}
                                         </form>
                                     </Grid>
                                 </Paper>
@@ -368,28 +537,28 @@ function LoanRequestContactStep1() {
                                                     <h1 className="paper-head-green">ข้อ 3</h1>
                                                  </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfieldEndAdornment label="ดอกเบี้ยเงินกู้ อัตราร้อยละ" id="loanrequestcontact-step1-no3-loanrate-input" defaultValue="" endAdornment="ต่อปี"/>
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <MuiLabelHeaderCheckbox label="ระยะเวลาปลอดการชำระเงิน" />
-                                                    {/* Field Radio Button ---------------------------------------------------*/}
                                                     <Grid container>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiCheckbox label="เงินต้น" id="loanrequestcontact-step1-no3-cost-checkbox"  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfieldEndAdornment label="" id="loanrequestcontact-step1-no3-costyear-input" defaultValue="" endAdornment="ปี" style={{ margin: '0' }}/>
+                                                        </Grid> */}
+                                                        <Grid item xs={12} md={5}>
+                                                            <MuiTextfieldEndAdornment row label="เงินต้น" id="loanrequestcontact-step1-no3-costyear-input" defaultValue="" endAdornment="ปี" style={{ margin: '0' }}/>
                                                         </Grid> 
-                                                    </Grid>
-                                                    <Grid container>
-                                                        <Grid item xs={12} md={3}>
+                                                    {/* </Grid>
+                                                    <Grid container> */}
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiCheckbox label="ดอกเบี้ย" id="loanrequestcontact-step1-no3-increse-checkbox"  />
+                                                        </Grid> */}
+
+                                                        <Grid item xs={12} md={1}>
+                                                            &nbsp;
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfieldEndAdornment label="" id="loanrequestcontact-step1-no3-increseyear-input" defaultValue="" endAdornment="ปี" style={{ margin: '0' }}/>
+                                                        <Grid item xs={12} md={5}>
+                                                            <MuiTextfieldEndAdornment label="ดอกเบี้ย" id="loanrequestcontact-step1-no3-increseyear-input" defaultValue="" endAdornment="ปี" style={{ margin: '0' }}/>
                                                         </Grid> 
                                                     </Grid>
                                                 </Grid>
@@ -414,9 +583,42 @@ function LoanRequestContactStep1() {
                                                     <RadioGroup value={inputData.typeGuarantee} onChange={handleChangeTypeGuarantee}>
                                                         <FormControlLabel value="1" control={<Radio color="primary" />} label="แบบรายบุคคล" />
                                                         <div style={ inputData.typeGuarantee === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                            <div className="radio-group-content__flex">
+                                                            <div className="radio-group-content">
+                                                                <Box component="div" className="box box-grey result-list">
+                                                                    <Grid container spacing={2}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <span style={{display: 'block'}}>รายที่ 1.</span>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={6}>
+                                                                            <MuiTextfield label="ชื่อ" defaultValue="" />
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={6}>
+                                                                            <MuiTextfield label="นามสกุล" defaultValue="" />
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="ืno1-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleInputData}  />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                <Box component="div" className="box box-grey result-list">
+                                                                    <Grid container spacing={2}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <span style={{display: 'block'}}>รายที่ 2.</span>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={6}>
+                                                                            <MuiTextfield label="ชื่อ" defaultValue="" />
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={6}>
+                                                                            <MuiTextfield label="นามสกุล" defaultValue="" />
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="ืno2-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleInputData}  />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                            </div>
+                                                            {/* <div className="radio-group-content__flex">
                                                                 <Grid item xs={12} md={11}>
-                                                                    {/* Field Number ---------------------------------------------------*/}
                                                                     <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="loanrequestcontact-step1-no4-id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIdNumber}  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={1}>
@@ -480,8 +682,9 @@ function LoanRequestContactStep1() {
                                                                         <Divider component="li" />
                                                                     </List>
                                                                 </Grid>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
+                                                        
                                                         <FormControlLabel value="2" control={<Radio color="primary" />} label="แบบอสังหาริมทรัพย์" />
                                                         <div style={ inputData.typeGuarantee === '2' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
                                                             {/* Field Text ---------------------------------------------------*/}
@@ -544,10 +747,10 @@ function LoanRequestContactStep1() {
                                                     <h1 className="paper-head-green">ข้อ 6</h1>
                                                  </Grid>
                                                  <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeaderCheckbox label="ปัจจุบัน" />
+                                                    <MuiLabelHeaderCheckbox label="ปัจจุบัน ข้าพเจ้า" />
                                                     {/* Field Radio Button ---------------------------------------------------*/}
                                                     <RadioGroup value={inputData.typeDebt} onChange={handleChangeTypeDebt}>
-                                                        <FormControlLabel value="1" control={<Radio color="primary" />} label="ปัจจุบัน" />
+                                                        <FormControlLabel value="1" control={<Radio color="primary" />} label="ไม่มีหนี้สิน" />
                                                         
                                                         <FormControlLabel value="2" control={<Radio color="primary" />} label="มีหนี้สิน" />
                                                         <div style={ inputData.typeDebt === '2' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>

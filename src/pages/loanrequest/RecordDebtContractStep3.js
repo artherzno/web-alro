@@ -212,7 +212,7 @@ function RecordDebtContractStep3() {
                                             <Grid item xs={12} md={12} >
                                                 <Grid container spacing={2} >
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="" defaultValue="" />
+                                                        <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
                                                         <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
@@ -221,7 +221,7 @@ function RecordDebtContractStep3() {
                                                         <MuiTextfield label="ชื่อ" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield label="นามสกุลชื่อ" defaultValue="" />
+                                                        <MuiTextfield label="นามสกุล" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={9}>
                                                         <MuiTextfield label="ที่อยู่" defaultValue="" />
@@ -361,7 +361,7 @@ function RecordDebtContractStep3() {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={12} md={12}>
+                                                        {/* <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
                                                                     <p className="paper-p txt-right">เงินต้น สัญญาเดิม</p>
@@ -380,7 +380,7 @@ function RecordDebtContractStep3() {
                                                                     <MuiTextfield label="" defaultValue=""/>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>

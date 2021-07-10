@@ -89,15 +89,20 @@ function RecordInstallmentPayment() {
                                     <MuiTextfield label="ค้นหาเลขที่สัญญา" />
                                 </Box>  
                             </Grid>
+                            <Grid item xs={12} md={3}>
+                                <Box  display="flex" justifyContent="flex-start">
+                                    <MuiTextfield label="ค้นหาเลขที่คำขอ" />
+                                </Box>  
+                            </Grid>
                             <Grid item xs={12} md={2}>
                                 <p>&nbsp;</p>
                                 <ButtonFluidPrimary label="ค้นหา" />  
                             </Grid>
-                            <Grid item xs={12} md={7}>
+                            {/* <Grid item xs={12} md={7}>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <ButtonNormalIconStartPrimary label="เพิ่มคำขอ" startIcon={<AddIcon />} />
                                 </Box>  
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={12} md={12}> 
                                 <div className="table">
                                     <TableContainer className="table-box table-recordinstallmentpayment1 max-h-250 mg-t-10">
@@ -242,7 +247,7 @@ function RecordInstallmentPayment() {
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="" defaultValue="" />
+                                                <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={1}>
                                                 <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
@@ -251,7 +256,7 @@ function RecordInstallmentPayment() {
                                                 <MuiTextfield label="ชื่อ" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="นามสกุลชื่อ" defaultValue="" />
+                                                <MuiTextfield label="นามสกุล" defaultValue="" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -364,11 +369,11 @@ function RecordInstallmentPayment() {
 
                     <Container maxWidth="md">
                         <Grid container spacing={2} className="btn-row txt-center">
-                            <Grid item xs={12} md={6}>
+                            {/* <Grid item xs={12} md={6}>
                                 <ButtonFluidPrimary label="ยืนยันการเพิ่ม" />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="บันทึกแก้ไข" />
+                            </Grid> */}
+                            <Grid item xs={12} md={12}>
+                                <ButtonFluidPrimary label="บันทึกแก้ไข" maxWidth="320px" />
                             </Grid>
                         </Grid>
                     </Container>

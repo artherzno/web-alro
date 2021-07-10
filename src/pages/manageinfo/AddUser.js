@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../App';
+import moment from 'moment';
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -9,6 +12,10 @@ import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
+import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -18,6 +25,7 @@ import {
     MuiTextfield, 
     MuiCheckbox, 
     MuiSelect, 
+    MuiSelectObj,
     MuiDatePicker, 
     ButtonFluidPrimary, 
     ButtonFluidOutlinePrimary,
@@ -47,22 +55,109 @@ const data = {
 
 function AddUser(props) {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
 
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
-        typeMember: '1',
-        prefix: undefined,
-        name: undefined,
-        surname: undefined,
-        idNum: '',
-        telNum: undefined,
-        imgUpload: [],
+        nROLEID: 0, // 1,   
+        FrontName: 'นาย', // "นาย",
+        Name: '', // "abc",
+        Sirname: '', // "def",    
+        cUsername: '', // "yyy",
+        cPasswd: '', // "1234",
+        bActive: 1, // 0,
+        bIndividual: '', // 0,
+        ProvinceID: 0, // 10
     })
+
+    const [roleList, setRoleList] = useState([])
+    const [provinceList, setProvinceList] = useState([])
 
     const [countAddLandInfo, setCountAddLandInfo] = useState(0);
 
     useEffect(() => {
         setLoaded(true);
+        let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
+        setProvinceList(dataProvinceList);
+
+        axios.post(
+            `${server_hostname}/admin/api/get_admin_role`, '', { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data.data)
+                    setRoleList(data.data)
+                    
+                }
+            }
+        ).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+
+
+         const checkLogin = () => {
+            axios.post(
+                `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } 
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+        checkLogin();
+         
+        // executed when component mounted
+        isMounted.current = true;
+        return () => {
+            // executed when unmount
+            isMounted.current = false;
+        }
     }, [])
 
     const renderTree = (nodes) => (
@@ -71,62 +166,50 @@ function AddUser(props) {
         </TreeItem>
       );
 
-    // Radio Button
 
-    const handleChangeTypeMember = (event) => {
-        setInputData({...inputData,
-            typeMember: event.target.value
-        })
-        console.log('typeMember ',event.target.value)
-    };
-    // End Radio Button
 
-    // Input ID Number
-    const handleIdNumber = (event) => {
-        // Check digit tel number
-        event.target.value = event.target.value.toString().slice(0,13)
-        setInputData({...inputData,
-            idNum: event.target.value
-        })
-        console.log('idNum ',event.target.value)
-    }
-    // End Input ID Number
-
-    // Input Tel Number
-    const handleTelNumber = (event) => {
-        // Check digit tel number
-        event.target.value = event.target.value.toString().slice(0,10)
-        setInputData({...inputData,
-            telNum: event.target.value
-        })
-    }
-    // End Input Tel Number
-
-    const handleUploadImg = (event) => {
-        // alert(event.target.files[0].name)
-        let imgArr = [];
-        for (let i=0; i<event.target.files.length; i++) {
-            console.log(event.target.files[i].name)
-            imgArr.push(event.target.files[i].name)
-        }
-        setInputData({...inputData,
-            imgUpload: imgArr
+    const handleInputData = (event) => {
+        setInputData({
+            ...inputData,
+            [event.target.name]: event.target.value
         })
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
     
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
+        let addUserForm = document.getElementById('addUserForm');
+        let formData = new FormData(addUserForm);
+
+        axios.post(
+            `${server_hostname}/admin/api/add_member`, formData, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    // history.push('/manageinfo/searchmember')
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
       };
 
     const postData = () => {
@@ -141,6 +224,16 @@ function AddUser(props) {
     const gotoManageUser = () => {
         history.push('/manageinfo/manageuser');
     }
+
+    const handleGotoSearch = () => {
+        setSuccess(false);
+        history.push('/manageinfo/manageuser');
+
+    };
+
+    const handleClosePopup = () => {
+        setErr(false);
+    };
 
     return (
         <div className="adduser-page">
@@ -163,82 +256,142 @@ function AddUser(props) {
                     </Container>
 
                     <Container maxWidth="sm">
-                        <Grid container spacing={2}>
+                        <form className="root" id="addUserForm" noValidate autoComplete="off">
+                            <Grid container spacing={2}>
 
-                            {/* Paper 1 -------------------------------------------------- */}
-                            <Grid item xs={12} md={12}>
-                                <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiSelect label="คำนำหน้า" lists={['นาย','นาง','นางสาว']} />
-                                            </Grid>
-                                            <Grid item xs={12} md={4}>
-                                                <MuiTextfield label="ชื่อ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={5}>
-                                                <MuiTextfield label="นามสกุลชื่อ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="UserName" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="Password" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiSelect label="ActiveStatus" lists={['ActiveStatus1','ActiveStatus2']} />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="ExpireDate" defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                            {/* <TreeView
-                                                defaultCollapseIcon={<ExpandMoreIcon />}
-                                                defaultExpanded={['root']}
-                                                defaultExpandIcon={<ChevronRightIcon />}
-                                            >
-                                                {renderTree(data)}
-                                            </TreeView> */}
-                                                <TreeView
-                                                    defaultCollapseIcon={<ExpandMoreIcon />}
-                                                    defaultExpandIcon={<ChevronRightIcon />}
-                                                    multiSelect
-                                                    className="treeview"
-                                                    defaultExpanded={['1','4','6']}
-                                                >
-                                                    <TreeItem nodeId="1" label={<MuiCheckbox label="Administrator" />} className="container">
-                                                        <TreeItem nodeId="2" label={<MuiCheckbox label="คณะกรรมการปฏิรูปที่ดินจังหวัด (คปจ.) " />} />
-                                                        <TreeItem nodeId="3" label={<MuiCheckbox label="คณะอนุกรรมการ " />}  />
-                                                        <TreeItem nodeId="4" label={<MuiCheckbox label="คณะกรรมการปฏิรูปที่ดินเพื่อเกษตรกรรม(คปก.)" /> } className="container">
-                                                            <TreeItem nodeId="5" label={<MuiCheckbox label="ผู้อำนวยการ " />} />
-                                                            <TreeItem nodeId="6" label={<MuiCheckbox label="หัวหน้าส่วน " />} className="container">
-                                                                <TreeItem nodeId="7" label={<MuiCheckbox label="กลุ่มยุทธศาสตร์ " />} />
-                                                                <TreeItem nodeId="8" label={<MuiCheckbox label="ฝ่ายการเงิน " />} />
-                                                                <TreeItem nodeId="9" label={<MuiCheckbox label="ฝ่ายบัญชี " />} />
+                                {/* Paper 1 -------------------------------------------------- */}
+                                <Grid item xs={12} md={12}>
+                                    <Paper className="paper line-top-green paper mg-t-20">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiSelect label="คำนำหน้า" listsValue={['นาย','นาง','นางสาว']} lists={['นาย', 'นาง', 'นางสาว']} name="FrontName" value={inputData.FrontName} onChange={handleInputData}  />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiTextfield label="ชื่อ" defaultValue="" name="Name" value={inputData.Name} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    <MuiTextfield label="นามสกุล" defaultValue="" name="Sirname" value={inputData.Sirname} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="UserName" defaultValue="" name="cUsername" value={inputData.cUsername} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="Password" defaultValue="" name="cPasswd" value={inputData.cPasswd} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiSelect label="ActiveStatus" listsValue={['1','0']} lists={['Active', 'Non Active']} name="bActive" value={inputData.bActive} onChange={handleInputData}  />
+                                               </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiDatePicker label="ExpireDate" name="ExpireDate" value={inputData.ExpireDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+
+                                                </Grid>
+                                                {/* <Grid item xs={12} md={12}>
+                                                
+                                                     <TreeView
+                                                        defaultCollapseIcon={<ExpandMoreIcon />}
+                                                        defaultExpandIcon={<ChevronRightIcon />}
+                                                        multiSelect
+                                                        className="treeview"
+                                                        defaultExpanded={['1','4','6']}
+                                                    >
+                                                        <TreeItem nodeId="1" label={<MuiCheckbox label="Administrator" />} className="container">
+                                                            <TreeItem nodeId="2" label={<MuiCheckbox label="คณะกรรมการปฏิรูปที่ดินจังหวัด (คปจ.) " />} />
+                                                            <TreeItem nodeId="3" label={<MuiCheckbox label="คณะอนุกรรมการ " />}  />
+                                                            <TreeItem nodeId="4" label={<MuiCheckbox label="คณะกรรมการปฏิรูปที่ดินเพื่อเกษตรกรรม(คปก.)" /> } className="container">
+                                                                <TreeItem nodeId="5" label={<MuiCheckbox label="ผู้อำนวยการ " />} />
+                                                                <TreeItem nodeId="6" label={<MuiCheckbox label="หัวหน้าส่วน " />} className="container">
+                                                                    <TreeItem nodeId="7" label={<MuiCheckbox label="กลุ่มยุทธศาสตร์ " />} />
+                                                                    <TreeItem nodeId="8" label={<MuiCheckbox label="ฝ่ายการเงิน " />} />
+                                                                    <TreeItem nodeId="9" label={<MuiCheckbox label="ฝ่ายบัญชี " />} />
+                                                                </TreeItem>
                                                             </TreeItem>
                                                         </TreeItem>
-                                                    </TreeItem>
-                                                </TreeView>
+                                                    </TreeView> 
+                                                </Grid> */}
+                                            </Grid>
+                                    </Paper>
+                                </Grid>
+
+                                 {/* Paper 2 -------------------------------------------------- */}
+                                <Grid item xs={12} md={12}>
+                                    <Paper className="paper line-top-green paper mg-t-20">
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                <h1 className="paper-head-green">UserRole</h1>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <MuiSelectObj label="" itemName={'nRolename'} itemValue={'nROLEID'} lists={roleList} name="nROLEID" value={inputData.nROLEID} onChange={handleInputData} />
+                                            
                                             </Grid>
                                         </Grid>
-                                    </form>
-                                </Paper>
-                            </Grid>
-                        
-                        </Grid>
+                                    </Paper>
+                                </Grid>
 
-                        <Grid container spacing={2} className="btn-row">
-                            {/* Button Row -------------------------------------------------- */}
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData}/>
+                                 {/* Paper 3 -------------------------------------------------- */}
+                                 <Grid item xs={12} md={12}>
+                                    <Paper className="paper line-top-green paper mg-t-20">
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                <h1 className="paper-head-green">พื้นที่</h1>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <MuiSelectObj label="" itemName={'PV_NAME'} itemValue={'ProvinceID'} lists={provinceList} name="ProvinceID" value={inputData.ProvinceID} onChange={handleInputData} />
+                                            
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
+                                </Grid>
+                            
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={postData}/>
+
+                            <Grid container spacing={2} className="btn-row">
+                                {/* Button Row -------------------------------------------------- */}
+                                <Grid item xs={12} md={6}>
+                                    <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData}/>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit}/>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </form>
                     </Container>
                 </div>
             </Fade>
+
+            <Dialog
+                open={err || success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                    {
+                        success ? 
+                        <DialogContentText className="dialog-success">
+                            <p className="txt-center txt-black">{successMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
+                                        <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
+                                    
+                            </Box>
+                        </DialogContentText>
+                        :
+                        <DialogContentText className="dialog-error">
+                            <p className="txt-center txt-black">{errMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            </Box>
+                        </DialogContentText>
+                    }
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
         </div>
     )
 }

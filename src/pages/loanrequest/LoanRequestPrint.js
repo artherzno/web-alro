@@ -132,13 +132,17 @@ function LoanRequestPrint() {
 
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={2}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาชื่อ-นามสกุล" id="loanrequestprint-search-input" defaultValue="" />
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={2}>
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" id="loanrequestprint-searchcontactnum-input" defaultValue="" />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        {/* Field Text ---------------------------------------------------*/}
+                                        <MuiTextfield label="ค้นหาเลขที่คำขอกู้ยืมเงิน" defaultValue="" />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
@@ -222,7 +226,7 @@ function LoanRequestPrint() {
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ"  defaultValue="" />
+                                                <MuiTextfield label="นามสกุล"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Number ---------------------------------------------------*/}
@@ -931,10 +935,10 @@ function LoanRequestPrint() {
                     <Grid container spacing={2} className="btn-row">
                         {/* Button Row -------------------------------------------------- */}
                         <Grid item xs={12} md={6}>
-                            <ButtonFluidPrimary label="บันทึกข้อมูล" />
+                            <ButtonFluidPrimary label="บันทึกชั่วคราว" />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} />
+                            <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" />
                         </Grid>
                     </Grid>
                 </Container>

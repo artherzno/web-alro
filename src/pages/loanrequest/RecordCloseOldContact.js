@@ -137,7 +137,7 @@ function RecordCloseOldContact() {
                                                 <MuiDatePicker label="วันที่สัญญา"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="" defaultValue="" />
+                                                <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 {/* Field Select ---------------------------------------------------*/}
@@ -149,7 +149,7 @@ function RecordCloseOldContact() {
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ"  defaultValue="" />
+                                                <MuiTextfield label="นามสกุล"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <MuiDatePicker label="วันที่รับเงินกู้"  defaultValue="2017-05-24" />
@@ -167,7 +167,7 @@ function RecordCloseOldContact() {
                                                 <MuiDatePicker label="วันที่จัดทำ"  defaultValue="2017-05-24" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" />
+                                                <MuiTextfieldMultiLine label="หมายเหตุ" defaultValue="" row="3" />
                                             </Grid>
                                         </Grid>
                                     </form>

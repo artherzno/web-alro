@@ -21,7 +21,9 @@ import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
     MuiDatePicker,
+    MuiSelect,
     ButtonFluidPrimary,
+    ButtonNormalIconStartPrimary,
 } from '../../components/MUIinputs';
 
 
@@ -161,19 +163,52 @@ function NoticeInvoice() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>ใบเตือนหนี้ค้างชำระ</h1>
+                                <h1>รายงานใบเตือนหนี้ค้างชำระ</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={3}>
-                                        <MuiDatePicker label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" />
+                                    <Grid item xs={12} md={2}>
+                                        <MuiTextfield label="รหัสบันทึกใบเตือน" defaultValue="เงินกู้" />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
-                                        <MuiTextfield label="&nbsp;" defaultValue="เงินกู้" />
+                                        <MuiDatePicker label="วันที่บันทึกใบเตือน" defaultValue="" />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
+                                        <MuiDatePicker label="วันที่ประมวลผล" defaultValue="" />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <MuiTextfield label="เลขที่ใบแจ้งหนี้" defaultValue="เงินกู้" />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="เงินกู้" />
+                                    </Grid>
+                                    <Grid item xs={12} md={1}>
+                                        <MuiTextfield label="เลขที่สัญญา" defaultValue="เงินกู้" />
+                                    </Grid>
+                                    <Grid item xs={12} md={1}>
                                         <p>&nbsp;</p>
                                         <ButtonFluidPrimary label="ค้นหา" />
+                                    </Grid>
+
+                                </Grid>
+                            </Grid>
+
+                            <Grid item xs={12} md={12} className="mg-t-0">
+                                <Grid container spacing={2}>
+                                    
+                                    <Grid item xs={12} md={2}>
+                                        <MuiSelect label="แสดงสถานะการชำระเงิน" listsValue={['ทั้งหมด','ชำระแล้ว','ยังไม่ชำระ']} lists={['ทั้งหมด','ชำระแล้ว','ยังไม่ชำระ']} />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <MuiSelect label="การเตือน" listsValue={['ครั้งที่ 1','ครั้งที่ 2']} lists={['ครั้งที่ 1','ครั้งที่ 2']}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <MuiSelect label="จัดเรียงตาม" listsValue={['เลขที่ใบเตือน','วันที่ออกหนังสือเตือน','วันที่รับเงิน']} lists={['เลขที่ใบเตือน','วันที่ออกหนังสือเตือน','วันที่รับเงิน']}   />
+                                    </Grid>
+                                    <Grid item xs={12} md={6} className="txt-right">
+                                        <p>&nbsp;</p>
+                                        <ButtonNormalIconStartPrimary label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>} />
+                                        
                                     </Grid>
 
                                 </Grid>
@@ -186,18 +221,31 @@ function NoticeInvoice() {
                                             <TableRow>
                                                 <TableCell align="center">รหัสบันทึก</TableCell>
                                                 <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">วันที่ประมวล</TableCell>
-                                                <TableCell align="center">เลขที่ใบเตือนหนี้</TableCell>
-                                                <TableCell align="center">จำนวนเงินรวม</TableCell>
-                                                <TableCell align="center">ลำดับที่ใบเตือนหนี้</TableCell>
-                                                <TableCell align="center">คำนวณสิ้นปีงบประมาณ</TableCell>
-                                                <TableCell align="center">ราย</TableCell>
-                                                <TableCell align="center">No</TableCell>
+                                                <TableCell align="center">วันที่คำนวณ</TableCell>
+                                                <TableCell align="center">รหัสจังหวัด</TableCell>
+                                                <TableCell align="center">ชื่อ</TableCell>
+                                                <TableCell align="center">บัตรประชาชน</TableCell>
+                                                <TableCell align="center">โครงการ</TableCell>
+                                                <TableCell align="center">ชื่อโครงการ</TableCell>
+                                                <TableCell align="center">วันที่ยืม</TableCell>
+                                                <TableCell align="center">ใบเตือน</TableCell>
+                                                <TableCell align="center">สัญญาเลขที่</TableCell>
+                                                <TableCell align="center">วันครบชำระ</TableCell>
+                                                <TableCell align="center">งวดชำระ</TableCell>
+                                                <TableCell align="center">เงินต้น</TableCell>
+                                                <TableCell align="center">ดอกเบี้ย</TableCell>
+                                                <TableCell align="center">ดอกเบี้ยค้างชำระ</TableCell>
+                                                <TableCell align="center">ดอกเบี้ยชำระ</TableCell>
+                                                <TableCell align="center">Mindex</TableCell>
+                                                <TableCell align="center">จำนวนเงินจ่าย</TableCell>
+                                                <TableCell align="center">วันที่จ่าย</TableCell>
+                                                <TableCell align="center">Ref_id1</TableCell>
+                                                <TableCell align="center">Ref_date</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={9} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={22} align="center">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
@@ -223,17 +271,17 @@ function NoticeInvoice() {
                                     <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
                                 </div> */}
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10">
+                            <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
                                 <ButtonFluidPrimary label="พิมพ์ Label" />
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10">
+                            <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
                                 <ButtonFluidPrimary label="พิมพ์หนังสือใบเตือน Bar" />
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10">
+                            <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
                                 <ButtonFluidPrimary label="พิมพ์หนังสือใบเตือน Bar .ใหม่" />
                             </Grid>
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={12} md={12} style={{display: 'none'}}>
                                 <Paper className="paper line-top-green paper mg-t-20">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
@@ -284,7 +332,7 @@ function NoticeInvoice() {
                         </Grid>
                     </Container>
                     
-                    <Container maxWidth={false}>
+                    <Container maxWidth={false} style={{display: 'none'}}>
                     {/* Data Grid --------------------------------*/}
                         {/* <div style={{ height: 400, width: '100%' }}>
                             <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />

@@ -17,14 +17,17 @@ import ListSign from './report/ListSign'
 import LawSuit from './report/LawSuit'
 import ModifyLoan from './report/ModifyLoan'
 import Billed from './report/Billed'
-import AddMember from './manageinfo/AddMemberPage';
-import EditMember from './manageinfo/EditMemberPage';
+import AddFarmer from './manageinfo/AddFarmer';
+import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
 import LoanAddProject from './manageinfo/LoanAddProject';
+import LoanEditProject from './manageinfo/LoanEditProject';
+import ManageProjectBudget from './manageinfo/ManageProjectBudget';
 import ManageUser from './manageinfo/ManageUser';
 import ManagePermission from './manageinfo/ManagePermission';
 import AddUser from './manageinfo/AddUser';
+import EditUser from './manageinfo/EditUser';
 import AddMenu from './manageinfo/AddMenu';
 import AddRole from './manageinfo/AddRole';
 import LoanRequestContactSearch from './loanrequest/LoanRequestContactSearch';
@@ -36,7 +39,7 @@ import EditContract from './loanrequest/EditContract'
 import AllContractSearch from './loanrequest/AllContractSearch'
 import RecordBillAlro from './loanserviceinfo/RecordBillAlro'
 import RecordBillClose from './loanserviceinfo/RecordBillClose'
-import EditBill from './loanserviceinfo/EditBill'
+import CancelBill from './loanserviceinfo/CancelBill'
 import UploadInfoBaac from './loanserviceinfo/UploadInfoBaac'
 import PrintBillBank from './loanserviceinfo/PrintBillBank'
 import PrintInvoice from './debtinfo/PrintInvoice';
@@ -45,6 +48,8 @@ import RecordInstallmentPayment from './debtinfo/RecordInstallmentPayment';
 import RecordRequestPayment from './debtinfo/RecordRequestPayment';
 import DebtCondition from './debtinfo/DebtCondition';
 import FaultCondition from './debtinfo/FaultCondition';
+import DebtReminder from './debtinfo/DebtReminder';
+import AdvanceInvoice from './debtinfo/AdvanceInvoice';
 import RecordCourtContract from './loanrequest/RecordCourtContract';
 import RecordDebtContract from './loanrequest/RecordDebtContract';
 import RecordDebtPayment from './loanrequest/RecordDebtPayment';
@@ -61,6 +66,7 @@ import Installment from './check/Installment'
 import CheckBilled from './check/CheckBilled'
 import ConditionInterest from './check/ConditionInterest'
 import Payment from './check/Payment'
+
 
 function Main() {
     const history = useHistory();
@@ -93,12 +99,14 @@ function Main() {
                     {/* Loan Service Info Page */}
                     <Route path="/loanserviceinfo/recordbillalro" component={RecordBillAlro} />
                     <Route path="/loanserviceinfo/recordbillclose" component={RecordBillClose} />
-                    <Route path="/loanserviceinfo/editbill" component={EditBill} />
+                    <Route path="/loanserviceinfo/cancelbill" component={CancelBill} />
                     <Route path="/loanserviceinfo/uploadinfobaac" component={UploadInfoBaac} />
                     <Route path="/loanserviceinfo/printbillbank" component={PrintBillBank} />
                     {/* Debt Info Page */}
                     <Route path="/debtinfo/printinvoice" component={PrintInvoice} />
                     <Route path="/debtinfo/noticeinvoice" component={NoticeInvoice} />
+                    <Route path="/debtinfo/advanceinvoice" component={AdvanceInvoice} />
+                    <Route path="/debtinfo/debtreminder" component={DebtReminder} />
                     <Route path="/debtinfo/recordinstallmentpayment" component={RecordInstallmentPayment} />
                     <Route path="/debtinfo/recordrequestpayment" component={RecordRequestPayment} />
                     <Route path="/debtinfo/debtcondition" component={DebtCondition} />
@@ -113,14 +121,17 @@ function Main() {
                     <Route path="/report/lawsuit" component={LawSuit} />
                     <Route path="/report/modify" component={ModifyLoan} />
                     <Route path="/report/billed" component={Billed} />
-                    {/* Manage Info Page */}
+                    {/* Manage Info Page */}ManageProjectBudget
+                    <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />
-                    <Route path="/manageinfo/addmember" component={AddMember} />
-                    <Route path="/manageinfo/editmember" component={EditMember} />
+                    <Route path="/manageinfo/addfarmer" component={AddFarmer} />
+                    <Route path="/manageinfo/editfarmer" component={EditFarmer} />
                     <Route path="/manageinfo/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/manageinfo/loanaddproject" component={LoanAddProject} />
+                    <Route path="/manageinfo/loanEditproject" component={LoanEditProject} />
                     <Route path="/manageinfo/manageuser" component={ManageUser} />
                     <Route path="/manageinfo/adduser" component={AddUser} />
+                    <Route path="/manageinfo/edituser" component={EditUser} />
                     <Route path="/manageinfo/addmenu" component={AddMenu} />
                     <Route path="/manageinfo/addrole" component={AddRole} />
                     <Route path="/manageinfo/managepermission" component={ManagePermission} />

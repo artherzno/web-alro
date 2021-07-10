@@ -196,7 +196,7 @@ function LoanRecivcePrint() {
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุลชื่อ"  defaultValue="" />
+                                                <MuiTextfield label="นามสกุล"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={1}>
                                                 {/* Field Select ---------------------------------------------------*/}

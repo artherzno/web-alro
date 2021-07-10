@@ -243,7 +243,7 @@ function DebtCondition() {
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="" defaultValue="" />
+                                                <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={1}>
                                                 <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
@@ -252,7 +252,7 @@ function DebtCondition() {
                                                 <MuiTextfield label="ชื่อ" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="นามสกุลชื่อ" defaultValue="" />
+                                                <MuiTextfield label="นามสกุล" defaultValue="" />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -312,7 +312,7 @@ function DebtCondition() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินลดต้น</p>
+                                                                    <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                 <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>

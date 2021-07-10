@@ -161,7 +161,7 @@ function PrintInvoice() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>พิมพ์ใบแจ้งหนี้</h1>
+                                <h1>รายงานใบแจ้งหนี้</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
@@ -169,9 +169,9 @@ function PrintInvoice() {
                                         {/* <MuiTextfield label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" /> */}
                                         <MuiDatePicker label="ตรวจสอบวันที่ประมวล" />
                                     </Grid>
-                                    <Grid item xs={12} md={2}>
+                                    {/* <Grid item xs={12} md={2}>
                                         <MuiTextfield label="&nbsp;" defaultValue="เงินกู้" />
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
                                         <ButtonFluidPrimary label="ค้นหา" />
@@ -237,7 +237,7 @@ function PrintInvoice() {
                                 <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" />
                             </Grid>
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={12} md={12} style={{display: 'none'}}>
                                 <Paper className="paper line-top-green paper mg-t-20">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
@@ -288,7 +288,7 @@ function PrintInvoice() {
                         </Grid>
                     </Container>
                     
-                    <Container maxWidth={false}>
+                    <Container maxWidth={false} style={{display: 'none'}}>
                     {/* Data Grid --------------------------------*/}
                         {/* <div style={{ height: 400, width: '100%' }}>
                             <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
