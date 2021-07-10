@@ -19,6 +19,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import TablePagination from '@material-ui/core/TablePagination';
 
 class SummaryModifyTab extends React.Component {
 
@@ -308,6 +309,17 @@ class SummaryModifyTab extends React.Component {
                             </TableRow>
                         </TableBody>
                     </Table>
+
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={30}
+                        rowsPerPage={10}
+                        page={1}
+                        onPageChange={() => { }}
+                        onRowsPerPageChange={() => { }}
+                    />
+                    
                 </TableContainer>
             </Box>
         </div>)

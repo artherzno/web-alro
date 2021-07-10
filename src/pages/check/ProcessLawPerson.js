@@ -22,6 +22,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import TablePagination from '@material-ui/core/TablePagination';
 
 class ProcessLawPerson extends React.Component {
 
@@ -263,6 +264,17 @@ class ProcessLawPerson extends React.Component {
 
                                         </TableBody>
                                     </Table>
+
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={30}
+                                        rowsPerPage={10}
+                                        page={1}
+                                        onPageChange={() => { }}
+                                        onRowsPerPageChange={() => { }}
+                                    />
+                                    
                                 </TableContainer>
                             </Box>
 

@@ -24,6 +24,7 @@ import { makeStyles, withStyles } from '@material-ui/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TablePagination from '@material-ui/core/TablePagination';
 
 class CheckBilled extends React.Component {
 
@@ -196,6 +197,16 @@ class CheckBilled extends React.Component {
 
                                         </TableBody>
                                     </Table>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={30}
+                                        rowsPerPage={10}
+                                        page={1}
+                                        onPageChange={() => { }}
+                                        onRowsPerPageChange={() => { }}
+                                    />
+                                    
                                 </TableContainer>
                             </Box>
 

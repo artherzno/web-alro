@@ -21,6 +21,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
+import TablePagination from '@material-ui/core/TablePagination';
 
 class BySign extends React.Component {
 
@@ -144,6 +145,17 @@ class BySign extends React.Component {
                                             
                                         </TableBody>
                                     </Table>
+
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={30}
+                                        rowsPerPage={10}
+                                        page={1}
+                                        onPageChange={() => { }}
+                                        onRowsPerPageChange={() => { }}
+                                    />
+                                    
                                 </TableContainer>
                             </Box>
 
