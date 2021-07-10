@@ -133,7 +133,7 @@ const listmenu = [
             },
             {
                 subtitle: 'ตรวจสอบเงื่อนไข&ดอกเบี้ย',
-                subpath: '/check/bysign'
+                subpath: '/check/condition-interest'
             },
             {
                 subtitle: 'ตรวจสอบสัญญา',
@@ -141,7 +141,7 @@ const listmenu = [
             },
             {
                 subtitle: 'ตรวจสอบยอดการชำระเงิน',
-                subpath: '/check/bysign'
+                subpath: '/check/payment'
             },
             {
                 subtitle: 'ตรวจสอบประมวล พิมพ์ลูกหนี้รายตัว',
