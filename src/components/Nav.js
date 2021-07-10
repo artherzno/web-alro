@@ -125,11 +125,11 @@ const listmenu = [
             },
             {
                 subtitle: 'ตรวจสอบงวดชำระ&บัญชี',
-                subpath: '/check/bysign'
+                subpath: '/check/installment'
             },
             {
                 subtitle: 'ตรวจสอบใบเสร็จรับเงิน',
-                subpath: '/check/bysign'
+                subpath: '/check/check-billed'
             },
             {
                 subtitle: 'ตรวจสอบเงื่อนไข&ดอกเบี้ย',

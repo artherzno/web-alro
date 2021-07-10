@@ -57,6 +57,8 @@ import CheckSign from './check/CheckSign'
 import ProcessByPerson from './check/ProcessByPerson'
 import ProcessLawPerson from './check/ProcessLawPerson'
 import CheckBill from './check/CheckBill'
+import Installment from './check/Installment'
+import CheckBilled from './check/CheckBilled'
 
 function Main() {
     const history = useHistory();
@@ -127,6 +129,8 @@ function Main() {
                     <Route path="/check/process-by-person" component={ProcessByPerson} />
                     <Route path="/check/process-law-by-person" component={ProcessLawPerson} />
                     <Route path="/check/check-bill" component={CheckBill} />
+                    <Route path="/check/installment" component={Installment} />
+                    <Route path="/check/check-billed" component={CheckBilled} />
                     
                     
                 </Switch>
