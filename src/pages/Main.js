@@ -49,13 +49,24 @@ import RecordRequestPayment from './debtinfo/RecordRequestPayment';
 import DebtCondition from './debtinfo/DebtCondition';
 import FaultCondition from './debtinfo/FaultCondition';
 import DebtReminder from './debtinfo/DebtReminder';
+import AdvanceInvoice from './debtinfo/AdvanceInvoice';
 import RecordCourtContract from './loanrequest/RecordCourtContract';
 import RecordDebtContract from './loanrequest/RecordDebtContract';
 import RecordDebtPayment from './loanrequest/RecordDebtPayment';
 import PrintContractDebt from './loanrequest/PrintContractDebt';
 import EditContractDebt from './loanrequest/EditContractDebt';
 import RecordContractDebt from './loanrequest/RecordContractDebt';
-import AdvanceInvoice from './debtinfo/AdvanceInvoice';
+import BySign from './check/BySign'
+import RealPay from './check/RealPay'
+import CheckSign from './check/CheckSign'
+import ProcessByPerson from './check/ProcessByPerson'
+import ProcessLawPerson from './check/ProcessLawPerson'
+import CheckBill from './check/CheckBill'
+import Installment from './check/Installment'
+import CheckBilled from './check/CheckBilled'
+import ConditionInterest from './check/ConditionInterest'
+import Payment from './check/Payment'
+
 
 function Main() {
     const history = useHistory();
@@ -124,6 +135,18 @@ function Main() {
                     <Route path="/manageinfo/addmenu" component={AddMenu} />
                     <Route path="/manageinfo/addrole" component={AddRole} />
                     <Route path="/manageinfo/managepermission" component={ManagePermission} />
+                    {/* Manage Check Page */}
+                    <Route path="/check/bysign" component={BySign} />
+                    <Route path="/check/realpay" component={RealPay} />
+                    <Route path="/check/checksign" component={CheckSign} />
+                    <Route path="/check/process-by-person" component={ProcessByPerson} />
+                    <Route path="/check/process-law-by-person" component={ProcessLawPerson} />
+                    <Route path="/check/check-bill" component={CheckBill} />
+                    <Route path="/check/installment" component={Installment} />
+                    <Route path="/check/check-billed" component={CheckBilled} />
+                    <Route path="/check/condition-interest" component={ConditionInterest} />
+                    <Route path="/check/payment" component={Payment} />
+                    
                 </Switch>
             </Router>
         </div>
