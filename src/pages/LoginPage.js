@@ -77,6 +77,84 @@ function LoginPage() {
          });
     }
 
+    let districtList = [];
+    const fetchDataDistrict = (token) => {
+        axios.post(
+            `${server_hostname}/admin/api/get_districts`, {
+                "ProvinceID": "",
+                "DistrictID": "",
+                "AM_NAME": ""
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                // console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    districtList.push(data.data)
+                    console.log(districtList)
+                    let districtListJSONString = JSON.stringify(districtList[0]);
+                    localStorage.setItem('districtlist', districtListJSONString)
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+
+    let subDistrictList = [];
+    const fetchDataSubDistrict = (token) => {
+        axios.post(
+            `${server_hostname}/admin/api/get_subdistricts`, {
+                "ProvinceID": "",
+                "DistrictID": "",
+                "SubdistrictID": "",
+                "TB_NAME": ""
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                // console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    subDistrictList.push(data.data)
+                    console.log(subDistrictList)
+                    let subDistrictListJSONString = JSON.stringify(subDistrictList[0]);
+                    localStorage.setItem('subdistrictlist', subDistrictListJSONString)
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
     let docLandTypeList = [];
     const fetchDataDocLandType = (token) => {
         axios.post(
@@ -159,6 +237,8 @@ function LoginPage() {
 
             fetchDataDocLandType(res.token);
             fetchDataProvince(res.token, res.recordset[0].ProvinceID)
+            fetchDataDistrict(res.token)
+            fetchDataSubDistrict(res.token)
             history.push('/home');
 
         }

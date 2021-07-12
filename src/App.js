@@ -36,22 +36,23 @@ const theme = createTheme({
   },
 }, thTH)
 
-// const AuthData = { port: 3800, hostname: '127.0.0.1' } ;
-const AuthData = { port: 3800, production: 'https://spk.mirasoft.co.th', hostname: 'https://spkapi.mirasoft.co.th', portinvoice: 8055 } ;
-// const hostname = window.location.hostname;
-const hostname = 'https://spkapi.mirasoft.co.th';
+let AuthData = { port: 3800, hostname: '', portinvoice: 8055 } ;
+const hostname = window.location.hostname;
+
+// Check Endpoint
+if(hostname !== 'localhost') {
+  console.log('API - PRODUCTION', hostname)
+  AuthData.hostname = 'https://spk.mirasoft.co.th/spkapi';
+  localStorage.setItem('hostname', 'https://spk.mirasoft.co.th/spkapi')
+} else {
+  console.log('API - IP', hostname)
+  AuthData.hostname ='http://147.50.143.84:3800/spkapi'
+  localStorage.setItem('hostname', 'http://147.50.143.84:3800/spkapi')
+}
+console.warn('hi app')
 
 
 function App() {
-
-  useEffect(() => {console.warn('hi app')
-    // Check Port
-    // if(hostname !== 'localhost') {
-    //   AuthData.hostname = hostname;
-    // } 
-    console.log(AuthData);
-  }, [])
-
   return (
   <AuthContext.Provider value={AuthData}>
     <ThemeProvider theme={theme}>

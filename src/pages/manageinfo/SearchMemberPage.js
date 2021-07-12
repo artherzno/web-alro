@@ -193,7 +193,7 @@ function SearchMemberPage(props) {
         history.push(
         {
             pathname: '/manageinfo/editfarmer',
-            state: { FarmerID: id }
+            state: { FarmerID: id || 0 }
           }
         );
     }

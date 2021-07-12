@@ -731,14 +731,14 @@ function AddFarmer(props) {
         formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
         formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
         
-        formData.append('Contact_AddNo', inputData.Contact_AddNo)
-        formData.append('Contact_AddMoo', inputData.Contact_AddMoo)
-        formData.append('Contact_AddrSoiRoad', inputData.Contact_AddrSoiRoad)
-        formData.append('Contact_AddrSubdistrictID', inputData.Contact_AddrSubdistrictID)
-        formData.append('Contact_AddrDistrictID', inputData.Contact_AddrDistrictID)
-        formData.append('Contact_AddrProvinceID', inputData.Contact_AddrProvinceID)
-        formData.append('Contact_Postcode', inputData.Contact_Postcode)
-        formData.append('Contact_Addrzone', inputData.Contact_Addrzone)
+        // formData.append('Contact_AddNo', inputData.Contact_AddNo)
+        // formData.append('Contact_AddMoo', inputData.Contact_AddMoo)
+        // formData.append('Contact_AddrSoiRoad', inputData.Contact_AddrSoiRoad)
+        // formData.append('Contact_AddrSubdistrictID', inputData.Contact_AddrSubdistrictID)
+        // formData.append('Contact_AddrDistrictID', inputData.Contact_AddrDistrictID)
+        // formData.append('Contact_AddrProvinceID', inputData.Contact_AddrProvinceID)
+        // formData.append('Contact_Postcode', inputData.Contact_Postcode)
+        // formData.append('Contact_Addrzone', inputData.Contact_Addrzone)
         // formData.append('file', inputData.imgUpload)
         formData.append('land_data', JSON.stringify(landDataArr));
         // for (var i = 0; i < inputData.land_data.length; i++) {
@@ -1022,18 +1022,17 @@ function AddFarmer(props) {
                             </form>
 
                                 {/* Paper 4 -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
                                     <Paper className="paper line-top-green paper">
                                         <Grid item xs={12} md={12}>
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeader label="ที่ตั้งที่ดิน" />
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 1/5</span>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
 
                                                 {/* ที่ตั้งที่ดิน 1.---------------------------------------------------- */}
                                                 <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 1.</span>
                                                     <MuiCheckbox label="Alro Land" />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
@@ -1072,10 +1071,22 @@ function AddFarmer(props) {
                                                 <Grid item xs={12} md={12}>
                                                     <Divider /> 
                                                 </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
+
+                                
+                                    <Paper className="paper line-top-green paper">
+                                        <Grid item xs={12} md={12}>
+                                            <Grid container spacing={2} className="paper-container">
+                                                <Grid item xs={12} md={12}>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 2/5</span>
+                                                    <Divider variant="middle" style={{ margin: '0' }} />
+                                                </Grid>
 
                                                 {/* ที่ตั้งที่ดิน 2.---------------------------------------------------- */}
                                                 <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 2.</span>
                                                     <MuiCheckbox label="Alro Land" />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
@@ -1115,9 +1126,22 @@ function AddFarmer(props) {
                                                     <Divider /> 
                                                 </Grid>
 
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
+
+                                
+                                    <Paper className="paper line-top-green paper">
+                                        <Grid item xs={12} md={12}>
+                                            <Grid container spacing={2} className="paper-container">
+                                                <Grid item xs={12} md={12}>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 3/5</span>
+                                                    <Divider variant="middle" style={{ margin: '0' }} />
+                                                </Grid>
+
                                                {/* ที่ตั้งที่ดิน 3.---------------------------------------------------- */}
                                                <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 3.</span>
                                                     <MuiCheckbox label="Alro Land" />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
@@ -1156,10 +1180,23 @@ function AddFarmer(props) {
                                                 <Grid item xs={12} md={12}>
                                                     <Divider /> 
                                                 </Grid>
+
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
+
+                                
+                                    <Paper className="paper line-top-green paper">
+                                        <Grid item xs={12} md={12}>
+                                            <Grid container spacing={2} className="paper-container">
+                                                <Grid item xs={12} md={12}>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 4/5</span>
+                                                    <Divider variant="middle" style={{ margin: '0' }} />
+                                                </Grid>
                                                 
                                                 {/* ที่ตั้งที่ดิน 4.---------------------------------------------------- */}
                                                <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 4.</span>
                                                     <MuiCheckbox label="Alro Land" />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
@@ -1199,9 +1236,22 @@ function AddFarmer(props) {
                                                     <Divider /> 
                                                 </Grid>
 
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
+
+                                
+                                    <Paper className="paper line-top-green paper">
+                                        <Grid item xs={12} md={12}>
+                                            <Grid container spacing={2} className="paper-container">
+                                                <Grid item xs={12} md={12}>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 5/5</span>
+                                                    <Divider variant="middle" style={{ margin: '0' }} />
+                                                </Grid>
+
                                                 {/* ที่ตั้งที่ดิน 5.---------------------------------------------------- */}
                                                <Grid item xs={12} md={12}>
-                                                    <span style={{display: 'block'}} className="txt-green">ที่ตั้งที่ดิน 5.</span>
                                                     <MuiCheckbox label="Alro Land" />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
@@ -1252,10 +1302,9 @@ function AddFarmer(props) {
                                             </Grid>
                                         </Grid>
                                     </Paper> */}
-                                </Grid>
                             </Grid>
 
-                            <Grid container spacing={2} className="btn-row">
+                            <Grid container spacing={2} className="btn-row" style={{margin: '15px -14px'}}>
                                 {/* Button Row -------------------------------------------------- */}
                                 <Grid item xs={12} md={6}>
                                     <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData} />
@@ -1280,22 +1329,22 @@ function AddFarmer(props) {
                 <DialogContent>
                     {
                         success ? 
-                        <DialogContentText className="dialog-success">
+                        <div className="dialog-success">
                             <p className="txt-center txt-black">{successMsg}</p>
                             <br/>
                             <Box textAlign='center'>
                                         <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
                                     
                             </Box>
-                        </DialogContentText>
+                        </div>
                         :
-                        <DialogContentText className="dialog-error">
+                        <div className="dialog-error">
                             <p className="txt-center txt-black">{errMsg}</p>
                             <br/>
                             <Box textAlign='center'>
                                 <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
                             </Box>
-                        </DialogContentText>
+                        </div>
                     }
                     
                 </DialogContent>
