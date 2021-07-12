@@ -13,6 +13,7 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
+import { YearSelect } from '../../components/report'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,6 +24,11 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import TablePagination from '@material-ui/core/TablePagination';
+import moment from 'moment'
+import { formatNumber } from '../../utils/Utilities'
+import { ButtonExportExcel } from '../../components'
+import api from '../../services/webservice'
+import { format } from 'date-fns';
 
 class ProcessLawPerson extends React.Component {
 
@@ -30,13 +36,109 @@ class ProcessLawPerson extends React.Component {
         super(props)
 
         this.state = {
-            loaded: true
+            loaded: true,
+            isExporting: false,
+            dateSelect: null,
+            ContractNo: "",
+            ProjName: "",
+            Year: "",
+            Order: "",
+            Process: "",
+            data: []
         }
     }
+
+    componentDidMount() {
+
+        this.loadData()
+    }
+
+    loadData() {
+
+        const { ContractNo, ProjName, Year, Order, Process, } = this.state
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('ProjName', ProjName);
+        parameter.append('Year', Year);
+        parameter.append('Order', Order);
+        parameter.append('Process', Process);
+
+        api.getAppraisalCourt(parameter).then(response => {
+
+            this.setState({
+                data: response.data.data,
+            })
+
+        }).catch(error => {
+
+        })
+    }
+
+    exportExcel() {
+
+
+        const { ContractNo, ProjName, Year, Order, Process, } = this.state
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('ProjName', ProjName);
+        parameter.append('Year', Year);
+        parameter.append('Order', Order);
+        parameter.append('Process', Process);
+
+        this.setState({
+            isExporting: true
+        })
+
+
+        api.exportAppraisalCourt(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ตรวจสอบประมวลฟ้องศาลพิมพ์ลูกหนี้รายตัว.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isExporting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isExporting: false
+            })
+
+        })
+    }
+
+    onChange = (state) => (event) => {
+
+        this.setState({
+            [state]: event.target.value
+        }, () => {
+
+            if (this.delay) {
+                clearTimeout(this.delay)
+                this.delay = null
+            }
+            this.delay = setTimeout(() => {
+                this.loadData()
+            }, 500);
+
+        })
+
+
+    }
+
 
     render() {
 
         const { classes } = this.props;
+        const { data } = this.state
+
 
         return (
             <div>
@@ -56,21 +158,23 @@ class ProcessLawPerson extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="เลขที่สัญญา" />
+                                            <MuiTextfield label="เลขที่สัญญา" onChange={this.onChange("ContractNo")}/>
                                         </Grid>
 
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ค้นหาชื่อโครงการ" />
+                                            <MuiTextfield label="ค้นหาชื่อโครงการ" onChange={this.onChange("ProjName")}/>
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <MuiTextfield label="อัตราดอกเบี้ย" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ปี" />
+                                            <YearSelect label="ปี" onChange={this.onChange("Year")} />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ค้นหา" />
+                                            <ButtonFluidPrimary label="ค้นหา" onClick={() =>{
+                                                this.loadData()
+                                            }}/>
                                         </Grid>
 
                                     </Grid>
@@ -79,16 +183,16 @@ class ProcessLawPerson extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <SortCheck />
+                                            <SortCheck onChange={this.onChange("Order")}/>
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <ProcessLawSelect />
+                                            <ProcessLawSelect onChange={this.onChange("Process")}/>
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="พิมพ์ลูกหนี้รายตัว" />
+                                            <ButtonExportExcel label="พิมพ์ลูกหนี้รายตัว" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
                                         </Grid>
 
                                     </Grid>
@@ -179,83 +283,86 @@ class ProcessLawPerson extends React.Component {
 
                                         </TableHead>
                                         <TableBody>
-                                            {[1, 2, 3, 4].map((farmer, index) => {
+                                            {this.state.data.map((element, index) => {
 
                                                 return (
                                                     <TableRow key={index}>
                                                         <StyledTableCellLine align="center"><Checkbox /></StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.mid}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.projcode}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.projname}</StyledTableCellLine>
+
+                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.rcpno}</StyledTableCellLine>
+
+                                                        
+                                                        <StyledTableCellLine align="center">{formatNumber(element.principle)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.unpaid)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.credit)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.dcapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.dcapital1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.dinterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.dinterest1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.djinterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.dcharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pjcapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap0)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pjinterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pinterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_00)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_01)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_0)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_2)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge_0)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge_1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge_2)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.bcapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.bcapital1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.binterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.binterest1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.bcharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.scapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.sinterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.appendFlgs)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pPay)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pIntr)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pCharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.aCapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.aInterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.aCharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.cCapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.cInterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.cCharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.jCapital)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.jInterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.jCharge)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.rateC)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.cmddate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.startdate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.enddate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.rateNC)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.tps0}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap01)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap02)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pintr01)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.pintr02)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.ptotal01)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.uintr01)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.kpkAmt1)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.kpkAmt2)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.kpkAmt3)}</StyledTableCellLine>
 
                                                     </TableRow>
                                                 )

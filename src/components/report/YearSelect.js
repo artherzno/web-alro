@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import { Select } from './select'
 
-export const YearSelect = ({ onChange = () => { } }) => {
+export const YearSelect = ({ onChange = () => { },label="ปี" }) => {
 
     const [years, setYears] = useState([])
 
@@ -23,7 +23,7 @@ export const YearSelect = ({ onChange = () => { } }) => {
 
     return (
         <div>
-            <Select options={years} emptyLabel="ทุกปี" label="ปี" onChange={(event) =>{
+            <Select options={years} emptyLabel="ทุกปี" label={label} onChange={(event) =>{
                 
                 const found = years.find(element => element.value.toString() === event.target.value)
                 onChange({ ...event, label: found ? found.label : "" })
