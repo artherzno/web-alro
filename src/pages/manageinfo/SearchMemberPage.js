@@ -127,7 +127,7 @@ function SearchMemberPage(props) {
             setHasData(true);
             setIsLoaded(true);
             setTableResult(res.data);
-            console.log(res.data);
+            // console.log(res.data);
 
             // history.push('/home');
             // setDataCampaign(data); // from local

@@ -54,6 +54,8 @@ function EditFarmer(props) {
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [deleteLand, setDeleteLand] = useState(false);
+    const [deleteLandID, setDeleteLandID] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [duplicateAddr, setDuplicateAddr] = useState(false);
@@ -143,7 +145,7 @@ function EditFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -161,7 +163,7 @@ function EditFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -178,7 +180,7 @@ function EditFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -195,7 +197,7 @@ function EditFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -212,7 +214,7 @@ function EditFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -229,7 +231,7 @@ function EditFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -251,6 +253,7 @@ function EditFarmer(props) {
         setProvinceLandList(dataProvinceList)
 
         let dataDocLandTypeList = JSON.parse(localStorage.getItem('doclandtypelist'))
+        console.log('dataDocLandTypeList',dataDocLandTypeList)
         setDocLandTypeList(dataDocLandTypeList)
 
         console.log(inputData.BirthDate)
@@ -296,7 +299,7 @@ function EditFarmer(props) {
                                     LandType: resEditData.land_data[i].LandType || '', // 0,
                                     LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
                                     LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Plang: resEditData.land_data[i].Plang || '', // 0,
                                     Rai: resEditData.land_data[i].Rai || '', // 0,
                                     Ngan: resEditData.land_data[i].Ngan || '', // 0,
                                     Wa: resEditData.land_data[i].Wa || '', // 0
@@ -313,7 +316,7 @@ function EditFarmer(props) {
                                     LandType: resEditData.land_data[i].LandType || '', // 0,
                                     LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
                                     LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Plang: resEditData.land_data[i].Plang || '', // 0,
                                     Rai: resEditData.land_data[i].Rai || '', // 0,
                                     Ngan: resEditData.land_data[i].Ngan || '', // 0,
                                     Wa: resEditData.land_data[i].Wa || '', // 0
@@ -330,7 +333,7 @@ function EditFarmer(props) {
                                     LandType: resEditData.land_data[i].LandType || '', // 0,
                                     LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
                                     LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Plang: resEditData.land_data[i].Plang || '', // 0,
                                     Rai: resEditData.land_data[i].Rai || '', // 0,
                                     Ngan: resEditData.land_data[i].Ngan || '', // 0,
                                     Wa: resEditData.land_data[i].Wa || '', // 0
@@ -347,7 +350,7 @@ function EditFarmer(props) {
                                     LandType: resEditData.land_data[i].LandType || '', // 0,
                                     LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
                                     LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Plang: resEditData.land_data[i].Plang || '', // 0,
                                     Rai: resEditData.land_data[i].Rai || '', // 0,
                                     Ngan: resEditData.land_data[i].Ngan || '', // 0,
                                     Wa: resEditData.land_data[i].Wa || '', // 0
@@ -364,7 +367,7 @@ function EditFarmer(props) {
                                     LandType: resEditData.land_data[i].LandType || '', // 0,
                                     LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
                                     LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    plang: resEditData.land_data[i].Plang || '', // 0,
+                                    Plang: resEditData.land_data[i].Plang || '', // 0,
                                     Rai: resEditData.land_data[i].Rai || '', // 0,
                                     Ngan: resEditData.land_data[i].Ngan || '', // 0,
                                     Wa: resEditData.land_data[i].Wa || '', // 0
@@ -386,26 +389,87 @@ function EditFarmer(props) {
                             IDCARD_AddNo: resEditData.IDCARD_AddNo || '', // '123',
                             IDCARD_AddMoo: resEditData.IDCARD_AddMoo || '', // 'หมู่ 4',
                             IDCARD_AddrSoiRoad: resEditData.IDCARD_AddrSoiRoad || '', // 'ถ. มิตรภาพ',
-                            IDCARD_AddrSubdistrictID: resEditData.IDCARD_AddrSubdistrictID || '', // 100102,
-                            IDCARD_AddrDistrictID: resEditData.IDCARD_AddrDistrictID || '', // 1001,
-                            IDCARD_AddrProvinceID: resEditData.IDCARD_AddrProvinceID || '', // 10,
+                            IDCARD_AddrSubdistrictID: resEditData.IDCARD_AddrSubdistrictID || 0, // 100102,
+                            IDCARD_AddrDistrictID: resEditData.IDCARD_AddrDistrictID || 0, // 1001,
+                            IDCARD_AddrProvinceID: resEditData.IDCARD_AddrProvinceID || 0, // 10,
                             IDCARD_Postcode: resEditData.IDCARD_Postcode || '', // 12345,
                             IDCard_Addrzone: resEditData.IDCard_Addrzone || '',
                             Contact_AddNo: resEditData.Contact_AddNo || '',
                             Contact_AddMoo: resEditData.Contact_AddMoo || '',
                             Contact_AddrSoiRoad: resEditData.Contact_AddrSoiRoad || '',
-                            Contact_AddrSubdistrictID: resEditData.Contact_AddrSubdistrictID || '',
-                            Contact_AddrDistrictID: resEditData.Contact_AddrDistrictID || '',
-                            Contact_AddrProvinceID: resEditData.Contact_AddrProvinceID || '',
+                            Contact_AddrSubdistrictID: resEditData.Contact_AddrSubdistrictID || 0,
+                            Contact_AddrDistrictID: resEditData.Contact_AddrDistrictID || 0,
+                            Contact_AddrProvinceID: resEditData.Contact_AddrProvinceID || 0,
                             Contact_Postcode: resEditData.Contact_Postcode || '',
                             Contact_Addrzone: resEditData.Contact_Addrzone || '',
                             FarmerGrade: resEditData.FarmerGrade || '',
                             Request: resEditData.Request || '',
     
                         })
+
+                        // Get District
+                        let dataDistrictList = JSON.parse(localStorage.getItem('districtlist'))
+                        let districtIDCardEditList = [];
+                        let districtContactEditList = [];
+
+                        for(let i=0; i<dataDistrictList.length; i++) {
+                            if(resEditData.IDCARD_AddrProvinceID === dataDistrictList[i].ProvinceID) {
+                                console.log(dataDistrictList[i].DistrictID,)
+                                districtIDCardEditList.push({
+                                    "ProvinceID": dataDistrictList[i].ProvinceID,
+                                    "DistrictID": dataDistrictList[i].DistrictID,
+                                    "AM_NAME": dataDistrictList[i].AM_NAME
+                                })
+                            }
+                        }
+                        for(let i=0; i<dataDistrictList.length; i++) {
+                            if(resEditData.Contact_AddrProvinceID === dataDistrictList[i].ProvinceID) {
+                                console.log(dataDistrictList[i].DistrictID,)
+                                districtContactEditList.push({
+                                    "ProvinceID": dataDistrictList[i].ProvinceID,
+                                    "DistrictID": dataDistrictList[i].DistrictID,
+                                    "AM_NAME": dataDistrictList[i].AM_NAME
+                                })
+                            }
+                        }
+
+                        setDistrictIDCardList(districtIDCardEditList)
+                        setDistrictContactList(districtContactEditList)
+
+                         // Get SubDistrict
+                        let dataSubDistrictList = JSON.parse(localStorage.getItem('subdistrictlist'))
+                        let subdistrictIDCardEditList = [];
+                        let subdistrictContactEditList = [];
+
+                        for(let i=0; i<dataSubDistrictList.length; i++) {
+                            if(resEditData.IDCARD_AddrDistrictID === dataSubDistrictList[i].DistrictID) {
+                                subdistrictIDCardEditList.push({
+                                    "ProvinceID": dataSubDistrictList[i].ProvinceID,
+                                    "DistrictID": dataSubDistrictList[i].DistrictID,
+                                    "SubdistrictID": dataSubDistrictList[i].SubdistrictID,
+                                    "TB_NAME": dataSubDistrictList[i].TB_NAME,
+                                    "POSTAL": dataSubDistrictList[i].POSTAL
+                                })
+                            }
+                        }
+                        for(let i=0; i<dataSubDistrictList.length; i++) {
+                            if(resEditData.Contact_AddrDistrictID === dataSubDistrictList[i].DistrictID) {
+                                subdistrictContactEditList.push({
+                                    "ProvinceID": dataSubDistrictList[i].ProvinceID,
+                                    "DistrictID": dataSubDistrictList[i].DistrictID,
+                                    "SubdistrictID": dataSubDistrictList[i].SubdistrictID,
+                                    "TB_NAME": dataSubDistrictList[i].TB_NAME,
+                                    "POSTAL": dataSubDistrictList[i].POSTAL
+                                })
+                            }
+                        }
+
+                        setSubDistrictIDCardList(subdistrictIDCardEditList)
+                        setSubDistrictContactList(subdistrictContactEditList)
+
                         
-                     fetchGetDistrict();
-                     fetchGetSubDistrict();
+                    //  fetchGetDistrict();
+                    //  fetchGetSubDistrict();
                     }
                 }
             ).catch(err => { console.log(err) })
@@ -562,8 +626,8 @@ function EditFarmer(props) {
                         Land_AddrSubdistrictID: 0
                     })
                 } else {
-                    // setDistrictIDCardList(res.data)
-                    // setDistrictContactList(res.data)
+                    setDistrictIDCardList(res.data)
+                    setDistrictContactList(res.data)
                     // setDistrictLandList(res.data)
                     // setDistrictLand1List(res.data)
                     // setDistrictLand2List(res.data)
@@ -626,8 +690,8 @@ function EditFarmer(props) {
                 } else if(type === 'Land_AddrDistrictID_0')  {
                     setSubDistrictLandAddList(res.data)
                 } else {
-                    // setSubDistrictIDCardList(res.data)
-                    // setSubDistrictContactList(res.data)
+                    setSubDistrictIDCardList(res.data)
+                    setSubDistrictContactList(res.data)
                     // setSubDistrictLandList(res.data)
                     // setSubDistrictLand1List(res.data)
                     // setSubDistrictLand2List(res.data)
@@ -967,20 +1031,25 @@ function EditFarmer(props) {
         event.preventDefault();
         const myFile = document.querySelector("input[type=file]").files[0];
 
-        let landDataArr = []
-        landDataArr.push(inputDataLand1)
-        landDataArr.push(inputDataLand2)
-        landDataArr.push(inputDataLand3)
-        landDataArr.push(inputDataLand4)
-        landDataArr.push(inputDataLand5)
 
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
         formData.append('FarmerID', props.location.state.FarmerID)
         formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
         formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
-        
-        formData.append('land_data', JSON.stringify(landDataArr));
+
+        if(duplicateAddr) {
+            formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
+            formData.append('Contact_AddMoo', inputData.IDCARD_AddMoo)
+            formData.append('Contact_AddrSoiRoad', inputData.IDCARD_AddrSoiRoad)
+            formData.append('Contact_AddrSubdistrictID', inputData.IDCARD_AddrSubdistrictID)
+            formData.append('Contact_AddrDistrictID', inputData.IDCARD_AddrDistrictID)
+            formData.append('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID)
+            formData.append('Contact_Postcode', inputData.IDCARD_Postcode)
+            // formData.append('Contact_Addrzone', inputData.IDCARD_Addrzone)
+            // formData.append('file', inputData.imgUpload)
+        }
+    
 
         axios.post(
             `${server_hostname}/admin/api/edit_farmer`, formData, { headers: { "token": token } } 
@@ -1013,7 +1082,7 @@ function EditFarmer(props) {
          });
     }
 
-    const handleEdit = async (LandID, i) => {
+    const handleEditLand = async (LandID, i) => {
         // event.preventDefault();
         console.log('LandID',LandID)
 
@@ -1054,6 +1123,86 @@ function EditFarmer(props) {
          });
     }
 
+    const handleAddLand = async (LandID, i) => {
+        // event.preventDefault();
+        console.log('LandID',LandID)
+
+        let addFarmerLandForm = document.getElementById('addFarmerLandForm');
+        let formData = new FormData(addFarmerLandForm);
+        formData.append('FarmerID', props.location.state.FarmerID)
+        formData.append('LandType', 0)
+
+
+        axios.post(
+            `${server_hostname}/admin/api/add_spkland`, formData, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    // history.push('/manageinfo/searchmember')
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+
+    const handleDeleteLand = async (LandID) => {
+        // event.preventDefault();
+        console.log('LandID',LandID)
+
+        axios.post(
+            `${server_hostname}/admin/api/delete_spkland`, {
+                "FarmerID": props.location.state.FarmerID,
+                "LandID": LandID
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    // history.push('/manageinfo/searchmember')
+                    setSuccess(true);
+                    setSuccessMsg('ลบข้อมูลเรียบร้อย')
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
     const cancelData = () => {
         history.push('/manageinfo/searchmember');
     }
@@ -1063,7 +1212,7 @@ function EditFarmer(props) {
     }
 
 
-    const FormLandEdit = (i, LandID, Land_AddMoo, Land_AddrProvinceID, Land_AddrDistrictID, Land_AddrSubdistrictID, DocLand_code, LandNumber, LandGroup, plang, Rai, Ngan, Wa, handleInputDataLand, districtLandList, subDistrictLandList) => {
+    const FormLandEdit = (i, LandID, Land_AddMoo, Land_AddrProvinceID, Land_AddrDistrictID, Land_AddrSubdistrictID, DocLand_code, LandNumber, LandGroup, Plang, Rai, Ngan, Wa, handleInputDataLand, districtLandList, subDistrictLandList) => {
         
         // Get District
         let dataDistrictList = JSON.parse(localStorage.getItem('districtlist'))
@@ -1134,23 +1283,23 @@ function EditFarmer(props) {
                                             <MuiTextfield label="กลุ่ม" id={`LandGroup_${i+1}`}  value={LandGroup} name={`LandGroup`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfield label="แปลง" id={`plang_${i+1}`}  value={plang || 0} name={`plang`} onChange={handleInputDataLand} />
+                                            <MuiTextfield label="แปลง" id={`Plang_${i+1}`}  value={Plang} name={`Plang`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_${i+1}`} value={Rai || 0}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLand} />
+                                            <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_${i+1}`} value={Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_${i+1}`} value={Ngan || 0}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLand} />
+                                            <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_${i+1}`} value={Ngan}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfieldEndAdornment label="แปลง" id={`Wa_${i+1}`} value={Wa || 0}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLand} />
+                                            <MuiTextfieldEndAdornment label="แปลง" id={`Wa_${i+1}`} value={Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLand} />
                                         </Grid>
                                         
                                         <Grid item xs={12} md={6}>
-                                            <ButtonFluidOutlineSecondary label="ลบข้อมูล" />
+                                            <ButtonFluidOutlineSecondary label="ลบข้อมูล" onClick={()=>{setDeleteLand(true); setDeleteLandID(LandID)}} />
                                         </Grid>
                                         <Grid item xs={12} md={6}>
-                                            <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>handleEdit(LandID, i)} />
+                                            <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>handleEditLand(LandID, i)} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -1167,8 +1316,25 @@ function EditFarmer(props) {
 
     };
 
+    const handleReload = () => {
+        setErrMsg('')
+        setErr(false);
+        setSuccess(false);
+        setDeleteLand(false);
+        window.location.reload();
+        // history.push(
+        // {
+        //     pathname: '/manageinfo/editfarmer',
+        //     state: { FarmerID: props.location.state.FarmerID || 0 }
+        //   }
+        // );
+
+    };
+
     const handleClosePopup = () => {
         setErr(false);
+        setSuccess(false);
+        setDeleteLand(false);
     };
 
     return (
@@ -1367,30 +1533,30 @@ function EditFarmer(props) {
                                     landData.map((item, i) => {
                                         if(i===0) {
                                             return (
-                                                FormLandEdit(i, item.LandID, inputDataLand1.Land_AddMoo, inputDataLand1.Land_AddrProvinceID, inputDataLand1.Land_AddrDistrictID, inputDataLand1.Land_AddrSubdistrictID, inputDataLand1.DocLand_code, inputDataLand1.LandNumber, inputDataLand1.LandGroup, inputDataLand1.plang, inputDataLand1.Rai, inputDataLand1.Ngan, inputDataLand1.Wa, handleInputDataLand1, districtLand1List, subDistrictLand1List)
+                                                FormLandEdit(i, item.LandID, inputDataLand1.Land_AddMoo, inputDataLand1.Land_AddrProvinceID, inputDataLand1.Land_AddrDistrictID, inputDataLand1.Land_AddrSubdistrictID, inputDataLand1.DocLand_code, inputDataLand1.LandNumber, inputDataLand1.LandGroup, inputDataLand1.Plang, inputDataLand1.Rai, inputDataLand1.Ngan, inputDataLand1.Wa, handleInputDataLand1, districtLand1List, subDistrictLand1List)
                                             )
                                         } else if(i===1) {
                                             return (
-                                                FormLandEdit(i, item.LandID, inputDataLand2.Land_AddMoo, inputDataLand2.Land_AddrProvinceID, inputDataLand2.Land_AddrDistrictID, inputDataLand2.Land_AddrSubdistrictID, inputDataLand2.DocLand_code, inputDataLand2.LandNumber, inputDataLand2.LandGroup, inputDataLand2.plang, inputDataLand2.Rai, inputDataLand2.Ngan, inputDataLand2.Wa, handleInputDataLand2, districtLand2List, subDistrictLand2List)
+                                                FormLandEdit(i, item.LandID, inputDataLand2.Land_AddMoo, inputDataLand2.Land_AddrProvinceID, inputDataLand2.Land_AddrDistrictID, inputDataLand2.Land_AddrSubdistrictID, inputDataLand2.DocLand_code, inputDataLand2.LandNumber, inputDataLand2.LandGroup, inputDataLand2.Plang, inputDataLand2.Rai, inputDataLand2.Ngan, inputDataLand2.Wa, handleInputDataLand2, districtLand2List, subDistrictLand2List)
                                             )
                                         } else if(i===2) {
                                             return (
-                                                FormLandEdit(i, item.LandID, inputDataLand3.Land_AddMoo, inputDataLand3.Land_AddrProvinceID, inputDataLand3.Land_AddrDistrictID, inputDataLand3.Land_AddrSubdistrictID, inputDataLand3.DocLand_code, inputDataLand3.LandNumber, inputDataLand3.LandGroup, inputDataLand3.plang, inputDataLand3.Rai, inputDataLand3.Ngan, inputDataLand3.Wa, handleInputDataLand3, districtLand3List, subDistrictLand3List)
+                                                FormLandEdit(i, item.LandID, inputDataLand3.Land_AddMoo, inputDataLand3.Land_AddrProvinceID, inputDataLand3.Land_AddrDistrictID, inputDataLand3.Land_AddrSubdistrictID, inputDataLand3.DocLand_code, inputDataLand3.LandNumber, inputDataLand3.LandGroup, inputDataLand3.Plang, inputDataLand3.Rai, inputDataLand3.Ngan, inputDataLand3.Wa, handleInputDataLand3, districtLand3List, subDistrictLand3List)
                                             )
                                         } else if(i===3) {
                                             return (
-                                                FormLandEdit(i, item.LandID, inputDataLand4.Land_AddMoo, inputDataLand4.Land_AddrProvinceID, inputDataLand4.Land_AddrDistrictID, inputDataLand4.Land_AddrSubdistrictID, inputDataLand4.DocLand_code, inputDataLand4.LandNumber, inputDataLand4.LandGroup, inputDataLand4.plang, inputDataLand4.Rai, inputDataLand4.Ngan, inputDataLand4.Wa, handleInputDataLand4, districtLand4List, subDistrictLand4List)
+                                                FormLandEdit(i, item.LandID, inputDataLand4.Land_AddMoo, inputDataLand4.Land_AddrProvinceID, inputDataLand4.Land_AddrDistrictID, inputDataLand4.Land_AddrSubdistrictID, inputDataLand4.DocLand_code, inputDataLand4.LandNumber, inputDataLand4.LandGroup, inputDataLand4.Plang, inputDataLand4.Rai, inputDataLand4.Ngan, inputDataLand4.Wa, handleInputDataLand4, districtLand4List, subDistrictLand4List)
                                             )
                                         }  else {
                                             return (
-                                                FormLandEdit(i, item.LandID, inputDataLand5.Land_AddMoo, inputDataLand5.Land_AddrProvinceID, inputDataLand5.Land_AddrDistrictID, inputDataLand5.Land_AddrSubdistrictID, inputDataLand5.DocLand_code, inputDataLand5.LandNumber, inputDataLand5.LandGroup, inputDataLand5.plang, inputDataLand5.Rai, inputDataLand5.Ngan, inputDataLand5.Wa, handleInputDataLand5, districtLand5List, subDistrictLand5List)
+                                                FormLandEdit(i, item.LandID, inputDataLand5.Land_AddMoo, inputDataLand5.Land_AddrProvinceID, inputDataLand5.Land_AddrDistrictID, inputDataLand5.Land_AddrSubdistrictID, inputDataLand5.DocLand_code, inputDataLand5.LandNumber, inputDataLand5.LandGroup, inputDataLand5.Plang, inputDataLand5.Rai, inputDataLand5.Ngan, inputDataLand5.Wa, handleInputDataLand5, districtLand5List, subDistrictLand5List)
                                             )
                                         }
                                     })
                                 }
 
                                 {
-                                    (landData >= 5) ? 
+                                    (landData.length >= 5) ? 
                                         '' 
                                     : 
                                         <form id={`addFarmerLandForm`} noValidate autoComplete="off">
@@ -1399,7 +1565,7 @@ function EditFarmer(props) {
                                                     <Grid item xs={12} md={12}>
                                                         <Grid container spacing={2} className="paper-container">
                                                             <Grid item xs={12} md={12}>
-                                                                <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                                <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
                                                                 <span className="txt-green fl-r">เพิ่มข้อมูลที่ตั้งที่ดิน</span>
                                                                 <Divider variant="middle" style={{ margin: '0' }} />
                                                             </Grid>
@@ -1420,7 +1586,7 @@ function EditFarmer(props) {
                                                                 <MuiSelectSubDistrict label="แขวง / ตำบล" id={`Land_AddrSubdistrictID_0`}  lists={subDistrictLandAddList} value={inputDataLandAdd.Land_AddrSubdistrictID} name={`Land_AddrSubdistrictID`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiSelectObj label="ประเภทหนังสือสำคัญ" id={`DocLand_code_0`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLandAdd.DocLand_code} name={`DocLand_code`} onChange={handleInputDataLandAdd} />
+                                                                <MuiSelectObj label="ประเภทหนังสือสำคัญ" id={`DocLand_code_0`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLandAdd.DocLand_code} name={`DocLand_name`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
                                                                 <MuiTextfield label="เลขที่"  id={`LandNumber_0`}  value={inputDataLandAdd.LandNumber} name={`LandNumber`} onChange={handleInputDataLandAdd} />
@@ -1429,20 +1595,20 @@ function EditFarmer(props) {
                                                                 <MuiTextfield label="กลุ่ม" id={`LandGroup_0`}  value={inputDataLandAdd.LandGroup} name={`LandGroup`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfield label="แปลง" id={`plang_0`}  value={inputDataLandAdd.plang || 0} name={`plang`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfield label="แปลง" id={`Plang_0`}  value={inputDataLandAdd.Plang} name={`Plang`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_0`} value={inputDataLandAdd.Rai || 0}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_0`} value={inputDataLandAdd.Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_0`} value={inputDataLandAdd.Ngan || 0}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_0`} value={inputDataLandAdd.Ngan}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Wa_0`} value={inputDataLandAdd.Wa || 0}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Wa_0`} value={inputDataLandAdd.Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             
                                                             <Grid item xs={12} md={12}>
-                                                                <ButtonFluidPrimary label="บันทึกข้อมูล"  />
+                                                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleAddLand} />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -1458,7 +1624,7 @@ function EditFarmer(props) {
             </Fade>
 
             <Dialog
-                open={err || success}
+                open={success}
                 onClose={handleClosePopup}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
@@ -1467,26 +1633,65 @@ function EditFarmer(props) {
             >
                 {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
                 <DialogContent>
-                    {
-                        success ? 
-                        <div className="dialog-success">
-                            <p className="txt-center txt-black">{successMsg}</p>
-                            <br/>
-                            <Box textAlign='center'>
-                                        <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
-                                    
-                            </Box>
-                        </div>
-                        :
-                        <div className="dialog-error">
-                            <p className="txt-center txt-black">{errMsg}</p>
-                            <br/>
-                            <Box textAlign='center'>
-                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
-                            </Box>
-                        </div>
-                    }
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleReload} color="primary" style={{justifyContent: 'center'}} />
+                                
+                        </Box>
+                    </div>
                     
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                   
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={deleteLand}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                    
+                    <div className="dialog-delete-land">
+                        <p className="txt-center txt-black">คุณต้องการลบที่ตั้งที่ดินใช่หรือไม่</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ยกเลิก" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />&nbsp;&nbsp;&nbsp;&nbsp;
+                            <ButtonFluidOutlineSecondary label="ลบ" maxWidth="100px" onClick={()=>handleDeleteLand(deleteLandID)} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                
                 </DialogContent>
                 {/* <DialogActions>
                 </DialogActions> */}

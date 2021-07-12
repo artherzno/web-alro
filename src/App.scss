@@ -377,6 +377,30 @@ h3 {
   .table-item-del {
     fill: var(--red);
   }
+
+  th {
+    &.cell-red {
+      color: red;
+    }
+    &.cell-blue {
+      color: #2284d0;
+    }
+    &.cell-green {
+      color: green;
+    }
+  }
+
+  .cell-red {
+    background-color: #ffe6e6;
+  }
+
+  .cell-green {
+    background-color: #effff6;
+  }
+
+  .cell-blue {
+    background-color: #e8f5ff;
+  }
 }
 
 .table-box {
@@ -859,7 +883,32 @@ body {
     padding: 6px;
     background-color: #fff4f4;
     color: var(--red);
-    font-size: 30px;
+    // font-size: 30px;
+    font-size: 22px;
+    text-align: right;
+  }
+  &.box-blue-summary {
+    padding: 6px;
+    background-color: #e8f5ff;
+    color: var(--darkblue);
+    // font-size: 30px;
+    font-size: 22px;
+    text-align: right;
+  }
+  &.box-green-summary {
+    padding: 6px;
+    background-color: #effff6;
+    color: var(--green);
+    // font-size: 30px;
+    font-size: 22px;
+    text-align: right;
+  }
+  &.box-black-summary {
+    padding: 6px;
+    background-color: rgb(241, 241, 241);
+    color: var(--font-color);
+    // font-size: 30px;
+    font-size: 22px;
     text-align: right;
   }
   .box-close {
@@ -940,9 +989,9 @@ input {
     font-size: 16px;
     padding: 10px 26px 10px 12px;
     -webkit-transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     width: 100%;
   }
 }
@@ -1452,4 +1501,4 @@ label + .MuiInputBase-root {
 
 @import "./styles/ListFarmerPayLoan.scss";
 @import "./styles/ReportStyle.scss";
-@import "./styles/check.scss"
+@import "./styles/check.scss";
