@@ -130,7 +130,7 @@ function AddFarmer(props) {
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -143,11 +143,11 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -159,11 +159,11 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -175,11 +175,11 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -191,11 +191,11 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: '', // "1234",
+            DocLand_name: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
-            plang: '', // 0,
+            Plang: '', // 0,
             Rai: '', // 0,
             Ngan: '', // 0,
             Wa: '', // 0
@@ -731,15 +731,17 @@ function AddFarmer(props) {
         formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
         formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
         
-        // formData.append('Contact_AddNo', inputData.Contact_AddNo)
-        // formData.append('Contact_AddMoo', inputData.Contact_AddMoo)
-        // formData.append('Contact_AddrSoiRoad', inputData.Contact_AddrSoiRoad)
-        // formData.append('Contact_AddrSubdistrictID', inputData.Contact_AddrSubdistrictID)
-        // formData.append('Contact_AddrDistrictID', inputData.Contact_AddrDistrictID)
-        // formData.append('Contact_AddrProvinceID', inputData.Contact_AddrProvinceID)
-        // formData.append('Contact_Postcode', inputData.Contact_Postcode)
-        // formData.append('Contact_Addrzone', inputData.Contact_Addrzone)
-        // formData.append('file', inputData.imgUpload)
+        if(duplicateAddr) {
+            formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
+            formData.append('Contact_AddMoo', inputData.IDCARD_AddMoo)
+            formData.append('Contact_AddrSoiRoad', inputData.IDCARD_AddrSoiRoad)
+            formData.append('Contact_AddrSubdistrictID', inputData.IDCARD_AddrSubdistrictID)
+            formData.append('Contact_AddrDistrictID', inputData.IDCARD_AddrDistrictID)
+            formData.append('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID)
+            formData.append('Contact_Postcode', inputData.IDCARD_Postcode)
+            // formData.append('Contact_Addrzone', inputData.IDCARD_Addrzone)
+            // formData.append('file', inputData.imgUpload)
+        }
         formData.append('land_data', JSON.stringify(landDataArr));
         // for (var i = 0; i < inputData.land_data.length; i++) {
         //     formData.append('land_data[]', inputData.land_data[i]);
@@ -816,7 +818,7 @@ function AddFarmer(props) {
                     <MuiTextfield label="กลุ่ม" defaultValue="" name="LandGroup" />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <MuiTextfield label="แปลง" defaultValue="" name="plang" />
+                    <MuiTextfield label="แปลง" defaultValue="" name="Plang" />
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <MuiTextfieldEndAdornment label="แปลง" defaultValue="" endAdornment="ไร่" name="Rai" />
@@ -992,13 +994,13 @@ function AddFarmer(props) {
                                                 :
                                                     <React.Fragment>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="บ้านเลขที่" />
+                                                            <MuiTextfield disabled label="บ้านเลขที่" value=""  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="หมู่ที่"  />
+                                                            <MuiTextfield disabled label="หมู่ที่"  value=""  />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
-                                                            <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  />
+                                                            <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  value=""  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield disabled label="จังหวัด"  />
@@ -1026,7 +1028,7 @@ function AddFarmer(props) {
                                         <Grid item xs={12} md={12}>
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน </span>
                                                     <span className="txt-green fl-r"> ข้อมูลชุดที่ 1/5</span>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
@@ -1057,7 +1059,7 @@ function AddFarmer(props) {
                                                     <MuiTextfield label="กลุ่ม"  value={inputDataLand1.LandGroup}  name="LandGroup_1" onChange={handleInputDataLand1} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand1.plang}  name="plang_1" onChange={handleInputDataLand1} />
+                                                    <MuiTextfield label="แปลง"  value={inputDataLand1.Plang}  name="Plang_1" onChange={handleInputDataLand1} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
@@ -1080,7 +1082,7 @@ function AddFarmer(props) {
                                         <Grid item xs={12} md={12}>
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
                                                     <span className="txt-green fl-r"> ข้อมูลชุดที่ 2/5</span>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
@@ -1111,7 +1113,7 @@ function AddFarmer(props) {
                                                     <MuiTextfield label="กลุ่ม"  value={inputDataLand2.LandGroup}  name="LandGroup_2" onChange={handleInputDataLand2} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand2.plang}  name="plang_2" onChange={handleInputDataLand2} />
+                                                    <MuiTextfield label="แปลง"  value={inputDataLand2.Plang}  name="Plang_2" onChange={handleInputDataLand2} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
@@ -1135,7 +1137,7 @@ function AddFarmer(props) {
                                         <Grid item xs={12} md={12}>
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
                                                     <span className="txt-green fl-r"> ข้อมูลชุดที่ 3/5</span>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
@@ -1166,7 +1168,7 @@ function AddFarmer(props) {
                                                     <MuiTextfield label="กลุ่ม"  value={inputDataLand3.LandGroup}  name="LandGroup_3" onChange={handleInputDataLand3} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand3.plang}  name="plang_3" onChange={handleInputDataLand3} />
+                                                    <MuiTextfield label="แปลง"  value={inputDataLand3.Plang}  name="Plang_3" onChange={handleInputDataLand3} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
@@ -1190,7 +1192,7 @@ function AddFarmer(props) {
                                         <Grid item xs={12} md={12}>
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
                                                     <span className="txt-green fl-r"> ข้อมูลชุดที่ 4/5</span>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
@@ -1221,7 +1223,7 @@ function AddFarmer(props) {
                                                     <MuiTextfield label="กลุ่ม"  value={inputDataLand4.LandGroup}  name="LandGroup_4" onChange={handleInputDataLand4} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand4.plang}  name="plang_4" onChange={handleInputDataLand4} />
+                                                    <MuiTextfield label="แปลง"  value={inputDataLand4.Plang}  name="Plang_4" onChange={handleInputDataLand4} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
@@ -1245,7 +1247,7 @@ function AddFarmer(props) {
                                         <Grid item xs={12} md={12}>
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> ที่ตั้งที่ดิน</span>
+                                                    <span className="txt-black" style={{fontSize: '18px'}}>  เพิ่มที่ตั้งที่ดิน</span>
                                                     <span className="txt-green fl-r"> ข้อมูลชุดที่ 5/5</span>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
@@ -1276,7 +1278,7 @@ function AddFarmer(props) {
                                                     <MuiTextfield label="กลุ่ม"  value={inputDataLand5.LandGroup}  name="LandGroup_5" onChange={handleInputDataLand5} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand5.plang}  name="plang_5" onChange={handleInputDataLand5} />
+                                                    <MuiTextfield label="แปลง"  value={inputDataLand5.Plang}  name="Plang_5" onChange={handleInputDataLand5} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />

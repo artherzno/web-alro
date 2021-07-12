@@ -137,18 +137,93 @@ function FaultCondition() {
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>รับสภาพหนี้/รับสภาพตามความผิด</h1>
                             </Grid>
+                            <Grid item xs={12} md={3}>
+                                <Box  display="flex" justifyContent="flex-start">
+                                    <MuiTextfield label="ค้นหาเลขที่สัญญา" />
+                                </Box>  
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <Box  display="flex" justifyContent="flex-start">
+                                    <MuiTextfield label="เลขประจำตัวประชาชนเกษตรกร" />
+                                </Box>  
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <p>&nbsp;</p>
+                                <ButtonFluidPrimary label="ค้นหา" />  
+                            </Grid>
+                            {/* <Grid item xs={12} md={7}>
+                                <Box  display="flex" justifyContent="flex-end">
+                                    <ButtonNormalIconStartPrimary label="เพิ่มคำขอ" startIcon={<AddIcon />} />
+                                </Box>  
+                            </Grid> */}
+                            <Grid item xs={12} md={12}> 
+                                <div className="table">
+                                    <TableContainer className="table-box table-recordinstallmentpayment1 max-h-250 mg-t-10">
+                                        <Table aria-label="normal table">
+                                            <TableHead>
+                                            <TableRow>
+                                                <TableCell align="center">รหัสโครงการ</TableCell>
+                                                <TableCell align="center">ชื่อโครงการ</TableCell>
+                                                <TableCell align="center">เลขที่สัญญา</TableCell>
+                                                <TableCell align="center">คำนำหน้า</TableCell>
+                                                <TableCell align="center">ชื่อ</TableCell>
+                                                <TableCell align="center">นามสกุล</TableCell>
+                                                <TableCell align="center">เลขบัตรประชาชน</TableCell>
+                                                <TableCell align="center">บ้านเลขที่</TableCell>
+                                                <TableCell align="center">หมู่ที่</TableCell>
+                                                <TableCell align="center">ถนน</TableCell>
+                                                <TableCell align="center">ตำบล</TableCell>
+                                                <TableCell align="center">อำเภอ</TableCell>
+                                                <TableCell align="center">จังหวัด</TableCell>
+                                                <TableCell align="center">เบอร์โทรศัพท์</TableCell>
+                                                <TableCell align="center" className="cell-blue">จำนวนเงินให้กู้</TableCell>
+                                                <TableCell align="center" className="cell-green">อัตราดอกเบี้ย</TableCell>
+                                                <TableCell align="center" className="cell-red">หนี้ค้างชำระ</TableCell>
+                                            </TableRow>
+                                            </TableHead>
+                                            <TableBody>{/* // clear mockup */}
+                                            <TableRow>
+                                                <TableCell colSpan={17} align="center">ไม่พบข้อมูล</TableCell>
+                                            </TableRow>
+                                            
+                                            {/* {
+                                                tableResult.map((row,i) => (
+                                                    <TableRow key={i}>
+                                                        <TableCell align="center">{row.a}</TableCell>
+                                                        <TableCell align="center">{row.b}</TableCell>
+                                                        <TableCell align="center">{row.c}</TableCell>
+                                                        <TableCell align="center">{row.d}</TableCell>
+                                                        <TableCell align="center">{row.d2}</TableCell>
+                                                        <TableCell align="center">{row.e}</TableCell>
+                                                        <TableCell align="center">{row.f}</TableCell>
+                                                        <TableCell align="center">{row.g}</TableCell>
+                                                        <TableCell align="center">{row.h}</TableCell>
+                                                        <TableCell align="center">{row.i}</TableCell>
+                                                        <TableCell align="center">{row.j}</TableCell>
+                                                        <TableCell align="center">{row.k}</TableCell>
+                                                        <TableCell align="center">{row.l}</TableCell>
+                                                        <TableCell align="center">{row.m}</TableCell>
+                                                        <TableCell align="center">{row.n}</TableCell>
+                                                    </TableRow>
+                                                ))
+                                            } */}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </div>
+                            </Grid>
                         </Grid>
                     </Container>
 
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12} md={12}>
 
                                 {/* Paper 1 - -------------------------------------------------- */}
                                 <Paper className="paper line-top-green paper mg-t-20">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
-                                            <Grid item xs={12} md={3}>
+                                            {/* <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="รหัสจังหวัด" defaultValue="RIET" />
                                             </Grid>
                                             <Grid item xs={12} md={9}>
@@ -180,13 +255,27 @@ function FaultCondition() {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <MuiTextfield label="อัตราดอกเบี้ย" defaultValue="" />
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item xs={12} md={12}>
                                                 <MuiTextfieldMultiLine label="หมายเหตุ" row="3"/>
                                             </Grid>
-                                            <Grid item xs={12} md={4}>
+                                            <Grid item xs={12} md={3}>
                                                 <p>หนี้ค้างชำระ</p>
                                                 <Box className="box box-red-summary">123,456.77</Box>
+                                            </Grid>
+                                            <Grid item xs={12} md={3}>
+                                                <p>จำนวนดอกเบี้ย</p>
+                                                <Box className="box box-black-summary">2,500.77</Box>
+                                            </Grid>
+                                            <Grid item xs={12} md={3}>
+                                                <p>ยอด ณ วันที่</p>
+                                                {/* <Box className="box box-black-summary"> */}
+                                                    <MuiDatePicker label=""/>
+                                                {/* </Box> */}
+                                            </Grid>
+                                            <Grid item xs={12} md={3}>
+                                                <p>รวมเป็นจำนวนเงินทั้งสิ้น</p>
+                                                <Box className="box box-red-summary">123,899.00</Box>
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -240,101 +329,12 @@ function FaultCondition() {
                                 </Paper>
 
                                 <Grid container spacing={2} className="btn-row">
-                                    <Grid item xs={12} md={5}>
-                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพหนี้ รายตัว" />
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพหนี้ รวม" />
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพความผิด รายตัว" />
-                                    </Grid>
-                                    <Grid item xs={12} md={5}>
-                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพความผิด รวม" />
-                                    </Grid>
+                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพหนี้ รายตัว" maxWidth="250px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพหนี้ รวม" maxWidth="250px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพความผิด รายตัว" maxWidth="250px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <ButtonFluidPrimary label="พิมพ์ใบรับสภาพความผิด รวม" maxWidth="250px" />
                                 </Grid>
                             
-                            </Grid>
-
-                            <Grid item xs={12} md={6} style={{position: 'fixed', width: '100%', right: '0'}}>
-                                <div className="positionFixed mg-t-20">
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelect label="ค้นหาสัญญาที่จะหมดอายุความ เดือน"  lists={['เดือน1', 'เดือน2', 'เดือน3']} />
-                                                </Grid>
-                                                <Grid item xs={12} md={3}>
-                                                    <MuiSelect label="ปี"  lists={[2564, 2563, 2562]} />
-                                                </Grid>
-                                                <Grid item xs={12} md={2}>
-                                                    <p>&nbsp;</p>
-                                                    <ButtonFluidPrimary label="ค้นหา" />  
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                       
-                                        <Grid item xs={12} md={12}>
-                                        <div className="table">
-                                            <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
-                                                <Table aria-label="normal table">
-                                                    <TableHead>
-                                                    <TableRow>
-                                                    <TableCell align="center">
-                                                        <Checkbox
-                                                            color="primary"
-                                                            indeterminate={numSelected > 0 && numSelected < rowCount}
-                                                            checked={rowCount > 0 && numSelected === rowCount}
-                                                            onChange={handleSelectAllClick}
-                                                            inputProps={{ 'aria-label': 'select all desserts' }}
-                                                        />
-                                                    </TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                    </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>{/* // clear mockup */}
-                                                        <TableRow>
-                                                            <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
-                                                        </TableRow>
-                                            
-                                                    {/* {
-                                                        tableResult.map((row,i) => { 
-                                                            const isItemSelected = isSelected(row.id);
-                                                            const labelId = `enhanced-table-checkbox-${i}`;
-                                                        
-                                                            return(
-                                                            <TableRow hover
-                                                                onClick={(event) => handleClickSelect(event, row.id)}
-                                                                role="checkbox"
-                                                                aria-checked={isItemSelected}
-                                                                tabIndex={-1}
-                                                                key={row.id}
-                                                                selected={isItemSelected}>
-                                                                <TableCell padding="checkbox" align="center">
-                                                                    <Checkbox
-                                                                        color="primary"
-                                                                        checked={isItemSelected}
-                                                                        inputProps={{ 'aria-labelledby': labelId }}
-                                                                    />
-                                                                </TableCell>
-                                                                <TableCell align="center">{row.a}</TableCell>
-                                                                <TableCell align="center">{row.b}</TableCell>
-                                                                <TableCell align="center">{row.c}</TableCell>
-                                                                <TableCell align="center">{row.d}</TableCell>
-                                                            </TableRow>
-                                                        )}
-                                                        )
-                                                    } */}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </div>
-                                        </Grid>
-                                    </Grid>
-                                </div>
                             </Grid>
                         </Grid>
                     </Container>
