@@ -524,6 +524,25 @@ const api = {
         })
 
     },
+    getReceipt(data) {
+
+        return get({
+            path: "api/CheckServices/GetReceipt",
+            data
+        })
+
+    },
+    exportReceipt(data) {
+
+        return get({
+            path: "api/CheckServices/ExportReceipt",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 

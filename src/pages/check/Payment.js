@@ -1,6 +1,6 @@
 import React from 'react'
 import { DatePicker, SortCheck, DisplayCheck, MainProjectSelect, SecondProjectSelect, LoanTypeSelect, LoanderTypeSelect, ObjectiveLoanSelect, LoanPlanSelect } from '../../components/check'
-
+import { YearSelect } from '../../components/report'
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
@@ -23,6 +23,11 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import TablePagination from '@material-ui/core/TablePagination';
 
+import moment from 'moment'
+import { formatNumber } from '../../utils/Utilities'
+import { ButtonExportExcel } from '../../components'
+import api from '../../services/webservice'
+
 class Payment extends React.Component {
 
     constructor(props) {
@@ -31,6 +36,93 @@ class Payment extends React.Component {
         this.state = {
             loaded: true
         }
+    }
+
+    componentDidMount() {
+
+        this.loadData()
+    }
+
+    loadData() {
+
+        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Date', Date);
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('ProjName', ProjName);
+        parameter.append('RetrieveYear', RetrieveYear);
+        parameter.append('Order', Order);
+        parameter.append('Display', Display);
+
+        api.getReceipt(parameter).then(response => {
+
+            this.setState({
+                data: response.data.data,
+            })
+
+        }).catch(error => {
+
+        })
+    }
+
+    exportExcel() {
+
+
+        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Date', Date);
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('ProjName', ProjName);
+        parameter.append('RetrieveYear', RetrieveYear);
+        parameter.append('Order', Order);
+        parameter.append('Display', Display);
+
+        this.setState({
+            isExporting: true
+        })
+
+
+        api.exportReceipt(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ตรวจสอบใบเสร็จรับเงิน.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isExporting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isExporting: false
+            })
+
+        })
+    }
+
+    onChange = (state) => (event) => {
+
+        this.setState({
+            [state]: event.target.value
+        }, () => {
+
+            if (this.delay) {
+                clearTimeout(this.delay)
+                this.delay = null
+            }
+            this.delay = setTimeout(() => {
+                this.loadData()
+            }, 500);
+
+        })
+
+
     }
 
     render() {
@@ -55,20 +147,43 @@ class Payment extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <MuiDatePicker label="วันที่" />
+                                            <MuiTextfield label="ค้นหาบัตรประชาชน" />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="เลขที่สัญญา" />
+                                            <MuiTextfield label="ชื่อ - นามสกุล" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ค้นหาชื่อโครงการ" />
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ดึงข้อมูลตั้งแต่ปีพ.ศ" />
+                                            <MuiTextfield label="โครงการ" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ค้นหา" />
+                                            <MuiTextfield label="เลขบัตรประชาชน" />
+                                        </Grid>
+
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item xs={12} md={12} className="mg-t-0">
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="คำนำหน้าชื่อ" />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="ชื่อ" />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="นามสกุล" />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="ตำบล" />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="อำเภอ" />
                                         </Grid>
 
                                     </Grid>
@@ -77,15 +192,23 @@ class Payment extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <SortCheck />
+                                            <MuiTextfield label="ประเภทที่ดิน" />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <DisplayCheck />
+                                            <MuiTextfield label="เลขที่" />
                                         </Grid>
-
+                                        <Grid item xs={12} md={4}>
+                                        </Grid>
+                                       
+                                        <Grid item xs={12} md={2}>
+                                            <p>&nbsp;</p>
+                                            <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
+                                        </Grid>
 
                                     </Grid>
                                 </Grid>
+
+                                
 
                             </Grid>
 
