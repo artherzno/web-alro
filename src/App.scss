@@ -973,6 +973,15 @@ input {
   }
 }
 
+.input-disabled {
+  pointer-events: none;
+  .MuiInputBase-root.MuiInputBase-formControl {
+    input {
+      background-color: var(--text-input-border);
+    }
+  }
+}
+
 .form-input {
   margin-bottom: 8px;
 

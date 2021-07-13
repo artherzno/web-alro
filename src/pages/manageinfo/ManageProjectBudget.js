@@ -69,8 +69,8 @@ function ManageProjectBudget() {
         ProjectYear: '', // null,
         ProjectPlanYear: '', // null,
         FiscalYear: 0, // 2564,
-        StartDateFiscalYear: '', // "2020-10-01T00:00:00.000Z",
-        EndDateFiscalYear: '', // "2021-09-30T00:00:00.000Z",
+        StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
+        EndDateFiscalYear: null, // "2021-09-30T00:00:00.000Z",
         Officer: '', // null,
         Rank: '', // null,
         PersonalPlan: '', // 6000000,
@@ -105,9 +105,9 @@ function ManageProjectBudget() {
                             setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
                     }else {
-                        console.log('get_spkinfo',data)
+                        console.log('get_spkinfo',data.data[0])
                         // setTableResult(data.data)
-                        let resSpkInfo = data.data;
+                        let resSpkInfo = data.data[0];
                         setInputData({
                             ...inputData,
                             SPKInfoID: resSpkInfo.SPKInfoID, // 1,
@@ -182,7 +182,7 @@ function ManageProjectBudget() {
         console.log('year',year)
         axios.post(
             `${server_hostname}/admin/api/get_spkprojectbudget`, {
-                "FiscalYear": year
+                "FiscalYear": year  + 2500
             }, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
@@ -200,36 +200,64 @@ function ManageProjectBudget() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log('get_spkprojectbudget',data)
-                    // setTableResult(data.data)
-                    let resSpkProjectBudget = data.data;
-                    setInputData({
-                        ...inputData,
-                        ProjectBudgetID: resSpkProjectBudget.ProjectBudgetID, // 1,
-                        ProvinceID: resSpkProjectBudget.ProvinceID, // 67,
-                        ProjectYear: resSpkProjectBudget.ProjectYear, // null,
-                        ProjectPlanYear: resSpkProjectBudget.ProjectPlanYear, // null,
-                        FiscalYear: resSpkProjectBudget.FiscalYear, // 2564,
-                        StartDateFiscalYear: resSpkProjectBudget.StartDateFiscalYear, // "2020-10-01T00:00:00.000Z",
-                        EndDateFiscalYear: resSpkProjectBudget.EndDateFiscalYear, // "2021-09-30T00:00:00.000Z",
-                        Officer: resSpkProjectBudget.Officer, // null,
-                        Rank: resSpkProjectBudget.Rank, // null,
-                        PersonalPlan: resSpkProjectBudget.PersonalPlan, // 6000000,
-                        ProjectPlan: resSpkProjectBudget.ProjectPlan, // 0,
-                        PrincipalBalance: resSpkProjectBudget.PrincipalBalance, // 125221672.98,
-                        Debt: resSpkProjectBudget.Debt, // null,
-                        Interest: resSpkProjectBudget.Interest, // 13022492.9,
-                        Fine: resSpkProjectBudget.Fine, // 179819.35,
-                        PrincipleSue: resSpkProjectBudget.PrincipleSue, // null,
-                        InterestSue: resSpkProjectBudget.InterestSue, // null,
-                        InterestSueNoPay: resSpkProjectBudget.InterestSueNoPay, // null,
-                        dCrated: resSpkProjectBudget.dCrated, // null,
-                        dUpdated: resSpkProjectBudget.dUpdated, // null,
-                        admin_nMEMID: resSpkProjectBudget.admin_nMEMID, // null
-                    })
+                    console.log('get_spkprojectbudget',data.data[0])
+                    console.log('get_spkprojectbudget_length',data.data.length)
+                    let resSpkProjectBudget;
+
+                    if(data.data.length === 0) {
+                        resSpkProjectBudget = [];
+                        setInputData({
+                            ...inputData,
+                            FiscalYear:  year, // 2564,
+                            StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
+                            EndDateFiscalYear: null, 
+                            PersonalPlan: resSpkProjectBudget.PersonalPlan || '', // 6000000,
+                            ProjectPlan: resSpkProjectBudget.ProjectPlan || '', // 0,
+                            PrincipalBalance: resSpkProjectBudget.PrincipalBalance || '', // 125221672.98,
+                            Debt: resSpkProjectBudget.Debt || '', // null,
+                            Interest: resSpkProjectBudget.Interest || '', // 13022492.9,
+                            Fine: resSpkProjectBudget.Fine || '', // 179819.35,
+                            PrincipleSue: resSpkProjectBudget.PrincipleSue || '', // null,
+                            InterestSue: resSpkProjectBudget.InterestSue || '', // null,
+                            InterestSueNoPay: resSpkProjectBudget.InterestSueNoPay || '', // null,
+                            dCrated: resSpkProjectBudget.dCrated || '', // null,
+                            dUpdated: resSpkProjectBudget.dUpdated || '', // null,
+                            admin_nMEMID: resSpkProjectBudget.admin_nMEMID || '', // nul
+                        })
+                    } else {
+                        resSpkProjectBudget = data.data[0];
+                        setInputData({
+                            ...inputData,
+                            ProjectBudgetID: resSpkProjectBudget.ProjectBudgetID || '', // 1,
+                            ProvinceID: resSpkProjectBudget.ProvinceID || '', // 67,
+                            ProjectYear: resSpkProjectBudget.ProjectYear || '', // null,
+                            ProjectPlanYear: resSpkProjectBudget.ProjectPlanYear || '', // null,
+                            FiscalYear: resSpkProjectBudget.FiscalYear - 2500 || '', // 2564,
+                            StartDateFiscalYear: resSpkProjectBudget.StartDateFiscalYear || null, // "2020-10-01T00:00:00.000Z",
+                            EndDateFiscalYear: resSpkProjectBudget.EndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
+                            Officer: resSpkProjectBudget.Officer || '', // null,
+                            Rank: resSpkProjectBudget.Rank || '', // null,
+                            PersonalPlan: resSpkProjectBudget.PersonalPlan || '', // 6000000,
+                            ProjectPlan: resSpkProjectBudget.ProjectPlan || '', // 0,
+                            PrincipalBalance: resSpkProjectBudget.PrincipalBalance || '', // 125221672.98,
+                            Debt: resSpkProjectBudget.Debt || '', // null,
+                            Interest: resSpkProjectBudget.Interest || '', // 13022492.9,
+                            Fine: resSpkProjectBudget.Fine || '', // 179819.35,
+                            PrincipleSue: resSpkProjectBudget.PrincipleSue || '', // null,
+                            InterestSue: resSpkProjectBudget.InterestSue || '', // null,
+                            InterestSueNoPay: resSpkProjectBudget.InterestSueNoPay || '', // null,
+                            dCrated: resSpkProjectBudget.dCrated || '', // null,
+                            dUpdated: resSpkProjectBudget.dUpdated || '', // null,
+                            admin_nMEMID: resSpkProjectBudget.admin_nMEMID || '', // null
+                        })  
+                    }
+
+                       
                 }
             }
-        ).catch(err => { console.log(err); history.push('/') })
+        ).catch(err => { console.log(err); /* setErr(true); setErrMsg('ไม่สามารถทำรายการได้')*/ 
+    
+        })
         .finally(() => {
             if (isMounted.current) {
               setIsLoading(false)
@@ -284,7 +312,7 @@ function ManageProjectBudget() {
             ...inputData,
             [event.target.name]: event.target.value
         })
-        getSpkProjectBudget(event.target.value + 2500);
+        getSpkProjectBudget(event.target.value);
     }
 
     // Submit Data ---------------------------------------------------------------------------//
@@ -294,12 +322,13 @@ console.log('submit')
         let updateSpkInfo = document.getElementById('updateSpkInfo');
         let formData = new FormData(updateSpkInfo);
         formData.append('SPKInfoID', inputData.SPKInfoID)
-        formData.append('ProjectBudgetName', null)
+        formData.append('ProjectBudgetName', inputData.ProjectBudgetName)
         formData.append('ProjectYear',null)
         formData.append('ProjectPlanYear',null)
         formData.append('ProjectBudgetID',inputData.ProjectBudgetID);
         formData.append('StartDateFiscalYear',inputData.StartDateFiscalYear)
         formData.append('EndDateFiscalYear',inputData.EndDateFiscalYear)
+        formData.set('FiscalYear',(inputData.FiscalYear + 2500)) // Convert year 2 digit to 4 digit
 
         axios.post(
             `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 
@@ -374,51 +403,51 @@ console.log('submit')
                                     <Paper className="paper line-top-green paper mg-t-20">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="ชื่อกรม" name="DepartmentName" value={inputData.DepartmentName} onChange={handleInputData} />
-                                                {/* <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="PNGA0001600005/00001" /> */}
+                                                <MuiTextfield inputDisabled="input-disabled" label="ชื่อกรม" name="DepartmentName" value={inputData.DepartmentName} onChange={handleInputData} />
+                                                {/* <MuiTextfield label="เลขที่บันทึก" inputDisabled="input-disabled" defaultValue="PNGA0001600005/00001" /> */}
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="ชื่อหน่วยงาน" name="OrganizeName" value={inputData.OrganizeName} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="ชื่อหน่วยงาน" name="OrganizeName" value={inputData.OrganizeName} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="ที่อยู่" name="Addr" value={inputData.Addr} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="ที่อยู่" name="Addr" value={inputData.Addr} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="อำเภอ" name="District" value={inputData.District} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="อำเภอ" name="District" value={inputData.District} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield disabled label="จังหวัด" name="Province" value={inputData.Province} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="จังหวัด" name="Province" value={inputData.Province} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield disabled label="&nbsp;" name="ProvinceCodeEN" value={inputData.ProvinceCodeEN} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="&nbsp;" name="ProvinceCodeEN" value={inputData.ProvinceCodeEN} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield disabled label="&nbsp;" name="ProvinceCodeTH" value={inputData.ProvinceCodeTH} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="&nbsp;" name="ProvinceCodeTH" value={inputData.ProvinceCodeTH} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield disabled label="รหัสไปรษณีย์" name="Zipcode" value={inputData.Zipcode} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="รหัสไปรษณีย์" name="Zipcode" value={inputData.Zipcode} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield disabled label="โทรศัพท์"  name="Tel" value={inputData.Tel} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="โทรศัพท์"  name="Tel" value={inputData.Tel} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="เลขที่ผู้เสียภาษี ส.ป.ก."  name="TaxPayNum" value={inputData.TaxPayNum} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="เลขที่ผู้เสียภาษี ส.ป.ก."  name="TaxPayNum" value={inputData.TaxPayNum} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield disabled label="รหัสหน่วยงาน ส.ป.ก." name="SPKCode" value={inputData.SPKCode} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="รหัสหน่วยงาน ส.ป.ก." name="SPKCode" value={inputData.SPKCode} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield disabled label="รหัสจังหวัด" name="ProvinceID" value={inputData.ProvinceID} onChange={handleInputData} />
+                                                <MuiTextfield inputDisabled="input-disabled" label="รหัสจังหวัด" name="ProvinceID" value={inputData.ProvinceID} onChange={handleInputData} />
                                                 {/* <MuiDatePicker label="วันที่สัญญา" defaultValue="2017-05-15" /> */}
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield disabled label="CompCode" name="CompCode" value={inputData.CompCode} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="CompCode" name="CompCode" value={inputData.CompCode} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="ปฏิรูปที่ดินจังหวัด" name="Officer" value={inputData.Officer} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="ปฏิรูปที่ดินจังหวัด" name="Officer" value={inputData.Officer} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="ตำแหน่ง" name="Rank" value={inputData.Rank} onChange={handleInputData}  />
+                                                <MuiTextfield inputDisabled="input-disabled" label="ตำแหน่ง" name="Rank" value={inputData.Rank} onChange={handleInputData}  />
                                             </Grid>
                                         </Grid>
                                     </Paper>
@@ -428,7 +457,7 @@ console.log('submit')
                                             <Grid container spacing={2}>
 
                                             <Grid item xs={12} md={4}>
-                                                <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={30} name="FiscalYear" value={inputData.FiscalYear} onChange={handleInputDataYear} />
+                                                <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="FiscalYear" value={inputData.FiscalYear} onChange={handleInputDataYear} />
                                             </Grid>
                                             {/* <Grid item xs={12} md={2}>
                                                 <MuiTextfield label="&nbsp;" defaultValue="" />

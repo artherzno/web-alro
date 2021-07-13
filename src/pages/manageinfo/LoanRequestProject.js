@@ -323,7 +323,7 @@ console.log('submit')
 
                                 <Grid item xs={12} md={2}>
                                     <Box  display="flex" justifyContent="flex-start">
-                                        <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
+                                        <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                     </Box>  
                                 </Grid>
                                 <Grid item xs={12} md={2}>

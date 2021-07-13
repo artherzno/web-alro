@@ -414,7 +414,7 @@ function EditFarmer(props) {
 
                         for(let i=0; i<dataDistrictList.length; i++) {
                             if(resEditData.IDCARD_AddrProvinceID === dataDistrictList[i].ProvinceID) {
-                                console.log(dataDistrictList[i].DistrictID,)
+                                // console.log(dataDistrictList[i].DistrictID,)
                                 districtIDCardEditList.push({
                                     "ProvinceID": dataDistrictList[i].ProvinceID,
                                     "DistrictID": dataDistrictList[i].DistrictID,
@@ -424,7 +424,7 @@ function EditFarmer(props) {
                         }
                         for(let i=0; i<dataDistrictList.length; i++) {
                             if(resEditData.Contact_AddrProvinceID === dataDistrictList[i].ProvinceID) {
-                                console.log(dataDistrictList[i].DistrictID,)
+                                // console.log(dataDistrictList[i].DistrictID,)
                                 districtContactEditList.push({
                                     "ProvinceID": dataDistrictList[i].ProvinceID,
                                     "DistrictID": dataDistrictList[i].DistrictID,
@@ -1091,6 +1091,8 @@ function EditFarmer(props) {
         formData.append('FarmerID', props.location.state.FarmerID)
         formData.append('LandID', LandID)
 
+        console.log('DocLand_code',inputDataLand4.DocLand_code)
+        console.log('DocLand_name',inputDataLand4.DocLand_name)
 
         axios.post(
             `${server_hostname}/admin/api/edit_spkland`, formData, { headers: { "token": token } } 

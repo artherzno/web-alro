@@ -330,7 +330,7 @@ function LoanRequestContactStep1(props) {
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
+                                                <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
                                                  {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
