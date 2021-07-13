@@ -486,6 +486,44 @@ const api = {
         })
 
     },
+    getPayAndAccount(data) {
+
+        return get({
+            path: "api/CheckServices/GetPayAndAccount",
+            data
+        })
+
+    },
+    exportPayAndAccount(data) {
+
+        return get({
+            path: "api/CheckServices/ExportPayAndAccount",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getActualPayment(data) {
+
+        return get({
+            path: "api/CheckServices/GetActualPayment",
+            data
+        })
+
+    },
+    exportActualPayment(data) {
+
+        return get({
+            path: "api/CheckServices/ExportActualPayment",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 
