@@ -436,7 +436,7 @@ console.log('submit')
                                                     <MuiTextfield label="ชื่อโครงการ" defaultValue="" name="ProjectName" />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjYear label="แผนปี" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
+                                                    <MuiSelectObjYear label="แผนปี" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <MuiTextfield disabled label="จังหวัด" value={provincename} />

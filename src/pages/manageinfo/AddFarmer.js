@@ -126,7 +126,8 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: 0, // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -143,7 +144,8 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: 0, // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -159,7 +161,8 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: 0, // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -175,7 +178,8 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: 0, // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -191,7 +195,8 @@ function AddFarmer(props) {
             Land_AddrSubdistrictID: 0, // 100101,
             Land_AddrDistrictID: 0, // 1001,    
             Land_AddrProvinceID: 0, // 10,
-            DocLand_name: 0, // "1234",
+            DocLand_name: 0, // "docland name",
+            DocLand_code: 0, // "1234",
             LandType: '', // 0,
             LandNumber: '', // 0,
             LandGroup: '', // 10,
@@ -207,8 +212,8 @@ function AddFarmer(props) {
     useEffect(() => {
         setInputData({
             ...inputData,
-            BirthDate: moment().format('DD/MM/YYYY'),
-            IDCardEXP_Date: moment().format('DD/MM/YYYY'),
+            BirthDate: null,
+            IDCardEXP_Date: null,
         })
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
@@ -1050,7 +1055,7 @@ function AddFarmer(props) {
                                                     <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand1List} value={inputDataLand1.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_1" onChange={handleInputDataLand1} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand1.DocLand_name} name="DocLand_name_1" onChange={handleInputDataLand1} />
+                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand1.DocLand_code} name="DocLand_code_1" onChange={handleInputDataLand1} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfield label="เลขที่"   value={inputDataLand1.LandNumber}  name="LandNumber_1" onChange={handleInputDataLand1} />
@@ -1104,7 +1109,7 @@ function AddFarmer(props) {
                                                     <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand2List} value={inputDataLand2.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_2" onChange={handleInputDataLand2} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand2.DocLand_name} name="DocLand_name_2" onChange={handleInputDataLand2} />
+                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand2.DocLand_code} name="DocLand_code_2" onChange={handleInputDataLand2} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfield label="เลขที่"   value={inputDataLand2.LandNumber}  name="LandNumber_2" onChange={handleInputDataLand2} />
@@ -1159,7 +1164,7 @@ function AddFarmer(props) {
                                                     <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand3List} value={inputDataLand3.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_3" onChange={handleInputDataLand3} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand3.DocLand_name} name="DocLand_name_3" onChange={handleInputDataLand3} />
+                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand3.DocLand_code} name="DocLand_code_3" onChange={handleInputDataLand3} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfield label="เลขที่"   value={inputDataLand3.LandNumber}  name="LandNumber_3" onChange={handleInputDataLand3} />
@@ -1214,7 +1219,7 @@ function AddFarmer(props) {
                                                     <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand4List} value={inputDataLand4.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_4" onChange={handleInputDataLand4} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand4.DocLand_name} name="DocLand_name_4" onChange={handleInputDataLand4} />
+                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand4.DocLand_code} name="DocLand_code_4" onChange={handleInputDataLand4} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfield label="เลขที่"   value={inputDataLand4.LandNumber}  name="LandNumber_4" onChange={handleInputDataLand4} />
@@ -1269,7 +1274,7 @@ function AddFarmer(props) {
                                                     <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand5List} value={inputDataLand5.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_5" onChange={handleInputDataLand5} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand5.DocLand_name} name="DocLand_name_5" onChange={handleInputDataLand5} />
+                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand5.DocLand_code} name="DocLand_code_5" onChange={handleInputDataLand5} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <MuiTextfield label="เลขที่"   value={inputDataLand5.LandNumber}  name="LandNumber_5" onChange={handleInputDataLand5} />

@@ -325,10 +325,10 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name } = props;
+    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputDisabled  } = props;
 
     return (
-        <FormControl error className={classes.textbox}>
+        <FormControl error className={`${classes.textbox} ${inputDisabled}`}>
             { 
                 (label) === '' ? '' :
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
@@ -701,9 +701,17 @@ const MuiSelectObjYear = (props) => {
     // e.g. <MuiSelectObjYear label="แผนปี" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
 
     let d = new Date();
-    let fullyear = d.getFullYear() + 543;
+    let buddhaYear = 543 + 2;
+
+    // Check FiscalYear if month >= October will increase 1 year
+
+    // let monthNow = d.getMonth();
+    // if(monthNow >= 9) {
+    //     buddhaYear = 544;
+    // }
+    let fullyear = d.getFullYear() + buddhaYear;
     let yearList = [];
-    let countYaerNum = valueYaer || 50;
+    let countYaerNum = valueYaer || 20;
     
     for(let i=0; i<countYaerNum; i++) {
         yearList.push(

@@ -362,9 +362,9 @@ function SearchMemberPage(props) {
                                                 <Box p={1}>
                                                     ไม่มีข้อมูล
                                                 </Box>
-                                                <Box p={1}>
+                                                {/* <Box p={1}>
                                                     <ButtonNormalIconStartPrimary label="เพิ่มเกษตรกร" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
-                                                </Box>
+                                                </Box> */}
                                             </Box>
                                         </Box>
                                     </Box>
