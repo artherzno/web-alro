@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { AuthContext } from '../../App';
 
 import { makeStyles } from '@material-ui/styles';
 import Fade from '@material-ui/core/Fade';
@@ -82,15 +84,26 @@ function getSteps() {
 }
 
 function LoanRequestContact(props) {
-
-
     const history = useHistory();
     const classes = useStyles();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
+
+    const [loaded, setLoaded] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [isLoading, setIsLoading] = useState(false);
+
     const [activeStep, setActiveStep] = React.useState((props.location.state === undefined) ? 0 : props.location.state.activeStep); // ex. 3
     const [completed, setCompleted] = React.useState((props.location.state === undefined) ? {} : props.location.state.completed); // ex. { 0: true, 1: true, 2:true}
     const steps = getSteps();
 
-    const [loaded, setLoaded] = useState(false);
     const [open, setOpen] = useState(false);
 
     const [inputData, setInputData] = useState({
@@ -127,6 +140,45 @@ function LoanRequestContact(props) {
         console.log('typePrint ',event.target.value)
     };
     // End Radio Button
+
+    const handleRequestPrint = () => {
+        axios.get(
+            `https://spk.mirasoft.co.th/api/api/ExportServices/GetApplicationPdf`, {
+                IDCard: 11111111111
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log('get_spkinfo',data.data[0])
+                    // setTableResult(data.data)
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'file.pdf'); //or any other extension
+                    document.body.appendChild(link);
+                    link.click();
+                }
+            }
+        ).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
 
     const handleOpenDialog = () => {
         setOpen(true);
@@ -292,7 +344,8 @@ function LoanRequestContact(props) {
                                                             : (activeStep === 2) ?
                                                             <Grid container spacing={2} className="btn-row txt-center">
                                                                 <Grid item xs={12} md={6}>
-                                                                    <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleOpenDialog}/> 
+                                                                    {/* <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleOpenDialog}/>  */}
+                                                                    <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleRequestPrint}/> 
                                                                 </Grid>
                                                                 <Grid item xs={12} md={6}>
                                                                     <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
