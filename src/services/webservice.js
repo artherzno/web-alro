@@ -390,6 +390,140 @@ const api = {
         })
 
     },
+    getContractPayment(data) {
+
+        return get({
+            path: "api/CheckServices/GetContractPayment",
+            data
+        })
+
+    },
+    exportContractPayment(data) {
+
+        return get({
+            path: "api/CheckServices/ExportContractPayment",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+
+    getAppraisalCourt(data) {
+
+        return get({
+            path: "api/CheckServices/GetAppraisalCourt",
+            data
+        })
+
+    },
+    exportAppraisalCourt(data) {
+
+        return get({
+            path: "api/CheckServices/ExportAppraisalCourt",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getTermsAndInterest(data) {
+
+        return get({
+            path: "api/CheckServices/GetTermsAndInterest",
+            data
+        })
+
+    },
+    exportTermsAndInterest(data) {
+
+        return get({
+            path: "api/CheckServices/ExportTermsAndInterest",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getAccountsReceivable(data) {
+
+        return get({
+            path: "api/CheckServices/GetAccountsReceivable",
+            data
+        })
+
+    },
+    exportAccountsReceivable(data) {
+
+        return get({
+            path: "api/CheckServices/ExportAccountsReceivable",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getInvoice(data) {
+
+        return get({
+            path: "api/CheckServices/GetInvoice",
+            data
+        })
+
+    },
+    exportInvoice(data) {
+
+        return get({
+            path: "api/CheckServices/ExportInvoice",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getPayAndAccount(data) {
+
+        return get({
+            path: "api/CheckServices/GetPayAndAccount",
+            data
+        })
+
+    },
+    exportPayAndAccount(data) {
+
+        return get({
+            path: "api/CheckServices/ExportPayAndAccount",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getActualPayment(data) {
+
+        return get({
+            path: "api/CheckServices/GetActualPayment",
+            data
+        })
+
+    },
+    exportActualPayment(data) {
+
+        return get({
+            path: "api/CheckServices/ExportActualPayment",
+            data,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 

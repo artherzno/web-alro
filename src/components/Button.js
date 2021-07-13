@@ -37,7 +37,7 @@ export const ButtonExportExcel = (props) =>{
                     disabled={props.loading}
                     onClick={props.handleButtonClick}
                 >
-                    <Box mr={1}><i className="far fa-file-excel"></i> </Box>Export to Excel
+                    <Box mr={1}><i className="far fa-file-excel"></i> </Box>{props.label || "Export to Excel"}
         </Button>
                 {props.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
             </div>
