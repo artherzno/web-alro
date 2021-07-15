@@ -27,6 +27,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import FormData from 'form-data'
 
 class Payment extends React.Component {
 
@@ -34,7 +35,17 @@ class Payment extends React.Component {
         super(props)
 
         this.state = {
-            loaded: true
+            loaded: true,
+            IDCard: "d",
+            FullName: "d",
+            ContractNo: "d",
+            ProjName: "d",
+            Address: "d",
+            SubDistrict: "d",
+            District: "d",
+            LandType: "d",
+            Num: "d",
+            data: []
         }
     }
 
@@ -45,17 +56,20 @@ class Payment extends React.Component {
 
     loadData() {
 
-        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
+        const { IDCard, FullName, ContractNo, ProjName, Address, SubDistrict, District, LandType, Num } = this.state
 
         const parameter = new FormData()
-        parameter.append('Date', Date);
-        parameter.append('ContractNo', ContractNo);
+        parameter.append('IDCard', IDCard);
+        parameter.append('FullName', FullName);
         parameter.append('ProjName', ProjName);
-        parameter.append('RetrieveYear', RetrieveYear);
-        parameter.append('Order', Order);
-        parameter.append('Display', Display);
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('Address', Address);
+        parameter.append('SubDistrict', SubDistrict);
+        parameter.append('LandType', LandType);
+        parameter.append('District', District);
+        parameter.append('Num', Num);
 
-        api.getReceipt(parameter).then(response => {
+        api.getPaymentBalance(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
@@ -69,27 +83,30 @@ class Payment extends React.Component {
     exportExcel() {
 
 
-        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
+        const { IDCard, FullName, ContractNo, ProjName, Address, SubDistrict, District, LandType, Num } = this.state
 
         const parameter = new FormData()
-        parameter.append('Date', Date);
-        parameter.append('ContractNo', ContractNo);
+        parameter.append('IDCard', IDCard);
+        parameter.append('FullName', FullName);
         parameter.append('ProjName', ProjName);
-        parameter.append('RetrieveYear', RetrieveYear);
-        parameter.append('Order', Order);
-        parameter.append('Display', Display);
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('Address', Address);
+        parameter.append('SubDistrict', SubDistrict);
+        parameter.append('LandType', LandType);
+        parameter.append('District', District);
+        parameter.append('Num', Num);
 
         this.setState({
             isExporting: true
         })
 
 
-        api.exportReceipt(parameter).then(response => {
+        api.exportPaymentBalance(parameter).then(response => {
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ตรวจสอบใบเสร็จรับเงิน.xlsx');
+            link.setAttribute('download', 'ตรวจสอบยอดการชำระเงิน.xlsx');
             document.body.appendChild(link);
             link.click();
 
@@ -128,6 +145,7 @@ class Payment extends React.Component {
     render() {
 
         const { classes } = this.props;
+        const { data } = this.state
 
         return (
             <div>
@@ -147,19 +165,16 @@ class Payment extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ค้นหาบัตรประชาชน" />
+                                            <MuiTextfield label="ค้นหาบัตรประชาชน" onChange={this.onChange("IDCard")} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ชื่อ - นามสกุล" />
+                                            <MuiTextfield label="ชื่อ - นามสกุล" onChange={this.onChange("FullName")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" />
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={this.onChange("ContractNo")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="โครงการ" />
-                                        </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="เลขบัตรประชาชน" />
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="โครงการ" onChange={this.onChange("ProjName")} />
                                         </Grid>
 
                                     </Grid>
@@ -167,23 +182,15 @@ class Payment extends React.Component {
 
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="คำนำหน้าชื่อ" />
+
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" onChange={this.onChange("Address")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ชื่อ" />
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="ตำบล" onChange={this.onChange("SubDistrict")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="นามสกุล" />
-                                        </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" />
-                                        </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ตำบล" />
-                                        </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="อำเภอ" />
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="อำเภอ" onChange={this.onChange("District")} />
                                         </Grid>
 
                                     </Grid>
@@ -192,23 +199,31 @@ class Payment extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ประเภทที่ดิน" />
+                                            <MuiTextfield label="ประเภทที่ดิน" onChange={this.onChange("LandType")} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="เลขที่" />
+                                            <MuiTextfield label="เลขที่" onChange={this.onChange("Num")} />
                                         </Grid>
-                                        <Grid item xs={12} md={4}>
+                                        <Grid item xs={12} md={2}>
                                         </Grid>
-                                       
+
+
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
                                         </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <p>&nbsp;</p>
+                                            <div style={{ marginTop: -8 }}>
+                                                <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
+                                            </div>
+
+                                        </Grid>
 
                                     </Grid>
                                 </Grid>
 
-                                
+
 
                             </Grid>
 
@@ -217,48 +232,24 @@ class Payment extends React.Component {
                                     <Table className={classes.table} aria-label="customized table">
                                         <TableHead>
                                             <TableRow>
-                                                <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">Rid_it</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                <StyledTableCell align="center">รหัส</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">Prentno</StyledTableCell>
+                                                <StyledTableCell align="center">ชื่อ-นาสกุล</StyledTableCell>
                                                 <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
-                                                <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
-                                                <StyledTableCell align="center">Reduce</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_r</StyledTableCell>
-                                                <StyledTableCell align="center">Dueamount</StyledTableCell>
-                                                <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                <StyledTableCell align="center">Date_e</StyledTableCell>
-                                                <StyledTableCell align="center">Code</StyledTableCell>
+                                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
+                                                <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
+                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                             </TableRow>
 
                                         </TableHead>
                                         <TableBody>
-                                            {[1, 2, 3, 4].map((farmer, index) => {
+                                            {data.map((element, index) => {
 
                                                 return (
                                                     <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
 
 
                                                     </TableRow>
@@ -278,11 +269,181 @@ class Payment extends React.Component {
                                         onPageChange={() => { }}
                                         onRowsPerPageChange={() => { }}
                                     />
-                                    
+
                                 </TableContainer>
                             </Box>
 
-                            
+                            <Box mt={5}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} md={4} >
+                                        <MuiTextfield label="เลขที่สัญญา" onChange={this.onChange("1")} />
+                                    </Grid>
+                                    <Grid item xs={12} md={4} >
+                                        <MuiTextfield label="บัตรประชาชน" onChange={this.onChange("1")} />
+                                    </Grid>
+                                    <Grid item xs={12} md={4} >
+                                        <MuiTextfield label="ชื่อ-นามสกุล เกษตรกร" onChange={this.onChange("1")} />
+                                    </Grid>
+                                </Grid>
+
+
+                                <Box mt={2}>
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>วันที่ประมวลผล</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiDatePicker onChange={() => { }} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <p>&nbsp;</p>
+                                            <ButtonFluidPrimary label="ประมวลผล" onClick={() => { this.loadData() }} />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>เงินต้นคงเหลือ</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>เงินต้นคงค้าง</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>ดอกเบี้ยค้างรับ</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>ดอกเบี้ยในงวด</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>รวมดอกเบี้ยที่ต้องชำระ</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>ค่าปรับค้างรับ</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>อัตราดอกเบี้ย</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>อัตราค่าปรับ</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} direction="row" justifyContent="center">
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment">
+                                                <div>รวมยอดเงินที่ต้องชำระ</div>
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4} md={3}>
+                                            <MuiTextfield onChange={this.onChange("1")} />
+                                        </Grid>
+                                        <Grid item xs={3} md={2}>
+                                            <div className="item-check-payment start">
+                                                <div>บาท</div>
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+
+                                </Box>
+                               
+                            </Box>
 
                         </Container>
                     </div>

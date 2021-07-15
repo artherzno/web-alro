@@ -1,4 +1,23 @@
-.container-filter{
+.container-filter {
     margin-top: 8px;
     background-color: rgb(245, 245, 245);
+}
+
+.container-check-payment {
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.item-check-payment {
+    margin-top: 8px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.item-check-payment.start {
+    justify-content: flex-start;
 }

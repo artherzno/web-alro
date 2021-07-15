@@ -43,18 +43,21 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
 const get = (path, parameter, token, config = {},data) => {
     return new Promise((resolve, reject) => {
 
-        setHeader(false, token)
+        setHeader(true, token)
+
+        var configRequest = config
 
         if (data){
 
-            config = {
+            configRequest = {
                 ...config,
                 data: data
             }
         }
 
+        
         return axios
-            .get(path, { params: parameter, ...config })
+            .get(path, { params: parameter, ...configRequest })
             .then(response => {
                 resolve(response);
             })
