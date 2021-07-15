@@ -233,7 +233,7 @@ export default function Nav() {
         };
 
         const goto = (subpath) => {
-            console.log(subpath)
+            // console.log(subpath)
             history.push(subpath);
         }
 

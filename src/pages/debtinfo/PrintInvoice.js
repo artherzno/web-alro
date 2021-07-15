@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../App';
 
+import { makeStyles } from '@material-ui/styles';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -24,6 +27,22 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+    },
+    button: {
+      marginRight: theme.spacing(1),
+    },
+    completed: {
+      display: 'inline-block',
+      color: 'red',
+    },
+    instructions: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+}));
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
@@ -87,8 +106,20 @@ const columns = [
 
 function PrintInvoice() {
     const history = useHistory();
+    const classes = useStyles();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
 
     const [loaded, setLoaded] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [isLoading, setIsLoading] = useState(false);
 
     // Variable for Checkbox in Table
     const [selected, setSelected] = React.useState([]);
@@ -99,6 +130,29 @@ function PrintInvoice() {
     useEffect(() => {
         setLoaded(true);
     }, [])
+
+    const handleExportPrintInvoiceAll = () => {
+        axios({
+            url: 'https://spk.mirasoft.co.th/api/api/ExportServices/ExportPrintInvoiceAll', //your url
+            method: 'GET',
+            data: {
+                startDate: '2021-05-01'
+            },
+            responseType: 'arraybuffer', // 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'file.pdf'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            }).catch(err => { console.log(err); history.push('/') })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+    }
 
 
     // Select CheckBox in Table
@@ -234,7 +288,7 @@ function PrintInvoice() {
                                 <ButtonFluidPrimary label="พิมพ์สรุปใบแจ้งหนี้รายโครงการ" />
                             </Grid>
                             <Grid item xs={12} md={2} className="mg-t-10">
-                                <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" />
+                                <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" onClick={handleExportPrintInvoiceAll} />
                             </Grid>
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
                             <Grid item xs={12} md={12} style={{display: 'none'}}>

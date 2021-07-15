@@ -102,7 +102,7 @@ function LoginPage() {
                     }
                 }else {
                     districtList.push(data.data)
-                    console.log(districtList)
+                    // console.log(districtList)
                     let districtListJSONString = JSON.stringify(districtList[0]);
                     localStorage.setItem('districtlist', districtListJSONString)
                 }
@@ -142,7 +142,7 @@ function LoginPage() {
                     }
                 }else {
                     subDistrictList.push(data.data)
-                    console.log(subDistrictList)
+                    // console.log(subDistrictList)
                     let subDistrictListJSONString = JSON.stringify(subDistrictList[0]);
                     localStorage.setItem('subdistrictlist', subDistrictListJSONString)
                 }
@@ -180,7 +180,7 @@ function LoginPage() {
                 }else {
                     docLandTypeList.push(data.data)
                     
-                    console.log('DOC_LAND_TYPE', data.data)
+                    // console.log('DOC_LAND_TYPE', data.data)
                     let docLandTypeListJSONString = JSON.stringify(data.data);
                     localStorage.setItem('doclandtypelist', docLandTypeListJSONString)
                 }

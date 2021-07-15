@@ -142,42 +142,26 @@ function LoanRequestContact(props) {
     // End Radio Button
 
     const handleRequestPrint = () => {
-        axios.get(
-            `https://spk.mirasoft.co.th/api/api/ExportServices/GetApplicationPdf`, {
+        axios({
+            url: 'https://spk.mirasoft.co.th/api/api/ExportServices/GetApplicationPdf', //your url
+            method: 'GET',
+            data: {
                 IDCard: 11111111111
-            }, { headers: { "token": token } } 
-        ).then(res => {
-                console.log(res)
-                let data = res.data;
-                if(data.code === 0 || res === null || res === undefined) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
-                    } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
-                    }
-                }else {
-                    console.log('get_spkinfo',data.data[0])
-                    // setTableResult(data.data)
-                    const url = window.URL.createObjectURL(new Blob([res.data]));
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', 'file.pdf'); //or any other extension
-                    document.body.appendChild(link);
-                    link.click();
+            },
+            responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'file.pdf'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            }).catch(err => { console.log(err); history.push('/') })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
                 }
-            }
-        ).catch(err => { console.log(err); history.push('/') })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
+            });
     }
 
     const handleOpenDialog = () => {

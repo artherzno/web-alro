@@ -249,7 +249,7 @@ function RecordBillAlro() {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={12}>
+                                            {/* <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
                                                         <p className="paper-p txt-right txt-red">จำนวนเงินต้นที่ชำระ</p>
@@ -261,7 +261,7 @@ function RecordBillAlro() {
                                                         <ButtonFluidPrimary label="คำนวณ" />
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>

@@ -450,10 +450,15 @@ console.log('submit')
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="&nbsp;" id="loanadd-projectcode2-input" disabled  defaultValue="" value={projectMainCodeText} name="ProjectMainCode" />
                                                 </Grid>
-                                                <Grid item xs={12} md={7}>
+                                                <Grid item xs={12} md={4}>
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="&nbsp;" id="loanadd-projectmainname-input" disabled  defaultValue="" value={projectMainNameText} name="ProjectMainName"  />
                                                 </Grid>
+                                                <Grid item xs={12} md={3}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="งบประมาณโครงการหลัก" />
+                                                </Grid>
+
 
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}

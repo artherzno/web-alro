@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import NumberFormat from 'react-number-format';
+import PropTypes from 'prop-types';
+
 import { createTheme, alpha, styled } from '@material-ui/core/styles';
 import { makeStyles, withStyles,} from '@material-ui/styles';
 // import { Fade, } from '@material-ui/core';
@@ -57,8 +60,6 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 //         },
 //     },
 // }))(InputBase);
-
-
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
     'label + &': {
@@ -360,6 +361,38 @@ const MuiTextfieldMultiLine = (props) => {
     );
 }
 
+const MuiTextfieldCurrency = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange } = props;
+
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+                // <InputLabel shrink htmlFor={id} className={classes.label}>
+                //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                // </InputLabel>
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <NumberFormat
+                className="input-currency"
+                {...props}
+                value={value}
+                name={name}
+                // mask={mask}
+                customInput={TextField}
+                // prefix={'$'}
+                // format={format || null}
+                type="text"
+                thousandSeparator={true}
+                onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+            />
+
+            {/* <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} /> */}
+        </FormControl>
+    );
+}
+
 const MuiTextfieldStartAdornment = (props) => {
     const classes = useStyles();
     const { topic, label, id, value, type, startAdornment, textAlign, name, onChange } = props;
@@ -415,78 +448,86 @@ const MuiTextNumber = (props) => {
 }
 
 let d = new Date();
-// const day = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
-// const month = [1,2,3,4,5,6,7,8,9,10,11,12];
+const day = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+const month = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 // const month = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
 let fullyear = d.getFullYear() + 543;
 let year = [];
 year.push('เลือกปี')
-for(let i=0; i<=100; i++) {
+for(let i=0; i<=10; i++) {
     year.push(fullyear - i);
 }
 
 const MuiDatePicker = (props) => {
     // const classes = useStyles();
-    const { topic, label, value, onChange } = props;
+    const { topic, label, value, yearValue, monthValue, dayValue, onChange } = props;
+    // let value = '2560-12-01'
+    // let dayValue = value.slice(-2);
+    // let monthValue = value.slice(5,7);
+    // let yearValue = (parseInt(value.slice(0,4)) + 543).toString();
 
-// console.log('MuiDatePicker',value)
+console.log(value,'>>>',yearValue,'-',monthValue,'-',dayValue)
     return (
-        <FormControl className="MuiDatePicker">
-            { 
-                (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
-            }
-            {/* <Box className="dsp-f">
-                <FormControl className="MuiDatePicker">
-                    <Select
-                            value={value}
-                            name={name}
-                            labelId={id}
-                            id={id}
-                            input={<BootstrapInput />}
-                            onChange={onChange}
-                        >
-                            {day.map((item,i)=>
-                                <MenuItem key={i} value={i}>{item}</MenuItem>
-                            )}
-                    </Select> 
-                </FormControl>
-                <Box style={{display: 'flex', alignItems: 'center', padding: '0 4px'}}>/</Box>
-                <FormControl className="MuiDatePicker">
-                <Select
+        <React.Fragment >
+            
+            <FormControl className="MuiDatePicker">
+                { 
+                    (label) === '' ? '' :
+                    // <InputLabel shrink htmlFor={id} className={classes.label}>
+                    //     <span className="txt-green">{topic}&nbsp;</span>{label}
+                    // </InputLabel>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                }
+                <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
+                    <DatePicker
                         value={value}
-                        name={name}
-                        labelId={id}
-                        id={id}
-                        input={<BootstrapInput />}
+                        onChange={onChange}
+                        renderInput={(params) => <TextField {...params} />}
+                        inputFormat="dd/MM/yyyy"
+                        className="MuiDatePicker"
+                        helperText={null}
+                    />
+                </LocalizationProvider>
+            
+            </FormControl>
+            {/* <FormControl className="MuiDatePicker">
+                <Select
+                    value={dayValue}
+                    // name={name}
+                    // input={<BootstrapInput />}
+                    onChange={onChange}
+                >
+                    {day.map((item,i)=>
+                        <MenuItem key={i} value={item}>{item}</MenuItem>
+                    )}
+                </Select>
+            </FormControl>
+            <FormControl className="MuiDatePicker">
+                    <Select
+                        value={monthValue}
+                        // name={name}
+                        // input={<BootstrapInput />}
                         onChange={onChange}
                     >
                         {month.map((item,i)=>
-                            <MenuItem key={i} value={i}>{item}</MenuItem>
+                            <MenuItem key={i} value={item}>{item}</MenuItem>
                         )}
                 </Select> 
-                </FormControl>
-                <Box style={{display: 'flex', alignItems: 'center', padding: '0 4px'}}>/</Box>
-                <FormControl className="MuiDatePicker">
+            </FormControl>
+            <FormControl className="MuiDatePicker">
                     <Select
-                            value={value}
-                            name={name}
-                            labelId={id}
-                            id={id}
-                            input={<BootstrapInput />}
-                            onChange={onChange}
-                        >
-                            {year.map((item,i)=>
-                                <MenuItem key={i} value={i}>{item}</MenuItem>
-                            )}
-                    </Select> 
-                </FormControl>
-            </Box> */}
+                        value={yearValue}
+                        // name={name}
+                        // input={<BootstrapInput />}
+                        onChange={onChange}
+                    >
+                        {year.map((item,i)=>
+                            <MenuItem key={i} value={item}>{item}</MenuItem>
+                        )}
+                </Select> 
+            </FormControl> */}
             {/* <BootstrapInput name={name} type="date" value={value} id={id} /> */}
-            <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
+            {/* <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
                 <DatePicker
                     value={value}
                     onChange={onChange}
@@ -495,8 +536,8 @@ const MuiDatePicker = (props) => {
                     className="MuiDatePicker"
                     helperText={null}
                 />
-            </LocalizationProvider>
-        </FormControl>
+            </LocalizationProvider> */}
+        </React.Fragment>
     );
 }
 
@@ -701,7 +742,7 @@ const MuiSelectObjYear = (props) => {
     // e.g. <MuiSelectObjYear label="แผนปี" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
 
     let d = new Date();
-    let buddhaYear = 543 + 2;
+    let buddhaYear = 543 + 5;
 
     // Check FiscalYear if month >= October will increase 1 year
 
@@ -711,7 +752,7 @@ const MuiSelectObjYear = (props) => {
     // }
     let fullyear = d.getFullYear() + buddhaYear;
     let yearList = [];
-    let countYaerNum = valueYaer || 20;
+    let countYaerNum = valueYaer || 10;
     
     for(let i=0; i<countYaerNum; i++) {
         yearList.push(
@@ -1005,6 +1046,7 @@ export {
     MuiLabelHeaderCheckbox,
     MuiTextfield,
     MuiTextfieldMultiLine,
+    MuiTextfieldCurrency,
     MuiTextfieldStartAdornment,
     MuiTextfieldEndAdornment,
     MuiTextNumber,

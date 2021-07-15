@@ -20,6 +20,8 @@ import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
+    MuiTextNumber,
+    MuiTextfieldCurrency,
     MuiDatePicker,
     MuiSelectObjYear,
     MuiTextfieldMultiLine,
@@ -41,11 +43,20 @@ function ManageProjectBudget() {
     let token = localStorage.getItem('token');
 
     const [loaded, setLoaded] = useState(false);
+    const [goHome, setGoHome] = useState(false)
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [isLoading, setIsLoading] = useState(false);
+    const [inputDateDropDown, setInputDateDropDonw] = useState({
+        startDD: '',
+        startMM: '',
+        startYYYY: '',
+        endDD: '',
+        endMM: '',
+        endYYYY: ''
+    })
     const [inputData, setInputData] = useState({
         SPKInfoID: '', // 1,
         ProjectBudgetName: '', // null,
@@ -131,7 +142,11 @@ function ManageProjectBudget() {
                         })
                     }
                 }
-            ).catch(err => { console.log(err); history.push('/') })
+            ).catch(err => { console.log(err); 
+                setErr(true);
+                setErrMsg('ไม่สามารถทำรายการได้')
+                setGoHome(true);
+            })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -182,7 +197,7 @@ function ManageProjectBudget() {
         console.log('year',year)
         axios.post(
             `${server_hostname}/admin/api/get_spkprojectbudget`, {
-                "FiscalYear": year  + 2500
+                "FiscalYear": year + 2500
             }, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
@@ -265,6 +280,15 @@ function ManageProjectBudget() {
          });
     }
 
+    const handleInputDate = (event) => {
+        console.log(event.target)
+        console.log(event.target.value)
+        // let value = '2560-12-01'
+        // let dayValue = value.slice(-2);
+        // let monthValue = value.slice(5,7);
+        // let yearValue = (parseInt(value.slice(0,4)) + 543).toString();
+    }
+
     // Input Text field  ********************************
     const handleInputData = (event) => {
         console.log('event.target.name',event.target.name)
@@ -308,11 +332,16 @@ function ManageProjectBudget() {
     }
 
     const handleInputDataYear = (event) => {
+        console.log(event.target.name)
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value
         })
         getSpkProjectBudget(event.target.value);
+        // if(inputData.FiscalYear.length === 3) {
+        //     getSpkProjectBudget(event.target.value);
+        //     console.log(inputData.FiscalYear.length)
+        // }
     }
 
     // Submit Data ---------------------------------------------------------------------------//
@@ -329,6 +358,15 @@ console.log('submit')
         formData.append('StartDateFiscalYear',inputData.StartDateFiscalYear)
         formData.append('EndDateFiscalYear',inputData.EndDateFiscalYear)
         formData.set('FiscalYear',(inputData.FiscalYear + 2500)) // Convert year 2 digit to 4 digit
+        formData.set('PersonalPlan',parseFloat(inputData.PersonalPlan) || 0)
+        formData.set('ProjectPlan',parseFloat(inputData.ProjectPlan) || 0)
+        formData.set('PrincipalBalance',parseFloat(inputData.PrincipalBalance) || 0)
+        formData.set('Debt',parseFloat(inputData.Debt) || 0)
+        formData.set('Interest',parseFloat(inputData.Interest) || 0)
+        formData.set('Fine',parseFloat(inputData.Fine) || 0)
+        formData.set('PrincipleSue',parseFloat(inputData.PrincipleSue) || 0)
+        formData.set('InterestSue',parseFloat(inputData.InterestSue) || 0)
+        formData.set('InterestSueNoPay',parseFloat(inputData.InterestSueNoPay) || 0)
 
         axios.post(
             `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 
@@ -362,6 +400,8 @@ console.log('submit')
     };
 
     const gotoHome = () => {
+        setErr(false);
+        setSuccess(false);
         history.push('/home');
     }
 
@@ -458,12 +498,14 @@ console.log('submit')
 
                                             <Grid item xs={12} md={4}>
                                                 <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="FiscalYear" value={inputData.FiscalYear} onChange={handleInputDataYear} />
+                                                {/* <MuiTextNumber label="ปีงบประมาณ" name="FiscalYear" value={inputData.FiscalYear} onInput={handleInputDataYear} /> */}
                                             </Grid>
                                             {/* <Grid item xs={12} md={2}>
                                                 <MuiTextfield label="&nbsp;" defaultValue="" />
                                             </Grid> */}
                                             <Grid item xs={12} md={4}>
-                                                <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear" value={inputData.StartDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                {/* <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={handleInputDate} /> */}
+                                                 <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
                                                 <MuiDatePicker label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputData.EndDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, EndDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
@@ -473,21 +515,42 @@ console.log('submit')
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">แผนรายบุคคล</p>
+                                                    <Grid item xs={12} md={5}>
+                                                        <p className="paper-p txt-right">เงินจากงบประมาณโครงการ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} />
+                                                    <Grid item xs={11} md={5}>
+                                                        <MuiTextfieldCurrency label=""  />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
+                                                        <p className="paper-p txt-right">แผนรายบุคคล</p>
+                                                    </Grid>
+                                                    <Grid item xs={11} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} />
+                                                        {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">แผนรายโครงการ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} />
+                                                    <Grid item xs={11} md={5}>
+                                                        <MuiTextfieldCurrency label=""  name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -496,71 +559,99 @@ console.log('submit')
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PrincipalBalance" value={inputData.PrincipalBalance}  onChange={handleInputData} />
+                                                    <Grid item xs={11} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="PrincipalBalance" value={inputData.PrincipalBalance}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PrincipalBalance" value={inputData.PrincipalBalance}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">หนี้ค้างชำระ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Debt" value={inputData.Debt}  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="Debt" value={inputData.Debt}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Debt" value={inputData.Debt}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">ดอกเบี้ยค้างชำระ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Interest" value={inputData.Interest}  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="Interest" value={inputData.Interest}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Interest" value={inputData.Interest}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">ค่าปรับค้างชำระ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Fine" value={inputData.Fine}  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="Fine" value={inputData.Fine}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Fine" value={inputData.Fine}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">เงินต้นฟ้องศาลคงเหลือ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PrincipleSue" value={inputData.PrincipleSue}  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="PrincipleSue" value={inputData.PrincipleSue}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PrincipleSue" value={inputData.PrincipleSue}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">ดอกเบี้ยฟ้องศาลคงเหลือ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="InterestSue" value={inputData.InterestSue}  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="InterestSue" value={inputData.InterestSue}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="InterestSue" value={inputData.InterestSue}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">ดอกเบี้ยฟ้องศาลค้างชำระ</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={7}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="InterestSueNoPay" value={inputData.InterestSueNoPay}  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfieldCurrency label="" name="InterestSueNoPay" value={inputData.InterestSueNoPay}  onChange={handleInputData} />
+                                                    {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="InterestSueNoPay" value={inputData.InterestSueNoPay}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -578,7 +669,12 @@ console.log('submit')
                                 <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={gotoHome} />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                {
+                                    inputData.StartDateFiscalYear && inputData.EndDateFiscalYear ?
+                                        <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                    :
+                                        <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>{setErr(true); setErrMsg('กรุณาใส่ข้อมูล')}} />
+                                }
                             </Grid>
                         </Grid>
                     </Container>
@@ -626,7 +722,12 @@ console.log('submit')
                         <p className="txt-center txt-black">{errMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            {
+                                goHome ? 
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={gotoHome} color="primary" style={{justifyContent: 'center'}} />
+                                :
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            }
                         </Box>
                     </div>
                     
