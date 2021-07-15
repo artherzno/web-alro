@@ -29,380 +29,380 @@ const api = {
         })
 
     },
-    getPayLoan(data) {
+    getPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetFarmerPayLoan",
-            data
+            params
         })
 
     },
-    getSummaryFarmerPayLoan(data) {
+    getSummaryFarmerPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryFarmerPayLoan",
-            data
+            params
         })
 
     },
-    exportPayloanExcel(data){
+    exportPayloanExcel(params){
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportFarmerPayLoan",
-            data,
+            params,
             config:{
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    exportSummayPayloanExcel(data) {
+    exportSummayPayloanExcel(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryFarmerPayLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getNewFarmerPayLoan(data) {
+    getNewFarmerPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetNewFarmerPayLoan",
-            data
+            params
         })
 
     },
-    exportNewFarmerPayLoan(data) {
+    exportNewFarmerPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportNewFarmerPayLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getNewSummaryFarmerPayLoan(data) {
+    getNewSummaryFarmerPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetNewSummaryFarmerPayLoan",
-            data
+            params
         })
 
     },
-    exportNewSummaryFarmerPayLoan(data) {
+    exportNewSummaryFarmerPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportNewSummaryFarmerPayLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getPayLoanList(data) {
+    getPayLoanList(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetPayLoan",
-            data
+            params
         })
 
     },
-    exportPayLoan(data) {
+    exportPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportPayLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummaryPayLoan(data) {
+    getSummaryPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryPayLoan",
-            data
+            params
         })
 
     },
-    exportSummaryPayLoan(data) {
+    exportSummaryPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryPayLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummaryProjPayLoan(data) {
+    getSummaryProjPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryProjPayLoan",
-            data
+            params
         })
 
     },
-    exportSummaryProjPayLoan(data) {
+    exportSummaryProjPayLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryProjPayLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getRequestLoan(data) {
+    getRequestLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetRequestLoan",
-            data
+            params
         })
 
     },
-    exportRequestLoan(data) {
+    exportRequestLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportRequestLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummaryRequestLoan(data) {
+    getSummaryRequestLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryRequestLoan",
-            data
+            params
         })
 
     },
-    exportSummaryRequestLoan(data) {
+    exportSummaryRequestLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryRequestLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSignLoan(data) {
+    getSignLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSignLoan",
-            data
+            params
         })
 
     },
-    exportSignLoan(data) {
+    exportSignLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSignLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSignProjLoan(data) {
+    getSignProjLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSignProjLoan",
-            data
+            params
         })
 
     },
-    exportSignProjLoan(data) {
+    exportSignProjLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSignProjLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummarySignLoan(data) {
+    getSummarySignLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummarySignLoan",
-            data
+            params
         })
 
     },
-    exportSummarySignLoan(data) {
+    exportSummarySignLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummarySignLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getConvertLoan(data) {
+    getConvertLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetConvertLoan",
-            data
+            params
         })
 
     },
-    exportConvertLoan(data) {
+    exportConvertLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportConvertLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummaryConvertLoan(data) {
+    getSummaryConvertLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryConvertLoan",
-            data
+            params
         })
 
     },
-    exportSummaryConvertLoan(data) {
+    exportSummaryConvertLoan(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryConvertLoan",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getLawSuit(data) {
+    getLawSuit(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetLawSuit",
-            data
+            params
         })
 
     },
-    exportLawSuit(data) {
+    exportLawSuit(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportLawSuit",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummaryLawSuit(data) {
+    getSummaryLawSuit(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryLawSuit",
-            data
+            params
         })
 
     },
-    exportSummaryLawSuit(data) {
+    exportSummaryLawSuit(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryLawSuit",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getModify(data) {
+    getModify(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetModify",
-            data
+            params
         })
 
     },
-    exportModify(data) {
+    exportModify(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportModify",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getSummaryModify(data) {
+    getSummaryModify(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetSummaryModify",
-            data
+            params
         })
 
     },
-    exportSummaryModify(data) {
+    exportSummaryModify(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportSummaryModify",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getBilled(data) {
+    getBilled(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetBilled",
-            data
+            params
         })
 
     },
-    exportBilled(data) {
+    exportBilled(params) {
 
-        return get({
+        return post({
             path: "api/ReportServices/ExportBilled",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getContractPayment(data) {
+    getContractPayment(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetContractPayment",
-            data
+            params
         })
 
     },
-    exportContractPayment(data) {
+    exportContractPayment(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportContractPayment",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
@@ -410,114 +410,152 @@ const api = {
 
     },
 
-    getAppraisalCourt(data) {
+    getAppraisalCourt(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetAppraisalCourt",
-            data
+            params
         })
 
     },
-    exportAppraisalCourt(data) {
+    exportAppraisalCourt(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportAppraisalCourt",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getTermsAndInterest(data) {
+    getTermsAndInterest(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetTermsAndInterest",
-            data
+            params
         })
 
     },
-    exportTermsAndInterest(data) {
+    exportTermsAndInterest(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportTermsAndInterest",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getAccountsReceivable(data) {
+    getAccountsReceivable(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetAccountsReceivable",
-            data
+            params
         })
 
     },
-    exportAccountsReceivable(data) {
+    exportAccountsReceivable(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportAccountsReceivable",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getInvoice(data) {
+    getInvoice(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetInvoice",
-            data
+            params
         })
 
     },
-    exportInvoice(data) {
+    exportInvoice(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportInvoice",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getPayAndAccount(data) {
+    getPayAndAccount(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetPayAndAccount",
-            data
+            params
         })
 
     },
-    exportPayAndAccount(data) {
+    exportPayAndAccount(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportPayAndAccount",
-            data,
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
         })
 
     },
-    getActualPayment(data) {
+    getActualPayment(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/GetActualPayment",
-            data
+            params
         })
 
     },
-    exportActualPayment(data) {
+    exportActualPayment(params) {
 
-        return get({
+        return post({
             path: "api/CheckServices/ExportActualPayment",
-            data,
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getReceipt(params) {
+
+        return post({
+            path: "api/CheckServices/GetReceipt",
+            params
+        })
+
+    },
+    exportReceipt(params) {
+
+        return post({
+            path: "api/CheckServices/ExportReceipt",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    getPaymentBalance(params) {
+
+        return post({
+            path: "api/CheckServices/GetPaymentBalance",
+            params: params
+        })
+
+    },
+    exportPaymentBalance(params) {
+
+        return post({
+            path: "api/CheckServices/ExportPaymentBalance",
+            params,
             config: {
                 responseType: 'arraybuffer',
             }
