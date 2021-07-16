@@ -93,6 +93,8 @@ function LoanRequestContact(props) {
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
 
+    console.log(server_hostname)
+
     const [loaded, setLoaded] = useState(false);
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
@@ -112,9 +114,11 @@ function LoanRequestContact(props) {
 
     // Get Step Content
     function getStepContent(step) {
+        // console.log(typeof(props.location.state) === 'undefined' ? 'hello' : 'bye')
+        let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
         switch (step) {
             case 0:
-            return <LoanRequestContactStep1 FarmerID={props.location.state.FarmerID} />;
+            return <LoanRequestContactStep1 FarmerID={propsFarmerID} />;
             case 1:
             return <LoanRequestContactStep2 />;
             case 2:
@@ -143,7 +147,7 @@ function LoanRequestContact(props) {
 
     const handleRequestPrint = () => {
         axios({
-            url: 'https://spk.mirasoft.co.th/api/api/ExportServices/GetApplicationPdf', //your url
+            url: `https://${window.location.hostname}/api/api/ExportServices/GetApplicationPdf`, //your url
             method: 'GET',
             data: {
                 IDCard: 11111111111
@@ -291,14 +295,14 @@ function LoanRequestContact(props) {
                             
                             <Container maxWidth="sm">
                                 {allStepsCompleted() ? (
-                                <div className="mg-t-35 txt-center">
+                                <div className="mg-t-10 txt-center">
                                     <p className={classes.instructions}>
                                         ยื่นคำขอครบทุกขั้นตอนแล้ว
                                     </p>
                                     <Button onClick={handleReset}>Reset</Button>
                                 </div>
                                 ) : (
-                                    <div className="mg-t-35 txt-center">
+                                    <div className="mg-t-10 txt-center">
                                         {/* <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                             Back
                                         </Button>
@@ -322,7 +326,7 @@ function LoanRequestContact(props) {
                                                             (activeStep < 4 && activeStep !== 2) ?  
                                                             <Grid container spacing={2} className="btn-row txt-center">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
+                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'จบการยื่นคำขอ' : 'ถัดไป'} onClick={handleComplete}/> 
                                                                 </Grid>
                                                             </Grid>
                                                             : (activeStep === 2) ?

@@ -42,12 +42,12 @@ const hostname = window.location.hostname;
 // Check Endpoint
 if(hostname !== 'localhost') {
   console.log('API - PRODUCTION', hostname)
-  AuthData.hostname = 'https://spk.mirasoft.co.th/spkapi';
-  localStorage.setItem('hostname', 'https://spk.mirasoft.co.th/spkapi')
+  AuthData.hostname = 'https://loanfund.alro.go.th/nodeapi';
+  localStorage.setItem('hostname', 'https://loanfund.alro.go.th/nodeapi')
 } else {
   console.log('API - IP', hostname)
-  AuthData.hostname ='http://147.50.143.84:3800/spkapi'
-  localStorage.setItem('hostname', 'http://147.50.143.84:3800/spkapi')
+  AuthData.hostname ='http://147.50.143.84:3800/nodeapi'
+  localStorage.setItem('hostname', 'http://147.50.143.84:3800/nodeapi')
 }
 console.warn('hi app')
 

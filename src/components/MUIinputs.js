@@ -326,10 +326,10 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputDisabled  } = props;
+    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled  } = props;
 
     return (
-        <FormControl error className={`${classes.textbox} ${inputDisabled}`}>
+        <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
@@ -363,10 +363,10 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldCurrency = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange } = props;
+    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange, inputdisabled } = props;
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
                 // <InputLabel shrink htmlFor={id} className={classes.label}>
@@ -460,17 +460,17 @@ for(let i=0; i<=10; i++) {
 
 const MuiDatePicker = (props) => {
     // const classes = useStyles();
-    const { topic, label, value, yearValue, monthValue, dayValue, onChange } = props;
+    const { topic, label, value, yearValue, monthValue, dayValue, onChange, inputdisabled } = props;
     // let value = '2560-12-01'
     // let dayValue = value.slice(-2);
     // let monthValue = value.slice(5,7);
     // let yearValue = (parseInt(value.slice(0,4)) + 543).toString();
 
-console.log(value,'>>>',yearValue,'-',monthValue,'-',dayValue)
+// console.log(value,'>>>',yearValue,'-',monthValue,'-',dayValue)
     return (
         <React.Fragment >
             
-            <FormControl className="MuiDatePicker">
+            <FormControl className={`MuiDatePicker ${inputdisabled}`}>
                 { 
                     (label) === '' ? '' :
                     // <InputLabel shrink htmlFor={id} className={classes.label}>

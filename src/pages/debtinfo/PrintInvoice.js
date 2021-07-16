@@ -133,7 +133,7 @@ function PrintInvoice() {
 
     const handleExportPrintInvoiceAll = () => {
         axios({
-            url: 'https://spk.mirasoft.co.th/api/api/ExportServices/ExportPrintInvoiceAll', //your url
+            url: `https://${window.location.hostname}/api/api/ExportServices/ExportPrintInvoiceAll`, //your url
             method: 'GET',
             data: {
                 startDate: '2021-05-01'

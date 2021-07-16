@@ -84,6 +84,7 @@ function ManageProjectBudget() {
         EndDateFiscalYear: null, // "2021-09-30T00:00:00.000Z",
         Officer: '', // null,
         Rank: '', // null,
+        ProjectBudget: '', // 6000000
         PersonalPlan: '', // 6000000,
         ProjectPlan: '', // 0,
         PrincipalBalance: '', // 125221672.98,
@@ -226,6 +227,7 @@ function ManageProjectBudget() {
                             FiscalYear:  year, // 2564,
                             StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
                             EndDateFiscalYear: null, 
+                            ProjectBudget: resSpkProjectBudget.ProjectBudget || '',
                             PersonalPlan: resSpkProjectBudget.PersonalPlan || '', // 6000000,
                             ProjectPlan: resSpkProjectBudget.ProjectPlan || '', // 0,
                             PrincipalBalance: resSpkProjectBudget.PrincipalBalance || '', // 125221672.98,
@@ -252,6 +254,7 @@ function ManageProjectBudget() {
                             EndDateFiscalYear: resSpkProjectBudget.EndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
                             Officer: resSpkProjectBudget.Officer || '', // null,
                             Rank: resSpkProjectBudget.Rank || '', // null,
+                            ProjectBudget: resSpkProjectBudget.ProjectBudget || '',
                             PersonalPlan: resSpkProjectBudget.PersonalPlan || '', // 6000000,
                             ProjectPlan: resSpkProjectBudget.ProjectPlan || '', // 0,
                             PrincipalBalance: resSpkProjectBudget.PrincipalBalance || '', // 125221672.98,
@@ -347,7 +350,7 @@ function ManageProjectBudget() {
     // Submit Data ---------------------------------------------------------------------------//
     const handleSubmit = (event) => {
         event.preventDefault();
-console.log('submit')
+console.log('submit', parseFloat(inputData.ProjectBudget))
         let updateSpkInfo = document.getElementById('updateSpkInfo');
         let formData = new FormData(updateSpkInfo);
         formData.append('SPKInfoID', inputData.SPKInfoID)
@@ -367,6 +370,7 @@ console.log('submit')
         formData.set('PrincipleSue',parseFloat(inputData.PrincipleSue) || 0)
         formData.set('InterestSue',parseFloat(inputData.InterestSue) || 0)
         formData.set('InterestSueNoPay',parseFloat(inputData.InterestSueNoPay) || 0)
+        formData.set('ProjectBudget',parseFloat(inputData.ProjectBudget.split(',').join('')) || 0)
 
         axios.post(
             `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 
@@ -443,51 +447,51 @@ console.log('submit')
                                     <Paper className="paper line-top-green paper mg-t-20">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="ชื่อกรม" name="DepartmentName" value={inputData.DepartmentName} onChange={handleInputData} />
-                                                {/* <MuiTextfield label="เลขที่บันทึก" inputDisabled="input-disabled" defaultValue="PNGA0001600005/00001" /> */}
+                                                <MuiTextfield inputdisabled="input-disabled" label="ชื่อกรม" name="DepartmentName" value={inputData.DepartmentName} onChange={handleInputData} />
+                                                {/* <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled" defaultValue="PNGA0001600005/00001" /> */}
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="ชื่อหน่วยงาน" name="OrganizeName" value={inputData.OrganizeName} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ชื่อหน่วยงาน" name="OrganizeName" value={inputData.OrganizeName} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="ที่อยู่" name="Addr" value={inputData.Addr} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="Addr" value={inputData.Addr} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="อำเภอ" name="District" value={inputData.District} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="อำเภอ" name="District" value={inputData.District} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="จังหวัด" name="Province" value={inputData.Province} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="จังหวัด" name="Province" value={inputData.Province} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="&nbsp;" name="ProvinceCodeEN" value={inputData.ProvinceCodeEN} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="&nbsp;" name="ProvinceCodeEN" value={inputData.ProvinceCodeEN} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="&nbsp;" name="ProvinceCodeTH" value={inputData.ProvinceCodeTH} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="&nbsp;" name="ProvinceCodeTH" value={inputData.ProvinceCodeTH} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="รหัสไปรษณีย์" name="Zipcode" value={inputData.Zipcode} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="รหัสไปรษณีย์" name="Zipcode" value={inputData.Zipcode} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="โทรศัพท์"  name="Tel" value={inputData.Tel} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="โทรศัพท์"  name="Tel" value={inputData.Tel} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="เลขที่ผู้เสียภาษี ส.ป.ก."  name="TaxPayNum" value={inputData.TaxPayNum} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="เลขที่ผู้เสียภาษี ส.ป.ก."  name="TaxPayNum" value={inputData.TaxPayNum} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="รหัสหน่วยงาน ส.ป.ก." name="SPKCode" value={inputData.SPKCode} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="รหัสหน่วยงาน ส.ป.ก." name="SPKCode" value={inputData.SPKCode} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="รหัสจังหวัด" name="ProvinceID" value={inputData.ProvinceID} onChange={handleInputData} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="รหัสจังหวัด" name="ProvinceID" value={inputData.ProvinceID} onChange={handleInputData} />
                                                 {/* <MuiDatePicker label="วันที่สัญญา" defaultValue="2017-05-15" /> */}
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="CompCode" name="CompCode" value={inputData.CompCode} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="CompCode" name="CompCode" value={inputData.CompCode} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="ปฏิรูปที่ดินจังหวัด" name="Officer" value={inputData.Officer} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ปฏิรูปที่ดินจังหวัด" name="Officer" value={inputData.Officer} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputDisabled="input-disabled" label="ตำแหน่ง" name="Rank" value={inputData.Rank} onChange={handleInputData}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ตำแหน่ง" name="Rank" value={inputData.Rank} onChange={handleInputData}  />
                                             </Grid>
                                         </Grid>
                                     </Paper>
@@ -505,10 +509,10 @@ console.log('submit')
                                             </Grid> */}
                                             <Grid item xs={12} md={4}>
                                                 {/* <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={handleInputDate} /> */}
-                                                 <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                 <MuiDatePicker  inputdisabled="input-disabled"  label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiDatePicker label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputData.EndDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, EndDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                <MuiDatePicker inputdisabled="input-disabled"  label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputData.EndDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, EndDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <h1 className="paper-head-green">แผนเงินกู้ปี ปัจจุบัน</h1>
@@ -519,7 +523,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">เงินจากงบประมาณโครงการ</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency label=""  />
+                                                        <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p className="paper-p">บาท</p>
@@ -532,7 +536,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">แผนรายบุคคล</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency  inputdisabled="input-disabled" label="" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} />
                                                         {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -546,7 +550,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">แผนรายโครงการ</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency label=""  name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label=""  name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -563,7 +567,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="PrincipalBalance" value={inputData.PrincipalBalance}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="PrincipalBalance" value={inputData.PrincipalBalance}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PrincipalBalance" value={inputData.PrincipalBalance}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -577,7 +581,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">หนี้ค้างชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="Debt" value={inputData.Debt}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="Debt" value={inputData.Debt}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Debt" value={inputData.Debt}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -591,7 +595,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">ดอกเบี้ยค้างชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="Interest" value={inputData.Interest}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="Interest" value={inputData.Interest}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Interest" value={inputData.Interest}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -605,7 +609,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">ค่าปรับค้างชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="Fine" value={inputData.Fine}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="Fine" value={inputData.Fine}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="Fine" value={inputData.Fine}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -619,7 +623,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">เงินต้นฟ้องศาลคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="PrincipleSue" value={inputData.PrincipleSue}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="PrincipleSue" value={inputData.PrincipleSue}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PrincipleSue" value={inputData.PrincipleSue}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -633,7 +637,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">ดอกเบี้ยฟ้องศาลคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="InterestSue" value={inputData.InterestSue}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="InterestSue" value={inputData.InterestSue}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="InterestSue" value={inputData.InterestSue}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -647,7 +651,7 @@ console.log('submit')
                                                         <p className="paper-p txt-right">ดอกเบี้ยฟ้องศาลค้างชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfieldCurrency label="" name="InterestSueNoPay" value={inputData.InterestSueNoPay}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="InterestSueNoPay" value={inputData.InterestSueNoPay}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="InterestSueNoPay" value={inputData.InterestSueNoPay}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>

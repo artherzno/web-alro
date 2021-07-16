@@ -982,7 +982,18 @@ input {
   .MuiInputBase-root.MuiInputBase-formControl {
     input {
       background-color: var(--text-input-border);
+      border-radius: 4px;
     }
+    fieldset {
+      border: none;
+      border-radius: 4px;
+    }
+  }
+  .MuiInputAdornment-root {
+    display: none;
+  }
+  .MuiOutlinedInput-root {
+    padding: 0;
   }
 }
 
@@ -991,6 +1002,7 @@ input {
     input {
       padding: 10px 26px 10px 12px;
       text-align: right;
+      border-radius: 4px;
     }
   }
 }

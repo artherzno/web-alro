@@ -19,6 +19,7 @@ import {
     MuiSelect, 
     MuiSelectObjYear,
     MuiSelectObj,
+    MuiTextfieldCurrency,
     ButtonFluidPrimary,
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
@@ -45,6 +46,7 @@ function LoanAddProject() {
         ProjectMainName: 0, // "2",
         ProjectSubCode: 0, // "3",
         ProjectSubName: 0, // "4",
+        ProjectBudget: 0,
         LoanTypeCode: 0, // "5",
         LoanTypeName: 0, // "6",
         LoanPeriodCode: 0, // "7",
@@ -311,6 +313,7 @@ function LoanAddProject() {
 
     // Input Text field 
     const handleInputData = (event) => {
+        console.log('event.target.name',event.target.name)
         // console.log('event.target.value',event.target.value)
         setInputData({
             ...inputData,
@@ -345,7 +348,7 @@ function LoanAddProject() {
         
         console.log('name', event.target.name, 'value',event.target.value)
         // let i = parseInt(event.target.value) - 1;
-        console.log(spkMainProject)
+        // console.log(spkMainProject)
     }
 
 
@@ -355,6 +358,7 @@ function LoanAddProject() {
 console.log('submit')
         let addProject = document.getElementById('addProject');
         let formData = new FormData(addProject);
+        formData.set('ProjectBudget',parseFloat(inputData.ProjectBudget.split(',').join('')) || 0)
 
         axios.post(
             `${server_hostname}/admin/api/add_spkproject`, formData, { headers: { "token": token } } 
@@ -455,8 +459,9 @@ console.log('submit')
                                                     <MuiTextfield label="&nbsp;" id="loanadd-projectmainname-input" disabled  defaultValue="" value={projectMainNameText} name="ProjectMainName"  />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    {/* Field Text ---------------------------------------------------*/}
-                                                    <MuiTextfield label="งบประมาณโครงการหลัก" />
+                                                    <span style={{display: 'block'}}>งบประมาณโครงการหลัก</span>
+                                                    <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />
+                                                    {/* <MuiTextfield label="" /> */}
                                                 </Grid>
 
 

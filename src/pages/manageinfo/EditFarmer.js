@@ -283,95 +283,98 @@ function EditFarmer(props) {
                     
                         let resEditData = data.data;
                         setPathIDCard_Image(resEditData.IDCard_PicPatch ? resEditData.IDCard_PicPatch.split('\\').join('/') : '')
-                        setLandData(resEditData.land_data);
+                        setLandData(resEditData.land_data || []);
 
-                        for(let i=0; i<data.data.land_data.length; i++) {
-                            
-                            if(i===0) {
-                                setInputDataLand1({
-                                    ...inputDataLand1,
-                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
-                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
-                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
-                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
-                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
-                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
-                                    LandType: resEditData.land_data[i].LandType || '', // 0,
-                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
-                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    Plang: resEditData.land_data[i].Plang || '', // 0,
-                                    Rai: resEditData.land_data[i].Rai || '', // 0,
-                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
-                                    Wa: resEditData.land_data[i].Wa || '', // 0
-                                })                            
-                            } else if(i===1) {
-                                setInputDataLand2({
-                                    ...inputDataLand2,
-                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
-                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
-                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
-                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
-                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
-                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
-                                    LandType: resEditData.land_data[i].LandType || '', // 0,
-                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
-                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    Plang: resEditData.land_data[i].Plang || '', // 0,
-                                    Rai: resEditData.land_data[i].Rai || '', // 0,
-                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
-                                    Wa: resEditData.land_data[i].Wa || '', // 0
-                                })   
-                            } else if(i===2) {
-                                setInputDataLand3({
-                                    ...inputDataLand2,
-                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
-                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
-                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
-                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
-                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
-                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
-                                    LandType: resEditData.land_data[i].LandType || '', // 0,
-                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
-                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    Plang: resEditData.land_data[i].Plang || '', // 0,
-                                    Rai: resEditData.land_data[i].Rai || '', // 0,
-                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
-                                    Wa: resEditData.land_data[i].Wa || '', // 0
-                                })   
-                            } else if(i===3) {
-                                setInputDataLand4({
-                                    ...inputDataLand4,
-                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
-                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
-                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
-                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
-                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
-                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
-                                    LandType: resEditData.land_data[i].LandType || '', // 0,
-                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
-                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    Plang: resEditData.land_data[i].Plang || '', // 0,
-                                    Rai: resEditData.land_data[i].Rai || '', // 0,
-                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
-                                    Wa: resEditData.land_data[i].Wa || '', // 0
-                                })   
-                            } else if(i===4) {
-                                setInputDataLand5({
-                                    ...inputDataLand5,
-                                    Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
-                                    Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
-                                    Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
-                                    Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
-                                    DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
-                                    DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
-                                    LandType: resEditData.land_data[i].LandType || '', // 0,
-                                    LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
-                                    LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
-                                    Plang: resEditData.land_data[i].Plang || '', // 0,
-                                    Rai: resEditData.land_data[i].Rai || '', // 0,
-                                    Ngan: resEditData.land_data[i].Ngan || '', // 0,
-                                    Wa: resEditData.land_data[i].Wa || '', // 0
-                                })   
+                        if(resEditData.land_data) {
+
+                            for(let i=0; i<data.data.land_data.length; i++) {
+                                
+                                if(i===0) {
+                                    setInputDataLand1({
+                                        ...inputDataLand1,
+                                        Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                        Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                        Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                        Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                        DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                        DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                        LandType: resEditData.land_data[i].LandType || '', // 0,
+                                        LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                        LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                        Plang: resEditData.land_data[i].Plang || '', // 0,
+                                        Rai: resEditData.land_data[i].Rai || '', // 0,
+                                        Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                        Wa: resEditData.land_data[i].Wa || '', // 0
+                                    })                            
+                                } else if(i===1) {
+                                    setInputDataLand2({
+                                        ...inputDataLand2,
+                                        Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                        Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                        Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                        Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                        DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                        DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                        LandType: resEditData.land_data[i].LandType || '', // 0,
+                                        LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                        LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                        Plang: resEditData.land_data[i].Plang || '', // 0,
+                                        Rai: resEditData.land_data[i].Rai || '', // 0,
+                                        Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                        Wa: resEditData.land_data[i].Wa || '', // 0
+                                    })   
+                                } else if(i===2) {
+                                    setInputDataLand3({
+                                        ...inputDataLand2,
+                                        Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                        Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                        Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                        Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                        DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                        DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                        LandType: resEditData.land_data[i].LandType || '', // 0,
+                                        LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                        LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                        Plang: resEditData.land_data[i].Plang || '', // 0,
+                                        Rai: resEditData.land_data[i].Rai || '', // 0,
+                                        Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                        Wa: resEditData.land_data[i].Wa || '', // 0
+                                    })   
+                                } else if(i===3) {
+                                    setInputDataLand4({
+                                        ...inputDataLand4,
+                                        Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                        Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                        Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                        Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                        DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                        DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                        LandType: resEditData.land_data[i].LandType || '', // 0,
+                                        LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                        LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                        Plang: resEditData.land_data[i].Plang || '', // 0,
+                                        Rai: resEditData.land_data[i].Rai || '', // 0,
+                                        Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                        Wa: resEditData.land_data[i].Wa || '', // 0
+                                    })   
+                                } else if(i===4) {
+                                    setInputDataLand5({
+                                        ...inputDataLand5,
+                                        Land_AddMoo: resEditData.land_data[i].Land_AddMoo || '', // "นาย",
+                                        Land_AddrSubdistrictID:  resEditData.land_data[i].Land_AddrSubdistrictID || 0, // 100101,
+                                        Land_AddrDistrictID: resEditData.land_data[i].Land_AddrDistrictID || 0, // 1001,    
+                                        Land_AddrProvinceID: resEditData.land_data[i].Land_AddrProvinceID || 0, // 10,
+                                        DocLand_name: resEditData.land_data[i].DocLand_name ||'', // "docland name",
+                                        DocLand_code: resEditData.land_data[i].DocLand_code ||'', // "1234",
+                                        LandType: resEditData.land_data[i].LandType || '', // 0,
+                                        LandNumber: resEditData.land_data[i].LandNumber || '', // 0,
+                                        LandGroup: resEditData.land_data[i].LandGroup || '', // 10,
+                                        Plang: resEditData.land_data[i].Plang || '', // 0,
+                                        Rai: resEditData.land_data[i].Rai || '', // 0,
+                                        Ngan: resEditData.land_data[i].Ngan || '', // 0,
+                                        Wa: resEditData.land_data[i].Wa || '', // 0
+                                    })   
+                                }
                             }
                         }
 
