@@ -287,7 +287,7 @@ class CheckBilled extends React.Component {
                                                         <StyledTableCellLine align="center">{element.stu}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.sFlag}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dataC}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.dateC}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
