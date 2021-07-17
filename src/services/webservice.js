@@ -562,6 +562,25 @@ const api = {
         })
 
     },
+    getContract(params) {
+
+        return post({
+            path: "api/CheckServices/GetContract",
+            params
+        })
+
+    },
+    exportContract(params) {
+
+        return post({
+            path: "api/CheckServices/ExportContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
    
 };
 

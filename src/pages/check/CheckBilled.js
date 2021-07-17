@@ -269,13 +269,14 @@ class CheckBilled extends React.Component {
                                                         <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.receiptNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.rcpno1}</StyledTableCellLine>
+
                                                         <StyledTableCellLine align="center">{formatNumber(element.payPrincipal)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.payInterest)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{"จ่ายค่าปรับ"}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.refId}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.payment)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{"Pcapital"}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{"Pcap_1"}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.rcapital)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.pcap1)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.pcap2)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.pint1)}</StyledTableCellLine>
@@ -286,7 +287,7 @@ class CheckBilled extends React.Component {
                                                         <StyledTableCellLine align="center">{element.stu}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.sFlag}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{"Date_e"}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.dataC}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>

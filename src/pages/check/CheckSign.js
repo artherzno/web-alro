@@ -22,6 +22,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import TablePagination from '@material-ui/core/TablePagination';
+import moment from 'moment'
+import { formatNumber } from '../../utils/Utilities'
+import { ButtonExportExcel } from '../../components'
+import api from '../../services/webservice'
 
 class CheckSign extends React.Component {
 
@@ -29,13 +33,140 @@ class CheckSign extends React.Component {
         super(props)
 
         this.state = {
-            loaded: true
+            loaded: true,
+            isExporting: false,
+            dateSelect: null,
+            Date: "",
+            ContractNo: "",
+            ProjName: "",
+            FullName: "",
+            Order: "",
+            Display: "",
+            ProjMain:"",
+            ProjSec: "",
+            LoanType: "",
+            BorrowerType: "",
+            LoanPlan: "",
+            LoanPurpose: "",
+            LoanType2: "",
+            loanAmount:0,
+            remainAmount:0,
+            totalContract:0,
+            data: []
         }
     }
+
+    componentDidMount() {
+
+        this.loadData()
+    }
+
+    loadData() {
+
+        const { Date, ContractNo, ProjName, FullName, Order, Display, ProjMain, ProjSec, LoanType, BorrowerType, LoanPlan, LoanPurpose, LoanType2,} = this.state
+
+        const parameter = new FormData()
+        parameter.append('Date', Date);
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('ProjName', ProjName);
+        parameter.append('FullName', FullName);
+        parameter.append('Order', Order);
+        parameter.append('Display', Display);
+        parameter.append('Display', ProjMain);
+        parameter.append('Display', ProjSec);
+        parameter.append('Display', LoanType);
+        parameter.append('Display', BorrowerType);
+        parameter.append('Display', LoanPlan);
+        parameter.append('Display', LoanPurpose);
+        parameter.append('Display', LoanType2);
+
+        api.getContract(parameter).then(response => {
+
+            const dataSummary = response.data.dataSummary.length > 0 ? response.data.dataSummary[0] : {}
+
+            this.setState({
+                data: response.data.data,
+                loanAmount: dataSummary.loanAmount,
+                remainAmount: dataSummary.remainAmount,
+                totalContract: dataSummary.totalContract,
+            })
+
+        }).catch(error => {
+
+        })
+    }
+
+    exportExcel() {
+
+
+        const { Date, ContractNo, ProjName, FullName, Order, Display, ProjMain, ProjSec, LoanType, BorrowerType, LoanPlan, LoanPurpose, LoanType2, } = this.state
+
+        const parameter = new FormData()
+        parameter.append('Date', Date);
+        parameter.append('ContractNo', ContractNo);
+        parameter.append('ProjName', ProjName);
+        parameter.append('FullName', FullName);
+        parameter.append('Order', Order);
+        parameter.append('Display', Display);
+        parameter.append('Display', ProjMain);
+        parameter.append('Display', ProjSec);
+        parameter.append('Display', LoanType);
+        parameter.append('Display', BorrowerType);
+        parameter.append('Display', LoanPlan);
+        parameter.append('Display', LoanPurpose);
+        parameter.append('Display', LoanType2);
+
+        this.setState({
+            isExporting: true
+        })
+
+
+        api.exportContract(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ตรวจสอบสัญญา.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isExporting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isExporting: false
+            })
+
+        })
+    }
+
+    onChange = (state) => (event) => {
+
+        this.setState({
+            [state]: event.target.value
+        }, () => {
+
+            if (this.delay) {
+                clearTimeout(this.delay)
+                this.delay = null
+            }
+            this.delay = setTimeout(() => {
+                this.loadData()
+            }, 500);
+
+        })
+
+
+    }
+
 
     render() {
 
         const { classes } = this.props;
+        const { data } = this.state
 
         return (
             <div>
@@ -55,16 +186,20 @@ class CheckSign extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <MuiDatePicker label="วันที่" />
+                                            <MuiDatePicker label="วันที่" value={this.state.dateSelect} onChange={(event) => {
+                                                this.setState({ Date: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
+                                                    this.loadData()
+                                                })
+                                            }} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="เลขที่สัญญา" />
+                                            <MuiTextfield label="เลขที่สัญญา" onChange={this.onChange("ContractNo")} />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiTextfield label="ค้นหาชื่อโครงการ" onChange={this.onChange("ProjName")} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ค้นหาชื่อโครงการ" />
-                                        </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ค้นหาชื่อ" />
+                                            <MuiTextfield label="ค้นหาชื่อ" onChange={this.onChange("FullName")}  />
                                         </Grid>
                                         
 
@@ -74,10 +209,10 @@ class CheckSign extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
-                                            <SortCheck />
+                                            <SortCheck onChange={this.onChange("Order")} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <DisplayCheck />
+                                            <DisplayCheck onChange={this.onChange("Display")} />
                                         </Grid>
 
 
@@ -90,25 +225,25 @@ class CheckSign extends React.Component {
                                 <Box p={2}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={4}>
-                                            <MainProjectSelect/>
+                                            <MainProjectSelect onChange={this.onChange("ProjMain")}/>
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <SecondProjectSelect />
+                                            <SecondProjectSelect onChange={this.onChange("ProjSec")} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <LoanTypeSelect />
+                                            <LoanTypeSelect onChange={this.onChange("LoanType")}/>
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <LoanderTypeSelect />
+                                            <LoanderTypeSelect onChange={this.onChange("BorrowerType")}/>
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <ObjectiveLoanSelect />
+                                            <ObjectiveLoanSelect onChange={this.onChange("LoanPlan")}/>
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <BorrowTypeSelect />
+                                            <BorrowTypeSelect onChange={this.onChange("LoanPurpose")}/>
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <LoanPlanSelect />
+                                            <LoanPlanSelect onChange={this.onChange("LoanType2")}/>
                                         </Grid>
                                         
                                     </Grid>
@@ -117,8 +252,13 @@ class CheckSign extends React.Component {
                             
                             <Box mt={2}>
                                 <Grid container spacing={2} justifyContent="center">
-                                    <Grid item xs={3} >
-                                        <ButtonFluidPrimary label="ค้นหา" />
+                                    <Grid item xs={2} >
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <div style={{marginTop:-8}}>
+                                            <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
+                                        </div>
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -126,13 +266,13 @@ class CheckSign extends React.Component {
                             <Box mt={6}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="จำนวนสัญญา" />
+                                        <MuiTextfield disabled={true} value={this.state.loanAmount} label="จำนวนสัญญา" />
+                                    </Grid>
+                                    <Grid item xs={12}  md={3}>
+                                        <MuiTextfield disabled={true} value={this.state.remainAmount} label="จำนวนเงินเหลือ" />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="จำนวนเงินเหลือ" />
-                                    </Grid>
-                                    <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="จำนวนเงินกู้" />
+                                        <MuiTextfield disabled={true} value={this.state.totalContract} label="จำนวนเงินกู้" />
                                     </Grid>
                            
                                 </Grid>
@@ -195,58 +335,58 @@ class CheckSign extends React.Component {
 
                                         </TableHead>
                                         <TableBody>
-                                            {[1, 2, 3, 4].map((farmer, index) => {
+                                            {data.map((element, index) => {
 
                                                 return (
                                                     <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">XXX</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.prefix}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.name}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.lastName}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.address}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.no}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.moo}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.subDistrict}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.district}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.province}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.contractDate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.mooLand}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.subDistrictLand}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.districtLand}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.landType}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.titlno}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.groups}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.shape}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.rai}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.ngan}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.wa}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.loanDate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.creditLimit)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.interestRate)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.jobCode}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.category}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.annuity}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.fineRate)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.trnfDate}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.typeplan}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.note}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.provinceAbbreviation}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.rpay)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.principalDebt)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.court)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.interestDebt)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.fineDebt)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{formatNumber(element.debtStatus)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.objCode}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{element.cusCode}</StyledTableCellLine>
 
 
                                                     </TableRow>

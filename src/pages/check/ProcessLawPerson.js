@@ -165,7 +165,7 @@ class ProcessLawPerson extends React.Component {
                                             <MuiTextfield label="ค้นหาชื่อโครงการ" onChange={this.onChange("ProjName")}/>
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="อัตราดอกเบี้ย" />
+                                            <MuiTextfield label="อัตราดอกเบี้ย" type="number"/>
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <YearSelect label="ปี" onChange={this.onChange("Year")} />
