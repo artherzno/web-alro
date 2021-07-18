@@ -404,7 +404,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield type="number" onChange={this.onChange("1")} />
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             
