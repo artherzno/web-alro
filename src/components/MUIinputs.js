@@ -316,9 +316,6 @@ const MuiLabelHeaderCheckbox = (props) => {
     const { topic, label } = props;
     return (
         <FormControl className={classes.textbox}>
-            {/* <InputLabel className={classes.label}  shrink htmlFor={label}>
-                <span className="txt-green">{topic}&nbsp;</span>{label}
-            </InputLabel>&nbsp; */}
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
         </FormControl>
         );
@@ -332,9 +329,6 @@ const MuiTextfield = (props) => {
         <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} />
@@ -345,18 +339,15 @@ const MuiTextfield = (props) => {
 
 const MuiTextfieldMultiLine = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, row, name } = props;
+    const { topic, label, id, value, type, textAlign, row, name, onChange } = props;
 
     return (
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
         </FormControl>
     );
 }
@@ -369,9 +360,6 @@ const MuiTextfieldCurrency = (props) => {
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <NumberFormat
@@ -395,15 +383,12 @@ const MuiTextfieldCurrency = (props) => {
 
 const MuiTextfieldStartAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, startAdornment, textAlign, name, onChange } = props;
+    const { topic, label, id, value, type, startAdornment, textAlign, name, onChange, inputdisabled } = props;
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
@@ -413,15 +398,12 @@ const MuiTextfieldStartAdornment = (props) => {
 
 const MuiTextfieldEndAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange } = props;
+    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange, inputdisabled } = props;
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
@@ -437,9 +419,6 @@ const MuiTextNumber = (props) => {
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <BootstrapInput name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur}  />
@@ -601,9 +580,6 @@ const MuiRadioButton = (props) => {
         <FormControl className={classes.textbox}>
             { 
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     {label}
-                // </InputLabel>
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {/* { (label) === '' ? '' : <span>&nbsp;</span> }   */}
@@ -647,12 +623,12 @@ const MuiRadioButton = (props) => {
 
 const MuiSelectProvince = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled } = props;
 
     // console.log('MuiSelectProvince:', lists)
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
 
@@ -677,12 +653,12 @@ const MuiSelectProvince = (props) => {
 
 const MuiSelectDistrict = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled } = props;
 
     // console.log('MuiSelect:', lists)
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
 
@@ -707,12 +683,12 @@ const MuiSelectDistrict = (props) => {
 
 const MuiSelectSubDistrict = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled } = props;
 
     // console.log('MuiSelect:', lists)
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
 
@@ -791,12 +767,12 @@ const MuiSelectObjYear = (props) => {
 
 const MuiSelectObj = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange, itemName, itemValue } = props;
+    const { topic, label, id, lists, name, value, onChange, itemName, itemValue, inputdisabled } = props;
 
     // console.log('MuiSelectOBJ:', lists, itemName, itemValue)
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             { 
                 (label) === '' ? '' :
 

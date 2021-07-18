@@ -59,6 +59,7 @@ function AdvanceInvoice() {
     const isMounted = useRef(null);
 
     let server_hostname = auth.hostname;
+    let server_spkapi = auth.spkapi;
     let token = localStorage.getItem('token');
 
     const [err, setErr] = useState(false);
@@ -78,8 +79,10 @@ function AdvanceInvoice() {
     useEffect(() => {
         setLoaded(true);
         const getFarmer = () => {
+            // https://loanfund.alro.go.th/spkapi/AdvanceInvoice/GetAll
+            // http://147.50.143.84:3800/AdvanceInvoice/GetAll
             axios.post(
-                `${server_hostname}/AdvanceInvoice/GetAll`, {
+                `${server_spkapi}/AdvanceInvoice/GetAll`, {
                     "start_date": "2561-08-11",
                     "rentno" : "",
                     "projname" :"",

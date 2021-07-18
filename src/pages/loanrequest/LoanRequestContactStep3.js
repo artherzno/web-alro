@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import React, { useEffect, useState, useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../App';
+import moment from 'moment';
+// import { makeStyles } from '@material-ui/styles';
 
 import Fade from '@material-ui/core/Fade';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +19,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 import Header from '../../components/Header';
@@ -31,14 +38,51 @@ import {
     MuiDatePicker, 
     ButtonFluidPrimary, 
     ButtonNormalIconStartPrimary,
+    ButtonFluidOutlineSecondary,
 } from '../../components/MUIinputs';
 
-function LoanRequestContactStep3() {
+function LoanRequestContactStep3(props) {
+    const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+
+    let server_port = auth.port;
+    let server_hostname = auth.hostname;
+    let token = localStorage.getItem('token');
+
     const [loaded, setLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [inputData, setInputData] = useState({
         typeMember: '1',
         typeSuitability: '1',
         approve: '1',
+
+        ApplicantID: '', // 1,
+        FarmerInPorJor: '', // "",
+        LoanTime: '', // "",
+        ApplicantDate: null, // "",
+        Behave: '', // "",
+        PayHistory: '', // "",
+        Allasset: '', // "",
+        EstimateImcome: '', // 0,
+        Cost: '', // 0,
+        PayAbility: '', // "",
+        Result: '', // 0,
+        Explain: '', // "",
+        Guarantee: '', // "",
+        ProjectRespond_nMEMID: '', // 1,
+        Approval: '', // 1,
+        ProjectID: '', // 1,
+        ProjectValue: '', // 0,
+        Condition: '', // "",
+        Reason: '', // "",
+        AprovalNo: '', // "",
+        ApproveDate: null, // "",
+        ApproveDetail: '', // ""
     })
 
 
@@ -62,20 +106,85 @@ function LoanRequestContactStep3() {
     }
 
     // End Radio Button
+// Input Text field  ********************************
+const handleInputData = (event) => {
+    console.log('event.target.name',event.target.name)
+    if(event.target.type === 'number') {
+        let typeNumber = event.target.id.toString().slice(-3);
+        if(typeNumber === 'tel') {
+            event.target.value = event.target.value.toString().slice(0, 10)
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
 
+        } else if (typeNumber === 'zip') {
+            event.target.value = event.target.value.toString().slice(0, 5)
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
+
+        } else if (typeNumber === 'idc') {
+            event.target.value = event.target.value.toString().slice(0, 13)
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
+
+        } else {
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
+
+        }
+    } else {
+        setInputData({
+            ...inputData,
+            [event.target.name]: event.target.value
+        })
+    }
+    console.log(event)
+}
+
+// Handle Submit ************************************
     const handleSubmit = (event) => {
         event.preventDefault();
-    
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
+        console.log('submit')
+        let addApplicantStep2 = document.getElementById('addApplicantStep2');
+        let formData = new FormData(addApplicantStep2);
+        formData.append('ApplicantID', inputData.ApplicantID || 1)
+
+        axios.post(
+            `${server_hostname}/admin/api/add_applicant_step3`, formData, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data)
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                }
+            }
+        ).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
       };
 
     const tableResult = [
@@ -92,6 +201,12 @@ function LoanRequestContactStep3() {
         { a: '11', b: '11 ก.พ. 2564', c: '10,000.00', d: '100.00', e: '10,100.00' },
         { a: '12', b: '11 ก.พ. 2564', c: '10,000.00', d: '100.00', e: '10,100.00' },
     ]
+
+    const handleClosePopup = () => {
+        setErr(false);
+        setSuccess(false);
+
+    };
 
     return (
         <div className="loanrequestcontact-step-page">
@@ -116,34 +231,32 @@ function LoanRequestContactStep3() {
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiLabelHeader label="1.1 เป็นเกษตรกรที่ได้รับการคัดเลือกให้เข้าทำประโยชน์ในเขตปฏิรูปที่ดิน ตามมติคปจ." />
-                                                <MuiTextfield label="" id="loanrequestcontact-step3-no1-farmeraward-input" defaultValue="" />
+                                                <MuiTextfield label="" name="FarmerInPorJor" value={inputData.FarmerInPorJor}  onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={7} className="dsp-f">
                                                 <div className="dsp-f">
-                                                    <Grid item xs={12} md={5}>
-                                                        <MuiTextfield label="ครั้งที่" id="loanrequestcontact-step3-no1-farmeraward1-input" defaultValue="" />
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="ครั้งที่" name="LoanTime" value={inputData.LoanTime}  onChange={handleInputData}  />
                                                     </Grid>
-                                                    <Grid item xs={12} md={1} className="txt-center txt-f-center">
+                                                    {/* <Grid item xs={12} md={1} className="txt-center txt-f-center">
                                                         <MuiLabelHeader label="&nbsp;" />
                                                         <span>/</span>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
                                                         <MuiTextfield label="&nbsp;" id="loanrequestcontact-step1-no3-no1-farmeraward2-input" defaultValue="" />
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </div>
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="loanrequestcontact-step3-no1-farmerawarddate-input" defaultValue="2017-05-24" />
+                                                <MuiDatePicker label="วัน เดือน ปี เกิด" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfieldMultiLine label="และเป็นผู้มีความประพฤติ" id="loanrequestcontact-step3-no1-farmerbehavior-textarea" defaultValue="" row="3" />
+                                                <MuiTextfieldMultiLine label="และเป็นผู้มีความประพฤติ" defaultValue="" row="3" name="Behave" value={inputData.Behave}  onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
                                                 <MuiLabelHeader label="1.2 ประวัติการชำระหนี้ที่ผ่านมา" />
-                                                <MuiTextfieldMultiLine label="" id="loanrequestcontact-step3-no1-farmerdebthistory-textarea" defaultValue="" row="3" />
+                                                <MuiTextfieldMultiLine label="" defaultValue="" row="3" name="PayHistory" value={inputData.PayHistory}  onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <MuiLabelHeader label="1.3 ทรัพย์สินทั้งหมดก่อนทำกิจกรรม/โครงการ" />
@@ -335,6 +448,58 @@ function LoanRequestContactStep3() {
                     </Container>
                 </div>
             </Fade>
+
+
+            <Dialog
+                open={success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
+                                
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                   
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidOutlineSecondary label="test" maxWidth="100px"  onClick={ props.handleComplete} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
         </div>
     )
 }
