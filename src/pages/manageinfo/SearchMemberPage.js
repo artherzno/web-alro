@@ -65,7 +65,7 @@ function SearchMemberPage(props) {
     })
 
     useEffect(() => {
-        console.log(document.cookie)
+        // console.log(document.cookie)
         async function fetchCheckLogin() {
             const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
                 method: 'POST',
@@ -77,7 +77,7 @@ function SearchMemberPage(props) {
             res
             .json()
             .then(res => {
-                console.log(res.statuscode)
+                // console.log(res.statuscode)
                 if (res.code === 0 || res === null || res === undefined ) {
                     history.push('/');
                     setErr(true);
@@ -94,12 +94,12 @@ function SearchMemberPage(props) {
         setLoaded(true);
         fetchCheckLogin();
 
-        console.log(tableResult)
+        // console.log(tableResult)
 
     }, [])
 
     async function fetchSearchFarmer() {
-        console.warn('Cookie', document.cookie)
+        // console.warn('Cookie', document.cookie)
         const res = await fetch(`${server_hostname}/admin/api/search_farmer`, {
             method: 'POST',
             body: JSON.stringify(inputData),
@@ -146,14 +146,14 @@ function SearchMemberPage(props) {
         setInputData({...inputData,
             Name: event.target.value
         })
-        console.log('Name ',event.target.value)
+        // console.log('Name ',event.target.value)
     };
     
     const handleChangeSurname = (event) => {
         setInputData({...inputData,
             Sirname: event.target.value
         })
-        console.log('Sirname ',event.target.value)
+        // console.log('Sirname ',event.target.value)
     };
 
     // Input ID Number
@@ -163,7 +163,7 @@ function SearchMemberPage(props) {
         setInputData({...inputData,
             IDCard: event.target.value
         })
-        console.log('idNum ',event.target.value)
+        // console.log('idNum ',event.target.value)
     }
     // End Input ID Number
  
@@ -171,11 +171,11 @@ function SearchMemberPage(props) {
         setInputData({...inputData,
             LoanNumber: event.target.value
         })
-        console.log('LoanNumber ',event.target.value)
+        // console.log('LoanNumber ',event.target.value)
     };
 
     const handleChangePage = (event, newPage) => {
-        console.log('newPage', newPage)
+        // console.log('newPage', newPage)
         setPage(newPage);
     };
     
@@ -198,18 +198,16 @@ function SearchMemberPage(props) {
         );
     }
 
-    const gotoLoanRequestContact = (id) => {
-        // history.push('/loanrequest/loanrequestcontact');
+    const gotoLoanRequestContact = (id, action) => {
         history.push({
             pathname: '/loanrequest/loanrequestcontact',
             state: { 
                 FarmerID: id, 
                 activeStep: 0,
-                completed: {}
+                completed: {},
+                action: action,
             }
           });
-        
-        
     }
 
     return (
@@ -310,7 +308,7 @@ function SearchMemberPage(props) {
                                                                             cell.FarmerGrade ? 
                                                                                 '-' 
                                                                             : 
-                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact(cell.FarmerID)} />
+                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, 'add')} />
                                                                         }</TableCell>
                                                                         <TableCell align="center">
                                                                             <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember(cell.FarmerID)} />

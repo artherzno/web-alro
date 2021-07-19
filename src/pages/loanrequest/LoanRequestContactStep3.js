@@ -58,7 +58,7 @@ function LoanRequestContactStep3(props) {
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [inputData, setInputData] = useState({
         typeMember: '1',
-        typeSuitability: '1',
+        typeSuitability: '0',
         approve: '1',
 
         ApplicantID: '', // 1,
@@ -71,7 +71,7 @@ function LoanRequestContactStep3(props) {
         EstimateImcome: '', // 0,
         Cost: '', // 0,
         PayAbility: '', // "",
-        Result: '', // 0,
+        Result: '0', // 0,
         Explain: '', // "",
         Guarantee: '', // "",
         ProjectRespond_nMEMID: '', // 1,
@@ -93,9 +93,9 @@ function LoanRequestContactStep3(props) {
     // Radio Button
     const handleChangeTypeSuitability = (event) => {
         setInputData({...inputData,
-            typeSuitability: event.target.value
+            Result: event.target.value
         })
-        console.log('typeSuitability ',event.target.value)
+        console.log('Result ',event.target.value)
     };
 
     const handleChangeApprove = (event) => {
@@ -295,9 +295,8 @@ const handleInputData = (event) => {
                                                 <MuiLabelHeader label="2.1 ความเป็นไปได้และความเหมาะสมที่จะดำเนินกิจกรรม/โครงการ" />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiRadioButton label="" id="loanrequestcontact-step3-no2-typeSuitability-input" lists={['เหมาะสม','ไม่เหมาะสม']} value={inputData.typeSuitability} onChange={handleChangeTypeSuitability} type="row" />
-                                                <MuiTextfieldMultiLine label="คำชี้แจง" id="loanrequestcontact-step3-no2-typeSuitability-textarea" defaultValue="" row="3" />
+                                                <MuiRadioButton label=""  lists={['ไม่เหมาะสม','เหมาะสม']} value={inputData.Result} name="Result" onChange={handleChangeTypeSuitability} type="row" />
+                                                <MuiTextfieldMultiLine label="คำชี้แจง" defaultValue="" row="3" />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <MuiLabelHeader label="2.2 หลักประกันการกู้ยืม" />
@@ -316,6 +315,11 @@ const handleInputData = (event) => {
                                 </Paper>
                             </Grid>
 
+{
+    inputData.Result === '0' ? 
+    '' 
+    :
+    <React.Fragment>
                             {/* Paper 3 - -------------------------------------------------- */}
                             <Grid item xs={12} md={12}>
                                 <Paper className="paper line-top-green paper">
@@ -366,9 +370,9 @@ const handleInputData = (event) => {
                                                     </RadioGroup>
                                                 </Grid>
 
-                                                <Grid item xs={12} md={12}>
+                                                {/* <Grid item xs={12} md={12}>
                                                     <ButtonFluidPrimary label="บันทึกข้อมูล" />
-                                                </Grid>
+                                                </Grid> */}
                                             </Grid>
                                         </form>
                                     </Grid>
@@ -397,13 +401,16 @@ const handleInputData = (event) => {
                                                     <MuiTextfieldMultiLine label="รายละเอียดการอนุมัติ" id="loanrequestcontact-step3-no4-detail-textarea" defaultValue="" row="3" />
                                                 </Grid>
 
-                                                <Grid item xs={12} md={12}>
-                                                    <ButtonFluidPrimary label="บันทึกข้อมูล" />
-                                                </Grid>
                                             </Grid>
                                         </form>
                                     </Grid>
                                 </Paper>
+                            </Grid>
+
+    </React.Fragment>
+}
+                            <Grid item xs={12} md={12}>
+                                <ButtonFluidPrimary label="บันทึกข้อมูล" />
                             </Grid>
 
 

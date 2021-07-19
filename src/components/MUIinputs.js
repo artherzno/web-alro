@@ -354,7 +354,7 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldCurrency = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange, inputdisabled } = props;
+    const { topic, label, value, name, onChange, inputdisabled } = props;
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
@@ -590,30 +590,30 @@ const MuiRadioButton = (props) => {
                 <RadioGroup row aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
-                                <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
+                                <FormControlLabel key={i} value={(i).toString()} control={<RedRadio />} label={item} />
                             : (color === 'yellow') ? 
-                                <FormControlLabel key={i} value={(i+1).toString()} control={<YellowRadio />} label={item} />
+                                <FormControlLabel key={i} value={(i).toString()} control={<YellowRadio />} label={item} />
                             : (color === 'grey') ? 
-                                <FormControlLabel key={i} value={(i+1).toString()} control={<GreyRadio />} label={item} />
+                                <FormControlLabel key={i} value={(i).toString()} control={<GreyRadio />} label={item} />
                             : (color === 'bluesky') ? 
-                                <FormControlLabel key={i} value={(i+1).toString()} control={<BlueskyRadio />} label={item} />
+                                <FormControlLabel key={i} value={(i).toString()} control={<BlueskyRadio />} label={item} />
                             :
-                                <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
+                                <FormControlLabel key={i} value={(i).toString()} control={<BlueRadio />} label={item} />
                     )}
                 </RadioGroup> 
                 :
                 <RadioGroup aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
                     {lists.map((item,i)=>
                         (color === 'red') ? 
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<RedRadio />} label={item} />
+                            <FormControlLabel key={i} value={(i).toString()} control={<RedRadio />} label={item} />
                         : (color === 'yellow') ? 
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<YellowRadio />} label={item} />
+                            <FormControlLabel key={i} value={(i).toString()} control={<YellowRadio />} label={item} />
                         : (color === 'grey') ? 
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<GreyRadio />} label={item} />
+                            <FormControlLabel key={i} value={(i).toString()} control={<GreyRadio />} label={item} />
                         : (color === 'bluesky') ? 
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<BlueskyRadio />} label={item} />
+                            <FormControlLabel key={i} value={(i).toString()} control={<BlueskyRadio />} label={item} />
                         :
-                            <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
+                            <FormControlLabel key={i} value={(i).toString()} control={<BlueRadio />} label={item} />
                     )}
                 </RadioGroup>
             }

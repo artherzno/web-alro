@@ -117,15 +117,18 @@ function LoanRequestContact(props) {
     function getStepContent(step) {
         // console.log(typeof(props.location.state) === 'undefined' ? 'hello' : 'bye')
         let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
+        let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
+        let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
+
         switch (step) {
             case 0:
-            return <LoanRequestContactStep1 FarmerID={propsFarmerID} handleComplete={handleComplete} />;
+            return <LoanRequestContactStep1 action={propsAction} ApplicantID={propsApplicantID} FarmerID={propsFarmerID} handleComplete={handleComplete} />;
             case 1:
-            return <LoanRequestContactStep2 handleComplete={handleComplete} />;
+            return <LoanRequestContactStep2 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 2:
-            return <LoanRequestContactStep3 />;
+            return <LoanRequestContactStep3 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 3:
-            return <LoanRequestContactStep4 />;
+            return <LoanRequestContactStep4 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 4:
             return <LoanRequestContactStep5 
                         typeSpecial={(props.location.state === undefined) ? '1' : props.location.state.typeSpecial} 
@@ -231,10 +234,6 @@ function LoanRequestContact(props) {
 
     const gotoAddLoanRequestProject = () => {
         history.push('/manageinfo/loanaddproject');
-    }
-
-    const test = () => {
-        alert('test')
     }
 
     return (

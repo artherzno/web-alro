@@ -165,6 +165,7 @@ function LoanRequestContactStep1(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('Step1:',props.action)
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
         setProvinceLandList(dataProvinceList)
@@ -172,6 +173,7 @@ function LoanRequestContactStep1(props) {
         let dataDocLandTypeList = JSON.parse(localStorage.getItem('doclandtypelist'))
         setDocLandTypeList(dataDocLandTypeList)
         
+        // Action : Add -----------------------------------------//
         if(props.FarmerID === 0) {
             setErr(true)
             setErrMsg('ไม่สามารถทำรายการได้')
@@ -218,7 +220,80 @@ function LoanRequestContactStep1(props) {
                     setIsLoading(false)
                     }
                 });
-            }           
+            }          
+            
+            // Action :  View -----------------------------------------//
+            if(props.action === 'view') {
+                console.log("ApplicantID", props.ApplicantID)
+                const getApplicantStep1 = () => {
+                    axios.post(
+                        `${server_hostname}/admin/api/view_applicant_step1`, {"ApplicantID": props.ApplicantID}, { headers: { "token": token } } 
+                    ).then(res => {
+                            console.log(res)
+                            let data = res.data;
+                            if(data.code === 0) {
+                                setErr(true);
+                                if(Object.keys(data.message).length !== 0) {
+                                    console.error(data)
+                                    if(typeof data.message === 'object') {
+                                        setErrMsg('ไม่สามารถทำรายการได้')
+                                    } else {
+                                        setErrMsg([data.message])
+                                    }
+                                } else {
+                                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                                }
+                            } else {
+                                console.log(res.data.data[0])
+                                let resApplicant = res.data.data[0];
+                                setInputData({
+                                    ...inputData,
+                                    ProjectYear: resApplicant.ProjectYear - 2500 || 0, // 2564,
+                                    LoanPeriodCode: resApplicant.LoanPeriodCode || '', // "ส",
+                                    FarmerID: props.FarmerID, // 1,
+                                    LandID: resApplicant.LandID || '', // 1,
+                                    FarmerProjectName1: resApplicant.FarmerProjectName1 || '', // "",
+                                    objective1: resApplicant.objective1 || '', // "",
+                                    Loan_amount1: resApplicant.Loan_amount1 || 0, // "",
+                                    FarmerProjectName2: resApplicant.FarmerProjectName2 || '', // "",
+                                    objective2: resApplicant.objective2 || '', // "",
+                                    Loan_amount2: resApplicant.Loan_amount2 || 0, // "",
+                                    FarmerProjectName3: resApplicant.FarmerProjectName3 || '', // "",
+                                    objective3: resApplicant.objective3 || '', // "",
+                                    Loan_amount3: resApplicant.Loan_amount3 || 0, // "",
+                                    Loan_Total: resApplicant.Loan_Total || '', // 0,
+                                    Farming_LandRai: resApplicant.Farming_LandRai || '', // 1,
+                                    Main_Plant: resApplicant.Main_Plant || '', // "",
+                                    Income_PerYearPerRai: resApplicant.Income_PerYearPerRai || '', // 0,
+                                    Income_PerYear: resApplicant.Income_PerYear || '', // 0,
+                                    Interest_Percent: resApplicant.Interest_Percent || '', // 0,
+                                    Principle_YearNoPay: resApplicant.Principle_YearNoPay || '', // 0,
+                                    Interest_YearNoPay: resApplicant.Interest_YearNoPay || '', // 0,
+                                    Supporter_Fname1: resApplicant.Supporter_Fname1 || '', // "aaa",
+                                    Supporter_Lname1: resApplicant.Supporter_Lname1 || '', // "bbb",
+                                    Supporter_IDCard1: resApplicant.Supporter_IDCard1 || '', // "1234567891014",
+                                    Supporter_Fname2: resApplicant.Supporter_Fname2 || '', // "xxx",
+                                    Supporter_Lname2: resApplicant.Supporter_Lname2 || '', // "yyy",
+                                    Supporter_IDCard2: resApplicant.Supporter_IDCard2 || '', // "1234567891014",
+                                    Property: resApplicant.Property || '', // "",
+                                    Hire_purchase_contract_Number: resApplicant.Hire_purchase_contract_Number || '', // "",
+                                    LandValue: resApplicant.LandValue || '', // 0,
+                                    LandPaidValue: resApplicant.LandPaidValue || '', // 0,
+                                    Debt: resApplicant.Debt || '', // 0,
+                                    Debt_Owner: resApplicant.Debt_Owner || '', // "",
+                                    Debt_Amount: resApplicant.Debt_Amount || '', // 0
+                                })
+                            }
+                        }
+                    ).catch(err => { console.log(err);  history.push('/'); })
+                    .finally(() => {
+                        if (isMounted.current) {
+                        setIsLoading(false)
+                        }
+                    });
+                }   
+                getApplicantStep1();       
+            }
 
             const checkLogin = () => {
                 axios.post(
@@ -262,7 +337,7 @@ function LoanRequestContactStep1(props) {
     }, [])
 
     const handleInputLandData = (event) => {
-        console.log('handleInputLandData', event.target.value)
+        // console.log('handleInputLandData', event.target.value)
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value
@@ -427,7 +502,7 @@ function LoanRequestContactStep1(props) {
 
     // Input Text field  ********************************
     const handleInputData = (event) => {
-        console.log('event.target.name',event.target.name)
+        // console.log('event.target.name',event.target.name)
         if(event.target.type === 'number') {
             let typeNumber = event.target.id.toString().slice(-3);
             if(typeNumber === 'tel') {
@@ -464,7 +539,7 @@ function LoanRequestContactStep1(props) {
                 [event.target.name]: event.target.value
             })
         }
-        console.log(event)
+        // console.log(event)
     }
 
     // Handle Submit ************************************
@@ -489,7 +564,7 @@ function LoanRequestContactStep1(props) {
         formData.delete('typeRadio')
         formData.append('FarmerID', inputData.FarmerID)
         formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
-        formData.append('Debt',parseInt(inputData.Debt))
+        // formData.append('Debt',parseInt(inputData.Debt))
         formData.set('ProjectYear',(inputData.ProjectYear + 2500))
         formData.set('Loan_amount1', parseFloat(Loan_amount1_value.split(',').join('')))
         formData.set('Loan_amount2', parseFloat(Loan_amount2_value.split(',').join('')))
@@ -522,8 +597,8 @@ function LoanRequestContactStep1(props) {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log(data)
-                    localStorage.setItem('applicantID',123)
+                    console.log(data.results.recordset[0].ApplicantID)
+                    localStorage.setItem('applicantID',data.results.recordset[0].ApplicantID)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                 }

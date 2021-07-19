@@ -41,7 +41,7 @@ function LoanRequestContactStep2(props) {
         imgUploadPrivilege: [],
         imgUploadOther: [],
 
-        ApplicantID: '',
+        ApplicantID: localStorage.getItem('applicantID'),
         IDCard: '',
         House: '',
         OwnerDoc: '',
@@ -50,6 +50,7 @@ function LoanRequestContactStep2(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('applicantID', inputData.ApplicantID)
     }, [])
 
 
@@ -147,7 +148,8 @@ function LoanRequestContactStep2(props) {
         console.log('submit')
         let addApplicantStep2 = document.getElementById('addApplicantStep2');
         let formData = new FormData(addApplicantStep2);
-        formData.append('ApplicantID', inputData.ApplicantID || 1)
+        // formData.append('ApplicantID', inputData.ApplicantID || 0)
+        formData.append('ApplicantID', 13999)
 
         axios.post(
             `${server_hostname}/admin/api/add_applicant_step2`, formData, { headers: { "token": token } } 
