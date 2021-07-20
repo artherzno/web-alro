@@ -21,3 +21,10 @@
 .item-check-payment.start {
     justify-content: flex-start;
 }
+
+.TableRow-hover{
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(236, 236, 236);
+    }
+}

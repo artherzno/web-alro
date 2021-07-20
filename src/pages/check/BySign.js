@@ -257,11 +257,15 @@ class BySign extends React.Component {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
+                                        count={this.state.data.length}
                                         rowsPerPage={10}
                                         page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
+                                        onPageChange={(e,newPage) => { 
+                                            console.log("onPageChange", newPage)
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+                                            console.log("onRowsPerPageChange", event.target.value)
+                                        }}
                                     />
                                     
                                 </TableContainer>
