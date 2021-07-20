@@ -17,7 +17,8 @@ export const StyledTableCell = withStyles((theme) => ({
 
 export const StyledTableCellLine = withStyles((theme) => ({
     root: {
-        border: "1px solid rgba(224, 224, 224, 1)"
+        border: "1px solid rgba(224, 224, 224, 1)",
+        backgroundColor:'transparent'
     }
 }))(TableCell);
 

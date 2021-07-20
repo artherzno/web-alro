@@ -36,16 +36,17 @@ class Payment extends React.Component {
 
         this.state = {
             loaded: true,
-            IDCard: "d",
-            FullName: "d",
-            ContractNo: "d",
-            ProjName: "d",
-            Address: "d",
-            SubDistrict: "d",
-            District: "d",
-            LandType: "d",
-            Num: "d",
-            data: []
+            IDCard: "",
+            FullName: "",
+            ContractNo: "",
+            ProjName: "",
+            Address: "",
+            SubDistrict: "",
+            District: "",
+            LandType: "",
+            Num: "",
+            data: [],
+            selectedPayment:{}
         }
     }
 
@@ -145,7 +146,7 @@ class Payment extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data } = this.state
+        const { data, selectedPayment } = this.state
 
         return (
             <div>
@@ -244,7 +245,12 @@ class Payment extends React.Component {
                                             {data.map((element, index) => {
 
                                                 return (
-                                                    <TableRow key={index}>
+                                                    <TableRow hover={true} key={index} selected={selectedPayment.contractNo === element.contractNo} tabIndex={-1} onClick={() =>{
+                                                       
+                                                        this.setState({
+                                                            selectedPayment:element
+                                                        })
+                                                    }}>
                                                         <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
@@ -276,13 +282,13 @@ class Payment extends React.Component {
                             <Box mt={5}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={4} >
-                                        <MuiTextfield label="เลขที่สัญญา" onChange={this.onChange("1")} />
+                                        <MuiTextfield label="เลขที่สัญญา" value={selectedPayment.contractNo} disabled={true}/>
                                     </Grid>
                                     <Grid item xs={12} md={4} >
-                                        <MuiTextfield label="บัตรประชาชน" onChange={this.onChange("1")} />
+                                        <MuiTextfield label="บัตรประชาชน" value={selectedPayment.idCard} disabled={true}/>
                                     </Grid>
                                     <Grid item xs={12} md={4} >
-                                        <MuiTextfield label="ชื่อ-นามสกุล เกษตรกร" onChange={this.onChange("1")} />
+                                        <MuiTextfield label="ชื่อ-นามสกุล เกษตรกร" value={selectedPayment.fullName} disabled={true}/>
                                     </Grid>
                                 </Grid>
 
