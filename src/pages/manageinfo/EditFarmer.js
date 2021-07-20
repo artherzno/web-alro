@@ -964,6 +964,7 @@ function EditFarmer(props) {
     }
     const handleInputDataLandAdd = (event) => {
         let name = event.target.name
+        console.log(name, event.target.value)
         setInputDataLandAdd({
             ...inputDataLandAdd,
             [name]: event.target.value
@@ -1143,7 +1144,7 @@ function EditFarmer(props) {
 
 
         axios.post(
-            `${server_hostname}/admin/api/edit_spkland`, formData, { headers: { "token": token } } 
+            `${server_hostname}/admin/api/add_spkland`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -1308,7 +1309,7 @@ function EditFarmer(props) {
                                             <ButtonFluidOutlineSecondary label="ลบข้อมูลที่ตั้งที่ดิน" onClick={()=>{setDeleteLand(true); setDeleteLandID(LandID)}} />
                                         </Grid>
                                         <Grid item xs={12} md={6}>
-                                            <ButtonFluidPrimary label="บันทึกข้อมูลที่ตั้งที่ดิน" onClick={()=>handleEditLand(LandID, i)} />
+                                            <ButtonFluidPrimary label={`บันทึกข้อมูลที่ตั้งที่ดิน (${i+1})`} onClick={()=>handleEditLand(LandID, i)} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -1574,8 +1575,8 @@ function EditFarmer(props) {
                                                     <Grid item xs={12} md={12}>
                                                         <Grid container spacing={2} className="paper-container">
                                                             <Grid item xs={12} md={12}>
-                                                                <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
-                                                                <span className="txt-green fl-r">เพิ่มข้อมูลที่ตั้งที่ดิน</span>
+                                                                <span className="txt-black" style={{fontSize: '18px'}}>+ เพิ่มที่ตั้งที่ดิน</span>
+                                                                {/* <span className="txt-green fl-r">+ เพิ่มข้อมูลที่ตั้งที่ดิน</span> */}
                                                                 <Divider variant="middle" style={{ margin: '0' }} />
                                                             </Grid>
 
@@ -1595,7 +1596,7 @@ function EditFarmer(props) {
                                                                 <MuiSelectSubDistrict label="แขวง / ตำบล" id={`Land_AddrSubdistrictID_0`}  lists={subDistrictLandAddList} value={inputDataLandAdd.Land_AddrSubdistrictID} name={`Land_AddrSubdistrictID`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiSelectObj label="ประเภทหนังสือสำคัญ" id={`DocLand_code_0`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLandAdd.DocLand_code} name={`DocLand_name`} onChange={handleInputDataLandAdd} />
+                                                                <MuiSelectObj label="ประเภทหนังสือสำคัญ" id={`DocLand_code_0`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLandAdd.DocLand_code} name={`DocLand_code`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
                                                                 <MuiTextfield label="เลขที่"  id={`LandNumber_0`}  value={inputDataLandAdd.LandNumber} name={`LandNumber`} onChange={handleInputDataLandAdd} />

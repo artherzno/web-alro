@@ -140,6 +140,44 @@ function LoanRequestContactStep1(props) {
         Debt_Amount: '', // 0
     })
 
+    const [inputDataView, setInputDataView] = useState({
+
+        ProjectYear: 0, // 2564,
+        LoanPeriodCode: '', // "ส",
+        FarmerID: props.FarmerID, // 1,
+        // LandID: '', // 1,
+        FarmerProjectName1: '', // "",
+        objective1: '', // "",
+        Loan_amount1: 0, // "",
+        FarmerProjectName2: '', // "",
+        objective2: '', // "",
+        Loan_amount2: 0, // "",
+        FarmerProjectName3: '', // "",
+        objective3: '', // "",
+        Loan_amount3: 0, // "",
+        Loan_Total: '', // 0,
+        Farming_LandRai: '', // 1,
+        Main_Plant: '', // "",
+        Income_PerYearPerRai: '', // 0,
+        Income_PerYear: '', // 0,
+        Interest_Percent: '', // 0,
+        Principle_YearNoPay: '', // 0,
+        Interest_YearNoPay: '', // 0,
+        Supporter_Fname1: '', // "aaa",
+        Supporter_Lname1: '', // "bbb",
+        Supporter_IDCard1: '', // "1234567891014",
+        Supporter_Fname2: '', // "xxx",
+        Supporter_Lname2: '', // "yyy",
+        Supporter_IDCard2: '', // "1234567891014",
+        Property: '', // "",
+        Hire_purchase_contract_Number: '', // "",
+        LandValue: '', // 0,
+        LandPaidValue: '', // 0,
+        Debt: '', // 0,
+        Debt_Owner: '', // "",
+        Debt_Amount: '', // 0
+    })
+
     const [countAddActivityProject, setCountAddActivityProject] = useState(1);
 
     const [docLandTypeList, setDocLandTypeList] = useState([])
@@ -246,8 +284,8 @@ function LoanRequestContactStep1(props) {
                             } else {
                                 console.log(res.data.data[0])
                                 let resApplicant = res.data.data[0];
-                                setInputData({
-                                    ...inputData,
+                                setInputDataView({
+                                    ...inputDataView,
                                     ProjectYear: resApplicant.ProjectYear - 2500 || 0, // 2564,
                                     LoanPeriodCode: resApplicant.LoanPeriodCode || '', // "ส",
                                     FarmerID: props.FarmerID, // 1,
@@ -599,6 +637,7 @@ function LoanRequestContactStep1(props) {
                 }else {
                     console.log(data.results.recordset[0].ApplicantID)
                     localStorage.setItem('applicantID',data.results.recordset[0].ApplicantID)
+                    localStorage.setItem('applicantProjectYear',inputData.ProjectYear)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                 }
@@ -678,11 +717,11 @@ function LoanRequestContactStep1(props) {
                                     <Paper className="paper line-top-green paper mg-t-20">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={3}>
-                                                <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear || inputDataView.ProjectYear} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
                                                     {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
-                                                <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode" value={inputData.LoanPeriodCode} onChange={handleInputData} type="row" />
+                                                <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode" value={inputData.LoanPeriodCode || inputDataView.LoanPeriodCode} onChange={handleInputData} type="row" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield disabled label="คำนำหน้า" value={inputData.FrontName} />
@@ -756,13 +795,13 @@ function LoanRequestContactStep1(props) {
                                                         <MuiTextfield inputdisabled="input-disabled" label="แปลง" id={`Plang`}  value={Plang} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="แปลง"  id={`Rai`} value={Rai}  endAdornment="ไร่" />
+                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="ไร่"  id={`Rai`} value={Rai}  endAdornment="ไร่" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="แปลง" id={`Ngan`} value={Ngan}  endAdornment="งาน" />
+                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="งาน" id={`Ngan`} value={Ngan}  endAdornment="งาน" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="แปลง" id={`Wa`} value={Wa}  endAdornment="วา" />
+                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="วา" id={`Wa`} value={Wa}  endAdornment="วา" />
                                                     </Grid>
                                                 </Grid>
 
@@ -1099,7 +1138,8 @@ function LoanRequestContactStep1(props) {
                                 <Grid container spacing={2} className="btn-row txt-center">
 
                                     <Grid item xs={12} md={12}>
-                                        <ButtonFluidPrimary label={'บันทึกข้อมูล 1'} onClick={handleSubmit} /> 
+                                        <ButtonFluidPrimary label={'บันทึกข้อมูล 1'} onClick={handleSubmit} />                             
+                                        {/* <ButtonFluidOutlineSecondary label="test ถัดไป" maxWidth="100px"  onClick={ props.handleComplete} /> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1123,7 +1163,7 @@ function LoanRequestContactStep1(props) {
                         <p className="txt-center txt-black">{successMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
                                 
                         </Box>
                     </div>
@@ -1150,7 +1190,6 @@ function LoanRequestContactStep1(props) {
                         <Box textAlign='center'>
                             
                             <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
-                            <ButtonFluidOutlineSecondary label="test" maxWidth="100px"  onClick={ props.handleComplete} />
                         </Box>
                     </div>
                     

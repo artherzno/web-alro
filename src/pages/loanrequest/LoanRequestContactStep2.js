@@ -17,6 +17,7 @@ import {
     MuiLabelHeader, 
     MuiUpload,
     ButtonFluidPrimary,
+    ButtonFluidOutlineSecondary,
 } from '../../components/MUIinputs';
 
 
@@ -218,7 +219,8 @@ function LoanRequestContactStep2(props) {
                                     <MuiUpload label="4. เอกสารอื่นๆ" imgUpload={inputData.OtherDoc} id="OtherDoc" name="OtherDoc" onChange={handleUploadOtherDoc} onClick={handleRemoveUploadOtherDoc} />
                                 </Grid>
                                 <Grid item xs={12} md={12}>
-                                    <ButtonFluidPrimary label={'บันทึกข้อมูล 2'} onClick={handleSubmit} /> 
+                                    <ButtonFluidPrimary label={'บันทึกข้อมูล ขั้นตอนที่2'} onClick={handleSubmit} /> 
+                                    {/* <ButtonFluidOutlineSecondary label="test ถัดไป" maxWidth="100px"  onClick={ props.handleComplete} /> */}
                                 </Grid>
                             </Grid>
                         </form>
@@ -242,7 +244,7 @@ function LoanRequestContactStep2(props) {
                         <p className="txt-center txt-black">{successMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
+                             <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
                                 
                         </Box>
                     </div>
@@ -267,7 +269,7 @@ function LoanRequestContactStep2(props) {
                         <p className="txt-center txt-black">{errMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="150px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     

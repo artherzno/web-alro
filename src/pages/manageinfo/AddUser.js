@@ -79,6 +79,7 @@ function AddUser(props) {
         bActive: 1, // 0,
         bIndividual: '', // 0,
         ProvinceID: 0, // 10
+        ExpireDate: null,
     })
 
     const [roleList, setRoleList] = useState([])
@@ -180,6 +181,7 @@ function AddUser(props) {
     
         let addUserForm = document.getElementById('addUserForm');
         let formData = new FormData(addUserForm);
+        formData.append('ExpireDate', moment(inputData.ExpireDate).format('YYYY-MM-DD'))
 
         axios.post(
             `${server_hostname}/admin/api/add_member`, formData, { headers: { "token": token } } 
@@ -282,7 +284,7 @@ function AddUser(props) {
                                                     <MuiSelect label="ActiveStatus" listsValue={['1','0']} lists={['Active', 'Non Active']} name="bActive" value={inputData.bActive} onChange={handleInputData}  />
                                                </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <MuiDatePicker label="ExpireDate" name="ExpireDate" value={inputData.ExpireDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    <MuiDatePicker label="ExpireDate" name="ExpireDate" value={inputData.ExpireDate} onChange={(newValue)=>{ setInputData({ ...inputData, ExpireDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
 
                                                 </Grid>
                                                 {/* <Grid item xs={12} md={12}>
@@ -370,22 +372,22 @@ function AddUser(props) {
                 <DialogContent>
                     {
                         success ? 
-                        <DialogContentText className="dialog-success">
+                        <div className="dialog-success">
                             <p className="txt-center txt-black">{successMsg}</p>
                             <br/>
                             <Box textAlign='center'>
                                         <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
                                     
                             </Box>
-                        </DialogContentText>
+                        </div>
                         :
-                        <DialogContentText className="dialog-error">
+                        <div className="dialog-error">
                             <p className="txt-center txt-black">{errMsg}</p>
                             <br/>
                             <Box textAlign='center'>
                                 <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
                             </Box>
-                        </DialogContentText>
+                        </div>
                     }
                     
                 </DialogContent>
