@@ -47,7 +47,7 @@ function EditFarmer(props) {
 
     let server_port = auth.port;
     let server_hostname = auth.hostname;
-    let server_production = auth.production;
+    let server_production = localStorage.getItem('siteimage');
     let token = localStorage.getItem('token');
 
     const [err, setErr] = useState(false);
@@ -241,6 +241,7 @@ function EditFarmer(props) {
     const [countAddLandInfo, setCountAddLandInfo] = useState(0);
 
     useEffect(() => {
+        console.log('server_production',server_production)
         setInputData({
             ...inputData,
             BirthDate: moment().format('DD/MM/YYYY'),
@@ -881,6 +882,7 @@ function EditFarmer(props) {
     const handleInputData = (event) => {
         // console.log('event.target.name',event.target.name)
         if(event.target.type === 'number') {
+            console.log('normal0')
             let typeNumber = event.target.id.toString().slice(-3);
             if(typeNumber === 'tel') {
                 event.target.value = event.target.value.toString().slice(0, 10)
@@ -904,6 +906,7 @@ function EditFarmer(props) {
                 })
 
             } else {
+                console.log('normal2')
                 setInputData({
                     ...inputData,
                     [event.target.name]: event.target.value
@@ -911,6 +914,7 @@ function EditFarmer(props) {
 
             }
         } else {
+            console.log('normal1')
             setInputData({
                 ...inputData,
                 [event.target.name]: event.target.value
@@ -1139,7 +1143,7 @@ function EditFarmer(props) {
 
 
         axios.post(
-            `${server_hostname}/admin/api/add_spkland`, formData, { headers: { "token": token } } 
+            `${server_hostname}/admin/api/edit_spkland`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -1301,10 +1305,10 @@ function EditFarmer(props) {
                                         </Grid>
                                         
                                         <Grid item xs={12} md={6}>
-                                            <ButtonFluidOutlineSecondary label="ลบข้อมูล" onClick={()=>{setDeleteLand(true); setDeleteLandID(LandID)}} />
+                                            <ButtonFluidOutlineSecondary label="ลบข้อมูลที่ตั้งที่ดิน" onClick={()=>{setDeleteLand(true); setDeleteLandID(LandID)}} />
                                         </Grid>
                                         <Grid item xs={12} md={6}>
-                                            <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>handleEditLand(LandID, i)} />
+                                            <ButtonFluidPrimary label="บันทึกข้อมูลที่ตั้งที่ดิน" onClick={()=>handleEditLand(LandID, i)} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -1405,7 +1409,7 @@ function EditFarmer(props) {
                                                 <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel" defaultValue="" placeholder="ตัวอย่าง 0812345678" name="Tel"  value={inputData.Tel} onInput={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <img src={`${server_production}/${pathIDCard_Image}`} alt="" style={{width: '100%'}}/>
+                                                <img src={`${server_production}${pathIDCard_Image}`} alt="" style={{width: '100%'}}/>
                                                 <span style={{display: 'block'}}>อัพโหลดรูปบัตรประชาชน</span>
                                                 <MuiUpload imgUpload={inputData.imgUpload} id="addmember-img-upload-input" name="file" onChange={handleUploadImg} onClick={handleRemoveUploadImg} />
                                             </Grid>
@@ -1526,7 +1530,7 @@ function EditFarmer(props) {
                                         <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData} />
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                        <ButtonFluidPrimary label="บันทึกข้อมูลเกษตรกร" onClick={handleSubmit} />
                                     </Grid>
                                 </Grid>
 
@@ -1613,7 +1617,7 @@ function EditFarmer(props) {
                                                             </Grid>
                                                             
                                                             <Grid item xs={12} md={12}>
-                                                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleAddLand} />
+                                                                <ButtonFluidPrimary label="บันทึกข้อมูลที่ตั้งที่ดิน" onClick={handleAddLand} />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

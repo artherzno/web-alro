@@ -102,7 +102,7 @@ function ManageProjectBudget() {
             axios.post(
                 `${server_hostname}/admin/api/get_spkinfo`, '', { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    console.log('get_spkinfo',res)
                     let data = res.data;
                     if(data.code === 0 || res === null || res === undefined) {
                         setErr(true);
@@ -117,7 +117,7 @@ function ManageProjectBudget() {
                             setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
                     }else {
-                        console.log('get_spkinfo',data.data[0])
+                        // console.log('get_spkinfo',data.data[0])
                         // setTableResult(data.data)
                         let resSpkInfo = data.data[0];
                         setInputData({
@@ -160,7 +160,7 @@ function ManageProjectBudget() {
             axios.post(
                 `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    console.log('checklogin',res)
                     let data = res.data;
                     if(data.code === 0) {
                         setErr(true);
@@ -195,13 +195,13 @@ function ManageProjectBudget() {
     }, [])
 
     const getSpkProjectBudget = (year) => {
-        console.log('year',year)
+        // console.log('year',year)
         axios.post(
             `${server_hostname}/admin/api/get_spkprojectbudget`, {
                 "FiscalYear": year + 2500
             }, { headers: { "token": token } } 
         ).then(res => {
-                console.log(res)
+                console.log('get_spkprojectbudget',res)
                 let data = res.data;
                 if(data.code === 0 || res === null || res === undefined) {
                     setErr(true);
@@ -216,8 +216,8 @@ function ManageProjectBudget() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log('get_spkprojectbudget',data.data[0])
-                    console.log('get_spkprojectbudget_length',data.data.length)
+                    // console.log('get_spkprojectbudget',data.data[0])
+                    // console.log('get_spkprojectbudget_length',data.data.length)
                     let resSpkProjectBudget;
 
                     if(data.data.length === 0) {
@@ -227,7 +227,7 @@ function ManageProjectBudget() {
                             FiscalYear:  year, // 2564,
                             StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
                             EndDateFiscalYear: null, 
-                            ProjectBudget: resSpkProjectBudget.ProjectBudget || '',
+                            ProjectBudget: resSpkProjectBudget.ProjectBudget|| '',
                             PersonalPlan: resSpkProjectBudget.PersonalPlan || '', // 6000000,
                             ProjectPlan: resSpkProjectBudget.ProjectPlan || '', // 0,
                             PrincipalBalance: resSpkProjectBudget.PrincipalBalance || '', // 125221672.98,
@@ -294,7 +294,7 @@ function ManageProjectBudget() {
 
     // Input Text field  ********************************
     const handleInputData = (event) => {
-        console.log('event.target.name',event.target.name)
+        // console.log('event.target.name',event.target.name)
         if(event.target.type === 'number') {
             let typeNumber = event.target.id.toString().slice(-3);
             if(typeNumber === 'tel') {
@@ -331,11 +331,11 @@ function ManageProjectBudget() {
                 [event.target.name]: event.target.value
             })
         }
-        console.log(event)
+        // console.log(event)
     }
 
     const handleInputDataYear = (event) => {
-        console.log(event.target.name)
+        // console.log(event.target.name)
         setInputData({
             ...inputData,
             [event.target.name]: event.target.value
@@ -350,7 +350,9 @@ function ManageProjectBudget() {
     // Submit Data ---------------------------------------------------------------------------//
     const handleSubmit = (event) => {
         event.preventDefault();
-console.log('submit', parseFloat(inputData.ProjectBudget))
+        
+        let setProjectBudget = inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
+
         let updateSpkInfo = document.getElementById('updateSpkInfo');
         let formData = new FormData(updateSpkInfo);
         formData.append('SPKInfoID', inputData.SPKInfoID)
@@ -370,7 +372,7 @@ console.log('submit', parseFloat(inputData.ProjectBudget))
         formData.set('PrincipleSue',parseFloat(inputData.PrincipleSue) || 0)
         formData.set('InterestSue',parseFloat(inputData.InterestSue) || 0)
         formData.set('InterestSueNoPay',parseFloat(inputData.InterestSueNoPay) || 0)
-        formData.set('ProjectBudget',parseFloat(inputData.ProjectBudget.split(',').join('')) || 0)
+        formData.set('ProjectBudget',parseFloat(setProjectBudget.split(',').join('')) || 0)
 
         axios.post(
             `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 

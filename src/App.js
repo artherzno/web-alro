@@ -36,7 +36,7 @@ const theme = createTheme({
   },
 }, thTH)
 
-let AuthData = { port: 3800, hostname: '', portinvoice: 8055 } ;
+let AuthData = { port: 3800, hostname: '', portinvoice: 8055, spkapi: '' } ;
 const hostname = window.location.hostname;
 
 // Check Endpoint
@@ -44,10 +44,16 @@ if(hostname !== 'localhost') {
   console.log('API - PRODUCTION', hostname)
   AuthData.hostname = 'https://loanfund.alro.go.th/nodeapi';
   localStorage.setItem('hostname', 'https://loanfund.alro.go.th/nodeapi')
+  localStorage.setItem('siteimage', 'https://loanfund.alro.go.th/')
 } else {
   console.log('API - IP', hostname)
-  AuthData.hostname ='http://147.50.143.84:3800/nodeapi'
-  localStorage.setItem('hostname', 'http://147.50.143.84:3800/nodeapi')
+  AuthData.hostname ='http://147.50.143.84:5441/nodeapi'
+  localStorage.setItem('hostname', 'http://147.50.143.84:5441/nodeapi')
+
+  AuthData.spkapi ='http://147.50.143.84:3800'
+  localStorage.setItem('spkapi', 'http://147.50.143.84:3800')
+  
+  localStorage.setItem('siteimage', 'http://147.50.143.84/')
 }
 console.warn('hi app')
 

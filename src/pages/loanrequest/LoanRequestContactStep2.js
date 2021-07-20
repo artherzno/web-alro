@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../App';
-import moment from 'moment';
+// import moment from 'moment';
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -20,7 +20,7 @@ import {
 } from '../../components/MUIinputs';
 
 
-function LoanRequestContactStep2() {
+function LoanRequestContactStep2(props) {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
@@ -41,7 +41,7 @@ function LoanRequestContactStep2() {
         imgUploadPrivilege: [],
         imgUploadOther: [],
 
-        ApplicantID: '',
+        ApplicantID: localStorage.getItem('applicantID'),
         IDCard: '',
         House: '',
         OwnerDoc: '',
@@ -50,6 +50,7 @@ function LoanRequestContactStep2() {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('applicantID', inputData.ApplicantID)
     }, [])
 
 
@@ -147,7 +148,8 @@ function LoanRequestContactStep2() {
         console.log('submit')
         let addApplicantStep2 = document.getElementById('addApplicantStep2');
         let formData = new FormData(addApplicantStep2);
-        formData.append('ApplicantID', inputData.ApplicantID)
+        // formData.append('ApplicantID', inputData.ApplicantID || 0)
+        formData.append('ApplicantID', 13999)
 
         axios.post(
             `${server_hostname}/admin/api/add_applicant_step2`, formData, { headers: { "token": token } } 
@@ -184,6 +186,7 @@ function LoanRequestContactStep2() {
         setErr(false);
         setSuccess(false);
     };
+
 
     return (
         <div className="loanrequestcontact-step-page">
@@ -222,6 +225,32 @@ function LoanRequestContactStep2() {
                     </Container>
                 </div>
             </Fade>
+
+
+            <Dialog
+                open={success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
+                                
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
 
             <Dialog
                 open={err}

@@ -3,6 +3,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { AuthContext } from '../../App';
+import useAxios from '../../services/useAxios';
 
 import { makeStyles } from '@material-ui/styles';
 import Fade from '@material-ui/core/Fade';
@@ -116,15 +117,18 @@ function LoanRequestContact(props) {
     function getStepContent(step) {
         // console.log(typeof(props.location.state) === 'undefined' ? 'hello' : 'bye')
         let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
+        let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
+        let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
+
         switch (step) {
             case 0:
-            return <LoanRequestContactStep1 FarmerID={propsFarmerID} />;
+            return <LoanRequestContactStep1 action={propsAction} ApplicantID={propsApplicantID} FarmerID={propsFarmerID} handleComplete={handleComplete} />;
             case 1:
-            return <LoanRequestContactStep2 />;
+            return <LoanRequestContactStep2 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 2:
-            return <LoanRequestContactStep3 />;
+            return <LoanRequestContactStep3 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 3:
-            return <LoanRequestContactStep4 />;
+            return <LoanRequestContactStep4 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 4:
             return <LoanRequestContactStep5 
                         typeSpecial={(props.location.state === undefined) ? '1' : props.location.state.typeSpecial} 
@@ -135,6 +139,7 @@ function LoanRequestContact(props) {
             return 'Unknown step';
         }
     }
+
 
     // Radio Button
     const handleChangeTypePrint = (event) => {
@@ -241,7 +246,7 @@ function LoanRequestContact(props) {
                 <div className="fade">
                     <Container maxWidth="md">
                         <div className={classes.root}>
-                            <Stepper alternativeLabel nonLinear activeStep={activeStep} className="custom-stepper-box">
+                            <Stepper alternativeLabel activeStep={activeStep} className="custom-stepper-box">
                                 {steps.map((label, index) => (
                                     <Step key={label} className="custom-stepper mg-t-20">
                                         <StepButton onClick={handleStep(index)} completed={completed[index]}>
@@ -293,7 +298,7 @@ function LoanRequestContact(props) {
                             <div className={classes.instructions}>{getStepContent(activeStep)}</div>
                             {/* End Stepper Content -----------------------------------------------*/}
                             
-                            <Container maxWidth="sm">
+                            { /* <Container maxWidth="sm">
                                 {allStepsCompleted() ? (
                                 <div className="mg-t-10 txt-center">
                                     <p className={classes.instructions}>
@@ -303,17 +308,6 @@ function LoanRequestContact(props) {
                                 </div>
                                 ) : (
                                     <div className="mg-t-10 txt-center">
-                                        {/* <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                            Back
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleNext}
-                                            className={classes.button}
-                                        >
-                                            Next
-                                        </Button> */}
                                         {activeStep !== steps.length && (completed[activeStep] ? (
                                             <p variant="caption" className={classes.completed}>
                                                 บันทึกการ { getSteps()[activeStep] } เสร็จแล้ว
@@ -321,32 +315,31 @@ function LoanRequestContact(props) {
                                                 {activeStep+' '+completedSteps()}
                                             </p>
                                             ) : (
-                                                    <React.Fragment>
-                                                        { 
-                                                            (activeStep < 4 && activeStep !== 2) ?  
-                                                            <Grid container spacing={2} className="btn-row txt-center">
-                                                                <Grid item xs={12} md={12}>
-                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'จบการยื่นคำขอ' : 'ถัดไป'} onClick={handleComplete}/> 
-                                                                </Grid>
+                                                <React.Fragment>
+                                                    { 
+                                                        (activeStep < 4 && activeStep !== 2) ?  
+                                                        <Grid container spacing={2} className="btn-row txt-center">
+                                                            <Grid item xs={12} md={12}>
+                                                                <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'จบการยื่นคำขอ' : 'ถัดไป'} onClick={handleComplete}/> 
                                                             </Grid>
-                                                            : (activeStep === 2) ?
-                                                            <Grid container spacing={2} className="btn-row txt-center">
-                                                                <Grid item xs={12} md={6}>
-                                                                    {/* <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleOpenDialog}/>  */}
-                                                                    <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleRequestPrint}/> 
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
-                                                                </Grid>
+                                                        </Grid>
+                                                        : (activeStep === 2) ?
+                                                        <Grid container spacing={2} className="btn-row txt-center">
+                                                            <Grid item xs={12} md={6}>
+                                                                <ButtonFluidPrimary label="พิมพ์คำขอ" onClick={handleRequestPrint}/> 
                                                             </Grid>
-                                                            : ''
-                                                        }
-                                                    </React.Fragment>
+                                                            <Grid item xs={12} md={6}>
+                                                                <ButtonFluidPrimary label={completedSteps() === totalSteps() - 1 ? 'บันทึกเพื่อจบการยื่นคำขอ' : 'บันทึกข้อมูล'} onClick={handleComplete}/> 
+                                                            </Grid>
+                                                        </Grid>
+                                                        : ''
+                                                    }
+                                                </React.Fragment>
                                             ))}
                                     </div>
                                     
                                 )}
-                                </Container>               
+                                </Container>     */}         
                         </div>
                     </Container>
                 </div>

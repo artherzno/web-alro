@@ -25,6 +25,7 @@ import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
+    MuiTextfieldCurrency,
     MuiDatePicker,
     MuiSelect,
     MuiCheckbox,
@@ -59,6 +60,7 @@ function AdvanceInvoice() {
     const isMounted = useRef(null);
 
     let server_hostname = auth.hostname;
+    let server_spkapi = auth.spkapi;
     let token = localStorage.getItem('token');
 
     const [err, setErr] = useState(false);
@@ -68,6 +70,12 @@ function AdvanceInvoice() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [inputData, setInputData] = useState({
+        start_date: null, // "2561-08-11",
+        rentno : '', // "",
+        projname : '', //"",
+        farmer : '', // ""
+    })
 
     // Variable for Checkbox in Table
     const [selected, setSelected] = React.useState([]);
@@ -77,42 +85,6 @@ function AdvanceInvoice() {
 
     useEffect(() => {
         setLoaded(true);
-        const getFarmer = () => {
-            axios.post(
-                `${server_hostname}/AdvanceInvoice/GetAll`, {
-                    "start_date": "2561-08-11",
-                    "rentno" : "",
-                    "projname" :"",
-                    "farmer" : ""
-                  }, { headers: { "token": token } } 
-            ).then(res => {
-                    console.log(res)
-                    let data = res.data;
-                    if(data.code === 0) {
-                        setErr(true);
-                        if(Object.keys(data.message).length !== 0) {
-                            console.error(data)
-                            if(typeof data.message === 'object') {
-                                setErrMsg('ไม่สามารถทำรายการได้')
-                            } else {
-                                setErrMsg([data.message])
-                            }
-                        } else {
-                            setErrMsg(['ไม่สามารถทำรายการได้'])
-                        }
-                    }else {
-                        console.log('Get AdvanceInvoice:',data)
-                    
-                        
-                    }
-                }
-            ).catch(err => { console.log(err) })
-            .finally(() => {
-                if (isMounted.current) {
-                  setIsLoading(false)
-                }
-             });
-        }
 
         // Check Login
         async function fetchCheckLogin() {
@@ -130,7 +102,6 @@ function AdvanceInvoice() {
                         history.push('/');
                         setErr(true);
                     }
-                    getFarmer();
                 })
                 .catch(err => {
                     console.log(err);
@@ -150,6 +121,47 @@ function AdvanceInvoice() {
         isMounted.current = false;
       }
     }, [])
+
+
+
+    const getAdvanceInvoiceGetAll = () => {
+        // https://loanfund.alro.go.th/spkapi/AdvanceInvoice/GetAll
+        // http://147.50.143.84:3800/AdvanceInvoice/GetAll
+        axios.post(
+            `${server_spkapi}/AdvanceInvoice/GetAll`, {
+                "start_date": inputData.start_date,
+                "rentno" : "",
+                "projname" :"",
+                "farmer" : ""
+              }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log('Get AdvanceInvoice:',data)
+                
+                    
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
 
 
     // Select CheckBox in Table
@@ -184,7 +196,47 @@ function AdvanceInvoice() {
 
     // End Select Checkbox
 
+    // Input Text field  ********************************
+    const handleInputData = (event) => {
+        // console.log('event.target.name',event.target.name)
+        if(event.target.type === 'number') {
+            let typeNumber = event.target.id.toString().slice(-3);
+            if(typeNumber === 'tel') {
+                event.target.value = event.target.value.toString().slice(0, 10)
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
 
+            } else if (typeNumber === 'zip') {
+                event.target.value = event.target.value.toString().slice(0, 5)
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'idc') {
+                event.target.value = event.target.value.toString().slice(0, 13)
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            } else {
+                setInputData({
+                    ...inputData,
+                    [event.target.name]: event.target.value
+                })
+
+            }
+        } else {
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
+        }
+        // console.log(event)
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
     
@@ -217,7 +269,7 @@ function AdvanceInvoice() {
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" defaultValue="" />
+                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="start_date" value={inputData.start_date === 'Invalid date' ? null : inputData.start_date} onChange={(newValue)=>{ setInputData({ ...inputData, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="เลขที่สัญญา" />
@@ -230,7 +282,7 @@ function AdvanceInvoice() {
                                     </Grid>
                                     <Grid item xs={12} md={1}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={getAdvanceInvoiceGetAll} />
                                     </Grid>
 
                                 </Grid>
