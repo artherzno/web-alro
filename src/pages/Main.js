@@ -23,6 +23,7 @@ import SearchMember from './manageinfo/SearchMemberPage';
 import LoanRequestProject from './manageinfo/LoanRequestProject';
 import LoanAddProject from './manageinfo/LoanAddProject';
 import LoanEditProject from './manageinfo/LoanEditProject';
+import LoanViewProject from './manageinfo/LoanViewProject';
 import ManageProjectBudget from './manageinfo/ManageProjectBudget';
 import ManageUser from './manageinfo/ManageUser';
 import ManagePermission from './manageinfo/ManagePermission';
@@ -128,7 +129,8 @@ function Main() {
                     <Route path="/manageinfo/editfarmer" component={EditFarmer} />
                     <Route path="/manageinfo/loanrequestproject" component={LoanRequestProject} />
                     <Route path="/manageinfo/loanaddproject" component={LoanAddProject} />
-                    <Route path="/manageinfo/loanEditproject" component={LoanEditProject} />
+                    <Route path="/manageinfo/loaneditproject" component={LoanEditProject} />
+                    <Route path="/manageinfo/loanviewproject" component={LoanViewProject} />
                     <Route path="/manageinfo/manageuser" component={ManageUser} />
                     <Route path="/manageinfo/adduser" component={AddUser} />
                     <Route path="/manageinfo/edituser" component={EditUser} />

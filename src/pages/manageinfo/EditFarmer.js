@@ -964,7 +964,7 @@ function EditFarmer(props) {
     }
     const handleInputDataLandAdd = (event) => {
         let name = event.target.name
-        console.log(name, event.target.value)
+        // console.log(name, event.target.value)
         setInputDataLandAdd({
             ...inputDataLandAdd,
             [name]: event.target.value
@@ -975,32 +975,9 @@ function EditFarmer(props) {
         const checked = event.target.checked;
         if(checked) {
             setDuplicateAddr(true);
-            // fetchGetDistrict('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID);
-            // fetchGetSubDistrict('Contact_AddrDistrictID', inputData.IDCARD_AddrDistrictID);
-            setInputData({
-                ...inputData,
-                Contact_AddNo: inputData.IDCARD_AddNo,
-                Contact_AddMoo: inputData.IDCARD_AddMoo,
-                Contact_AddrSoiRoad: inputData.IDCARD_AddrSoiRoad,
-                Contact_AddrSubdistrictID: inputData.IDCARD_AddrSubdistrictID,
-                Contact_AddrDistrictID: inputData.IDCARD_AddrDistrictID,
-                Contact_AddrProvinceID: inputData.IDCARD_AddrProvinceID,
-                Contact_Postcode: inputData.IDCARD_Postcode,
-                Contact_Addrzone: inputData.IDCard_Addrzone,
-            });
+            console.warn(inputData)
         } else {
             setDuplicateAddr(false);
-            setInputData({
-                ...inputData,
-                Contact_AddNo: '',
-                Contact_AddMoo: '',
-                Contact_AddrSoiRoad: '',
-                Contact_AddrSubdistrictID: 0,
-                Contact_AddrDistrictID: 0,
-                Contact_AddrProvinceID: 0,
-                Contact_Postcode: '',
-                Contact_Addrzone: '',
-            }) 
         }
     }
 
@@ -1372,7 +1349,7 @@ function EditFarmer(props) {
                                                 <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" name="IDCard" value={inputData.IDCard} onInput={handleInputData} onBlur={handleValidateNumberOnBlur} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
@@ -1474,10 +1451,10 @@ function EditFarmer(props) {
                                                 !duplicateAddr ? 
                                                     <React.Fragment>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="บ้านเลขที่" defaultValue="" value={inputData.Contact_AddNo} name="Contact_AddNo" onChange={handleInputData}  />
+                                                            <MuiTextfield label="บ้านเลขที่" value={inputData.Contact_AddNo} name="Contact_AddNo" onChange={handleInputData}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="หมู่ที่" defaultValue="" value={inputData.Contact_AddMoo} name="Contact_AddMoo" onChange={handleInputData}  />
+                                                            <MuiTextfield label="หมู่ที่" value={inputData.Contact_AddMoo} name="Contact_AddMoo" onChange={handleInputData}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <MuiTextfield label="หมู่ซอย / ถนนที่" value={inputData.Contact_AddrSoiRoad} name="Contact_AddrSoiRoad" onChange={handleInputData}  />
@@ -1492,19 +1469,19 @@ function EditFarmer(props) {
                                                             <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputData}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextNumber label="รหัสไปรษณีย์" id="addmember1-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />
+                                                            <MuiTextNumber label="รหัสไปรษณีย์" id="addmember1-zip" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />
                                                         </Grid>
                                                     </React.Fragment>
                                                 :
                                                     <React.Fragment>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="บ้านเลขที่" />
+                                                            <MuiTextfield disabled label="บ้านเลขที่" value={''}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="หมู่ที่"  />
+                                                            <MuiTextfield disabled label="หมู่ที่" value={''} />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
-                                                            <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  />
+                                                            <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  value={''}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield disabled label="จังหวัด"  />

@@ -17,13 +17,14 @@ import Nav from '../../components/Nav';
 import { 
     MuiTextfield,
     MuiSelect, 
-    MuiSelectObj,
     MuiSelectObjYear,
+    MuiSelectObj,
+    MuiTextfieldCurrency,
     ButtonFluidPrimary,
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
-function LoanEditProject() {
+function LoanEditProject(props) {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
@@ -39,12 +40,13 @@ function LoanEditProject() {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [inputData, setInputData] = useState({
-        ProjectName: 0, // "123",
+        ProjectName: '', // "123",
         ProjectPlanYear: 0, // "64",
         ProjectMainCode: 0, // "1",
         ProjectMainName: 0, // "2",
         ProjectSubCode: 0, // "3",
         ProjectSubName: 0, // "4",
+        ProjectBudget: 0,
         LoanTypeCode: 0, // "5",
         LoanTypeName: 0, // "6",
         LoanPeriodCode: 0, // "7",
@@ -79,12 +81,73 @@ function LoanEditProject() {
 
     let provincename = localStorage.getItem('provincename');
 
-
     useEffect(() => {
         setLoaded(true);
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
         setProvinceList(dataProvinceList[0])
+
+        const getSpkProjectByID = () => {
+            axios.post(
+                `${server_hostname}/admin/api/get_spkproject_by_id`, {"ProjectID": props.location.state.ProjectID}, { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } else {
+                        let getData = data.data[0];
+                        console.log(getData)
+                        setInputData({
+                            ...inputData,
+                            ProjectName: getData.ProjectName, // "123",
+                            ProjectPlanYear: getData.ProjectPlanYear, // "64",
+                            ProjectMainCode: getData.ProjectMainCode, // "1",
+                            ProjectMainName: getData.ProjectMainName, // "2",
+                            ProjectSubCode: getData.ProjectSubCode, // "3",
+                            ProjectSubName: getData.ProjectSubName, // "4",
+                            ProjectBudget: getData.ProjectBudget,
+                            LoanTypeCode: getData.LoanTypeCode, // "5",
+                            LoanTypeName: getData.LoanTypeName, // "6",
+                            LoanPeriodCode: getData.LoanPeriodCode, // "7",
+                            LoanPeriodName: getData.LoanPeriodName, // "8",
+                            LoanobjCode: getData.LoanobjCode, // "9",
+                            LoanObjName: getData.LoanObjName, // "10",
+                            LoanFarmerTypeCode: getData.LoanFarmerTypeCode, // "11",
+                            LoanFarmerTypeName: getData.LoanFarmerTypeName, // "12"
+                            ProvinceName: getData.ProvinceName,
+                        })
+                        setProjectMainCodeText(getData.ProjectMainCode);
+                        setProjectMainNameText(getData.ProjectMainName);
+                        setProjectSubCodeText(getData.ProjectSubCode);
+                        setProjectSubNameText(getData.ProjectSubName);
+                        setLoanTypeCodeText(getData.LoanTypeCode);
+                        setLoanTypeNameText(getData.LoanTypeName);
+                        setLoanPeriodCodeText(getData.LoanPeriodCode);
+                        setLoanPeriodNameText(getData.LoanPeriodName);
+                        setLoanObjCodeText(getData.LoanobjCode);
+                        setLoanObjNameText(getData.LoanObjName);
+                        setLoanFarmerTypeCodeText(getData.LoanFarmerTypeCode);
+                        setLoanFarmerTypeNameText(getData.LoanFarmerTypeName);
+                    }
+                }
+            ).catch(err => { console.log(err);  })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
 
         const getSpkLoanFarmerType = () => {
             axios.post(
@@ -108,7 +171,7 @@ function LoanEditProject() {
                         setSpkLoanFarmerType(res.data.data)
                     }
                 }
-            ).catch(err => { console.log(err);  history.push('/'); })
+            ).catch(err => { console.log(err); })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -138,7 +201,7 @@ function LoanEditProject() {
                         setSpkLoanObj(res.data.data)
                     }
                 }
-            ).catch(err => { console.log(err);  history.push('/'); })
+            ).catch(err => { console.log(err); })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -168,7 +231,7 @@ function LoanEditProject() {
                         setSpkLoanPeriod(res.data.data)
                     }
                 }
-            ).catch(err => { console.log(err);  history.push('/'); })
+            ).catch(err => { console.log(err); })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -198,7 +261,7 @@ function LoanEditProject() {
                         setSpkLoanType(res.data.data)
                     }
                 }
-            ).catch(err => { console.log(err);  history.push('/'); })
+            ).catch(err => { console.log(err); })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -228,7 +291,7 @@ function LoanEditProject() {
                         setSpkSubProject(res.data.data)
                     }
                 }
-            ).catch(err => { console.log(err);  history.push('/'); })
+            ).catch(err => { console.log(err); })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -258,7 +321,7 @@ function LoanEditProject() {
                         setSpkMainProject(res.data.data)
                     }
                 }
-            ).catch(err => { console.log(err);  history.push('/'); })
+            ).catch(err => { console.log(err); })
             .finally(() => {
                 if (isMounted.current) {
                   setIsLoading(false)
@@ -291,6 +354,7 @@ function LoanEditProject() {
                         getSpkLoanType();
                         getSpkMainProject();
                         getSpkSubProject();
+                        getSpkProjectByID();
                     }
                 }
             ).catch(err => { console.log(err);  history.push('/'); })
@@ -302,7 +366,7 @@ function LoanEditProject() {
         }
 
         checkLogin();
-
+        // executed when component mounted
         isMounted.current = true;
         return () => {
             // executed when unmount
@@ -312,6 +376,7 @@ function LoanEditProject() {
 
     // Input Text field 
     const handleInputData = (event) => {
+        console.log('event.target.name',event.target.name)
         // console.log('event.target.value',event.target.value)
         setInputData({
             ...inputData,
@@ -346,19 +411,23 @@ function LoanEditProject() {
         
         console.log('name', event.target.name, 'value',event.target.value)
         // let i = parseInt(event.target.value) - 1;
-        console.log(spkMainProject)
+        // console.log(spkMainProject)
     }
 
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-console.log('submit')
+        console.log('inputData.ProjectBudget',inputData.ProjectBudget)
+        let setProjectBudget = inputData.ProjectBudget === null ? '0' : inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
+
         let addProject = document.getElementById('addProject');
         let formData = new FormData(addProject);
+        formData.append('ProjectID', props.location.state.ProjectID)
+        formData.set('ProjectBudget',parseFloat(setProjectBudget.split(',').join('')) || 0)
 
         axios.post(
-            `${server_hostname}/admin/api/add_spkproject`, formData, { headers: { "token": token } } 
+            `${server_hostname}/admin/api/edit_spkproject`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -380,7 +449,7 @@ console.log('submit')
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                 }
             }
-        ).catch(err => { console.log(err); history.push('/') })
+        ).catch(err => { console.log(err);  })
         .finally(() => {
             if (isMounted.current) {
               setIsLoading(false)
@@ -433,14 +502,27 @@ console.log('submit')
                                                 {/* <Grid item xs={12} md={2}>
                                                     <MuiTextfield label="รหัสโครงการชื่อ" id="loanadd-projectcode-input" defaultValue="" />
                                                 </Grid> */}
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiTextfield label="ชื่อโครงการ" defaultValue="" name="ProjectName" />
+                                                <Grid item xs={12} md={8}>
+                                                    <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputData.ProjectName} onChange={handleInputData}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjYear label="แผนปี" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData}  />
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiSelectObjYear label="แผนปี" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={3}>
-                                                    <MuiTextfield disabled label="จังหวัด" value={provincename} />
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={11} md={7}>
+                                                            <span style={{display: 'block'}}>งบประมาณโครงการหลัก</span>
+                                                            <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />
+                                                            {/* <MuiTextfield label="" /> */}
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="">&nbsp;</p>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield disabled label="จังหวัด" value={provincename} />
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
 
                                                 <Grid item xs={12} md={3}>
@@ -455,6 +537,7 @@ console.log('submit')
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="&nbsp;" id="loanadd-projectmainname-input" disabled  defaultValue="" value={projectMainNameText} name="ProjectMainName"  />
                                                 </Grid>
+
 
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}
@@ -551,22 +634,22 @@ console.log('submit')
                 <DialogContent>
                     {
                         success ? 
-                        <DialogContentText className="dialog-success">
-                            <p className="txt-center txt-black">{successMsg}</p>
+                        <div className="dialog-success">
+                            <span className="txt-center txt-black" style={{display: 'block'}}>{successMsg}</span>
                             <br/>
                             <Box textAlign='center'>
                                         <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
                                     
                             </Box>
-                        </DialogContentText>
+                        </div>
                         :
-                        <DialogContentText className="dialog-error">
-                            <p className="txt-center txt-black">{errMsg}</p>
+                        <div className="dialog-error">
+                            <span className="txt-center txt-black" style={{display: 'block'}}>{errMsg}</span>
                             <br/>
                             <Box textAlign='center'>
                                 <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
                             </Box>
-                        </DialogContentText>
+                        </div>
                     }
                     
                 </DialogContent>

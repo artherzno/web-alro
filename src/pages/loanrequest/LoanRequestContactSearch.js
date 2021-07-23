@@ -174,7 +174,7 @@ function LoanRequestContactSearch() {
                 action: action,
                 ApplicantID: applicantid,
             }
-          });
+        });
     }
 
     return (
@@ -235,7 +235,7 @@ function LoanRequestContactSearch() {
                                                             <TableCell align="center">{cell.IDCard}</TableCell>
                                                             <TableCell align="center">{cell.FrontName} {cell.Name} {cell.Sirname}</TableCell>
                                                             <TableCell align="center">
-                                                                {/* <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoLoanRequestContact(cell.FarmerID,'edit')} /> */}
+                                                                <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, cell.ApplicantID,'edit')} />
                                                                 <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="80px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, cell.ApplicantID, 'view')} />
                                                             </TableCell>
                                                         </TableRow>

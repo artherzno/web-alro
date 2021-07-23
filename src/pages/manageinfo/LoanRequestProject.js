@@ -27,6 +27,8 @@ import Nav from '../../components/Nav';
 import { 
     MuiSelect, 
     MuiSelectObj,
+    MuiTextfield,
+    MuiSelectProvince,
     MuiSelectObjYear,
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
@@ -125,7 +127,12 @@ function LoanRequestProject() {
         ProjectMainName: '',
         ProjectMain_Status: '',
         ProjectPlanYear: 0,
+        ProvinceID: '0',
     })
+
+    const [provinceSearch, setProvinceSearch] = useState('0');
+    const [provinceList, setProvinceList] = useState(['กรุณาเลือกจังหวัด']);
+    const [roleID, setRoleID] = useState(localStorage.getItem('nROLEID'))
 
     const [tableResult, setTableResult] = useState([])
     const [page, setPage] = useState(0);
@@ -134,6 +141,10 @@ function LoanRequestProject() {
 
     useEffect(() => {
         setLoaded(true);
+        let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
+        setProvinceList(dataProvinceList)
+        console.log(localStorage.getItem('nROLEID'))
+
         const getSpkAllProject = () => {
             axios.post(
                 `${server_hostname}/admin/api/search_spkproject`, '', { headers: { "token": token } } 
@@ -202,6 +213,11 @@ function LoanRequestProject() {
         isMounted.current = false;
       }
     }, [])
+
+    const handleInputDataProvince = (event) => {
+        // console.log('provinceSearch',event.target.value)
+        setProvinceSearch(event.target.value)
+    }
 
     // Input Text field  ********************************
     const handleInputData = (event) => {
@@ -296,9 +312,23 @@ console.log('submit')
         history.push('/manageinfo/loanaddproject');
     }
 
-    const gotoEditLoanRequestProject = () => {
-        history.push('/manageinfo/loaneditproject');
+    const gotoEditLoanRequestProject = (projectID) => {
+        history.push({
+            pathname: '/manageinfo/loaneditproject',
+            state: { 
+                ProjectID: projectID,
+            }
+        });
     }
+
+    const gotoViewLoanRequestProject = (projectID) => {
+        history.push({
+            pathname: '/manageinfo/loanviewproject',
+            state: { 
+                ProjectID: projectID,
+            }
+        });
+    };
 
     const handleClosePopup = () => {
         setErr(false);
@@ -326,12 +356,19 @@ console.log('submit')
                                         <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                     </Box>  
                                 </Grid>
+                                {
+                                    roleID === '8' || roleID === '9' ?  <Grid item xs={12} md={2}> <MuiSelectProvince label="จังหวัด" lists={provinceList}  value={inputData.ProvinceID} name="ProvinceID" onChange={handleInputData}/></Grid> : ''
+                                }
+                               
                                 <Grid item xs={12} md={2}>
                                     <p>&nbsp;</p>
                                     <ButtonFluidPrimary label="ค้นหา" onClick={handleSubmit} />
                                 </Grid>
+                                {
+                                    roleID === '8' || roleID === '9' ?  '' : <Grid item xs={12} md={2}></Grid>
+                                }
 
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12} md={6}>
                                     <p>&nbsp;</p>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <ButtonNormalIconStartPrimary label="เพิ่มโครงการ" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()} />
@@ -356,7 +393,7 @@ console.log('submit')
                                             <TableCell align="center" className="tb-w-12em">ระยะเวลากู้ยืม</TableCell>
                                             <TableCell align="center" className="tb-w-12em">วัตถุประสงค์การกู้ยืม</TableCell>
                                             <TableCell align="center" className="tb-w-12em">ประเภทผู้กู้</TableCell>
-                                            {/* <TableCell align="center" className="sticky tb-w-24em">&nbsp;</TableCell> */}
+                                            <TableCell align="center" className="sticky tb-w-24em">&nbsp;</TableCell>
                                         </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -379,10 +416,13 @@ console.log('submit')
                                                             <TableCell align="center" className="tb-w-12em">{cell.LoanPeriodName}</TableCell>
                                                             <TableCell align="center" className="tb-w-12em">{cell.LoanObjName}</TableCell>
                                                             <TableCell align="center" className="tb-w-12em">{cell.LoanFarmerTypeName}</TableCell>
-                                                            {/* <TableCell align="center" className="sticky tb-w-14em">
-                                                                <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoEditLoanRequestProject()}/>
-                                                                <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} onClick={()=>gotoAddLoanRequestProject()}/>
-                                                            </TableCell> */}
+                                                            <TableCell align="center" className="sticky tb-w-14em">
+                                                            {
+                                                                roleID === '8' || roleID === '9' ?  <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoEditLoanRequestProject(cell.ProjectID)}/>
+                                                                : ''
+                                                            }
+                                                                <ButtonNormalIconStartPrimary label="รายละเอียด"  onClick={()=>gotoViewLoanRequestProject(cell.ProjectID)}/>
+                                                            </TableCell>
                                                     </TableRow>
                                                     
                                                 ))

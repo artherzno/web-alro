@@ -233,7 +233,8 @@ function LoginPage() {
             setIsLoaded(true);
             localStorage.setItem('token',res.token)
             localStorage.setItem('username',((res.recordset[0].Name === null) ? '' : res.recordset[0].Name)+' '+((res.recordset[0].Sirname === null) ? '' : res.recordset[0].Sirname))
-            localStorage.setItem('provinceid',res.recordset.ProvinceID)
+            localStorage.setItem('provinceid',res.recordset[0].ProvinceID)
+            localStorage.setItem('nROLEID',res.recordset[0].nROLEID)
 
             fetchDataDocLandType(res.token);
             fetchDataProvince(res.token, res.recordset[0].ProvinceID)

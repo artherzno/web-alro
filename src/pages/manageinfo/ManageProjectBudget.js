@@ -96,6 +96,11 @@ function ManageProjectBudget() {
         InterestSueNoPay: '', // null
     })
 
+    const [inputDataStartEndYear, setInputDataStartEndYear] = useState({
+        StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
+        EndDateFiscalYear: null, 
+    })
+
     useEffect(() => {
         setLoaded(true);
         const getSpkInfo = () => {
@@ -225,8 +230,8 @@ function ManageProjectBudget() {
                         setInputData({
                             ...inputData,
                             FiscalYear:  year, // 2564,
-                            StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
-                            EndDateFiscalYear: null, 
+                            // StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
+                            // EndDateFiscalYear: null, 
                             ProjectBudget: resSpkProjectBudget.ProjectBudget|| '',
                             PersonalPlan: resSpkProjectBudget.PersonalPlan || '', // 6000000,
                             ProjectPlan: resSpkProjectBudget.ProjectPlan || '', // 0,
@@ -250,8 +255,8 @@ function ManageProjectBudget() {
                             ProjectYear: resSpkProjectBudget.ProjectYear || '', // null,
                             ProjectPlanYear: resSpkProjectBudget.ProjectPlanYear || '', // null,
                             FiscalYear: resSpkProjectBudget.FiscalYear - 2500 || '', // 2564,
-                            StartDateFiscalYear: resSpkProjectBudget.StartDateFiscalYear || null, // "2020-10-01T00:00:00.000Z",
-                            EndDateFiscalYear: resSpkProjectBudget.EndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
+                            // StartDateFiscalYear: resSpkProjectBudget.StartDateFiscalYear || null, // "2020-10-01T00:00:00.000Z",
+                            // EndDateFiscalYear: resSpkProjectBudget.EndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
                             Officer: resSpkProjectBudget.Officer || '', // null,
                             Rank: resSpkProjectBudget.Rank || '', // null,
                             ProjectBudget: resSpkProjectBudget.ProjectBudget || '',
@@ -269,6 +274,64 @@ function ManageProjectBudget() {
                             admin_nMEMID: resSpkProjectBudget.admin_nMEMID || '', // null
                         })  
                     }
+
+                       
+                }
+            }
+        ).catch(err => { console.log(err); /* setErr(true); setErrMsg('ไม่สามารถทำรายการได้')*/ 
+    
+        })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const getSpkStartEndYear = (year) => {
+        // console.log('year',year)
+        axios.post(
+            `${server_hostname}/admin/api/get_StartDateFiscalYear`, {
+                "FiscalYear": year + 2500
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log('get_StartDateFiscalYear',res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    // console.log('get_spkprojectbudget',data.data[0])
+                    // console.log('get_spkprojectbudget_length',data.data.length)
+                    let resSpkStartEndYear;
+
+                    // if(data.data.length === 0) {
+                    //     resSpkStartEndYear = [];
+                    //     setInputDataStartEndYear({
+                    //         ...inputDataStartEndYear,
+                    //         StartDateFiscalYear: null, // "2020-10-01T00:00:00.000Z",
+                    //         EndDateFiscalYear: null, 
+                    //     })
+                    // } else {
+                        resSpkStartEndYear = data.data;
+                        let newStartDataFiscalYear = (parseInt(resSpkStartEndYear.StartDateFiscalYear.substring(0,4)) + 543)+(resSpkStartEndYear.StartDateFiscalYear.substring(4,10));
+                        let newEndDateFiscalYear = (parseInt(resSpkStartEndYear.EndDateFiscalYear.substring(0,4)) + 543)+(resSpkStartEndYear.EndDateFiscalYear.substring(4,10));
+                        // alert(newStartDataFiscalYear)
+                        setInputDataStartEndYear({
+                            ...inputDataStartEndYear,
+                            StartDateFiscalYear: newStartDataFiscalYear || null, // "2020-10-01T00:00:00.000Z",
+                            EndDateFiscalYear: newEndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
+                        })  
+                    // }
 
                        
                 }
@@ -341,6 +404,7 @@ function ManageProjectBudget() {
             [event.target.name]: event.target.value
         })
         getSpkProjectBudget(event.target.value);
+        getSpkStartEndYear(event.target.value);
         // if(inputData.FiscalYear.length === 3) {
         //     getSpkProjectBudget(event.target.value);
         //     console.log(inputData.FiscalYear.length)
@@ -351,7 +415,7 @@ function ManageProjectBudget() {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        let setProjectBudget = inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
+        let setProjectBudget = inputData.ProjectBudget === null ? '0' : inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
 
         let updateSpkInfo = document.getElementById('updateSpkInfo');
         let formData = new FormData(updateSpkInfo);
@@ -360,8 +424,8 @@ function ManageProjectBudget() {
         formData.append('ProjectYear',null)
         formData.append('ProjectPlanYear',null)
         formData.append('ProjectBudgetID',inputData.ProjectBudgetID);
-        formData.append('StartDateFiscalYear',inputData.StartDateFiscalYear)
-        formData.append('EndDateFiscalYear',inputData.EndDateFiscalYear)
+        formData.append('StartDateFiscalYear',inputDataStartEndYear.StartDateFiscalYear)
+        formData.append('EndDateFiscalYear',inputDataStartEndYear.EndDateFiscalYear)
         formData.set('FiscalYear',(inputData.FiscalYear + 2500)) // Convert year 2 digit to 4 digit
         formData.set('PersonalPlan',parseFloat(inputData.PersonalPlan) || 0)
         formData.set('ProjectPlan',parseFloat(inputData.ProjectPlan) || 0)
@@ -511,10 +575,10 @@ function ManageProjectBudget() {
                                             </Grid> */}
                                             <Grid item xs={12} md={4}>
                                                 {/* <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={handleInputDate} /> */}
-                                                 <MuiDatePicker  inputdisabled="input-disabled"  label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                 <MuiDatePicker  inputdisabled="input-disabled"  label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputDataStartEndYear.StartDateFiscalYear} onChange={(newValue)=>{ setInputDataStartEndYear({ ...inputDataStartEndYear, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiDatePicker inputdisabled="input-disabled"  label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputData.EndDateFiscalYear} onChange={(newValue)=>{ setInputData({ ...inputData, EndDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                <MuiDatePicker inputdisabled="input-disabled"  label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputDataStartEndYear.EndDateFiscalYear} onChange={(newValue)=>{ setInputDataStartEndYear({ ...inputDataStartEndYear, EndDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <h1 className="paper-head-green">แผนเงินกู้ปี ปัจจุบัน</h1>
@@ -675,12 +739,13 @@ function ManageProjectBudget() {
                                 <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={gotoHome} />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                {
+                                <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                {/* {
                                     inputData.StartDateFiscalYear && inputData.EndDateFiscalYear ?
                                         <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
                                     :
                                         <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>{setErr(true); setErrMsg('กรุณาใส่ข้อมูล')}} />
-                                }
+                                } */}
                             </Grid>
                         </Grid>
                     </Container>

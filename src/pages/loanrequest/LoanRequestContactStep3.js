@@ -22,6 +22,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
+import PrintIcon from '@material-ui/icons/Print';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -40,7 +41,9 @@ import {
     MuiDatePicker, 
     ButtonFluidPrimary, 
     ButtonNormalIconStartPrimary,
+    ButtonFluidIconStartPrimary,
     ButtonFluidOutlineSecondary,
+    ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
 function LoanRequestContactStep3(props) {
@@ -51,19 +54,25 @@ function LoanRequestContactStep3(props) {
     let server_port = auth.port;
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
 
     const [loaded, setLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [errNoticeProject, setErrNoticeProject] = useState(false);
+    const [errNoticeProjectMsg, setErrNoticeProjectMsg] = useState('ไม่พบข้อมูล');
+    const [errNoticeDirector, setErrNoticeDirector] = useState(false);
+    const [errNoticeDirectorMsg, setErrNoticeDirectorMsg] = useState('ไม่พบข้อมูล');
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [btnPrint, setBtnPrint] = useState(false);
     const [inputData, setInputData] = useState({
         typeMember: '1',
         typeSuitability: '0',
         approve: '1',
 
-        ApplicantID: '', // 1,
+        ApplicantID: props.ApplicantID, // 1,
         FarmerInPorJor: '', // "",
         LoanTime: '', // "",
         ApplicantDate: null, // "",
@@ -75,8 +84,8 @@ function LoanRequestContactStep3(props) {
         PayAbility: '', // "",
         Result: '0', // 0,
         Explain: '', // "",
-        Guarantee1: '0', // "",
-        Guarantee2: '0',
+        Guarantee1: '', // "",
+        Guarantee2: '',
         ProjectRespond_nMEMID: '0', // 1,
         Approval: '', // 1,
         ProjectID: '', // 1,
@@ -98,15 +107,18 @@ function LoanRequestContactStep3(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('Step3 applicantID', props.ApplicantID)
+        console.log('Step3 action:',props.action)
 
-        const getDirector = () => {
-
+        // Action : view Applicant Step1
+        const getViewApplicantStep3 = () => {
+            setIsLoading(true)
             axios.post(
-                `${server_hostname}/admin/api/search_director_step3`, '', { headers: { "token": token } } 
+                `${server_hostname}/admin/api/view_applicant_step3`, {"ApplicantID": props.ApplicantID}, { headers: { "token": token } } 
             ).then(res => {
                     console.log(res)
                     let data = res.data;
-                    if(data.code === 0 || res === null || res === undefined) {
+                    if(data.code === 0) {
                         setErr(true);
                         if(Object.keys(data.message).length !== 0) {
                             console.error(data)
@@ -117,6 +129,82 @@ function LoanRequestContactStep3(props) {
                             }
                         } else {
                             setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                        setIsLoading(false)
+                    } else {
+                        let dataViewStep3 = data.data[0];
+                        // console.log('view farmer:',res.data.Farmer[0])
+                        // console.log('view land:',res.data.Land[0])
+                        // console.log('view detail:',res.data.data[0])
+                        // console.log('view Guarantee1:',(dataViewStep3.Guarantee1 === '1' ? alert(1) : false))
+
+
+                        setInputData({
+                            ...inputData,
+                            ApplicantID: props.ApplicantID, // 1,
+                            FarmerInPorJor: dataViewStep3.FarmerInPorJor || '', // "",
+                            LoanTime: dataViewStep3.LoanTime || '', // "",
+                            ApplicantDate: dataViewStep3.ApplicantDate || null, // "",
+                            Behave: dataViewStep3.Behave || '', // "",
+                            PayHistory: dataViewStep3.PayHistory || '', // "",
+                            Allasset: dataViewStep3.Allasset || 0, // "",
+                            EstimateImcome: dataViewStep3.EstimateImcome || 0, // 0,
+                            Cost: dataViewStep3.Cost || 0, // 0,
+                            PayAbility: dataViewStep3.PayAbility || '', // "",
+                            Result: dataViewStep3.Result ? '1' : '0' || '', // 0,
+                            Explain: dataViewStep3.Explain || '', // "",
+                            Guarantee1: dataViewStep3.Guarantee1 || '0', // "",
+                            Guarantee2: dataViewStep3.Guarantee2 || '0',
+                            ProjectRespond_nMEMID: dataViewStep3.ProjectRespond_nMEMID || '0', // 1,
+                            Approval: dataViewStep3.Approval ? '1' : '0' || '', // 1,
+                            ProjectID: dataViewStep3.ProjectID || '', // 1,
+                            ProjectValue: dataViewStep3.ProjectValue || 0, // 0,
+                            Condition: dataViewStep3.Condition || '', // "",
+                            Reason: dataViewStep3.Reason || '', // "",
+                            AprovalNo: dataViewStep3.AprovalNo || '', // "",
+                            ApproveDate: dataViewStep3.ApproveDate || null, // "",
+                            ApproveDetail: dataViewStep3.ApproveDetail || '', // ""
+                        })
+                        // let resApplicant = res.data.data[0];
+                        setIsLoading(false)
+                    }
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        } 
+
+        const getDirector = () => {
+
+            axios.post(
+                `${server_hostname}/admin/api/search_director_step3`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0 || res === null || res === undefined) {
+                        // setErr(true);
+                        setErrNoticeDirector(true);
+                        setErrNoticeDirectorMsg('ไม่พบข้อมูลผู้รับผิดชอบโครงการ');
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                                // setDirectorList([ {
+                                //     nMEMID: 0,
+                                //     nROLEID: 0,
+                                //     nRolename: '',
+                                //     ProvinceID: 0,
+                                //     Name: "ไม่พบข้อมูลผู้รับผิดชอบโครงการ"
+                                // }])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                            
                         }
                     }else {
                         console.log(data.data)
@@ -141,7 +229,9 @@ function LoanRequestContactStep3(props) {
                     console.log(res)
                     let data = res.data;
                     if(data.code === 0 || res === null || res === undefined) {
-                        setErr(true);
+                        // setErr(true);
+                        setErrNoticeProject(true);
+                        setErrNoticeProjectMsg('ไม่พบข้อมูลโครงการ');
                         if(Object.keys(data.message).length !== 0) {
                             console.error(data)
                             if(typeof data.message === 'object') {
@@ -165,8 +255,28 @@ function LoanRequestContactStep3(props) {
             });
         }
 
-        getDirector();
-        getProject();
+        if(props.action === 'view') {
+            console.log("View ApplicantID", props.ApplicantID) 
+            getDirector();
+            getProject(); 
+            getViewApplicantStep3();    
+        } else if(props.action === 'edit') {
+            console.log("Edit ApplicantID", props.ApplicantID)  
+            
+            getDirector();
+            getProject();
+            getViewApplicantStep3();    
+        } else {
+            // Action : Add -----------------------------------------//
+            if(props.FarmerID === 0) {
+                setErr(true)
+                setErrMsg('ไม่สามารถทำรายการได้')
+            } else {    
+
+                getDirector();
+                getProject();    
+            }
+        }
         
     }, [])
 
@@ -258,7 +368,7 @@ const handleInputData = (event) => {
         let addApplicantStep3 = document.getElementById('addApplicantStep3');
         let formData = new FormData(addApplicantStep3);
         formData.delete('typeRadio')
-        formData.append('ApplicantID', inputData.ApplicantID || 1)
+        formData.append('ApplicantID', props.ApplicantID || localStorage.getItem('applicantID'))
         formData.append('ApplicantDate', moment(inputData.ApplicantDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApplicantDate)
         formData.append('ApproveDate', moment(inputData.ApproveDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApproveDate)
         formData.set('Guarantee1',inputData.Guarantee1);
@@ -269,8 +379,17 @@ const handleInputData = (event) => {
         formData.set('Cost', parseFloat(Cost_value.split(',').join('')))
         formData.set('ProjectValue', parseFloat(ProjectValue_value.split(',').join('')))
 
+        let url = `${server_hostname}/admin/api/update_applicant_step3`;
+        // if(props.action === 'edit') {
+        //     url = `${server_hostname}/admin/api/edit_applicant_step3`;
+        //     console.log('edit step3 !!!')
+        // } else {
+        //     console.log('add step3 !!!')
+        //     url = `${server_hostname}/admin/api/add_applicant_step3`
+        // }
+
         axios.post(
-            `${server_hostname}/admin/api/add_applicant_step3`, formData, { headers: { "token": token } } 
+            url, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -290,6 +409,7 @@ const handleInputData = (event) => {
                     console.log(data)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                    setBtnPrint(true);
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -300,314 +420,410 @@ const handleInputData = (event) => {
          });
       };
 
+    const handlePrintPDF = () => {
+        axios({
+        url: `${siteprint}/api/ExportServices/GetApplicationPdf`, //your url
+        method: 'POST',
+        data: {
+            LoanReqNo: props.ApplicantID
+        },
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.pdf'); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+}
+
     const handleClosePopup = () => {
         setErr(false);
         setSuccess(false);
 
     };
 
+    const handleGotoSearch = () => {
+        setErr(false);
+        setSuccess(false);
+        history.push('/loanrequest/loanrequestcontactsearch')
+    };
 
-    return (
-        <div className="loanrequestcontact-step-page">
-            <div className="header-nav">
-                <Header bgColor="bg-light-green" status="logged" />
-                <Nav />
-            </div>
-            
-            <Fade in={loaded} timeout={800}>
-                <div className="fade">
-                    <Container maxWidth="sm">
-                        <form id="addApplicantStep3" className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                            <Grid container spacing={2}>
-                                {/* Paper 1 - -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper mg-t-20">
+    if(isLoading) {
+        return (
+            <div style={{width: '100%', padding: '50px', textAlign: 'center'}}>...Loading...</div>
+        )
+    } else {
+        return (
+            <div className="loanrequestcontact-step-page">
+                <div className="header-nav">
+                    <Header bgColor="bg-light-green" status="logged" />
+                    <Nav />
+                </div>
+                
+                <Fade in={loaded} timeout={800}>
+                    <div className="fade">
+                        <Container maxWidth="sm">
+                            <form id="addApplicantStep3" className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                <Grid container spacing={2}>
+                                    {/* // Action: view */}
+                                    {
+                                        props.action === 'view' ? 
+                                        <Grid item xs={12} md={12} className="title-page">
+                                            <h1>รายละเอียดความเห็นเจ้าหน้าที่</h1>
+                                        </Grid> : ''
+                                    }
+
+                                    {/* Paper 1 - -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper mg-t-20">
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <h1 className="paper-head-green">1. ความเหมาะสมของผู้กู้</h1>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiLabelHeader label="1.1 เป็นเกษตรกรที่ได้รับการคัดเลือกให้เข้าทำประโยชน์ในเขตปฏิรูปที่ดิน ตามมติคปจ." />
+                                                        <MuiTextfield label="" name="FarmerInPorJor" value={inputData.FarmerInPorJor}  onChange={handleInputData}  />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={7} className="dsp-f">
+                                                        <div className="dsp-f">
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="ครั้งที่" name="LoanTime" value={inputData.LoanTime}  onChange={handleInputData}  />
+                                                            </Grid>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={5}>
+                                                        {/* Field Date Picker ---------------------------------------------------*/}
+                                                        <MuiDatePicker label="วันที่" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfieldMultiLine label="และเป็นผู้มีความประพฤติ" defaultValue="" row="3" name="Behave" value={inputData.Behave}  onChange={handleInputData}  />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiLabelHeader label="1.2 ประวัติการชำระหนี้ที่ผ่านมา" />
+                                                        <MuiTextfieldMultiLine label="" defaultValue="" row="3" name="PayHistory" value={inputData.PayHistory}  onChange={handleInputData}  />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiLabelHeader label="1.3 ทรัพย์สินทั้งหมดก่อนทำกิจกรรม/โครงการ" />
+                                                        <p className="paper-p">จำนวนเงิน</p>
+                                                        <Grid container spaing={2}>
+                                                            <Grid item xs={11} md={11}>
+                                                                <MuiTextfieldCurrency label="" name="Allasset" value={inputData.Allasset}  onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">&nbsp;&nbsp;บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiLabelHeader label="1.4 ประมาณการรายได้-รายจ่ายของผู้กู้เมื่อดำเนินกิจกรรม/โครงการ" />
+                                                        <p className="paper-p">รายได้</p>
+                                                        <Grid container spaing={2}>
+                                                            <Grid item xs={11} md={11}>
+                                                                <MuiTextfieldCurrency label="" name="EstimateImcome" value={inputData.EstimateImcome}  onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">&nbsp;&nbsp;บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <p className="paper-p">รายจ่าย</p>
+                                                        <Grid container spaing={2}>
+                                                            <Grid item xs={11} md={11}>
+                                                                <MuiTextfieldCurrency label="" name="Cost" value={inputData.Cost}  onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">&nbsp;&nbsp;บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>        
+                                                    <Grid item xs={12} md={12}>
+                                                        {/* Field Text ---------------------------------------------------*/}
+                                                        <MuiLabelHeader label="1.5 ความสามารถในการชำระหนี้คืน" />
+                                                        <MuiTextfieldMultiLine label="" name="PayAbility" value={inputData.PayAbility} row="3"  onChange={handleInputData}/>
+                                                    </Grid>
+                                                </Grid>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Paper 2 - -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <h1 className="paper-head-green">1. ความเหมาะสมของผู้กู้</h1>
+                                                    <h1 className="paper-head-green">2. ผลการพิจารณา</h1>
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    {/* Field Text ---------------------------------------------------*/}
-                                                    <MuiLabelHeader label="1.1 เป็นเกษตรกรที่ได้รับการคัดเลือกให้เข้าทำประโยชน์ในเขตปฏิรูปที่ดิน ตามมติคปจ." />
-                                                    <MuiTextfield label="" name="FarmerInPorJor" value={inputData.FarmerInPorJor}  onChange={handleInputData}  />
-                                                </Grid>
-                                                <Grid item xs={12} md={7} className="dsp-f">
-                                                    <div className="dsp-f">
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfield label="ครั้งที่" name="LoanTime" value={inputData.LoanTime}  onChange={handleInputData}  />
-                                                        </Grid>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} md={5}>
-                                                    {/* Field Date Picker ---------------------------------------------------*/}
-                                                    <MuiDatePicker label="วัน เดือน ปี เกิด" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    <MuiLabelHeader label="2.1 ความเป็นไปได้และความเหมาะสมที่จะดำเนินกิจกรรม/โครงการ" />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiTextfieldMultiLine label="และเป็นผู้มีความประพฤติ" defaultValue="" row="3" name="Behave" value={inputData.Behave}  onChange={handleInputData}  />
+                                                    <MuiRadioButton label=""  lists={['ไม่เหมาะสม','เหมาะสม']} value={inputData.Result} name="Result" onChange={handleChangeTypeSuitability} type="row" />
+                                                    <MuiTextfieldMultiLine label="คำชี้แจง" defaultValue="" row="3" value={inputData.Explain} name="Explain" onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeader label="1.2 ประวัติการชำระหนี้ที่ผ่านมา" />
-                                                    <MuiTextfieldMultiLine label="" defaultValue="" row="3" name="PayHistory" value={inputData.PayHistory}  onChange={handleInputData}  />
+                                                    <MuiLabelHeader label="2.2 หลักประกันการกู้ยืม" />
+                                                    <MuiCheckbox label="รายบุคคล" name="Guarantee1" checked={inputData.Guarantee1} onChange={handleChangeGuarantee} />
+                                                    <MuiCheckbox label="อสังหาริมทรัพย์" name="Guarantee2" checked={inputData.Guarantee2} onChange={handleChangeGuarantee} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeader label="1.3 ทรัพย์สินทั้งหมดก่อนทำกิจกรรม/โครงการ" />
-                                                    <p className="paper-p">จำนวนเงิน</p>
-                                                    <Grid container spaing={2}>
-                                                        <Grid item xs={11} md={11}>
-                                                            <MuiTextfieldCurrency label="" name="Allasset" value={inputData.Allasset}  onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">&nbsp;&nbsp;บาท</p>
-                                                        </Grid>
-                                                    </Grid>
+                                                    <MuiLabelHeader label="2.3 ผู้รับผิดชอบโครงการ" />
+                                                    <MuiSelectObj label="" itemName={'Name'} itemValue={'nMEMID'} lists={directorList} value={inputData.ProjectRespond_nMEMID} name={`ProjectRespond_nMEMID`} onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeader label="1.4 ประมาณการรายได้-รายจ่ายของผู้กู้เมื่อดำเนินกิจกรรม/โครงการ" />
-                                                    <p className="paper-p">รายได้</p>
-                                                    <Grid container spaing={2}>
-                                                        <Grid item xs={11} md={11}>
-                                                            <MuiTextfieldCurrency label="" name="EstimateImcome" value={inputData.EstimateImcome}  onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">&nbsp;&nbsp;บาท</p>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <p className="paper-p">รายจ่าย</p>
-                                                    <Grid container spaing={2}>
-                                                        <Grid item xs={11} md={11}>
-                                                            <MuiTextfieldCurrency label="" name="Cost" value={inputData.Cost}  onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">&nbsp;&nbsp;บาท</p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>        
-                                                <Grid item xs={12} md={12}>
-                                                    {/* Field Text ---------------------------------------------------*/}
-                                                    <MuiLabelHeader label="1.5 ความสามารถในการชำระหนี้คืน" />
-                                                    <MuiTextfieldMultiLine label="" name="PayAbility" value={inputData.PayAbility} row="3"  onChange={handleInputData}/>
-                                                </Grid>
+                                                {
+                                                    errNoticeDirector ? 
+                                                            <p className="txt-red paper-p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{errNoticeDirectorMsg}</p> 
+                                                    : ''
+                                                }
                                             </Grid>
-                                    </Paper>
-                                </Grid>
+                                        </Paper>
+                                    </Grid>
 
-                                {/* Paper 2 - -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid container spacing={2} className="paper-container">
-                                            <Grid item xs={12} md={12}>
-                                                <h1 className="paper-head-green">2. ผลการพิจารณา</h1>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiLabelHeader label="2.1 ความเป็นไปได้และความเหมาะสมที่จะดำเนินกิจกรรม/โครงการ" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiRadioButton label=""  lists={['ไม่เหมาะสม','เหมาะสม']} value={inputData.Result} name="Result" onChange={handleChangeTypeSuitability} type="row" />
-                                                <MuiTextfieldMultiLine label="คำชี้แจง" defaultValue="" row="3" value={inputData.Explain} name="Explain" onChange={handleInputData} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiLabelHeader label="2.2 หลักประกันการกู้ยืม" />
-                                                <MuiCheckbox label="รายบุคคล" name="Guarantee1" value={inputData.Guarantee1} onChange={handleChangeGuarantee} />
-                                                <MuiCheckbox label="อสังหาริมทรัพย์" name="Guarantee2" value={inputData.Guarantee2} onChange={handleChangeGuarantee} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiLabelHeader label="2.3 ผู้รับผิดชอบโครงการ" />
-                                                <MuiSelectObj label="" itemName={'Name'} itemValue={'nMEMID'} lists={directorList} value={inputData.ProjectRespond_nMEMID} name={`ProjectRespond_nMEMID`} onChange={handleInputData} />
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Check Result from 2.1 */}
-                                {
-                                    inputData.Result === '0' ? 
-                                    '' 
-                                    :
-                                    <React.Fragment>
-                                        {/* Paper 3 - -------------------------------------------------- */}
-                                        <Grid item xs={12} md={12}>
-                                            <Paper className="paper line-top-green paper">
-                                                <Grid item xs={12} md={12}>
-                                                    <Grid container spacing={2} className="paper-container">
-                                                        <Grid item xs={12} md={12}>
-                                                            <h1 className="paper-head-green">3. การอนุมัติ</h1>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            {/* Field Radio Button ---------------------------------------------------*/}
-                                                            <RadioGroup name="typeRadio" value={inputData.Approval} onChange={handleChangeApprovel}>
-                                                                <FormControlLabel value="1" control={<Radio color="primary" />} label="เห็นควรอนุมัติเงินกู้" />
-                                                                <div style={ inputData.Approval === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                                    <div className="radio-group-content__flex">
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={3}>
-                                                                                <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectCode'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
+                                    {/* Check Result from 2.1 */}
+                                    {
+                                        inputData.Result === '0' ? 
+                                        '' 
+                                        :
+                                        <React.Fragment>
+                                            {/* Paper 3 - -------------------------------------------------- */}
+                                            <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                                <Paper className="paper line-top-green paper">
+                                                    <Grid item xs={12} md={12}>
+                                                        <Grid container spacing={2} className="paper-container">
+                                                            <Grid item xs={12} md={12}>
+                                                                <h1 className="paper-head-green">3. การอนุมัติ</h1>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* Field Radio Button ---------------------------------------------------*/}
+                                                                <RadioGroup name="typeRadio" value={inputData.Approval} onChange={handleChangeApprovel}>
+                                                                    <FormControlLabel value="1" control={<Radio color="primary" />} label="เห็นควรอนุมัติเงินกู้" />
+                                                                    <div style={ inputData.Approval === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
+                                                                        <div className="radio-group-content__flex">
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectCode'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={4}>
+                                                                                    {/* Field Text ---------------------------------------------------*/}
+                                                                                    <MuiTextfield disabled label="รหัสโครงการรอง" value={projectSubCodeText} />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    {/* Field Text ---------------------------------------------------*/}
+                                                                                    <MuiTextfield disabled label="ชื่อโครงการรอง" value={projectSubNameText} />
+                                                                                </Grid>
+                                                                                {
+                                                                                    errNoticeProject ? 
+                                                                                            <p className="txt-red paper-p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{errNoticeProjectMsg}</p> 
+                                                                                    : ''
+                                                                                }
+                                                                                <Grid item xs={11} md={11}>
+                                                                                    <p className="paper-p">จำนวน</p>
+                                                                                    <MuiTextfieldCurrency label="" name="ProjectValue" value={inputData.ProjectValue}  onChange={handleInputData} /> 
+                                                                                </Grid>
+                                                                                <Grid item xs={1} md={1}>
+                                                                                    <p className="paper-p">&nbsp;</p>
+                                                                                    <p className="paper-p">บาท</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={12}>
+                                                                                    <MuiTextfieldMultiLine label="เงื่อนไข" name="Condition" value={inputData.Condition} row="3"  onChange={handleInputData}/>
+                                                                                </Grid>
                                                                             </Grid>
-                                                                            <Grid item xs={12} md={4}>
-                                                                                {/* Field Text ---------------------------------------------------*/}
-                                                                                <MuiTextfield disabled label="รหัสโครงการรอง" value={projectSubCodeText} />
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                {/* Field Text ---------------------------------------------------*/}
-                                                                                <MuiTextfield disabled label="ชื่อโครงการรอง" value={projectSubNameText} />
-                                                                            </Grid>
-                                                                            <Grid item xs={11} md={11}>
-                                                                                <p className="paper-p">จำนวน</p>
-                                                                                <MuiTextfieldCurrency label="" name="ProjectValue" value={inputData.ProjectValue}  onChange={handleInputData} /> 
-                                                                            </Grid>
-                                                                            <Grid item xs={1} md={1}>
-                                                                                <p className="paper-p">&nbsp;</p>
-                                                                                <p className="paper-p">บาท</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={12}>
-                                                                                <MuiTextfieldMultiLine label="เงื่อนไข" name="Condition" value={inputData.Condition} row="3"  onChange={handleInputData}/>
-                                                                            </Grid>
-                                                                        </Grid>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <FormControlLabel value="0" control={<Radio color="primary" />} label="ไม่สมควรอนุมัติ" />
-                                                                <div style={ inputData.Approval === '0' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                                    {/* Field Text ---------------------------------------------------*/}
-                                                                    <div className="radio-group-content">
-                                                                        <MuiTextfieldMultiLine label="เหตุผล" name="Reason" value={inputData.Reason} row="3"  onChange={handleInputData}/>
+                                                                    <FormControlLabel value="0" control={<Radio color="primary" />} label="ไม่สมควรอนุมัติ" />
+                                                                    <div style={ inputData.Approval === '0' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
+                                                                        {/* Field Text ---------------------------------------------------*/}
+                                                                        <div className="radio-group-content">
+                                                                            <MuiTextfieldMultiLine label="เหตุผล" name="Reason" value={inputData.Reason} row="3"  onChange={handleInputData}/>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </RadioGroup>
-                                                        </Grid>
+                                                                </RadioGroup>
+                                                            </Grid>
 
-                                                        {/* <Grid item xs={12} md={12}>
-                                                            <ButtonFluidPrimary label="บันทึกข้อมูล" />
-                                                        </Grid> */}
+                                                            {/* <Grid item xs={12} md={12}>
+                                                                <ButtonFluidPrimary label="บันทึกข้อมูล" />
+                                                            </Grid> */}
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
-                                            </Paper>
-                                        </Grid>
+                                                </Paper>
+                                            </Grid>
 
-                                        {/* Paper 4 - -------------------------------------------------- */}
-                                        <Grid item xs={12} md={12}>
-                                            <Paper className="paper line-top-green paper">
-                                                <Grid item xs={12} md={12}>
-                                                    <Grid container spacing={2} className="paper-container">
-                                                        <Grid item xs={12} md={12}>
-                                                            <h1 className="paper-head-green">4. คำสั่งของผู้มีอำนาจอนุมัติ</h1>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="เลขที่" name="AprovalNo" value={inputData.AprovalNo} onChange={handleInputData}/>        
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiDatePicker label="ลงวันที่" name="ApproveDate" value={inputData.ApproveDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfieldMultiLine label="รายละเอียดการอนุมัติ" name="ApproveDetail" value={inputData.ApproveDetail} onChange={handleInputData} row="3" />
-                                                        </Grid>
+                                            {/* Paper 4 - -------------------------------------------------- */}
+                                            <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                                <Paper className="paper line-top-green paper">
+                                                    <Grid item xs={12} md={12}>
+                                                        <Grid container spacing={2} className="paper-container">
+                                                            <Grid item xs={12} md={12}>
+                                                                <h1 className="paper-head-green">4. คำสั่งของผู้มีอำนาจอนุมัติ</h1>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* Field Text ---------------------------------------------------*/}
+                                                                <MuiTextfield label="เลขที่" name="AprovalNo" value={inputData.AprovalNo} onChange={handleInputData}/>        
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" name="ApproveDate" value={inputData.ApproveDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* Field Text ---------------------------------------------------*/}
+                                                                <MuiTextfieldMultiLine label="รายละเอียดการอนุมัติ" name="ApproveDetail" value={inputData.ApproveDetail} onChange={handleInputData} row="3" />
+                                                            </Grid>
 
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
-                                            </Paper>
-                                        </Grid>
+                                                </Paper>
+                                            </Grid>
 
-                                    </React.Fragment>
-                                }
-                                <Grid item xs={12} md={12}>
-                                    <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                        </React.Fragment>
+                                    }
+
+                                    {/* // Action: view */}
+                                    {
+                                        props.action === 'view' ? 
+                                        <Grid container spacing={2} className="btn-row">
+                                            <Grid item xs={12} md={6}>
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
+                                            </Grid>
+                                        </Grid>
+                                        : 
+                                        <Grid container spacing={2} className="btn-row">
+                                            <Grid item xs={12} md={6}>
+                                                {
+                                                    btnPrint || props.action === 'edit' ?  
+                                                        <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                                    : 
+
+                                                        <div style={{opacity: '0.5', pointerEvents: 'none'}}>
+                                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />}  /> 
+                                                        </div>
+                                                }
+                                                
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                {
+                                                    props.action === 'edit' ? 
+                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
+                                                    :
+                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
+                                                }
+                                            </Grid>
+
+                                            <Grid item xs={12} md={12}>
+                                                <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
+                                                {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} /> */}
+                                            </Grid>
+                                        </Grid>
+                                    } 
+
+                                    
                                 </Grid>
-                            </Grid>
-                        </form>
-                    </Container>
+                            </form>
+                        </Container>
 
 
-                    <Container maxWidth="lg" style={{display: 'none'}}>
-                        <div className="table">
-                            <h1>ประวัติการชำระเงินคืน</h1>
-                            <TableContainer className="table-box">
-                                <Table aria-label="normal table">
-                                    <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center">งวดที่</TableCell>
-                                        <TableCell align="center">กำหนดชำระภายในวันที่</TableCell>
-                                        <TableCell align="center">ชำระเงินต้น(บาท)</TableCell>
-                                        <TableCell align="center">ชำระดอกเบี้ย(บาท)</TableCell>
-                                        <TableCell align="center">ต้นเงินคงเหลือ(บาท)</TableCell>
-                                    </TableRow>
-                                    </TableHead>
-                                    <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                    {/* {
-                                        tableResult.map((row,i) => (
-                                            <TableRow key={i}>
-                                            <TableCell align="center">{row.a}</TableCell>
-                                            <TableCell align="center">{row.b}</TableCell>
-                                            <TableCell align="center">{row.c}</TableCell>
-                                            <TableCell align="center">{row.d}</TableCell>
-                                            <TableCell align="center">{row.e}</TableCell>
-                                            </TableRow>
-                                        ))
-                                    } */}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                        <Container maxWidth="lg" style={{display: 'none'}}>
+                            <div className="table">
+                                <h1>ประวัติการชำระเงินคืน</h1>
+                                <TableContainer className="table-box">
+                                    <Table aria-label="normal table">
+                                        <TableHead>
+                                        <TableRow>
+                                            <TableCell align="center">งวดที่</TableCell>
+                                            <TableCell align="center">กำหนดชำระภายในวันที่</TableCell>
+                                            <TableCell align="center">ชำระเงินต้น(บาท)</TableCell>
+                                            <TableCell align="center">ชำระดอกเบี้ย(บาท)</TableCell>
+                                            <TableCell align="center">ต้นเงินคงเหลือ(บาท)</TableCell>
+                                        </TableRow>
+                                        </TableHead>
+                                        <TableBody>{/* // clear mockup */}
+                                                <TableRow>
+                                                    <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                                </TableRow>
+                                                
+                                        {/* {
+                                            tableResult.map((row,i) => (
+                                                <TableRow key={i}>
+                                                <TableCell align="center">{row.a}</TableCell>
+                                                <TableCell align="center">{row.b}</TableCell>
+                                                <TableCell align="center">{row.c}</TableCell>
+                                                <TableCell align="center">{row.d}</TableCell>
+                                                <TableCell align="center">{row.e}</TableCell>
+                                                </TableRow>
+                                            ))
+                                        } */}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </div>
+                        </Container>
+                    </div>
+                </Fade>
+
+
+                <Dialog
+                    open={success}
+                    onClose={handleClosePopup}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    fullWidth
+                    maxWidth="xs"
+                >
+                    {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                    <DialogContent>
+
+                        <div className="dialog-success">
+                            <p className="txt-center txt-black">{successMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
+                            {
+                                props.action === 'edit' ? 
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                                :
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} /> 
+                            }
+                            </Box>
                         </div>
-                    </Container>
-                </div>
-            </Fade>
+                        
+                    </DialogContent>
+                    {/* <DialogActions>
+                    </DialogActions> */}
+                </Dialog>
 
-
-            <Dialog
-                open={success}
-                onClose={handleClosePopup}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                fullWidth
-                maxWidth="xs"
-            >
-                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
-                <DialogContent>
-
-                    <div className="dialog-success">
-                        <p className="txt-center txt-black">{successMsg}</p>
-                        <br/>
-                        <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
+                <Dialog
+                    open={err}
+                    onClose={handleClosePopup}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    fullWidth
+                    maxWidth="xs"
+                >
+                    {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                    <DialogContent>
+                    
+                        <div className="dialog-error">
+                            <p className="txt-center txt-black">{errMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
                                 
-                        </Box>
-                    </div>
-                    
-                </DialogContent>
-                {/* <DialogActions>
-                </DialogActions> */}
-            </Dialog>
-
-            <Dialog
-                open={err}
-                onClose={handleClosePopup}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                fullWidth
-                maxWidth="xs"
-            >
-                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
-                <DialogContent>
-                   
-                    <div className="dialog-error">
-                        <p className="txt-center txt-black">{errMsg}</p>
-                        <br/>
-                        <Box textAlign='center'>
-                            
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
-                            <ButtonFluidOutlineSecondary label="test" maxWidth="100px"  onClick={ props.handleComplete} />
-                        </Box>
-                    </div>
-                    
-                </DialogContent>
-                {/* <DialogActions>
-                </DialogActions> */}
-            </Dialog>
-        </div>
-    )
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                                {/* <ButtonFluidOutlineSecondary label="test" maxWidth="100px"  onClick={ props.handleComplete} /> */}
+                            </Box>
+                        </div>
+                        
+                    </DialogContent>
+                    {/* <DialogActions>
+                    </DialogActions> */}
+                </Dialog>
+            </div>
+        )
+    }
 }
 
 export default LoanRequestContactStep3

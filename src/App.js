@@ -43,17 +43,19 @@ const hostname = window.location.hostname;
 if(hostname !== 'localhost') {
   console.log('API - PRODUCTION', hostname)
   AuthData.hostname = 'https://loanfund.alro.go.th/nodeapi';
-  localStorage.setItem('hostname', 'https://loanfund.alro.go.th/nodeapi')
-  localStorage.setItem('siteimage', 'https://loanfund.alro.go.th/')
+  localStorage.setItem('hostname', 'https://loanfund.alro.go.th/nodeapi')// p.hanz
+  localStorage.setItem('spkapi', 'https://loanfund.alro.go.th/spkapi')// p.benz
+  localStorage.setItem('siteprint', 'https://loanfund.alro.go.th/api') // j.som
+  localStorage.setItem('siteimage', 'https://loanfund.alro.go.th/') // image
 } else {
   console.log('API - IP', hostname)
-  AuthData.hostname ='http://147.50.143.84:5441/nodeapi'
-  localStorage.setItem('hostname', 'http://147.50.143.84:5441/nodeapi')
+  AuthData.hostname ='http://147.50.143.84:5441/nodeapi' // p.hanz
+  localStorage.setItem('hostname', 'http://147.50.143.84:5441/nodeapi') // p.hanz
+  AuthData.spkapi ='http://147.50.143.84:3800' // k.benz
+  localStorage.setItem('spkapi', 'http://147.50.143.84:3800') // k.benz
+  localStorage.setItem('siteprint', 'http://147.50.143.84/api') // j.som
+  localStorage.setItem('siteimage', 'http://147.50.143.84/') // image
 
-  AuthData.spkapi ='http://147.50.143.84:3800'
-  localStorage.setItem('spkapi', 'http://147.50.143.84:3800')
-  
-  localStorage.setItem('siteimage', 'http://147.50.143.84/')
 }
 console.warn('hi app')
 

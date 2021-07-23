@@ -27,6 +27,7 @@ function Header(props) {
     const [loadingStatus, setLoadingStatus] = useState(".");
     const [realDate, setRealDate] = useState('')
     const [realTime, setRealTime] = useState('')
+    const [provinceCheck, setProvinceCheck] = useState(localStorage.getItem('provinceid'));
 
     const timer = () => {
         setRealDate(moment().format('Do MMMM YYYY'))
@@ -41,6 +42,8 @@ function Header(props) {
         // let getDateTime = setInterval(() => {
         //     timer()
         // }, 1000);
+        // console.log('provinceID',localStorage.getItem('provinceid'))
+        // console.log('RoleID',localStorage.getItem('nROLEID'))
         const intervalId = setInterval(() => {
 
             timer()
@@ -69,14 +72,14 @@ function Header(props) {
           } else {
 
               setIsLoaded(true);
-              console.log(res)
+            //   console.log(res)
               history.push('/');
               // setDataCampaign(data); // from local
           }
 
         })
         .catch(err => {
-          console.log(err);
+        //   console.log(err);
           setIsLoaded(true);
           setErr(true);
           history.push('/');
@@ -97,7 +100,13 @@ function Header(props) {
                 <div className="admin-info">
                     <p>
                         ยินดีต้อนรับ คุณ {username} <br/>
-                        <span>ส.ป.ก. จังหวัด{provincename} วันที่ {realDate} เวลา {realTime} น.</span>
+                        {
+                            provinceCheck === 'null' ? 
+                                <span>หน่วยงานส่วนกลาง วันที่ {realDate} เวลา {realTime} น.</span> 
+                            :
+                                <span>ส.ป.ก. จังหวัด{provincename} วันที่ {realDate} เวลา {realTime} น.</span>
+                        }
+                        
                     </p>
                     <Icon path={mdiLogout}
                         title="Log Out"

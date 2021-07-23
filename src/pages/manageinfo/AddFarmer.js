@@ -88,11 +88,12 @@ function AddFarmer(props) {
     const [districtLand5List, setDistrictLand5List] = useState(['กรุณาเลือกจังหวัด']);
     const [subDistrictLand5List, setSubDistrictLand5List] = useState(['กรุณาเลือก เขต/อำเภอ']);
 
+    const [checkIDCard, setCheckIDCard] = useState(true);
     const [inputData, setInputData] = useState({
         // IDCard: 1234567891017,
         IDCard: '', // 1234567891017,
         file: '',
-        LoanFarmerTypeID: '1', // 1,
+        LoanFarmerTypeID: '', // 1,
         FrontName: 'นาย', // 'นาย',
         Name: '', // 'จิมมี่',
         Sirname: '', // 'แซ่ฉ่วย',
@@ -587,11 +588,24 @@ function AddFarmer(props) {
                 })
 
             } else if (typeNumber === 'idc') {
-                event.target.value = event.target.value.toString().slice(0, 13)
+                let value = event.target.value.toString().slice(0, 13)
+
                 setInputData({
                     ...inputData,
-                    [event.target.name]: event.target.value
+                    [event.target.name]: value
                 })
+
+                function checkID(id) {
+                    let sum=0
+                    for(let i=0; i < 12; i++)
+                        sum += parseFloat(id.charAt(i))*(13-i);
+                    if((11-sum%11)%10!==parseFloat(id.charAt(12))) return false;
+                    return true;
+
+                }
+
+                setCheckIDCard(checkID(value));
+                console.log(checkID(value))
 
             } else {
                 setInputData({
@@ -655,30 +669,30 @@ function AddFarmer(props) {
             setDuplicateAddr(true);
             // fetchGetDistrict('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID);
             // fetchGetSubDistrict('Contact_AddrDistrictID', inputData.IDCARD_AddrDistrictID);
-            setInputData({
-                ...inputData,
-                Contact_AddNo: inputData.IDCARD_AddNo,
-                Contact_AddMoo: inputData.IDCARD_AddMoo,
-                Contact_AddrSoiRoad: inputData.IDCARD_AddrSoiRoad,
-                Contact_AddrSubdistrictID: inputData.IDCARD_AddrSubdistrictID,
-                Contact_AddrDistrictID: inputData.IDCARD_AddrDistrictID,
-                Contact_AddrProvinceID: inputData.IDCARD_AddrProvinceID,
-                Contact_Postcode: inputData.IDCARD_Postcode,
-                Contact_Addrzone: inputData.IDCard_Addrzone,
-            });
+            // setInputData({
+            //     ...inputData,
+            //     Contact_AddNo: inputData.IDCARD_AddNo,
+            //     Contact_AddMoo: inputData.IDCARD_AddMoo,
+            //     Contact_AddrSoiRoad: inputData.IDCARD_AddrSoiRoad,
+            //     Contact_AddrSubdistrictID: inputData.IDCARD_AddrSubdistrictID,
+            //     Contact_AddrDistrictID: inputData.IDCARD_AddrDistrictID,
+            //     Contact_AddrProvinceID: inputData.IDCARD_AddrProvinceID,
+            //     Contact_Postcode: inputData.IDCARD_Postcode,
+            //     Contact_Addrzone: inputData.IDCard_Addrzone,
+            // });
         } else {
             setDuplicateAddr(false);
-            setInputData({
-                ...inputData,
-                Contact_AddNo: '',
-                Contact_AddMoo: '',
-                Contact_AddrSoiRoad: '',
-                Contact_AddrSubdistrictID: 0,
-                Contact_AddrDistrictID: 0,
-                Contact_AddrProvinceID: 0,
-                Contact_Postcode: '',
-                Contact_Addrzone: '',
-            }) 
+            // setInputData({
+            //     ...inputData,
+            //     Contact_AddNo: '',
+            //     Contact_AddMoo: '',
+            //     Contact_AddrSoiRoad: '',
+            //     Contact_AddrSubdistrictID: 0,
+            //     Contact_AddrDistrictID: 0,
+            //     Contact_AddrProvinceID: 0,
+            //     Contact_Postcode: '',
+            //     Contact_Addrzone: '',
+            // }) 
         }
     }
 
@@ -858,466 +872,488 @@ function AddFarmer(props) {
             <Fade in={loaded} timeout={800}>
                 <div className="fade">
                     <Container maxWidth="sm">
-                            <Grid container spacing={2}>
+                        <Grid container spacing={2}>
                                 <Grid item xs={12} md={12} className="title-page">
                                     <h1>เพิ่มเกษตรกร</h1>
                                 </Grid>
 
-                            <form id="addFarmerForm" className="root" noValidate autoComplete="off">
-                                {/* Paper 1 -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper mg-t-20">
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" name="IDCard" value={inputData.IDCard} onInput={handleInputData} onBlur={handleValidateNumberOnBlur} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelect label="คำนำหน้า" listsValue={['นาย','นาง','นางสาว']} lists={['นาย', 'นาง', 'นางสาว']} name="FrontName" value={inputData.FrontName} onChange={handleInputData}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={4}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ชื่อ" defaultValue="" value={inputData.Name} name="Name" onChange={handleInputData} />
-                                            </Grid>
-                                            <Grid item xs={12} md={5}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุล" defaultValue="" value={inputData.Sirname} name="Sirname" onChange={handleInputData} />
-                                            </Grid>
-
-                                            {/* <Grid item xs={12} md={12}>
-                                                <Flatpickr
-                                                    lang={Thai}
-                                                    value={moment}
-                                                    options={{
-                                                        "locale": Thai
-                                                    }}
-                                                />
-                                            </Grid> */}
-
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Number ---------------------------------------------------*/}
-                                                <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel" defaultValue="" placeholder="ตัวอย่าง 0812345678" name="Tel"  value={inputData.Tel} onInput={handleInputData} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* File upload ---------------------------------------------------*/}
-                                                <p>อัพโหลดรูปบัตรประชาชน</p>
-                                                <MuiUpload imgUpload={inputData.imgUpload} id="addmember-img-upload-input" name="file" onChange={handleUploadImg} onClick={handleRemoveUploadImg} />
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Paper 2 -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiLabelHeader label="ที่อยู่ตามบัตรประชาชน"/>
-                                                <Divider variant="middle" style={{ margin: '0' }} />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="บ้านเลขที่" id="addmember-idcard-addr1-input" value={inputData.IDCARD_AddNo} name="IDCARD_AddNo" onChange={handleInputData}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="หมู่ที่" id="addmember-idcard-addr2-input" value={inputData.IDCARD_AddMoo} name="IDCARD_AddMoo" onChange={handleInputData}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-idcard-addr3-input" value={inputData.IDCARD_AddrSoiRoad} name="IDCARD_AddrSoiRoad" onChange={handleInputData}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelectProvince label="จังหวัด" id="addmember-idcard-province-select" lists={provinceIDCardList}  value={inputData.IDCARD_AddrProvinceID} name="IDCARD_AddrProvinceID" onChange={handleInputDataProvince} />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelectDistrict label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={districtIDCardList} value={inputData.IDCARD_AddrDistrictID} name="IDCARD_AddrDistrictID" onChange={handleInputDataDistrict}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="IDCARD_AddrSubdistrictID" onChange={handleInputData}  />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.IDCARD_Postcode} name="IDCARD_Postcode" onInput={handleInputData} />
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Paper 3 -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid container spacing={2} className="paper-container">
-                                            <Grid item xs={12} md={12}>
-                                                <MuiLabelHeader label="ที่อยู่ที่ติดต่อได้" />
-                                                <Divider variant="middle" style={{ margin: '0' }} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Radio Button ---------------------------------------------------*/}
-                                                <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox" onChange={handleDuplicateAddr} />
-                                            </Grid>
-                                            {
-                                                !duplicateAddr ? 
-                                                    <React.Fragment>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="บ้านเลขที่" defaultValue="" value={inputData.Contact_AddNo} name="Contact_AddNo" onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="หมู่ที่" defaultValue="" value={inputData.Contact_AddMoo} name="Contact_AddMoo" onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfield label="หมู่ซอย / ถนนที่" value={inputData.Contact_AddrSoiRoad} name="Contact_AddrSoiRoad" onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiSelectProvince label="จังหวัด" lists={provinceContactList}  value={inputData.Contact_AddrProvinceID} name="Contact_AddrProvinceID" onChange={handleInputDataProvince} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiSelectDistrict label="เขต / อำเภอ" lists={districtContactList} value={inputData.Contact_AddrDistrictID} name="Contact_AddrDistrictID" onChange={handleInputDataDistrict}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextNumber label="รหัสไปรษณีย์" id="addmember1-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />
-                                                        </Grid>
-                                                    </React.Fragment>
-                                                :
-                                                    <React.Fragment>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="บ้านเลขที่" value=""  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="หมู่ที่"  value=""  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  value=""  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="จังหวัด"  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="เขต / อำเภอ"   />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="แขวง / ตำบล" />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <MuiTextfield disabled label="รหัสไปรษณีย์" id="addmembe2-zip" defaultValue="" placeholder="ตัวอย่าง 10230" />
-                                                        </Grid>
-                                                    </React.Fragment>
-                                            }
-                                           
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                            </form>
-
-                                {/* Paper 4 -------------------------------------------------- */}
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
+                                <form id="addFarmerForm" className="root" noValidate autoComplete="off">
+                                    {/* Paper 1 -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12}>
+                                        <Paper className="paper line-top-green paper mg-t-20">
+                                            <Grid container spacing={2}>
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน </span>
-                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 1/5</span>
+                                                    {/* Field Number ---------------------------------------------------*/}
+                                                    <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" name="IDCard" value={inputData.IDCard} onInput={handleInputData} onBlur={handleValidateNumberOnBlur} />
+                                                </Grid>
+                                                {
+                                                    !checkIDCard ? 
+                                                            <p className="txt-red paper-p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เลขบัตรประชาชนไม่ถูกต้อง</p> 
+                                                    : ''
+                                                }
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                </Grid>
+                                                <Grid item xs={12} md={3}>
+                                                    {/* Field Select ---------------------------------------------------*/}
+                                                    <MuiSelect label="คำนำหน้า" listsValue={['นาย','นาง','นางสาว']} lists={['นาย', 'นาง', 'นางสาว']} name="FrontName" value={inputData.FrontName} onChange={handleInputData}  />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="ชื่อ" defaultValue="" value={inputData.Name} name="Name" onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="นามสกุล" defaultValue="" value={inputData.Sirname} name="Sirname" onChange={handleInputData} />
+                                                </Grid>
+
+                                                {/* <Grid item xs={12} md={12}>
+                                                    <Flatpickr
+                                                        lang={Thai}
+                                                        value={moment}
+                                                        options={{
+                                                            "locale": Thai
+                                                        }}
+                                                    />
+                                                </Grid> */}
+
+                                                <Grid item xs={12} md={12}>
+                                                    {/* Field Date Picker ---------------------------------------------------*/}
+                                                    <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    {/* Field Date Picker ---------------------------------------------------*/}
+                                                    <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    {/* Field Number ---------------------------------------------------*/}
+                                                    <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel" defaultValue="" placeholder="ตัวอย่าง 0812345678" name="Tel"  value={inputData.Tel} onInput={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    {/* File upload ---------------------------------------------------*/}
+                                                    <p>อัพโหลดรูปบัตรประชาชน</p>
+                                                    <MuiUpload imgUpload={inputData.imgUpload} id="addmember-img-upload-input" name="file" onChange={handleUploadImg} onClick={handleRemoveUploadImg} />
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Paper 2 -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiLabelHeader label="ที่อยู่ตามบัตรประชาชน"/>
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
-
-                                                {/* ที่ตั้งที่ดิน 1.---------------------------------------------------- */}
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand1.Land_AddMoo} name="Land_AddMoo_1" onChange={handleInputDataLand1} />
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="บ้านเลขที่" id="addmember-idcard-addr1-input" value={inputData.IDCARD_AddNo} name="IDCARD_AddNo" onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand1.Land_AddrProvinceID} name="Land_AddrProvinceID_1" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand1List} value={inputDataLand1.Land_AddrDistrictID} name="Land_AddrDistrictID_1" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand1List} value={inputDataLand1.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_1" onChange={handleInputDataLand1} />
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="หมู่ที่" id="addmember-idcard-addr2-input" value={inputData.IDCARD_AddMoo} name="IDCARD_AddMoo" onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand1.DocLand_code} name="DocLand_code_1" onChange={handleInputDataLand1} />
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="หมู่ซอย / ถนนที่" id="addmember-idcard-addr3-input" value={inputData.IDCARD_AddrSoiRoad} name="IDCARD_AddrSoiRoad" onChange={handleInputData}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand1.LandNumber}  name="LandNumber_1" onChange={handleInputDataLand1} />
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Select ---------------------------------------------------*/}
+                                                    <MuiSelectProvince label="จังหวัด" id="addmember-idcard-province-select" lists={provinceIDCardList}  value={inputData.IDCARD_AddrProvinceID} name="IDCARD_AddrProvinceID" onChange={handleInputDataProvince} />
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand1.LandGroup}  name="LandGroup_1" onChange={handleInputDataLand1} />
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Select ---------------------------------------------------*/}
+                                                    <MuiSelectDistrict label="เขต / อำเภอ" id="addmember-idcard-district-select" lists={districtIDCardList} value={inputData.IDCARD_AddrDistrictID} name="IDCARD_AddrDistrictID" onChange={handleInputDataDistrict}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand1.Plang}  name="Plang_1" onChange={handleInputDataLand1} />
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Select ---------------------------------------------------*/}
+                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="IDCARD_AddrSubdistrictID" onChange={handleInputData}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextNumber label="รหัสไปรษณีย์" id="addmember-zip" defaultValue="" placeholder="ตัวอย่าง 10230" value={inputData.IDCARD_Postcode} name="IDCARD_Postcode" onInput={handleInputData} />
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Paper>
+                                        </Paper>
+                                    </Grid>
 
-                                
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
+                                    {/* Paper 3 -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12}>
+                                        <Paper className="paper line-top-green paper">
                                             <Grid container spacing={2} className="paper-container">
                                                 <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
-                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 2/5</span>
+                                                    <MuiLabelHeader label="ที่อยู่ที่ติดต่อได้" />
                                                     <Divider variant="middle" style={{ margin: '0' }} />
                                                 </Grid>
-
-                                                {/* ที่ตั้งที่ดิน 2.---------------------------------------------------- */}
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiCheckbox label="Alro Land" />
+                                                    {/* Field Radio Button ---------------------------------------------------*/}
+                                                    <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox" onChange={handleDuplicateAddr} />
                                                 </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand2.Land_AddMoo} name="Land_AddMoo_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand2.Land_AddrProvinceID} name="Land_AddrProvinceID_2" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand2List} value={inputDataLand2.Land_AddrDistrictID} name="Land_AddrDistrictID_2" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand2List} value={inputDataLand2.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand2.DocLand_code} name="DocLand_code_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand2.LandNumber}  name="LandNumber_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand2.LandGroup}  name="LandGroup_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand2.Plang}  name="Plang_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Ngan}  endAdornment="งาน" name="Ngan_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Wa}  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-
+                                                {
+                                                    !duplicateAddr ? 
+                                                        <React.Fragment>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield label="บ้านเลขที่" value={inputData.Contact_AddNo} name="Contact_AddNo" onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield label="หมู่ที่" value={inputData.Contact_AddMoo} name="Contact_AddMoo" onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="หมู่ซอย / ถนนที่" value={inputData.Contact_AddrSoiRoad} name="Contact_AddrSoiRoad" onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiSelectProvince label="จังหวัด" lists={provinceContactList}  value={inputData.Contact_AddrProvinceID} name="Contact_AddrProvinceID" onChange={handleInputDataProvince} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiSelectDistrict label="เขต / อำเภอ" lists={districtContactList} value={inputData.Contact_AddrDistrictID} name="Contact_AddrDistrictID" onChange={handleInputDataDistrict}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextNumber label="รหัสไปรษณีย์" id="addmember1-zip" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />
+                                                            </Grid>
+                                                        </React.Fragment>
+                                                    :
+                                                        <React.Fragment>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield disabled label="บ้านเลขที่"  value={''}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield disabled label="หมู่ที่"  value={''}   />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  value={''}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield disabled label="จังหวัด"  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield disabled label="เขต / อำเภอ"   />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield disabled label="แขวง / ตำบล" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={6}>
+                                                                <MuiTextfield disabled label="รหัสไปรษณีย์" id="addmembe2-zip" defaultValue="" placeholder="ตัวอย่าง 10230" />
+                                                            </Grid>
+                                                        </React.Fragment>
+                                                }
+                                            
                                             </Grid>
-                                        </Grid>
-                                    </Paper>
+                                        </Paper>
+                                    </Grid>
 
-                                
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
-                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 3/5</span>
-                                                    <Divider variant="middle" style={{ margin: '0' }} />
-                                                </Grid>
+                                </form>
 
-                                               {/* ที่ตั้งที่ดิน 3.---------------------------------------------------- */}
-                                               <Grid item xs={12} md={12}>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand3.Land_AddMoo} name="Land_AddMoo_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand3.Land_AddrProvinceID} name="Land_AddrProvinceID_3" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand3List} value={inputDataLand3.Land_AddrDistrictID} name="Land_AddrDistrictID_3" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand3List} value={inputDataLand3.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand3.DocLand_code} name="DocLand_code_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand3.LandNumber}  name="LandNumber_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand3.LandGroup}  name="LandGroup_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand3.Plang}  name="Plang_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Ngan}  endAdornment="งาน" name="Ngan_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Wa}  endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-
-                                
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
-                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 4/5</span>
-                                                    <Divider variant="middle" style={{ margin: '0' }} />
-                                                </Grid>
-                                                
-                                                {/* ที่ตั้งที่ดิน 4.---------------------------------------------------- */}
-                                               <Grid item xs={12} md={12}>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand4.Land_AddMoo} name="Land_AddMoo_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand4.Land_AddrProvinceID} name="Land_AddrProvinceID_4" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand4List} value={inputDataLand4.Land_AddrDistrictID} name="Land_AddrDistrictID_4" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand4List} value={inputDataLand4.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand4.DocLand_code} name="DocLand_code_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand4.LandNumber}  name="LandNumber_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand4.LandGroup}  name="LandGroup_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand4.Plang}  name="Plang_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Ngan}  endAdornment="งาน" name="Ngan_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Wa}  endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-
-                                
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <span className="txt-black" style={{fontSize: '18px'}}>  เพิ่มที่ตั้งที่ดิน</span>
-                                                    <span className="txt-green fl-r"> ข้อมูลชุดที่ 5/5</span>
-                                                    <Divider variant="middle" style={{ margin: '0' }} />
-                                                </Grid>
-
-                                                {/* ที่ตั้งที่ดิน 5.---------------------------------------------------- */}
-                                               <Grid item xs={12} md={12}>
-                                                    <MuiCheckbox label="Alro Land" />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand5.Land_AddMoo} name="Land_AddMoo_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand5.Land_AddrProvinceID} name="Land_AddrProvinceID_5" onChange={handleInputDataLandProvince}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand5List} value={inputDataLand5.Land_AddrDistrictID} name="Land_AddrDistrictID_5" onChange={handleInputDataLandDistrict} />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand5List} value={inputDataLand5.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand5.DocLand_code} name="DocLand_code_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="เลขที่"   value={inputDataLand5.LandNumber}  name="LandNumber_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="กลุ่ม"  value={inputDataLand5.LandGroup}  name="LandGroup_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="แปลง"  value={inputDataLand5.Plang}  name="Plang_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Ngan}  endAdornment="งาน" name="Ngan_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Wa}  endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <Divider /> 
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                    {/* <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            {<FormLandInfo />}
-                                            {[...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />)}
+                                {
+                                    inputData.LoanFarmerTypeID === '2' ? '' :
+                                    <React.Fragment>
+                                        {/* Paper 4 -------------------------------------------------- */}
+                                        <Paper className="paper line-top-green paper">
                                             <Grid item xs={12} md={12}>
-                                                <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormLandInfo} />
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน </span>
+                                                        <span className="txt-green fl-r"> ข้อมูลชุดที่ 1/5</span>
+                                                        <Divider variant="middle" style={{ margin: '0' }} />
+                                                    </Grid>
+
+                                                    {/* ที่ตั้งที่ดิน 1.---------------------------------------------------- */}
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiCheckbox label="Alro Land" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand1.Land_AddMoo} name="Land_AddMoo_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand1.Land_AddrProvinceID} name="Land_AddrProvinceID_1" onChange={handleInputDataLandProvince}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand1List} value={inputDataLand1.Land_AddrDistrictID} name="Land_AddrDistrictID_1" onChange={handleInputDataLandDistrict} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand1List} value={inputDataLand1.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand1.DocLand_code} name="DocLand_code_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="เลขที่"   value={inputDataLand1.LandNumber}  name="LandNumber_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="กลุ่ม"  value={inputDataLand1.LandGroup}  name="LandGroup_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="แปลง"  value={inputDataLand1.Plang}  name="Plang_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <Divider /> 
+                                                    </Grid>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Paper> */}
+                                        </Paper>
+
+                                    
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
+                                                        <span className="txt-green fl-r"> ข้อมูลชุดที่ 2/5</span>
+                                                        <Divider variant="middle" style={{ margin: '0' }} />
+                                                    </Grid>
+
+                                                    {/* ที่ตั้งที่ดิน 2.---------------------------------------------------- */}
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiCheckbox label="Alro Land" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand2.Land_AddMoo} name="Land_AddMoo_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand2.Land_AddrProvinceID} name="Land_AddrProvinceID_2" onChange={handleInputDataLandProvince}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand2List} value={inputDataLand2.Land_AddrDistrictID} name="Land_AddrDistrictID_2" onChange={handleInputDataLandDistrict} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand2List} value={inputDataLand2.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand2.DocLand_code} name="DocLand_code_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="เลขที่"   value={inputDataLand2.LandNumber}  name="LandNumber_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="กลุ่ม"  value={inputDataLand2.LandGroup}  name="LandGroup_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="แปลง"  value={inputDataLand2.Plang}  name="Plang_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Ngan}  endAdornment="งาน" name="Ngan_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Wa}  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <Divider /> 
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+
+                                    
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
+                                                        <span className="txt-green fl-r"> ข้อมูลชุดที่ 3/5</span>
+                                                        <Divider variant="middle" style={{ margin: '0' }} />
+                                                    </Grid>
+
+                                                {/* ที่ตั้งที่ดิน 3.---------------------------------------------------- */}
+                                                <Grid item xs={12} md={12}>
+                                                        <MuiCheckbox label="Alro Land" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand3.Land_AddMoo} name="Land_AddMoo_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand3.Land_AddrProvinceID} name="Land_AddrProvinceID_3" onChange={handleInputDataLandProvince}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand3List} value={inputDataLand3.Land_AddrDistrictID} name="Land_AddrDistrictID_3" onChange={handleInputDataLandDistrict} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand3List} value={inputDataLand3.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand3.DocLand_code} name="DocLand_code_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="เลขที่"   value={inputDataLand3.LandNumber}  name="LandNumber_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="กลุ่ม"  value={inputDataLand3.LandGroup}  name="LandGroup_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="แปลง"  value={inputDataLand3.Plang}  name="Plang_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Ngan}  endAdornment="งาน" name="Ngan_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Wa}  endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <Divider /> 
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+
+                                    
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <span className="txt-black" style={{fontSize: '18px'}}> เพิ่มที่ตั้งที่ดิน</span>
+                                                        <span className="txt-green fl-r"> ข้อมูลชุดที่ 4/5</span>
+                                                        <Divider variant="middle" style={{ margin: '0' }} />
+                                                    </Grid>
+                                                    
+                                                    {/* ที่ตั้งที่ดิน 4.---------------------------------------------------- */}
+                                                <Grid item xs={12} md={12}>
+                                                        <MuiCheckbox label="Alro Land" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand4.Land_AddMoo} name="Land_AddMoo_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand4.Land_AddrProvinceID} name="Land_AddrProvinceID_4" onChange={handleInputDataLandProvince}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand4List} value={inputDataLand4.Land_AddrDistrictID} name="Land_AddrDistrictID_4" onChange={handleInputDataLandDistrict} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand4List} value={inputDataLand4.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand4.DocLand_code} name="DocLand_code_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="เลขที่"   value={inputDataLand4.LandNumber}  name="LandNumber_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="กลุ่ม"  value={inputDataLand4.LandGroup}  name="LandGroup_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="แปลง"  value={inputDataLand4.Plang}  name="Plang_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Ngan}  endAdornment="งาน" name="Ngan_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Wa}  endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <Divider /> 
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+
+                                    
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <span className="txt-black" style={{fontSize: '18px'}}>  เพิ่มที่ตั้งที่ดิน</span>
+                                                        <span className="txt-green fl-r"> ข้อมูลชุดที่ 5/5</span>
+                                                        <Divider variant="middle" style={{ margin: '0' }} />
+                                                    </Grid>
+
+                                                    {/* ที่ตั้งที่ดิน 5.---------------------------------------------------- */}
+                                                <Grid item xs={12} md={12}>
+                                                        <MuiCheckbox label="Alro Land" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand5.Land_AddMoo} name="Land_AddMoo_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectProvince label="จังหวัด" lists={provinceLandList}  value={inputDataLand5.Land_AddrProvinceID} name="Land_AddrProvinceID_5" onChange={handleInputDataLandProvince}/>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectDistrict label="เขต / อำเภอ" lists={districtLand5List} value={inputDataLand5.Land_AddrDistrictID} name="Land_AddrDistrictID_5" onChange={handleInputDataLandDistrict} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictLand5List} value={inputDataLand5.Land_AddrSubdistrictID} name="Land_AddrSubdistrictID_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiSelectObj label="ประเภทหนังสือสำคัญ" itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={inputDataLand5.DocLand_code} name="DocLand_code_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="เลขที่"   value={inputDataLand5.LandNumber}  name="LandNumber_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="กลุ่ม"  value={inputDataLand5.LandGroup}  name="LandGroup_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield label="แปลง"  value={inputDataLand5.Plang}  name="Plang_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Ngan}  endAdornment="งาน" name="Ngan_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Wa}  endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={12}>
+                                                        <Divider /> 
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+                                        {/* <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                {<FormLandInfo />}
+                                                {[...Array(countAddLandInfo)].map((_, i) => <FormLandInfo key={i} />)}
+                                                <Grid item xs={12} md={12}>
+                                                    <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormLandInfo} />
+                                                </Grid>
+                                            </Grid>
+                                        </Paper> */}
+                                    </React.Fragment>
+
+                                }
                             </Grid>
 
                             <Grid container spacing={2} className="btn-row" style={{margin: '15px -14px'}}>
-                                {/* Button Row -------------------------------------------------- */}
+                                {
+                                    !checkIDCard ? 
+                                    <Grid item xs={12} md={12} className="txt-center"><p className="txt-red paper-p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เลขบัตรประชาชนไม่ถูกต้อง</p> </Grid>
+                                    : ''
+                                }
                                 <Grid item xs={12} md={6}>
                                     <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={cancelData} />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                    {
+                                        !checkIDCard ? 
+                                        <div style={{opacity: '0.5', pointerEvents: 'none'}}>
+                                            <ButtonFluidPrimary label="บันทึกข้อมูล" />
+                                        </div>
+                                        : <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={handleSubmit} />
+                                    }
+                                    
                                 </Grid>
                             </Grid>
                     </Container>

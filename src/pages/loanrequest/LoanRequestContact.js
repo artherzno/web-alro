@@ -64,7 +64,7 @@ function getStepIcon(props) {
         2: '2',
         3: '3',
         4: '4',
-        5: <AddIcon/>,
+        // 5: <AddIcon/>,
     }
     return (
       <div className={(active) ? 'custom-stepper-item active' : (completed) ? 'custom-stepper-item completed' : 'custom-stepper-item'}>
@@ -81,7 +81,8 @@ function getStepIcon(props) {
   
 // Get Step Label
 function getSteps() {
-    return ['ยื่นคำขอ', 'แนบเอกสาร 1', 'ความเห็นของเจ้าหน้าที่', 'แนบเอกสาร 2', 'Special Flow'];
+    // return ['ยื่นคำขอ', 'แนบเอกสาร 1', 'ความเห็นของเจ้าหน้าที่', 'แนบเอกสาร 2', 'Special Flow'];
+    return ['ยื่นคำขอ', 'แนบเอกสาร 1', 'ความเห็นของเจ้าหน้าที่', 'แนบเอกสาร 2'];
 }
 
 function LoanRequestContact(props) {
@@ -113,13 +114,15 @@ function LoanRequestContact(props) {
         typePrint: '1',
     })
 
+
+    let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
+    let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
+    let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
+
     // Get Step Content
     function getStepContent(step) {
         // console.log(typeof(props.location.state) === 'undefined' ? 'hello' : 'bye')
-        let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
-        let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
-        let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
-
+console.log('getStepMain ApplicantID:',propsApplicantID)
         switch (step) {
             case 0:
             return <LoanRequestContactStep1 action={propsAction} ApplicantID={propsApplicantID} FarmerID={propsFarmerID} handleComplete={handleComplete} />;
@@ -246,15 +249,30 @@ function LoanRequestContact(props) {
                 <div className="fade">
                     <Container maxWidth="md">
                         <div className={classes.root}>
-                            <Stepper alternativeLabel activeStep={activeStep} className="custom-stepper-box">
-                                {steps.map((label, index) => (
-                                    <Step key={label} className="custom-stepper mg-t-20">
-                                        <StepButton onClick={handleStep(index)} completed={completed[index]}>
-                                            <StepLabel StepIconComponent={getStepIcon}>{label}</StepLabel>
-                                        </StepButton>
-                                    </Step>
-                                ))}
-                            </Stepper>
+                            {
+                                propsAction === 'view' || propsAction === 'edit' ? 
+                                    <Stepper alternativeLabel nonLinear activeStep={activeStep} className="custom-stepper-box">
+                                        {steps.map((label, index) => (
+                                            <Step key={label} className="custom-stepper mg-t-20">
+                                                <StepButton onClick={handleStep(index)} completed={completed[index]}>
+                                                    <StepLabel StepIconComponent={getStepIcon}>{label}</StepLabel>
+                                                </StepButton>
+                                            </Step>
+                                        ))}
+                                    </Stepper>
+                                    : 
+                                    <Stepper alternativeLabel activeStep={activeStep} className="custom-stepper-box">
+                                        {steps.map((label, index) => (
+                                            <Step key={label} className="custom-stepper mg-t-20">
+                                                <StepButton onClick={handleStep(index)} completed={completed[index]}>
+                                                    <StepLabel StepIconComponent={getStepIcon}>{label}</StepLabel>
+                                                </StepButton>
+                                            </Step>
+                                        ))}
+                                    </Stepper>
+                            }
+
+                           
 
                             {/* <div>
                                 {allStepsCompleted() ? (

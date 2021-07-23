@@ -323,7 +323,7 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled  } = props;
+    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled, error } = props;
 
     return (
         <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
@@ -331,7 +331,13 @@ const MuiTextfield = (props) => {
                 (label) === '' ? '' :
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} />
+            {
+                (error) ? 
+                    <TextField error name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />
+                : 
+                    <TextField name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />  
+            }
+            {/* <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} /> */}
             
         </FormControl>
     );
@@ -339,7 +345,7 @@ const MuiTextfield = (props) => {
 
 const MuiTextfieldMultiLine = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, row, name, onChange } = props;
+    const { topic, label, id, value, type, textAlign, row, name, onChange, error } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -347,7 +353,13 @@ const MuiTextfieldMultiLine = (props) => {
                 (label) === '' ? '' :
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} />
+            {
+                (error) ? 
+                    <TextField error name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign, padding: '10px 12px'  }}}/>
+                : 
+                    <TextField name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign, padding: '10px 12px'  }}}/>
+            }
+            {/* <BootstrapInput error name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} /> */}
         </FormControl>
     );
 }
@@ -413,7 +425,7 @@ const MuiTextfieldEndAdornment = (props) => {
 
 const MuiTextNumber = (props) => {
     const classes = useStyles();
-    const { topic, label, id, placeholder, value, onInput, name, onBlur } = props;
+    const { topic, label, id, placeholder, value, onInput, name, onBlur, error } = props;
 
     return (
         <FormControl className={classes.textbox}>
@@ -421,7 +433,13 @@ const MuiTextNumber = (props) => {
                 (label) === '' ? '' :
                 <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur}  />
+            {
+                (error) ? 
+                    <TextField error name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur} inputProps={{style: { padding: '10px 12px' }}} />
+                : 
+                    <TextField  name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur} inputProps={{style: { padding: '10px 12px' }}} />  
+            }
+            {/* <BootstrapInput name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur}  /> */}
         </FormControl>
     );
 }
@@ -521,7 +539,8 @@ const MuiDatePicker = (props) => {
 }
 
 const MuiCheckbox = (props) => {
-    const { label, id, type, defaultChecked, name, onChange } = props;
+    const { label, id, type, defaultChecked, name, onChange, checked } = props;
+    let checkedValue = checked === '1' || checked ? true : false
 
     return (
         <React.Fragment>
@@ -533,7 +552,7 @@ const MuiCheckbox = (props) => {
                         <Checkbox
                             name={name}
                             defaultChecked={defaultChecked}
-                            // checked={state.checkedB}
+                            checked={checkedValue}
                             onChange={onChange}
                             // name="checkedB"
                             color="primary"
@@ -550,7 +569,7 @@ const MuiCheckbox = (props) => {
                         <Checkbox
                             name={name}
                             defaultChecked={defaultChecked}
-                            // checked={state.checkedB}
+                            checked={checkedValue}
                             onChange={onChange}
                             // name="checkedB"
                             color="primary"

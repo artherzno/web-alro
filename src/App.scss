@@ -275,6 +275,61 @@ h3 {
 .fl-r {
   float: right;
 }
+// Padding Style --------------------------------//
+.pd-t-35 {
+  padding-top: 35px !important;
+}
+
+.pd-t-20 {
+  padding-top: 20px !important;
+}
+.pd-t-15 {
+  padding-top: 15px !important;
+}
+
+.pd-t-10 {
+  padding-top: 10px !important;
+}
+
+.pd-t-5 {
+  padding-top: 5px !important;
+}
+
+.pd-t-0 {
+  padding-top: 0 !important;
+}
+
+.pd-b-20 {
+  padding-bottom: 20px !important;
+}
+
+.pd-b-15 {
+  padding-bottom: 15px !important;
+}
+
+.pd-b-10 {
+  padding-bottom: 10px !important;
+}
+
+.pd-b--20 {
+  padding-bottom: -20px !important;
+}
+
+.pd-l-10 {
+  padding-left: 10px !important;
+}
+
+.pd-r-10 {
+  padding-right: 10px !important;
+}
+
+.pd-l-20 {
+  padding-left: 20px !important;
+}
+
+.pd-r-20 {
+  padding-right: 20px !important;
+}
 
 // Margin Style --------------------------------//
 .mg-t-35 {
@@ -407,7 +462,7 @@ h3 {
 .table-box {
   border: 1px solid rgba(234, 234, 243, 1);
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   margin: 35px 0 0;
 }
 
@@ -1008,6 +1063,12 @@ input {
   }
 }
 
+.form-view {
+  * {
+    pointer-events: none;
+  }
+}
+
 .form-input {
   margin-bottom: 8px;
 
@@ -1120,17 +1181,17 @@ input {
   .custom-stepper {
     &:last-child {
       .custom-stepper-item {
-        border: 2px dashed #bfbfbf;
-        &.active {
-          border-color: #27ae60;
-        }
-        &.completed {
-          border-style: solid;
-          border-color: #27ae60;
-        }
-        p {
-          line-height: 0.6;
-        }
+        // border: 2px dashed #bfbfbf;
+        // &.active {
+        //   border-color: #27ae60;
+        // }
+        // &.completed {
+        //   border-style: solid;
+        //   border-color: #27ae60;
+        // }
+        // p {
+        //   line-height: 0.6;
+        // }
       }
     }
   }

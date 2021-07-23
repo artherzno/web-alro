@@ -40,7 +40,7 @@ function LoanAddProject() {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [inputData, setInputData] = useState({
-        ProjectName: 0, // "123",
+        ProjectName: '', // "123",
         ProjectPlanYear: 0, // "64",
         ProjectMainCode: 0, // "1",
         ProjectMainName: 0, // "2",
@@ -355,10 +355,11 @@ function LoanAddProject() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-console.log('submit')
+        let setProjectBudget = inputData.ProjectBudget === null ? '0' : inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
+
         let addProject = document.getElementById('addProject');
         let formData = new FormData(addProject);
-        formData.set('ProjectBudget',parseFloat(inputData.ProjectBudget.split(',').join('')) || 0)
+        formData.set('ProjectBudget',parseFloat(setProjectBudget.split(',').join('')) || 0)
 
         axios.post(
             `${server_hostname}/admin/api/add_spkproject`, formData, { headers: { "token": token } } 
@@ -436,14 +437,27 @@ console.log('submit')
                                                 {/* <Grid item xs={12} md={2}>
                                                     <MuiTextfield label="รหัสโครงการชื่อ" id="loanadd-projectcode-input" defaultValue="" />
                                                 </Grid> */}
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiTextfield label="ชื่อโครงการ" defaultValue="" name="ProjectName" />
+                                                <Grid item xs={12} md={8}>
+                                                    <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputData.ProjectName} onChange={handleInputData}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={3}>
+                                                <Grid item xs={12} md={4}>
                                                     <MuiSelectObjYear label="แผนปี" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={3}>
-                                                    <MuiTextfield disabled label="จังหวัด" value={provincename} />
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={11} md={7}>
+                                                            <span style={{display: 'block'}}>งบประมาณโครงการหลัก</span>
+                                                            <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />
+                                                            {/* <MuiTextfield label="" /> */}
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="">&nbsp;</p>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield disabled label="จังหวัด" value={provincename} />
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
 
                                                 <Grid item xs={12} md={3}>
@@ -454,14 +468,9 @@ console.log('submit')
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="&nbsp;" id="loanadd-projectcode2-input" disabled  defaultValue="" value={projectMainCodeText} name="ProjectMainCode" />
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
+                                                <Grid item xs={12} md={7}>
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="&nbsp;" id="loanadd-projectmainname-input" disabled  defaultValue="" value={projectMainNameText} name="ProjectMainName"  />
-                                                </Grid>
-                                                <Grid item xs={12} md={3}>
-                                                    <span style={{display: 'block'}}>งบประมาณโครงการหลัก</span>
-                                                    <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />
-                                                    {/* <MuiTextfield label="" /> */}
                                                 </Grid>
 
 

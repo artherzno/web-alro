@@ -46,6 +46,7 @@ import {
     ButtonFluidPrimary, 
     ButtonNormalIconStartPrimary,
     ButtonFluidOutlineSecondary,
+    ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
 function LoanRequestContactStep1(props) {
@@ -63,18 +64,20 @@ function LoanRequestContactStep1(props) {
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [errLandData, setErrLandData] = useState(false)
     const [inputDataSupporter, setInputDataSupporter] = useState({
         FrontName: '',
         Name: '',
         Sirname: '',
     })
+
     const [inputData, setInputData] = useState({
         // ProjectPlanYear: 0,
         // typeLoan: '',
 
         typeMember: '1',
         typeId: '1',
-        typeGuarantee: '1',
+        typeGuarantee: '',
         typeDebt: '1',
         prefix: undefined,
         name: undefined,
@@ -117,14 +120,14 @@ function LoanRequestContactStep1(props) {
         FarmerProjectName3: '', // "",
         objective3: '', // "",
         Loan_amount3: 0, // "",
-        Loan_Total: '', // 0,
-        Farming_LandRai: '', // 1,
+        Loan_Total: 0, // 0,
+        Farming_LandRai: 0, // 1,
         Main_Plant: '', // "",
-        Income_PerYearPerRai: '', // 0,
-        Income_PerYear: '', // 0,
-        Interest_Percent: '', // 0,
-        Principle_YearNoPay: '', // 0,
-        Interest_YearNoPay: '', // 0,
+        Income_PerYearPerRai: 0, // 0,
+        Income_PerYear: 0, // 0,
+        Interest_Percent: 0, // 0,
+        Principle_YearNoPay: 0, // 0,
+        Interest_YearNoPay: 0, // 0,
         Supporter_Fname1: '', // "aaa",
         Supporter_Lname1: '', // "bbb",
         Supporter_IDCard1: '', // "1234567891014",
@@ -133,49 +136,11 @@ function LoanRequestContactStep1(props) {
         Supporter_IDCard2: '', // "1234567891014",
         Property: '', // "",
         Hire_purchase_contract_Number: '', // "",
-        LandValue: '', // 0,
-        LandPaidValue: '', // 0,
-        Debt: '', // 0,
+        LandValue: 0, // 0,
+        LandPaidValue: 0, // 0,
+        Debt: 0, // 0,
         Debt_Owner: '', // "",
-        Debt_Amount: '', // 0
-    })
-
-    const [inputDataView, setInputDataView] = useState({
-
-        ProjectYear: 0, // 2564,
-        LoanPeriodCode: '', // "ส",
-        FarmerID: props.FarmerID, // 1,
-        // LandID: '', // 1,
-        FarmerProjectName1: '', // "",
-        objective1: '', // "",
-        Loan_amount1: 0, // "",
-        FarmerProjectName2: '', // "",
-        objective2: '', // "",
-        Loan_amount2: 0, // "",
-        FarmerProjectName3: '', // "",
-        objective3: '', // "",
-        Loan_amount3: 0, // "",
-        Loan_Total: '', // 0,
-        Farming_LandRai: '', // 1,
-        Main_Plant: '', // "",
-        Income_PerYearPerRai: '', // 0,
-        Income_PerYear: '', // 0,
-        Interest_Percent: '', // 0,
-        Principle_YearNoPay: '', // 0,
-        Interest_YearNoPay: '', // 0,
-        Supporter_Fname1: '', // "aaa",
-        Supporter_Lname1: '', // "bbb",
-        Supporter_IDCard1: '', // "1234567891014",
-        Supporter_Fname2: '', // "xxx",
-        Supporter_Lname2: '', // "yyy",
-        Supporter_IDCard2: '', // "1234567891014",
-        Property: '', // "",
-        Hire_purchase_contract_Number: '', // "",
-        LandValue: '', // 0,
-        LandPaidValue: '', // 0,
-        Debt: '', // 0,
-        Debt_Owner: '', // "",
-        Debt_Amount: '', // 0
+        Debt_Amount: 0, // 0
     })
 
     const [countAddActivityProject, setCountAddActivityProject] = useState(1);
@@ -203,169 +168,231 @@ function LoanRequestContactStep1(props) {
 
     useEffect(() => {
         setLoaded(true);
-        console.log('Step1:',props.action)
+        console.log('Step1 action:',props.action)
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
         setProvinceLandList(dataProvinceList)
 
         let dataDocLandTypeList = JSON.parse(localStorage.getItem('doclandtypelist'))
         setDocLandTypeList(dataDocLandTypeList)
-        
-        // Action : Add -----------------------------------------//
-        if(props.FarmerID === 0) {
-            setErr(true)
-            setErrMsg('ไม่สามารถทำรายการได้')
-        } else {
-            const getFarmer = () => {
-                axios.post(
-                    `${server_hostname}/admin/api/get_farmer`, {"FarmerID": props.FarmerID}, { headers: { "token": token } } 
-                ).then(res => {
-                        console.log(res)
-                        let data = res.data;
-                        if(data.code === 0) {
-                            setErr(true);
-                            if(Object.keys(data.message).length !== 0) {
-                                console.error(data)
-                                if(typeof data.message === 'object') {
-                                    setErrMsg('ไม่สามารถทำรายการได้')
-                                } else {
-                                    setErrMsg([data.message])
-                                }
+
+        // Action : view Applicant Step1
+        const getViewApplicantStep1 = () => {
+            setIsLoading(true)
+            axios.post(
+                `${server_hostname}/admin/api/view_applicant_step1`, {"ApplicantID": props.ApplicantID}, { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
                             } else {
-                                setErrMsg(['ไม่สามารถทำรายการได้'])
+                                setErrMsg([data.message])
                             }
                         } else {
-                            console.log(res.data.data)
-                            let resFarmer = res.data.data;
-                            setInputData({
-                                ...inputData,
-                                IDCard: resFarmer.IDCard || '', // 1234567891017,
-                                file: resFarmer.file || '',
-                                LoanFarmerTypeID: resFarmer.LoanFarmerTypeID || '', // 1,
-                                FrontName: resFarmer.FrontName || '', // 'นาย',
-                                Name: resFarmer.Name || '', // 'จิมมี่',
-                                Sirname: resFarmer.Sirname || '', // 'แซ่ฉ่วย',
-                                BirthDate: resFarmer.BirthDate || null, // '2022-12-11',
-                                Tel: resFarmer.Tel || '', // '087-712-8888',
-                                IDCardEXP_Date: resFarmer.IDCardEXP_Date || null,
-                                land_data: resFarmer.land_data || [],
-                            })
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
-                    }
-                ).catch(err => { console.log(err);  history.push('/'); })
-                .finally(() => {
-                    if (isMounted.current) {
-                    setIsLoading(false)
-                    }
-                });
-            }          
-            
-            // Action :  View -----------------------------------------//
-            if(props.action === 'view') {
-                console.log("ApplicantID", props.ApplicantID)
-                const getApplicantStep1 = () => {
-                    axios.post(
-                        `${server_hostname}/admin/api/view_applicant_step1`, {"ApplicantID": props.ApplicantID}, { headers: { "token": token } } 
-                    ).then(res => {
-                            console.log(res)
-                            let data = res.data;
-                            if(data.code === 0) {
-                                setErr(true);
-                                if(Object.keys(data.message).length !== 0) {
-                                    console.error(data)
-                                    if(typeof data.message === 'object') {
-                                        setErrMsg('ไม่สามารถทำรายการได้')
-                                    } else {
-                                        setErrMsg([data.message])
-                                    }
-                                } else {
-                                    setErrMsg(['ไม่สามารถทำรายการได้'])
-                                }
-                            } else {
-                                console.log(res.data.data[0])
-                                let resApplicant = res.data.data[0];
-                                setInputDataView({
-                                    ...inputDataView,
-                                    ProjectYear: resApplicant.ProjectYear - 2500 || 0, // 2564,
-                                    LoanPeriodCode: resApplicant.LoanPeriodCode || '', // "ส",
-                                    FarmerID: props.FarmerID, // 1,
-                                    LandID: resApplicant.LandID || '', // 1,
-                                    FarmerProjectName1: resApplicant.FarmerProjectName1 || '', // "",
-                                    objective1: resApplicant.objective1 || '', // "",
-                                    Loan_amount1: resApplicant.Loan_amount1 || 0, // "",
-                                    FarmerProjectName2: resApplicant.FarmerProjectName2 || '', // "",
-                                    objective2: resApplicant.objective2 || '', // "",
-                                    Loan_amount2: resApplicant.Loan_amount2 || 0, // "",
-                                    FarmerProjectName3: resApplicant.FarmerProjectName3 || '', // "",
-                                    objective3: resApplicant.objective3 || '', // "",
-                                    Loan_amount3: resApplicant.Loan_amount3 || 0, // "",
-                                    Loan_Total: resApplicant.Loan_Total || '', // 0,
-                                    Farming_LandRai: resApplicant.Farming_LandRai || '', // 1,
-                                    Main_Plant: resApplicant.Main_Plant || '', // "",
-                                    Income_PerYearPerRai: resApplicant.Income_PerYearPerRai || '', // 0,
-                                    Income_PerYear: resApplicant.Income_PerYear || '', // 0,
-                                    Interest_Percent: resApplicant.Interest_Percent || '', // 0,
-                                    Principle_YearNoPay: resApplicant.Principle_YearNoPay || '', // 0,
-                                    Interest_YearNoPay: resApplicant.Interest_YearNoPay || '', // 0,
-                                    Supporter_Fname1: resApplicant.Supporter_Fname1 || '', // "aaa",
-                                    Supporter_Lname1: resApplicant.Supporter_Lname1 || '', // "bbb",
-                                    Supporter_IDCard1: resApplicant.Supporter_IDCard1 || '', // "1234567891014",
-                                    Supporter_Fname2: resApplicant.Supporter_Fname2 || '', // "xxx",
-                                    Supporter_Lname2: resApplicant.Supporter_Lname2 || '', // "yyy",
-                                    Supporter_IDCard2: resApplicant.Supporter_IDCard2 || '', // "1234567891014",
-                                    Property: resApplicant.Property || '', // "",
-                                    Hire_purchase_contract_Number: resApplicant.Hire_purchase_contract_Number || '', // "",
-                                    LandValue: resApplicant.LandValue || '', // 0,
-                                    LandPaidValue: resApplicant.LandPaidValue || '', // 0,
-                                    Debt: resApplicant.Debt || '', // 0,
-                                    Debt_Owner: resApplicant.Debt_Owner || '', // "",
-                                    Debt_Amount: resApplicant.Debt_Amount || '', // 0
-                                })
-                            }
-                        }
-                    ).catch(err => { console.log(err);  history.push('/'); })
-                    .finally(() => {
-                        if (isMounted.current) {
                         setIsLoading(false)
-                        }
-                    });
-                }   
-                getApplicantStep1();       
-            }
+                    } else {
+                        let dataFarmer = data.Farmer[0];
+                        let dataLand = data.Land[0]
+                        let dataDetail = data.data[0]
+                        // console.log('view farmer:',res.data.Farmer[0])
+                        // console.log('view land:',res.data.Land[0])
+                        // console.log('view detail:',res.data.data[0])
 
-            const checkLogin = () => {
-                axios.post(
-                    `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
-                ).then(res => {
-                        console.log(res)
-                        let data = res.data;
-                        if(data.code === 0) {
-                            setErr(true);
-                            if(Object.keys(data.message).length !== 0) {
-                                console.error(data)
-                                if(typeof data.message === 'object') {
-                                    setErrMsg('ไม่สามารถทำรายการได้')
-                                } else {
-                                    setErrMsg([data.message])
-                                }
+                        setLand_AddMoo(dataLand.Land_AddMoo)
+                        setLand_AddrProvinceID(dataLand.Land_AddrProvinceID)
+                        setLand_AddrDistrictID(dataLand.Land_AddrDistrictID)
+                        setLand_AddrSubdistrictID(dataLand.Land_AddrSubdistrictID)
+                        setDocLand_code(dataLand.DocLand_code)
+                        setLandNumber(dataLand.LandNumber)
+                        setLandGroup(dataLand.LandGroup)
+                        setPlang(dataLand.Plang)
+                        setRai(dataLand.Rai)
+                        setNgan(dataLand.Ngan)
+                        setWa(dataLand.Wa)
+
+                        setInputData({
+                            ...inputData,
+                            typeGuarantee: dataDetail.Property === '' || dataDetail.Property === null ? '1' : '2',
+
+                            IDCard: dataFarmer.IDCard, // 1234567891017,
+                            LoanFarmerTypeID: dataFarmer.LoanFarmerTypeID, // 1,
+                            FrontName: dataFarmer.FrontName, // 'นาย',
+                            Name: dataFarmer.Name, // 'จิมมี่',
+                            Sirname: dataFarmer.Sirname, // 'แซ่ฉ่วย',
+                            BirthDate: dataFarmer.BirthDate, // '2022-12-11',
+                            Tel: dataFarmer.Tel, // '087-712-8888',
+                            IDCardEXP_Date: dataFarmer.IDCardEXP_Date,
+                            land_data: [],
+                            LandID: dataLand.LandID,
+                            Land_AddrProvinceID: dataLand.Land_AddrProvinceID,
+                            Land_AddrDistrictID: dataLand.Land_AddrDistrictID,
+                            Land_AddrSubdistrictID: dataLand.Land_AddrSubdistrictID,
+                            DocLand_code: dataLand.DocLand_code,
+                            LandNumber: dataLand.LandNumber, // "0",
+                            LandGroup: dataLand.LandGroup, // "10",
+                            Plang: dataLand.Plang, // 0,
+                            Rai: dataLand.Rai, // 0,
+                            NganNgan: dataLand.NganNgan, // 0,
+                            Wa: dataLand.Wa, // 0,
+                    
+                            ProjectYear: dataDetail.ProjectYear - 2500 || null, // 2564,
+                            LoanPeriodCode: dataDetail.LoanPeriodCode || '', // "ส",
+                            FarmerID: props.FarmerID, // 1,
+                            // LandID: '', // 1,
+                            FarmerProjectName1: dataDetail.FarmerProjectName1 || '', // "",
+                            objective1: dataDetail.objective1 || '', // "",
+                            Loan_amount1: dataDetail.Loan_amount1 || 0, // "",
+                            FarmerProjectName2: dataDetail.FarmerProjectName2 || '', // "",
+                            objective2: dataDetail.objective2 || '', // "",
+                            Loan_amount2: dataDetail.Loan_amount2 || 0, // "",
+                            FarmerProjectName3: dataDetail.FarmerProjectName3 || '', // "",
+                            objective3: dataDetail.objective3 || '', // "",
+                            Loan_amount3: dataDetail.Loan_amount3 || 0, // "",
+                            Loan_Total: dataDetail.Loan_Total || '', // 0,
+                            Farming_LandRai: dataDetail.Farming_LandRai || '', // 1,
+                            Main_Plant: dataDetail.Main_Plant || '', // "",
+                            Income_PerYearPerRai: dataDetail.Income_PerYearPerRai || 0, // 0,
+                            Income_PerYear: dataDetail.Income_PerYear || 0, // 0,
+                            Interest_Percent: dataDetail.Interest_Percent || 0, // 0,
+                            Principle_YearNoPay: dataDetail.Principle_YearNoPay || 0, // 0,
+                            Interest_YearNoPay: dataDetail.Interest_YearNoPay || 0, // 0,
+                            Supporter_Fname1: dataDetail.Supporter_Fname1 || '', // "aaa",
+                            Supporter_Lname1: dataDetail.Supporter_Lname1 || '', // "bbb",
+                            Supporter_IDCard1: dataDetail.Supporter_IDCard1 || '', // "1234567891014",
+                            Supporter_Fname2: dataDetail.Supporter_Fname2 || '', // "xxx",
+                            Supporter_Lname2: dataDetail.Supporter_Lname2 || '', // "yyy",
+                            Supporter_IDCard2: dataDetail.Supporter_IDCard2 || '', // "1234567891014",
+                            Property: dataDetail.Property || '', // "",
+                            Hire_purchase_contract_Number: dataDetail.Hire_purchase_contract_Number || '', // "",
+                            LandValue: dataDetail.LandValue || 0, // 0,
+                            LandPaidValue: dataDetail.LandPaidValue || 0, // 0,
+                            Debt: dataDetail.Debt ? '1' : '0' || 0, // 0,
+                            Debt_Owner: dataDetail.Debt_Owner || '', // "",
+                            Debt_Amount: dataDetail.Debt_Amount || 0, // 0
+                        })
+                        // let resApplicant = res.data.data[0];
+                        setIsLoading(false)
+                    }
+                }
+            ).catch(err => { console.log(err); })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        } 
+
+        // Get Farmer
+        const getFarmer = () => {
+            setIsLoading(true)
+            axios.post(
+                `${server_hostname}/admin/api/get_farmer`, {"FarmerID": props.FarmerID}, { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
                             } else {
-                                setErrMsg(['ไม่สามารถทำรายการได้'])
+                                setErrMsg([data.message])
                             }
                         } else {
-                            getFarmer();
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
+                    } else {
+                        console.log('land_data',res.data.data.land_data)
+                        let resFarmer = res.data.data;
+                        setInputData({
+                            ...inputData,
+                            IDCard: resFarmer.IDCard || '', // 1234567891017,
+                            file: resFarmer.file || '',
+                            LoanFarmerTypeID: resFarmer.LoanFarmerTypeID || '', // 1,
+                            FrontName: resFarmer.FrontName || '', // 'นาย',
+                            Name: resFarmer.Name || '', // 'จิมมี่',
+                            Sirname: resFarmer.Sirname || '', // 'แซ่ฉ่วย',
+                            BirthDate: resFarmer.BirthDate || null, // '2022-12-11',
+                            Tel: resFarmer.Tel || '', // '087-712-8888',
+                            IDCardEXP_Date: resFarmer.IDCardEXP_Date || null,
+                            land_data: resFarmer.land_data || [],
+                        })
+                        
+
+                        if(res.data.data.land_data === undefined) {
+                            setErrLandData(true);
+                        }
+                        setIsLoading(false)
                     }
-                ).catch(err => { console.log(err);  history.push('/'); })
-                .finally(() => {
-                    if (isMounted.current) {
-                    setIsLoading(false)
-                    }
-                });
+                }
+            ).catch(err => { console.log(err);  })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        } 
+
+
+        
+        // Action :  View -----------------------------------------//
+        if(props.action === 'view') {
+            console.log("View ApplicantID", props.ApplicantID)  
+            getViewApplicantStep1();     
+        } else if(props.action === 'edit') {
+            console.log("Edit ApplicantID", props.ApplicantID)  
+            getViewApplicantStep1();     
+        } else {
+            // Action : Add -----------------------------------------//
+            if(props.FarmerID === 0) {
+                setErr(true)
+                setErrMsg('ไม่สามารถทำรายการได้')
+            } else {    
+
+                getFarmer();     
             }
-
-            checkLogin();
-
         }
+
+
+        const checkLogin = () => {
+            axios.post(
+                `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } else {
+                        // getFarmer();
+                    }
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        }
+
+        checkLogin();
         // executed when component mounted
         isMounted.current = true;
         return () => {
@@ -583,6 +610,7 @@ function LoanRequestContactStep1(props) {
     // Handle Submit ************************************
     const handleSubmit = (event) => {
         event.preventDefault();
+
         console.log('submit')
         let Loan_amount1_value = inputData.Loan_amount1.toLocaleString('en-US', {minimumFractionDigits: 2})
         let Loan_amount2_value = inputData.Loan_amount2.toLocaleString('en-US', {minimumFractionDigits: 2})
@@ -601,9 +629,9 @@ function LoanRequestContactStep1(props) {
         let formData = new FormData(addApplicantStep1);
         formData.delete('typeRadio')
         formData.append('FarmerID', inputData.FarmerID)
-        formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
+        // formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
         // formData.append('Debt',parseInt(inputData.Debt))
-        formData.set('ProjectYear',(inputData.ProjectYear + 2500))
+        formData.set('ProjectYear',(inputData.ProjectYear === 0 ? null : inputData.ProjectYear + 2500))
         formData.set('Loan_amount1', parseFloat(Loan_amount1_value.split(',').join('')))
         formData.set('Loan_amount2', parseFloat(Loan_amount2_value.split(',').join('')))
         formData.set('Loan_amount3', parseFloat(Loan_amount3_value.split(',').join('')))
@@ -616,9 +644,20 @@ function LoanRequestContactStep1(props) {
         formData.set('LandValue', parseFloat(LandValue_value.split(',').join('')))
         formData.set('LandPaidValue', parseFloat(LandPaidValue_value.split(',').join('')))
         formData.set('Debt_Amount', parseFloat(Debt_Amount_value.split(',').join('')))
+        formData.set('LandID',parseInt(inputData.LandID))
+
+        let url = '';
+        if(props.action === 'edit') {
+            url = `${server_hostname}/admin/api/edit_applicant_step1`;
+            console.log('edit step1 !!!')
+            formData.append('ApplicantID', props.ApplicantID);
+        } else {
+            console.log('add step1 !!!')
+            url = `${server_hostname}/admin/api/add_applicant_step1`
+        }
 
         axios.post(
-            `${server_hostname}/admin/api/add_applicant_step1`, formData, { headers: { "token": token } } 
+            url, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -635,19 +674,21 @@ function LoanRequestContactStep1(props) {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log(data.results.recordset[0].ApplicantID)
-                    localStorage.setItem('applicantID',data.results.recordset[0].ApplicantID)
+                    console.log('add get applicantID:',data.results.recordset[0].ApplicantID)
+                    if(props.action === 'add') {
+                        localStorage.setItem('applicantID',data.results.recordset[0].ApplicantID)
+                    }
                     localStorage.setItem('applicantProjectYear',inputData.ProjectYear)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                 }
             }
-        ).catch(err => { console.log(err); history.push('/') })
+        ).catch(err => { console.log(err); })
         .finally(() => {
             if (isMounted.current) {
-              setIsLoading(false)
+            setIsLoading(false)
             }
-         });
+        });
     };
 
     const postData = () => {
@@ -698,507 +739,558 @@ function LoanRequestContactStep1(props) {
 
     };
 
-    return (
-        <div className="loanrequestcontact-step-page">
-            <div className="header-nav">
-                <Header bgColor="bg-light-green" status="logged" />
-                <Nav />
-            </div>
-            
-            <Fade in={loaded} timeout={800}>
-                <div className="fade">
-                    <Container maxWidth="sm">
-                        <form id="addApplicantStep1" className="root" noValidate autoComplete="off">
+    const handleGotoSearch = () => {
+        setErr(false);
+        setSuccess(false);
+        history.push('/loanrequest/loanrequestcontactsearch')
+    };
 
-                            <Grid container spacing={2}>
+    if(isLoading) {
+        return (
+            <div style={{width: '100%', padding: '50px', textAlign: 'center'}}>...Loading...</div>
+        )
+    } else {
+        
+        return (
+            <div className="loanrequestcontact-step-page">
+                <div className="header-nav">
+                    <Header bgColor="bg-light-green" status="logged" />
+                    <Nav />
+                </div>
+                
+                <Fade in={loaded} timeout={800}>
+                    <div className="fade">
+                        <Container maxWidth="sm">
+                            <form id="addApplicantStep1" className="root" noValidate autoComplete="off">
 
-                                {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper mg-t-20">
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear || inputDataView.ProjectYear} onChange={handleInputData} />
+                                <Grid container spacing={2}>
+                                    {/* // Action: view */}
+                                    {
+                                        props.action === 'view' ? 
+                                        <Grid item xs={12} md={12} className="title-page">
+                                            <h1>รายละเอียดการยื่นคำขอ</h1>
+                                        </Grid> : ''
+                                    }
+                                    
+                                    {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper mg-t-20">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
+                                                        {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
+                                                    <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode" value={inputData.LoanPeriodCode} onChange={handleInputData} type="row" />
+                                                </Grid>
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiTextfield disabled label="คำนำหน้า" value={inputData.FrontName} />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiTextfield disabled label="ชื่อ" value={inputData.Name} />
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    <MuiTextfield disabled label="นามสกุล" value={inputData.Sirname} />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield disabled label="วัน เดือน ปี เกิด" value={(inputData.BirthDate) ? moment(inputData.BirthDate).format('DD/MM/YYYY') : ''} />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield disabled label="หมายเลขประจำตัว 13 หลัก" value={inputData.IDCard} />
+                                                </Grid>
+                                                {/* <Grid item xs={12} md={7}>
+                                                    <MuiRadioButton label="วันหมดอายุบัตรประจำตัวประชาชน" id="loanrequestcontact-step1-typeid-input" lists={['ตลอดชีพ','มีวันหมดอายุ']} value={inputData.typeId} onChange={handleChangeTypeId} type="row" />
+                                                </Grid> */}
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield disabled label="วันหมดอายุบัตรประจำตัวประชาชน" value={(inputData.IDCardEXP_Date) ? moment(inputData.IDCardEXP_Date).format('DD/MM/YYYY') : ''} />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield disabled label="เบอร์โทรศัพท์" value={inputData.Tel} /></Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
-                                                    {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
-                                                <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode" value={inputData.LoanPeriodCode || inputDataView.LoanPeriodCode} onChange={handleInputData} type="row" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield disabled label="คำนำหน้า" value={inputData.FrontName} />
-                                            </Grid>
-                                            <Grid item xs={12} md={4}>
-                                                <MuiTextfield disabled label="ชื่อ" value={inputData.Name} />
-                                            </Grid>
-                                            <Grid item xs={12} md={5}>
-                                                <MuiTextfield disabled label="นามสกุล" value={inputData.Sirname} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="วัน เดือน ปี เกิด" value={(inputData.BirthDate) ? moment(inputData.BirthDate).format('DD/MM/YYYY') : ''} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="หมายเลขประจำตัว 13 หลัก" value={inputData.IDCard} />
-                                            </Grid>
-                                            {/* <Grid item xs={12} md={7}>
-                                                <MuiRadioButton label="วันหมดอายุบัตรประจำตัวประชาชน" id="loanrequestcontact-step1-typeid-input" lists={['ตลอดชีพ','มีวันหมดอายุ']} value={inputData.typeId} onChange={handleChangeTypeId} type="row" />
-                                            </Grid> */}
-                                            <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="วันหมดอายุบัตรประจำตัวประชาชน" value={(inputData.IDCardEXP_Date) ? moment(inputData.IDCardEXP_Date).format('DD/MM/YYYY') : ''} />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiTextfield disabled label="เบอร์โทรศัพท์" value={inputData.Tel} /></Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
+                                        </Paper>
+                                    </Grid>
 
-                                {/* Paper 2 - ข้อ1  -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2} className="paper-container">
-                                                    <Grid item xs={12} md={12}>
-                                                        <h1 className="paper-head-green">ข้อ 1</h1>
+                                    {/* Paper 2 - ข้อ1  -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2} className="paper-container">
+                                                        <Grid item xs={12} md={12}>
+                                                            <h1 className="paper-head-green">ข้อ 1</h1>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                            <MuiLabelHeader label="ที่ตั้งที่ดิน" />
+                                                            <Divider variant="middle" style={{ margin: '0'}} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                            {
+                                                                props.action === 'view' || props.action === 'edit' ? 
+                                                                <MuiTextfield inputdisabled="input-disabled" label="หมายเลขที่ตั้งที่ดิน" value={inputData.LandID} />
+                                                                :
+                                                                <MuiSelectObj label="หมายเลขที่ตั้งที่ดิน" itemName={'LandID'} itemValue={'LandID'} lists={inputData.land_data} name="LandID" value={inputData.LandID} onChange={handleInputLandData} />
+                                                        }
+                                                        </Grid>
+                                                        {
+                                                            errLandData ? <Grid item xs={12} md={12} className="pd-t-5"><p className="txt-red">ไม่พบข้อมูลที่ตั้งที่ดิน</p></Grid> : ''
+                                                        }
+                                                        <Grid item xs={12} md={12}>
+                                                            {/* Field Radio Button ---------------------------------------------------*/}
+                                                            <MuiCheckbox label="Alro Land" id="loanrequestcontact-step1-no1-alro-checkbox"  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                            {/* Field Text ---------------------------------------------------*/}
+                                                            <MuiTextfield inputdisabled="input-disabled" label="หมู่ที่" value={Land_AddMoo}  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" id={`Land_AddrProvinceID`}  lists={provinceLandList}  value={Land_AddrProvinceID}  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" id={`Land_AddrDistrictID`}  lists={districtList} value={Land_AddrDistrictID} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" id={`Land_AddrSubdistrictID`}  lists={subdistrictList} value={Land_AddrSubdistrictID} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                            <MuiSelectObj inputdisabled="input-disabled" label="ประเภทหนังสือสำคัญ" id={`DocLand_code`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={DocLand_code} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield inputdisabled="input-disabled" label="เลขที่"  id={`LandNumbe`}  value={LandNumber} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield inputdisabled="input-disabled" label="กลุ่ม" id={`LandGroup`}  value={LandGroup} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield inputdisabled="input-disabled" label="แปลง" id={`Plang`}  value={Plang} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="ไร่"  id={`Rai`} value={Rai}  endAdornment="ไร่" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="งาน" id={`Ngan`} value={Ngan}  endAdornment="งาน" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="วา" id={`Wa`} value={Wa}  endAdornment="วา" />
+                                                        </Grid>
                                                     </Grid>
+
+
                                                     <Grid item xs={12} md={12}>
-                                                        <MuiLabelHeader label="ที่ตั้งที่ดิน" />
+                                                        <br/>
+                                                        <MuiLabelHeader label="กิจกรรม/โครงการที่มีความประสงค์จะกู้ยืมเงิน" />
                                                         <Divider variant="middle" style={{ margin: '0'}} />
                                                     </Grid>
+
+                                                    <Box component="div" className="box box-grey" m={1}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="1. กิจกรรม / โครงการ" name="FarmerProjectName1" value={inputData.FarmerProjectName1}  onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective1" value={inputData.objective1}  onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={11}>
+                                                                <p className="paper-p">จำนวนเงิน</p>
+                                                                <MuiTextfieldCurrency label="" name="Loan_amount1" value={inputData.Loan_amount1}  onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">&nbsp;</p>
+                                                                <p className="paper-p">บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+                                                    <Box component="div" className="box box-grey" m={1}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="2. กิจกรรม / โครงการ" name="FarmerProjectName2" value={inputData.FarmerProjectName2}   onChange={handleInputData} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* Field Text ---------------------------------------------------*/}
+                                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective2" value={inputData.objective2}  onChange={handleInputData}  />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={11}>
+                                                                <p className="paper-p">จำนวนเงิน</p>
+                                                                <MuiTextfieldCurrency label="" name="Loan_amount2" value={inputData.Loan_amount2}  onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">&nbsp;</p>
+                                                                <p className="paper-p">บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+                                                    <Box component="div" className="box box-grey" m={1}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="3. กิจกรรม / โครงการ" name="FarmerProjectName3" value={inputData.FarmerProjectName3} onChange={handleInputData} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* Field Text ---------------------------------------------------*/}
+                                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective3" value={inputData.objective3} onChange={handleInputData} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={11}>
+                                                                <p className="paper-p">จำนวนเงิน</p>
+                                                                <MuiTextfieldCurrency label="" name="Loan_amount3" value={inputData.Loan_amount3}  onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">&nbsp;</p>
+                                                                <p className="paper-p">บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+                                                    <Box component="div" className="box box-grey" m={1} textAlgin="right">
+                                                        <Grid container spacing={2} className="loanrequestcontactstep-loantotal">
+                                                            <Grid item xs={12} md={6}>
+                                                                <p className="paper-p txt-right">จำนวนเงินรวม</p>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={5}>
+                                                                {/* <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">
+                                                                    { 
+                                                                        ((inputData.Loan_amount1 === 0 || inputData.Loan_amount1 === '' ? 0 : parseFloat(inputData.Loan_amount1.split(',').join(''))) + 
+                                                                        (inputData.Loan_amount2 === 0 || inputData.Loan_amount2 === '' ? 0 : parseFloat(inputData.Loan_amount2.split(',').join(''))) +
+                                                                        (inputData.Loan_amount3 === 0 || inputData.Loan_amount3 === '' ? 0 : parseFloat(inputData.Loan_amount3.split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
+                                                                    } 
+                                                                </span> บาท</p> */}
+                                                                <MuiTextfieldCurrency label="" name="Loan_Total" value={ 
+                                                                        ((inputData.Loan_amount1 === 0 || inputData.Loan_amount1 === '' ? 0 : parseFloat(inputData.Loan_amount1.split(',').join(''))) + 
+                                                                        (inputData.Loan_amount2 === 0 || inputData.Loan_amount2 === '' ? 0 : parseFloat(inputData.Loan_amount2.split(',').join(''))) +
+                                                                        (inputData.Loan_amount3 === 0 || inputData.Loan_amount3 === '' ? 0 : parseFloat(inputData.Loan_amount3.split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
+                                                                    }  onChange={handleInputData} />
+                                                                
+                                                                {/* <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">150,000 </span>บาท</p> */}
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p className="paper-p">บาท</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
+
+                                                    {/* { [...Array(countAddActivityProject)].map((_, i) => <FormActivityProject key={i} num={i} />) } 
                                                     <Grid item xs={12} md={12}>
-                                                        <MuiSelectObj label="เลขตั้งที่ดิน" itemName={'LandID'} itemValue={'LandID'} lists={inputData.land_data} name="LandID" value={inputData.LandID} onChange={handleInputLandData} />
+                                                        <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormActivityProject}/>
+                                                    </Grid>*/}
+                                            </Grid>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Paper 3 - ข้อ2  -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <h1 className="paper-head-green">ข้อ 2</h1>
                                                     </Grid>
-                                                    <Grid item xs={12} md={12}>
-                                                        {/* Field Radio Button ---------------------------------------------------*/}
-                                                        <MuiCheckbox label="Alro Land" id="loanrequestcontact-step1-no1-alro-checkbox"  />
+                                                    <Grid item xs={12} md={11}>
+                                                        <p className="">จำนวนที่ดินสำหรับประกอบเกษตรกรรมในเขตปฏิรูปที่ดิน</p>
+                                                        <MuiTextfieldCurrency label="" name="Farming_LandRai" value={inputData.Farming_LandRai} onChange={handleInputData} /> 
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ไร่</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfield inputdisabled="input-disabled" label="หมู่ที่" value={Land_AddMoo}  />
+                                                        <MuiTextfield label="พืชหลักที่ปลูก" name="Main_Plant" value={inputData.Main_Plant} onChange={handleInputData} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" id={`Land_AddrProvinceID`}  lists={provinceLandList}  value={Land_AddrProvinceID}  />
+                                                    <Grid item xs={12} md={11}>
+                                                        <p className="">ได้ผลผลิตเป็นรายได้ต่อปี ไร่ละ</p>
+                                                        <MuiTextfieldCurrency label="" name="Income_PerYearPerRai" value={inputData.Income_PerYearPerRai} onChange={handleInputData} /> 
                                                     </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" id={`Land_AddrDistrictID`}  lists={districtList} value={Land_AddrDistrictID} />
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">บาท</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" id={`Land_AddrSubdistrictID`}  lists={subdistrictList} value={Land_AddrSubdistrictID} />
+                                                    <Grid item xs={12} md={11}>
+                                                        <p className="">รวมเป็นเงินทั้งสิ้นประมาณปีละ</p>
+                                                        <MuiTextfieldCurrency label="" name="Income_PerYear" value={inputData.Income_PerYear} onChange={handleInputData} /> 
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">บาท</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Paper 4 - ข้อ3  -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <h1 className="paper-head-green">ข้อ 3</h1>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={10}>
+                                                        <p className="">ดอกเบี้ยเงินกู้ อัตราร้อยละ</p>
+                                                        <MuiTextfieldCurrency label="" name="Interest_Percent" value={inputData.Interest_Percent} onChange={handleInputData} /> 
+                                                    </Grid>
+                                                    <Grid item xs={1} md={2}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ต่อปี</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
-                                                        <MuiSelectObj inputdisabled="input-disabled" label="ประเภทหนังสือสำคัญ" id={`DocLand_code`} itemName={'DocLand_name'} itemValue={'DocLand_code'} lists={docLandTypeList} value={DocLand_code} />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield inputdisabled="input-disabled" label="เลขที่"  id={`LandNumbe`}  value={LandNumber} />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield inputdisabled="input-disabled" label="กลุ่ม" id={`LandGroup`}  value={LandGroup} />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield inputdisabled="input-disabled" label="แปลง" id={`Plang`}  value={Plang} />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="ไร่"  id={`Rai`} value={Rai}  endAdornment="ไร่" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="งาน" id={`Ngan`} value={Ngan}  endAdornment="งาน" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="วา" id={`Wa`} value={Wa}  endAdornment="วา" />
+                                                        <MuiLabelHeaderCheckbox label="ระยะเวลาปลอดการชำระเงิน" />
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={5}>
+                                                                <p className="">เงินต้น</p>
+                                                                <MuiTextfieldCurrency label="" name="Principle_YearNoPay" value={inputData.Principle_YearNoPay} onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p>&nbsp;</p>
+                                                                <p className="paper-p">ปี</p>
+                                                            </Grid>
+
+
+                                                            <Grid item xs={12} md={5}>
+                                                                <p className="">ดอกเบี้ย</p>
+                                                                <MuiTextfieldCurrency label="" name="Interest_YearNoPay" value={inputData.Interest_YearNoPay} onChange={handleInputData} /> 
+                                                            </Grid>
+                                                            <Grid item xs={1} md={1}>
+                                                                <p>&nbsp;</p>
+                                                                <p className="paper-p">ปี</p>
+                                                            </Grid>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
+                                            </Grid>
+                                        </Paper>
+                                    </Grid>
 
-
-                                                <Grid item xs={12} md={12}>
-                                                    <br/>
-                                                    <MuiLabelHeader label="กิจกรรม/โครงการที่มีความประสงค์จะกู้ยืมเงิน" />
-                                                    <Divider variant="middle" style={{ margin: '0'}} />
-                                                </Grid>
-
-                                                <Box component="div" className="box box-grey" m={1}>
-                                                    <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfield label="1. กิจกรรม / โครงการ" name="FarmerProjectName1" value={inputData.FarmerProjectName1}  onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective1" value={inputData.objective1}  onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={11}>
-                                                            <p className="paper-p">จำนวนเงิน</p>
-                                                            <MuiTextfieldCurrency label="" name="Loan_amount1" value={inputData.Loan_amount1}  onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">&nbsp;</p>
-                                                            <p className="paper-p">บาท</p>
-                                                        </Grid>
+                                    {/* Paper 5 - ข้อ4  -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <h1 className="paper-head-green">ข้อ 4</h1>
                                                     </Grid>
-                                                </Box>
-                                                <Box component="div" className="box box-grey" m={1}>
-                                                    <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfield label="2. กิจกรรม / โครงการ" name="FarmerProjectName2" value={inputData.FarmerProjectName2}   onChange={handleInputData} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective2" value={inputData.objective2}  onChange={handleInputData}  />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={11}>
-                                                            <p className="paper-p">จำนวนเงิน</p>
-                                                            <MuiTextfieldCurrency label="" name="Loan_amount2" value={inputData.Loan_amount2}  onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">&nbsp;</p>
-                                                            <p className="paper-p">บาท</p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                <Box component="div" className="box box-grey" m={1}>
-                                                    <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <MuiTextfield label="3. กิจกรรม / โครงการ" name="FarmerProjectName3" value={inputData.FarmerProjectName3} onChange={handleInputData} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective3" value={inputData.objective3} onChange={handleInputData} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={11}>
-                                                            <p className="paper-p">จำนวนเงิน</p>
-                                                            <MuiTextfieldCurrency label="" name="Loan_amount3" value={inputData.Loan_amount3}  onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">&nbsp;</p>
-                                                            <p className="paper-p">บาท</p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                <Box component="div" className="box box-grey" m={1} textAlgin="right">
-                                                    <Grid container spacing={2} className="loanrequestcontactstep-loantotal">
-                                                        <Grid item xs={12} md={6}>
-                                                            <p className="paper-p txt-right">จำนวนเงินรวม</p>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={5}>
-                                                            {/* <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">
-                                                                { 
-                                                                    ((inputData.Loan_amount1 === 0 || inputData.Loan_amount1 === '' ? 0 : parseFloat(inputData.Loan_amount1.split(',').join(''))) + 
-                                                                    (inputData.Loan_amount2 === 0 || inputData.Loan_amount2 === '' ? 0 : parseFloat(inputData.Loan_amount2.split(',').join(''))) +
-                                                                    (inputData.Loan_amount3 === 0 || inputData.Loan_amount3 === '' ? 0 : parseFloat(inputData.Loan_amount3.split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
-                                                                } 
-                                                            </span> บาท</p> */}
-                                                            <MuiTextfieldCurrency label="" name="Loan_Total" value={ 
-                                                                    ((inputData.Loan_amount1 === 0 || inputData.Loan_amount1 === '' ? 0 : parseFloat(inputData.Loan_amount1.split(',').join(''))) + 
-                                                                    (inputData.Loan_amount2 === 0 || inputData.Loan_amount2 === '' ? 0 : parseFloat(inputData.Loan_amount2.split(',').join(''))) +
-                                                                    (inputData.Loan_amount3 === 0 || inputData.Loan_amount3 === '' ? 0 : parseFloat(inputData.Loan_amount3.split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
-                                                                }  onChange={handleInputData} />
+                                                    <Grid item xs={12} md={12}>
+                                                        <MuiLabelHeaderCheckbox label="หลักประกันการกู้ยืมเงิน" />
+                                                        <RadioGroup name="typeRadio" value={inputData.typeGuarantee} onChange={handleChangeTypeGuarantee}>
+                                                            <FormControlLabel value="1" control={<Radio color="primary" />} label="แบบรายบุคคล" />
                                                             
-                                                            {/* <p className="loanrequestcontact-loan-amount">จำนวนเงินรวม <span className="txt-green">150,000 </span>บาท</p> */}
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p className="paper-p">บาท</p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-
-                                                {/* { [...Array(countAddActivityProject)].map((_, i) => <FormActivityProject key={i} num={i} />) } 
-                                                <Grid item xs={12} md={12}>
-                                                    <ButtonFluidPrimary label="+ เพิ่มกิจกรรม / โครงการ" onClick={addFormActivityProject}/>
-                                                </Grid>*/}
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Paper 3 - ข้อ2  -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <h1 className="paper-head-green">ข้อ 2</h1>
-                                                </Grid>
-                                                <Grid item xs={12} md={11}>
-                                                    <p className="">จำนวนที่ดินสำหรับประกอบเกษตรกรรมในเขตปฏิรูปที่ดิน</p>
-                                                    <MuiTextfieldCurrency label="" name="Farming_LandRai" value={inputData.Farming_LandRai} onChange={handleInputData} /> 
-                                                </Grid>
-                                                <Grid item xs={1} md={1}>
-                                                    <p>&nbsp;</p>
-                                                    <p className="paper-p">ไร่</p>
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    {/* Field Text ---------------------------------------------------*/}
-                                                    <MuiTextfield label="พืชหลักที่ปลูก" name="Main_Plant" value={inputData.Main_Plant} onChange={handleInputData} />
-                                                </Grid>
-                                                <Grid item xs={12} md={11}>
-                                                    <p className="">ได้ผลผลิตเป็นรายได้ต่อปี ไร่ละ</p>
-                                                    <MuiTextfieldCurrency label="" name="Income_PerYearPerRai" value={inputData.Income_PerYearPerRai} onChange={handleInputData} /> 
-                                                </Grid>
-                                                <Grid item xs={1} md={1}>
-                                                    <p>&nbsp;</p>
-                                                    <p className="paper-p">บาท</p>
-                                                </Grid>
-                                                <Grid item xs={12} md={11}>
-                                                    <p className="">รวมเป็นเงินทั้งสิ้นประมาณปีละ</p>
-                                                    <MuiTextfieldCurrency label="" name="Income_PerYear" value={inputData.Income_PerYear} onChange={handleInputData} /> 
-                                                </Grid>
-                                                <Grid item xs={1} md={1}>
-                                                    <p>&nbsp;</p>
-                                                    <p className="paper-p">บาท</p>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Paper 4 - ข้อ3  -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <h1 className="paper-head-green">ข้อ 3</h1>
-                                                </Grid>
-                                                <Grid item xs={12} md={10}>
-                                                    <p className="">ดอกเบี้ยเงินกู้ อัตราร้อยละ</p>
-                                                    <MuiTextfieldCurrency label="" name="Interest_Percent" value={inputData.Interest_Percent} onChange={handleInputData} /> 
-                                                </Grid>
-                                                <Grid item xs={1} md={2}>
-                                                    <p>&nbsp;</p>
-                                                    <p className="paper-p">ต่อปี</p>
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeaderCheckbox label="ระยะเวลาปลอดการชำระเงิน" />
-                                                    <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={5}>
-                                                            <p className="">เงินต้น</p>
-                                                            <MuiTextfieldCurrency label="" name="Principle_YearNoPay" value={inputData.Principle_YearNoPay} onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p>&nbsp;</p>
-                                                            <p className="paper-p">ปี</p>
-                                                        </Grid>
-
-
-                                                        <Grid item xs={12} md={5}>
-                                                            <p className="">ดอกเบี้ย</p>
-                                                            <MuiTextfieldCurrency label="" name="Interest_YearNoPay" value={inputData.Interest_YearNoPay} onChange={handleInputData} /> 
-                                                        </Grid>
-                                                        <Grid item xs={1} md={1}>
-                                                            <p>&nbsp;</p>
-                                                            <p className="paper-p">ปี</p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Paper 5 - ข้อ4  -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <h1 className="paper-head-green">ข้อ 4</h1>
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeaderCheckbox label="หลักประกันการกู้ยืมเงิน" />
-                                                    <RadioGroup name="typeRadio" value={inputData.typeGuarantee} onChange={handleChangeTypeGuarantee}>
-                                                        <FormControlLabel value="1" control={<Radio color="primary" />} label="แบบรายบุคคล" />
-                                                        
-                                                        <div style={ inputData.typeGuarantee === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                            <div className="radio-group-content">
-                                                                <Box component="div" className="box box-grey result-list">
-                                                                    <Grid container spacing={2}>
-                                                                        <Grid item xs={12} md={12}>
-                                                                            <span style={{display: 'block'}}>รายที่ 1.</span>
+                                                            <div style={ inputData.typeGuarantee === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
+                                                                <div className="radio-group-content">
+                                                                    <Box component="div" className="box box-grey result-list">
+                                                                        <Grid container spacing={2}>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <span style={{display: 'block'}}>รายที่ 1.</span>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no1-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.Supporter_IDCard1} name="Supporter_IDCard1" onInput = {handleInputSupporterData}  />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData.Supporter_Fname1} name="Supporter_Fname1" />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname1} name="Supporter_Lname1" />
+                                                                            </Grid>
                                                                         </Grid>
-                                                                        <Grid item xs={12} md={12}>
-                                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no1-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.Supporter_IDCard1} name="Supporter_IDCard1" onInput = {handleInputSupporterData}  />
+                                                                    </Box>
+                                                                    <Box component="div" className="box box-grey result-list">
+                                                                        <Grid container spacing={2}>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <span style={{display: 'block'}}>รายที่ 2.</span>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no2-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.Supporter_IDCard2} name="Supporter_IDCard2" onInput = {handleInputSupporterData}  />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData.Supporter_Fname2} name="Supporter_Fname2" />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname2} name="Supporter_Lname2" />
+                                                                            </Grid>
                                                                         </Grid>
-                                                                        <Grid item xs={12} md={6}>
-                                                                            <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData.Supporter_Fname1} name="Supporter_Fname1" />
-                                                                        </Grid>
-                                                                        <Grid item xs={12} md={6}>
-                                                                            <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname1} name="Supporter_Lname1" />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Box>
-                                                                <Box component="div" className="box box-grey result-list">
-                                                                    <Grid container spacing={2}>
-                                                                        <Grid item xs={12} md={12}>
-                                                                            <span style={{display: 'block'}}>รายที่ 2.</span>
-                                                                        </Grid>
-                                                                        <Grid item xs={12} md={12}>
-                                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no2-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.Supporter_IDCard2} name="Supporter_IDCard2" onInput = {handleInputSupporterData}  />
-                                                                        </Grid>
-                                                                        <Grid item xs={12} md={6}>
-                                                                            <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData.Supporter_Fname2} name="Supporter_Fname2" />
-                                                                        </Grid>
-                                                                        <Grid item xs={12} md={6}>
-                                                                            <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname2} name="Supporter_Lname2" />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Box>
+                                                                    </Box>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        
-                                                        <FormControlLabel value="2" control={<Radio color="primary" />} label="แบบอสังหาริมทรัพย์" />
-                                                        <div style={ inputData.typeGuarantee === '2' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                            <div className="radio-group-content">
-                                                                <MuiTextfieldMultiLine label="" row="3" value={inputData.Property} name="Property" onChange={handleInputData} />
+                                                            
+                                                            <FormControlLabel value="2" control={<Radio color="primary" />} label="แบบอสังหาริมทรัพย์" />
+                                                            <div style={ inputData.typeGuarantee === '2' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
+                                                                <div className="radio-group-content">
+                                                                    <MuiTextfieldMultiLine label="" row="3" value={inputData.Property} name="Property" onChange={handleInputData} />
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </RadioGroup> 
+                                                        </RadioGroup> 
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
+                                        </Paper>
+                                    </Grid>
 
-                                {/* Paper 6 - ข้อ5  -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <h1 className="paper-head-green">ข้อ 5</h1>
-                                                    </Grid>
+                                    {/* Paper 6 - ข้อ5  -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
                                                     <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeaderCheckbox label="เลขที่สัญญาเช่าซื้อที่ดินของ ส.ป.ก." />
-                                                    <div className="dsp-f">
+                                                        <h1 className="paper-head-green">ข้อ 5</h1>
+                                                        </Grid>
                                                         <Grid item xs={12} md={12}>
-                                                            <MuiTextfield label="" name="Hire_purchase_contract_Number" value={inputData.Hire_purchase_contract_Number} onChange={handleInputData} />
-                                                        </Grid>
-                                                        {/* <Grid item xs={12} md={1} className="txt-center txt-f-center">
-                                                            <span>/</span>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label=""  />
-                                                        </Grid> */}
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} md={11}>
-                                                    <p className="">มูลค่าที่ดิน</p>
-                                                    <MuiTextfieldCurrency label="" name="LandValue" value={inputData.LandValue} onChange={handleInputData} /> 
-                                                </Grid>
-                                                <Grid item xs={1} md={1}>
-                                                    <p>&nbsp;</p>
-                                                    <p className="paper-p">บาท</p>
-                                                </Grid>
-                                                <Grid item xs={12} md={11}>
-                                                    <p className="">มูลค่าที่ดินที่จ่ายให้แก่ส.ป.ก.แล้ว</p>
-                                                    <MuiTextfieldCurrency label="" name="LandPaidValue" value={inputData.LandPaidValue} onChange={handleInputData} /> 
-                                                </Grid>
-                                                <Grid item xs={1} md={1}>
-                                                    <p>&nbsp;</p>
-                                                    <p className="paper-p">บาท</p>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                                {/* Paper 7 - ข้อ 6  -------------------------------------------------- */}
-                                <Grid item xs={12} md={12}>
-                                    <Paper className="paper line-top-green paper">
-                                        <Grid item xs={12} md={12}>
-                                            <Grid container spacing={2} className="paper-container">
-                                                <Grid item xs={12} md={12}>
-                                                    <h1 className="paper-head-green">ข้อ 6</h1>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={12}>
-                                                    <MuiLabelHeaderCheckbox label="ปัจจุบัน ข้าพเจ้า" />
-                                                    {/* Field Radio Button ---------------------------------------------------*/}
-                                                    <RadioGroup name="Debt" value={inputData.Debt} onChange={handleInputData}>
-                                                        <FormControlLabel value="0" control={<Radio color="primary" />} label="ไม่มีหนี้สิน" />
-                                                        
-                                                        <FormControlLabel value="1" control={<Radio color="primary" />} label="มีหนี้สิน" />
-                                                        <div style={ inputData.Debt === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <div className="radio-group-content">
-                                                                <Grid container spacing={2}>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        {/* Field Select ---------------------------------------------------*/}
-                                                                        <MuiTextfield label="โดยมีหนี้อยู่กับ" name="Debt_Owner" value={inputData.Debt_Owner}  onChange={handleInputData} />
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={11}>
-                                                                        <p className="">จำนวน</p>
-                                                                        <MuiTextfieldCurrency label="" name="Debt_Amount" value={inputData.Debt_Amount} onChange={handleInputData} /> 
-                                                                    </Grid>
-                                                                    <Grid item xs={1} md={1}>
-                                                                        <p>&nbsp;</p>
-                                                                        <p className="paper-p">บาท</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </div>
+                                                        <MuiLabelHeaderCheckbox label="เลขที่สัญญาเช่าซื้อที่ดินของ ส.ป.ก." />
+                                                        <div className="dsp-f">
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiTextfield label="" name="Hire_purchase_contract_Number" value={inputData.Hire_purchase_contract_Number} onChange={handleInputData} />
+                                                            </Grid>
+                                                            {/* <Grid item xs={12} md={1} className="txt-center txt-f-center">
+                                                                <span>/</span>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label=""  />
+                                                            </Grid> */}
                                                         </div>
-                                                    </RadioGroup>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={11}>
+                                                        <p className="">มูลค่าที่ดิน</p>
+                                                        <MuiTextfieldCurrency label="" name="LandValue" value={inputData.LandValue} onChange={handleInputData} /> 
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">บาท</p>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={11}>
+                                                        <p className="">มูลค่าที่ดินที่จ่ายให้แก่ส.ป.ก.แล้ว</p>
+                                                        <MuiTextfieldCurrency label="" name="LandPaidValue" value={inputData.LandPaidValue} onChange={handleInputData} /> 
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">บาท</p>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
+                                        </Paper>
+                                    </Grid>
 
-                                <Grid container spacing={2} className="btn-row txt-center">
+                                    {/* Paper 7 - ข้อ 6  -------------------------------------------------- */}
+                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                        <Paper className="paper line-top-green paper">
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2} className="paper-container">
+                                                    <Grid item xs={12} md={12}>
+                                                        <h1 className="paper-head-green">ข้อ 6</h1>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                        <MuiLabelHeaderCheckbox label="ปัจจุบัน ข้าพเจ้า" />
+                                                        {/* Field Radio Button ---------------------------------------------------*/}
+                                                        <RadioGroup name="Debt" value={inputData.Debt} onChange={handleInputData}>
+                                                            <FormControlLabel value="0" control={<Radio color="primary" />} label="ไม่มีหนี้สิน" />
+                                                            
+                                                            <FormControlLabel value="1" control={<Radio color="primary" />} label="มีหนี้สิน" />
+                                                            <div style={ inputData.Debt === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
+                                                                {/* Field Text ---------------------------------------------------*/}
+                                                                <div className="radio-group-content">
+                                                                    <Grid container spacing={2}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            {/* Field Select ---------------------------------------------------*/}
+                                                                            <MuiTextfield label="โดยมีหนี้อยู่กับ" name="Debt_Owner" value={inputData.Debt_Owner}  onChange={handleInputData} />
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={11}>
+                                                                            <p className="">จำนวน</p>
+                                                                            <MuiTextfieldCurrency label="" name="Debt_Amount" value={inputData.Debt_Amount} onChange={handleInputData} /> 
+                                                                        </Grid>
+                                                                        <Grid item xs={1} md={1}>
+                                                                            <p>&nbsp;</p>
+                                                                            <p className="paper-p">บาท</p>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </div>
+                                                            </div>
+                                                        </RadioGroup>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+                                    </Grid>
 
-                                    <Grid item xs={12} md={12}>
-                                        <ButtonFluidPrimary label={'บันทึกข้อมูล 1'} onClick={handleSubmit} />                             
-                                        {/* <ButtonFluidOutlineSecondary label="test ถัดไป" maxWidth="100px"  onClick={ props.handleComplete} /> */}
+                                    <Grid container spacing={2} className="btn-row txt-center">
+                                        {/* // Action: view */}
+                                        {
+                                            props.action === 'view' ? 
+                                            <Grid item xs={12} md={12}>
+                                                <ButtonFluidPrimary label="ย้อนกลับ" maxWidth="180px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
+                                            </Grid>
+                                            : props.action === 'edit' ? 
+                                            <React.Fragment>
+                                                <Grid item xs={12} md={8}>
+                                                    <ButtonFluidPrimary label={'บันทึกแก้ไขข้อมูล ขั้นตอนที่1'} onClick={handleSubmit} />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>                          
+                                                    <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
+                                                </Grid>
+                                            </React.Fragment>
+                                            
+                                            :   
+                                            <Grid item xs={12} md={12}>
+                                                <ButtonFluidPrimary label={'บันทึกข้อมูล ขั้นตอนที่1'} onClick={handleSubmit} />                             
+                                                {/* <ButtonFluidOutlineSecondary label="test ถัดไป" maxWidth="100px"  onClick={ props.handleComplete} /> */}
+                                            </Grid>
+                                        }
+
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                        </form>
-                    </Container>
-                </div>
-            </Fade>
+                            </form>
+                        </Container>
+                    </div>
+                </Fade>
 
-            <Dialog
-                open={success}
-                onClose={handleClosePopup}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                fullWidth
-                maxWidth="xs"
-            >
-                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
-                <DialogContent>
+                <Dialog
+                    open={success}
+                    onClose={handleClosePopup}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    fullWidth
+                    maxWidth="xs"
+                >
+                    {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                    <DialogContent>
 
-                    <div className="dialog-success">
-                        <p className="txt-center txt-black">{successMsg}</p>
-                        <br/>
-                        <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} />
+                        <div className="dialog-success">
+                            <p className="txt-center txt-black">{successMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
+                                {
+                                    props.action === 'edit' ? 
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                                    :
+                                    <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={ props.handleComplete} color="primary" style={{justifyContent: 'center'}} /> 
+                                }
+                            </Box>
+                        </div>
+                        
+                    </DialogContent>
+                    {/* <DialogActions>
+                    </DialogActions> */}
+                </Dialog>
+
+                <Dialog
+                    open={err}
+                    onClose={handleClosePopup}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    fullWidth
+                    maxWidth="xs"
+                >
+                    {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                    <DialogContent>
+                    
+                        <div className="dialog-error">
+                            <p className="txt-center txt-black">{errMsg}</p>
+                            <br/>
+                            <Box textAlign='center'>
                                 
-                        </Box>
-                    </div>
-                    
-                </DialogContent>
-                {/* <DialogActions>
-                </DialogActions> */}
-            </Dialog>
+                                <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            </Box>
+                        </div>
+                        
+                    </DialogContent>
+                    {/* <DialogActions>
+                    </DialogActions> */}
+                </Dialog>
+            </div>
+        )
 
-            <Dialog
-                open={err}
-                onClose={handleClosePopup}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                fullWidth
-                maxWidth="xs"
-            >
-                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
-                <DialogContent>
-                   
-                    <div className="dialog-error">
-                        <p className="txt-center txt-black">{errMsg}</p>
-                        <br/>
-                        <Box textAlign='center'>
-                            
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
-                        </Box>
-                    </div>
-                    
-                </DialogContent>
-                {/* <DialogActions>
-                </DialogActions> */}
-            </Dialog>
-        </div>
-    )
+    }
 }
 
 export default LoanRequestContactStep1

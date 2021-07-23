@@ -51,6 +51,38 @@ import {
     { id: 12, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
   ];
 
+//   ROWID: 1
+// duedate: "2018-08-11T00:00:00"
+// firstname: "สำรวย"
+// lastname: "พรมเวียง"
+// payrec: 0
+// pindex: "PBUN00045/25600000/00001"
+// principle: 20000
+// projcode: "00562"
+// projname: "ปัจจัยการผลิต60"
+// pv_code: "PBUN"
+// rentdate: "2017-08-11T00:00:00"
+// rentno: "00045/2560"
+// sex: "น.ส."
+// start_date: "2017-08-15T00:00:00"
+
+  const columns = [
+    { field: 'ROWID', headerName: 'ลำดับ', width: 130 },
+    { field: 'firstName', headerName: 'รหัสจังหวัด', width: 130 },
+    { field: 'firstName', headerName: 'ลำดับข้อมูล', width: 130 },
+    { field: 'firstName', headerName: 'รหัสโครงการ', width: 130 },
+    { field: 'firstName', headerName: 'ชื่อโครงการ', width: 130 },
+    { field: 'firstName', headerName: 'คำนำหน้า', width: 130 },
+    { field: 'firstName', headerName: 'ชื่อ', width: 130 },
+    { field: 'firstName', headerName: 'นามสกุล', width: 130 },
+    { field: 'firstName', headerName: 'วันที่ประมวล', width: 130 },
+    { field: 'firstName', headerName: 'เลขที่สัญญา', width: 130 },
+    { field: 'firstName', headerName: 'วันที่กู้', width: 130 },
+    { field: 'firstName', headerName: 'เงินกู้', width: 130 },
+    { field: 'firstName', headerName: 'เงินงวดชำระ', width: 130 },
+    
+  ];
+
 // End All Data for DataGrid ---------------------------------------------//
 
 
@@ -70,18 +102,23 @@ function AdvanceInvoice() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
-    const [inputData, setInputData] = useState({
+    const [inputDataSearch, setInputDataSearch] = useState({
         start_date: null, // "2561-08-11",
         rentno : '', // "",
         projname : '', //"",
         farmer : '', // ""
     })
+    
 
     // Variable for Checkbox in Table
+    const [tableResult, setTableResult] = useState([])
     const [selected, setSelected] = React.useState([]);
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const rowCount = rows.length;
     const numSelected = selected.length;
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     useEffect(() => {
         setLoaded(true);
@@ -122,14 +159,25 @@ function AdvanceInvoice() {
       }
     }, [])
 
+    const handleChangePage = (event, newPage) => {
+        // console.log('newPage', newPage)
+        setPage(newPage);
+    };
+    
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
 
     const getAdvanceInvoiceGetAll = () => {
+        let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
+        console.log('dateSearch',dateSearch)
         // https://loanfund.alro.go.th/spkapi/AdvanceInvoice/GetAll
         // http://147.50.143.84:3800/AdvanceInvoice/GetAll
         axios.post(
             `${server_spkapi}/AdvanceInvoice/GetAll`, {
-                "start_date": inputData.start_date,
+                "start_date": dateSearch, // 2561-08-11
                 "rentno" : "",
                 "projname" :"",
                 "farmer" : ""
@@ -151,7 +199,7 @@ function AdvanceInvoice() {
                     }
                 }else {
                     console.log('Get AdvanceInvoice:',data)
-                
+                    setTableResult(data)
                     
                 }
             }
@@ -196,47 +244,7 @@ function AdvanceInvoice() {
 
     // End Select Checkbox
 
-    // Input Text field  ********************************
-    const handleInputData = (event) => {
-        // console.log('event.target.name',event.target.name)
-        if(event.target.type === 'number') {
-            let typeNumber = event.target.id.toString().slice(-3);
-            if(typeNumber === 'tel') {
-                event.target.value = event.target.value.toString().slice(0, 10)
-                setInputData({
-                    ...inputData,
-                    [event.target.name]: event.target.value
-                })
-
-            } else if (typeNumber === 'zip') {
-                event.target.value = event.target.value.toString().slice(0, 5)
-                setInputData({
-                    ...inputData,
-                    [event.target.name]: event.target.value
-                })
-
-            } else if (typeNumber === 'idc') {
-                event.target.value = event.target.value.toString().slice(0, 13)
-                setInputData({
-                    ...inputData,
-                    [event.target.name]: event.target.value
-                })
-
-            } else {
-                setInputData({
-                    ...inputData,
-                    [event.target.name]: event.target.value
-                })
-
-            }
-        } else {
-            setInputData({
-                ...inputData,
-                [event.target.name]: event.target.value
-            })
-        }
-        // console.log(event)
-    }
+    
     const handleSubmit = (event) => {
         event.preventDefault();
     
@@ -269,7 +277,7 @@ function AdvanceInvoice() {
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="start_date" value={inputData.start_date === 'Invalid date' ? null : inputData.start_date} onChange={(newValue)=>{ setInputData({ ...inputData, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="start_date" value={inputDataSearch.start_date === 'Invalid date' ? null : inputDataSearch.start_date} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="เลขที่สัญญา" />
@@ -364,31 +372,59 @@ function AdvanceInvoice() {
                                                 <TableCell align="center">เงินงวดชำระ</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={22} align="center">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                            {/* {
-                                                tableResult.map((row,i) => (
-                                                <TableRow key={i}>
-                                                   <TableCell align="center">{row.a}</TableCell>
-                                                    <TableCell align="center">{row.b}</TableCell>
-                                                    <TableCell align="center">{row.c}</TableCell>
-                                                    <TableCell align="center">{row.d}</TableCell>
-                                                    <TableCell align="center">{row.f}</TableCell>
-                                                    <TableCell align="center">{row.g}</TableCell>
-                                                    <TableCell align="center">{row.h}</TableCell>
-                                                    <TableCell align="center">{row.i}</TableCell>
-                                                    <TableCell align="center">{row.j}</TableCell>
+                                        <TableBody>
+                                            {
+                                                tableResult.length ? 
+                                                    (rowsPerPage > 0
+                                                        ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                        : tableResult
+                                                    ).map((cell,i) => (
+                                                    <TableRow key={i}>
+                                                        <TableCell align="center"></TableCell>
+                                                        <TableCell align="center">{cell.ROWID}</TableCell>
+                                                        <TableCell align="center">{cell.pv_code}</TableCell>
+                                                        <TableCell align="center">{cell.pindex}</TableCell>
+                                                        <TableCell align="center">{cell.projcode}</TableCell>
+                                                        <TableCell align="center">{cell.projname}</TableCell>
+                                                        <TableCell align="center">{cell.sex}</TableCell>
+                                                        <TableCell align="center">{cell.firstname}</TableCell>
+                                                        <TableCell align="center">{cell.lastname}</TableCell>
+                                                        <TableCell align="center">{(moment(cell.start_date).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(cell.start_date).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
+                                                        {/* <TableCell align="center">{moment(cell.start_date).format('DD/MM/YYYY')}</TableCell> */}
+                                                        <TableCell align="center">{cell.rentno}</TableCell>
+                                                        <TableCell align="center">{(moment(cell.rentdate).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(cell.rentdate).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
+                                                        {/* <TableCell align="center">{cell.rentdate}</TableCell> */}
+                                                        <TableCell align="center">{cell.principle === null ? '0' : cell.principle.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
+                                                        <TableCell align="center">{cell.payrec === null ? '0' : cell.payrec.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
+                                                    </TableRow>
+                                                    
+                                                ))
+                                                : 
+                                                <TableRow>
+                                                    <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
-                                            ))} */}
+                                            }
                                         </TableBody>
                                     </Table>
                                     </TableContainer>
+                                    {
+                                        tableResult.length ? 
+                                            <TablePagination
+                                                rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
+                                                component="div"
+                                                count={tableResult.length}
+                                                rowsPerPage={rowsPerPage}
+                                                page={page}
+                                                onPageChange={handleChangePage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                                labelRowsPerPage="แสดงจำนวนแถว"
+                                            />
+                                        : 
+                                        ''
+                                    }
                                 </div>
                                 {/* Data Grid --------------------------------*/}
-                                    {/* <div style={{ height: 400, width: '100%' }}>
+                                {/* <div style={{ height: 400, width: '100%' }}>
                                     <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
                                 </div> */}
                             </Grid>
@@ -401,6 +437,7 @@ function AdvanceInvoice() {
                             <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
                                 <ButtonFluidPrimary label="พิมพ์หนังสือใบเตือน Bar .ใหม่" />
                             </Grid>
+
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
                             <Grid item xs={12} md={12} style={{display: 'none'}}>
                                 <Paper className="paper line-top-green paper mg-t-20">
