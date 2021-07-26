@@ -554,21 +554,21 @@ table {
 .table-loanrequestprint1,
 .table-loanrecivceprint1 {
   max-height: 320px;
-  overflow: scroll;
+  overflow: auto;
   tr {
     th {
-      &:last-child {
-        min-width: 400px;
-      }
-      &:nth-child(5) {
-        min-width: 200px;
-      }
-      &:nth-child(10) {
-        min-width: 200px;
-      }
-      &:nth-child(11) {
-        min-width: 200px;
-      }
+      // &:last-child {
+      //   min-width: 400px;
+      // }
+      // &:nth-child(5) {
+      //   min-width: 200px;
+      // }
+      // &:nth-child(10) {
+      //   min-width: 200px;
+      // }
+      // &:nth-child(11) {
+      //   min-width: 200px;
+      // }
     }
   }
 }
@@ -600,7 +600,7 @@ table {
 
 .table-recordcloseoldContact1 {
   max-height: 320px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .table-recordinstallmentpayment1 {
@@ -728,8 +728,17 @@ body {
   background-color: var(--green);
 }
 
+.bg-grey {
+  background-color: var(--grey);
+}
+
 .bg-light-green {
   background-color: var(--lightgreen);
+}
+
+.btn-disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .header-nav {

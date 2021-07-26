@@ -82,7 +82,7 @@ function LoanRequestContactStep3(props) {
         EstimateImcome: 0, // 0,
         Cost: 0, // 0,
         PayAbility: '', // "",
-        Result: '0', // 0,
+        Result: '', // 0,
         Explain: '', // "",
         Guarantee1: '', // "",
         Guarantee2: '',
@@ -109,6 +109,7 @@ function LoanRequestContactStep3(props) {
         setLoaded(true);
         console.log('Step3 applicantID', props.ApplicantID)
         console.log('Step3 action:',props.action)
+        console.log('Step3 stepper status:',localStorage.getItem('stepperStatus'))
 
         // Action : view Applicant Step1
         const getViewApplicantStep3 = () => {
@@ -166,6 +167,15 @@ function LoanRequestContactStep3(props) {
                             ApproveDetail: dataViewStep3.ApproveDetail || '', // ""
                         })
                         // let resApplicant = res.data.data[0];
+                        
+                        // Set detail ProjectID
+                        for(let i=0; i<projectList.length; i++) {
+                            if(projectList[i].ProjectID === dataViewStep3.ProjectID) {
+                                setProjectSubCodeText(projectList[i].ProjectSubCode)
+                                setProjectSubNameText(projectList[i].ProjectSubName)
+                            }
+                        }
+
                         setIsLoading(false)
                     }
                 }
@@ -223,7 +233,7 @@ function LoanRequestContactStep3(props) {
             
             axios.post(
                 `${server_hostname}/admin/api/search_project_step3`, {
-                    "ProjectYear": applicantProjectYear || 2564
+                    "ProjectYear": parseInt(applicantProjectYear) + 2500
                 }, { headers: { "token": token } } 
             ).then(res => {
                     console.log(res)
@@ -342,7 +352,7 @@ const handleInputData = (event) => {
         if(event.target.name === 'ProjectID') {
             // console.log('event.target.ProjectCode',event.target.value)
             for(let i=0; i<projectList.length; i++) {
-                if(projectList[i].ProjectCode === event.target.value) {
+                if(projectList[i].ProjectID === event.target.value) {
                     setProjectSubCodeText(projectList[i].ProjectSubCode)
                     setProjectSubNameText(projectList[i].ProjectSubName)
                 }
@@ -422,8 +432,8 @@ const handleInputData = (event) => {
 
     const handlePrintPDF = () => {
         axios({
-        url: `${siteprint}/api/ExportServices/GetApplicationPdf`, //your url
-        method: 'POST',
+        url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
+        method: 'GET',
         data: {
             LoanReqNo: props.ApplicantID
         },
@@ -435,13 +445,13 @@ const handleInputData = (event) => {
             link.setAttribute('download', 'file.pdf'); //or any other extension
             document.body.appendChild(link);
             link.click();
-        }).catch(err => { console.log(err); history.push('/') })
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
         .finally(() => {
             if (isMounted.current) {
             setIsLoading(false)
             }
         });
-}
+    }
 
     const handleClosePopup = () => {
         setErr(false);
@@ -606,7 +616,7 @@ const handleInputData = (event) => {
                                                                         <div className="radio-group-content__flex">
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectCode'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
+                                                                                    <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectID'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4}>
                                                                                     {/* Field Text ---------------------------------------------------*/}

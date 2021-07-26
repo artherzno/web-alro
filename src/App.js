@@ -44,7 +44,7 @@ if(hostname !== 'localhost') {
   console.log('API - PRODUCTION', hostname)
   AuthData.hostname = 'https://loanfund.alro.go.th/nodeapi';
   localStorage.setItem('hostname', 'https://loanfund.alro.go.th/nodeapi')// p.hanz
-  localStorage.setItem('spkapi', 'https://loanfund.alro.go.th/spkapi')// p.benz
+  localStorage.setItem('spkapi', 'https://loanfund.alro.go.th/api/spkapi')// p.benz
   localStorage.setItem('siteprint', 'https://loanfund.alro.go.th/api') // j.som
   localStorage.setItem('siteimage', 'https://loanfund.alro.go.th/') // image
 } else {
@@ -53,7 +53,7 @@ if(hostname !== 'localhost') {
   localStorage.setItem('hostname', 'http://147.50.143.84:5441/nodeapi') // p.hanz
   AuthData.spkapi ='http://147.50.143.84:3800' // k.benz
   localStorage.setItem('spkapi', 'http://147.50.143.84:3800') // k.benz
-  localStorage.setItem('siteprint', 'http://147.50.143.84/api') // j.som
+  localStorage.setItem('siteprint', 'http://147.50.143.84:80/api') // j.som
   localStorage.setItem('siteimage', 'http://147.50.143.84/') // image
 
 }

@@ -86,6 +86,10 @@ function LoanRequestContactStep1(props) {
         telNum: undefined,
         activityProject: [],
 
+        ApplicantNo: '',
+        AppLocation: '',
+        AppTo: '',
+
         IDCard: '', // 1234567891017,
         LoanFarmerTypeID: '', // 1,
         FrontName: '', // 'นาย',
@@ -168,6 +172,7 @@ function LoanRequestContactStep1(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('Step1 applicantID', inputData.ApplicantID)
         console.log('Step1 action:',props.action)
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
@@ -242,6 +247,9 @@ function LoanRequestContactStep1(props) {
                             NganNgan: dataLand.NganNgan, // 0,
                             Wa: dataLand.Wa, // 0,
                     
+                            ApplicantNo: dataDetail.ApplicantNo || '',
+                            AppLocation: dataDetail.AppLocation || '',
+                            AppTo: dataDetail.AppTo || '',
                             ProjectYear: dataDetail.ProjectYear - 2500 || null, // 2564,
                             LoanPeriodCode: dataDetail.LoanPeriodCode || '', // "ส",
                             FarmerID: props.FarmerID, // 1,
@@ -293,7 +301,7 @@ function LoanRequestContactStep1(props) {
         const getFarmer = () => {
             setIsLoading(true)
             axios.post(
-                `${server_hostname}/admin/api/get_farmer`, {"FarmerID": props.FarmerID}, { headers: { "token": token } } 
+                `${server_hostname}/admin/api/get_farmer_step1`, {"FarmerID": props.FarmerID}, { headers: { "token": token } } 
             ).then(res => {
                     console.log(res)
                     let data = res.data;
@@ -678,6 +686,7 @@ function LoanRequestContactStep1(props) {
                     if(props.action === 'add') {
                         localStorage.setItem('applicantID',data.results.recordset[0].ApplicantID)
                     }
+                    localStorage.setItem('stepperStatus','processing')
                     localStorage.setItem('applicantProjectYear',inputData.ProjectYear)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
@@ -776,6 +785,22 @@ function LoanRequestContactStep1(props) {
                                     <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
                                         <Paper className="paper line-top-green paper mg-t-20">
                                             <Grid container spacing={2}>
+                                                {/* <Grid item xs={12} md={4}>
+                                                    <MuiTextfield label="ลำดับที่" name="ApplicantNo" value={inputData.ApplicantNo} onChange={handleInputData} />
+                                                </Grid> */}
+                                                {
+                                                    props.action === 'view' || props.action === 'edit' ? 
+                                                        <Grid item xs={12} md={12}>
+                                                            <p className="txt-green txt-right">P เลขที่คำขอ {inputData.ApplicantNo}</p>
+                                                        </Grid>
+                                                    : ''
+                                                }
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="เขียนที่" name="AppLocation" value={inputData.AppLocation} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="เรียน" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
+                                                </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
                                                 </Grid>
@@ -827,7 +852,7 @@ function LoanRequestContactStep1(props) {
                                                                 props.action === 'view' || props.action === 'edit' ? 
                                                                 <MuiTextfield inputdisabled="input-disabled" label="หมายเลขที่ตั้งที่ดิน" value={inputData.LandID} />
                                                                 :
-                                                                <MuiSelectObj label="หมายเลขที่ตั้งที่ดิน" itemName={'LandID'} itemValue={'LandID'} lists={inputData.land_data} name="LandID" value={inputData.LandID} onChange={handleInputLandData} />
+                                                                <MuiSelectObj label="หมายเลขที่ตั้งที่ดิน" itemName={'Land_description'} itemValue={'LandID'} lists={inputData.land_data} name="LandID" value={inputData.LandID} onChange={handleInputLandData} />
                                                         }
                                                         </Grid>
                                                         {

@@ -63,6 +63,8 @@ function LoanRequestContactStep2(props) {
         setLoaded(true);
         console.log('Step2 applicantID', inputData.ApplicantID)
         console.log('Step2 action:',props.action)
+        console.log('Step2 stepper status:',localStorage.getItem('stepperStatus'))
+
 
         // Action : view
         if(props.action === 'view' || props.action === 'edit') {

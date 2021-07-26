@@ -92,7 +92,7 @@ function AdvanceInvoice() {
     const isMounted = useRef(null);
 
     let server_hostname = auth.hostname;
-    let server_spkapi = auth.spkapi;
+    let server_spkapi = localStorage.getItem('spkapi');
     let token = localStorage.getItem('token');
 
     const [err, setErr] = useState(false);
@@ -112,6 +112,7 @@ function AdvanceInvoice() {
 
     // Variable for Checkbox in Table
     const [tableResult, setTableResult] = useState([])
+    const [tableTotalResult, setTableTotalResult] = useState([])
     const [selected, setSelected] = React.useState([]);
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const rowCount = rows.length;
@@ -169,20 +170,60 @@ function AdvanceInvoice() {
         setPage(0);
     };
 
+    const getAdvanceInvoiceGetTotal = () => {
+        let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
+        console.log('dateSearch',dateSearch)
+        
+        axios({
+            url: `${server_spkapi}/AdvanceInvoice/GetTotal`, //your url
+            method: 'POST',
+            data: {
+                start_date: dateSearch, // 2561-08-11
+            }
+        }).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log('Get AdvanceInvoice Total:',data[0])
+                    setTableTotalResult(data[0])
+                    
+                }
+            }
+        ).catch(err => { console.log(err) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+        })
+    }
+
 
     const getAdvanceInvoiceGetAll = () => {
         let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
         console.log('dateSearch',dateSearch)
-        // https://loanfund.alro.go.th/spkapi/AdvanceInvoice/GetAll
-        // http://147.50.143.84:3800/AdvanceInvoice/GetAll
-        axios.post(
-            `${server_spkapi}/AdvanceInvoice/GetAll`, {
-                "start_date": dateSearch, // 2561-08-11
-                "rentno" : "",
-                "projname" :"",
-                "farmer" : ""
-              }, { headers: { "token": token } } 
-        ).then(res => {
+        
+        axios({
+            url: `${server_spkapi}/AdvanceInvoice/GetAll`, //your url
+            method: 'POST',
+            data: {
+                start_date: dateSearch, // 2561-08-11
+                rentno : "",
+                projname :"",
+                farmer : ""
+            }
+        }).then(res => {
                 console.log(res)
                 let data = res.data;
                 if(data.code === 0) {
@@ -200,6 +241,8 @@ function AdvanceInvoice() {
                 }else {
                     console.log('Get AdvanceInvoice:',data)
                     setTableResult(data)
+
+                    getAdvanceInvoiceGetTotal()
                     
                 }
             }
@@ -208,7 +251,7 @@ function AdvanceInvoice() {
             if (isMounted.current) {
               setIsLoading(false)
             }
-         });
+        })
     }
 
 
@@ -259,6 +302,7 @@ function AdvanceInvoice() {
         //   setError(true);
         // }
     };
+    
 
     return (
         <div className="advanceinvoice-page">
@@ -280,7 +324,7 @@ function AdvanceInvoice() {
                                         <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="start_date" value={inputDataSearch.start_date === 'Invalid date' ? null : inputDataSearch.start_date} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่สัญญา" />
+                                        <MuiTextfield label="เลขที่สัญญา" name="start_date" value={inputDataSearch.start_date} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="โครงการที่กู้เงิน" />
@@ -297,10 +341,10 @@ function AdvanceInvoice() {
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={2} className="mg-t-10">
+                                    <Grid item xs={12} md={2} className="mg-t-10 btn-disabled">
                                         <ButtonFluidPrimary label="พิมพ์ใบแจ้งหนี้" />
                                     </Grid>
-                                    <Grid item xs={12} md={2} className="mg-t-10">
+                                    <Grid item xs={12} md={2} className="mg-t-10 btn-disabled">
                                         <ButtonFluidPrimary label="พิมพ์ Lable" />
                                     </Grid>
                                 </Grid>
@@ -316,31 +360,31 @@ function AdvanceInvoice() {
                                 <Box className="box-blue">
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินครบชำระ</p>
-                                        <p className="box-blue-body">100,000.00</p>
+                                        <p className="box-blue-body">{!tableTotalResult.เงินครบชำระ ? '0' : parseFloat(tableTotalResult.เงินครบชำระ).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                     </Box>
                                     <Box className="box-blue-item">
-                                        <p className="box-blue-head">เงินต้นคงค้าง</p>
-                                        <p className="box-blue-body">100,000.00</p>
+                                        <p className="box-blue-head">เงินต้นค้างชำระ</p>
+                                        <p className="box-blue-body">{!tableTotalResult.เงินต้นค้างชำระ ? '0' : parseFloat(tableTotalResult.เงินต้นค้างชำระ).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">ดอกเบี้ยค้างชำระ</p>
-                                        <p className="box-blue-body">100,000.00</p>
+                                        <p className="box-blue-body">{!tableTotalResult.ดอกเบี้ยค้างชำระ ? '0' : parseFloat(tableTotalResult.ดอกเบี้ยค้างชำระ).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินต้นคงเหลือ</p>
-                                        <p className="box-blue-body">100,000.00</p>
+                                        <p className="box-blue-body">{!tableTotalResult.เงินต้นคงเหลือ ? '0' : parseFloat(tableTotalResult.เงินต้นคงเหลือ).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">ดอกเบี้ยที่ต้องชำระ</p>
-                                        <p className="box-blue-body">100,000.00</p>
+                                        <p className="box-blue-body">{!tableTotalResult.ดอกเบี้ยที่ต้องชำระ ? '0' : parseFloat(tableTotalResult.ดอกเบี้ยที่ต้องชำระ).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">ดอกเบี้ยครบกำหนดชำระ</p>
-                                        <p className="box-blue-body">100,000.00</p>
+                                        <p className="box-blue-body">{!tableTotalResult.ดอกเบี้ยครบกำหนดชำระ ? '0' : parseFloat(tableTotalResult.ดอกเบี้ยครบกำหนดชำระ).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">จำนวนเกษตรกร</p>
-                                        <p className="box-blue-body">200 ราย</p>
+                                        <p className="box-blue-body">{!tableTotalResult.Total ? '0' : parseInt(tableTotalResult.Total).toLocaleString('en-US')} ราย</p>
                                     </Box>
                                 </Box>
                             </Grid>

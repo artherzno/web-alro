@@ -49,7 +49,7 @@ function LoanRequestContactSearch() {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const [tableResult, setTableResult] = useState([])
     const [inputData, setInputData] = useState({

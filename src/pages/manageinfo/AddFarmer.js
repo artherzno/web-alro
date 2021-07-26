@@ -1089,13 +1089,13 @@ function AddFarmer(props) {
                                                         <MuiTextfield label="แปลง"  value={inputDataLand1.Plang}  name="Plang_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="ไร่"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="งาน"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="วา"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 

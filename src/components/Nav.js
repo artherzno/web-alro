@@ -172,7 +172,7 @@ const listmenu = [
                 subtitle: 'รายงานการจ่ายเงินกู้',
                 subpath: '/report/payLoan'
             },{
-                subtitle: 'คำขอขยรายงานคำขอกู้ยืมรายสัญญา',
+                subtitle: 'รายงานคำขอกู้ยืมรายสัญญา',
                 subpath: '/report/requestloan'
             },{
                 subtitle: 'รายงานการทำสัญญา',
@@ -205,6 +205,19 @@ const listmenu = [
             },{
                 subtitle: 'จัดการผู้ใช้งาน',
                 subpath: '/manageinfo/manageuser'
+            }
+        ]
+    },{
+        title: 'สัญญาชดใช้หนี้แทนเกษตรกร',
+        component: 'RepaymentContract',
+        path: '/home',
+        submenu: [
+            {
+                subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
+                subpath: '/repaymentcontract/closerepaymentcontract'
+            },{
+                subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
+                subpath: '/repaymentcontract/addrepaymentcontract'
             }
         ]
     },

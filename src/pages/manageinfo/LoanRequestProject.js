@@ -21,6 +21,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import AddIcon from '@material-ui/icons/Add';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import PrintIcon from '@material-ui/icons/Print';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -116,6 +117,7 @@ function LoanRequestProject() {
     let server_port = auth.port;
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
 
     const [loaded, setLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -126,7 +128,7 @@ function LoanRequestProject() {
         ProjectMainCode: '',
         ProjectMainName: '',
         ProjectMain_Status: '',
-        ProjectPlanYear: 0,
+        ProjectPlanYear: '0',
         ProvinceID: '0',
     })
 
@@ -308,6 +310,44 @@ console.log('submit')
         setPage(0);
     };
 
+    const handlePrintPDF = () => {
+        console.log('ProjectPlanYear', inputData.ProjectPlanYear)
+        console.log('ProjectPlanYear', (inputData.ProjectPlanYear + 2500) - 543)
+        console.log('ProvinceID', inputData.ProvinceID)
+        // let ProjectPlanYearValue = inputData.ProjectPlanYear === '0' ? null : (inputData.ProjectPlanYear + 2500) - 543;
+        let ProjectPlanYearValue = inputData.ProjectPlanYear;
+        let ProvinceIDValue;
+
+        if(roleID === '8' || roleID === '9') {
+            // localStorage.getItem('provinceid')
+            ProvinceIDValue = inputData.ProvinceID === '0' ? null : inputData.ProvinceID;
+        } else {
+            ProvinceIDValue = parseInt(localStorage.getItem('provinceid'));
+        }
+
+        axios({
+        url: `${siteprint}/api/ExportServices/ExportLoanProject`, //your url
+        method: 'POST',
+        data: {
+            ProjectPlanYear: ProjectPlanYearValue.toString() ,
+            ProvinceID: ProvinceIDValue.toString(),
+        },
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.pdf'); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+}
+
     const gotoAddLoanRequestProject = () => {
         history.push('/manageinfo/loanaddproject');
     }
@@ -357,7 +397,7 @@ console.log('submit')
                                     </Box>  
                                 </Grid>
                                 {
-                                    roleID === '8' || roleID === '9' ?  <Grid item xs={12} md={2}> <MuiSelectProvince label="จังหวัด" lists={provinceList}  value={inputData.ProvinceID} name="ProvinceID" onChange={handleInputData}/></Grid> : ''
+                                    roleID === '8' || roleID === '9' ?  <Grid item xs={12} md={2}> <MuiSelectProvince label="จังหวัด" lists={provinceList} startText="ทุกจังหวัด" value={inputData.ProvinceID} name="ProvinceID" onChange={handleInputData}/></Grid> : ''
                                 }
                                
                                 <Grid item xs={12} md={2}>
@@ -371,6 +411,8 @@ console.log('submit')
                             <Grid item xs={12} md={6}>
                                     <p>&nbsp;</p>
                                 <Box  display="flex" justifyContent="flex-end">
+                                    <ButtonNormalIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <ButtonNormalIconStartPrimary label="เพิ่มโครงการ" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()} />
                                 </Box>  
                             </Grid>

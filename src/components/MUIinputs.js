@@ -642,7 +642,7 @@ const MuiRadioButton = (props) => {
 
 const MuiSelectProvince = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange, inputdisabled } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
 
     // console.log('MuiSelectProvince:', lists)
 
@@ -661,7 +661,7 @@ const MuiSelectProvince = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value={0}>เลือกจังหวัด</MenuItem>
+                <MenuItem value={0}>{ startText ? startText : 'เลือกจังหวัด' }</MenuItem>
                 {lists.map((item,i)=>
                     <MenuItem key={i} value={item.ProvinceID}>{item.PV_NAME}</MenuItem>
                 )}

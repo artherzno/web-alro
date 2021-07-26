@@ -67,6 +67,9 @@ import Installment from './check/Installment'
 import CheckBilled from './check/CheckBilled'
 import ConditionInterest from './check/ConditionInterest'
 import Payment from './check/Payment'
+import CloseRepaymentContract from './repaymentcontract/CloseRepaymentContract';
+import AddRepaymentContract from './repaymentcontract/AddRepaymentContract';
+
 
 
 function Main() {
@@ -122,7 +125,7 @@ function Main() {
                     <Route path="/report/lawsuit" component={LawSuit} />
                     <Route path="/report/modify" component={ModifyLoan} />
                     <Route path="/report/billed" component={Billed} />
-                    {/* Manage Info Page */}ManageProjectBudget
+                    {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />
                     <Route path="/manageinfo/addfarmer" component={AddFarmer} />
@@ -148,6 +151,9 @@ function Main() {
                     <Route path="/check/check-billed" component={CheckBilled} />
                     <Route path="/check/condition-interest" component={ConditionInterest} />
                     <Route path="/check/payment" component={Payment} />
+                    {/* Repayment Contract */}
+                    <Route path="/repaymentcontract/closerepaymentcontract" component={CloseRepaymentContract} />
+                    <Route path="/repaymentcontract/addrepaymentcontract" component={AddRepaymentContract} />
                     
                 </Switch>
             </Router>

@@ -3,7 +3,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { AuthContext } from '../../App';
-import useAxios from '../../services/useAxios';
+// import useAxios from '../../services/useAxios';
 
 import { makeStyles } from '@material-ui/styles';
 import Fade from '@material-ui/core/Fade';
@@ -114,15 +114,18 @@ function LoanRequestContact(props) {
         typePrint: '1',
     })
 
-
     let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
-    let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
-    let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
+    // let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
+    // let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
+    let propsApplicantID = localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.location.state.ApplicantID;
+    let propsAction = localStorage.getItem('stepperStatus') === 'processing' ? 'edit' : props.location.state.action;
+    // Stepper status : processing, for check process on stepper
+
 
     // Get Step Content
     function getStepContent(step) {
         // console.log(typeof(props.location.state) === 'undefined' ? 'hello' : 'bye')
-console.log('getStepMain ApplicantID:',propsApplicantID)
+console.log('getStepMain ApplicantID:',localStorage.getItem('applicantID'))
         switch (step) {
             case 0:
             return <LoanRequestContactStep1 action={propsAction} ApplicantID={propsApplicantID} FarmerID={propsFarmerID} handleComplete={handleComplete} />;
@@ -186,6 +189,13 @@ console.log('getStepMain ApplicantID:',propsApplicantID)
 
     useEffect(() => {
         setLoaded(true);
+        // Check applicant ID exist
+        let applicantIDLocalStorage = localStorage.getItem('applicantID')
+        if(applicantIDLocalStorage) {}
+        return () => {
+            localStorage.removeItem('stepperStatus')
+            console.log('remove stepper status')
+        }
     }, [])
 
   

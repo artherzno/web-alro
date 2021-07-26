@@ -53,6 +53,7 @@ function LoanRequestContactStep4(props) {
         setLoaded(true);
         console.log('Step4 applicantID', props.ApplicantID)
         console.log('Step4 action:',props.action)
+        console.log('Step4 stepper status:',localStorage.getItem('stepperStatus'))
 
         // Action : view
         if(props.action === 'view' || props.action === 'edit') {
