@@ -199,42 +199,45 @@ class ListNewFarmerPayLoanTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">ภาค</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
-                                <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนราย</StyledTableCell>
-                                 <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
-                                <StyledTableCell align="center">อัตราร้อยละ</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">ภาค</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
+                                    <StyledTableCell align="center">อัตราร้อยละ</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                                return(
-                                    <TableRow key={index}>
-                                        <StyledTableCellLine component="th" scope="row">
-                                            {farmer.zone}
-                                </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine component="th" scope="row">
+                                                {farmer.zone}
+                                            </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
 
-                                    </TableRow>
-                                )
-                            })}
-                           
-                           
-                          
-                        </TableBody>
-                    </Table>
+                                        </TableRow>
+                                    )
+                                })}
+
+
+
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
 
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
@@ -256,8 +259,7 @@ class ListNewFarmerPayLoanTab extends React.Component {
                             })
                         }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

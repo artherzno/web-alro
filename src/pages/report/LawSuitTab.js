@@ -248,105 +248,107 @@ class LawSuitTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center" rowSpan={2}>จังหวัด</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
-                                <StyledTableCell align="center" colSpan={8}>สัญญาเดิม</StyledTableCell>
-                                <StyledTableCell align="center" colSpan={15}>สัญญาใหม่</StyledTableCell>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center" rowSpan={2}>จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={8}>สัญญาเดิม</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={15}>สัญญาใหม่</StyledTableCell>
 
-                            </TableRow>
-                            <TableRow>
-                                <StyledTableCell align="center" >ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                <StyledTableCell align="center" >ประเภทสัญญา</StyledTableCell>
-                                <StyledTableCell align="center" >เลขที่สัญญา</StyledTableCell>
-                                <StyledTableCell align="center" >เงินต้น</StyledTableCell>
-                                <StyledTableCell align="center" >ดอกเบี้ยค้าง</StyledTableCell>
-                                <StyledTableCell align="center" >ดอกเบี้ยปรับ</StyledTableCell>
-                                <StyledTableCell align="center" >รวม</StyledTableCell>
-                                <StyledTableCell align="center" >อัตตราดอกเบี้ย</StyledTableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <StyledTableCell align="center" >ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
+                                    <StyledTableCell align="center" >ประเภทสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center" >เลขที่สัญญา</StyledTableCell>
+                                    <StyledTableCell align="center" >เงินต้น</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ยค้าง</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ยปรับ</StyledTableCell>
+                                    <StyledTableCell align="center" >รวม</StyledTableCell>
+                                    <StyledTableCell align="center" >อัตตราดอกเบี้ย</StyledTableCell>
 
-                                <StyledTableCell align="center" >ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                <StyledTableCell align="center" >ประเภทสัญญา</StyledTableCell>
-                                <StyledTableCell align="center" >วันที่ฟ้องศาล</StyledTableCell>
-                                <StyledTableCell align="center" >เลขที่สัญญา</StyledTableCell>
-                                <StyledTableCell align="center" >เงินต้น</StyledTableCell>
-                                <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center" >ดอกเบี้ยที่ศาลสั่งเพิ่มเติม</StyledTableCell>
-                                <StyledTableCell align="center" >รวม</StyledTableCell>
-                                <StyledTableCell align="center" >การคิดอัตตราดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center" >อัตตราดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center" >วันที่ทำสัญญาใหม่</StyledTableCell>
-                                <StyledTableCell align="center" >คดีหมายเลขดำ</StyledTableCell>
-                                <StyledTableCell align="center" >คดีหมายเลขแดง</StyledTableCell>
-                                <StyledTableCell align="center" >วันพิพากษา</StyledTableCell>
-                                <StyledTableCell align="center" >คำพิพากษา</StyledTableCell>
-                                
-                            </TableRow>
+                                    <StyledTableCell align="center" >ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
+                                    <StyledTableCell align="center" >ประเภทสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center" >วันที่ฟ้องศาล</StyledTableCell>
+                                    <StyledTableCell align="center" >เลขที่สัญญา</StyledTableCell>
+                                    <StyledTableCell align="center" >เงินต้น</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ยที่ศาลสั่งเพิ่มเติม</StyledTableCell>
+                                    <StyledTableCell align="center" >รวม</StyledTableCell>
+                                    <StyledTableCell align="center" >การคิดอัตตราดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" >อัตตราดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" >วันที่ทำสัญญาใหม่</StyledTableCell>
+                                    <StyledTableCell align="center" >คดีหมายเลขดำ</StyledTableCell>
+                                    <StyledTableCell align="center" >คดีหมายเลขแดง</StyledTableCell>
+                                    <StyledTableCell align="center" >วันพิพากษา</StyledTableCell>
+                                    <StyledTableCell align="center" >คำพิพากษา</StyledTableCell>
 
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
-                               return(
-                                   <TableRow key={index}>
-                                       <StyledTableCellLine >{farmer.province}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.no}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.idCard}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.projName}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractType}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractNo}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.interestEarned}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.fullName2}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractType2}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.courtDate}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractNo2}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.interest}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.courtInterest}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.total2)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.interestRateCal}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.interestRate2}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.newContractDate}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.blackNumCase}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.redNumCase}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.judgmentDate}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right"><div className="btn-more-detail-table">ดูรายละเอียด</div></StyledTableCellLine>
+                                </TableRow>
 
-                                   </TableRow>
-                               )
-                           })}
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine >{farmer.province}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.interestEarned}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.fullName2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractType2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.courtDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractNo2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.interest}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.courtInterest}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.interestRateCal}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.interestRate2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.newContractDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.blackNumCase}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.redNumCase}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.judgmentDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">ดูรายละเอียด</div></StyledTableCellLine>
 
-                            <TableRow>
-                                <StyledTableCellLine colSpan={7} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.courtInterest)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total2)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRateCal)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate2)}</StyledTableCellLine>
-                                <StyledTableCellLine align="center" colSpan={7} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                        </TableRow>
+                                    )
+                                })}
 
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                <TableRow>
+                                    <StyledTableCellLine colSpan={7} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                        รวมทั้งสิ้น
+                                    </StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.courtInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRateCal)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" colSpan={7} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
@@ -367,8 +369,7 @@ class LawSuitTab extends React.Component {
                             })
                         }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

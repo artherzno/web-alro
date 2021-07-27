@@ -199,88 +199,92 @@ class ConditionInterest extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                <StyledTableCell align="center">รหัส</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">Prentno</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">Date</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่คำสั่ง</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่คำสั่ง</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่เริ่มต้น</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่สิ้นสุด</StyledTableCell>
-                                                <StyledTableCell align="center">Code</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_nc</StyledTableCell>
-                                                <StyledTableCell align="center">Rate</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_n</StyledTableCell>
-                                                <StyledTableCell align="center">Amount</StyledTableCell>
-                                                <StyledTableCell align="center">Mcapital</StyledTableCell>
-                                                <StyledTableCell align="center">Minterest</StyledTableCell>
-                                                <StyledTableCell align="center">Mcharge</StyledTableCell>
-                                                <StyledTableCell align="center">Mindex_1</StyledTableCell>
-                                                <StyledTableCell align="center">Types</StyledTableCell>
-                                                <StyledTableCell align="center">Tps</StyledTableCell>
-                                                <StyledTableCell align="center">Tps_</StyledTableCell>
-                                                <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                <StyledTableCell align="center">Finish_flag</StyledTableCell>
-                                                <StyledTableCell align="center">Date_e</StyledTableCell>
-                                                <StyledTableCell align="center">Cuserid</StyledTableCell>
-                                                <StyledTableCell align="center">Cname</StyledTableCell>
-                                            </TableRow>
+                                <Paper>
+                                    <TableContainer >
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                    <StyledTableCell align="center">ลำดับ</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">Date</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่คำสั่ง</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่คำสั่ง</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่เริ่มต้น</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่สิ้นสุด</StyledTableCell>
+                                                    <StyledTableCell align="center">Code</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_nc</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_n</StyledTableCell>
+                                                    <StyledTableCell align="center">Amount</StyledTableCell>
+                                                    <StyledTableCell align="center">Mcapital</StyledTableCell>
+                                                    <StyledTableCell align="center">Minterest</StyledTableCell>
+                                                    <StyledTableCell align="center">Mcharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex_1</StyledTableCell>
+                                                    <StyledTableCell align="center">Types</StyledTableCell>
+                                                    <StyledTableCell align="center">Tps</StyledTableCell>
+                                                    <StyledTableCell align="center">Tps_</StyledTableCell>
+                                                    <StyledTableCell align="center">Pv_code</StyledTableCell>
+                                                    <StyledTableCell align="center">Finish_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">Cuserid</StyledTableCell>
+                                                    <StyledTableCell align="center">Cname</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.slice(page * count, page * count + count).map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.orderNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.orderDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.startDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.endDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rateNc)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.mcapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mindex1}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.tps}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dateE}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.cname}</StyledTableCellLine>
-
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                    return (
+                                                        <TableRow key={index}>
+                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.orderNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.orderDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.startDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.endDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rateNc)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.mcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mindex1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.tps}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.dateE}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.cname}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
+                                                        </TableRow>
+                                                    )
+                                                })}
 
+
+                                            </TableBody>
+                                        </Table>
+
+
+
+                                    </TableContainer>
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
@@ -301,8 +305,7 @@ class ConditionInterest extends React.Component {
                                             })
                                         }}
                                     />
-                                    
-                                </TableContainer>
+                                </Paper>
                             </Box>
 
                         </Container>

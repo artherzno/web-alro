@@ -262,41 +262,44 @@ class SummaryRequestLoanTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">เดือน</StyledTableCell>
-                                <StyledTableCell align="center">เลฃที่คำขอกู้</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนคำขอกู้</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
+                <Paper>
+                    <TableContainer >
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">เดือน</StyledTableCell>
+                                    <StyledTableCell align="center">เลฃที่คำขอกู้</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนคำขอกู้</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
-                               return(
-                                   <TableRow key={index}>
-                                       <StyledTableCellLine align="center">{farmer.months}</StyledTableCellLine>
-                                       <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine align="center">{farmer.months}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
 
-                                   </TableRow>
-                               )
-                           })}
+                                        </TableRow>
+                                    )
+                                })}
 
-                            <TableRow>
-                                <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                <TableRow>
+                                    <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                        รวมทั้งสิ้น
+                                    </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
 
+
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
@@ -317,8 +320,7 @@ class SummaryRequestLoanTab extends React.Component {
                             })
                         }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

@@ -200,84 +200,87 @@ class BySign extends React.Component {
                             </Grid>
                         
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell  align="center">Rid_it</StyledTableCell>
-                                                <StyledTableCell  align="center">วันที่บันทึก</StyledTableCell>
-                                                <StyledTableCell  align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell  align="center">ลำดับ</StyledTableCell>
-                                                <StyledTableCell  align="center">รหัส</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">Prentno</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
-                                                <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
-                                                <StyledTableCell align="center">Reduce</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_r</StyledTableCell>
-                                                <StyledTableCell align="center">Dueamount</StyledTableCell>
-                                                <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                <StyledTableCell align="center">Date_e</StyledTableCell>
-                                                <StyledTableCell align="center">Code</StyledTableCell>
-                                            </TableRow>
-                                            
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.slice(page * count, page * count + count).map((element, index) => {
+                               <Paper>
+                                    <TableContainer >
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">Rid_it</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                    <StyledTableCell align="center">ลำดับ</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">Reduce</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_r</StyledTableCell>
+                                                    <StyledTableCell align="center">Dueamount</StyledTableCell>
+                                                    <StyledTableCell align="center">Pv_code</StyledTableCell>
+                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">Code</StyledTableCell>
+                                                </TableRow>
 
-                                                return (
-                                                    <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.ridIt}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.reduce}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.rateR}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dueamount}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dateE}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
+
+                                                    return (
+                                                        <TableRow key={index}>
+                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.ridIt}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.reduce}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.rateR}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.dueamount}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.dateE}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
 
 
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                        </TableRow>
+                                                    )
+                                                })}
 
-                                            
-                                        </TableBody>
-                                    </Table>
 
+                                            </TableBody>
+                                        </Table>
+
+
+
+                                    </TableContainer>
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
                                         count={this.state.data.length}
                                         rowsPerPage={this.state.count}
                                         page={this.state.page}
-                                        onPageChange={(e,newPage) => { 
-                                          
+                                        onPageChange={(e, newPage) => {
+
                                             this.setState({
-                                                page:newPage
+                                                page: newPage
                                             })
                                         }}
                                         onRowsPerPageChange={(event) => {
-                                           
+
                                             this.setState({
                                                 count: +event.target.value,
                                                 page: 0
                                             })
                                         }}
                                     />
-                                    
-                                </TableContainer>
+                               </Paper>
                             </Box>
 
                         </Container>

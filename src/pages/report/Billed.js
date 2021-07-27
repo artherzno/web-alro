@@ -293,70 +293,73 @@ class Billed extends React.Component {
                 </Grid>
 
                 <Box mt={2}>
-                    <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="customized table">
-                            <TableHead>
-                                <TableRow>
-                                   
-                                    <StyledTableCell align="center" colSpan={2}>ใบเสร๋จรับเงิน</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={4}>จำนวนเงินทั้งหมดที่จัดเก็บ</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}>ใบเสร็จที่ยกเลิก</StyledTableCell>
+                    <Paper>
+                        <TableContainer>
+                            <Table className={classes.table} aria-label="customized table">
+                                <TableHead>
+                                    <TableRow>
 
-                                </TableRow>
-                                <TableRow>
+                                        <StyledTableCell align="center" colSpan={2}>ใบเสร๋จรับเงิน</StyledTableCell>
+                                        <StyledTableCell align="center" colSpan={4}>จำนวนเงินทั้งหมดที่จัดเก็บ</StyledTableCell>
+                                        <StyledTableCell align="center" colSpan={2}>ใบเสร็จที่ยกเลิก</StyledTableCell>
 
-                                    <StyledTableCell align="center" rowSpan={2}>เล่มที่/เลขที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>จำนวน(ฉบับ)</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}>เงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>อื่นๆ</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>รวม</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>เล่มที่/เลขที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>จำนวน(ฉบับ)</StyledTableCell>
+                                    </TableRow>
+                                    <TableRow>
 
-                                </TableRow>
-                                <TableRow>
+                                        <StyledTableCell align="center" rowSpan={2}>เล่มที่/เลขที่</StyledTableCell>
+                                        <StyledTableCell align="center" rowSpan={2}>จำนวน(ฉบับ)</StyledTableCell>
+                                        <StyledTableCell align="center" colSpan={2}>เงินกู้</StyledTableCell>
+                                        <StyledTableCell align="center" rowSpan={2}>อื่นๆ</StyledTableCell>
+                                        <StyledTableCell align="center" rowSpan={2}>รวม</StyledTableCell>
+                                        <StyledTableCell align="center" rowSpan={2}>เล่มที่/เลขที่</StyledTableCell>
+                                        <StyledTableCell align="center" rowSpan={2}>จำนวน(ฉบับ)</StyledTableCell>
 
-                                    <StyledTableCell align="center" >เงินต้น</StyledTableCell>
-                                    <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
+                                    </TableRow>
+                                    <TableRow>
 
-                                </TableRow>
+                                        <StyledTableCell align="center" >เงินต้น</StyledTableCell>
+                                        <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
 
-                            </TableHead>
-                            <TableBody>
-                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
+                                    </TableRow>
 
-                                    return(
-                                        <TableRow key={index}>
-                                            <StyledTableCellLine >
-                                                {farmer.receiptNo1}
-                                            </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.number)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle1)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.interest)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.other)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.receiptNo2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
+                                </TableHead>
+                                <TableBody>
+                                    {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                                        </TableRow>
-                                    )
-                                })}
+                                        return (
+                                            <TableRow key={index}>
+                                                <StyledTableCellLine >
+                                                    {farmer.receiptNo1}
+                                                </StyledTableCellLine>
+                                                <StyledTableCellLine align="right">{formatNumber(farmer.number)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="right">{formatNumber(farmer.principle1)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="right">{formatNumber(farmer.interest)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="right">{formatNumber(farmer.other)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="center">{farmer.receiptNo2}</StyledTableCellLine>
+                                                <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
 
-                                <TableRow>
-                                    <StyledTableCellLine  align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                        รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle1)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
+                                            </TableRow>
+                                        )
+                                    })}
 
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                                    <TableRow>
+                                        <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                            รวมทั้งสิ้น
+                                        </StyledTableCellLine>
+                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle1)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
+
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+
+                        </TableContainer>
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25]}
                             component="div"
@@ -377,7 +380,7 @@ class Billed extends React.Component {
                                 })
                             }}
                         />
-                    </TableContainer>
+                    </Paper>
                 </Box>
 
             </Box>

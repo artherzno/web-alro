@@ -248,51 +248,53 @@ class SummaryLawSuitTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">เดือน</StyledTableCell>
-                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
-                                <StyledTableCell align="center" >เงินต้น</StyledTableCell>
-                                <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center" >ดอกเบี้ยที่รับ</StyledTableCell>
-                                <StyledTableCell align="center" >รวม</StyledTableCell>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">เดือน</StyledTableCell>
+                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center" >เงินต้น</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ยที่รับ</StyledTableCell>
+                                    <StyledTableCell align="center" >รวม</StyledTableCell>
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                               return(
-                                   <TableRow key={index}>
-                                       <StyledTableCellLine > {farmer.months} </StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.contractNo)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.interestEarned)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine > {farmer.months} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.contractNo)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.interestEarned)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
 
-                                   </TableRow>
-                               )
-                           })}
+                                        </TableRow>
+                                    )
+                                })}
 
-                            <TableRow>
-                                <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+                                <TableRow>
+                                    <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                        รวมทั้งสิ้น
+                                    </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
 
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
 
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
@@ -313,8 +315,7 @@ class SummaryLawSuitTab extends React.Component {
                             })
                         }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

@@ -283,56 +283,58 @@ class SummaryListFarmPayLoanTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>ส.ป.ก.จังหวัด</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>ชำระเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>เงินต้น</StyledTableCell>
-                                <StyledTableCell align="center" colSpan={2}>ดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>ค่าปรับ</StyledTableCell>
-                                <StyledTableCell align="center" rowSpan={2}>ชำระเกิน</StyledTableCell>
-                            </TableRow>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ส.ป.ก.จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชำระเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>เงินต้น</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>ดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ค่าปรับ</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชำระเกิน</StyledTableCell>
+                                </TableRow>
 
-                            <TableRow>
-                                <StyledTableCell align="center" >ค้างรับ</StyledTableCell>
-                                <StyledTableCell align="center" >รับ</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
+                                <TableRow>
+                                    <StyledTableCell align="center" >ค้างรับ</StyledTableCell>
+                                    <StyledTableCell align="center" >รับ</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                                return(
-                                    <TableRow key={index}>
-                                        <StyledTableCellLine component="th" align="center" scope="row">
-                                            {farmer.no}
-                                </StyledTableCellLine>
-                                        <StyledTableCellLine align="center"> {farmer.alroProvince}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.payOff)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine component="th" align="center" scope="row">
+                                                {farmer.no}
+                                            </StyledTableCellLine>
+                                            <StyledTableCellLine align="center"> {farmer.alroProvince}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.payOff)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
 
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.remaining)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
-                                    </TableRow>
-                                )
-                            })}
-                       
-                            <TableRow  >
-                                <StyledTableCellLine className={classes.cellSummary} colSpan={2} align="right">รวมทั้งสิ้น</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.payOff)}</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
-                                <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.remaining)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
+                                        </TableRow>
+                                    )
+                                })}
 
+                                <TableRow  >
+                                    <StyledTableCellLine className={classes.cellSummary} colSpan={2} align="right">รวมทั้งสิ้น</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.payOff)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
@@ -353,8 +355,8 @@ class SummaryListFarmPayLoanTab extends React.Component {
                             })
                         }}
                     />
-                    
-                </TableContainer>
+
+                </Paper>
             </Box>
         </div>)
     }

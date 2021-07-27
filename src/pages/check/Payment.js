@@ -231,42 +231,46 @@ class Payment extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">ชื่อ-นาสกุล</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                                <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                            </TableRow>
+                                <Paper>
+                                    <TableContainer >
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">ชื่อ-นาสกุล</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.slice(page * count, page * count + count).map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow hover={true} key={index} selected={selectedPayment.contractNo === element.contractNo} tabIndex={-1} onClick={() =>{
-                                                       
-                                                        this.setState({
-                                                            selectedPayment:element
-                                                        })
-                                                    }}>
-                                                        <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                    return (
+                                                        <TableRow hover={true} key={index} selected={selectedPayment.contractNo === element.contractNo} tabIndex={-1} onClick={() => {
 
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                            this.setState({
+                                                                selectedPayment: element
+                                                            })
+                                                        }}>
+                                                            <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+
+                                            </TableBody>
+                                        </Table>
+
+
+                                    </TableContainer>
 
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
@@ -288,8 +292,7 @@ class Payment extends React.Component {
                                             })
                                         }}
                                     />
-
-                                </TableContainer>
+                                </Paper>
                             </Box>
 
                             <Box mt={5}>
