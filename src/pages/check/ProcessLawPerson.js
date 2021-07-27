@@ -44,7 +44,9 @@ class ProcessLawPerson extends React.Component {
             Year: "",
             Order: "",
             Process: "",
-            data: []
+            data: [],
+            page: 0,
+            count: 10
         }
     }
 
@@ -137,7 +139,7 @@ class ProcessLawPerson extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data } = this.state
+        const { data, page, count } = this.state
 
 
         return (
@@ -283,7 +285,7 @@ class ProcessLawPerson extends React.Component {
 
                                         </TableHead>
                                         <TableBody>
-                                            {this.state.data.map((element, index) => {
+                                            {this.state.data.slice(page * count, page * count + count).map((element, index) => {
 
                                                 return (
                                                     <TableRow key={index}>
@@ -375,11 +377,22 @@ class ProcessLawPerson extends React.Component {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
-                                        rowsPerPage={10}
-                                        page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
+                                        count={this.state.data.length}
+                                        rowsPerPage={this.state.count}
+                                        page={this.state.page}
+                                        onPageChange={(e, newPage) => {
+
+                                            this.setState({
+                                                page: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                count: +event.target.value,
+                                                page: 0
+                                            })
+                                        }}
                                     />
                                     
                                 </TableContainer>

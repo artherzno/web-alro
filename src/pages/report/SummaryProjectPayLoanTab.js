@@ -41,7 +41,8 @@ class SumaryProjectPayLoanTab extends React.Component {
             montLabel: "",
             yearLabel: "",
             dateRangLabel: "",
-
+            page: 0,
+            count: 10
 
         }
     }
@@ -120,7 +121,7 @@ class SumaryProjectPayLoanTab extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { dataSummary } = this.state
+        const { dataSummary, page, count } = this.state
 
 
         return (<div>
@@ -267,7 +268,7 @@ class SumaryProjectPayLoanTab extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.farmerPayLoanList.map((farmer,index) =>{
+                            {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer,index) =>{
 
                                 return(
                                     <TableRow key={index}>
@@ -310,11 +311,22 @@ class SumaryProjectPayLoanTab extends React.Component {
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={30}
-                        rowsPerPage={10}
-                        page={1}
-                        onPageChange={() => { }}
-                        onRowsPerPageChange={() => { }}
+                        count={this.state.farmerPayLoanList.length}
+                        rowsPerPage={this.state.count}
+                        page={this.state.page}
+                        onPageChange={(e, newPage) => {
+
+                            this.setState({
+                                page: newPage
+                            })
+                        }}
+                        onRowsPerPageChange={(event) => {
+
+                            this.setState({
+                                count: +event.target.value,
+                                page: 0
+                            })
+                        }}
                     />
                     
                 </TableContainer>
