@@ -17,6 +17,8 @@ import ListSign from './report/ListSign'
 import LawSuit from './report/LawSuit'
 import ModifyLoan from './report/ModifyLoan'
 import Billed from './report/Billed'
+import Compensate from './report/Compensate'
+import DebtPending from './report/DebtPending'
 import AddFarmer from './manageinfo/AddFarmer';
 import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -125,6 +127,8 @@ function Main() {
                     <Route path="/report/lawsuit" component={LawSuit} />
                     <Route path="/report/modify" component={ModifyLoan} />
                     <Route path="/report/billed" component={Billed} />
+                    <Route path="/report/compensate" component={Compensate} />
+                    <Route path="/report/debtpending" component={DebtPending} />
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />

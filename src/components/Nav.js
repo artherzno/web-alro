@@ -189,6 +189,12 @@ const listmenu = [
             },{
                 subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
                 subpath: '/report/billed'
+            }, {
+                subtitle: 'รายงานการชดใช้หนี้แทนเกษตรกร',
+                subpath: '/report/compensate'
+            }, {
+                subtitle: 'รายงานสถานะหนี้เงินรอเรียกคืน',
+                subpath: '/report/debtpending'
             }
         ]
     },{

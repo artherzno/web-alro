@@ -47,3 +47,25 @@ export const ButtonExportExcel = (props) =>{
 }
 
 
+export const ButtonApp = (props) => {
+
+    const classes = useStyles();
+
+    return (
+        <div className={classes.root}>
+            <div className={classes.wrapper}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={props.loading}
+                    onClick={props.handleButtonClick}
+                >
+                    {props.label}
+                </Button>
+                {props.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+            </div>
+        </div>
+
+    )
+}
+
