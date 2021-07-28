@@ -551,6 +551,14 @@ const api = {
         })
 
     },
+    getCalPayment(params) {
+
+        return post({
+            path: "api/CheckServices/GetCalPayment",
+            params: params
+        })
+
+    },
     exportPaymentBalance(params) {
 
         return post({
