@@ -42,7 +42,9 @@ class CheckBill extends React.Component {
             InvoiceNo: "",
             Order: "",
             Display: "",
-            data: []
+            data: [],
+            page: 0,
+            count: 10
         }
     }
 
@@ -136,7 +138,7 @@ class CheckBill extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data } = this.state
+        const { data, page, count } = this.state
 
         return (
             <div>
@@ -198,59 +200,73 @@ class CheckBill extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">รหัสจังหวัด</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่คำนวณ</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่ใบแจ้งหนี้</StyledTableCell>
-                                                <StyledTableCell align="center">เดือน</StyledTableCell>
-                                                <StyledTableCell align="center">รายการ</StyledTableCell>
-                                                <StyledTableCell align="center">ครั้งที่</StyledTableCell>
-                                                <StyledTableCell align="center">จำนวนเงินรวม</StyledTableCell>
-                                                <StyledTableCell align="center">จำนวนราย</StyledTableCell>
-                                            </TableRow>
+                               <Paper>
+                                    <TableContainer>
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสจังหวัด</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่คำนวณ</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่ใบแจ้งหนี้</StyledTableCell>
+                                                    <StyledTableCell align="center">เดือน</StyledTableCell>
+                                                    <StyledTableCell align="center">รายการ</StyledTableCell>
+                                                    <StyledTableCell align="center">ครั้งที่</StyledTableCell>
+                                                    <StyledTableCell align="center">จำนวนเงินรวม</StyledTableCell>
+                                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.calDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.invoiceNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.month}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.list}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.numCase)}</StyledTableCellLine>
-
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                    return (
+                                                        <TableRow key={index}>
+                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.calDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.invoiceNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.month}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.list}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.numCase)}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
+                                                        </TableRow>
+                                                    )
+                                                })}
 
+
+                                            </TableBody>
+                                        </Table>
+
+
+                                    </TableContainer>
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
-                                        rowsPerPage={10}
-                                        page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
+                                        count={this.state.data.length}
+                                        rowsPerPage={this.state.count}
+                                        page={this.state.page}
+                                        onPageChange={(e, newPage) => {
+
+                                            this.setState({
+                                                page: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                count: +event.target.value,
+                                                page: 0
+                                            })
+                                        }}
                                     />
-                                    
-                                </TableContainer>
+
+                               </Paper>
                             </Box>
 
                         </Container>

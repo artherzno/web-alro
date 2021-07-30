@@ -41,7 +41,8 @@ class SumaryProjectPayLoanTab extends React.Component {
             montLabel: "",
             yearLabel: "",
             dateRangLabel: "",
-
+            page: 0,
+            count: 10
 
         }
     }
@@ -120,7 +121,7 @@ class SumaryProjectPayLoanTab extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { dataSummary } = this.state
+        const { dataSummary, page, count } = this.state
 
 
         return (<div>
@@ -247,77 +248,91 @@ class SumaryProjectPayLoanTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนราย</StyledTableCell>
-                                <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">ว/ด/ป รับเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">ว/ด/ป เริ่มชำระ</StyledTableCell>
-                                <StyledTableCell align="center">ว/ด/ป ครบกำหนด</StyledTableCell>
-                                <StyledTableCell align="center">จ่ายเงินงวดแรก</StyledTableCell>
-                                <StyledTableCell align="center">รายเดิม</StyledTableCell>
-                                <StyledTableCell align="center">รายใหม่</StyledTableCell>
-                                <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center">น้อยกว่า 15 วันทำการ</StyledTableCell>
-                                <StyledTableCell align="center">มากกว่า 15 วันทำการ</StyledTableCell>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                    <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center">ว/ด/ป รับเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center">ว/ด/ป เริ่มชำระ</StyledTableCell>
+                                    <StyledTableCell align="center">ว/ด/ป ครบกำหนด</StyledTableCell>
+                                    <StyledTableCell align="center">จ่ายเงินงวดแรก</StyledTableCell>
+                                    <StyledTableCell align="center">รายเดิม</StyledTableCell>
+                                    <StyledTableCell align="center">รายใหม่</StyledTableCell>
+                                    <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center">น้อยกว่า 15 วันทำการ</StyledTableCell>
+                                    <StyledTableCell align="center">มากกว่า 15 วันทำการ</StyledTableCell>
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.map((farmer,index) =>{
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                                return(
-                                    <TableRow key={index}>
-                                        <StyledTableCellLine align="center" >{farmer.projName}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.loanDate}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.interestRate)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.lessThan15)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.moreThan15)}</StyledTableCellLine>
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine align="center" >{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.interestRate)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.lessThan15)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.moreThan15)}</StyledTableCellLine>
 
-                                    </TableRow>
-                                )
-                            })}
-                            <TableRow>
-                                <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.numCase)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" colSpan={3} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.original)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.new)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.lessThan15)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.moreThan15)}</StyledTableCellLine>
+                                        </TableRow>
+                                    )
+                                })}
+                                <TableRow>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                        รวมทั้งสิ้น
+                                    </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.numCase)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" colSpan={3} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.original)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.new)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.lessThan15)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.moreThan15)}</StyledTableCellLine>
 
 
-                            </TableRow>
+                                </TableRow>
 
-                        </TableBody>
-                    </Table>
+                            </TableBody>
+                        </Table>
 
+
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={30}
-                        rowsPerPage={10}
-                        page={1}
-                        onPageChange={() => { }}
-                        onRowsPerPageChange={() => { }}
+                        count={this.state.farmerPayLoanList.length}
+                        rowsPerPage={this.state.count}
+                        page={this.state.page}
+                        onPageChange={(e, newPage) => {
+
+                            this.setState({
+                                page: newPage
+                            })
+                        }}
+                        onRowsPerPageChange={(event) => {
+
+                            this.setState({
+                                count: +event.target.value,
+                                page: 0
+                            })
+                        }}
                     />
-                    
-                </TableContainer>
+
+                </Paper>
             </Box>
         </div>)
     }

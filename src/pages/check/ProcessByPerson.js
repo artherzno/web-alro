@@ -43,7 +43,9 @@ class ProcessByPerson extends React.Component {
             Year: "",
             Order: "",
             Process: "",
-            data: []
+            data: [],
+            page: 0,
+            count: 10
         }
     }
 
@@ -135,7 +137,7 @@ class ProcessByPerson extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data } = this.state
+        const { data, page, count } = this.state
         return (
             <div>
                 <div className="header-nav">
@@ -197,184 +199,196 @@ class ProcessByPerson extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center" padding="checkbox" minWidth={50}><Checkbox/></StyledTableCell>
-                                                <StyledTableCell align="center">mid</StyledTableCell>
-                                                <StyledTableCell align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell align="center">Projcode</StyledTableCell>
-                                                <StyledTableCell align="center">Projname</StyledTableCell>
-                                                <StyledTableCell align="center">Prentno</StyledTableCell>
-                                                <StyledTableCell align="center">Rentno</StyledTableCell>
-                                                <StyledTableCell align="center">Date</StyledTableCell>
-                                                <StyledTableCell align="center">Loandate</StyledTableCell>
-                                                <StyledTableCell align="center">Paydate</StyledTableCell>
-                                                <StyledTableCell align="center">Payrec</StyledTableCell>
-                                                <StyledTableCell align="center">Rcpno</StyledTableCell>
-                                                <StyledTableCell align="center">Principle</StyledTableCell>
-                                                <StyledTableCell align="center">Payment</StyledTableCell>
-                                                <StyledTableCell align="center">PayIntr</StyledTableCell>
-                                                <StyledTableCell align="center">Paycharge</StyledTableCell>
-                                                <StyledTableCell align="center">Captpaid</StyledTableCell>
-                                                <StyledTableCell align="center">Intpaid</StyledTableCell>
-                                                <StyledTableCell align="center">Chrgpaid</StyledTableCell>
-                                                <StyledTableCell align="center">Unpaid</StyledTableCell>
-                                                <StyledTableCell align="center">Unpaid1</StyledTableCell>
-                                                <StyledTableCell align="center">Unpaid2</StyledTableCell>
-                                                <StyledTableCell align="center">Credit</StyledTableCell>
-                                                <StyledTableCell align="center">Dcapital</StyledTableCell>
-                                                <StyledTableCell align="center">Dinterest</StyledTableCell>
-                                                <StyledTableCell align="center">Dcharge</StyledTableCell>
-                                                <StyledTableCell align="center">Pcapital</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap0</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap1</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap2</StyledTableCell>
-                                                <StyledTableCell align="center">Pinterest</StyledTableCell>
-                                                <StyledTableCell align="center">Pint_0</StyledTableCell>
-                                                <StyledTableCell align="center">Pint_1</StyledTableCell>
-                                                <StyledTableCell align="center">Pint_2</StyledTableCell>
-                                                <StyledTableCell align="center">Pcharge</StyledTableCell>
-                                                <StyledTableCell align="center">Pcharge_0</StyledTableCell>
-                                                <StyledTableCell align="center">Pcharge_1</StyledTableCell>
-                                                <StyledTableCell align="center">Pcharge_2</StyledTableCell>
-                                                <StyledTableCell align="center">Bcapital</StyledTableCell>
-                                                <StyledTableCell align="center">Binterest</StyledTableCell>
-                                                <StyledTableCell align="center">Bcharge</StyledTableCell>
-                                                <StyledTableCell align="center">Scapital</StyledTableCell>
-                                                <StyledTableCell align="center">Sinterest</StyledTableCell>
-                                                <StyledTableCell align="center">Minterest</StyledTableCell>
-                                                <StyledTableCell align="center">Mcharge</StyledTableCell>
-                                                <StyledTableCell align="center">Appendflgs</StyledTableCell>
-                                                <StyledTableCell align="center">P_pay</StyledTableCell>
-                                                <StyledTableCell align="center">P_intr</StyledTableCell>
-                                                <StyledTableCell align="center">P_charge</StyledTableCell>
-                                                <StyledTableCell align="center">A_charge</StyledTableCell>
-                                                <StyledTableCell align="center">Rate</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_c</StyledTableCell>
-                                                <StyledTableCell align="center">Cmddate</StyledTableCell>
-                                                <StyledTableCell align="center">Startdate</StyledTableCell>
-                                                <StyledTableCell align="center">Enddate</StyledTableCell>
-                                                <StyledTableCell align="center">Types</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_n</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_nc</StyledTableCell>
-                                                <StyledTableCell align="center">Tps_</StyledTableCell>
-                                                <StyledTableCell align="center">Tps</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap_01</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap_02</StyledTableCell>
-                                                <StyledTableCell align="center">Pintr_01</StyledTableCell>
-                                                <StyledTableCell align="center">Pintr_02</StyledTableCell>
-                                                <StyledTableCell align="center">Ptotal_01</StyledTableCell>
-                                                <StyledTableCell align="center">Uintr_01</StyledTableCell>
-                                                <StyledTableCell align="center">Kpk_amt1</StyledTableCell>
-                                                <StyledTableCell align="center">Kpk_amt2</StyledTableCell>
-                                                <StyledTableCell align="center">Kpk_amt3</StyledTableCell>
-                                                <StyledTableCell align="center">Remarks</StyledTableCell>
-                                                <StyledTableCell align="center">K_capital</StyledTableCell>
-                                                <StyledTableCell align="center">K_interest</StyledTableCell>
-                                            </TableRow>
+                                <Paper>
+                                    <TableContainer>
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center" padding="checkbox" minWidth={50}><Checkbox /></StyledTableCell>
+                                                    <StyledTableCell align="center">mid</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                    <StyledTableCell align="center">Projcode</StyledTableCell>
+                                                    <StyledTableCell align="center">Projname</StyledTableCell>
+                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
+                                                    <StyledTableCell align="center">Rentno</StyledTableCell>
+                                                    <StyledTableCell align="center">Date</StyledTableCell>
+                                                    <StyledTableCell align="center">Loandate</StyledTableCell>
+                                                    <StyledTableCell align="center">Paydate</StyledTableCell>
+                                                    <StyledTableCell align="center">Payrec</StyledTableCell>
+                                                    <StyledTableCell align="center">Rcpno</StyledTableCell>
+                                                    <StyledTableCell align="center">Principle</StyledTableCell>
+                                                    <StyledTableCell align="center">Payment</StyledTableCell>
+                                                    <StyledTableCell align="center">PayIntr</StyledTableCell>
+                                                    <StyledTableCell align="center">Paycharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Captpaid</StyledTableCell>
+                                                    <StyledTableCell align="center">Intpaid</StyledTableCell>
+                                                    <StyledTableCell align="center">Chrgpaid</StyledTableCell>
+                                                    <StyledTableCell align="center">Unpaid</StyledTableCell>
+                                                    <StyledTableCell align="center">Unpaid1</StyledTableCell>
+                                                    <StyledTableCell align="center">Unpaid2</StyledTableCell>
+                                                    <StyledTableCell align="center">Credit</StyledTableCell>
+                                                    <StyledTableCell align="center">Dcapital</StyledTableCell>
+                                                    <StyledTableCell align="center">Dinterest</StyledTableCell>
+                                                    <StyledTableCell align="center">Dcharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcapital</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap0</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap1</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap2</StyledTableCell>
+                                                    <StyledTableCell align="center">Pinterest</StyledTableCell>
+                                                    <StyledTableCell align="center">Pint_0</StyledTableCell>
+                                                    <StyledTableCell align="center">Pint_1</StyledTableCell>
+                                                    <StyledTableCell align="center">Pint_2</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcharge_0</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcharge_1</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcharge_2</StyledTableCell>
+                                                    <StyledTableCell align="center">Bcapital</StyledTableCell>
+                                                    <StyledTableCell align="center">Binterest</StyledTableCell>
+                                                    <StyledTableCell align="center">Bcharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Scapital</StyledTableCell>
+                                                    <StyledTableCell align="center">Sinterest</StyledTableCell>
+                                                    <StyledTableCell align="center">Minterest</StyledTableCell>
+                                                    <StyledTableCell align="center">Mcharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Appendflgs</StyledTableCell>
+                                                    <StyledTableCell align="center">P_pay</StyledTableCell>
+                                                    <StyledTableCell align="center">P_intr</StyledTableCell>
+                                                    <StyledTableCell align="center">P_charge</StyledTableCell>
+                                                    <StyledTableCell align="center">A_charge</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_c</StyledTableCell>
+                                                    <StyledTableCell align="center">Cmddate</StyledTableCell>
+                                                    <StyledTableCell align="center">Startdate</StyledTableCell>
+                                                    <StyledTableCell align="center">Enddate</StyledTableCell>
+                                                    <StyledTableCell align="center">Types</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_n</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_nc</StyledTableCell>
+                                                    <StyledTableCell align="center">Tps_</StyledTableCell>
+                                                    <StyledTableCell align="center">Tps</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap_01</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap_02</StyledTableCell>
+                                                    <StyledTableCell align="center">Pintr_01</StyledTableCell>
+                                                    <StyledTableCell align="center">Pintr_02</StyledTableCell>
+                                                    <StyledTableCell align="center">Ptotal_01</StyledTableCell>
+                                                    <StyledTableCell align="center">Uintr_01</StyledTableCell>
+                                                    <StyledTableCell align="center">Kpk_amt1</StyledTableCell>
+                                                    <StyledTableCell align="center">Kpk_amt2</StyledTableCell>
+                                                    <StyledTableCell align="center">Kpk_amt3</StyledTableCell>
+                                                    <StyledTableCell align="center">Remarks</StyledTableCell>
+                                                    <StyledTableCell align="center">K_capital</StyledTableCell>
+                                                    <StyledTableCell align="center">K_interest</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow key={index}>
-                                                        <StyledTableCellLine align="center"><Checkbox /></StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mid}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projcode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projname}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.rentno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.loandate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.paydate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.payrec)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.rcpno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.principle)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.payment)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.paylntr)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.paycharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.captpaid)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.intpaid)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.chrgpaid)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.unpaid)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.unpaid1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.unpaid2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.credit)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.dcapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.dinterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.dcharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap0)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pinterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_0)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pint_2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge_0)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge_1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcharge_2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.bcapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.binterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.bcharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.scapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.sinterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.appendFlgs}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pPay)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pIntr)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pCharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.aCapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.aInterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.aCharge)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.cmddate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.startdate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.enddate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rateNC)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.tps0}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap01)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap02)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pintr01)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pintr02)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.ptotal01)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.uintr01)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.kpkAmt1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.kpkAmt2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.kpkAmt3)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.remarks}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.kCapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.kInterest)}</StyledTableCellLine>
-                                                        
-
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                    return (
+                                                        <TableRow key={index}>
+                                                            <StyledTableCellLine align="center"><Checkbox /></StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projcode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projname}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.rentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.loandate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.paydate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.payrec)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.rcpno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.principle)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.payment)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.paylntr)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.paycharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.captpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.intpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.chrgpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.unpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.unpaid1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.unpaid2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.credit)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.dcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.dinterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.dcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap0)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pinterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pint_0)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pint_1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pint_2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge_0)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge_1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge_2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.bcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.binterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.bcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.scapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.sinterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.appendFlgs}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pPay)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pIntr)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pCharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.aCapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.aInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.aCharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.cmddate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.startdate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.enddate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rateNC)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.tps0}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap02)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pintr01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pintr02)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.ptotal01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.uintr01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.kpkAmt1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.kpkAmt2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.kpkAmt3)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.remarks}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.kCapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.kInterest)}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
 
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+
+                                            </TableBody>
+                                        </Table>
+
+                                    </TableContainer>
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
-                                        rowsPerPage={10}
-                                        page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
+                                        count={this.state.data.length}
+                                        rowsPerPage={this.state.count}
+                                        page={this.state.page}
+                                        onPageChange={(e, newPage) => {
+
+                                            this.setState({
+                                                page: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                count: +event.target.value,
+                                                page: 0
+                                            })
+                                        }}
                                     />
-                                    
-                                </TableContainer>
+                                </Paper>
                             </Box>
 
                         </Container>

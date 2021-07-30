@@ -44,7 +44,8 @@ class SignProjectTab extends React.Component {
             montLabel: "",
             yearLabel: "",
             dateRangLabel: "",
-
+            page: 0,
+            count: 10
 
         }
     }
@@ -123,7 +124,7 @@ class SignProjectTab extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { dataSummary } = this.state
+        const { dataSummary, page, count } = this.state
 
 
         return (<div>
@@ -247,68 +248,80 @@ class SignProjectTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">จังหวัด</StyledTableCell>
-                                <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
-                                <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
-                                <StyledTableCell align="center">งวดสุดท้าย</StyledTableCell>
-                                <StyledTableCell align="center">จำนวน (งวด)</StyledTableCell>
-                                <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center">ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
+                                    <StyledTableCell align="center">งวดสุดท้าย</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวน (งวด)</StyledTableCell>
+                                    <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            
-                            {this.state.farmerPayLoanList.map((farmer,index) =>{
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
 
-                                return(
-                                    <TableRow key={index}>
-                                        <StyledTableCellLine > {farmer.province} </StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
-                                        <StyledTableCellLine align="center">{farmer.projName} </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{farmer.totalContract} </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)} </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{farmer.installment} </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{farmer.principalPeriod} </StyledTableCellLine>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                                    </TableRow>
-                                )
-                            })}
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine > {farmer.province} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.projName} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalContract} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.installment} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.principalPeriod} </StyledTableCellLine>
 
-                            <TableRow>
-                                <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
+                                        </TableRow>
+                                    )
+                                })}
 
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                <TableRow>
+                                    <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                        รวมทั้งสิ้น
+                                    </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
 
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={30}
-                        rowsPerPage={10}
-                        page={1}
-                        onPageChange={() => { }}
-                        onRowsPerPageChange={() => { }}
+                        count={this.state.farmerPayLoanList.length}
+                        rowsPerPage={this.state.count}
+                        page={this.state.page}
+                        onPageChange={(e, newPage) => {
+
+                            this.setState({
+                                page: newPage
+                            })
+                        }}
+                        onRowsPerPageChange={(event) => {
+
+                            this.setState({
+                                count: +event.target.value,
+                                page: 0
+                            })
+                        }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

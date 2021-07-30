@@ -45,7 +45,9 @@ class CheckBilled extends React.Component {
             RetrieveYear: "",
             Order: "",
             Display: "",
-            data: []
+            data: [],
+            page: 0,
+            count: 10
         }
     }
 
@@ -140,7 +142,7 @@ class CheckBilled extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data } = this.state
+        const { data, page, count} = this.state
 
         return (
             <div>
@@ -206,119 +208,133 @@ class CheckBilled extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่</StyledTableCell>
-                                                <StyledTableCell align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell align="center">ครั้งที่</StyledTableCell>
-                                                <StyledTableCell align="center">รหัส</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">Prentno</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่ชำระ</StyledTableCell>
-                                                <StyledTableCell align="center">ใบเสร็จเลขที่</StyledTableCell>
-                                                <StyledTableCell align="center">Rcpno 1</StyledTableCell>
-                                                <StyledTableCell align="center">จ่ายเงินต้น</StyledTableCell>
-                                                <StyledTableCell align="center">จ่ายดอกเบี้ย</StyledTableCell>
-                                                <StyledTableCell align="center">จ่ายค่าปรับ</StyledTableCell>
-                                                <StyledTableCell align="center">Rate</StyledTableCell>
-                                                <StyledTableCell align="center">Ref_id</StyledTableCell>
-                                                <StyledTableCell align="center">Payment</StyledTableCell>
-                                                <StyledTableCell align="center">Pcapital</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap_1</StyledTableCell>
-                                                <StyledTableCell align="center">Pcap_2</StyledTableCell>
-                                                <StyledTableCell align="center">Pint_1</StyledTableCell>
-                                                <StyledTableCell align="center">Pint_2</StyledTableCell>
-                                                <StyledTableCell align="center">Paycharge</StyledTableCell>
-                                                <StyledTableCell align="center">Pother</StyledTableCell>
-                                                <StyledTableCell align="center">Pbank</StyledTableCell>
-                                                <StyledTableCell align="center">Stu</StyledTableCell>
-                                                <StyledTableCell align="center">S_flag</StyledTableCell>
-                                                <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                <StyledTableCell align="center">Date_e</StyledTableCell>
-                                                <StyledTableCell align="center">Cuserid</StyledTableCell>
-                                                <StyledTableCell align="center">Finish_flag</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_n</StyledTableCell>
-                                                <StyledTableCell align="center">Rate_nc</StyledTableCell>
-                                                <StyledTableCell align="center">R_flag</StyledTableCell>
-                                                <StyledTableCell align="center">Code</StyledTableCell>
-                                                <StyledTableCell align="center">Pindex</StyledTableCell>
-                                                <StyledTableCell align="center">Bcapital</StyledTableCell>
-                                                <StyledTableCell align="center">S_print</StyledTableCell>
-                                                <StyledTableCell align="center">Bank_file</StyledTableCell>
-                                                <StyledTableCell align="center">Cname</StyledTableCell>
-                                            </TableRow>
+                                <Paper>
+                                    <TableContainer>
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                    <StyledTableCell align="center">ครั้งที่</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่ชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">ใบเสร็จเลขที่</StyledTableCell>
+                                                    <StyledTableCell align="center">Rcpno 1</StyledTableCell>
+                                                    <StyledTableCell align="center">จ่ายเงินต้น</StyledTableCell>
+                                                    <StyledTableCell align="center">จ่ายดอกเบี้ย</StyledTableCell>
+                                                    <StyledTableCell align="center">จ่ายค่าปรับ</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate</StyledTableCell>
+                                                    <StyledTableCell align="center">Ref_id</StyledTableCell>
+                                                    <StyledTableCell align="center">Payment</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcapital</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap_1</StyledTableCell>
+                                                    <StyledTableCell align="center">Pcap_2</StyledTableCell>
+                                                    <StyledTableCell align="center">Pint_1</StyledTableCell>
+                                                    <StyledTableCell align="center">Pint_2</StyledTableCell>
+                                                    <StyledTableCell align="center">Paycharge</StyledTableCell>
+                                                    <StyledTableCell align="center">Pother</StyledTableCell>
+                                                    <StyledTableCell align="center">Pbank</StyledTableCell>
+                                                    <StyledTableCell align="center">Stu</StyledTableCell>
+                                                    <StyledTableCell align="center">S_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">Pv_code</StyledTableCell>
+                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">Cuserid</StyledTableCell>
+                                                    <StyledTableCell align="center">Finish_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_n</StyledTableCell>
+                                                    <StyledTableCell align="center">Rate_nc</StyledTableCell>
+                                                    <StyledTableCell align="center">R_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">Code</StyledTableCell>
+                                                    <StyledTableCell align="center">Pindex</StyledTableCell>
+                                                    <StyledTableCell align="center">Bcapital</StyledTableCell>
+                                                    <StyledTableCell align="center">S_print</StyledTableCell>
+                                                    <StyledTableCell align="center">Bank_file</StyledTableCell>
+                                                    <StyledTableCell align="center">Cname</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{"เลขที่สัญญา"}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.receiptNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.rcpno1}</StyledTableCellLine>
+                                                    return (
+                                                        <TableRow key={index}>
+                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{"เลขที่สัญญา"}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.receiptNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.rcpno1}</StyledTableCellLine>
 
-                                                        <StyledTableCellLine align="center">{formatNumber(element.payPrincipal)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.payInterest)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{"จ่ายค่าปรับ"}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.refId}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.payment)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rcapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pcap2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pint1)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pint2)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.paychage)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.pother)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.pbank}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.stu}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.sFlag}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.dateC}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rateNc)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.rFlag}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.pindex}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.bcapital)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.sPrint}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.bankFile}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.cname}</StyledTableCellLine>
-
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                            <StyledTableCellLine align="center">{formatNumber(element.payPrincipal)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.payInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{"จ่ายค่าปรับ"}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.refId}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.payment)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pint1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pint2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.paychage)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.pother)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.pbank}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.stu}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.sFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.dateC}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rateNc)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.rFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.pindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.bcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.sPrint}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.bankFile}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.cname}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+
+                                            </TableBody>
+                                        </Table>
+
+
+                                    </TableContainer>
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
-                                        rowsPerPage={10}
-                                        page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
+                                        count={this.state.data.length}
+                                        rowsPerPage={this.state.count}
+                                        page={this.state.page}
+                                        onPageChange={(e, newPage) => {
+
+                                            this.setState({
+                                                page: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                count: +event.target.value,
+                                                page: 0
+                                            })
+                                        }}
                                     />
-                                    
-                                </TableContainer>
+                                </Paper>
                             </Box>
 
                         </Container>

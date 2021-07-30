@@ -38,7 +38,8 @@ class ListNewFarmerPayLoanTab extends React.Component {
             montLabel: "",
             yearLabel: "",
             dateRangLabel: "",
-       
+            page: 0,
+            count: 10
         }
     }
 
@@ -115,7 +116,7 @@ class ListNewFarmerPayLoanTab extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const {dataSummary} = this.state
+        const { dataSummary, page, count} = this.state
 
         return (<div>
             <Grid container spacing={2}>
@@ -198,54 +199,67 @@ class ListNewFarmerPayLoanTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">ภาค</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
-                                <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนราย</StyledTableCell>
-                                 <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
-                                <StyledTableCell align="center">อัตราร้อยละ</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.farmerPayLoanList.map((farmer,index) =>{
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">ภาค</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
+                                    <StyledTableCell align="center">อัตราร้อยละ</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                                return(
-                                    <TableRow key={index}>
-                                        <StyledTableCellLine component="th" scope="row">
-                                            {farmer.zone}
-                                </StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine component="th" scope="row">
+                                                {farmer.zone}
+                                            </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
 
-                                    </TableRow>
-                                )
-                            })}
-                           
-                           
-                          
-                        </TableBody>
-                    </Table>
+                                        </TableRow>
+                                    )
+                                })}
+
+
+
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
 
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={30}
-                        rowsPerPage={10}
-                        page={1}
-                        onPageChange={() => { }}
-                        onRowsPerPageChange={() => { }}
+                        count={this.state.farmerPayLoanList.length}
+                        rowsPerPage={this.state.count}
+                        page={this.state.page}
+                        onPageChange={(e, newPage) => {
+
+                            this.setState({
+                                page: newPage
+                            })
+                        }}
+                        onRowsPerPageChange={(event) => {
+
+                            this.setState({
+                                count: +event.target.value,
+                                page: 0
+                            })
+                        }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

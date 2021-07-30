@@ -44,7 +44,8 @@ class SignTab extends React.Component {
             montLabel: "",
             yearLabel: "",
             dateRangLabel: "",
-
+            page: 0,
+            count: 10
 
         }
     }
@@ -123,7 +124,7 @@ class SignTab extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { dataSummary } = this.state
+        const { dataSummary, page, count} = this.state
         
 
         return (<div>
@@ -247,84 +248,96 @@ class SignTab extends React.Component {
             </Grid>
 
             <Box mt={2}>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell align="center">จังหวัด</StyledTableCell>
-                                <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                <StyledTableCell align="center">รหัสสัญญา</StyledTableCell>
-                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                <StyledTableCell align="center">วันที่ทำสัญญา</StyledTableCell>
-                                <StyledTableCell align="center">ที่อยู่</StyledTableCell>
-                                <StyledTableCell align="center">ประเภทเอกสารสิทธิ</StyledTableCell>
-                                <StyledTableCell align="center">เลขที่เอกสารสิทธิ</StyledTableCell>
-                                <StyledTableCell align="center">ที่ตั้งที่ดิน</StyledTableCell>
-                                <StyledTableCell align="center">จุดประสงค์การกู้ยืม</StyledTableCell>
-                                <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
-                                <StyledTableCell align="center">จำนวนงวดชำระ</StyledTableCell>
-                                <StyledTableCell align="center">หลักฐานค้ำประกัน</StyledTableCell>
-                                <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>
-                                <StyledTableCell align="center">ใบสำคัญรับเงิน</StyledTableCell>
-                                <StyledTableCell align="center">เอกสารทั้งหมด</StyledTableCell>
+                <Paper>
+                    <TableContainer>
+                        <Table className={classes.table} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center">ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center">รหัสสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
+                                    <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
+                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">วันที่ทำสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center">ที่อยู่</StyledTableCell>
+                                    <StyledTableCell align="center">ประเภทเอกสารสิทธิ</StyledTableCell>
+                                    <StyledTableCell align="center">เลขที่เอกสารสิทธิ</StyledTableCell>
+                                    <StyledTableCell align="center">ที่ตั้งที่ดิน</StyledTableCell>
+                                    <StyledTableCell align="center">จุดประสงค์การกู้ยืม</StyledTableCell>
+                                    <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนงวดชำระ</StyledTableCell>
+                                    <StyledTableCell align="center">หลักฐานค้ำประกัน</StyledTableCell>
+                                    <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>
+                                    <StyledTableCell align="center">ใบสำคัญรับเงิน</StyledTableCell>
+                                    <StyledTableCell align="center">เอกสารทั้งหมด</StyledTableCell>
 
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                           {this.state.farmerPayLoanList.map((farmer,index) =>{
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
 
-                               return(
-                                   <TableRow key={index}>
-                                       <StyledTableCellLine >{farmer.province} </StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.no}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractID}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.idCard}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractNo}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.contractDate}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.address}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.docType}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.docNo}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.landLocation}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.loanPurpose}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.totalInstallment}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right"><div className="btn-more-detail-table"><Box><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                       <StyledTableCellLine align="right">{farmer.principalPeriod}</StyledTableCellLine>
-                                       <StyledTableCellLine align="right"><div className="btn-more-detail-table"><Box><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                       <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.totalDoc}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                    return (
+                                        <TableRow key={index}>
+                                            <StyledTableCellLine >{farmer.province} </StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractID}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.idCard}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.contractDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.address}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.docType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.docNo}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.landLocation}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.loanPurpose}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalInstallment}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table"><Box><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.principalPeriod}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table"><Box><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.totalDoc}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
 
 
-                                   </TableRow>
-                               )
-                           })}
+                                        </TableRow>
+                                    )
+                                })}
 
-                            <TableRow>
-                                <StyledTableCellLine colSpan={12} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
-                                    รวมทั้งสิ้น
-                                </StyledTableCellLine>
-                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                <StyledTableCellLine align="right" colSpan={6} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                <TableRow>
+                                    <StyledTableCellLine colSpan={12} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                        รวมทั้งสิ้น
+                                    </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" colSpan={6} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
 
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={30}
-                        rowsPerPage={10}
-                        page={1}
-                        onPageChange={() => { }}
-                        onRowsPerPageChange={() => { }}
+                        count={this.state.farmerPayLoanList.length}
+                        rowsPerPage={this.state.count}
+                        page={this.state.page}
+                        onPageChange={(e, newPage) => {
+
+                            this.setState({
+                                page: newPage
+                            })
+                        }}
+                        onRowsPerPageChange={(event) => {
+
+                            this.setState({
+                                count: +event.target.value,
+                                page: 0
+                            })
+                        }}
                     />
-                    
-                </TableContainer>
+                </Paper>
             </Box>
         </div>)
     }

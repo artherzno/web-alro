@@ -46,7 +46,20 @@ class Payment extends React.Component {
             LandType: "",
             Num: "",
             data: [],
-            selectedPayment:{}
+            selectedPayment: {},
+            dataSummary: {
+                accruedInterest: 0,
+                fineRate: 0,
+                fines: 0,
+                interestPeriod: 0,
+                interestRate: 0,
+                outPrincipal: 0,
+                remPrincipal: 0,
+                totalAmount: 0,
+                totalInterest: 0
+            },
+            page: 0,
+            count: 10
         }
     }
 
@@ -124,6 +137,36 @@ class Payment extends React.Component {
         })
     }
 
+    getCalPayment() {
+
+        const { selectedPayment, dataSummary } = this.state
+
+        const parameter = new FormData()
+        parameter.append("IDCard", selectedPayment.idCard)
+        parameter.append("ContractNo", selectedPayment.contractNo)
+        parameter.append("RemPrincipal", dataSummary.remPrincipal)
+        parameter.append("OutPrincipal", dataSummary.outPrincipal)
+        parameter.append("AccruedInterest", dataSummary.accruedInterest)
+        parameter.append("InterestPeriod", dataSummary.interestPeriod)
+        parameter.append("TotalInterest", dataSummary.totalInterest)
+        parameter.append("Fines", dataSummary.fines)
+        parameter.append("InterestRate", dataSummary.interestRate)
+        parameter.append("FineRate", dataSummary.fineRate)
+        parameter.append("TotalAmount", dataSummary.totalAmount)
+
+
+        api.getCalPayment(parameter).then(response => {
+
+            this.setState({
+                dataSummary: response.data.dataSummary
+            })
+
+        }).catch(error => {
+
+        })
+
+    }
+
     onChange = (state) => (event) => {
 
         this.setState({
@@ -143,10 +186,41 @@ class Payment extends React.Component {
 
     }
 
+    changeInputCal = (key) => (event) => {
+
+        const dataSummary = this.state.dataSummary
+        dataSummary[key] = event.target.value
+        this.setState({
+            dataSummary: dataSummary
+        },() =>{
+
+            if (this.delay) {
+                clearTimeout(this.delay)
+                this.delay = null
+            }
+            this.delay = setTimeout(() => {
+                
+                this.getCalPayment()
+
+            }, 500);
+
+            
+        })
+    }
+
     render() {
 
         const { classes } = this.props;
-        const { data, selectedPayment } = this.state
+        const { data, selectedPayment, page, count, dataSummary } = this.state
+        const { accruedInterest,
+            fineRate,
+            fines,
+            interestPeriod,
+            interestRate,
+            outPrincipal,
+            remPrincipal,
+            totalAmount,
+            totalInterest } = dataSummary
 
         return (
             <div>
@@ -229,66 +303,82 @@ class Payment extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">ชื่อ-นาสกุล</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                                <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                            </TableRow>
+                                <Paper>
+                                    <TableContainer >
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">ชื่อ-นาสกุล</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow hover={true} key={index} selected={selectedPayment.contractNo === element.contractNo} tabIndex={-1} onClick={() =>{
-                                                       
-                                                        this.setState({
-                                                            selectedPayment:element
-                                                        })
-                                                    }}>
-                                                        <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                    return (
+                                                        <TableRow hover={true} key={index} selected={selectedPayment.contractNo === element.contractNo} tabIndex={-1} onClick={() => {
 
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                            this.setState({
+                                                                selectedPayment: element
+                                                            },() =>{
+                                                                this.getCalPayment()
+                                                            })
+                                                        }}>
+                                                            <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+
+                                            </TableBody>
+                                        </Table>
+
+
+                                    </TableContainer>
 
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
-                                        rowsPerPage={10}
-                                        page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
-                                    />
+                                        count={this.state.data.length}
+                                        rowsPerPage={this.state.count}
+                                        page={this.state.page}
+                                        onPageChange={(e, newPage) => {
 
-                                </TableContainer>
+                                            this.setState({
+                                                page: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                count: +event.target.value,
+                                                page: 0
+                                            })
+                                        }}
+                                    />
+                                </Paper>
                             </Box>
 
                             <Box mt={5}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={4} >
-                                        <MuiTextfield label="เลขที่สัญญา" value={selectedPayment.contractNo} disabled={true}/>
+                                        <MuiTextfield label="เลขที่สัญญา" value={selectedPayment.contractNo} disabled={true} />
                                     </Grid>
                                     <Grid item xs={12} md={4} >
-                                        <MuiTextfield label="บัตรประชาชน" value={selectedPayment.idCard} disabled={true}/>
+                                        <MuiTextfield label="บัตรประชาชน" value={selectedPayment.idCard} disabled={true} />
                                     </Grid>
                                     <Grid item xs={12} md={4} >
-                                        <MuiTextfield label="ชื่อ-นามสกุล เกษตรกร" value={selectedPayment.fullName} disabled={true}/>
+                                        <MuiTextfield label="ชื่อ-นามสกุล เกษตรกร" value={selectedPayment.fullName} disabled={true} />
                                     </Grid>
                                 </Grid>
 
@@ -305,7 +395,11 @@ class Payment extends React.Component {
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ประมวลผล" onClick={() => { this.loadData() }} />
+                                            <ButtonFluidPrimary label="ประมวลผล" onClick={() => { 
+                                                
+                                                this.getCalPayment()
+
+                                             }} />
                                         </Grid>
                                     </Grid>
                                     <Grid container spacing={2} direction="row" justifyContent="center">
@@ -315,7 +409,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("remPrincipal")} value={remPrincipal} />
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -331,7 +425,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("outPrincipal")} value={outPrincipal}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -347,7 +441,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("accruedInterest")} value={accruedInterest}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -363,7 +457,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("interestPeriod")} value={interestPeriod}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -379,7 +473,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("totalInterest")} value={totalInterest}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -395,7 +489,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("fines")} value={fines}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -410,10 +504,10 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield type="number" onChange={this.onChange("1")} />
+                                            <MuiTextfield type="number" onChange={this.changeInputCal("interestRate")} value={interestRate}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
-                                            
+
                                         </Grid>
                                     </Grid>
 
@@ -424,7 +518,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield onChange={this.changeInputCal("fineRate")} value={fineRate}/>
                                         </Grid>
                                         <Grid item xs={3} md={2}>
 
@@ -438,7 +532,7 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiTextfield onChange={this.onChange("1")} />
+                                            <MuiTextfield disabled={true} value={totalAmount} />
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <div className="item-check-payment start">
@@ -448,7 +542,7 @@ class Payment extends React.Component {
                                     </Grid>
 
                                 </Box>
-                               
+
                             </Box>
 
                         </Container>

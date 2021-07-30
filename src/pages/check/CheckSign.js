@@ -52,7 +52,9 @@ class CheckSign extends React.Component {
             loanAmount:0,
             remainAmount:0,
             totalContract:0,
-            data: []
+            data: [],
+            page: 0,
+            count: 10
         }
     }
 
@@ -166,7 +168,7 @@ class CheckSign extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data } = this.state
+        const { data, page, count } = this.state
 
         return (
             <div>
@@ -279,135 +281,149 @@ class CheckSign extends React.Component {
                             </Box>
 
                             <Box mt={2}>
-                                <TableContainer component={Paper}>
-                                    <Table className={classes.table} aria-label="customized table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
-                                                <StyledTableCell align="center">Mindex</StyledTableCell>
-                                                <StyledTableCell align="center">รหัส</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                                <StyledTableCell align="center">คำนำหน้า</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อ</StyledTableCell>
-                                                <StyledTableCell align="center">นามสกุล</StyledTableCell>
-                                                <StyledTableCell align="center">ที่อยู่</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่</StyledTableCell>
-                                                <StyledTableCell align="center">หมู่</StyledTableCell>
-                                                <StyledTableCell align="center">ตำบล</StyledTableCell>
-                                                <StyledTableCell align="center">อำเภอ</StyledTableCell>
-                                                <StyledTableCell align="center">จังหวัด</StyledTableCell>
-                                                <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">Prentno</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่สัญญา</StyledTableCell>
-                                                <StyledTableCell align="center">หมู่(ที่ดิน)</StyledTableCell>
-                                                <StyledTableCell align="center">ตำบล(ที่ดิน)</StyledTableCell>
-                                                <StyledTableCell align="center">อำเภอ(ที่ดิน)</StyledTableCell>
-                                                <StyledTableCell align="center">ประเภท(ที่ดิน)</StyledTableCell>
-                                                <StyledTableCell align="center">Titleno</StyledTableCell>
-                                                <StyledTableCell align="center">Group</StyledTableCell>
-                                                <StyledTableCell align="center">แปลง</StyledTableCell>
-                                                <StyledTableCell align="center">ไร่</StyledTableCell>
-                                                <StyledTableCell align="center">งาน</StyledTableCell>
-                                                <StyledTableCell align="center">วา</StyledTableCell>
-                                                <StyledTableCell align="center">วันที่กู้</StyledTableCell>
-                                                <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                                <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
-                                                <StyledTableCell align="center">รหัสงาน</StyledTableCell>
-                                                <StyledTableCell align="center">ประเภท</StyledTableCell>
-                                                <StyledTableCell align="center">ใช้เงินปี</StyledTableCell>
-                                                <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                                <StyledTableCell align="center">อัตราค่าปรับ</StyledTableCell>
-                                                <StyledTableCell align="center">Trnf_date</StyledTableCell>
-                                                <StyledTableCell align="center">Typeplan</StyledTableCell>
-                                                <StyledTableCell align="center">หมายเหตุ</StyledTableCell>
-                                                <StyledTableCell align="center">ชื่อย่อจังหวัด</StyledTableCell>
-                                                <StyledTableCell align="center">Finish_flag</StyledTableCell>
-                                                <StyledTableCell align="center">Rpay</StyledTableCell>
-                                                <StyledTableCell align="center">ตั้งหนี้เงินต้น</StyledTableCell>
-                                                <StyledTableCell align="center">ศาล(ต้น+ดอก)</StyledTableCell>
-                                                <StyledTableCell align="center">ตั้งหนี้ดอกเบี้ย</StyledTableCell>
-                                                <StyledTableCell align="center">ตั้งหนี้ค่าปรับ</StyledTableCell>
-                                                <StyledTableCell align="center">สถานะตั้งหนี้</StyledTableCell>
-                                                <StyledTableCell align="center">Obj_code</StyledTableCell>
-                                                <StyledTableCell align="center">Cus_code</StyledTableCell>
-                                            </TableRow>
+                                <Paper>
+                                    <TableContainer>
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">คำนำหน้า</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อ</StyledTableCell>
+                                                    <StyledTableCell align="center">นามสกุล</StyledTableCell>
+                                                    <StyledTableCell align="center">ที่อยู่</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่</StyledTableCell>
+                                                    <StyledTableCell align="center">หมู่</StyledTableCell>
+                                                    <StyledTableCell align="center">ตำบล</StyledTableCell>
+                                                    <StyledTableCell align="center">อำเภอ</StyledTableCell>
+                                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่สัญญา</StyledTableCell>
+                                                    <StyledTableCell align="center">หมู่(ที่ดิน)</StyledTableCell>
+                                                    <StyledTableCell align="center">ตำบล(ที่ดิน)</StyledTableCell>
+                                                    <StyledTableCell align="center">อำเภอ(ที่ดิน)</StyledTableCell>
+                                                    <StyledTableCell align="center">ประเภท(ที่ดิน)</StyledTableCell>
+                                                    <StyledTableCell align="center">Titleno</StyledTableCell>
+                                                    <StyledTableCell align="center">Group</StyledTableCell>
+                                                    <StyledTableCell align="center">แปลง</StyledTableCell>
+                                                    <StyledTableCell align="center">ไร่</StyledTableCell>
+                                                    <StyledTableCell align="center">งาน</StyledTableCell>
+                                                    <StyledTableCell align="center">วา</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่กู้</StyledTableCell>
+                                                    <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
+                                                    <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสงาน</StyledTableCell>
+                                                    <StyledTableCell align="center">ประเภท</StyledTableCell>
+                                                    <StyledTableCell align="center">ใช้เงินปี</StyledTableCell>
+                                                    <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
+                                                    <StyledTableCell align="center">อัตราค่าปรับ</StyledTableCell>
+                                                    <StyledTableCell align="center">Trnf_date</StyledTableCell>
+                                                    <StyledTableCell align="center">Typeplan</StyledTableCell>
+                                                    <StyledTableCell align="center">หมายเหตุ</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อย่อจังหวัด</StyledTableCell>
+                                                    <StyledTableCell align="center">Finish_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">Rpay</StyledTableCell>
+                                                    <StyledTableCell align="center">ตั้งหนี้เงินต้น</StyledTableCell>
+                                                    <StyledTableCell align="center">ศาล(ต้น+ดอก)</StyledTableCell>
+                                                    <StyledTableCell align="center">ตั้งหนี้ดอกเบี้ย</StyledTableCell>
+                                                    <StyledTableCell align="center">ตั้งหนี้ค่าปรับ</StyledTableCell>
+                                                    <StyledTableCell align="center">สถานะตั้งหนี้</StyledTableCell>
+                                                    <StyledTableCell align="center">Obj_code</StyledTableCell>
+                                                    <StyledTableCell align="center">Cus_code</StyledTableCell>
+                                                </TableRow>
 
-                                        </TableHead>
-                                        <TableBody>
-                                            {data.map((element, index) => {
+                                            </TableHead>
+                                            <TableBody>
+                                                {data.slice(page * count, page * count + count).map((element, index) => {
 
-                                                return (
-                                                    <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.prefix}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.name}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.lastName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.address}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.no}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.moo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.subDistrict}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.district}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.province}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.contractDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.mooLand}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.subDistrictLand}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.districtLand}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.landType}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.titlno}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.groups}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.shape}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.rai}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.ngan}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.wa}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.loanDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.creditLimit)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.interestRate)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.jobCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.category}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.annuity}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.fineRate)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.trnfDate}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.typeplan}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.note}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.provinceAbbreviation}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.rpay)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.principalDebt)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.court)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.interestDebt)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.fineDebt)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(element.debtStatus)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.objCode}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{element.cusCode}</StyledTableCellLine>
-
-
-                                                    </TableRow>
-                                                )
-                                            })}
+                                                    return (
+                                                        <TableRow key={index}>
+                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.prefix}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.name}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.lastName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.address}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.no}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.moo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.subDistrict}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.district}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.province}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.contractDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.mooLand}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.subDistrictLand}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.districtLand}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.landType}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.titlno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.groups}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.shape}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.rai}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.ngan}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.wa}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.loanDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.creditLimit)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.interestRate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.jobCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.category}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.annuity}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.fineRate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.trnfDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.typeplan}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.note}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.provinceAbbreviation}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.rpay)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.principalDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.court)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.interestDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.fineDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(element.debtStatus)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.objCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{element.cusCode}</StyledTableCellLine>
 
 
-                                        </TableBody>
-                                    </Table>
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+
+                                            </TableBody>
+                                        </Table>
+
+
+                                    </TableContainer>
 
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={30}
-                                        rowsPerPage={10}
-                                        page={1}
-                                        onPageChange={() => { }}
-                                        onRowsPerPageChange={() => { }}
+                                        count={this.state.data.length}
+                                        rowsPerPage={this.state.count}
+                                        page={this.state.page}
+                                        onPageChange={(e, newPage) => {
+
+                                            this.setState({
+                                                page: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                count: +event.target.value,
+                                                page: 0
+                                            })
+                                        }}
                                     />
-                                    
-                                </TableContainer>
+                                </Paper>
                             </Box>
 
                         </Container>
