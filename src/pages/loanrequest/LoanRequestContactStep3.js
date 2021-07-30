@@ -107,20 +107,24 @@ function LoanRequestContactStep3(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('---------------------')
         console.log('Step3 applicantID', props.ApplicantID)
         console.log('Step3 action:',props.action)
         console.log('Step3 stepper status:',localStorage.getItem('stepperStatus'))
+        console.log('---------------------')
 
         // Action : view Applicant Step1
         const getViewApplicantStep3 = () => {
             setIsLoading(true)
             axios.post(
-                `${server_hostname}/admin/api/view_applicant_step3`, {"ApplicantID": props.ApplicantID}, { headers: { "token": token } } 
+                `${server_hostname}/admin/api/view_applicant_step3`, {
+                    "ApplicantID": localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.ApplicantID
+                }, { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     let data = res.data;
                     if(data.code === 0) {
-                        setErr(true);
+                        // setErr(true);
                         if(Object.keys(data.message).length !== 0) {
                             console.error(data)
                             if(typeof data.message === 'object') {
@@ -192,7 +196,7 @@ function LoanRequestContactStep3(props) {
             axios.post(
                 `${server_hostname}/admin/api/search_director_step3`, '', { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     let data = res.data;
                     if(data.code === 0 || res === null || res === undefined) {
                         // setErr(true);
@@ -236,7 +240,7 @@ function LoanRequestContactStep3(props) {
                     "ProjectYear": parseInt(applicantProjectYear) + 2500
                 }, { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     let data = res.data;
                     if(data.code === 0 || res === null || res === undefined) {
                         // setErr(true);
@@ -276,6 +280,11 @@ function LoanRequestContactStep3(props) {
             getDirector();
             getProject();
             getViewApplicantStep3();    
+        } else if(props.action === 'add' && localStorage.getItem('stepperStatus') === 'processing' ) {
+            console.log("Add step3 Processing ApplicantID", props.ApplicantID)  
+            getDirector();
+            getProject();
+            getViewApplicantStep3();
         } else {
             // Action : Add -----------------------------------------//
             if(props.FarmerID === 0) {

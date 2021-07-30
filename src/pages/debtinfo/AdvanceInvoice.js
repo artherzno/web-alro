@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { AuthContext } from '../../App';
+import { useForm, Controller } from 'react-hook-form';
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -27,7 +28,9 @@ import {
     MuiTextfield,
     MuiTextfieldCurrency,
     MuiDatePicker,
+    MuiDatePickerValidate,
     MuiSelect,
+    MuiTextNumber,
     MuiCheckbox,
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
@@ -35,51 +38,24 @@ import {
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
-  
-  const rows = [
-    { id: 1, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 2, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 3, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 4, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 5, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 6, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 7, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 8, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 9, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 10, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 11, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 12, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-  ];
-
-//   ROWID: 1
-// duedate: "2018-08-11T00:00:00"
-// firstname: "สำรวย"
-// lastname: "พรมเวียง"
-// payrec: 0
-// pindex: "PBUN00045/25600000/00001"
-// principle: 20000
-// projcode: "00562"
-// projname: "ปัจจัยการผลิต60"
-// pv_code: "PBUN"
-// rentdate: "2017-08-11T00:00:00"
-// rentno: "00045/2560"
-// sex: "น.ส."
-// start_date: "2017-08-15T00:00:00"
-
   const columns = [
-    { field: 'ROWID', headerName: 'ลำดับ', width: 130 },
-    { field: 'firstName', headerName: 'รหัสจังหวัด', width: 130 },
-    { field: 'firstName', headerName: 'ลำดับข้อมูล', width: 130 },
-    { field: 'firstName', headerName: 'รหัสโครงการ', width: 130 },
-    { field: 'firstName', headerName: 'ชื่อโครงการ', width: 130 },
-    { field: 'firstName', headerName: 'คำนำหน้า', width: 130 },
-    { field: 'firstName', headerName: 'ชื่อ', width: 130 },
-    { field: 'firstName', headerName: 'นามสกุล', width: 130 },
-    { field: 'firstName', headerName: 'วันที่ประมวล', width: 130 },
-    { field: 'firstName', headerName: 'เลขที่สัญญา', width: 130 },
-    { field: 'firstName', headerName: 'วันที่กู้', width: 130 },
-    { field: 'firstName', headerName: 'เงินกู้', width: 130 },
-    { field: 'firstName', headerName: 'เงินงวดชำระ', width: 130 },
+    { field: 'ROWID', headerName: 'ลำดับ', width: 40 },
+    { field: 'pv_code', headerName: 'รหัสจังหวัด', width: 130 },
+    { field: 'pindex', headerName: 'ลำดับข้อมูล', width: 130 },
+    { field: 'projcode', headerName: 'รหัสโครงการ', width: 130 },
+    { field: 'projname', headerName: 'ชื่อโครงการ', width: 130 },
+    { field: 'sex', headerName: 'คำนำหน้า', width: 130 },
+    { field: 'firstname', headerName: 'ชื่อ', width: 130 },
+    { field: 'lastname', headerName: 'นามสกุล', width: 130 },
+    { field: 'start_date', headerName: 'วันที่ประมวล', width: 130, type: 'date',valueFormatter: (params) => {
+        return moment(params.value).format('DD/MM/YYYY');
+      }  },
+    { field: 'rentno', headerName: 'เลขที่สัญญา', width: 130 },
+    { field: 'duedate', headerName: 'วันที่กู้', width: 130, type: 'date',valueFormatter: (params) => {
+      return moment(params.value).format('DD/MM/YYYY');
+    } },
+    { field: 'principle', headerName: 'เงินกู้', width: 130 },
+    { field: 'payrec', headerName: 'เงินงวดชำระ', width: 130 },
     
   ];
 
@@ -90,6 +66,7 @@ function AdvanceInvoice() {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
+    const { handleSubmit, control } = useForm();
 
     let server_hostname = auth.hostname;
     let server_spkapi = localStorage.getItem('spkapi');
@@ -115,6 +92,9 @@ function AdvanceInvoice() {
     const [tableTotalResult, setTableTotalResult] = useState([])
     const [selected, setSelected] = React.useState([]);
     const isSelected = (name) => selected.indexOf(name) !== -1;
+
+    const [rows, setRows] = useState([])
+
     const rowCount = rows.length;
     const numSelected = selected.length;
 
@@ -211,7 +191,7 @@ function AdvanceInvoice() {
 
 
     const getAdvanceInvoiceGetAll = () => {
-        let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
+        let dateSearch = inputDataSearch.start_date === null ? null : (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
         console.log('dateSearch',dateSearch)
         
         axios({
@@ -219,9 +199,9 @@ function AdvanceInvoice() {
             method: 'POST',
             data: {
                 start_date: dateSearch, // 2561-08-11
-                rentno : "",
-                projname :"",
-                farmer : ""
+                rentno : inputDataSearch.rentno,
+                projname : inputDataSearch.projname,
+                farmer : inputDataSearch.farmer
             }
         }).then(res => {
                 console.log(res)
@@ -241,6 +221,7 @@ function AdvanceInvoice() {
                 }else {
                     console.log('Get AdvanceInvoice:',data)
                     setTableResult(data)
+                    setRows(data)
 
                     getAdvanceInvoiceGetTotal()
                     
@@ -258,7 +239,7 @@ function AdvanceInvoice() {
     // Select CheckBox in Table
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-          const newSelecteds = rows.map((n) => n.id);
+          const newSelecteds = rows.map((n) => n.ROWID);
           setSelected(newSelecteds);
           return;
         }
@@ -285,10 +266,49 @@ function AdvanceInvoice() {
         setSelected(newSelected);
     };
 
+    const handleInputDataSearch = (event) => {
+        if(event.target.type === 'number') {
+            let typeNumber = event.target.id.toString().slice(-3);
+            if(typeNumber === 'tel') {
+                event.target.value = event.target.value.toString().slice(0, 10)
+                setInputDataSearch({
+                    ...inputDataSearch,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'zip') {
+                event.target.value = event.target.value.toString().slice(0, 5)
+                setInputDataSearch({
+                    ...inputDataSearch,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'idc') {
+                event.target.value = event.target.value.toString().slice(0, 13)
+                setInputDataSearch({
+                    ...inputDataSearch,
+                    [event.target.name]: event.target.value
+                })
+
+            } else {
+                setInputDataSearch({
+                    ...inputDataSearch,
+                    [event.target.name]: event.target.value
+                })
+
+            }
+        } else {
+            setInputDataSearch({
+                ...inputDataSearch,
+                [event.target.name]: event.target.value
+            })
+        }
+    }
+
     // End Select Checkbox
 
     
-    const handleSubmit = (event) => {
+    const handleSubmitSearch = (event) => {
         event.preventDefault();
     
         // if (value === 'best') {
@@ -319,18 +339,35 @@ function AdvanceInvoice() {
                                 <h1>ใบแจ้งหนี้ล่วงหน้า ก่อนครบกำหนดชำระ 30 วัน</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-0">
+                            <form onSubmit={handleSubmit(handleSubmitSearch)}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="start_date" value={inputDataSearch.start_date === 'Invalid date' ? null : inputDataSearch.start_date} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                    <Grid item xs={12} md={2}><Controller
+                                            name="firstName"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                            <MuiDatePickerValidate
+                                                label="First Name"
+                                                value={value} 
+                                                onChange={onChange}
+                                                error={!!error}
+                                                helperText={error ? error.message : null}
+                                            />
+                                            )}
+                                            rules={{ required: 'First name required' }}
+                                        />
+
+                                            {/* value={inputDataSearch.start_date === 'Invalid date' ? '' : inputDataSearch.start_date} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  */}
+                                                
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่สัญญา" name="start_date" value={inputDataSearch.start_date} />
+                                        <MuiTextfield label="เลขที่สัญญา" name="rentno" value={inputDataSearch.rentno} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="โครงการที่กู้เงิน" />
+                                        <MuiTextfield label="โครงการที่กู้เงิน" name="projname" value={inputDataSearch.projname} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" />
+                                        <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no1-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataSearch.farmer} name="farmer" onInput = {handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={1}>
                                         <p>&nbsp;</p>
@@ -338,6 +375,7 @@ function AdvanceInvoice() {
                                     </Grid>
 
                                 </Grid>
+                            </form>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
@@ -391,15 +429,20 @@ function AdvanceInvoice() {
                         </Grid>
 
 
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2} className="mg-t-20">
                             <Grid item xs={12} md={12}>
-                                <div className="table-box max-h-300 mg-t-10">
-                                    <TableContainer >
+
+                                <TableContainer >
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell align="center">
-                                                    <MuiCheckbox label="&nbsp;"  />
+                                                <Checkbox
+                                                    indeterminate={numSelected > 0 && numSelected < rowCount}
+                                                    checked={rowCount > 0 && numSelected === rowCount}
+                                                    onChange={handleSelectAllClick}
+                                                    inputProps={{ 'aria-label': 'select all desserts' }}
+                                                    />
                                                 </TableCell>
                                                 <TableCell align="center">ลำดับ</TableCell>
                                                 <TableCell align="center">รหัสจังหวัด</TableCell>
@@ -422,27 +465,44 @@ function AdvanceInvoice() {
                                                     (rowsPerPage > 0
                                                         ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                         : tableResult
-                                                    ).map((cell,i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell align="center"></TableCell>
-                                                        <TableCell align="center">{cell.ROWID}</TableCell>
-                                                        <TableCell align="center">{cell.pv_code}</TableCell>
-                                                        <TableCell align="center">{cell.pindex}</TableCell>
-                                                        <TableCell align="center">{cell.projcode}</TableCell>
-                                                        <TableCell align="center">{cell.projname}</TableCell>
-                                                        <TableCell align="center">{cell.sex}</TableCell>
-                                                        <TableCell align="center">{cell.firstname}</TableCell>
-                                                        <TableCell align="center">{cell.lastname}</TableCell>
-                                                        <TableCell align="center">{(moment(cell.start_date).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(cell.start_date).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
-                                                        {/* <TableCell align="center">{moment(cell.start_date).format('DD/MM/YYYY')}</TableCell> */}
-                                                        <TableCell align="center">{cell.rentno}</TableCell>
-                                                        <TableCell align="center">{(moment(cell.rentdate).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(cell.rentdate).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
-                                                        {/* <TableCell align="center">{cell.rentdate}</TableCell> */}
-                                                        <TableCell align="center">{cell.principle === null ? '0' : cell.principle.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
-                                                        <TableCell align="center">{cell.payrec === null ? '0' : cell.payrec.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
-                                                    </TableRow>
+                                                    ).map((row,i) => { 
+                                                        const isItemSelected = isSelected(row.ROWID);
+                                                        const labelId = `enhanced-table-checkbox-${i}`;
                                                     
-                                                ))
+                                                        return(
+                                                            <TableRow hover
+                                                            onClick={(event) => handleClickSelect(event, row.ROWID)}
+                                                            role="checkbox"
+                                                            aria-checked={isItemSelected}
+                                                            tabIndex={-1}
+                                                            key={i}
+                                                            selected={isItemSelected}>
+                                                                <TableCell padding="checkbox" align="center">
+                                                                    <Checkbox
+                                                                    color="primary"
+                                                                    checked={isItemSelected}
+                                                                    inputProps={{ 'aria-labelledby': labelId }}
+                                                                />
+                                                                </TableCell>
+                                                                <TableCell align="center" id={labelId}>{row.ROWID}</TableCell>
+                                                            {/* <TableCell align="center">{cell.ROWID}</TableCell> */}
+                                                            <TableCell align="center">{row.pv_code}</TableCell>
+                                                            <TableCell align="center">{row.pindex}</TableCell>
+                                                            <TableCell align="center">{row.projcode}</TableCell>
+                                                            <TableCell align="center">{row.projname}</TableCell>
+                                                            <TableCell align="center">{row.sex}</TableCell>
+                                                            <TableCell align="center">{row.firstname}</TableCell>
+                                                            <TableCell align="center">{row.lastname}</TableCell>
+                                                            <TableCell align="center">{(moment(row.start_date).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(row.start_date).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
+                                                            {/* <TableCell align="center">{moment(cell.start_date).format('DD/MM/YYYY')}</TableCell> */}
+                                                            <TableCell align="center">{row.rentno}</TableCell>
+                                                            <TableCell align="center">{(moment(row.rentdate).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(row.rentdate).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
+                                                            {/* <TableCell align="center">{cell.rentdate}</TableCell> */}
+                                                            <TableCell align="center">{row.principle === null ? '0' : row.principle.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
+                                                            <TableCell align="center">{row.payrec === null ? '0' : row.payrec.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
+                                                        </TableRow>
+                                                    )}
+                                                )
                                                 : 
                                                 <TableRow>
                                                     <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
@@ -450,26 +510,33 @@ function AdvanceInvoice() {
                                             }
                                         </TableBody>
                                     </Table>
-                                    </TableContainer>
-                                    {
-                                        tableResult.length ? 
-                                            <TablePagination
-                                                rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
-                                                component="div"
-                                                count={tableResult.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                onPageChange={handleChangePage}
-                                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                                labelRowsPerPage="แสดงจำนวนแถว"
-                                            />
-                                        : 
-                                        ''
-                                    }
-                                </div>
-                                {/* Data Grid --------------------------------*/}
-                                {/* <div style={{ height: 400, width: '100%' }}>
-                                    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+                                </TableContainer>
+                                {
+                                    tableResult.length ? 
+                                        <TablePagination
+                                            rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
+                                            component="div"
+                                            count={tableResult.length}
+                                            rowsPerPage={rowsPerPage}
+                                            page={page}
+                                            onPageChange={handleChangePage}
+                                            onRowsPerPageChange={handleChangeRowsPerPage}
+                                            labelRowsPerPage="แสดงจำนวนแถว"
+                                        />
+                                    : 
+                                    ''
+                                }
+                                {/* <div className="table-box max-h-300 mg-t-10">
+                                    <div style={{ height: 400, width: '100%' }}>
+                                        <DataGrid 
+                                        getRowId={(r) => r.ROWID} 
+                                        rows={rows} 
+                                        columns={columns} 
+                                        pageSize={10} 
+                                        rowsPerPageOptions = {[5,10,20,50,100]}
+                                        checkboxSelection 
+                                    />
+                                    </div>
                                 </div> */}
                             </Grid>
                             <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>

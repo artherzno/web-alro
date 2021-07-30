@@ -69,6 +69,7 @@ import ConditionInterest from './check/ConditionInterest'
 import Payment from './check/Payment'
 import CloseRepaymentContract from './repaymentcontract/CloseRepaymentContract';
 import AddRepaymentContract from './repaymentcontract/AddRepaymentContract';
+import TestValidate from './TestValidate';
 
 
 
@@ -86,6 +87,9 @@ function Main() {
                     <Route path="/" exact component={LoginPage} />
                     <Route path="/home" component={Home} />
                     
+
+                    {/* Test Validate Page */}
+                    <Route path="/testvalidate" component={TestValidate} />
                     {/* Loan Request Contact Page */}
                     <Route path="/loanrequest/loanrequestcontactsearch" component={LoanRequestContactSearch} />
                     <Route path="/loanrequest/loanrequestcontact" component={LoanRequestContact} />

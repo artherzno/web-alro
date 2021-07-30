@@ -138,6 +138,12 @@ function LoanRequestContactStep1(props) {
         Supporter_Fname2: '', // "xxx",
         Supporter_Lname2: '', // "yyy",
         Supporter_IDCard2: '', // "1234567891014",
+        Supporter_Fname3: '', // "xxx",
+        Supporter_Lname3: '', // "yyy",
+        Supporter_IDCard3: '', // "1234567891014",
+        Supporter_Fname4: '', // "xxx",
+        Supporter_Lname4: '', // "yyy",
+        Supporter_IDCard4: '', // "1234567891014",
         Property: '', // "",
         Hire_purchase_contract_Number: '', // "",
         LandValue: 0, // 0,
@@ -172,8 +178,12 @@ function LoanRequestContactStep1(props) {
 
     useEffect(() => {
         setLoaded(true);
+
+        console.log('---------------------')
         console.log('Step1 applicantID', inputData.ApplicantID)
         console.log('Step1 action:',props.action)
+        console.log('Step1 stepper status:',localStorage.getItem('stepperStatus'))
+        console.log('---------------------')
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
         setProvinceLandList(dataProvinceList)
@@ -185,7 +195,9 @@ function LoanRequestContactStep1(props) {
         const getViewApplicantStep1 = () => {
             setIsLoading(true)
             axios.post(
-                `${server_hostname}/admin/api/view_applicant_step1`, {"ApplicantID": props.ApplicantID}, { headers: { "token": token } } 
+                `${server_hostname}/admin/api/view_applicant_step1`, {
+                    "ApplicantID": localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.ApplicantID
+                }, { headers: { "token": token } } 
             ).then(res => {
                     console.log(res)
                     let data = res.data;
@@ -277,6 +289,12 @@ function LoanRequestContactStep1(props) {
                             Supporter_Fname2: dataDetail.Supporter_Fname2 || '', // "xxx",
                             Supporter_Lname2: dataDetail.Supporter_Lname2 || '', // "yyy",
                             Supporter_IDCard2: dataDetail.Supporter_IDCard2 || '', // "1234567891014",
+                            Supporter_Fname3: dataDetail.Supporter_Fname3 || '', // "xxx",
+                            Supporter_Lname3: dataDetail.Supporter_Lname3 || '', // "yyy",
+                            Supporter_IDCard3: dataDetail.Supporter_IDCard3 || '', // "1234567891014",
+                            Supporter_Fname4: dataDetail.Supporter_Fname4 || '', // "xxx",
+                            Supporter_Lname4: dataDetail.Supporter_Lname4 || '', // "yyy",
+                            Supporter_IDCard4: dataDetail.Supporter_IDCard4 || '', // "1234567891014",
                             Property: dataDetail.Property || '', // "",
                             Hire_purchase_contract_Number: dataDetail.Hire_purchase_contract_Number || '', // "",
                             LandValue: dataDetail.LandValue || 0, // 0,
@@ -303,7 +321,7 @@ function LoanRequestContactStep1(props) {
             axios.post(
                 `${server_hostname}/admin/api/get_farmer_step1`, {"FarmerID": props.FarmerID}, { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     let data = res.data;
                     if(data.code === 0) {
                         setErr(true);
@@ -318,7 +336,7 @@ function LoanRequestContactStep1(props) {
                             setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
                     } else {
-                        console.log('land_data',res.data.data.land_data)
+                        // console.log('land_data',res.data.data.land_data)
                         let resFarmer = res.data.data;
                         setInputData({
                             ...inputData,
@@ -358,6 +376,9 @@ function LoanRequestContactStep1(props) {
         } else if(props.action === 'edit') {
             console.log("Edit ApplicantID", props.ApplicantID)  
             getViewApplicantStep1();     
+        } else if(props.action === 'add' && localStorage.getItem('stepperStatus') === 'processing' ) {
+            console.log("Add Processing ApplicantID", props.ApplicantID)  
+            getViewApplicantStep1();
         } else {
             // Action : Add -----------------------------------------//
             if(props.FarmerID === 0) {
@@ -374,7 +395,7 @@ function LoanRequestContactStep1(props) {
             axios.post(
                 `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
             ).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     let data = res.data;
                     if(data.code === 0) {
                         setErr(true);
@@ -477,6 +498,20 @@ function LoanRequestContactStep1(props) {
                     Supporter_Lname2: '', // "bbb",
                     Supporter_IDCard2: event.target.value,
                 })
+            } else if(event.target.name === 'Supporter_IDCard3') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname3: '', // "aaa",
+                    Supporter_Lname3: '', // "bbb",
+                    Supporter_IDCard3: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard4') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname4: '', // "aaa",
+                    Supporter_Lname4: '', // "bbb",
+                    Supporter_IDCard4: event.target.value,
+                })
             }
 
         } else if(event.target.value.length === 13) {
@@ -513,6 +548,20 @@ function LoanRequestContactStep1(props) {
                                 Supporter_Fname2: data.data[0].Name || '', // "aaa",
                                 Supporter_Lname2: data.data[0].Sirname || '', // "bbb",
                                 Supporter_IDCard2: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard3') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname3: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname3: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard3: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard4') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname4: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname4: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard4: data.data[0].IDCard || '',
                             })
                         }
                     }
@@ -659,6 +708,10 @@ function LoanRequestContactStep1(props) {
             url = `${server_hostname}/admin/api/edit_applicant_step1`;
             console.log('edit step1 !!!')
             formData.append('ApplicantID', props.ApplicantID);
+        } else if(localStorage.getItem('stepperStatus') === 'processing' ) {
+            url = `${server_hostname}/admin/api/edit_applicant_step1`;
+            console.log('add processing step1 !!!')
+            formData.append('ApplicantID', localStorage.getItem('applicantID'));
         } else {
             console.log('add step1 !!!')
             url = `${server_hostname}/admin/api/add_applicant_step1`
@@ -1026,7 +1079,13 @@ function LoanRequestContactStep1(props) {
                                                     </Grid>
                                                     <Grid item xs={12} md={11}>
                                                         <p className="">รวมเป็นเงินทั้งสิ้นประมาณปีละ</p>
-                                                        <MuiTextfieldCurrency label="" name="Income_PerYear" value={inputData.Income_PerYear} onChange={handleInputData} /> 
+                                                        {/* {
+                                                            props.action === 'add' ?
+                                                            <MuiTextfieldCurrency label="" name="Income_PerYear" value={inputData.Farming_LandRai * inputData.Income_PerYearPerRai} onChange={handleInputData} /> 
+                                                            :
+                                                            <MuiTextfieldCurrency label="" name="Income_PerYear" value={inputData.Income_PerYear} onChange={handleInputData} /> 
+                                                        } */}
+                                                        <MuiTextfieldCurrency label=""  name="Income_PerYear" value={parseFloat((inputData.Farming_LandRai.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')) * parseFloat((inputData.Income_PerYearPerRai.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))} onChange={handleInputData} /> 
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p>&nbsp;</p>
@@ -1125,6 +1184,38 @@ function LoanRequestContactStep1(props) {
                                                                             </Grid>
                                                                             <Grid item xs={12} md={6}>
                                                                                 <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname2} name="Supporter_Lname2" />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                    <Box component="div" className="box box-grey result-list">
+                                                                        <Grid container spacing={2}>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <span style={{display: 'block'}}>รายที่ 3.</span>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no3-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.Supporter_IDCard3} name="Supporter_IDCard3" onInput = {handleInputSupporterData}  />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData.Supporter_Fname3} name="Supporter_Fname3" />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname3} name="Supporter_Lname3" />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                    <Box component="div" className="box box-grey result-list">
+                                                                        <Grid container spacing={2}>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <span style={{display: 'block'}}>รายที่ 4.</span>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={12}>
+                                                                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no4-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.Supporter_IDCard4} name="Supporter_IDCard4" onInput = {handleInputSupporterData}  />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData.Supporter_Fname4} name="Supporter_Fname4" />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname4} name="Supporter_Lname4" />
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Box>

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import { useForm, Controller } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 
@@ -343,6 +344,36 @@ const MuiTextfield = (props) => {
     );
 }
 
+const MuiTextfieldValidate = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled, error, helperText } = props;
+
+    return (
+        <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
+            { 
+                (label) === '' ? '' :
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            
+            <TextField 
+                name={name} 
+                onChange={onChange} 
+                onBlur={onBlur} 
+                type={type} 
+                disabled={disabled} 
+                value={value} 
+                id={id} 
+                inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} 
+                helperText={helperText}
+                error={error}
+            />  
+            
+            {/* <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} /> */}
+            
+        </FormControl>
+    );
+}
+
 const MuiTextfieldMultiLine = (props) => {
     const classes = useStyles();
     const { topic, label, id, value, type, textAlign, row, name, onChange, error } = props;
@@ -453,6 +484,33 @@ let year = [];
 year.push('เลือกปี')
 for(let i=0; i<=10; i++) {
     year.push(fullyear - i);
+}
+
+const MuiDatePickerValidate = (props) => {
+    const { topic, label, value, yearValue, monthValue, dayValue, onChange, inputdisabled, error, helperText } = props;
+    return (
+        <React.Fragment >
+            
+            <FormControl className={`MuiDatePicker ${inputdisabled}`}>
+                { 
+                    (label) === '' ? '' :
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                }
+                <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
+                    <DatePicker
+                        value={value}
+                        onChange={onChange}
+                        renderInput={(params) => <TextField {...params} />}
+                        inputFormat="dd/MM/yyyy"
+                        className="MuiDatePicker"
+                        helperText={helperText}
+                        error={error}
+                    />
+                </LocalizationProvider>
+            
+            </FormControl>
+        </React.Fragment>
+    )
 }
 
 const MuiDatePicker = (props) => {
@@ -1040,6 +1098,7 @@ export {
     MuiLabelHeader,
     MuiLabelHeaderCheckbox,
     MuiTextfield,
+    MuiTextfieldValidate,
     MuiTextfieldMultiLine,
     MuiTextfieldCurrency,
     MuiTextfieldStartAdornment,
@@ -1047,6 +1106,7 @@ export {
     MuiTextNumber,
     MuiCheckbox,
     MuiDatePicker,
+    MuiDatePickerValidate,
     MuiRadioButton,
     MuiSelect,
     MuiSelectObj,

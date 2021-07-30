@@ -61,52 +61,57 @@ function LoanRequestContactStep2(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('---------------------')
         console.log('Step2 applicantID', inputData.ApplicantID)
         console.log('Step2 action:',props.action)
         console.log('Step2 stepper status:',localStorage.getItem('stepperStatus'))
+        console.log('---------------------')
 
+        const getViewApplicantStep2 = () => {
+            axios.post(
+                `${server_hostname}/admin/api/view_applicant_step2`, { 
+                    ApplicantID: localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.ApplicantID
+                }, { headers: { "token": token } } 
+            ).then(res => {
+                    // console.log(res)
+                    let data = res.data;
+                    if(data.code === 0 || res === null || res === undefined) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    }else {
+                        console.log(data)
+                        let dataImage = data.data[0];
+                        setInputDataImage({
+                            ...inputDataImage,
+                            IDCard_PicPatch: dataImage.IDCard_PicPatch || '', // "1_idcard_1_3671000210854..zip",
+                            House_registration_PicPatch: dataImage.House_registration_PicPatch || '', // null,
+                            OwnerDoc_PicPatch: dataImage.OwnerDoc_PicPatch || '', // null,
+                            OtherDoc_PicPatch: dataImage.OtherDoc_PicPatch || '', // null,
+                        })
+                    }
+                }
+            ).catch(err => { console.log(err); history.push('/') })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
 
         // Action : view
         if(props.action === 'view' || props.action === 'edit') {
-
-            const getViewApplicantStep2 = () => {
-                axios.post(
-                    `${server_hostname}/admin/api/view_applicant_step2`, { ApplicantID: props.ApplicantID}, { headers: { "token": token } } 
-                ).then(res => {
-                        console.log(res)
-                        let data = res.data;
-                        if(data.code === 0 || res === null || res === undefined) {
-                            setErr(true);
-                            if(Object.keys(data.message).length !== 0) {
-                                console.error(data)
-                                if(typeof data.message === 'object') {
-                                    setErrMsg('ไม่สามารถทำรายการได้')
-                                } else {
-                                    setErrMsg([data.message])
-                                }
-                            } else {
-                                setErrMsg(['ไม่สามารถทำรายการได้'])
-                            }
-                        }else {
-                            console.log(data)
-                            let dataImage = data.data[0];
-                            setInputDataImage({
-                                ...inputDataImage,
-                                IDCard_PicPatch: dataImage.IDCard_PicPatch || '', // "1_idcard_1_3671000210854..zip",
-                                House_registration_PicPatch: dataImage.House_registration_PicPatch || '', // null,
-                                OwnerDoc_PicPatch: dataImage.OwnerDoc_PicPatch || '', // null,
-                                OtherDoc_PicPatch: dataImage.OtherDoc_PicPatch || '', // null,
-                            })
-                        }
-                    }
-                ).catch(err => { console.log(err); history.push('/') })
-                .finally(() => {
-                    if (isMounted.current) {
-                      setIsLoading(false)
-                    }
-                 });
-            }
-            
+            getViewApplicantStep2();
+        } else if(props.action === 'add' && localStorage.getItem('stepperStatus') === 'processing' ) {
+            console.log("Add Processing ApplicantID", props.ApplicantID)  
             getViewApplicantStep2();
         }
     }, [])

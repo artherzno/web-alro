@@ -115,11 +115,13 @@ function LoanRequestContact(props) {
     })
 
     let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
-    // let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
-    // let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
-    let propsApplicantID = localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.location.state.ApplicantID;
-    let propsAction = localStorage.getItem('stepperStatus') === 'processing' ? 'edit' : props.location.state.action;
+    let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
+    let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
+    // let propsApplicantID = localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.location.state.ApplicantID;
+    // let propsAction = localStorage.getItem('stepperStatus') === 'processing' ? 'edit' : props.location.state.action;
     // Stepper status : processing, for check process on stepper
+
+    // if(localStorage.getItem('stepperStatus') === 'processing')
 
 
     // Get Step Content
@@ -194,6 +196,7 @@ console.log('getStepMain ApplicantID:',localStorage.getItem('applicantID'))
         if(applicantIDLocalStorage) {}
         return () => {
             localStorage.removeItem('stepperStatus')
+            localStorage.removeItem('applicantID')
             console.log('remove stepper status')
         }
     }, [])
@@ -260,7 +263,7 @@ console.log('getStepMain ApplicantID:',localStorage.getItem('applicantID'))
                     <Container maxWidth="md">
                         <div className={classes.root}>
                             {
-                                propsAction === 'view' || propsAction === 'edit' ? 
+                                propsAction === 'view' || propsAction === 'edit' || localStorage.getItem('stepperStatus') === 'processing' ? 
                                     <Stepper alternativeLabel nonLinear activeStep={activeStep} className="custom-stepper-box">
                                         {steps.map((label, index) => (
                                             <Step key={label} className="custom-stepper mg-t-20">

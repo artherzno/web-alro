@@ -51,9 +51,11 @@ function LoanRequestContactStep4(props) {
 
     useEffect(() => {
         setLoaded(true);
+        console.log('---------------------')
         console.log('Step4 applicantID', props.ApplicantID)
         console.log('Step4 action:',props.action)
         console.log('Step4 stepper status:',localStorage.getItem('stepperStatus'))
+        console.log('---------------------')
 
         // Action : view
         if(props.action === 'view' || props.action === 'edit') {
