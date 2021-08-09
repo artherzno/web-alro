@@ -38,8 +38,14 @@ class DebtPending extends React.Component {
         this.state = {
             isExporting: false,
             loaded: true,
-            farmerPayLoanList: [],
+            dataList: [],
             dataSummary: {},
+            OrderNo : "", 
+            ContratNo:"", 
+            DateOrder:"", 
+            FarmerName:"", 
+            PayerName:"", 
+            IDPayer:"",
             dateSelect: null,
             page: 0,
             count: 10
@@ -50,28 +56,25 @@ class DebtPending extends React.Component {
     componentDidMount() {
 
 
-        // this.loadPayLoan()
+        this.loadData()
     }
 
-    loadPayLoan() {
+    loadData() {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, receiptType, receiptProvince } = this.state
+        const { OrderNo, ContratNo, DateOrder, FarmerName, PayerName, IDPayer, } = this.state
 
         const parameter = new FormData()
-        parameter.append('Display1', displaySection);
-        parameter.append('Month', month);
-        parameter.append('Year', year);
-        parameter.append('ZoneProvince', sectionProvince);
-        parameter.append('Display2', display2);
-        parameter.append('StartDate', startDate);
-        parameter.append('EndDate', endDate);
-        parameter.append('ReceiptType', receiptType);
-        parameter.append('ALROProvince', receiptProvince);
+        parameter.append('OrderNo', OrderNo);
+        parameter.append('ContratNo', ContratNo);
+        parameter.append('DateOrder', DateOrder);
+        parameter.append('FarmerName', FarmerName);
+        parameter.append('PayerName', PayerName);
+        parameter.append('IDPayer', IDPayer);
 
-        api.getBilled(parameter).then(response => {
+        api.getDebtPending(parameter).then(response => {
 
             this.setState({
-                farmerPayLoanList: response.data.data,
+                dataList: response.data.data,
                 dataSummary: response.data.dataSummary,
             })
 
@@ -133,7 +136,7 @@ class DebtPending extends React.Component {
                 this.delay = null
             }
             this.delay = setTimeout(() => {
-                // this.loadData()
+                this.loadData()
             }, 500);
 
         })
@@ -162,21 +165,21 @@ class DebtPending extends React.Component {
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่คำสั่ง" onChange={this.onChange("ContractNo")} />
+                                        <MuiTextfield label="เลขที่คำสั่ง" onChange={this.onChange("OrderNo")} />
                                     </Grid>
 
                                     <Grid item xs={12} md={3}>
                                         <MuiDatePicker label="วันที่คำสั่ง" value={this.state.dateSelect} onChange={(event) => {
-                                            this.setState({ Date: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                // this.loadData()
+                                            this.setState({ DateOrder: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
+                                                this.loadData()
                                             })
                                         }} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ชื่อ-สกุล ผู้ชดใช้หนี้แทน" onChange={this.onChange("ContractNo")} />
+                                        <MuiTextfield label="ชื่อ-สกุล ผู้ชดใช้หนี้แทน" onChange={this.onChange("PayerName")} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่ประจำตัวประชาชนผู้ชดใช้หนี้แทน" onChange={this.onChange("ContractNo")} />
+                                        <MuiTextfield label="เลขที่ประจำตัวประชาชนผู้ชดใช้หนี้แทน" onChange={this.onChange("IDPayer")} />
                                     </Grid>
 
 
@@ -186,12 +189,12 @@ class DebtPending extends React.Component {
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่คำสั่ง" onChange={this.onChange("ContractNo")} />
+                                        <MuiTextfield label="เลขที่สัญญาของเกษตรกร" onChange={this.onChange("ContratNo")} />
                                     </Grid>
 
 
                                     <Grid item xs={12} md={2}>
-                                        <MuiTextfield label="ชื่อ-สกุล เกษตรกร" onChange={this.onChange("ContractNo")} />
+                                        <MuiTextfield label="ชื่อ-สกุล เกษตรกร" onChange={this.onChange("FarmerName")} />
                                     </Grid>
 
                                     <Grid item xs={12} md={2}>
@@ -244,22 +247,22 @@ class DebtPending extends React.Component {
                                         </TableHead>
                                         <TableBody>
                                             { //this.state.farmerPayLoanList.slice(page * count, page * count + count)
-                                                [1, 1, 1, 1].map((farmer, index) => {
+                                                this.state.dataList.map((data, index) => {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine >xxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">xxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">xxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxxx</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">xxxxx</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{data.no}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{data.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.accrued1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.paid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.remaining)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.accruedInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.accrued2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.receive)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.total)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{formatNumber(data.totalReceivePeriod)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">{data.remark}</StyledTableCellLine>
 
                                                         </TableRow>
                                                     )
