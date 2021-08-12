@@ -698,6 +698,119 @@ const MuiRadioButton = (props) => {
     );
 }
 
+const MuiSelectDay = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
+
+    // console.log('MuiSelectProvince:', lists)
+
+    const dayObj = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            { 
+                (label) === '' ? '' :
+
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value="00">{ startText ? startText : 'วัน' }</MenuItem>
+                {dayObj.map((item,i)=>
+                    <MenuItem key={i} value={item}>{item}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
+const MuiSelectMonth = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
+
+    // console.log('MuiSelectProvince:', lists)
+
+    // const monthObj = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+    // const monthValueObj = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    const monthObj = [
+        { name: 'มกราคม', value: '01'},
+        { name: 'กุมภาพันธ์', value: '02'},
+        { name: 'มีนาคม', value: '03'},
+        { name: 'เมษายน', value: '04'},
+        { name: 'พฤษภาคม', value: '05'},
+        { name: 'มิถุนายน', value: '06'},
+        { name: 'กรกฎาคม', value: '07'},
+        { name: 'สิงหาคม', value: '08'},
+        { name: 'กันยายน', value: '09'},
+        { name: 'ตุลาคม', value: '10'},
+        { name: 'พฤศจิกายน', value: '11'},
+        { name: 'ธันวาคม', value: '12'},
+    ]
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            { 
+                (label) === '' ? '' :
+
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value="00">{ startText ? startText : 'เดือน' }</MenuItem>
+                {monthObj.map((item,i)=>
+                    <MenuItem key={i} value={item.value}>{item.name}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
+const MuiSelectYear = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
+
+    let fullyear = d.getFullYear() + 548;
+    let yearObj = [];
+    for(let i=0; i<=100; i++) {
+        yearObj.push(fullyear - i);
+    }
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            { 
+                (label) === '' ? '' :
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value="0000">{ startText ? startText : 'ปี' }</MenuItem>
+                {yearObj.map((item,i)=>
+                    <MenuItem key={i} value={item}>{item}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
 const MuiSelectProvince = (props) => {
     const classes = useStyles();
     const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
@@ -817,6 +930,61 @@ const MuiSelectObjYear = (props) => {
     }
 
     // console.log('MuiSelectOBJYear:', lists, itemName, itemValue)
+
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value={0}>กรุณาเลือก</MenuItem>
+                {yearList.map((item,i)=>
+                    <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
+const MuiSelectObjYearValue = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, name, value, start, end, onChange, valueYaer } = props;
+
+    let d = new Date();
+    let buddhaYear = 543;
+
+    // Check FiscalYear if month >= October will increase 1 year
+
+    // let monthNow = d.getMonth();
+    // if(monthNow >= 9) {
+    //     buddhaYear = 544;
+    // }
+    let fullyear = d.getFullYear() + buddhaYear;
+    let yearList = [];
+    
+    yearList.push(
+        // {
+        //     yearname: fullyear + 1,
+        //     yearvalue: (fullyear + 1)-2500
+        // },
+        {
+            yearname: fullyear,
+            yearvalue: (fullyear)-2500
+        },{
+            yearname: fullyear - 1,
+            yearvalue: (fullyear - 1)-2500
+        }
+    );
+    
 
     return (
         <FormControl className={classes.textbox}>
@@ -1114,6 +1282,10 @@ export {
     MuiSelectDistrict,
     MuiSelectSubDistrict,
     MuiSelectObjYear,
+    MuiSelectObjYearValue,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     MuiUpload,
     ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,

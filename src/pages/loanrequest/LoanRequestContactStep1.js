@@ -36,6 +36,7 @@ import {
     MuiSelect, 
     MuiSelectObj, 
     MuiSelectObjYear,
+    MuiSelectObjYearValue,
     MuiSelectSubDistrict,
     MuiSelectDistrict,
     MuiSelectProvince,
@@ -103,6 +104,7 @@ function LoanRequestContactStep1(props) {
         Land_AddrProvinceID: 0,
         Land_AddrDistrictID: 0,
         Land_AddrSubdistrictID: 0,
+        Land_description: '',
         DocLand_code: 0,
         LandNumber: '', // "0",
         LandGroup: '', // "10",
@@ -148,7 +150,7 @@ function LoanRequestContactStep1(props) {
         Hire_purchase_contract_Number: '', // "",
         LandValue: 0, // 0,
         LandPaidValue: 0, // 0,
-        Debt: 0, // 0,
+        Debt: '', // 0,
         Debt_Owner: '', // "",
         Debt_Amount: 0, // 0
     })
@@ -180,7 +182,7 @@ function LoanRequestContactStep1(props) {
         setLoaded(true);
 
         console.log('---------------------')
-        console.log('Step1 applicantID', inputData.ApplicantID)
+        console.log('Step1 applicantID', inputData.ApplicantID || props.ApplicantID)
         console.log('Step1 action:',props.action)
         console.log('Step1 stepper status:',localStorage.getItem('stepperStatus'))
         console.log('---------------------')
@@ -236,7 +238,7 @@ function LoanRequestContactStep1(props) {
 
                         setInputData({
                             ...inputData,
-                            typeGuarantee: dataDetail.Property === '' || dataDetail.Property === null ? '1' : '2',
+                            typeGuarantee: (dataDetail.Property === '' || dataDetail.Property === null) && (dataDetail.Supporter_Fname1 === '' || dataDetail.Supporter_Fname1 === null) ? '' : (dataDetail.Property === '' || dataDetail.Property === null) ? '1' : '2',
 
                             IDCard: dataFarmer.IDCard, // 1234567891017,
                             LoanFarmerTypeID: dataFarmer.LoanFarmerTypeID, // 1,
@@ -248,6 +250,7 @@ function LoanRequestContactStep1(props) {
                             IDCardEXP_Date: dataFarmer.IDCardEXP_Date,
                             land_data: [],
                             LandID: dataLand.LandID,
+                            Land_description: dataLand.Land_description,
                             Land_AddrProvinceID: dataLand.Land_AddrProvinceID,
                             Land_AddrDistrictID: dataLand.Land_AddrDistrictID,
                             Land_AddrSubdistrictID: dataLand.Land_AddrSubdistrictID,
@@ -276,7 +279,7 @@ function LoanRequestContactStep1(props) {
                             objective3: dataDetail.objective3 || '', // "",
                             Loan_amount3: dataDetail.Loan_amount3 || 0, // "",
                             Loan_Total: dataDetail.Loan_Total || '', // 0,
-                            Farming_LandRai: dataDetail.Farming_LandRai || '', // 1,
+                            Farming_LandRai: dataDetail.Farming_LandRai || 0, // 1,
                             Main_Plant: dataDetail.Main_Plant || '', // "",
                             Income_PerYearPerRai: dataDetail.Income_PerYearPerRai || 0, // 0,
                             Income_PerYear: dataDetail.Income_PerYear || 0, // 0,
@@ -299,7 +302,7 @@ function LoanRequestContactStep1(props) {
                             Hire_purchase_contract_Number: dataDetail.Hire_purchase_contract_Number || '', // "",
                             LandValue: dataDetail.LandValue || 0, // 0,
                             LandPaidValue: dataDetail.LandPaidValue || 0, // 0,
-                            Debt: dataDetail.Debt ? '1' : '0' || 0, // 0,
+                            Debt: dataDetail.Debt === '' || dataDetail.Debt === null ? '' : (!dataDetail.Debt) ? '0' : '1', // 0,
                             Debt_Owner: dataDetail.Debt_Owner || '', // "",
                             Debt_Amount: dataDetail.Debt_Amount || 0, // 0
                         })
@@ -594,10 +597,30 @@ function LoanRequestContactStep1(props) {
 
     // Radio Guarantee
     const handleChangeTypeGuarantee = (event) => {
-        setInputData({...inputData,
-            typeGuarantee: event.target.value
-        })
+        
         console.log('typeGuarantee ',event.target.value)
+        if(event.target.value === '2') {
+            setInputData({...inputData,
+                typeGuarantee: event.target.value,
+                Supporter_Fname1: '',
+                Supporter_Lname1: '',
+                Supporter_IDCard1: '',
+                Supporter_Fname2: '',
+                Supporter_Lname2: '',
+                Supporter_IDCard2: '',
+                Supporter_Fname3: '',
+                Supporter_Lname3: '',
+                Supporter_IDCard3: '',
+                Supporter_Fname4: '',
+                Supporter_Lname4: '',
+                Supporter_IDCard4: '',
+            })
+        } else {
+            setInputData({...inputData,
+                typeGuarantee: event.target.value,
+                Property: ''
+            })
+        }
     }
     // End Radio Guarantee
 
@@ -681,6 +704,7 @@ function LoanRequestContactStep1(props) {
         let LandValue_value = inputData.LandValue.toLocaleString('en-US', {minimumFractionDigits: 2})
         let LandPaidValue_value = inputData.LandPaidValue.toLocaleString('en-US', {minimumFractionDigits: 2})
         let Debt_Amount_value = inputData.Debt_Amount.toLocaleString('en-US', {minimumFractionDigits: 2})
+        let Farming_LandRai_value = inputData.Farming_LandRai.toLocaleString('en-US', {minimumFractionDigits: 2})
 
         let addApplicantStep1 = document.getElementById('addApplicantStep1');
         let formData = new FormData(addApplicantStep1);
@@ -688,7 +712,7 @@ function LoanRequestContactStep1(props) {
         formData.append('FarmerID', inputData.FarmerID)
         // formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
         // formData.append('Debt',parseInt(inputData.Debt))
-        formData.set('ProjectYear',(inputData.ProjectYear === 0 ? null : inputData.ProjectYear + 2500))
+        formData.set('ProjectYear',(inputData.ProjectYear === 0 ? '' : inputData.ProjectYear + 2500))
         formData.set('Loan_amount1', parseFloat(Loan_amount1_value.split(',').join('')))
         formData.set('Loan_amount2', parseFloat(Loan_amount2_value.split(',').join('')))
         formData.set('Loan_amount3', parseFloat(Loan_amount3_value.split(',').join('')))
@@ -701,6 +725,7 @@ function LoanRequestContactStep1(props) {
         formData.set('LandValue', parseFloat(LandValue_value.split(',').join('')))
         formData.set('LandPaidValue', parseFloat(LandPaidValue_value.split(',').join('')))
         formData.set('Debt_Amount', parseFloat(Debt_Amount_value.split(',').join('')))
+        formData.set('Farming_LandRai', parseFloat(Farming_LandRai_value.split(',').join('')))
         formData.set('LandID',parseInt(inputData.LandID))
 
         let url = '';
@@ -735,7 +760,7 @@ function LoanRequestContactStep1(props) {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log('add get applicantID:',data.results.recordset[0].ApplicantID)
+                    console.log('get applicantID:',data.results.recordset[0].ApplicantID)
                     if(props.action === 'add') {
                         localStorage.setItem('applicantID',data.results.recordset[0].ApplicantID)
                     }
@@ -855,7 +880,7 @@ function LoanRequestContactStep1(props) {
                                                     <MuiTextfield label="เรียน" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                    <MuiSelectObjYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
                                                         {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
@@ -903,7 +928,7 @@ function LoanRequestContactStep1(props) {
                                                         <Grid item xs={12} md={12}>
                                                             {
                                                                 props.action === 'view' || props.action === 'edit' ? 
-                                                                <MuiTextfield inputdisabled="input-disabled" label="หมายเลขที่ตั้งที่ดิน" value={inputData.LandID} />
+                                                                <MuiTextfield inputdisabled="input-disabled" label="หมายเลขที่ตั้งที่ดิน" value={inputData.Land_description} />
                                                                 :
                                                                 <MuiSelectObj label="หมายเลขที่ตั้งที่ดิน" itemName={'Land_description'} itemValue={'LandID'} lists={inputData.land_data} name="LandID" value={inputData.LandID} onChange={handleInputLandData} />
                                                         }

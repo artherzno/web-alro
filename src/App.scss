@@ -611,6 +611,15 @@ table {
   }
 }
 
+.table-row-disabled {
+  pointer-events: none;
+  opacity: 0.25;
+  display: none;
+  td {
+    background-color: #eaeaf3;
+  }
+}
+
 // Main Style ------------------------------//
 body {
   background-color: var(--white);
@@ -722,6 +731,11 @@ body {
     border: none;
     color: var(--white);
   }
+}
+
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.2;
 }
 
 .bg-green {
@@ -1015,6 +1029,10 @@ body {
     text-align: center;
     .box-blue-head {
       color: #2284d0;
+      height: 40px;
+      line-height: 1.2;
+      display: grid;
+      align-items: center;
     }
   }
 }
@@ -1032,6 +1050,25 @@ body {
   background: var(--white) 0% 0% no-repeat padding-box;
   border: 1px solid var(--text-input-border);
   border-radius: 2px;
+}
+
+// Select Style ---------------------//
+.select-date-option {
+  display: flex;
+  > div:first-child {
+    width: 50%;
+  }
+  > div:last-child {
+    width: 60%;
+  }
+  svg {
+    // visibility: hidden;
+    right: 0;
+  }
+  .MuiSelect-select {
+    overflow: initial !important;
+    padding: 10px 6px !important;
+  }
 }
 
 // Input Sytle ---------------------//
@@ -1386,8 +1423,10 @@ input {
   }
 }
 
-// Loan Request Contact Step Page
-.loanrequestcontactstep-loantotal {
+// Total sum
+.loanrequestcontactstep-loantotal,
+.loanrequestprint-objtotal,
+.loanrequestprint-loanduetotal {
   input {
     font-size: 22px;
     color: var(--darkgreen);
@@ -1611,11 +1650,11 @@ label + .MuiInputBase-root {
     &:first-child {
       border-left: none;
     }
-    .MuiDataGrid-iconSeparator,
-    .MuiDataGrid-iconButtonContainer,
-    .MuiDataGrid-menuIcon {
-      display: none;
-    }
+    // .MuiDataGrid-iconSeparator,
+    // .MuiDataGrid-iconButtonContainer,
+    // .MuiDataGrid-menuIcon {
+    //   display: none;
+    // }
   }
 }
 

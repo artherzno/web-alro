@@ -210,8 +210,8 @@ function EditUser(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
     
-        let addUserForm = document.getElementById('addUserForm');
-        let formData = new FormData(addUserForm);
+        let editUserForm = document.getElementById('editUserForm');
+        let formData = new FormData(editUserForm);
         formData.append('nMEMID',props.location.state.nMEMID)
         formData.append('ExpireDate',inputData.ExpireDate)
 
@@ -296,7 +296,7 @@ function EditUser(props) {
                     </Container>
 
                     <Container maxWidth="sm">
-                        <form className="root" id="addUserForm" noValidate autoComplete="off">
+                        <form className="root" id="editUserForm" noValidate autoComplete="off">
                             <Grid container spacing={2}>
 
                                 {/* Paper 1 -------------------------------------------------- */}
@@ -319,7 +319,7 @@ function EditUser(props) {
                                                     <MuiTextfield label="Password" defaultValue="" name="cPasswd" value={inputData.cPasswd} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <MuiSelect label="ActiveStatus" listsValue={['true','false']} lists={['Active', 'Non Active']} name="bActive" value={inputData.bActive} onChange={handleInputData}  />
+                                                    <MuiSelect label="ActiveStatus" listsValue={[1,0]} lists={['Active', 'Non Active']} name="bActive" value={inputData.bActive} onChange={handleInputData}  />
                                                </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiDatePicker label="ExpireDate" name="ExpireDate" value={inputData.ExpireDate} onChange={(newValue)=>{ setInputData({ ...inputData, ExpireDate: moment(newValue).format('YYYY-MM-DD')}) }}  />

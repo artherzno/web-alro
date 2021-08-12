@@ -20,6 +20,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { DataGrid } from '@material-ui/data-grid';
 
 import AddIcon from '@material-ui/icons/Add';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
@@ -59,6 +60,75 @@ function ManageUser() {
     let server_port = auth.port;
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
+    const columns = [
+        // { 
+        //     field: 'id', 
+        //     headerName: 'ApplicantID', 
+        //     width: 120 
+        // },
+        {
+            field: 'userid',
+            headerName: 'UserID',
+            width: 100,
+            // flex: 1,
+            editable: false,
+        },
+        {
+            field: 'officername',
+            headerName: 'ชื่อ - นามสกุล',
+            //   width: 200,
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'username',
+            headerName: 'Username',
+            //   width: 140,
+            flex: 1,
+            editable: false,
+        },{
+            field: 'dcreated',
+            headerName: 'วันที่สร้าง',
+            //   width: 120,
+            flex: 1,
+            editable: false,
+        },{
+            field: 'activestatus',
+            headerName: 'สถานะ',
+            //   width: 90,
+            flex: 1,
+            editable: false,
+
+        },{
+            field: 'expiredate',
+            headerName: 'วันที่หมดอายุ',
+            // width: 120,
+            flex: 1,
+            editable: false,
+        },{
+            field: 'userrole',
+            headerName: 'ตำแหน่ง',
+            // width: 140,
+            flex: 1,
+            editable: false,
+            
+        },{
+            field: 'action',
+            headerName: 'Action',
+            sortable: false,
+            //   width: 100,
+            flex: 1,
+            renderCell: (param)=> {
+                return (
+                    <React.Fragment className="sticky tb-w-14em" style={{right: '0'}}>
+                        <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoEditUser(param.row.userid)} />
+                    </React.Fragment>
+                )
+            }
+        },
+      ];
+
+      const [rows, setRows] = useState([])
 
     useEffect(() => {
         setLoaded(true);
@@ -82,9 +152,23 @@ function ManageUser() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log(data)
+                    console.log(data.data)
                     setTableResult(data.data)
-                    
+                    let dataArr = [];
+                    for(let i=0; i<data.data.length; i++) {
+                        // console.log(data.data[i].ApplicantID)
+                        dataArr.push({
+                            id: data.data[i].nMEMID,
+                            userid: data.data[i].nMEMID,
+                            officername: data.data[i].OfficerName,
+                            username: data.data[i].cUsername,
+                            createdate: (data.data[i].dCreated === null) ? '' : moment(data.data[i].dCreated).format('DD/MM/YYYY'),
+                            activestatus: (data.data[i].bActive === true) ? 1 : (data.data[i].bActive === false) ? 0 : data.data[i].bActive,
+                            expiredate: (data.data[i].ExpireDate === null) ? '' : moment(data.data[i].ExpireDate).format('DD/MM/YYYY'),
+                            userrole: data.data[i].nRolename,
+                        })
+                    }
+                    setRows(dataArr)
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -215,7 +299,18 @@ function ManageUser() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table-box table-allcontractsearch1 mg-t-10">
+                                <div style={{  }}>
+                                    <DataGrid
+                                        rows={rows}
+                                        columns={columns}
+                                        pageSize={10}
+                                        autoHeight={true}
+                                        disableColumnMenu={true}
+                                        // checkboxSelection
+                                        disableSelectionOnClick
+                                    />
+                                </div>
+                                {/* <div className="table-box table-allcontractsearch1 mg-t-10">
                                     <TableContainer >
                                     <Table aria-label="simple table">
                                         <TableHead>
@@ -230,7 +325,7 @@ function ManageUser() {
                                                 <TableCell align="center" className="sticky tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>{/* // clear mockup */}
+                                        <TableBody>
                                             {
                                                 tableResult.length ? 
                                                     (rowsPerPage > 0
@@ -247,7 +342,7 @@ function ManageUser() {
                                                             <TableCell align="center" className="tb-w-12em">{cell.nRolename}</TableCell>
                                                             <TableCell align="center" className="sticky tb-w-14em">
                                                                 <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>{gotoEditUser(cell.nMEMID)}} />
-                                                                {/* <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} /> */}
+                                                                <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} />
                                                             </TableCell>
                                                     </TableRow>
                                                     
@@ -270,7 +365,7 @@ function ManageUser() {
                                         onRowsPerPageChange={handleChangeRowsPerPage}
                                         labelRowsPerPage="แสดงจำนวนแถว"
                                     />
-                                </div>
+                                </div> */}
                                 {/* Data Grid --------------------------------*/}
                                     {/* <div style={{ height: 400, width: '100%' }}>
                                     <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />

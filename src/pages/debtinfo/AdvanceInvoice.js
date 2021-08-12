@@ -20,6 +20,8 @@ import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 import Header from '../../components/Header';
@@ -30,6 +32,9 @@ import {
     MuiDatePicker,
     MuiDatePickerValidate,
     MuiSelect,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     MuiTextNumber,
     MuiCheckbox,
     ButtonFluidPrimary,
@@ -39,30 +44,26 @@ import {
 // All Data for DataGrid & Table ---------------------------------------------//
 
   const columns = [
-    { field: 'ROWID', headerName: 'ลำดับ', width: 40 },
-    { field: 'pv_code', headerName: 'รหัสจังหวัด', width: 130 },
-    { field: 'pindex', headerName: 'ลำดับข้อมูล', width: 130 },
-    { field: 'projcode', headerName: 'รหัสโครงการ', width: 130 },
-    { field: 'projname', headerName: 'ชื่อโครงการ', width: 130 },
-    { field: 'sex', headerName: 'คำนำหน้า', width: 130 },
-    { field: 'firstname', headerName: 'ชื่อ', width: 130 },
-    { field: 'lastname', headerName: 'นามสกุล', width: 130 },
-    { field: 'start_date', headerName: 'วันที่ประมวล', width: 130, type: 'date',valueFormatter: (params) => {
-        return moment(params.value).format('DD/MM/YYYY');
-      }  },
-    { field: 'rentno', headerName: 'เลขที่สัญญา', width: 130 },
-    { field: 'duedate', headerName: 'วันที่กู้', width: 130, type: 'date',valueFormatter: (params) => {
-      return moment(params.value).format('DD/MM/YYYY');
-    } },
-    { field: 'principle', headerName: 'เงินกู้', width: 130 },
-    { field: 'payrec', headerName: 'เงินงวดชำระ', width: 130 },
+    { field: 'ROWID', headerName: 'ลำดับ', width: 90, },
+    { field: 'pv_code', headerName: 'รหัสจังหวัด', width: 130, },
+    { field: 'pindex', headerName: 'ลำดับข้อมูล',  width: 230, },
+    { field: 'projcode', headerName: 'รหัสโครงการ',  width: 130, },
+    { field: 'projname', headerName: 'ชื่อโครงการ',  width: 150, },
+    { field: 'sex', headerName: 'คำนำหน้า', width: 110, },
+    { field: 'firstname', headerName: 'ชื่อ', width: 130, },
+    { field: 'lastname', headerName: 'นามสกุล', width: 130, },
+    { field: 'start_date', headerName: 'วันที่ประมวล', width: 125,},
+    { field: 'rentno', headerName: 'เลขที่สัญญา', width: 130,},
+    { field: 'duedate', headerName: 'วันที่กู้', width: 100,},
+    { field: 'principle', headerName: 'เงินกู้', width: 130,},
+    { field: 'payrec', headerName: 'เงินงวดชำระ', width: 130,},
     
   ];
 
 // End All Data for DataGrid ---------------------------------------------//
 
 
-function AdvanceInvoice() {
+function AdvanceInvoice(props) {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
@@ -71,6 +72,7 @@ function AdvanceInvoice() {
     let server_hostname = auth.hostname;
     let server_spkapi = localStorage.getItem('spkapi');
     let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
@@ -86,6 +88,9 @@ function AdvanceInvoice() {
         farmer : '', // ""
     })
     
+    const [optionsDay, setOptionsDay] = useState('00');
+    const [optionsmonth, setOptionsmonth] = useState('00');
+    const [optionsYear, setOptionsYear] = useState('0000');
 
     // Variable for Checkbox in Table
     const [tableResult, setTableResult] = useState([])
@@ -100,6 +105,24 @@ function AdvanceInvoice() {
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const [dateSearch, setDateSearch] = useState('0000-00-00');
+    const [printActive, setPrintActive] = useState(false)
+
+    const [inputSelectDate, setInputSelectDate] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000'
+    })
+
+    const handleSelectDate = (event) => {
+        let type = event.target.name
+        setInputSelectDate({
+            ...inputSelectDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+    }
 
     useEffect(() => {
         setLoaded(true);
@@ -151,14 +174,21 @@ function AdvanceInvoice() {
     };
 
     const getAdvanceInvoiceGetTotal = () => {
-        let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
-        console.log('dateSearch',dateSearch)
+        // let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
+        // setDateSearch(inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
+        console.log('dateSearch',inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
+        let searchDate;
+        if(inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {
+            searchDate = '';
+        } else {
+            searchDate = inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
+        }
         
         axios({
             url: `${server_spkapi}/AdvanceInvoice/GetTotal`, //your url
             method: 'POST',
             data: {
-                start_date: dateSearch, // 2561-08-11
+                start_date: searchDate, // 2561-08-11
             }
         }).then(res => {
                 console.log(res)
@@ -191,48 +221,86 @@ function AdvanceInvoice() {
 
 
     const getAdvanceInvoiceGetAll = () => {
-        let dateSearch = inputDataSearch.start_date === null ? null : (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
-        console.log('dateSearch',dateSearch)
-        
-        axios({
-            url: `${server_spkapi}/AdvanceInvoice/GetAll`, //your url
-            method: 'POST',
-            data: {
-                start_date: dateSearch, // 2561-08-11
-                rentno : inputDataSearch.rentno,
-                projname : inputDataSearch.projname,
-                farmer : inputDataSearch.farmer
-            }
-        }).then(res => {
-                console.log(res)
-                let data = res.data;
-                if(data.code === 0) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
-                    } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
-                    }
-                }else {
-                    console.log('Get AdvanceInvoice:',data)
-                    setTableResult(data)
-                    setRows(data)
+        // let dateSearch = inputDataSearch.start_date === null ? null : (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
+        setTableResult([])
+        // setDateSearch(inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
+        console.log('dateSelectSearch',inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
+        let searchDate;
+        if(inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {
+            searchDate = '';
+        } else {
+            searchDate = inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd;
+        }
+        console.log('dateSearch',searchDate)
 
-                    getAdvanceInvoiceGetTotal()
-                    
+        if(searchDate === '' ) {
+            setErr(true);
+            setErrMsg('กรุณาใส่วันที่')
+        } else {
+            axios({
+                url: `${server_spkapi}/AdvanceInvoice/GetAll`, //your url
+                method: 'POST',
+                data: {
+                    start_date: searchDate, // 2561-08-11
+                    rentno : inputDataSearch.rentno,
+                    projname : inputDataSearch.projname,
+                    farmer : inputDataSearch.farmer
                 }
-            }
-        ).catch(err => { console.log(err) })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-        })
+            }).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    } else if(data.length === 0) {
+                        setErr(true);
+                        setErrMsg(['ไม่พบข้อมูลในตารางใบแจ้งหนี้'])
+                        getAdvanceInvoiceGetTotal()
+                    } else {
+                        console.log('Get AdvanceInvoice:',data)
+                        setTableResult(data)
+                        let dataArr = [];
+                        for(let i=0; i<data.length; i++) {
+                            dataArr.push({
+                                id: data[i].ROWID,
+                                ROWID: data[i].ROWID,
+                                pv_code: data[i].pv_code,
+                                pindex: data[i].pindex,
+                                projcode: data[i].projcode,
+                                projname: data[i].projname,
+                                sex: data[i].sex,
+                                firstname: data[i].firstname,
+                                lastname: data[i].lastname,
+                                start_date: (data[i].start_date === null) ? '' : (moment(data[i].start_date).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(data[i].start_date).format('DD/MM/YYYY').substring(6,10)) + 543),
+                                rentno: data[i].rentno,
+                                duedate: (data[i].duedate === null) ? '' : (moment(data[i].duedate).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(data[i].duedate).format('DD/MM/YYYY').substring(6,10)) + 543),
+                                principle: data[i].principle,
+                                payrec: data[i].payrec,
+                            })
+                        }
+                        setRows(dataArr)
+
+                        getAdvanceInvoiceGetTotal()
+                        setPrintActive(true)
+                        
+                    }
+                }
+            ).catch(err => { console.log(err) })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            })
+        }
     }
 
 
@@ -305,6 +373,38 @@ function AdvanceInvoice() {
         }
     }
 
+
+    const handlePrintPDF = () => {
+        let printDate = (inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
+console.log('printDAte',printDate.toString())
+        const startDateValue = new FormData()
+        startDateValue.append('startDate', printDate.toString());
+        let url = `${siteprint}/api/ExportServices/ExportPrintInvoiceAll`; //your url
+
+        axios.post(url, startDateValue,
+            {
+                headers:
+                {
+                    'Content-Disposition': "attachment; filename=template.xlsx",
+                    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                },
+                responseType: 'arraybuffer',
+            }
+        ).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'template.xlsx');
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
+
     // End Select Checkbox
 
     
@@ -321,6 +421,13 @@ function AdvanceInvoice() {
         //   setHelperText('Please select an option.');
         //   setError(true);
         // }
+    };
+
+    const handleClosePopup = () => {
+        setErr(false);
+        setSuccess(false);
+        // history.push('/manageinfo/searchmember');
+
     };
     
 
@@ -341,7 +448,7 @@ function AdvanceInvoice() {
                             <Grid item xs={12} md={12} className="mg-t-0">
                             <form onSubmit={handleSubmit(handleSubmitSearch)}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={2}><Controller
+                                    {/* <Grid item xs={12} md={2}><Controller
                                             name="firstName"
                                             control={control}
                                             defaultValue=""
@@ -355,12 +462,17 @@ function AdvanceInvoice() {
                                             />
                                             )}
                                             rules={{ required: 'First name required' }}
-                                        />
-
-                                            {/* value={inputDataSearch.start_date === 'Invalid date' ? '' : inputDataSearch.start_date} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, start_date: moment(newValue).format('YYYY-MM-DD')}) }}  */}
-                                                
-                                    </Grid>
+                                        />   
+                                    </Grid> */}
                                     <Grid item xs={12} md={3}>
+                                        <p>วันที่ครบกำหนดชำระหนี้</p>
+                                        <div className="select-date-option">
+                                            <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
+                                            <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
+                                            <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
                                         <MuiTextfield label="เลขที่สัญญา" name="rentno" value={inputDataSearch.rentno} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
@@ -379,11 +491,11 @@ function AdvanceInvoice() {
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={2} className="mg-t-10 btn-disabled">
-                                        <ButtonFluidPrimary label="พิมพ์ใบแจ้งหนี้" />
+                                    <Grid item xs={12} md={2} className={`mg-t-10  ${printActive ? '' : 'btn-disabled'}`}>
+                                        <ButtonFluidPrimary label="พิมพ์ใบแจ้งหนี้" onClick={handlePrintPDF} />
                                     </Grid>
                                     <Grid item xs={12} md={2} className="mg-t-10 btn-disabled">
-                                        <ButtonFluidPrimary label="พิมพ์ Lable" />
+                                        <ButtonFluidPrimary label="พิมพ์ Lable"/>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -432,7 +544,7 @@ function AdvanceInvoice() {
                         <Grid container spacing={2} className="mg-t-20">
                             <Grid item xs={12} md={12}>
 
-                                <TableContainer >
+                                {/* <TableContainer >
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
@@ -485,7 +597,6 @@ function AdvanceInvoice() {
                                                                 />
                                                                 </TableCell>
                                                                 <TableCell align="center" id={labelId}>{row.ROWID}</TableCell>
-                                                            {/* <TableCell align="center">{cell.ROWID}</TableCell> */}
                                                             <TableCell align="center">{row.pv_code}</TableCell>
                                                             <TableCell align="center">{row.pindex}</TableCell>
                                                             <TableCell align="center">{row.projcode}</TableCell>
@@ -494,10 +605,8 @@ function AdvanceInvoice() {
                                                             <TableCell align="center">{row.firstname}</TableCell>
                                                             <TableCell align="center">{row.lastname}</TableCell>
                                                             <TableCell align="center">{(moment(row.start_date).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(row.start_date).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
-                                                            {/* <TableCell align="center">{moment(cell.start_date).format('DD/MM/YYYY')}</TableCell> */}
                                                             <TableCell align="center">{row.rentno}</TableCell>
                                                             <TableCell align="center">{(moment(row.rentdate).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(row.rentdate).format('DD/MM/YYYY').substring(6,10)) + 543)}</TableCell>
-                                                            {/* <TableCell align="center">{cell.rentdate}</TableCell> */}
                                                             <TableCell align="center">{row.principle === null ? '0' : row.principle.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
                                                             <TableCell align="center">{row.payrec === null ? '0' : row.payrec.toLocaleString('en-US', {minimumFractionDigits: 2})}</TableCell>
                                                         </TableRow>
@@ -525,19 +634,18 @@ function AdvanceInvoice() {
                                         />
                                     : 
                                     ''
-                                }
-                                {/* <div className="table-box max-h-300 mg-t-10">
-                                    <div style={{ height: 400, width: '100%' }}>
-                                        <DataGrid 
-                                        getRowId={(r) => r.ROWID} 
-                                        rows={rows} 
-                                        columns={columns} 
-                                        pageSize={10} 
-                                        rowsPerPageOptions = {[5,10,20,50,100]}
-                                        checkboxSelection 
+                                } */}
+                                <div style={{ }}>
+                                    <DataGrid
+                                        rows={rows}
+                                        columns={columns}
+                                        pageSize={10}
+                                        autoHeight={true}
+                                        disableColumnMenu={true}
+                                        // checkboxSelection
+                                        disableSelectionOnClick
                                     />
-                                    </div>
-                                </div> */}
+                                </div>
                             </Grid>
                             <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
                                 <ButtonFluidPrimary label="พิมพ์ Label" />
@@ -558,7 +666,7 @@ function AdvanceInvoice() {
                                                 <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-24" />
+                                                {/* <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-24" /> */}
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="เลขที่ใบเตือนหนี้"  defaultValue="" />
@@ -567,7 +675,7 @@ function AdvanceInvoice() {
                                                 <MuiTextfield label="คำนวณสิ้นปีงบประมาณ"  defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่ประมวลผล"  defaultValue="2017-05-24" />
+                                                {/* <MuiDatePicker label="วันที่ประมวลผล"  defaultValue="2017-05-24" /> */}
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="เงินครบชำระ"  defaultValue="" />
@@ -691,6 +799,55 @@ function AdvanceInvoice() {
                     
                 </div>
             </Fade>
+
+            <Dialog
+                open={success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
             
         </div>
     )

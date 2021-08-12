@@ -16,6 +16,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import { DataGrid } from '@material-ui/data-grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
@@ -61,6 +62,60 @@ function LoanRequestContactSearch() {
         page_number: 1, // 1,
         page_length: 200, // 200
     })
+
+    const columns = [
+        // { 
+        //     field: 'id', 
+        //     headerName: 'ApplicantID', 
+        //     width: 120 
+        // },
+        {
+          field: 'dcreated',
+          headerName: 'วันที่ยื่นคำขอ',
+          flex: 1,
+          editable: false,
+        },
+        {
+          field: 'idcard',
+          headerName: 'เลขบัตรประจำตัวประชาชน',
+          flex: 1,
+          editable: false,
+        },
+        {
+          field: 'fullname',
+          headerName: 'ชื่อเกษตรกร',
+          flex: 1,
+          editable: false,
+
+        },
+        {
+          field: 'action',
+          headerName: 'Action',
+          sortable: false,
+          flex: 1,
+          renderCell: (param)=> {
+              return (
+                <React.Fragment>
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoLoanRequestContact(param.row.farmerid, param.row.id,'edit')} /> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="80px" onClick={()=>gotoLoanRequestContact(param.row.farmerid, param.row.id, 'view')} />
+                </React.Fragment>
+            )
+          }
+        },
+      ];
+
+      const [rows, setRows] = useState([])
+    // const rows = [
+    //     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+    //     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+    //     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+    //     { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+    //     { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+    //     { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+    //     { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+    //     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+    //     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    // ];
 
     useEffect(() => {
         setLoaded(true);
@@ -123,8 +178,21 @@ function LoanRequestContactSearch() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log(data)
+                    console.log(data.data)
                     setTableResult(data.data);
+                    let dataArr = [];
+                    for(let i=0; i<data.data.length; i++) {
+                        // console.log(data.data[i].ApplicantID)
+                        dataArr.push({
+                            id: data.data[i].ApplicantID,
+                            farmerid: data.data[i].FarmerID,
+                            fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
+                            idcard: data.data[i].IDCard,
+                            dcreated: moment(data.data[i].dCreated).format('DD/MM/YYYY'),
+                        })
+                    }
+                    setRows(dataArr)
+                    
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -175,6 +243,8 @@ function LoanRequestContactSearch() {
                 ApplicantID: applicantid,
             }
         });
+
+        localStorage.setItem('applicantID', applicantid)
     }
 
     return (
@@ -212,7 +282,18 @@ function LoanRequestContactSearch() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table">
+                                <div style={{ width: '100%' }}>
+                                    <DataGrid
+                                        rows={rows}
+                                        columns={columns}
+                                        pageSize={10}
+                                        autoHeight={true}
+                                        disableColumnMenu={true}
+                                        // checkboxSelection
+                                        disableSelectionOnClick
+                                    />
+                                </div>
+                                {/* <div className="table">
                                     <TableContainer className="table-box mg-t-10">
                                         <Table aria-label="normal table">
                                             <TableHead>
@@ -259,7 +340,7 @@ function LoanRequestContactSearch() {
                                         onRowsPerPageChange={handleChangeRowsPerPage}
                                         labelRowsPerPage="แสดงจำนวนแถว"
                                     />
-                                </div>
+                                </div> */}
                             </Grid>
                         </Grid>
                     </Container>

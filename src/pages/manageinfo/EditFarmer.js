@@ -11,6 +11,8 @@ import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 import moment from 'moment';
 
@@ -60,6 +62,13 @@ function EditFarmer(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [duplicateAddr, setDuplicateAddr] = useState(false);
 
+    const [addressIDCard, setAddressIDCard] = useState('')
+    const [alroChecked1, setAlroChecked1] = useState('')
+    const [alroChecked2, setAlroChecked2] = useState('')
+    const [alroChecked3, setAlroChecked3] = useState('')
+    const [alroChecked4, setAlroChecked4] = useState('')
+    const [alroChecked5, setAlroChecked5] = useState('')
+
     const [loaded, setLoaded] = useState(false);
     const [docLandTypeList, setDocLandTypeList] = useState([])
     const [provinceIDCardList, setProvinceIDCardList] = useState(['กรุณาเลือกจังหวัด']);
@@ -106,9 +115,9 @@ function EditFarmer(props) {
         FrontName: 'นาย', // 'นาย',
         Name: '', // 'จิมมี่',
         Sirname: '', // 'แซ่ฉ่วย',
-        BirthDate: '', // '2022-12-11',
+        BirthDate: null, // '2022-12-11',
         Tel: '', // '087-712-8888',
-        IDCardEXP_Date: '', // '2022-12-13',
+        IDCardEXP_Date: null, // '2022-12-13',
         IDCARD_AddNo: '', // '123',
         IDCARD_AddMoo: '', // 'หมู่ 4',
         IDCARD_AddrSoiRoad: '', // 'ถ. มิตรภาพ',
@@ -242,11 +251,11 @@ function EditFarmer(props) {
 
     useEffect(() => {
         console.log('server_production',server_production)
-        setInputData({
-            ...inputData,
-            BirthDate: moment().format('DD/MM/YYYY'),
-            IDCardEXP_Date: moment().format('DD/MM/YYYY'),
-        })
+        // setInputData({
+        //     ...inputData,
+        //     BirthDate: null,
+        //     IDCardEXP_Date: null,
+        // })
 
         let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
         setProvinceIDCardList(dataProvinceList)
@@ -383,13 +392,13 @@ function EditFarmer(props) {
                             ...inputData,
                             IDCard: resEditData.IDCard || '', // 1234567891017,
                             file: resEditData.file || '',
-                            LoanFarmerTypeID: resEditData.LoanFarmerTypeID || '', // 1,
+                            LoanFarmerTypeID: resEditData.LoanFarmerTypeID.toString() || '', // 1,
                             FrontName: resEditData.FrontName || '', // 'นาย',
                             Name: resEditData.Name || '', // 'จิมมี่',
                             Sirname: resEditData.Sirname || '', // 'แซ่ฉ่วย',
-                            BirthDate: resEditData.BirthDate || '', // '2022-12-11',
+                            BirthDate: resEditData.BirthDate || null, // '2022-12-11',
                             Tel: resEditData.Tel || '', // '087-712-8888',
-                            IDCardEXP_Date: resEditData.IDCardEXP_Date || ' ', // '2022-12-13',
+                            IDCardEXP_Date: resEditData.IDCardEXP_Date || null, // '2022-12-13',
                             IDCARD_AddNo: resEditData.IDCARD_AddNo || '', // '123',
                             IDCARD_AddMoo: resEditData.IDCARD_AddMoo || '', // 'หมู่ 4',
                             IDCARD_AddrSoiRoad: resEditData.IDCARD_AddrSoiRoad || '', // 'ถ. มิตรภาพ',
@@ -973,9 +982,10 @@ function EditFarmer(props) {
 
     const handleDuplicateAddr = (event) => {
         const checked = event.target.checked;
+        setAddressIDCard(checked)
         if(checked) {
             setDuplicateAddr(true);
-            console.warn(inputData)
+            // console.warn(inputData)
         } else {
             setDuplicateAddr(false);
         }
@@ -1020,8 +1030,8 @@ function EditFarmer(props) {
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
         formData.append('FarmerID', props.location.state.FarmerID)
-        formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
-        formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
+        formData.append('BirthDate', inputData.BirthDate === null || inputData.BirthDate === 'Invalid date' ? null : moment(inputData.BirthDate).format('YYYY-MM-DD'))
+        formData.append('IDCardEXP_Date', inputData.IDCardEXP_Date === null || inputData.IDCardEXP_Date === 'Invalid date' ? null :  moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
 
         if(duplicateAddr) {
             formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
@@ -1246,7 +1256,8 @@ function EditFarmer(props) {
                                         </Grid>
 
                                         <Grid item xs={12} md={12}>
-                                            <MuiCheckbox label="Alro Land" />
+                                            <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                            <span>Alro Land</span>
                                         </Grid>
                                         <Grid item xs={12} md={12}>
                                             <MuiTextfield label="หมู่ที่" id={`Land_AddMoo_${i+1}`} defaultValue="" value={Land_AddMoo} name={`Land_AddMoo`} onChange={handleInputDataLand} />
@@ -1273,13 +1284,13 @@ function EditFarmer(props) {
                                             <MuiTextfield label="แปลง" id={`Plang_${i+1}`}  value={Plang} name={`Plang`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_${i+1}`} value={Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLand} />
+                                            <MuiTextfieldEndAdornment label="เนื้อที่"  id={`Rai_${i+1}`} value={Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_${i+1}`} value={Ngan}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLand} />
+                                            <MuiTextfieldEndAdornment label="&nbsp;" id={`Ngan_${i+1}`} value={Ngan}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
-                                            <MuiTextfieldEndAdornment label="แปลง" id={`Wa_${i+1}`} value={Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLand} />
+                                            <MuiTextfieldEndAdornment label="&nbsp;" id={`Wa_${i+1}`} value={Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLand} />
                                         </Grid>
                                         
                                         <Grid item xs={12} md={6}>
@@ -1445,7 +1456,7 @@ function EditFarmer(props) {
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Radio Button ---------------------------------------------------*/}
-                                                <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox" onChange={handleDuplicateAddr} />
+                                                <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox" checked={addressIDCard} onChange={handleDuplicateAddr} />
                                             </Grid>
                                             {
                                                 !duplicateAddr ? 
@@ -1558,7 +1569,9 @@ function EditFarmer(props) {
                                                             </Grid>
 
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiCheckbox label="Alro Land" />
+                                                                <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                                                <span>Alro Land</span>
+                                                                {/* <MuiCheckbox label="Alro Land" /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
                                                                 <MuiTextfield label="หมู่ที่" id={`Land_AddMoo_0`} defaultValue="" value={inputDataLandAdd.Land_AddMoo} name={`Land_AddMoo`} onChange={handleInputDataLandAdd} />
@@ -1585,13 +1598,13 @@ function EditFarmer(props) {
                                                                 <MuiTextfield label="แปลง" id={`Plang_0`}  value={inputDataLandAdd.Plang} name={`Plang`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfieldEndAdornment label="แปลง"  id={`Rai_0`} value={inputDataLandAdd.Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfieldEndAdornment label="เนื้อที่"  id={`Rai_0`} value={inputDataLandAdd.Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Ngan_0`} value={inputDataLandAdd.Ngan}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfieldEndAdornment label="&nbsp;" id={`Ngan_0`} value={inputDataLandAdd.Ngan}  endAdornment="งาน" name={`Ngan`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             <Grid item xs={12} md={4}>
-                                                                <MuiTextfieldEndAdornment label="แปลง" id={`Wa_0`} value={inputDataLandAdd.Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLandAdd} />
+                                                                <MuiTextfieldEndAdornment label="&nbsp;" id={`Wa_0`} value={inputDataLandAdd.Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLandAdd} />
                                                             </Grid>
                                                             
                                                             <Grid item xs={12} md={12}>

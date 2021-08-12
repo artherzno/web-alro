@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import moment from 'moment';
 
@@ -89,6 +90,7 @@ function AddFarmer(props) {
     const [subDistrictLand5List, setSubDistrictLand5List] = useState(['กรุณาเลือก เขต/อำเภอ']);
 
     const [checkIDCard, setCheckIDCard] = useState(true);
+    const [addressIDCard, setAddressIDCard] = useState('')
     const [inputData, setInputData] = useState({
         // IDCard: 1234567891017,
         IDCard: '', // 1234567891017,
@@ -665,6 +667,7 @@ function AddFarmer(props) {
 
     const handleDuplicateAddr = (event) => {
         const checked = event.target.checked;
+        setAddressIDCard(checked)
         if(checked) {
             setDuplicateAddr(true);
             // fetchGetDistrict('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID);
@@ -813,7 +816,9 @@ function AddFarmer(props) {
                     <Divider variant="middle" style={{ margin: '0' }} />
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <MuiCheckbox label="Alro Land" />
+                    <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                    <span>Alro Land</span>
+                    {/* <MuiCheckbox label="Alro Land" /> */}
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <MuiTextfield label="หมู่ที่" defaultValue="" name="Land_AddMoo" />
@@ -840,13 +845,13 @@ function AddFarmer(props) {
                     <MuiTextfield label="แปลง" defaultValue="" name="Plang" />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="แปลง" defaultValue="" endAdornment="ไร่" name="Rai" />
+                    <MuiTextfieldEndAdornment label="เนื้อที่" defaultValue="" endAdornment="ไร่" name="Rai" />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="แปลง"  defaultValue="" endAdornment="งาน" name="Ngan" />
+                    <MuiTextfieldEndAdornment label="&nbsp;"  defaultValue="" endAdornment="งาน" name="Ngan" />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="แปลง" defaultValue="" endAdornment="วา" name="Wa" />
+                    <MuiTextfieldEndAdornment label="&nbsp;" defaultValue="" endAdornment="วา" name="Wa" />
                 </Grid>
             </Grid>
         );
@@ -988,7 +993,7 @@ function AddFarmer(props) {
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     {/* Field Radio Button ---------------------------------------------------*/}
-                                                    <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox" onChange={handleDuplicateAddr} />
+                                                    <MuiCheckbox label="ที่อยู่ตามบัตรประชาชน" id="addmember-contact-idcard-checkbox" checked={addressIDCard} onChange={handleDuplicateAddr} />
                                                 </Grid>
                                                 {
                                                     !duplicateAddr ? 
@@ -1062,7 +1067,9 @@ function AddFarmer(props) {
 
                                                     {/* ที่ตั้งที่ดิน 1.---------------------------------------------------- */}
                                                     <Grid item xs={12} md={12}>
-                                                        <MuiCheckbox label="Alro Land" />
+                                                        <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                                        <span>Alro Land</span>
+                                                        {/* <MuiCheckbox label="Alro Land" /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand1.Land_AddMoo} name="Land_AddMoo_1" onChange={handleInputDataLand1} />
@@ -1089,13 +1096,13 @@ function AddFarmer(props) {
                                                         <MuiTextfield label="แปลง"  value={inputDataLand1.Plang}  name="Plang_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="ไร่"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="งาน"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="วา"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1116,7 +1123,9 @@ function AddFarmer(props) {
 
                                                     {/* ที่ตั้งที่ดิน 2.---------------------------------------------------- */}
                                                     <Grid item xs={12} md={12}>
-                                                        <MuiCheckbox label="Alro Land" />
+                                                        <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                                        <span>Alro Land</span>
+                                                        {/* <MuiCheckbox label="Alro Land" /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand2.Land_AddMoo} name="Land_AddMoo_2" onChange={handleInputDataLand2} />
@@ -1143,13 +1152,13 @@ function AddFarmer(props) {
                                                         <MuiTextfield label="แปลง"  value={inputDataLand2.Plang}  name="Plang_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
+                                                        <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Ngan}  endAdornment="งาน" name="Ngan_2" onChange={handleInputDataLand2} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand2.Ngan}  endAdornment="งาน" name="Ngan_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand2.Wa}  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand2.Wa}  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1170,8 +1179,10 @@ function AddFarmer(props) {
                                                     </Grid>
 
                                                 {/* ที่ตั้งที่ดิน 3.---------------------------------------------------- */}
-                                                <Grid item xs={12} md={12}>
-                                                        <MuiCheckbox label="Alro Land" />
+                                                    <Grid item xs={12} md={12}>
+                                                        <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                                        <span>Alro Land</span>
+                                                        {/* <MuiCheckbox label="Alro Land" /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand3.Land_AddMoo} name="Land_AddMoo_3" onChange={handleInputDataLand3} />
@@ -1198,13 +1209,13 @@ function AddFarmer(props) {
                                                         <MuiTextfield label="แปลง"  value={inputDataLand3.Plang}  name="Plang_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
+                                                        <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Ngan}  endAdornment="งาน" name="Ngan_3" onChange={handleInputDataLand3} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand3.Ngan}  endAdornment="งาน" name="Ngan_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand3.Wa}  endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand3.Wa}  endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1225,8 +1236,10 @@ function AddFarmer(props) {
                                                     </Grid>
                                                     
                                                     {/* ที่ตั้งที่ดิน 4.---------------------------------------------------- */}
-                                                <Grid item xs={12} md={12}>
-                                                        <MuiCheckbox label="Alro Land" />
+                                                    <Grid item xs={12} md={12}>
+                                                        <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                                        <span>Alro Land</span>
+                                                        {/* <MuiCheckbox label="Alro Land" /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand4.Land_AddMoo} name="Land_AddMoo_4" onChange={handleInputDataLand4} />
@@ -1253,13 +1266,13 @@ function AddFarmer(props) {
                                                         <MuiTextfield label="แปลง"  value={inputDataLand4.Plang}  name="Plang_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
+                                                        <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Ngan}  endAdornment="งาน" name="Ngan_4" onChange={handleInputDataLand4} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand4.Ngan}  endAdornment="งาน" name="Ngan_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand4.Wa}  endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand4.Wa}  endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1280,8 +1293,10 @@ function AddFarmer(props) {
                                                     </Grid>
 
                                                     {/* ที่ตั้งที่ดิน 5.---------------------------------------------------- */}
-                                                <Grid item xs={12} md={12}>
-                                                        <MuiCheckbox label="Alro Land" />
+                                                    <Grid item xs={12} md={12}>
+                                                        <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                                                        <span>Alro Land</span>
+                                                        {/* <MuiCheckbox label="Alro Land" /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfield label="หมู่ที่" defaultValue="" value={inputDataLand5.Land_AddMoo} name="Land_AddMoo_5" onChange={handleInputDataLand5} />
@@ -1308,13 +1323,13 @@ function AddFarmer(props) {
                                                         <MuiTextfield label="แปลง"  value={inputDataLand5.Plang}  name="Plang_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />
+                                                        <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Ngan}  endAdornment="งาน" name="Ngan_5" onChange={handleInputDataLand5} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand5.Ngan}  endAdornment="งาน" name="Ngan_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="แปลง"  value={inputDataLand5.Wa}  endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand5.Wa}  endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
