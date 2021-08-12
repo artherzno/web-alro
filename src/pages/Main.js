@@ -19,6 +19,7 @@ import ModifyLoan from './report/ModifyLoan'
 import Billed from './report/Billed'
 import Compensate from './report/Compensate'
 import DebtPending from './report/DebtPending'
+import PaymentDetail from './report/PaymentDetail'
 import AddFarmer from './manageinfo/AddFarmer';
 import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -133,6 +134,7 @@ function Main() {
                     <Route path="/report/billed" component={Billed} />
                     <Route path="/report/compensate" component={Compensate} />
                     <Route path="/report/debtpending" component={DebtPending} />
+                    <Route path="/report/payment/detail/:paymentID" component={PaymentDetail} />
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />

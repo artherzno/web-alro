@@ -589,6 +589,30 @@ const api = {
         })
 
     },
+    getCompensate(params) {
+
+        return post({
+            path: "api/ReportServices/GetCompensate",
+            params
+        })
+
+    },
+    getCompensateDetail(params) {
+
+        return post({
+            path: "api/ReportServices/GetCompensateDetail",
+            params
+        })
+
+    },
+    getDebtPending(params) {
+
+        return post({
+            path: "api/ReportServices/GetDebtPending",
+            params
+        })
+
+    },
    
 };
 

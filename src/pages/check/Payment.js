@@ -47,6 +47,7 @@ class Payment extends React.Component {
             Num: "",
             data: [],
             selectedPayment: {},
+            dateSelect:null,
             dataSummary: {
                 accruedInterest: 0,
                 fineRate: 0,
@@ -56,7 +57,8 @@ class Payment extends React.Component {
                 outPrincipal: 0,
                 remPrincipal: 0,
                 totalAmount: 0,
-                totalInterest: 0
+                totalInterest: 0,
+                calDate:""
             },
             page: 0,
             count: 10
@@ -153,6 +155,8 @@ class Payment extends React.Component {
         parameter.append("InterestRate", dataSummary.interestRate)
         parameter.append("FineRate", dataSummary.fineRate)
         parameter.append("TotalAmount", dataSummary.totalAmount)
+        parameter.append("CalDate", dataSummary.calDate)
+        
 
 
         api.getCalPayment(parameter).then(response => {
@@ -391,7 +395,16 @@ class Payment extends React.Component {
                                             </div>
                                         </Grid>
                                         <Grid item xs={4} md={3}>
-                                            <MuiDatePicker onChange={() => { }} />
+                                            <MuiDatePicker value={this.state.dateSelect}  onChange={(event) => {
+                                                // calDate
+                                                console.log("event", event)
+                                                const date = moment(event).format("YYYY-MM-DD")
+                                                console.log("date",date)
+
+                                                this.setState({ dateSelect:date})
+                                                this.changeInputCal("calDate")({ target: { value: date } })
+
+                                             }} />
                                         </Grid>
                                         <Grid item xs={3} md={2}>
                                             <p>&nbsp;</p>
