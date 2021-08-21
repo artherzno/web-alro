@@ -84,7 +84,8 @@ function RecordBillClose() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)</h1>
+                                {/* <h1>บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)</h1> */}
+                                <h1>ตรวจสอบใบเสร็จรับเงิน</h1>
                             </Grid>
                         </Grid>
                     </Container>
@@ -270,9 +271,9 @@ function RecordBillClose() {
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label=""  defaultValue="" />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <ButtonFluidPrimary label="คำนวณ" />
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
@@ -361,7 +362,7 @@ function RecordBillClose() {
                                 </Paper>
 
                                 {/* Paper 3 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper">
+                                <Paper className="paper line-top-green paper" style={{display: 'none'}}>
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={6}>
@@ -455,7 +456,7 @@ function RecordBillClose() {
                                 </Paper>
 
 
-                                <Grid container spacing={2} className="btn-row">
+                                <Grid container spacing={2} className="btn-row" style={{display: 'none'}}>
                                     <Grid item xs={12} md={12}>
                                         <ButtonFluidPrimary label="บันทึกการเพิ่ม" />
                                     </Grid>

@@ -440,6 +440,7 @@ const handleInputData = (event) => {
       };
 
     const handlePrintPDF = () => {
+console.log('PDF - LoanReqNo:', props.ApplicantID)
         axios({
         url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
         method: 'GET',
@@ -451,10 +452,10 @@ const handleInputData = (event) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'file.pdf'); //or any other extension
+            link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantID}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
-        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
         .finally(() => {
             if (isMounted.current) {
             setIsLoading(false)

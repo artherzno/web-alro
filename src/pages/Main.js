@@ -55,6 +55,7 @@ import FaultCondition from './debtinfo/FaultCondition';
 import DebtReminder from './debtinfo/DebtReminder';
 import AdvanceInvoice from './debtinfo/AdvanceInvoice';
 import RecordCourtContract from './loanrequest/RecordCourtContract';
+import AddRecordCourtContract from './loanrequest/AddRecordCourtContract';
 import RecordDebtContract from './loanrequest/RecordDebtContract';
 import RecordDebtPayment from './loanrequest/RecordDebtPayment';
 import PrintContractDebt from './loanrequest/PrintContractDebt';
@@ -104,6 +105,7 @@ function Main() {
                     <Route path="/loanrequest/allcontractsearch" component={AllContractSearch} />
                     <Route path="/loanrequest/recordcontractdebt" component={RecordContractDebt} />
                     <Route path="/loanrequest/recordcourtcontract" component={RecordCourtContract} />
+                    <Route path="/loanrequest/addrecordcourtcontract" component={AddRecordCourtContract} />
                     <Route path="/loanrequest/recorddebtcontract" component={RecordDebtContract} />
                     <Route path="/loanrequest/recorddebtpayment" component={RecordDebtPayment} />
                     <Route path="/loanrequest/printcontractdebt" component={PrintContractDebt} />

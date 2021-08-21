@@ -14,6 +14,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 import CloseIcon from '@material-ui/icons/Close';
 import PrintIcon from '@material-ui/icons/Print';
@@ -31,11 +33,21 @@ import {
     MuiTextfieldMultiLine,
     ButtonFluidPrimary,
     ButtonFluidIconStartPrimary,
+    ButtonFluidSecondary,
+    ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
 function RecordCloseOldContact() {
     const history = useHistory();
 
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [confirm, setConfirm] = useState(false);
+    const [confirmMsg, setConfirmMsg] = useState('ต้องการบันทึกปิดสัญญาเดิมใช่หรือไม่')
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
         typeLoan: '1',
@@ -80,6 +92,14 @@ function RecordCloseOldContact() {
         //   setHelperText('Please select an option.');
         //   setError(true);
         // }
+    };
+    
+    const handleClosePopup = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        // history.push('/manageinfo/searchmember');
+
     };
 
     return (
@@ -177,12 +197,12 @@ function RecordCloseOldContact() {
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
-                                            <Grid item xs={12} md={6}>
+                                            {/* <Grid item xs={12} md={6}>
                                                 <MuiTextfield label="ใบเสร็จเลขที่" disabled defaultValue="RIET2343525/00003" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <MuiDatePicker label="วันที่ใบเสร็จ"  defaultValue="2017-05-24" />
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
@@ -371,7 +391,7 @@ function RecordCloseOldContact() {
 
                                 <Grid container spacing={2} className="btn-row">
                                     <Grid item xs={12} md={12}>
-                                        <ButtonFluidPrimary label="บันทึกข้อมูล" />
+                                        <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>{setConfirm(true);}} />
                                     </Grid>
                                 </Grid>
                             
@@ -431,6 +451,81 @@ function RecordCloseOldContact() {
                     </Container>
                 </div>
             </Fade>
+
+            <Dialog
+                open={success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={confirm}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{confirmMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidOutlinePrimary label="ยกเลิก" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            &nbsp;&nbsp;
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
         </div>
     )
 }

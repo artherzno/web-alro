@@ -48,8 +48,14 @@ const listmenu = [
                 subtitle: 'บันทึกปิดสัญญาเดิม',
                 subpath: '/loanrequest/recordcloseoldcontact'
             },{
+                subtitle: 'สร้าง / บันทึกสัญญาแปลงหนี้',
+                subpath: '/loanrequest/recordcontractdebt'
+            },{
                 subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
                 subpath: '/loanrequest/printcontractdebt'
+            },{
+                subtitle: 'สร้าง / บันทึกสัญญาฟ้องศาล',
+                subpath: '/loanrequest/addrecordcourtcontract'
             },{
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
                 subpath: '/loanrequest/editcontract'
@@ -67,7 +73,8 @@ const listmenu = [
                 subtitle: 'บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด',
                 subpath: '/loanserviceinfo/recordbillalro'
             },{
-                subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
+                // subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
+                subtitle: 'ตรวจสอบใบเสร็จรับเงิน',
                 subpath: '/loanserviceinfo/recordbillclose'
             },{
                 subtitle: 'ยกเลิกใบเสร็จรับเงิน',

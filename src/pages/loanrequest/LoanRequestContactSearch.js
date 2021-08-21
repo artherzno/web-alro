@@ -281,6 +281,11 @@ function LoanRequestContactSearch() {
                                 </Grid>
                             </Grid>
 
+
+                            <Grid item xs={12} md={12} className="result-header mg-b--10"> 
+                                <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                            </Grid>
+
                             <Grid item xs={12} md={12}>
                                 <div style={{ width: '100%' }}>
                                     <DataGrid

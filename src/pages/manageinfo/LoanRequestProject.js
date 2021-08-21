@@ -34,6 +34,7 @@ import {
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
     ButtonFluidPrimary,
+    ButtonNormalIconStartGrey,
 } from '../../components/MUIinputs';
 
 
@@ -139,6 +140,8 @@ function LoanRequestProject() {
     const [tableResult, setTableResult] = useState([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const [downloadAction, setDownloadAction] = useState(false)
 
 
     useEffect(() => {
@@ -289,7 +292,17 @@ console.log('submit')
                     }
                 }else {
                     console.log(data)
-                    setTableResult(data.data)
+                    if(!data.data.length) {
+                        setTableResult([])
+                        setErr(true);
+                        setErrMsg('ไม่พบข้อมูล')
+                        setDownloadAction(false)
+
+                    } else {
+                        setTableResult(data.data)
+                        setDownloadAction(true)
+
+                    }
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -337,7 +350,7 @@ console.log('submit')
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'file.pdf'); //or any other extension
+            link.setAttribute('download', `โครงการขอกู้เงินปี25${ProjectPlanYearValue.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -346,7 +359,53 @@ console.log('submit')
             setIsLoading(false)
             }
         });
-}
+        
+    }
+
+    const handlePrintExcel = () => {
+        console.log('ProjectPlanYear', inputData.ProjectPlanYear)
+        console.log('ProjectPlanYear', (inputData.ProjectPlanYear + 2500) - 543)
+        console.log('ProvinceID', inputData.ProvinceID)
+        // let ProjectPlanYearValue = inputData.ProjectPlanYear === '0' ? null : (inputData.ProjectPlanYear + 2500) - 543;
+        let ProjectPlanYearValue = inputData.ProjectPlanYear;
+        let ProvinceIDValue;
+
+        if(roleID === '8' || roleID === '9') {
+            // localStorage.getItem('provinceid')
+            ProvinceIDValue = inputData.ProvinceID === '0' ? null : inputData.ProvinceID;
+        } else {
+            ProvinceIDValue = parseInt(localStorage.getItem('provinceid'));
+        }
+        
+        
+        const formdata = new FormData()
+        formdata.append('ProjectPlanYear', ProjectPlanYearValue.toString());
+        formdata.append('ProvinceID', ProvinceIDValue.toString());
+        let url = `${siteprint}/api/ExportServices/ExportLoanProject`; //your url
+
+        axios.post(url, formdata,
+            {
+                headers:
+                {
+                    'Content-Disposition': "attachment; filename=template.xlsx",
+                    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                },
+                responseType: 'arraybuffer',
+            }
+        ).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `โครงการขอกู้เงิน_${ProjectPlanYearValue.toString()}.xlsx`);
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
 
     const gotoAddLoanRequestProject = () => {
         history.push('/manageinfo/loanaddproject');
@@ -411,10 +470,23 @@ console.log('submit')
                             <Grid item xs={12} md={6}>
                                     <p>&nbsp;</p>
                                 <Box  display="flex" justifyContent="flex-end">
-                                    <ButtonNormalIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {/* <ButtonNormalIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                    &nbsp;&nbsp;&nbsp;&nbsp; */}
+                                    {
+                                        downloadAction ? 
+                                        <ButtonNormalIconStartPrimary label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>}  onClick={handlePrintExcel} />
+                                        : 
+                                        <div style={{opacity: '.75', pointerEvents: 'none'}}>
+                                        <ButtonNormalIconStartGrey label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>}/>
+                                        </div>
+                                        
+                                    }&nbsp;&nbsp;&nbsp;&nbsp;
                                     <ButtonNormalIconStartPrimary label="เพิ่มโครงการ" startIcon={<AddIcon />} onClick={()=>gotoAddLoanRequestProject()} />
                                 </Box>  
+                            </Grid>
+
+                            <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--20"> 
+                                <h2>ผลการค้นหา {(tableResult.length).toLocaleString('en-US') || 0} รายการ</h2>
                             </Grid>
 
                             <Grid item xs={12} md={12}>

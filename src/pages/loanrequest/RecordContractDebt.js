@@ -76,7 +76,7 @@ function EditContractDebt() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>บันทึกสัญญาแปลงหนี้</h1>
+                                <h1>สร้าง / บันทึกสัญญาแปลงหนี้</h1>
                             </Grid>
                         </Grid>
                     </Container>
@@ -84,7 +84,7 @@ function EditContractDebt() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
-
+                                <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ RIET2343525/00003</p>
                                 {/* Paper 1 - -------------------------------------------------- */}
                                 <Paper className="paper line-top-green paper mg-t-10">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -303,45 +303,49 @@ function EditContractDebt() {
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
-                                            <Grid item xs={12} md={4}>
+                                            <Grid item xs={12} md={8}>
                                                 <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="" />
                                             </Grid>
+                                            <Grid item xs={12} md={3}>
+                                                <p>&nbsp;</p>
+                                                <ButtonFluidPrimary label="ค้นหา"  />
+                                            </Grid>
                                             <Grid item xs={12} md={2}>
-                                                <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
+                                                <MuiSelect disabled label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
                                             </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ชื่อ" defaultValue="" />
+                                            <Grid item xs={12} md={5}>
+                                                <MuiTextfield disabled label="ชื่อ" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="นามสกุล" defaultValue="" />
+                                            <Grid item xs={12} md={5}>
+                                                <MuiTextfield disabled label="นามสกุล" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={9}>
-                                                <MuiTextfield label="ที่อยู่" defaultValue="" />
+                                                <MuiTextfield disabled label="ที่อยู่" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="เลขที่" defaultValue="" />
+                                                <MuiTextfield disabled label="เลขที่" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="หมู่" defaultValue="" />
+                                                <MuiTextfield disabled label="หมู่" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ตำบล" defaultValue="" />
+                                                <MuiTextfield disabled label="ตำบล" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อำเภอ" defaultValue="" />
+                                                <MuiTextfield disabled label="อำเภอ" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="จังหวัด" defaultValue="" />
+                                                <MuiTextfield disabled label="จังหวัด" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="รหัสไปรษณีย์" defaultValue="" />
+                                                <MuiTextfield disabled label="รหัสไปรษณีย์" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="ที่ตั้งที่ดิน" defaultValue="" />
                                             </Grid>
-                                            <Grid item xs={12} md={4}>
+                                            {/* <Grid item xs={12} md={4}>
                                                 <MuiRadioButton label="&nbsp;" lists={['คำสั่งศาล','เปลี่ยนสัญญา','กทด.']} value={inputData.typeContract} onChange={handleChangeTypeContract} type="row" />
-                                            </Grid>
+                                            </Grid> */}
                                         </Grid>
                                     </form>
                                 </Paper>
@@ -417,7 +421,7 @@ function EditContractDebt() {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-
+                                                    
                                                     <Grid item xs={12} md={6}>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>

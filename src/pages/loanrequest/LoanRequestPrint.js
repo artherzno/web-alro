@@ -194,7 +194,7 @@ function LoanRequestPrint(props) {
 
     const [Free_of_debt, setFree_of_debt] = useState('0')
 
-    const [tableResult, setTableResult] = useState({})
+    const [tableResult, setTableResult] = useState([])
     const [openLoanRequestInfo, setOpenLoanRequestInfo] = useState(false)
 
     const [provinceList, setprovinceList] = useState(['กรุณาเลือกจังหวัด']);
@@ -277,8 +277,14 @@ function LoanRequestPrint(props) {
          });
     }
 
-    const getDataApprovedApplicant = (applicantID, farmerID, applicantNo) => {
+    const getDataApprovedApplicant = (applicantID, farmerID, applicantNo, loanID) => {
         setIsLoading(true);
+        setLoandue_data1({ DUEDATE: null, PAYREC: ''  })
+        setLoandue_data2({ DUEDATE: null, PAYREC: ''  })
+        setLoandue_data3({ DUEDATE: null, PAYREC: ''  })
+        setLoandue_data4({ DUEDATE: null, PAYREC: ''  })
+        setLoandue_data5({ DUEDATE: null, PAYREC: ''  })
+
         axios.post(
             `${server_hostname}/admin/api/get_approved_applicant`, {
                 ApplicantID: applicantID,
@@ -304,8 +310,10 @@ function LoanRequestPrint(props) {
                     setprovinceList(dataProvinceList)
 
                     setOpenLoanRequestInfo(true);
-                    console.log(data.Farmer[0])
+                    console.log(applicantID, farmerID,data.Farmer[0])
                     console.log('action',action)
+                    
+
                     if(action === 'add') {
                         // Action : Add
                         setInputDataFarmer(data.Farmer[0])
@@ -316,11 +324,93 @@ function LoanRequestPrint(props) {
                         setInputDataSubmit({
                             ...inputDataSubmit, 
                             FarmerID: farmerID,
-                            ApplicantID: applicantID
+                            ApplicantID: applicantID,
+                            LoanDate: null, // "",
+                            RecordCode: '', // "",
+                            RecDate: null, // "",
+                            AGE: data.Farmer[0].AGE || '', // "",
+                            Nationality: '',
+                            IDCardMadeDistrict: '', // "",
+                            IDCardMadeProvince: '0', // "",
+                            FarmerInDistrict: '', // "",
+                            FarmerInProvince: '0', // "",
+                            Officer: '', // "",
+                            OfficerRank: '', // "",
+                            SPK_Order: '', // "",
+                            SPK_OrderDate: null, // "",
+                            Loan_Obj1: '', // "",
+                            Loan_Obj1Amount: 0, // "",
+                            Loan_Obj2: '', // "",
+                            Loan_Obj2Amount: 0, // "",
+                            Loan_Obj3: '', // "",
+                            Loan_Obj3Amount: 0, // "",
+                            Loan_Installment1: 0, // "",
+                            Loan_Installment2: 0, // "",
+                            Loan_Installment3: 0, // "",
+                            Loan_Installment4: 0, // "",
+                            Loan_Installment5: 0, // "",
+                            Farmer_Accept: '', // "",
+                            Guarantee_Property: '', // "",
+                            LoanContactBook: '', // "",
+                            Guarantee_PropertyDate: null, // "",
+                            Guarantee_Person: '', // "",
+                            LoanGuaranteeBook: '', // "",
+                            LoanGuaranteeBookDate: null, // "null",
+                            WarrantBookOwner1: '', // "",
+                            WarrantBook1: '', // "",
+                            WarrantBookDate1: null, // "null",
+                            WarrantBookOwner2: '', // "",
+                            WarrantBook2: '', // "",
+                            WarrantBookDate2: null, // "null",
+                            Free_of_debt_Month: '', // "",
+                            Free_of_debt_Year: '', // "",
+                            Free_of_debt_Time: 0, // "",
+                            FirstDatePaid: null, // "null",
+                            principle: '', // 123,
+                            Interest: 0, // 4,
+                            ChargeRate: '', // "",
+                            LastDatePaid: null, // "null",
+                            OfficeProvince: '', // "",
+                            WitnessName: '', // "",
+                            WitnessAddr: '', // "",
+                            WitnessIDCard: '', // "",
+                            WitnessIDCardMade: '', // "",
+                            WitnessName2: '', // "",
+                            WitnessAddr2: '', // "",
+                            WitnessIDCard2: '', // "",
+                            WitnessIDCardMade2: '', // "",
+                            ChangeContactCommit: '', // "",
+                            ChangeContactCommitDate: null, // "",
+                            ChangeContactCommitTime: '', // "",
+                            Overdue_debt: '', // "",
+                            Overdue_debt_principle: '', // "",
+                            Overdue_debt_interest: '', // "",
+                            PaidOverdue_debt_principle_Interest: '', // "",
+                            PaidYear: '', // "",
+                            PaidTime_month: '', // "",
+                            TotalPaidTime: '', // "",
+                            LoanTypeID: '', // "",
+                            LoanStatus: '',
+                            projectID: '', // "",
+                            Projectcode: '', // "",
+                            ProjectName: '', // "",
+                            Obj: '', // "",
+                            LoanCost: '', // "",
+                            FarmArea_Rai: '', // "",
+                            Plant_Type: '', // "",
+                            YearProductPer_Rai: '', // "",
+                            Total_Year_cost: '', // "",
+                            YearInterest: '', // "",
+                            Debt: '', // "",
+                            DebtWith: '', // "",
+                            DebtCost: '', // "",
+                            LoanDocPatch: '', // "",
+                            LoanStatusID: '', // "",
+                            Status: '', // "",
+                            ProvinceID: '', // "",
+                            IDCard: '', // "",
                         })
 
-                        // Clear Field
-                        handleClearForm();
                     } else {
                         // Action : Edit
                         setInputDataFarmer(data.Farmer[0])
@@ -328,6 +418,8 @@ function LoanRequestPrint(props) {
                         setInputData(data.data[0])
                         setApplicantNo(applicantNo);
                         setIsLoading(false);
+
+                        getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID)
                     }
                 }
             }
@@ -342,6 +434,7 @@ function LoanRequestPrint(props) {
 
     const getViewDataApprovedApplicant = (applicantID, farmerID, applicantNo,loanID) => {
         setIsLoading(true);
+
         axios.post(
             `${server_hostname}/admin/api/view_loanrec`, {
                 LoanID: loanID,
@@ -365,8 +458,7 @@ function LoanRequestPrint(props) {
                     console.log(data.results[0])
                     setOpenLoanRequestInfo(true);
                     setIsLoading(false);
-                    // getDataApprovedApplicant(applicantID, farmerID, applicantNo)
-                    // setInputDataSubmit(data.results[0])
+                    
                     setInputDataSubmit({
                         ...data.results[0], 
                         FarmerID: farmerID,
@@ -377,7 +469,7 @@ function LoanRequestPrint(props) {
                     // Insert Radio Free_of_debt
                     data.results[0].Free_of_debt_Month ? setFree_of_debt('0') : setFree_of_debt('1')
 
-                    // console.warn(data.loandue_data.length)
+                    console.warn(data.loandue_data[0].DUEDATE)
                     for(let i=0; i<data.loandue_data.length; i++) {
 
                         if(i===0) {
@@ -662,6 +754,8 @@ function LoanRequestPrint(props) {
             url =`${server_hostname}/admin/api/add_loanrec`
         } 
         console.log(action,'|', action_loanstatus,'|', url.toString())
+        console.log('ApplicantID',inputDataSubmit.ApplicantID,'| FarmerID',inputDataSubmit.FarmerID)
+        console.log(JSON.stringify(loandueDataArr))
         axios.post(
             url, formData, { headers: { "token": token } } 
         ).then(res => {
@@ -691,100 +785,34 @@ function LoanRequestPrint(props) {
             setIsLoading(false)
             }
         });
-      };
+    };
 
-    const handleClearForm = () => {
+    const handlePrintPDF = () => {
+        console.log('PDF - ContractNo:', loanID)
 
-       setInputDataSubmit({
+        axios({
+        url: `${siteprint}/report/pdf/GetContractPdf`, //your url
+        method: 'GET',
+        data: {
+            ContractNo: loanID
+        },
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanID}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
 
-        ...inputDataSubmit,
-        ApplicantID: '', // 1,
-        LoanDate: null, // "",
-        RecordCode: '', // "",
-        RecDate: null, // "",
-        FarmerID: '', // "",
-        AGE: '', // "",
-        Nationality: '',
-        IDCardMadeDistrict: '', // "",
-        IDCardMadeProvince: '0', // "",
-        FarmerInDistrict: '', // "",
-        FarmerInProvince: '0', // "",
-        Officer: '', // "",
-        OfficerRank: '', // "",
-        SPK_Order: '', // "",
-        SPK_OrderDate: null, // "",
-        Loan_Obj1: '', // "",
-        Loan_Obj1Amount: 0, // "",
-        Loan_Obj2: '', // "",
-        Loan_Obj2Amount: 0, // "",
-        Loan_Obj3: '', // "",
-        Loan_Obj3Amount: 0, // "",
-        Loan_Installment1: 0, // "",
-        Loan_Installment2: 0, // "",
-        Loan_Installment3: 0, // "",
-        Loan_Installment4: 0, // "",
-        Loan_Installment5: 0, // "",
-        Farmer_Accept: '', // "",
-        Guarantee_Property: '', // "",
-        LoanContactBook: '', // "",
-        Guarantee_PropertyDate: null, // "",
-        Guarantee_Person: '', // "",
-        LoanGuaranteeBook: '', // "",
-        LoanGuaranteeBookDate: null, // "null",
-        WarrantBookOwner1: '', // "",
-        WarrantBook1: '', // "",
-        WarrantBookDate1: null, // "null",
-        WarrantBookOwner2: '', // "",
-        WarrantBook2: '', // "",
-        WarrantBookDate2: null, // "null",
-        Free_of_debt_Month: '', // "",
-        Free_of_debt_Year: '', // "",
-        Free_of_debt_Time: 0, // "",
-        FirstDatePaid: null, // "null",
-        principle: '', // 123,
-        Interest: 0, // 4,
-        ChargeRate: '', // "",
-        LastDatePaid: null, // "null",
-        OfficeProvince: '', // "",
-        WitnessName: '', // "",
-        WitnessAddr: '', // "",
-        WitnessIDCard: '', // "",
-        WitnessIDCardMade: '', // "",
-        WitnessName2: '', // "",
-        WitnessAddr2: '', // "",
-        WitnessIDCard2: '', // "",
-        WitnessIDCardMade2: '', // "",
-        ChangeContactCommit: '', // "",
-        ChangeContactCommitDate: null, // "",
-        ChangeContactCommitTime: '', // "",
-        Overdue_debt: '', // "",
-        Overdue_debt_principle: '', // "",
-        Overdue_debt_interest: '', // "",
-        PaidOverdue_debt_principle_Interest: '', // "",
-        PaidYear: '', // "",
-        PaidTime_month: '', // "",
-        TotalPaidTime: '', // "",
-        LoanTypeID: '', // "",
-        LoanStatus: '',
-        projectID: '', // "",
-        Projectcode: '', // "",
-        ProjectName: '', // "",
-        Obj: '', // "",
-        LoanCost: '', // "",
-        FarmArea_Rai: '', // "",
-        Plant_Type: '', // "",
-        YearProductPer_Rai: '', // "",
-        Total_Year_cost: '', // "",
-        YearInterest: '', // "",
-        Debt: '', // "",
-        DebtWith: '', // "",
-        DebtCost: '', // "",
-        LoanDocPatch: '', // "",
-        LoanStatusID: '', // "",
-        Status: '', // "",
-        ProvinceID: '', // "",
-        IDCard: '', // "",
-       });
+    const handleClearLoanDue = () => {
     }
 
     const gotoLoanRequestPrint = () => {
@@ -836,6 +864,11 @@ function LoanRequestPrint(props) {
 
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
+
+                            <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--20"> 
+                                <h2>ผลการค้นหา {(tableResult.length).toLocaleString('en-US') || 0} รายการ</h2>
+                            </Grid>
+
                             <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <TableContainer className="table-box table-loanrequestprint1 mg-t-10">
@@ -880,9 +913,9 @@ function LoanRequestPrint(props) {
                                                             <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>
                                                                 {
                                                                     cell.LoanID === null ? 
-                                                                    <ButtonFluidPrimary label="สร้าง" maxWidth="100px" onClick={(event)=>{action = 'add';getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo)}} />
+                                                                    <ButtonFluidPrimary label="สร้าง" maxWidth="100px" onClick={(event)=>{action = 'add';getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID)}} />
                                                                     :
-                                                                    <ButtonFluidPrimary label="แก้ไข" maxWidth="100px" onClick={(event)=>{action = 'edit'; getViewDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID); getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo);}} />
+                                                                    <ButtonFluidPrimary label="แก้ไข" maxWidth="100px" onClick={(event)=>{action = 'edit'; getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID);}} />
                                                                 
                                                                 }
                                                             </TableCell>
@@ -1747,7 +1780,7 @@ function LoanRequestPrint(props) {
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
                                             <Grid item xs={12} md={4} className={confirmSuccessStep1 || loanID ? '' : 'btn-disabled'} >
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />}  />
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>
                                     </Container>

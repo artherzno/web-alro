@@ -67,7 +67,8 @@ function AddMenu(props) {
             mainmenu: 'ข้อมูลการให้บริการสินเชื่อ',
             submenu: [
                 { a: 'm2-1', b: 'บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด', c: 'alro.go.th/xxxxxxxx'},
-                { a: 'm2-2', b: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)', c: 'alro.go.th/xxxxxxxx'},
+                // { a: 'm2-2', b: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)', c: 'alro.go.th/xxxxxxxx'},
+                { a: 'm2-2', b: 'ตรวจสอบใบเสร็จรับเงิน', c: 'alro.go.th/xxxxxxxx'},
                 { a: 'm2-3', b: 'แก้ไขใบเสร็จรับเงิน', c: 'alro.go.th/xxxxxxxx'},
                 { a: 'm2-4', b: 'Upload file ข้อมูล ธกส.', c: 'alro.go.th/xxxxxxxx'},
                 { a: 'm2-5', b: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร', c: 'alro.go.th/xxxxxxxx'},

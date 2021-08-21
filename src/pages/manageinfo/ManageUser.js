@@ -298,6 +298,10 @@ function ManageUser() {
                                 <div className="mg-l-10"><ButtonNormalIconStartPrimary label="เพิ่มผู้ใช้งาน" startIcon={<AddIcon />} onClick={()=>gotoAddUser()}/></div>
                             </Grid>
 
+                            <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--10"> 
+                                <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                            </Grid>
+
                             <Grid item xs={12} md={12}>
                                 <div style={{  }}>
                                     <DataGrid

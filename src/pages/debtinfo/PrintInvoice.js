@@ -22,6 +22,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     MuiTextfield,
     MuiDatePicker,
     ButtonFluidPrimary,
@@ -110,9 +113,10 @@ function PrintInvoice() {
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
 
-    let server_port = auth.port;
     let server_hostname = auth.hostname;
+    let server_spkapi = localStorage.getItem('spkapi');
     let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
 
     const [loaded, setLoaded] = useState(false);
     const [err, setErr] = useState(false);
@@ -126,32 +130,54 @@ function PrintInvoice() {
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const rowCount = rows.length;
     const numSelected = selected.length;
+    const [inputSelectDate, setInputSelectDate] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000'
+    })
 
     useEffect(() => {
         setLoaded(true);
     }, [])
 
-    const handleExportPrintInvoiceAll = () => {
-        axios({
-            url: `https://${window.location.hostname}/api/api/ExportServices/ExportPrintInvoiceAll`, //your url
-            method: 'GET',
-            data: {
-                startDate: '2021-05-01'
-            },
-            responseType: 'arraybuffer', // 'blob', // important
-            }).then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'file.pdf'); //or any other extension
-                document.body.appendChild(link);
-                link.click();
-            }).catch(err => { console.log(err); history.push('/') })
-            .finally(() => {
-                if (isMounted.current) {
-                setIsLoading(false)
-                }
-            });
+    const handlePrintExcel = () => {
+        let printDate = (inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
+console.log('printDAte',printDate.toString())
+        const startDateValue = new FormData()
+        startDateValue.append('startDate', printDate.toString());
+        let url = `${siteprint}/api/ExportServices/ExportPrintInvoiceAll`; //your url
+
+        axios.post(url, startDateValue,
+            {
+                headers:
+                {
+                    'Content-Disposition': "attachment; filename=template.xlsx",
+                    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                },
+                responseType: 'arraybuffer',
+            }
+        ).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'template.xlsx');
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
+
+    const handleSelectDate = (event) => {
+        let type = event.target.name
+        setInputSelectDate({
+            ...inputSelectDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
     }
 
 
@@ -221,7 +247,13 @@ function PrintInvoice() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* <MuiTextfield label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" /> */}
-                                        <MuiDatePicker label="ตรวจสอบวันที่ประมวล" />
+                                        {/* <MuiDatePicker label="ตรวจสอบวันที่ประมวล" /> */}
+                                        <p>ตรวจสอบวันที่ประมวล</p>
+                                        <div className="select-date-option">
+                                            <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
+                                            <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
+                                            <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
+                                        </div>
                                     </Grid>
                                     {/* <Grid item xs={12} md={2}>
                                         <MuiTextfield label="&nbsp;" defaultValue="เงินกู้" />
@@ -288,7 +320,7 @@ function PrintInvoice() {
                                 <ButtonFluidPrimary label="พิมพ์สรุปใบแจ้งหนี้รายโครงการ" />
                             </Grid>
                             <Grid item xs={12} md={2} className="mg-t-10">
-                                <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" onClick={handleExportPrintInvoiceAll} />
+                                <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" onClick={handlePrintExcel} />
                             </Grid>
                             {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
                             <Grid item xs={12} md={12} style={{display: 'none'}}>

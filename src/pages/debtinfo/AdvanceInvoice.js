@@ -394,7 +394,7 @@ console.log('printDAte',printDate.toString())
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'template.xlsx');
+            link.setAttribute('download', 'ใบแจ้งหนี้ล่วงหน้าก่อนครบกำหนดชำระ30วัน.xlsx');
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
@@ -642,8 +642,9 @@ console.log('printDAte',printDate.toString())
                                         pageSize={10}
                                         autoHeight={true}
                                         disableColumnMenu={true}
-                                        // checkboxSelection
+                                        checkboxSelection
                                         disableSelectionOnClick
+                                        onRowSelected={(e) => console.log(e.api.current.getSelectedRows())}
                                     />
                                 </div>
                             </Grid>

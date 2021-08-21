@@ -15,6 +15,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 
+import CloseIcon from '@material-ui/icons/Close';
+import PrintIcon from '@material-ui/icons/Print';
+
 import {
     MuiTextfield,
     MuiDatePicker,
@@ -22,6 +25,7 @@ import {
     MuiSelect,
     MuiTextfieldMultiLine,
     ButtonFluidPrimary,
+    ButtonFluidIconStartPrimary,
 } from '../../components/MUIinputs';
 
 function RecordBillAlro() {
@@ -364,10 +368,10 @@ function RecordBillAlro() {
                                 <Paper className="paper line-top-green paper">
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
-                                            <Grid item xs={12} md={6}>
+                                            {/* <Grid item xs={12} md={6}>
                                                 <ButtonFluidPrimary label="พิมพ์ดูการ์ดก่อนชำระเงิน" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
+                                            </Grid> */}
+                                            <Grid item xs={12} md={12}>
                                                 <ButtonFluidPrimary label="ประมวลผลก่อนชำระเงิน" />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
@@ -456,8 +460,11 @@ function RecordBillAlro() {
 
 
                                 <Grid container spacing={2} className="btn-row">
-                                    <Grid item xs={12} md={12}>
+                                    <Grid item xs={12} md={6}>
                                         <ButtonFluidPrimary label="บันทึกการเพิ่ม" />
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <ButtonFluidIconStartPrimary label="พิมพ์ใบเสร็จรับเงิน" startIcon={<PrintIcon />}  />
                                     </Grid>
                                 </Grid>
                             

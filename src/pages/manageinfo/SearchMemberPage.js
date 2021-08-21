@@ -24,6 +24,8 @@ import {
     ButtonFluidPrimary, 
 } from '../../components/MUIinputs';
 
+import { MUItable } from '../../components/MUItable'
+
 // import Icon from '@material-ui/core/Icon';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
@@ -63,6 +65,34 @@ function SearchMemberPage(props) {
         page_number: 1,
         page_length: null,
     })
+
+    const headCells = [
+        { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
+        { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
+        { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
+        { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
+        { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+    ];
+
+    const rows = [
+        { name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 4.3},
+        { name: 'Donut', calories: 452, fat: 25.0, carbs: 51, protein: 4.9},
+        { name: 'Eclair', calories: 262, fat: 16.0, carbs: 24, protein: 6.0},
+        { name: 'Frozen yoghurt', calories: 159, fat: 6.0, carbs: 24, protein: 4.0},
+        { name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.9},
+        { name: 'Honeycomb', calories: 408, fat: 3.2, carbs: 87, protein: 6.5},
+        { name: 'Ice cream sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3},
+        { name: 'Jelly Bean', calories: 375, fat: 0.0, carbs: 94, protein: 0.0},
+        { name: 'KitKat', calories: 518, fat: 26.0, carbs: 65, protein: 7.0},
+        { name: 'Lollipop', calories: 392, fat: 0.2, carbs: 98, protein: 0.0},
+        { name: 'Marshmallow', calories: 318, fat: 0, carbs: 81, protein: 2.0},
+        { name: 'Nougat', calories: 360, fat: 19.0, carbs: 9, protein:37.0},
+        { name: 'Oreo', calories: 437, fat: 18.0, carbs: 63, protein: 4.0},
+    ];
+
+    const rowsLabel = [
+        'name', 'calories', 'fat', 'carbs', 'protein'
+    ]
 
     useEffect(() => {
         // console.log(document.cookie)
@@ -248,7 +278,7 @@ function SearchMemberPage(props) {
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="เลขที่ดิน" id="contact-number-input" defaultValue="" onChange={handleChangeLoanNumber} />
+                                                <MuiTextfield label="เลขที่สัญญา" id="contact-number-input" defaultValue="" onChange={handleChangeLoanNumber} />
                                             </Grid>
                                             <Grid item xs={12} md={12} className="txt-center">
                                                 <ButtonFluidPrimary label="ค้นหา" onClick={()=>fetchSearchFarmer()} />   
@@ -263,7 +293,7 @@ function SearchMemberPage(props) {
                     {/* Search Result */}
                     <Container maxWidth="md" className="result-box">
                         <Grid item xs={12} md={12} className="result-header"> 
-                            <h2>ผลการค้นหา {tableResult.length || 0} รายการ</h2>
+                            <h2>ผลการค้นหา {(tableResult.length).toLocaleString('en-US') || 0} รายการ</h2>
                         </Grid>
                         
                         { 
@@ -272,6 +302,10 @@ function SearchMemberPage(props) {
                             : 
                                 hasData ? 
                                     <Grid item xs={12} md={12}>
+
+                                            {/* <div className="table-box table-allcontractsearch1 mg-t-10">
+                                                <MUItable headCells={headCells} rows={rows} rowsLabel={rowsLabel} hasCheckbox={false} hasAction={true} actionView={true} actionEdit={true} actionDelete={true} />
+                                            </div> */}
                                             <div className="table-box table-allcontractsearch1 mg-t-10">
                                                 <TableContainer >
                                                     <Table aria-label="simple table">
