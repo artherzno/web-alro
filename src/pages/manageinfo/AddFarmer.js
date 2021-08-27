@@ -30,6 +30,9 @@ import {
     MuiRadioButton,
     MuiTextNumber,
     MuiDatePicker,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     MuiUpload,
     ButtonFluidPrimary,
     ButtonFluidOutlinePrimary
@@ -91,6 +94,19 @@ function AddFarmer(props) {
 
     const [checkIDCard, setCheckIDCard] = useState(true);
     const [addressIDCard, setAddressIDCard] = useState('')
+
+    const [inputSelectBirthDate, setInputSelectBirthDate] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000'
+    })
+
+    const [inputSelectExpireDate, setInputSelectExpireDate] = useState({
+        dd2: '00',
+        mm2: '00',
+        yyyy2: '0000'
+    })
+
     const [inputData, setInputData] = useState({
         // IDCard: 1234567891017,
         IDCard: '', // 1234567891017,
@@ -299,7 +315,8 @@ function AddFarmer(props) {
                         ...inputData,
                         IDCARD_AddrProvinceID: proviceID,
                         IDCARD_AddrDistrictID: 0,
-                        IDCARD_AddrSubdistrictID: 0
+                        IDCARD_AddrSubdistrictID: 0,
+                        IDCARD_Postcode: ''
                     })
                 } else if(type === 'Contact_AddrProvinceID') {
                     setDistrictContactList(res.data)
@@ -308,7 +325,8 @@ function AddFarmer(props) {
                         ...inputData,
                         Contact_AddrProvinceID: proviceID,
                         Contact_AddrDistrictID: 0,
-                        Contact_AddrSubdistrictID: 0
+                        Contact_AddrSubdistrictID: 0,
+                        Contact_Postcode: ''
                     })
                 } else if(type === 'Land_AddrProvinceID')   {
                     setDistrictLandList(res.data)
@@ -406,34 +424,99 @@ function AddFarmer(props) {
             .then(res => {
                 if (res.code === 0 || res === '' || res === undefined) {
                     console.log('ไม่พบ แขวง/ตำบล');
-                }
-                console.log('district',res.data)
-                
-                if(type === 'IDCARD_AddrDistrictID') {
-                    setSubDistrictIDCardList(res.data)
-                } else if(type === 'Contact_AddrDistrictID') {
-                    setSubDistrictContactList(res.data)
-                } else if(type === 'Land_AddrDistrictID')  {
-                    setSubDistrictLandList(res.data)
-                } else if(type === 'Land_AddrDistrictID_1')  {
-                    setSubDistrictLand1List(res.data)
-                } else if(type === 'Land_AddrDistrictID_2')  {
-                    setSubDistrictLand2List(res.data)
-                } else if(type === 'Land_AddrDistrictID_3')  {
-                    setSubDistrictLand3List(res.data)
-                } else if(type === 'Land_AddrDistrictID_4')  {
-                    setSubDistrictLand4List(res.data)
-                } else if(type === 'Land_AddrDistrictID_5')  {
-                    setSubDistrictLand5List(res.data)
+                    setErr(true)
                 } else {
-                    setSubDistrictIDCardList(res.data)
-                    setSubDistrictContactList(res.data)
-                    setSubDistrictLandList(res.data)
-                    setSubDistrictLand1List(res.data)
-                    setSubDistrictLand2List(res.data)
-                    setSubDistrictLand3List(res.data)
-                    setSubDistrictLand4List(res.data)
-                    setSubDistrictLand5List(res.data)
+                    console.log('subdistrict',res.data)
+                
+                    if(type === 'IDCARD_AddrDistrictID') {
+                        setInputData({
+                            ...inputData,
+                            IDCARD_AddrDistrictID: districtID,
+                            IDCARD_AddrSubdistrictID: 0,
+                            IDCARD_Postcode: ''
+                        })
+                        setSubDistrictIDCardList(res.data)
+                    } else if(type === 'Contact_AddrDistrictID') {
+                        setInputData({
+                            ...inputData,
+                            Contact_AddrDistrictID: districtID,
+                            Contact_AddrSubdistrictID: 0,
+                            Contact_Postcode: ''
+                        })
+                        setSubDistrictContactList(res.data)
+                    } else if(type === 'Land_AddrDistrictID')  {
+                        setSubDistrictLandList(res.data)
+                    } else if(type === 'Land_AddrDistrictID_1')  {
+                        setSubDistrictLand1List(res.data)
+                    } else if(type === 'Land_AddrDistrictID_2')  {
+                        setSubDistrictLand2List(res.data)
+                    } else if(type === 'Land_AddrDistrictID_3')  {
+                        setSubDistrictLand3List(res.data)
+                    } else if(type === 'Land_AddrDistrictID_4')  {
+                        setSubDistrictLand4List(res.data)
+                    } else if(type === 'Land_AddrDistrictID_5')  {
+                        setSubDistrictLand5List(res.data)
+                    } else {
+                        setSubDistrictIDCardList(res.data)
+                        setSubDistrictContactList(res.data)
+                        setSubDistrictLandList(res.data)
+                        setSubDistrictLand1List(res.data)
+                        setSubDistrictLand2List(res.data)
+                        setSubDistrictLand3List(res.data)
+                        setSubDistrictLand4List(res.data)
+                        setSubDistrictLand5List(res.data)
+                    }
+                }
+                
+            })
+            .catch(err => {
+                console.log(err);
+                console.log('ไม่พบ แขวง/ตำบล');
+            });
+    }
+
+    // Get SubDistrict
+    async function fetchGetZipCode(type, subdistrictID) {
+        const res = await fetch(`${server_hostname}/admin/api/get_subdistricts`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                "ProvinceID": "",
+                "DistrictID": "",
+                "SubdistrictID": subdistrictID,
+                "TB_NAME": ""
+            }),
+            headers: {
+                // "x-application-secret-key": apiXKey,
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "token": token
+            }
+                
+        })
+        res
+            .json()
+            .then(res => {
+                if (res.code === 0 || res === '' || res === undefined) {
+                    console.log('ไม่พบ แขวง/ตำบล');
+                }
+                console.log('ZipCode',type,res.data[0].POSTAL)
+                
+                if(type === 'IDCARD_AddrSubdistrictID') {
+                    setInputData({
+                        ...inputData,
+                        IDCARD_AddrSubdistrictID: subdistrictID,
+                        IDCARD_Postcode: res.data[0].POSTAL,
+                    })
+                } else if(type === 'Contact_AddrSubdistrictID') {
+                    setInputData({
+                        ...inputData,
+                        Contact_AddrSubdistrictID: subdistrictID,
+                        Contact_Postcode: res.data[0].POSTAL,
+                    })
+                } else {
+                    // setSubDistrictIDCardList(res.data)
+                    // setSubDistrictContactList(res.data)
                 }
             })
             .catch(err => {
@@ -456,12 +539,22 @@ function AddFarmer(props) {
     }
     
     const handleInputDataDistrict = (event) => {
-        setInputData({
-            ...inputData,
-            [event.target.name]: event.target.value
-        })
+        // setInputData({
+        //     ...inputData,
+        //     [event.target.name]: event.target.value
+        // })
         if(event.target.value > 0) {
             fetchGetSubDistrict(event.target.name, event.target.value);
+        }
+    }
+
+    const handleInputDataSubDistrict = (event) => {
+        // setInputData({
+        //     ...inputData,
+        //     [event.target.name]: event.target.value
+        // })
+        if(event.target.value > 0) {
+            fetchGetZipCode(event.target.name, event.target.value);
         }
     }
 
@@ -567,6 +660,24 @@ function AddFarmer(props) {
         let myFile = document.getElementById("addmember-img-upload-input")
         myFile.type = ''
         myFile.type = 'file'
+    }
+
+    const handleSelectBirthDate = (event) => {
+        let type = event.target.name
+        setInputSelectBirthDate({
+            ...inputSelectBirthDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+    }
+
+    const handleSelectExpireDate = (event) => {
+        let type = event.target.name
+        setInputSelectExpireDate({
+            ...inputSelectExpireDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
     }
 
 
@@ -750,8 +861,17 @@ function AddFarmer(props) {
 
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
-        formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
-        formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
+        // formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
+        formData.append('BirthDate', Number(inputSelectBirthDate.yyyy.substring(0,4)) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
+        // formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
+        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2.substring(0,4)) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
+        
+        formData.delete('dd')
+        formData.delete('mm')
+        formData.delete('yyyy')
+        formData.delete('dd2')
+        formData.delete('mm2')
+        formData.delete('yyyy2')
         
         if(duplicateAddr) {
             formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
@@ -770,7 +890,7 @@ function AddFarmer(props) {
         // }
 
         axios.post(
-            `${server_hostname}/admin/api/add_farmer`, formData, { headers: { "token": token } } 
+            `${server_hostname}/admin/api/add_farmerr`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -921,14 +1041,25 @@ function AddFarmer(props) {
                                                         }}
                                                     />
                                                 </Grid> */}
-
                                                 <Grid item xs={12} md={12}>
-                                                    {/* Field Date Picker ---------------------------------------------------*/}
+                                                    <p>วัน เดือน ปี เกิด</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectBirthDate.dd} onChange={handleSelectBirthDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectBirthDate.mm} onChange={handleSelectBirthDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectBirthDate.yyyy} onChange={handleSelectBirthDate} />
+                                                    </div>
+                                                    {/* 
                                                     <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    */}
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    {/* Field Date Picker ---------------------------------------------------*/}
-                                                    <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    <p>วันหมดอายุบัตรประจำตัวประชาชน</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd2" value={inputSelectExpireDate.dd2} onChange={handleSelectExpireDate} />
+                                                        <MuiSelectMonth label="" name="mm2" value={inputSelectExpireDate.mm2} onChange={handleSelectExpireDate} />
+                                                        <MuiSelectYear label="" name="yyyy2" value={inputSelectExpireDate.yyyy2} onChange={handleSelectExpireDate} />
+                                                    </div>
+                                                    {/* <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     {/* Field Number ---------------------------------------------------*/}
@@ -973,7 +1104,7 @@ function AddFarmer(props) {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {/* Field Select ---------------------------------------------------*/}
-                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="IDCARD_AddrSubdistrictID" onChange={handleInputData}  />
+                                                    <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="IDCARD_AddrSubdistrictID" onChange={handleInputDataSubDistrict}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {/* Field Text ---------------------------------------------------*/}
@@ -1014,7 +1145,7 @@ function AddFarmer(props) {
                                                                 <MuiSelectDistrict label="เขต / อำเภอ" lists={districtContactList} value={inputData.Contact_AddrDistrictID} name="Contact_AddrDistrictID" onChange={handleInputDataDistrict}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputData}  />
+                                                                <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputDataSubDistrict}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <MuiTextNumber label="รหัสไปรษณีย์" id="addmember1-zip" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />

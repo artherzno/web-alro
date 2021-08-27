@@ -96,8 +96,8 @@ function LoanRequestContactSearch() {
           renderCell: (param)=> {
               return (
                 <React.Fragment>
-                    <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoLoanRequestContact(param.row.farmerid, param.row.id,'edit')} /> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="80px" onClick={()=>gotoLoanRequestContact(param.row.farmerid, param.row.id, 'view')} />
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoLoanRequestContact(param.row.farmerid, param.row.id, param.row.applicantno,'edit')} /> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="80px" onClick={()=>gotoLoanRequestContact(param.row.farmerid, param.row.id, param.row.applicantno, 'view')} />
                 </React.Fragment>
             )
           }
@@ -189,6 +189,7 @@ function LoanRequestContactSearch() {
                             fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
                             idcard: data.data[i].IDCard,
                             dcreated: moment(data.data[i].dCreated).format('DD/MM/YYYY'),
+                            applicantno: data.data[i].ApplicantNo,
                         })
                     }
                     setRows(dataArr)
@@ -232,7 +233,7 @@ function LoanRequestContactSearch() {
 
     };
 
-    const gotoLoanRequestContact = (id, applicantid, action) => {
+    const gotoLoanRequestContact = (id, applicantid, applicantno, action) => {
         history.push({
             pathname: '/loanrequest/loanrequestcontact',
             state: { 
@@ -241,6 +242,7 @@ function LoanRequestContactSearch() {
                 completed: {},
                 action: action,
                 ApplicantID: applicantid,
+                ApplicantNo: applicantno,
             }
         });
 

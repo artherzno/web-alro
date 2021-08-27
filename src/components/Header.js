@@ -26,12 +26,18 @@ function Header(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [loadingStatus, setLoadingStatus] = useState(".");
     const [realDate, setRealDate] = useState('')
+    const [realDay, setRealDay] = useState('')
+    const [realMonth, setRealMonth] = useState('')
+    const [realYear, setRealYear] = useState('')
     const [realTime, setRealTime] = useState('')
     const [provinceCheck, setProvinceCheck] = useState(localStorage.getItem('provinceid'));
 
     const timer = () => {
         setRealDate(moment().format('Do MMMM YYYY'))
-        setRealTime(moment().format('hh:mm'))
+        setRealDay(moment().format('Do'))
+        setRealMonth(moment().format('MMMM'))
+        setRealYear(moment().format('YYYY'))
+        setRealTime(moment().format('HH:mm'))
     }
 
     // setInterval(() => {
@@ -102,9 +108,9 @@ function Header(props) {
                         ยินดีต้อนรับ คุณ {username} <br/>
                         {
                             provinceCheck === 'null' ? 
-                                <span>หน่วยงานส่วนกลาง วันที่ {realDate} เวลา {realTime} น.</span> 
+                                <span>หน่วยงานส่วนกลาง วันที่ {realDay} {realMonth} {Number(realYear) + 543} เวลา {realTime} น.</span> 
                             :
-                                <span>ส.ป.ก. จังหวัด{provincename} วันที่ {realDate} เวลา {realTime} น.</span>
+                                <span>ส.ป.ก. จังหวัด{provincename} วันที่ {realDay} {realMonth} {Number(realYear) + 543} เวลา {realTime} น.</span>
                         }
                         
                     </p>

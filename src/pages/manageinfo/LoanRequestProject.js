@@ -31,6 +31,7 @@ import {
     MuiTextfield,
     MuiSelectProvince,
     MuiSelectObjYear,
+    MuiSelectObjYearStart,
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
     ButtonFluidPrimary,
@@ -451,8 +452,8 @@ console.log('submit')
                             </Grid>
 
                                 <Grid item xs={12} md={2}>
-                                    <Box  display="flex" justifyContent="flex-start">
-                                        <MuiSelectObjYear label="ปีงบประมาณ" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
+                                    <Box className="dropdown-projectplanyear" display="flex" justifyContent="flex-start">
+                                        <MuiSelectObjYearStart label="ปีงบประมาณ" valueStartYaer={2500} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                     </Box>  
                                 </Grid>
                                 {

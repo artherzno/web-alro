@@ -1010,6 +1010,62 @@ const MuiSelectObjYearValue = (props) => {
     );
 }
 
+
+const MuiSelectObjYearStart = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, name, value, onChange, valueStartYaer } = props;
+
+    // e.g. <MuiSelectObjYear label="แผนปี" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
+
+    let d = new Date();
+    let buddhaYear = 543 + 5;
+
+    // Check FiscalYear if month >= October will increase 1 year
+
+    // let monthNow = d.getMonth();
+    // if(monthNow >= 9) {
+    //     buddhaYear = 544;
+    // }
+    let fullyear = d.getFullYear() + buddhaYear;
+    let yearList = [];
+    let countYaerNum = (Number(fullyear)+1) - valueStartYaer || 10;
+    
+    for(let i=0; i<countYaerNum; i++) {
+        let fullYearValue = (fullyear - i)-2500
+        yearList.push(
+            {
+                yearname: fullyear - i,
+                yearvalue: fullYearValue.toString().length === 2 ? fullYearValue : '0'+fullYearValue
+            }
+        );
+    }
+
+    // console.log('MuiSelectOBJYear:', lists, itemName, itemValue)
+
+    return (
+        <FormControl className={classes.textbox}>
+            { 
+                (label) === '' ? '' :
+
+                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value={0}>กรุณาเลือก</MenuItem>
+                {yearList.map((item,i)=>
+                    <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
 const MuiSelectObj = (props) => {
     const classes = useStyles();
     const { topic, label, id, lists, name, value, onChange, itemName, itemValue, inputdisabled } = props;
@@ -1283,6 +1339,7 @@ export {
     MuiSelectSubDistrict,
     MuiSelectObjYear,
     MuiSelectObjYearValue,
+    MuiSelectObjYearStart,
     MuiSelectDay,
     MuiSelectMonth,
     MuiSelectYear,

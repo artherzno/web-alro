@@ -437,18 +437,20 @@ function LoanAddProject() {
                                                 {/* <Grid item xs={12} md={2}>
                                                     <MuiTextfield label="รหัสโครงการชื่อ" id="loanadd-projectcode-input" defaultValue="" />
                                                 </Grid> */}
-                                                <Grid item xs={12} md={8}>
+                                                <Grid item xs={12} md={5}>
                                                     <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputData.ProjectName} onChange={handleInputData}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
+                                                <Grid item xs={12} md={3}>
                                                     <MuiSelectObjYear label="แผนปี" valueYaer={10} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={12}>
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiTextfield disabled label="จังหวัด" value={provincename} />
+                                                </Grid>
+                                                {/* <Grid item xs={12} md={12}>
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={11} md={7}>
                                                             <span style={{display: 'block'}}>งบประมาณโครงการหลัก</span>
                                                             <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />
-                                                            {/* <MuiTextfield label="" /> */}
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="">&nbsp;</p>
@@ -458,11 +460,11 @@ function LoanAddProject() {
                                                             <MuiTextfield disabled label="จังหวัด" value={provincename} />
                                                         </Grid>
                                                     </Grid>
-                                                </Grid>
+                                                </Grid> */}
 
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}
-                                                    <MuiSelectObj label="รหัสโครงการหลัก" itemName={'ProjectMainCode'} itemValue={'ProjectMainCode'} lists={spkMainProject} name="ProjectMainCode" value={inputData.ProjectMainCode} onChange={handleInputData} />
+                                                    <MuiSelectObj label="รหัสโครงการหลัก" itemName={'ProjectMainName'} itemValue={'ProjectMainCode'} lists={spkMainProject} name="ProjectMainCode" value={inputData.ProjectMainCode} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={2}>
                                                     {/* Field Text ---------------------------------------------------*/}
@@ -476,7 +478,7 @@ function LoanAddProject() {
 
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}
-                                                    <MuiSelectObj label="รหัสโครงการรอง" itemName={'ProjectSubCode'} itemValue={'ProjectSubCode'} lists={spkSubProject} name="ProjectSubCode" value={inputData.ProjectSubCode} onChange={handleInputData} />
+                                                    <MuiSelectObj label="รหัสโครงการรอง" itemName={'ProjectSubName'} itemValue={'ProjectSubCode'} lists={spkSubProject} name="ProjectSubCode" value={inputData.ProjectSubCode} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={2}>
                                                     {/* Field Text ---------------------------------------------------*/}

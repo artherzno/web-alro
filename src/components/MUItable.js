@@ -31,7 +31,7 @@ import {
   
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '100%',
+      width: 'auto',
     },
     paper: {
       width: '100%',
@@ -82,7 +82,31 @@ const MUItable = (props) => {
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const { headCells, rows, rowsLabel, hasCheckbox, hasAction, actionView, actionEdit, actionDelete } = props;
+    const { 
+      headCells, 
+      rows, 
+      rowsLabel, 
+      colSpan, 
+      hasCheckbox, 
+      hasAction, 
+      actionView, 
+      viewEvent, 
+      viewParam, 
+      actionEdit, 
+      editEvent,
+      editParam,
+      actionDelete, 
+      deleteEvent,
+      deleteParam,
+      actionPrint, 
+      printEvent, 
+      printParam1, 
+      printParam2,
+      actionRequest,
+      requestEvent,
+      requestParam1,
+      requestParam2,
+    } = props;
 
 
 function createData(name, calories, fat, carbs, protein) {
@@ -116,7 +140,7 @@ function createData(name, calories, fat, carbs, protein) {
   }
   
   function EnhancedTableHead(props) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, hasCheckbox, hasAction } = props;
+    const { headCells, classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, hasCheckbox, hasAction } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
@@ -134,7 +158,7 @@ function createData(name, calories, fat, carbs, protein) {
                   inputProps={{ 'aria-label': 'select all desserts' }}
                 />
               </TableCell>
-            : ''
+            : null
           }
           
           {
@@ -145,6 +169,7 @@ function createData(name, calories, fat, carbs, protein) {
                 align={'center'}
                 padding={headCell.disablePadding ? 'none' : 'normal'}
                 sortDirection={orderBy === headCell.id ? order : false}
+                style={{ minWidth: headCell.widthCol }}
               >
                 <TableSortLabel
                   active={orderBy === headCell.id}
@@ -167,7 +192,7 @@ function createData(name, calories, fat, carbs, protein) {
               <TableCell align="center"  className="sticky">
                 Aciton
               </TableCell>
-            : ''
+            : null
           }
         </TableRow>
       </TableHead>
@@ -227,7 +252,7 @@ function createData(name, calories, fat, carbs, protein) {
   };
   
   function EnhancedTableBody (props) {
-    const { row, rowsLabel, isItemSelected, labelId, hasCheckbox } = props;
+    const { index, row, rowsLabel, isItemSelected, labelId, hasCheckbox } = props;
 
     return (
       <TableRow
@@ -236,7 +261,7 @@ function createData(name, calories, fat, carbs, protein) {
         role="checkbox"
         aria-checked={isItemSelected}
         tabIndex={-1}
-        key={row.name}
+        key={index}
         selected={isItemSelected}
       >
         { 
@@ -247,38 +272,46 @@ function createData(name, calories, fat, carbs, protein) {
               inputProps={{ 'aria-labelledby': labelId }}
             />
           </TableCell>
-         : ''
+         : null
         }
 
         {
           rowsLabel.map((item,i)=> 
-          <React.Fragment>
-            <TableCell align="left">{row[item]}</TableCell>
-          </React.Fragment>
+            <TableCell align="left">{row[item]} </TableCell>
             // <TableCell align="left"><div dangerouslySetInnerHTML={createMarkup()} /></TableCell>
           )
         }
 
         {
             hasAction ? 
-              <TableCell align="center">
+              <TableCell align="center"  className="sticky">
                 {
-                  actionView ? 
-                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="90px" onClick={()=>alert('hello View:'+row['name'])} />
-                  : ''
+                  actionRequest ? 
+                    <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>requestEvent(row[requestParam1], row[requestParam2])} />
+                  : null
                 }
                 {
                   actionView ? 
-                    <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>alert('hello Edit:'+row['name'])} />
-                  : ''
+                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="90px" onClick={()=>viewEvent(row[viewParam])} />
+                  : null
                 }
                 {
-                  actionView ? 
-                    <ButtonFluidSecondary label="ลบ" maxWidth="80px" onClick={()=>alert('hello Delete:'+row['name'])} />
-                  : ''
+                  actionEdit ? 
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>editEvent(row[editParam])} />
+                  : null
+                }
+                {
+                  actionDelete ? 
+                    <ButtonFluidSecondary label="ลบ" maxWidth="80px" onClick={()=>deleteEvent(row[deleteParam])} />
+                  : null
+                }
+                {
+                  actionPrint ? 
+                    <ButtonFluidPrimary label="พิมพ์" maxWidth="80px" onClick={()=>printEvent(row[printParam1], row[printParam2])} />
+                  : null
                 }
               </TableCell>
-            : ''
+            : null
           }
         {/* <TableCell component="th" id={labelId} scope="row" padding="none">
           {row.name}
@@ -364,18 +397,20 @@ function createData(name, calories, fat, carbs, protein) {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
               hasAction={hasAction}
+              headCells={headCells}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
+                  // console.log('row',row)
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  return <EnhancedTableBody isItemSelected={isItemSelected} row={row} rowsLabel={rowsLabel} labelId={labelId} hasCheckbox={hasCheckbox} hasAction={hasAction}/>;
+                  return <EnhancedTableBody key={index} index={index} isItemSelected={isItemSelected} row={row} rowsLabel={rowsLabel} labelId={labelId} hasCheckbox={hasCheckbox} hasAction={hasAction}/>;
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={colSpan} />
                 </TableRow>
               )}
             </TableBody>

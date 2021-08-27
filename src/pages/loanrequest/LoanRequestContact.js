@@ -116,6 +116,7 @@ function LoanRequestContact(props) {
 
     let propsFarmerID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.FarmerID;
     let propsApplicantID = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantID;
+    let propsApplicantNo = typeof(props.location.state) === 'undefined' ? 0 : props.location.state.ApplicantNo;
     let propsAction = typeof(props.location.state) === 'undefined' ? '' : props.location.state.action;
     // let propsApplicantID = localStorage.getItem('stepperStatus') === 'processing' ? localStorage.getItem('applicantID') : props.location.state.ApplicantID;
     // let propsAction = localStorage.getItem('stepperStatus') === 'processing' ? 'edit' : props.location.state.action;
@@ -134,7 +135,7 @@ console.log('getStepMain ApplicantID:',localStorage.getItem('applicantID'))
             case 1:
             return <LoanRequestContactStep2 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 2:
-            return <LoanRequestContactStep3 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
+            return <LoanRequestContactStep3 action={propsAction} ApplicantID={propsApplicantID} ApplicantNo={propsApplicantNo} handleComplete={handleComplete} />;
             case 3:
             return <LoanRequestContactStep4 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
             case 4:

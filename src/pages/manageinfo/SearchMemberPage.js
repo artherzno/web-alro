@@ -47,11 +47,14 @@ function SearchMemberPage(props) {
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [hasData, setHasData] = useState(false);
 
     const [tableResult, setTableResult] = useState([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const [rows, setRows] = useState([]);
 
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
@@ -67,32 +70,22 @@ function SearchMemberPage(props) {
     })
 
     const headCells = [
-        { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-        { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-        { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-        { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-        { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
-    ];
-
-    const rows = [
-        { name: 'Cupcake', calories: 305, fat: 3.7, carbs: 67, protein: 4.3},
-        { name: 'Donut', calories: 452, fat: 25.0, carbs: 51, protein: 4.9},
-        { name: 'Eclair', calories: 262, fat: 16.0, carbs: 24, protein: 6.0},
-        { name: 'Frozen yoghurt', calories: 159, fat: 6.0, carbs: 24, protein: 4.0},
-        { name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.9},
-        { name: 'Honeycomb', calories: 408, fat: 3.2, carbs: 87, protein: 6.5},
-        { name: 'Ice cream sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3},
-        { name: 'Jelly Bean', calories: 375, fat: 0.0, carbs: 94, protein: 0.0},
-        { name: 'KitKat', calories: 518, fat: 26.0, carbs: 65, protein: 7.0},
-        { name: 'Lollipop', calories: 392, fat: 0.2, carbs: 98, protein: 0.0},
-        { name: 'Marshmallow', calories: 318, fat: 0, carbs: 81, protein: 2.0},
-        { name: 'Nougat', calories: 360, fat: 19.0, carbs: 9, protein:37.0},
-        { name: 'Oreo', calories: 437, fat: 18.0, carbs: 63, protein: 4.0},
+        { id: 'FarmerID', numeric: false, disablePadding: true, label: 'ลำดับ' },
+        { id: 'Name', numeric: true, disablePadding: false, label: 'ชื่อ นามสกุล' },
+        { id: 'FarmerGrade', numeric: true, disablePadding: false, label: 'เกรด (Y = ไม่มีหนี้ค้าง, N = มีหนี้ค้าง)' },
     ];
 
     const rowsLabel = [
-        'name', 'calories', 'fat', 'carbs', 'protein'
+        'FarmerID', 'Name', 'FarmerGrade'
     ]
+
+    function createData( FarmerID, Name, FarmerGrade,) {
+        return { 
+            FarmerID,
+            Name,
+            FarmerGrade,
+         };
+    }
 
     useEffect(() => {
         // console.log(document.cookie)
@@ -129,6 +122,8 @@ function SearchMemberPage(props) {
     }, [])
 
     async function fetchSearchFarmer() {
+        setTableResult([])
+        setIsLoading(true)
         // console.warn('Cookie', document.cookie)
         const res = await fetch(`${server_hostname}/admin/api/search_farmer`, {
             method: 'POST',
@@ -144,24 +139,33 @@ function SearchMemberPage(props) {
         res
         .json()
         .then(res => {
-        if (res.code === 0 || res === null || res === undefined ) {
-            setIsLoaded(true);
-            setErr(true);
-        //   history.push('/error');
-            if(Object.keys(res.message).length !== 0) {
-                setErrMsg([res.message])
-            } else {
-                setErrMsg(['ไม่สามารถทำรายการได้'])
-            }
-        } else {
-            setHasData(true);
-            setIsLoaded(true);
-            setTableResult(res.data);
-            // console.log(res.data);
+            setIsLoading(false)
 
-            // history.push('/home');
-            // setDataCampaign(data); // from local
-        }
+            if (res.code === 0 || res === null || res === undefined ) {
+                setIsLoaded(true);
+                setErr(true);
+            //   history.push('/error');
+                if(Object.keys(res.message).length !== 0) {
+                    setErrMsg([res.message])
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            } else {
+                setHasData(true);
+                setIsLoaded(true);
+                // setTableResult(res.data);
+                console.log(res.data);
+                setRows(res.data.map((item,i)=>
+                    createData(
+                        item.FarmerID,
+                        item.FrontName+' '+item.Name+' '+item.Sirname,
+                        item.FarmerGrade ? item.FarmerGrade : '-'
+                    )
+                ))
+
+                // history.push('/home');
+                // setDataCampaign(data); // from local
+            }
 
         })
         .catch(err => {
@@ -242,6 +246,13 @@ function SearchMemberPage(props) {
 
     return (
         <div className="search-page">
+            {
+                isLoading ? 
+                <div className="overlay">
+                    <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                </div> : 
+                ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -293,114 +304,26 @@ function SearchMemberPage(props) {
                     {/* Search Result */}
                     <Container maxWidth="md" className="result-box">
                         <Grid item xs={12} md={12} className="result-header"> 
-                            <h2>ผลการค้นหา {(tableResult.length).toLocaleString('en-US') || 0} รายการ</h2>
+                            <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
                         </Grid>
                         
-                        { 
-                            err ? 
-                                <p className="err font-14">{errMsg}</p> 
-                            : 
-                                hasData ? 
-                                    <Grid item xs={12} md={12}>
-
-                                            {/* <div className="table-box table-allcontractsearch1 mg-t-10">
-                                                <MUItable headCells={headCells} rows={rows} rowsLabel={rowsLabel} hasCheckbox={false} hasAction={true} actionView={true} actionEdit={true} actionDelete={true} />
-                                            </div> */}
-                                            <div className="table-box table-allcontractsearch1 mg-t-10">
-                                                <TableContainer >
-                                                    <Table aria-label="simple table">
-                                                        <TableHead>
-                                                            <TableRow>
-                                                                <TableCell align="center">ลำดับ</TableCell>
-                                                                <TableCell align="center">ชื่อ นามสกุล</TableCell>
-                                                                <TableCell align="center">
-                                                                    เกรด
-                                                                    <Tooltip title={<div>Y ไม่มีหนี้ค้าง<br />N มีหนี้ค้าง</div>} arrow placement="right">
-                                                                        <IconButton>
-                                                                            <InfoOutlinedIcon />
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                </TableCell>
-                                                                <TableCell align="center">ยื่นคำขอ</TableCell>
-                                                                <TableCell align="center">แก้ไขข้อมูล</TableCell>
-                                                            </TableRow>
-                                                        </TableHead>
-                                                        <TableBody>
-                                                            {
-                                                                tableResult.length ? 
-                                                                    (rowsPerPage > 0
-                                                                        ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                                        : tableResult
-                                                                    ).map((cell,i) => (
-                                                                    <TableRow key={i}>
-                                                                        <TableCell align="center">{cell.FarmerID}</TableCell>
-                                                                        <TableCell align="left">
-                                                                            {cell.FrontName}&nbsp;
-                                                                            {cell.Name} {cell.Sirname}</TableCell>
-                                                                        <TableCell align="center">{cell.FarmerGrade || '-'}</TableCell>
-                                                                        <TableCell align="center">{
-                                                                            cell.FarmerGrade ? 
-                                                                                '-' 
-                                                                            : 
-                                                                                <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, 'add')} />
-                                                                        }</TableCell>
-                                                                        <TableCell align="center">
-                                                                            <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember(cell.FarmerID)} />
-                                                                        </TableCell>
-                                                                    </TableRow>
-                                                                
-                                                            ))
-                                                            : 
-                                                            <TableRow>
-                                                                <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
-                                                            </TableRow>
-                                                        }
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                                {
-                                                    tableResult.length ? 
-                                                        <TablePagination
-                                                            rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
-                                                            component="div"
-                                                            count={tableResult.length}
-                                                            rowsPerPage={rowsPerPage}
-                                                            page={page}
-                                                            onPageChange={handleChangePage}
-                                                            onRowsPerPageChange={handleChangeRowsPerPage}
-                                                            labelRowsPerPage="แสดงจำนวนแถว"
-                                                        />
-                                                    : 
-                                                    ''
-                                                }
-                                            </div>
-                                            {/* Data Grid --------------------------------*/}
-                                                {/* <div style={{ height: 400, width: '100%' }}>
-                                                <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                                            </div> */}
-                                        </Grid>
-                                    
-                                : 
-                                    <Box className="table-no-result">
-                                        <Box
-                                            display="flex"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            p={1}
-                                            m={1}
-                                            css={{ height: '100%' }}
-                                        >
-                                            <Box justifyContent="center" textAlign='center' alignItems="center" css={{ textAlign: 'center' }}>
-                                                <Box p={1}>
-                                                    ไม่มีข้อมูล
-                                                </Box>
-                                                {/* <Box p={1}>
-                                                    <ButtonNormalIconStartPrimary label="เพิ่มเกษตรกร" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
-                                                </Box> */}
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                        }
+                        <div className="table-box table-allcontractsearch1 mg-t-10">
+                            <MUItable 
+                                headCells={headCells} 
+                                rows={rows} 
+                                rowsLabel={rowsLabel} 
+                                colSpan={36} 
+                                hasCheckbox={false} 
+                                hasAction={true} 
+                                actionEdit={true}
+                                editEvent={gotoEditMember}
+                                editParam={'FarmerID'}
+                                actionRequest={true} 
+                                requestEvent={gotoLoanRequestContact}
+                                requestParam1={'FarmerID'}
+                                requestParam2={'add'}
+                            />
+                        </div>
                     </Container>
                 </div>
             </Fade>

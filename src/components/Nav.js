@@ -27,7 +27,7 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'ค้นหาเกษตกร',
+                subtitle: 'ข้อมูลเกษตกร',
                 subpath: '/manageinfo/searchmember'
             },
             {
@@ -39,10 +39,10 @@ const listmenu = [
             //     subpath: '/loanrequest/loanrequestcontact'
             // },
             {
-                subtitle: 'พิมพ์สัญญากู้ยืมเงิน',
+                subtitle: 'บันทึก / พิมพ์สัญญากู้ยืมเงิน',
                 subpath: '/loanrequest/loanrequestprint'
             },{
-                subtitle: 'พิมพ์ใบสำคัญการรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
+                subtitle: 'บันทึก / พิมพ์สัญญาใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
                 subpath: '/loanrequest/loanrecivceprint'
             },{
                 subtitle: 'บันทึกปิดสัญญาเดิม',

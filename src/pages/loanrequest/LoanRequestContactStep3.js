@@ -109,6 +109,7 @@ function LoanRequestContactStep3(props) {
         setLoaded(true);
         console.log('---------------------')
         console.log('Step3 applicantID', props.ApplicantID)
+        console.log('Step3 applicantNo', props.ApplicantNo)
         console.log('Step3 action:',props.action)
         console.log('Step3 stepper status:',localStorage.getItem('stepperStatus'))
         console.log('---------------------')
@@ -440,19 +441,21 @@ const handleInputData = (event) => {
       };
 
     const handlePrintPDF = () => {
-console.log('PDF - LoanReqNo:', props.ApplicantID)
+console.log('PDF - LoanReqNo:', props.ApplicantNo)
+
+        let formData = new FormData();
+        formData.append('LoanReqNo', props.ApplicantNo)
+
         axios({
         url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
-        method: 'GET',
-        data: {
-            LoanReqNo: props.ApplicantID
-        },
+        method: 'POST',
+        data: formData,
         responseType: 'blob', // important
         }).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantID}.pdf`); //or any other extension
+            link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantNo.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -706,14 +709,24 @@ console.log('PDF - LoanReqNo:', props.ApplicantID)
                                         props.action === 'view' ? 
                                         <Grid container spacing={2} className="btn-row">
                                             <Grid item xs={12} md={6}>
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                                <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
                                             </Grid>
                                         </Grid>
                                         : 
                                         <Grid container spacing={2} className="btn-row">
+                                            
+                                            <Grid item xs={12} md={6}>
+                                                {
+                                                    props.action === 'edit' ? 
+                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
+                                                    :
+                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
+                                                }
+                                            </Grid>
+
                                             <Grid item xs={12} md={6}>
                                                 {
                                                     btnPrint || props.action === 'edit' ?  
@@ -725,14 +738,6 @@ console.log('PDF - LoanReqNo:', props.ApplicantID)
                                                         </div>
                                                 }
                                                 
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                {
-                                                    props.action === 'edit' ? 
-                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
-                                                    :
-                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
-                                                }
                                             </Grid>
 
                                             <Grid item xs={12} md={12}>

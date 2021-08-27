@@ -79,6 +79,7 @@ function LoanRequestPrint(props) {
     })
     const [applicantNo, setApplicantNo] = useState('')
     const [loanID, setLoanID] = useState('')
+    const [loanNumber, setLoanNumber] = useState('')
     const [inputDataFarmer, setInputDataFarmer] = useState([])
     const [inputDataLand, setInputDataLand] = useState([])
     const [inputData, setInputData] = useState([])
@@ -277,7 +278,7 @@ function LoanRequestPrint(props) {
          });
     }
 
-    const getDataApprovedApplicant = (applicantID, farmerID, applicantNo, loanID) => {
+    const getDataApprovedApplicant = (applicantID, farmerID, applicantNo, loanID, loanNumber) => {
         setIsLoading(true);
         setLoandue_data1({ DUEDATE: null, PAYREC: ''  })
         setLoandue_data2({ DUEDATE: null, PAYREC: ''  })
@@ -411,6 +412,9 @@ function LoanRequestPrint(props) {
                             IDCard: '', // "",
                         })
 
+                        setLoanID(loanID)
+                        setLoanNumber(loanNumber);
+
                     } else {
                         // Action : Edit
                         setInputDataFarmer(data.Farmer[0])
@@ -419,7 +423,7 @@ function LoanRequestPrint(props) {
                         setApplicantNo(applicantNo);
                         setIsLoading(false);
 
-                        getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID)
+                        getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber)
                     }
                 }
             }
@@ -432,7 +436,7 @@ function LoanRequestPrint(props) {
     }
 
 
-    const getViewDataApprovedApplicant = (applicantID, farmerID, applicantNo,loanID) => {
+    const getViewDataApprovedApplicant = (applicantID, farmerID, applicantNo,loanID, loanNumber) => {
         setIsLoading(true);
 
         axios.post(
@@ -465,6 +469,7 @@ function LoanRequestPrint(props) {
                         ApplicantID: applicantID,
                     })
                     setLoanID(loanID)
+                    setLoanNumber(loanNumber);
 
                     // Insert Radio Free_of_debt
                     data.results[0].Free_of_debt_Month ? setFree_of_debt('0') : setFree_of_debt('1')
@@ -788,20 +793,21 @@ function LoanRequestPrint(props) {
     };
 
     const handlePrintPDF = () => {
-        console.log('PDF - ContractNo:', loanID)
+        console.log('PDF - ContractNo:', loanNumber)
+
+        let formData = new FormData(); 
+        formData.append('ContractNo', loanNumber)
 
         axios({
         url: `${siteprint}/report/pdf/GetContractPdf`, //your url
-        method: 'GET',
-        data: {
-            ContractNo: loanID
-        },
+        method: 'POST',
+        data: formData,
         responseType: 'blob', // important
         }).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanID}.pdf`); //or any other extension
+            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -913,9 +919,9 @@ function LoanRequestPrint(props) {
                                                             <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>
                                                                 {
                                                                     cell.LoanID === null ? 
-                                                                    <ButtonFluidPrimary label="สร้าง" maxWidth="100px" onClick={(event)=>{action = 'add';getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID)}} />
+                                                                    <ButtonFluidPrimary label="สร้าง" maxWidth="100px" onClick={(event)=>{action = 'add';getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID, cell.LoanNumber)}} />
                                                                     :
-                                                                    <ButtonFluidPrimary label="แก้ไข" maxWidth="100px" onClick={(event)=>{action = 'edit'; getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID);}} />
+                                                                    <ButtonFluidPrimary label="แก้ไข" maxWidth="100px" onClick={(event)=>{action = 'edit'; getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID, cell.LoanNumber);}} />
                                                                 
                                                                 }
                                                             </TableCell>
@@ -967,6 +973,12 @@ function LoanRequestPrint(props) {
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={6} className="form-view">
                                                             <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode"  value={parseInt(inputData.LoanPeriodCode)} onChange={handleInputData} type="row" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiDatePicker label="วันที่ทำสัญญา"   />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="เลขที่สัญญา" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="ชื่อ" inputdisabled="input-disabled" value={inputDataFarmer.Name} />
@@ -1779,7 +1791,7 @@ function LoanRequestPrint(props) {
                                             <Grid item xs={12} md={4} >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
-                                            <Grid item xs={12} md={4} className={confirmSuccessStep1 || loanID ? '' : 'btn-disabled'} >
+                                            <Grid item xs={12} md={4} className={loanNumber ? '' : 'btn-disabled'} >
                                                 <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>
