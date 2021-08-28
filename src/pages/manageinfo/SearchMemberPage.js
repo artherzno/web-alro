@@ -16,6 +16,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import IconButton from '@material-ui/core/IconButton';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 import { 
     MuiTextfield, 
@@ -46,6 +48,8 @@ function SearchMemberPage(props) {
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [hasData, setHasData] = useState(false);
@@ -72,7 +76,7 @@ function SearchMemberPage(props) {
     const headCells = [
         { id: 'FarmerID', numeric: false, disablePadding: true, label: 'ลำดับ' },
         { id: 'Name', numeric: true, disablePadding: false, label: 'ชื่อ นามสกุล' },
-        { id: 'FarmerGrade', numeric: true, disablePadding: false, label: 'เกรด (Y = ไม่มีหนี้ค้าง, N = มีหนี้ค้าง)' },
+        { id: 'FarmerGrade', numeric: true, disablePadding: false, label: 'เกรด' },
     ];
 
     const rowsLabel = [
@@ -123,6 +127,7 @@ function SearchMemberPage(props) {
 
     async function fetchSearchFarmer() {
         setTableResult([])
+        setRows([])
         setIsLoading(true)
         // console.warn('Cookie', document.cookie)
         const res = await fetch(`${server_hostname}/admin/api/search_farmer`, {
@@ -151,18 +156,22 @@ function SearchMemberPage(props) {
                     setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
             } else {
-                setHasData(true);
-                setIsLoaded(true);
-                // setTableResult(res.data);
-                console.log(res.data);
-                setRows(res.data.map((item,i)=>
-                    createData(
-                        item.FarmerID,
-                        item.FrontName+' '+item.Name+' '+item.Sirname,
-                        item.FarmerGrade ? item.FarmerGrade : '-'
-                    )
-                ))
-
+                if(res.data.length === 0) {
+                    setErr(true);
+                    setErrMsg('ไม่พบข้อมูล')
+                }else {
+                    setHasData(true);
+                    setIsLoaded(true);
+                    // setTableResult(res.data);
+                    console.log(res.data);
+                    setRows(res.data.map((item,i)=>
+                        createData(
+                            item.FarmerID,
+                            item.FrontName+' '+item.Name+' '+item.Sirname,
+                            item.FarmerGrade === 'Y' ? 'Y (ไม่มีหนี้ค้าง)' : item.FarmerGrade === 'N' ? 'N (มีหนี้ค้าง)' : '-'
+                        )
+                    ))
+                }
                 // history.push('/home');
                 // setDataCampaign(data); // from local
             }
@@ -233,6 +242,7 @@ function SearchMemberPage(props) {
     }
 
     const gotoLoanRequestContact = (id, action) => {
+        console.log(action)
         history.push({
             pathname: '/loanrequest/loanrequestcontact',
             state: { 
@@ -243,6 +253,15 @@ function SearchMemberPage(props) {
             }
           });
     }
+
+    const handleClosePopup = () => {
+        setErr(false);
+        setSuccess(false);
+
+        setIsLoading(false)
+        // history.push('/manageinfo/searchmember');
+
+    };
 
     return (
         <div className="search-page">
@@ -327,6 +346,32 @@ function SearchMemberPage(props) {
                     </Container>
                 </div>
             </Fade>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+            
         </div>
     )
 }

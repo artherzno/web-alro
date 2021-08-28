@@ -29,6 +29,9 @@ import Nav from '../../components/Nav';
 import {
     MuiTextfield,
     MuiDatePicker,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     ButtonNormalIconStartPrimary,
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
@@ -51,6 +54,12 @@ function LoanRequestContactSearch() {
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const [inputSelectDate, setInputSelectDate] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000'
+    })
 
     const [tableResult, setTableResult] = useState([])
     const [inputData, setInputData] = useState({
@@ -149,14 +158,32 @@ function LoanRequestContactSearch() {
         fetchCheckLogin();
     }, [])
 
+    const handleSelectDate = (event) => {
+        let type = event.target.name
+        setInputSelectDate({
+            ...inputSelectDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+    }
+
     const getSearchApplicantID = () => {
+        setIsLoading(true)
         console.log(inputData.dCreated)
+        let searchDate = null;
+        if(inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {
+            searchDate = null;
+        } else {
+            searchDate = (inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
+        }
+
+        console.log(searchDate)
 
         axios.post(
             `${server_hostname}/admin/api/search_applicant`, {
                 Name: inputData.Name, // "",
                 IDCard: inputData.IDCard, // "1234567889015",
-                dCreated: (inputData.dCreated === 'Invalid date' ? null : inputData.dCreated), // "",    
+                dCreated: searchDate, // "",    
                 order_by: 'Name', // "Name",
                 order_desc: 'DESC', // "DESC",
                 page_number: 1, // 1,
@@ -178,22 +205,27 @@ function LoanRequestContactSearch() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
+                    setIsLoading(false)
                     console.log(data.data)
-                    setTableResult(data.data);
-                    let dataArr = [];
-                    for(let i=0; i<data.data.length; i++) {
-                        // console.log(data.data[i].ApplicantID)
-                        dataArr.push({
-                            id: data.data[i].ApplicantID,
-                            farmerid: data.data[i].FarmerID,
-                            fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
-                            idcard: data.data[i].IDCard,
-                            dcreated: moment(data.data[i].dCreated).format('DD/MM/YYYY'),
-                            applicantno: data.data[i].ApplicantNo,
-                        })
+                    if(data.data.length === 0) {
+                        setErr(true);
+                        setErrMsg('ไม่พบข้อมูล')
+                    }else {
+                        setTableResult(data.data);
+                        let dataArr = [];
+                        for(let i=0; i<data.data.length; i++) {
+                            // console.log(data.data[i].ApplicantID)
+                            dataArr.push({
+                                id: data.data[i].ApplicantID,
+                                farmerid: data.data[i].FarmerID,
+                                fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
+                                idcard: data.data[i].IDCard,
+                                dcreated: moment(data.data[i].dCreated).format('DD/MM/YYYY'),
+                                applicantno: data.data[i].ApplicantNo,
+                            })
+                        }
+                        setRows(dataArr)
                     }
-                    setRows(dataArr)
-                    
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -230,7 +262,7 @@ function LoanRequestContactSearch() {
         setErr(false);
         setSuccess(false);
         // history.push('/manageinfo/searchmember');
-
+        setIsLoading(false)
     };
 
     const gotoLoanRequestContact = (id, applicantid, applicantno, action) => {
@@ -251,6 +283,13 @@ function LoanRequestContactSearch() {
 
     return (
         <div className="loanrequestcontactsearch-page">
+            {
+                isLoading ? 
+                <div className="overlay">
+                    <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                </div> : 
+                ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -273,9 +312,18 @@ function LoanRequestContactSearch() {
                                         {/* Field Text ---------------------------------------------------*/}
                                         <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="search-by-idc" name="IDCard" value={inputData.IDCard} onChange={handleInputData} />
                                     </Grid>
+
                                     <Grid item xs={12} md={3}>
-                                        <MuiDatePicker label="วันที่ยื่นคำขอ" name="dCreated" value={inputData.dCreated === 'Invalid date' ? null : inputData.dCreated} onChange={(newValue)=>{ setInputData({ ...inputData, dCreated: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        <p>วันที่ครบกำหนดชำระหนี้</p>
+                                        <div className="select-date-option">
+                                            <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
+                                            <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
+                                            <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
+                                        </div>
                                     </Grid>
+                                    {/* <Grid item xs={12} md={3}>
+                                        <MuiDatePicker label="วันที่ยื่นคำขอ" name="dCreated" value={inputData.dCreated === 'Invalid date' ? null : inputData.dCreated} onChange={(newValue)=>{ setInputData({ ...inputData, dCreated: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                    </Grid> */}
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
                                         <ButtonFluidPrimary label="ค้นหา" onClick={getSearchApplicantID} />  

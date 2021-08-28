@@ -599,6 +599,34 @@ function ManageProjectBudget() {
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={5}>
+                                                        <p className="paper-p txt-right">ผลรายปี</p>
+                                                    </Grid>
+                                                    <Grid item xs={11} md={5}>
+                                                        <MuiTextfieldCurrency label="" />
+                                                        {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} md={5}>
+                                                        <p className="paper-p txt-right">ผลรายโครงการ</p>
+                                                    </Grid>
+                                                    <Grid item xs={11} md={5}>
+                                                        <MuiTextfieldCurrency label="" />
+                                                        {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p className="paper-p">บาท</p>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} md={5}>
                                                         <p className="paper-p txt-right">แผนรายบุคคล</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>

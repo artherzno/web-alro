@@ -39,6 +39,9 @@ import {
     MuiRadioButton, 
     MuiTextNumber, 
     MuiDatePicker, 
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     ButtonFluidPrimary, 
     ButtonNormalIconStartPrimary,
     ButtonFluidIconStartPrimary,
@@ -67,6 +70,19 @@ function LoanRequestContactStep3(props) {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [btnPrint, setBtnPrint] = useState(false);
+
+    const [inputSelectDate1, setInputSelectDate1] = useState({
+        dd1: '00',
+        mm1: '00',
+        yyyy1: '0000'
+    })
+
+    const [inputSelectDate2, setInputSelectDate2] = useState({
+        dd2: '00',
+        mm2: '00',
+        yyyy2: '0000'
+    })
+
     const [inputData, setInputData] = useState({
         typeMember: '1',
         typeSuitability: '0',

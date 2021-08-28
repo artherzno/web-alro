@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -108,8 +108,12 @@ const MUItable = (props) => {
       requestParam2,
     } = props;
 
+  useEffect(() => {
+    setPage(0)
+    setRowsPerPage(5)
+  }, [rows])
 
-function createData(name, calories, fat, carbs, protein) {
+  function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
   
@@ -287,7 +291,7 @@ function createData(name, calories, fat, carbs, protein) {
               <TableCell align="center"  className="sticky">
                 {
                   actionRequest ? 
-                    <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>requestEvent(row[requestParam1], row[requestParam2])} />
+                    <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
                   : null
                 }
                 {

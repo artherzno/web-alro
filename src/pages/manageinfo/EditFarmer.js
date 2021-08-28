@@ -33,6 +33,9 @@ import {
     MuiRadioButton,
     MuiTextNumber,
     MuiDatePicker,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     MuiUpload,
     ButtonFluidPrimary,
     ButtonFluidOutlinePrimary,
@@ -106,6 +109,18 @@ function EditFarmer(props) {
     const [provinceLandAddList, setProvinceLandAddList] = useState(['กรุณาเลือกจังหวัด']);
     const [districtLandAddList, setDistrictLandAddList] = useState(['กรุณาเลือกจังหวัด']);
     const [subDistrictLandAddList, setSubDistrictLandAddList] = useState(['กรุณาเลือก เขต/อำเภอ']);
+
+    const [inputSelectBirthDate, setInputSelectBirthDate] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000'
+    })
+
+    const [inputSelectExpireDate, setInputSelectExpireDate] = useState({
+        dd2: '00',
+        mm2: '00',
+        yyyy2: '0000'
+    })
 
     const [inputData, setInputData] = useState({
         // IDCard: 1234567891017,
@@ -268,6 +283,48 @@ function EditFarmer(props) {
 
         console.log(inputData.BirthDate)
 
+        const newOrderDate = (val,type) => {
+            if(val === null) {
+                if(type==='birthdate') {
+                    setInputSelectBirthDate({
+                        ...inputSelectBirthDate,
+                        yyyy: '0000',
+                        mm: '00',
+                        dd: '00'
+                    })
+                } else {
+                    setInputSelectExpireDate({
+                        ...inputSelectBirthDate,
+                        yyyy2: '0000',
+                        mm2: '00',
+                        dd2: '00'
+                    })
+                }
+            } else {
+                let newyyyy = Number(val.substring(0,4)) + 543
+                let newmm = val.substring(5,7)
+                let newdd = val.substring(8,10)
+    
+                if(type==='birthdate') {
+                    setInputSelectBirthDate({
+                        ...inputSelectBirthDate,
+                        yyyy: newyyyy,
+                        mm: newmm,
+                        dd: newdd
+                    })
+                } else {
+                    setInputSelectExpireDate({
+                        ...inputSelectBirthDate,
+                        yyyy2: newyyyy,
+                        mm2: newmm,
+                        dd2: newdd
+                    })
+                }
+
+            }
+            // return dd+'/'+mm+'/'+yyyy
+        }
+
         // let landDataArr = [];
         const farmerID = props.location.state.FarmerID || 0;
         const getFarmer = () => {
@@ -396,9 +453,10 @@ function EditFarmer(props) {
                             FrontName: resEditData.FrontName || '', // 'นาย',
                             Name: resEditData.Name || '', // 'จิมมี่',
                             Sirname: resEditData.Sirname || '', // 'แซ่ฉ่วย',
-                            BirthDate: resEditData.BirthDate || null, // '2022-12-11',
+                            // BirthDate: resEditData.BirthDate || null, // '2022-12-11',
+                            BirthDate: newOrderDate(resEditData.BirthDate, 'birthdate'),
                             Tel: resEditData.Tel || '', // '087-712-8888',
-                            IDCardEXP_Date: resEditData.IDCardEXP_Date || null, // '2022-12-13',
+                            IDCardEXP_Date: newOrderDate(resEditData.IDCardEXP_Date, 'expiredate'), // '2022-12-13',
                             IDCARD_AddNo: resEditData.IDCARD_AddNo || '', // '123',
                             IDCARD_AddMoo: resEditData.IDCARD_AddMoo || '', // 'หมู่ 4',
                             IDCARD_AddrSoiRoad: resEditData.IDCARD_AddrSoiRoad || '', // 'ถ. มิตรภาพ',
@@ -886,6 +944,23 @@ function EditFarmer(props) {
         myFile.type = 'file'
     }
 
+    const handleSelectBirthDate = (event) => {
+        let type = event.target.name
+        setInputSelectBirthDate({
+            ...inputSelectBirthDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+    }
+
+    const handleSelectExpireDate = (event) => {
+        let type = event.target.name
+        setInputSelectExpireDate({
+            ...inputSelectExpireDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+    }
 
     // Input Text field 
     const handleInputData = (event) => {
@@ -1030,8 +1105,18 @@ function EditFarmer(props) {
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
         formData.append('FarmerID', props.location.state.FarmerID)
-        formData.append('BirthDate', inputData.BirthDate === null || inputData.BirthDate === 'Invalid date' ? null : moment(inputData.BirthDate).format('YYYY-MM-DD'))
-        formData.append('IDCardEXP_Date', inputData.IDCardEXP_Date === null || inputData.IDCardEXP_Date === 'Invalid date' ? null :  moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
+        // formData.append('BirthDate', inputData.BirthDate === null || inputData.BirthDate === 'Invalid date' ? null : moment(inputData.BirthDate).format('YYYY-MM-DD'))
+        // formData.append('IDCardEXP_Date', inputData.IDCardEXP_Date === null || inputData.IDCardEXP_Date === 'Invalid date' ? null :  moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
+
+        formData.append('BirthDate', Number(inputSelectBirthDate.yyyy.substring(0,4)) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
+        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2.substring(0,4)) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
+        
+        formData.delete('dd')
+        formData.delete('mm')
+        formData.delete('yyyy')
+        formData.delete('dd2')
+        formData.delete('mm2')
+        formData.delete('yyyy2')
 
         if(duplicateAddr) {
             formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
@@ -1385,13 +1470,28 @@ function EditFarmer(props) {
                                                 />
                                             </Grid> */}
 
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                            <Grid item xs={12} md={12}> <Grid item xs={12} md={12}>
+                                                    <p>วัน เดือน ปี เกิด</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectBirthDate.dd} onChange={handleSelectBirthDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectBirthDate.mm} onChange={handleSelectBirthDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectBirthDate.yyyy} onChange={handleSelectBirthDate} />
+                                                    </div>
+                                                    {/* 
+                                                        <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    */}
+                                                </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                {/* Field Date Picker ---------------------------------------------------*/}
-                                                <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                <Grid item xs={12} md={12}>
+                                                    <p>วันหมดอายุบัตรประจำตัวประชาชน</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd2" value={inputSelectExpireDate.dd2} onChange={handleSelectExpireDate} />
+                                                        <MuiSelectMonth label="" name="mm2" value={inputSelectExpireDate.mm2} onChange={handleSelectExpireDate} />
+                                                        <MuiSelectYear label="" name="yyyy2" value={inputSelectExpireDate.yyyy2} onChange={handleSelectExpireDate} />
+                                                    </div>
+                                                    {/* <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />*/}
+                                                </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
