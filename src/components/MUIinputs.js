@@ -30,6 +30,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import TextField from '@material-ui/core/TextField';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import AdapterMoment from '@material-ui/lab/AdapterMoment'
+import OverwriteMomentBE from '../utils/OverwriteMomentBE'
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DatePicker from '@material-ui/lab/DatePicker';
 
@@ -38,6 +40,7 @@ import thLocale from 'date-fns/locale/th';
 import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import moment from 'moment';
 // import { yellow } from '@material-ui/core/colors';
 
 // const BootstrapInput = withStyles((theme) => ({
@@ -496,11 +499,16 @@ const MuiDatePickerValidate = (props) => {
                     (label) === '' ? '' :
                     <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
                 }
-                <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
+                <LocalizationProvider dateAdapter={OverwriteMomentBE} >
                     <DatePicker
                         value={value}
                         onChange={onChange}
-                        renderInput={(params) => <TextField {...params} />}
+                        renderInput={(params) => {
+
+                            console.log("params", params)
+                            // const valueDisplay = moment()
+                            return <TextField {...params} />
+                        }}
                         inputFormat="dd/MM/yyyy"
                         className="MuiDatePicker"
                         helperText={helperText}
@@ -533,12 +541,17 @@ const MuiDatePicker = (props) => {
                     // </InputLabel>
                     <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
                 }
-                <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
+                <LocalizationProvider dateAdapter={OverwriteMomentBE} >
                     <DatePicker
                         value={value}
                         onChange={onChange}
-                        renderInput={(params) => <TextField {...params} />}
-                        inputFormat="dd/MM/yyyy"
+                        renderInput={(params) => {
+
+                            console.log("params", params)
+                            // const valueDisplay = moment()
+                            return <TextField {...params} inputProps={{ ...params.inputProps, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
+                        }}
+                        inputFormat="DD/MM/YYYY"
                         className="MuiDatePicker"
                         helperText={null}
                     />

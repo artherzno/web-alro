@@ -21,7 +21,7 @@ export const DisplaySelect = ({
         <div>
             <Grid container spacing={2}>
 
-                <Grid item xs={12}>
+                <Grid item >
                     <Select options={displayList} onChange={(event) =>{
                         
                         const found = displayList.find(element => element.value.toString() === event.target.value)
