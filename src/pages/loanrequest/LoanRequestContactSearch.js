@@ -169,6 +169,7 @@ function LoanRequestContactSearch() {
 
     const getSearchApplicantID = () => {
         setIsLoading(true)
+        setRows([])
         console.log(inputData.dCreated)
         let searchDate = null;
         if(inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {

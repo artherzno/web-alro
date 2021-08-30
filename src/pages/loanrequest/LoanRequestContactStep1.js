@@ -155,6 +155,8 @@ function LoanRequestContactStep1(props) {
         Debt_Amount: 0, // 0
     })
 
+    const [approvalData, setApprovalData] = useState([])
+
     const [countAddActivityProject, setCountAddActivityProject] = useState(1);
 
     const [docLandTypeList, setDocLandTypeList] = useState([])
@@ -220,6 +222,7 @@ function LoanRequestContactStep1(props) {
                         let dataFarmer = data.Farmer[0];
                         let dataLand = data.Land[0]
                         let dataDetail = data.data[0]
+                        let dataApproval = (typeof data.approval_data === 'object') ? '' : data.approval_data[0]
                         // console.log('view farmer:',res.data.Farmer[0])
                         // console.log('view land:',res.data.Land[0])
                         // console.log('view detail:',res.data.data[0])
@@ -235,6 +238,8 @@ function LoanRequestContactStep1(props) {
                         setRai(dataLand.Rai)
                         setNgan(dataLand.Ngan)
                         setWa(dataLand.Wa)
+
+                        setApprovalData(dataApproval)
 
                         setInputData({
                             ...inputData,
@@ -645,6 +650,19 @@ function LoanRequestContactStep1(props) {
         })
     }
 
+
+    const newOrderDate = (val) => {
+
+        if(val === null || val === '') {
+            return null
+        } else {
+            let yyyy = Number(val.substring(0,4)) + 543
+            let mm = val.substring(5,7)
+            let dd = val.substring(8,10)
+            return dd+'/'+mm+'/'+yyyy
+        }
+    }
+
     // Input Text field  ********************************
     const handleInputData = (event) => {
         // console.log('event.target.name',event.target.name)
@@ -869,7 +887,7 @@ function LoanRequestContactStep1(props) {
                                                 {
                                                     props.action === 'view' || props.action === 'edit' ? 
                                                         <Grid item xs={12} md={12}>
-                                                            <p className="txt-green txt-right">P เลขที่คำขอ {inputData.ApplicantNo}</p>
+                                                            <p className="txt-green txt-right">{approvalData.Approval === null || (!approvalData.Approval) ? '' : (approvalData.Approval === 0) ? 'C' : 'P' } เลขที่คำขอ {inputData.ApplicantNo}</p>
                                                         </Grid>
                                                     : ''
                                                 }
@@ -896,7 +914,8 @@ function LoanRequestContactStep1(props) {
                                                     <MuiTextfield disabled label="นามสกุล" value={inputData.Sirname} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiTextfield disabled label="วัน เดือน ปี เกิด" value={(inputData.BirthDate) ? moment(inputData.BirthDate).format('DD/MM/YYYY') : ''} />
+                                                    {/* <MuiTextfield disabled label="วัน เดือน ปี เกิด" value={(inputData.BirthDate) ? moment(inputData.BirthDate).format('DD/MM/YYYY') : ''} /> */}
+                                                    <MuiTextfield disabled label="วัน เดือน ปี เกิด" value={newOrderDate(inputData.BirthDate)} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <MuiTextfield disabled label="หมายเลขประจำตัว 13 หลัก" value={inputData.IDCard} />
@@ -905,7 +924,8 @@ function LoanRequestContactStep1(props) {
                                                     <MuiRadioButton label="วันหมดอายุบัตรประจำตัวประชาชน" id="loanrequestcontact-step1-typeid-input" lists={['ตลอดชีพ','มีวันหมดอายุ']} value={inputData.typeId} onChange={handleChangeTypeId} type="row" />
                                                 </Grid> */}
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiTextfield disabled label="วันหมดอายุบัตรประจำตัวประชาชน" value={(inputData.IDCardEXP_Date) ? moment(inputData.IDCardEXP_Date).format('DD/MM/YYYY') : ''} />
+                                                    {/* <MuiTextfield disabled label="วันหมดอายุบัตรประจำตัวประชาชน" value={(inputData.IDCardEXP_Date) ? moment(inputData.IDCardEXP_Date).format('DD/MM/YYYY') : ''} /> */}
+                                                    <MuiTextfield disabled label="วันหมดอายุบัตรประจำตัวประชาชน" value={newOrderDate(inputData.IDCardEXP_Date)} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <MuiTextfield disabled label="เบอร์โทรศัพท์" value={inputData.Tel} /></Grid>

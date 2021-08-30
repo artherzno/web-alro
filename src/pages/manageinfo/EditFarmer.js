@@ -284,7 +284,7 @@ function EditFarmer(props) {
         console.log(inputData.BirthDate)
 
         const newOrderDate = (val,type) => {
-            if(val === null) {
+            if(val === null || val === '') {
                 if(type==='birthdate') {
                     setInputSelectBirthDate({
                         ...inputSelectBirthDate,
@@ -294,7 +294,7 @@ function EditFarmer(props) {
                     })
                 } else {
                     setInputSelectExpireDate({
-                        ...inputSelectBirthDate,
+                        ...inputSelectExpireDate,
                         yyyy2: '0000',
                         mm2: '00',
                         dd2: '00'
@@ -314,7 +314,7 @@ function EditFarmer(props) {
                     })
                 } else {
                     setInputSelectExpireDate({
-                        ...inputSelectBirthDate,
+                        ...inputSelectExpireDate,
                         yyyy2: newyyyy,
                         mm2: newmm,
                         dd2: newdd
@@ -622,7 +622,8 @@ function EditFarmer(props) {
                         ...inputData,
                         IDCARD_AddrProvinceID: proviceID,
                         IDCARD_AddrDistrictID: 0,
-                        IDCARD_AddrSubdistrictID: 0
+                        IDCARD_AddrSubdistrictID: 0,
+                        IDCARD_Postcode: ''
                     })
                 } else if(type === 'Contact_AddrProvinceID') {
                     setDistrictContactList(res.data)
@@ -631,7 +632,8 @@ function EditFarmer(props) {
                         ...inputData,
                         Contact_AddrProvinceID: proviceID,
                         Contact_AddrDistrictID: 0,
-                        Contact_AddrSubdistrictID: 0
+                        Contact_AddrSubdistrictID: 0,
+                        Contact_Postcode: ''
                     })
                 } else if(type === 'Land_AddrProvinceID')   {
                     setDistrictLandList(res.data)
@@ -743,8 +745,20 @@ function EditFarmer(props) {
                 // console.log('district',res.data)
                 
                 if(type === 'IDCARD_AddrDistrictID') {
+                    setInputData({
+                        ...inputData,
+                        IDCARD_AddrDistrictID: districtID,
+                        IDCARD_AddrSubdistrictID: 0,
+                        IDCARD_Postcode: ''
+                    })
                     setSubDistrictIDCardList(res.data)
                 } else if(type === 'Contact_AddrDistrictID') {
+                    setInputData({
+                        ...inputData,
+                        Contact_AddrDistrictID: districtID,
+                        Contact_AddrSubdistrictID: 0,
+                        Contact_Postcode: ''
+                    })
                     setSubDistrictContactList(res.data)
                 } else if(type === 'Land_AddrDistrictID')  {
                     setSubDistrictLandList(res.data)
@@ -778,6 +792,56 @@ function EditFarmer(props) {
             });
     }
 
+    // Get ZipCode
+    async function fetchGetZipCode(type, subdistrictID) {
+        const res = await fetch(`${server_hostname}/admin/api/get_subdistricts`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                "ProvinceID": "",
+                "DistrictID": "",
+                "SubdistrictID": subdistrictID,
+                "TB_NAME": ""
+            }),
+            headers: {
+                // "x-application-secret-key": apiXKey,
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "token": token
+            }
+                
+        })
+        res
+            .json()
+            .then(res => {
+                if (res.code === 0 || res === '' || res === undefined) {
+                    console.log('ไม่พบ แขวง/ตำบล');
+                }
+                console.log('ZipCode',type,res.data[0].POSTAL)
+                
+                if(type === 'IDCARD_AddrSubdistrictID') {
+                    setInputData({
+                        ...inputData,
+                        IDCARD_AddrSubdistrictID: subdistrictID,
+                        IDCARD_Postcode: res.data[0].POSTAL,
+                    })
+                } else if(type === 'Contact_AddrSubdistrictID') {
+                    setInputData({
+                        ...inputData,
+                        Contact_AddrSubdistrictID: subdistrictID,
+                        Contact_Postcode: res.data[0].POSTAL,
+                    })
+                } else {
+                    // setSubDistrictIDCardList(res.data)
+                    // setSubDistrictContactList(res.data)
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                console.log('ไม่พบ แขวง/ตำบล');
+            });
+    }
+
     // Input Relation Province, District, Sub District
     const handleInputDataProvince = (event) => {
         setInputData({
@@ -798,6 +862,17 @@ function EditFarmer(props) {
         })
         if(event.target.value > 0) {
             fetchGetSubDistrict(event.target.name, event.target.value);
+            // fetchGetZipCode(event.target.name, event.target.value);
+        }
+    }
+
+    const handleInputDataSubDistrict = (event) => {
+        // setInputData({
+        //     ...inputData,
+        //     [event.target.name]: event.target.value
+        // })
+        if(event.target.value > 0) {
+            fetchGetZipCode(event.target.name, event.target.value);
         }
     }
 
@@ -1100,7 +1175,8 @@ function EditFarmer(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const myFile = document.querySelector("input[type=file]").files[0];
-
+        const BirthDateValue = Number(inputSelectBirthDate.yyyy) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd
+console.log(BirthDateValue)
 
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
@@ -1108,9 +1184,9 @@ function EditFarmer(props) {
         // formData.append('BirthDate', inputData.BirthDate === null || inputData.BirthDate === 'Invalid date' ? null : moment(inputData.BirthDate).format('YYYY-MM-DD'))
         // formData.append('IDCardEXP_Date', inputData.IDCardEXP_Date === null || inputData.IDCardEXP_Date === 'Invalid date' ? null :  moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
 
-        formData.append('BirthDate', Number(inputSelectBirthDate.yyyy.substring(0,4)) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
-        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2.substring(0,4)) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
-        
+        formData.append('BirthDate', BirthDateValue)
+        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
+
         formData.delete('dd')
         formData.delete('mm')
         formData.delete('yyyy')
@@ -1536,7 +1612,7 @@ function EditFarmer(props) {
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="IDCARD_AddrSubdistrictID" onChange={handleInputData}  />
+                                                <MuiSelectSubDistrict label="แขวง / ตำบล" id="addmember-idcard-subdistrict-select" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="IDCARD_AddrSubdistrictID" onChange={handleInputDataSubDistrict}  />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 {/* Field Text ---------------------------------------------------*/}
@@ -1577,7 +1653,7 @@ function EditFarmer(props) {
                                                             <MuiSelectDistrict label="เขต / อำเภอ" lists={districtContactList} value={inputData.Contact_AddrDistrictID} name="Contact_AddrDistrictID" onChange={handleInputDataDistrict}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputData}  />
+                                                            <MuiSelectSubDistrict label="แขวง / ตำบล" lists={subDistrictContactList} value={inputData.Contact_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputDataSubDistrict}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextNumber label="รหัสไปรษณีย์" id="addmember1-zip" placeholder="ตัวอย่าง 10230" value={inputData.Contact_Postcode} name="Contact_Postcode" onInput={handleInputData} />

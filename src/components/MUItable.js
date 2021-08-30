@@ -82,7 +82,7 @@ const MUItable = (props) => {
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const { 
+    let { 
       headCells, 
       rows, 
       rowsLabel, 
@@ -106,6 +106,12 @@ const MUItable = (props) => {
       requestEvent,
       requestParam1,
       requestParam2,
+      actionCreate,
+      createEvent,
+      createParam,
+      tableName,
+      loanrequestprintEvent,
+      loanrequestprintAction,
     } = props;
 
   useEffect(() => {
@@ -290,8 +296,21 @@ const MUItable = (props) => {
             hasAction ? 
               <TableCell align="center"  className="sticky">
                 {
+                  tableName === 'loanrequestprint' && row['LoanNumber'] ? 
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{loanrequestprintAction('edit'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
+                  : tableName === 'loanrequestprint' && row['LoanNumber'] === '' ?  
+                    <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{loanrequestprintAction('add'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
+                  : null
+                    // (applicantID, farmerID, applicantNo, loanID, loanNumber)
+                }
+                {
                   actionRequest ? 
                     <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
+                  : null
+                }
+                {
+                  actionCreate ? 
+                    <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createEvent(row[createParam])} />
                   : null
                 }
                 {

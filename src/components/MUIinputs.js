@@ -780,9 +780,9 @@ const MuiSelectMonth = (props) => {
 
 const MuiSelectYear = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText, limit } = props;
 
-    let fullyear = d.getFullYear() + 548;
+    let fullyear = d.getFullYear() + (limit >= 0 ? (limit+543) : 548); // specify limit value of year
     let yearObj = [];
     for(let i=0; i<=100; i++) {
         yearObj.push(fullyear - i);

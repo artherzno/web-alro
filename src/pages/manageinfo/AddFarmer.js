@@ -475,7 +475,7 @@ function AddFarmer(props) {
             });
     }
 
-    // Get SubDistrict
+    // Get ZipCode
     async function fetchGetZipCode(type, subdistrictID) {
         const res = await fetch(`${server_hostname}/admin/api/get_subdistricts`, {
             method: 'POST',
@@ -862,9 +862,9 @@ function AddFarmer(props) {
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
         // formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
-        formData.append('BirthDate', Number(inputSelectBirthDate.yyyy.substring(0,4)) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
+        formData.append('BirthDate', Number(inputSelectBirthDate.yyyy) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
         // formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
-        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2.substring(0,4)) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
+        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
         
         formData.delete('dd')
         formData.delete('mm')
@@ -1046,7 +1046,7 @@ function AddFarmer(props) {
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd" value={inputSelectBirthDate.dd} onChange={handleSelectBirthDate} />
                                                         <MuiSelectMonth label="" name="mm" value={inputSelectBirthDate.mm} onChange={handleSelectBirthDate} />
-                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectBirthDate.yyyy} onChange={handleSelectBirthDate} />
+                                                        <MuiSelectYear label="" limit={0} name="yyyy" value={inputSelectBirthDate.yyyy} onChange={handleSelectBirthDate} />
                                                     </div>
                                                     {/* 
                                                     <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
@@ -1057,7 +1057,7 @@ function AddFarmer(props) {
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd2" value={inputSelectExpireDate.dd2} onChange={handleSelectExpireDate} />
                                                         <MuiSelectMonth label="" name="mm2" value={inputSelectExpireDate.mm2} onChange={handleSelectExpireDate} />
-                                                        <MuiSelectYear label="" name="yyyy2" value={inputSelectExpireDate.yyyy2} onChange={handleSelectExpireDate} />
+                                                        <MuiSelectYear label="" limit={10} name="yyyy2" value={inputSelectExpireDate.yyyy2} onChange={handleSelectExpireDate} />
                                                     </div>
                                                     {/* <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                 </Grid>

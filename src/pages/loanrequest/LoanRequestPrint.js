@@ -47,6 +47,8 @@ import {
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
+import { MUItable } from '../../components/MUItable'
+
 let action = 'add';
 let action_loanstatus = 'draft';
 
@@ -207,6 +209,42 @@ function LoanRequestPrint(props) {
     const [confirmSuccessStep1, setConfirmSuccessStep1] = useState(false)
     const [confirmSuccessStep2, setConfirmSuccessStep2] = useState(false)
 
+    const [rows, setRows] = useState([])
+
+    const rowsLabel = [
+        // 'ApplicantID',
+        'RecordCode',
+        'RecDate', 
+        'ApplicantNo',
+        'ProjectID',
+        'ProjectName', 
+        'LoanNumber',
+        'dCreated',
+        'IDCard', 
+        'FrontName',
+        'Name',
+        'Sirname', 
+        'IDCARD_AddNo',
+    ]
+
+    const headCells = [
+        // { id: 'ApplicantID', numeric: false, disablePadding: true, widthCol: '0px', label: 'รหัสบันทึก' },
+        { id: 'RecordCode', numeric: false, disablePadding: true, widthCol: '140px', label: 'รหัสบันทึก' },
+        { id: 'RecDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่บันทึก' },
+        { id: 'ApplicantNo', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขคำขอ' },
+        { id: 'ProjectID', numeric: false, disablePadding: false, widthCol: '150px', label: 'รหัสโครงการ' },
+        { id: 'ProjectName', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อโครงการ' },
+        { id: 'LoanNumber', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขที่สัญญา' },
+        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        { id: 'IDCard', numeric: false, disablePadding: false, widthCol: '180px', label: 'เลขบัตรประชาชน' },
+        { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
+        { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
+        { id: 'Sirname', numeric: false, disablePadding: false, widthCol: '150px', label: 'นามสกุล' },
+        { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
+    ]
+        // <TableCell align="center">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
+                                                            
+    
     useEffect(() => {
         setLoaded(true);
 
@@ -242,8 +280,21 @@ function LoanRequestPrint(props) {
         checkLogin();
     }, [])
 
+    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantNo,ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
+        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantNo,ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
+    }
+
+    // New order date
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
+    }
+
 
     const getSearchApprovedApplicant = () => {
+        setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_approved_applicant`, {
                 ApplicantNo: parseInt(inputDataSearch.SearchByApplicantNo) || '',
@@ -251,6 +302,7 @@ function LoanRequestPrint(props) {
                 Name: inputDataSearch.SearchByName || '',
             }, { headers: { "token": token } } 
         ).then(res => {
+            setIsLoading(false)
                 console.log(res)
                 let data = res.data;
                 if(data.code === 0 || res === null || res === undefined) {
@@ -268,6 +320,28 @@ function LoanRequestPrint(props) {
                 }else {
                     console.log(data)
                     setTableResult(data.data)
+                    // setRows(data.data)
+                    setRows(
+                        data.data.map((item,i)=>
+                            createData(
+                                item.FarmerID,
+                                item.ApplicantID,
+                                item.LoanID,
+                                item.RecordCode === null ? '' : item.RecordCode,
+                                item.RecDate === null ? '' : item.RecDate,
+                                item.ApplicantNo === null ? '' : item.ApplicantNo,
+                                item.ProjectID === null ? '' : item.ProjectID,
+                                item.ProjectName === null ? '' : item.ProjectName,
+                                item.LoanNumber === null ? '' : item.LoanNumber,
+                                item.dCreated ? newOrderDate(item.dCreated) : null,
+                                item.IDCard === null ? '' : item.IDCard,
+                                item.FrontName === null ? '' : item.FrontName,
+                                item.Name === null ? '' : item.Name,
+                                item.Sirname === null ? '' : item.Sirname,
+                                item.IDCARD_AddNo === undefined ? '' : item.IDCARD_AddNo +' '+item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo+' '+item.IDCARD_AddrSoiRoad === undefined ? '' : item.IDCARD_AddrSoiRoad+' '+item.IDCARD_AddrSubdistrictName === undefined ? '' : item.IDCARD_AddrSubdistrictName+' '+item.IDCARD_AddrDistrictName === undefined ? '' : item.IDCARD_AddrDistrictName+' '+item.IDCARD_AddrProvinceName === undefined ? '' : item.IDCARD_AddrProvinceName+' '+item.IDCARD_Postcode  === undefined ? '' : item.IDCARD_Postcode
+                            )
+                        )
+                    )
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -518,6 +592,10 @@ function LoanRequestPrint(props) {
               setIsLoading(false)
             }
          });
+    }
+
+    const getAction = (actionVal) => {
+        action = actionVal;
     }
 
     const handleChangePage = (event, newPage) => {
@@ -829,6 +907,7 @@ function LoanRequestPrint(props) {
         setErr(false);
         setSuccess(false);
         setConfirm(false);
+        setIsLoading(false)
         // history.push('/manageinfo/searchmember');
 
     };
@@ -876,86 +955,32 @@ function LoanRequestPrint(props) {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table">
-                                    <TableContainer className="table-box table-loanrequestprint1 mg-t-10">
-                                        <Table aria-label="normal table">
-                                            <TableHead>
-                                            <TableRow>
-                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">เลขคำขอ</TableCell>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                <TableCell align="center">วันที่กู้</TableCell>
-                                                <TableCell align="center">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="center">คำนำหน้า</TableCell>
-                                                <TableCell align="center">ชื่อ</TableCell>
-                                                <TableCell align="center">นามสกุล</TableCell>
-                                                <TableCell align="center">ที่อยู่</TableCell>
-                                                <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>&nbsp;</TableCell>
-                                            </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {
-                                                    tableResult.length ? 
-                                                        (rowsPerPage > 0
-                                                            ? tableResult.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                            : tableResult
-                                                        ).map((cell,i) => (
-                                                        <TableRow key={i}>
-                                                            <TableCell align="center">{cell.RecordCode}</TableCell>
-                                                            <TableCell align="center">{cell.RecDate === null ? '' : moment(cell.RecDate).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center">{cell.ApplicantNo}</TableCell>
-                                                            <TableCell align="center">{cell.ProjectID === 0 ? '' : cell.ProjectID}</TableCell>
-                                                            <TableCell align="center">{cell.ProjectName}</TableCell>
-                                                            <TableCell align="center">{cell.LoanNumber}</TableCell>
-                                                            <TableCell align="center">{cell.dCreated === null ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center">{cell.IDCard}</TableCell>
-                                                            <TableCell align="center">{cell.FrontName}</TableCell>
-                                                            <TableCell align="center">{cell.Name}</TableCell>
-                                                            <TableCell align="center">{cell.Sirname}</TableCell>
-                                                            <TableCell align="center">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
-                                                            <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>
-                                                                {
-                                                                    cell.LoanID === null ? 
-                                                                    <ButtonFluidPrimary label="สร้าง" maxWidth="100px" onClick={(event)=>{action = 'add';getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID, cell.LoanNumber)}} />
-                                                                    :
-                                                                    <ButtonFluidPrimary label="แก้ไข" maxWidth="100px" onClick={(event)=>{action = 'edit'; getDataApprovedApplicant(cell.ApplicantID, cell.FarmerID, cell.ApplicantNo, cell.LoanID, cell.LoanNumber);}} />
-                                                                
-                                                                }
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        
-                                                    ))
-                                                    : 
-                                                    <TableRow>
-                                                        <TableCell colSpan={13} align="center">ไม่พบข้อมูล</TableCell>
-                                                    </TableRow>
-                                                }
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                    <TablePagination
-                                        rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
-                                        component="div"
-                                        count={tableResult.length || 0}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        onPageChange={handleChangePage}
-                                        onRowsPerPageChange={handleChangeRowsPerPage}
-                                        labelRowsPerPage="แสดงจำนวนแถว"
+                                <div className="table-box table-loanrequestprint mg-t-10">
+                                    <MUItable 
+                                        headCells={headCells} 
+                                        rows={rows} 
+                                        rowsLabel={rowsLabel} 
+                                        colSpan={36} 
+                                        hasCheckbox={false} 
+                                        hasAction={true} 
+                                        actionView={false} 
+                                        actionEdit={false} 
+                                        actionDelete={false} 
+                                        printParam1={'LoanNumber'}
+                                        tableName={'loanrequestprint'}
+                                        loanrequestprintAction={getAction}
+                                        loanrequestprintEvent={getDataApprovedApplicant}
                                     />
                                 </div>
                             </Grid>
                         </Grid>
                     </Container>
                     {
-                        isLoading ?
-                        <div>
-                            <p className="txt-center">...Loading...</p>
-                        </div>
-                        : ''
+                        isLoading ? 
+                            <div className="overlay">
+                                <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                            </div> : 
+                            ''
                     }
                     { 
                         openLoanRequestInfo && !isLoading ?
@@ -974,11 +999,15 @@ function LoanRequestPrint(props) {
                                                         <Grid item xs={12} md={6} className="form-view">
                                                             <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode"  value={parseInt(inputData.LoanPeriodCode)} onChange={handleInputData} type="row" />
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="วันที่ทำสัญญา"   />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เลขที่สัญญา" />
+                                                        <Grid item xs={12} md={6}>
+                                                            <Grid container spacing={2}>
+                                                                <Grid item xs={12} md={6}>
+                                                                    <MuiDatePicker label="วันที่ทำสัญญา"   />
+                                                                </Grid>
+                                                                {
+                                                                    action === 'add' ? '' : <Grid item xs={12} md={6}><MuiTextfield label="เลขที่สัญญา" inputdisabled="input-disabled" value={loanNumber} /></Grid>
+                                                                }
+                                                            </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="ชื่อ" inputdisabled="input-disabled" value={inputDataFarmer.Name} />

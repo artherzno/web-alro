@@ -130,6 +130,48 @@ function LoanRequestContactStep3(props) {
         console.log('Step3 stepper status:',localStorage.getItem('stepperStatus'))
         console.log('---------------------')
 
+        const newOrderDate = (val,type) => {
+            if(val === null || val === '') {
+                if(type==='1') {
+                    setInputSelectDate1({
+                        ...inputSelectDate1,
+                        yyyy1: '0000',
+                        mm1: '00',
+                        dd1: '00'
+                    })
+                } else {
+                    setInputSelectDate2({
+                        ...inputSelectDate2,
+                        yyyy2: '0000',
+                        mm2: '00',
+                        dd2: '00'
+                    })
+                }
+            } else {
+                let newyyyy = Number(val.substring(0,4)) + 543
+                let newmm = val.substring(5,7)
+                let newdd = val.substring(8,10)
+    
+                if(type==='1') {
+                    setInputSelectDate1({
+                        ...inputSelectDate1,
+                        yyyy1: newyyyy,
+                        mm1: newmm,
+                        dd1: newdd
+                    })
+                } else {
+                    setInputSelectDate2({
+                        ...inputSelectDate2,
+                        yyyy2: newyyyy,
+                        mm2: newmm,
+                        dd2: newdd
+                    })
+                }
+
+            }
+            // return dd+'/'+mm+'/'+yyyy
+        }
+
         // Action : view Applicant Step1
         const getViewApplicantStep3 = () => {
             setIsLoading(true)
@@ -166,7 +208,7 @@ function LoanRequestContactStep3(props) {
                             ApplicantID: props.ApplicantID, // 1,
                             FarmerInPorJor: dataViewStep3.FarmerInPorJor || '', // "",
                             LoanTime: dataViewStep3.LoanTime || '', // "",
-                            ApplicantDate: dataViewStep3.ApplicantDate || null, // "",
+                            ApplicantDate: newOrderDate(dataViewStep3.ApplicantDate, '1'), // "",
                             Behave: dataViewStep3.Behave || '', // "",
                             PayHistory: dataViewStep3.PayHistory || '', // "",
                             Allasset: dataViewStep3.Allasset || 0, // "",
@@ -184,7 +226,7 @@ function LoanRequestContactStep3(props) {
                             Condition: dataViewStep3.Condition || '', // "",
                             Reason: dataViewStep3.Reason || '', // "",
                             AprovalNo: dataViewStep3.AprovalNo || '', // "",
-                            ApproveDate: dataViewStep3.ApproveDate || null, // "",
+                            ApproveDate: newOrderDate(dataViewStep3.ApproveDate,'2'), // "",
                             ApproveDetail: dataViewStep3.ApproveDetail || '', // ""
                         })
                         // let resApplicant = res.data.data[0];
@@ -316,6 +358,24 @@ function LoanRequestContactStep3(props) {
         
     }, [])
 
+    const handleSelectDate = (event) => {
+        let type = event.target.name
+        let idname = event.target.name.slice(-1)
+
+        if(idname === '1') {
+            setInputSelectDate1({
+                ...inputSelectDate1,
+                [event.target.name]: event.target.value.toString()
+            })
+        } else {
+            setInputSelectDate2({
+                ...inputSelectDate2,
+                [event.target.name]: event.target.value.toString()
+            })
+        }
+        console.log('idname', idname, 'type',type, 'value', event.target.value)
+    }
+
     // Radio Button
     const handleChangeTypeSuitability = (event) => {
         setInputData({...inputData,
@@ -405,8 +465,8 @@ const handleInputData = (event) => {
         let formData = new FormData(addApplicantStep3);
         formData.delete('typeRadio')
         formData.append('ApplicantID', props.ApplicantID || localStorage.getItem('applicantID'))
-        formData.append('ApplicantDate', moment(inputData.ApplicantDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApplicantDate)
-        formData.append('ApproveDate', moment(inputData.ApproveDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApproveDate)
+        // formData.append('ApplicantDate', moment(inputData.ApplicantDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApplicantDate)
+        // formData.append('ApproveDate', moment(inputData.ApproveDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApproveDate)
         formData.set('Guarantee1',inputData.Guarantee1);
         formData.set('Guarantee2',inputData.Guarantee2);
         formData.set('Approval',inputData.Approval);
@@ -414,6 +474,19 @@ const handleInputData = (event) => {
         formData.set('EstimateImcome', parseFloat(EstimateImcome_value.split(',').join('')))
         formData.set('Cost', parseFloat(Cost_value.split(',').join('')))
         formData.set('ProjectValue', parseFloat(ProjectValue_value.split(',').join('')))
+
+
+        // formData.append('ApplicantDate', moment(inputData.ApplicantDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApplicantDate)
+        // formData.append('ApproveDate', moment(inputData.ApproveDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApproveDate)
+        formData.append('ApplicantDate', Number(inputSelectDate1.yyyy1) - 543+'-'+inputSelectDate1.mm1+'-'+inputSelectDate1.dd1)
+        formData.append('ApproveDate', Number(inputSelectDate2.yyyy2) - 543+'-'+inputSelectDate2.mm2+'-'+inputSelectDate2.dd2)
+        
+        formData.delete('dd1')
+        formData.delete('mm1')
+        formData.delete('yyyy1')
+        formData.delete('dd2')
+        formData.delete('mm2')
+        formData.delete('yyyy2')
 
         let url = `${server_hostname}/admin/api/update_applicant_step3`;
         // if(props.action === 'edit') {
@@ -531,16 +604,21 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                                         <MuiLabelHeader label="1.1 เป็นเกษตรกรที่ได้รับการคัดเลือกให้เข้าทำประโยชน์ในเขตปฏิรูปที่ดิน ตามมติคปจ." />
                                                         <MuiTextfield label="" name="FarmerInPorJor" value={inputData.FarmerInPorJor}  onChange={handleInputData}  />
                                                     </Grid>
-                                                    <Grid item xs={12} md={7} className="dsp-f">
+                                                    <Grid item xs={12} md={6} className="dsp-f">
                                                         <div className="dsp-f">
                                                             <Grid item xs={12} md={12}>
                                                                 <MuiTextfield label="ครั้งที่" name="LoanTime" value={inputData.LoanTime}  onChange={handleInputData}  />
                                                             </Grid>
                                                         </div>
                                                     </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                        {/* Field Date Picker ---------------------------------------------------*/}
-                                                        <MuiDatePicker label="วันที่" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                    <Grid item xs={12} md={6}>
+                                                        <p>วันที่</p>
+                                                        <div className="select-date-option">
+                                                            <MuiSelectDay label="" name="dd1" value={inputSelectDate1.dd1} onChange={handleSelectDate} />
+                                                            <MuiSelectMonth label="" name="mm1" value={inputSelectDate1.mm1} onChange={handleSelectDate} />
+                                                            <MuiSelectYear label="" limit={0} name="yyyy1" value={inputSelectDate1.yyyy1} onChange={handleSelectDate} />
+                                                        </div>
+                                                        {/* <MuiDatePicker label="วันที่" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfieldMultiLine label="และเป็นผู้มีความประพฤติ" defaultValue="" row="3" name="Behave" value={inputData.Behave}  onChange={handleInputData}  />
@@ -705,7 +783,13 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                                                 <MuiTextfield label="เลขที่" name="AprovalNo" value={inputData.AprovalNo} onChange={handleInputData}/>        
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiDatePicker label="ลงวันที่" name="ApproveDate" value={inputData.ApproveDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <p>ลงวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="dd2" value={inputSelectDate2.dd2} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="mm2" value={inputSelectDate2.mm2} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" limit={0} name="yyyy2" value={inputSelectDate2.yyyy2} onChange={handleSelectDate} />
+                                                                </div>
+                                                                {/* <MuiDatePicker label="ลงวันที่" name="ApproveDate" value={inputData.ApproveDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
                                                                 {/* Field Text ---------------------------------------------------*/}
