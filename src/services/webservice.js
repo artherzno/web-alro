@@ -10,21 +10,21 @@ const api = {
     
     getProvinceList(){
 
-        return get({
+        return post({
             path:"api/ReportServices/GetProvinces"
         })
 
     },
     getMonthList() {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetMonth"
         })
 
     },
     getZoneList() {
 
-        return get({
+        return post({
             path: "api/ReportServices/GetZone"
         })
 

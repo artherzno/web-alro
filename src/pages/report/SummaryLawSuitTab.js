@@ -199,7 +199,7 @@ class SummaryLawSuitTab extends React.Component {
                                         this.setState({
                                             startDate: startDate,
                                             endDate: endDate,
-                                            dateRangLabel: `${moment(event[0]).format("DD MMMM YYYY")} - ${moment(event[1]).format("DD MMMM YYYY")}`
+                                            dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
                                             this.loadPayLoan()
                                         })
