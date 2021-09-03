@@ -132,6 +132,7 @@ function EditFarmer(props) {
         Sirname: '', // 'แซ่ฉ่วย',
         BirthDate: null, // '2022-12-11',
         Tel: '', // '087-712-8888',
+        IDCardMade: '',
         IDCardEXP_Date: null, // '2022-12-13',
         IDCARD_AddNo: '', // '123',
         IDCARD_AddMoo: '', // 'หมู่ 4',
@@ -456,6 +457,7 @@ function EditFarmer(props) {
                             // BirthDate: resEditData.BirthDate || null, // '2022-12-11',
                             BirthDate: newOrderDate(resEditData.BirthDate, 'birthdate'),
                             Tel: resEditData.Tel || '', // '087-712-8888',
+                            IDCardMade: resEditData.IDCardMade || '',
                             IDCardEXP_Date: newOrderDate(resEditData.IDCardEXP_Date, 'expiredate'), // '2022-12-13',
                             IDCARD_AddNo: resEditData.IDCARD_AddNo || '', // '123',
                             IDCARD_AddMoo: resEditData.IDCARD_AddMoo || '', // 'หมู่ 4',
@@ -1568,6 +1570,10 @@ console.log(BirthDateValue)
                                                     </div>
                                                     {/* <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />*/}
                                                 </Grid>
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                {/* Field Text ---------------------------------------------------*/}
+                                                <MuiTextfield label="สถานที่ออกบัตร" defaultValue="" value={inputData.IDCardMade} name="IDCardMade" onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}

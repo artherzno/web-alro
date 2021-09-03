@@ -547,7 +547,7 @@ const MuiDatePicker = (props) => {
                         onChange={onChange}
                         renderInput={(params) => {
 
-                            console.log("params", params)
+                            // console.log("params", params)
                             // const valueDisplay = moment()
                             return <TextField {...params} inputProps={{ ...params.inputProps, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
                         }}

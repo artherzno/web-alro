@@ -92,6 +92,7 @@ const MUItable = (props) => {
       actionView, 
       viewEvent, 
       viewParam, 
+      viewParam2,
       actionEdit, 
       editEvent,
       editParam,
@@ -287,7 +288,7 @@ const MUItable = (props) => {
 
         {
           rowsLabel.map((item,i)=> 
-            <TableCell align="left">{row[item]} </TableCell>
+            <TableCell key={i} align="left">{row[item]} </TableCell>
             // <TableCell align="left"><div dangerouslySetInnerHTML={createMarkup()} /></TableCell>
           )
         }
@@ -315,7 +316,7 @@ const MUItable = (props) => {
                 }
                 {
                   actionView ? 
-                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="90px" onClick={()=>viewEvent(row[viewParam])} />
+                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="90px" onClick={()=>viewEvent(row[viewParam], row[viewParam2])} />
                   : null
                 }
                 {

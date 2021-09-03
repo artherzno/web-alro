@@ -32,6 +32,9 @@ import {
     MuiRadioButton,
     MuiTextNumber,
     MuiDatePicker,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
     MuiSelectProvince,
     MuiSelectDistrict,
     MuiSelectSubDistrict,
@@ -79,12 +82,59 @@ function LoanRequestPrint(props) {
         SearchByLoanNumber: '',
         SearchByName: '',
     })
+
+    const [inputSelectDateLoandata, setInputSelectDateLoandata] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000',
+    })
+
+
+    const [inputSelectDate, setInputSelectDate] = useState({
+        recdatedd: '00',
+        recdatemm: '00',
+        recdateyyyy: '0000',
+
+        loandatedd: '00',
+        loandatemm: '00',
+        loandateyyyy: '0000',
+
+        spkorderdatedd: '00',
+        spkorderdatemm: '00',
+        spkorderdateyyyy: '0000',
+
+        guaranteepropertydd: '00',
+        guaranteepropertymm: '00',
+        guaranteepropertyyyyy: '0000',
+
+        loanguaranteebookdd: '00',
+        loanguaranteebookmm: '00',
+        loanguaranteebookyyyy: '0000',
+
+        warrantbookdate1dd: '00',
+        warrantbookdate1mm: '00',
+        warrantbookdate1yyyy: '0000',
+
+        warrantbookdate2dd: '00',
+        warrantbookdate2mm: '00',
+        warrantbookdate2yyyy: '0000',
+
+        firstdatepaiddd: '00',
+        firstdatepaidmm: '00',
+        firstdatepaidyyyy: '0000',
+
+        lastdatepaiddd: '00',
+        lastdatepaidmm: '00',
+        lastdatepaidyyyy: '0000',
+    })
+
     const [applicantNo, setApplicantNo] = useState('')
     const [loanID, setLoanID] = useState('')
     const [loanNumber, setLoanNumber] = useState('')
     const [inputDataFarmer, setInputDataFarmer] = useState([])
     const [inputDataLand, setInputDataLand] = useState([])
     const [inputData, setInputData] = useState([])
+    // const [inputDataLoan, setinputDataLoan] = useState([])
     const [inputDataSubmit, setInputDataSubmit] = useState({
         ApplicantID: '', // 1,
         LoanDate: null, // "",
@@ -173,6 +223,35 @@ function LoanRequestPrint(props) {
         ProvinceID: '', // "",
         IDCard: '', // "",
     })
+
+    const [loandueDataAPI, setLoandueDataAPI] = useState(null)
+    const [loandueDataArr, setLoandueDataArr] = useState([
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+        { DUEDATE: null, PAYREC : null},
+    ])
 
     const [loandue_data1, setLoandue_data1] = useState({
         DUEDATE: null,
@@ -292,6 +371,13 @@ function LoanRequestPrint(props) {
         return dd+'/'+mm+'/'+yyyy
     }
 
+    // Re order date
+    const reOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return yyyy+'/'+mm+'/'+dd
+    }
 
     const getSearchApprovedApplicant = () => {
         setIsLoading(true)
@@ -359,6 +445,34 @@ function LoanRequestPrint(props) {
         setLoandue_data3({ DUEDATE: null, PAYREC: ''  })
         setLoandue_data4({ DUEDATE: null, PAYREC: ''  })
         setLoandue_data5({ DUEDATE: null, PAYREC: ''  })
+        setLoandueDataArr([
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+            { DUEDATE: null, PAYREC : null},
+        ])
+        
 
         axios.post(
             `${server_hostname}/admin/api/get_approved_applicant`, {
@@ -394,8 +508,13 @@ function LoanRequestPrint(props) {
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
+                        setLoandueDataAPI(null)
                         setIsLoading(false);
                         setApplicantNo(applicantNo);
+                        // setinputDataLoan({
+                        //     ...inputDataLoan,
+
+                        // })
                         setInputDataSubmit({
                             ...inputDataSubmit, 
                             FarmerID: farmerID,
@@ -413,12 +532,12 @@ function LoanRequestPrint(props) {
                             OfficerRank: '', // "",
                             SPK_Order: '', // "",
                             SPK_OrderDate: null, // "",
-                            Loan_Obj1: '', // "",
-                            Loan_Obj1Amount: 0, // "",
-                            Loan_Obj2: '', // "",
-                            Loan_Obj2Amount: 0, // "",
-                            Loan_Obj3: '', // "",
-                            Loan_Obj3Amount: 0, // "",
+                            Loan_Obj1: data.data[0].objective1 === null ? '' : data.data[0].objective1, // "",
+                            Loan_Obj1Amount: data.data[0].Loan_amount1 === null ? 0 : data.data[0].Loan_amount1, // "",
+                            Loan_Obj2: data.data[0].objective2 === null ? '' : data.data[0].objective2, // "",
+                            Loan_Obj2Amount: data.data[0].Loan_amount1 === null ? 0 : data.data[0].Loan_amount2, // "",
+                            Loan_Obj3: data.data[0].objective3 === null ? '' : data.data[0].objective3, // "",
+                            Loan_Obj3Amount: data.data[0].Loan_amount3 === null ? '' : data.data[0].Loan_amount3, // "",
                             Loan_Installment1: 0, // "",
                             Loan_Installment2: 0, // "",
                             Loan_Installment3: 0, // "",
@@ -486,6 +605,45 @@ function LoanRequestPrint(props) {
                             IDCard: '', // "",
                         })
 
+                        setInputSelectDate({
+                            ...inputSelectDate,
+                            recdatedd: '00',
+                            recdatemm: '00',
+                            recdateyyyy: '0000',
+
+                            loandatedd: '00',
+                            loandatemm: '00',
+                            loandateyyyy: '0000',
+
+                            spkorderdatedd: '00',
+                            spkorderdatemm: '00',
+                            spkorderdateyyyy: '0000',
+
+                            guaranteepropertydd: '00',
+                            guaranteepropertymm: '00',
+                            guaranteepropertyyyyy: '0000',
+
+                            loanguaranteebookdd: '00',
+                            loanguaranteebookmm: '00',
+                            loanguaranteebookyyyy: '0000',
+
+                            warrantbookdate1dd: '00',
+                            warrantbookdate1mm: '00',
+                            warrantbookdate1yyyy: '0000',
+
+                            warrantbookdate2dd: '00',
+                            warrantbookdate2mm: '00',
+                            warrantbookdate2yyyy: '0000',
+
+                            firstdatepaiddd: '00',
+                            firstdatepaidmm: '00',
+                            firstdatepaidyyyy: '0000',
+
+                            lastdatepaiddd: '00',
+                            lastdatepaidmm: '00',
+                            lastdatepaidyyyy: '0000',
+                        })
+
                         setLoanID(loanID)
                         setLoanNumber(loanNumber);
 
@@ -544,11 +702,20 @@ function LoanRequestPrint(props) {
                     })
                     setLoanID(loanID)
                     setLoanNumber(loanNumber);
+                    console.warn('Loandue_data',data.loandue_data)
+                    setLoandueDataAPI(data.loandue_data)
+
+                    for(let i=0; i<data.loandue_data.length; i++) {
+                        let payrecArr = [...loandueDataArr]
+                        payrecArr[i].PAYREC = parseFloat(data.loandue_data[i].PAYREC)
+                        setLoandueDataArr(payrecArr)
+                    }
 
                     // Insert Radio Free_of_debt
                     data.results[0].Free_of_debt_Month ? setFree_of_debt('0') : setFree_of_debt('1')
 
-                    console.warn(data.loandue_data[0].DUEDATE)
+                    console.warn('Loandue_data',loandueDataAPI)
+                    
                     for(let i=0; i<data.loandue_data.length; i++) {
 
                         if(i===0) {
@@ -615,18 +782,66 @@ function LoanRequestPrint(props) {
         })
     }
 
-    const handleInputLoanDueDataPay= (event) => {
-        if(event.target.id === 'loandue_data1') {
-            setLoandue_data1({...loandue_data1, PAYREC: event.target.value.split(',').join('')})
-        } else if(event.target.id === 'loandue_data2') {
-            setLoandue_data2({...loandue_data2, PAYREC: event.target.value.split(',').join('')})
-        } else if(event.target.id === 'loandue_data3') {
-            setLoandue_data3({...loandue_data3, PAYREC: event.target.value.split(',').join('')})
-        } else if(event.target.id === 'loandue_data4') {
-            setLoandue_data4({...loandue_data4, PAYREC: event.target.value.split(',').join('')})
-        } else if(event.target.id === 'loandue_data5') {
-            setLoandue_data5({...loandue_data5, PAYREC: event.target.value.split(',').join('')})
+
+
+    const handleSelectDate = (event) => {
+        let type = event.target.name
+        
+        setInputSelectDate({
+            ...inputSelectDate,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+
+        if(type === 'firstdatepaiddd' || type === 'firstdatepaidmm' || type === 'firstdatepaidyyyy') {
+            console.log(inputSelectDate)
+            let payrecArr = [...loandueDataArr]
+            payrecArr[0].DUEDATE = inputSelectDate.firstdatepaiddd+'-'+inputSelectDate.firstdatepaidmm+'-'+inputSelectDate.firstdatepaidyyyy
+            setLoandueDataArr(payrecArr)
         }
+    }
+
+    const handleSelectDateLoandata = (event) => {
+        let type = event.target.name
+        setInputSelectDateLoandata({
+            ...inputSelectDateLoandata,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+        
+    }
+
+    const handleInputLoanDueDataPay= (event, index, type) => {
+        // let payrecArr = [];
+        let payrecValue = event.target.value
+        let payrecID = event.target.id//.toString().slice(-3)
+        console.log(payrecID, payrecValue)
+
+        if(type === 'date') {
+            
+            // loandueDataArray[index].DUEDATE = parseFloat(payrecValue.split(',').join(''))
+        } else {
+            let payrecArr = [...loandueDataArr]
+            if(action === 'add') {}
+            payrecArr[index].PAYREC = parseFloat(payrecValue.split(',').join(''))
+            setLoandueDataArr(payrecArr)
+            // loandueDataArray[index].PAYREC = parseFloat(payrecValue.split(',').join(''))
+        }
+        
+
+        console.log(loandueDataArr)
+
+        // if(event.target.id === 'loandue_data1') {
+        //     setLoandue_data1({...loandue_data1, PAYREC: event.target.value.split(',').join('')})
+        // } else if(event.target.id === 'loandue_data2') {
+        //     setLoandue_data2({...loandue_data2, PAYREC: event.target.value.split(',').join('')})
+        // } else if(event.target.id === 'loandue_data3') {
+        //     setLoandue_data3({...loandue_data3, PAYREC: event.target.value.split(',').join('')})
+        // } else if(event.target.id === 'loandue_data4') {
+        //     setLoandue_data4({...loandue_data4, PAYREC: event.target.value.split(',').join('')})
+        // } else if(event.target.id === 'loandue_data5') {
+        //     setLoandue_data5({...loandue_data5, PAYREC: event.target.value.split(',').join('')})
+        // }
     }
 
     const handleInputFreeofDebt = (event) => {
@@ -720,6 +935,26 @@ function LoanRequestPrint(props) {
         }
     }
 
+    const handleInputDataSubmitFreeDebtTime = (event) => {
+
+        if(event.target.value <= 25) {
+            setInputDataSubmit({
+                ...inputDataSubmit,
+                [event.target.name]: event.target.value
+            })
+        } else if(event.target.value < 0) {
+            setInputDataSubmit({
+                ...inputDataSubmit,
+                [event.target.name]: 0
+            })
+        } else {
+            setInputDataSubmit({
+                ...inputDataSubmit,
+                [event.target.name]: 25
+            })
+        }
+    }
+
     const handleInputDataSubmit = (event) => {
         // console.log('event.target.id',event.target.id)
         if(event.target.type === 'number') {
@@ -776,21 +1011,88 @@ function LoanRequestPrint(props) {
         let formData = new FormData(loanrequestprint);
         formData.delete('Free_of_debt')
         formData.delete('LoanPeriodCode')
+        formData.delete('dd')
+        formData.delete('mm')
+        formData.delete('yyyy')
+
+        formData.delete('recdatedd')
+        formData.delete('recdatemm')
+        formData.delete('recdateyyyy')
+
+        formData.delete('loandatedd')
+        formData.delete('loandatemm')
+        formData.delete('loandateyyyy')
+
+        formData.delete('spkorderdatedd')
+        formData.delete('spkorderdatemm')
+        formData.delete('spkorderdateyyyy')
+
+        formData.delete('guaranteepropertydd')
+        formData.delete('guaranteepropertymm')
+        formData.delete('guaranteepropertyyyyy')
+
+        formData.delete('loanguaranteebookdd')
+        formData.delete('loanguaranteebookmm')
+        formData.delete('loanguaranteebookyyyy')
+
+        formData.delete('warrantbookdate1dd')
+        formData.delete('warrantbookdate1mm')
+        formData.delete('warrantbookdate1yyyy')
+
+        formData.delete('warrantbookdate2dd')
+        formData.delete('warrantbookdate2mm')
+        formData.delete('warrantbookdate2yyyy')
+
+        formData.delete('firstdatepaiddd')
+        formData.delete('firstdatepaidmm')
+        formData.delete('firstdatepaidyyyy')
+
+        formData.delete('lastdatepaiddd')
+        formData.delete('lastdatepaidmm')
+        formData.delete('lastdatepaidyyyy')
 
         formData.append('FarmerID', inputDataSubmit.FarmerID)
         formData.append('ApplicantID', inputDataSubmit.ApplicantID)
         formData.append('LoanStatus', action_loanstatus)
 
-        formData.append('LoanDate', inputDataSubmit.LoanDate === 'Invalid date' || inputDataSubmit.LoanDate === null ? null : moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
-        formData.append('RecDate', inputDataSubmit.RecDate === 'Invalid date' || inputDataSubmit.RecDate === null ? null : moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
-        formData.append('SPK_OrderDate', inputDataSubmit.SPK_OrderDate === 'Invalid date' || inputDataSubmit.SPK_OrderDate === null ? null : moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
-        formData.append('Guarantee_PropertyDate', inputDataSubmit.Guarantee_PropertyDate === 'Invalid date' || inputDataSubmit.Guarantee_PropertyDate === null ? null : moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
-        formData.append('LoanGuaranteeBookDate', inputDataSubmit.LoanGuaranteeBookDate === 'Invalid date' || inputDataSubmit.LoanGuaranteeBookDate === null ? null : moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
-        formData.append('WarrantBookDate1', inputDataSubmit.WarrantBookDate1 === 'Invalid date' || inputDataSubmit.WarrantBookDate1 === null ? null : moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
-        formData.append('WarrantBookDate2', inputDataSubmit.WarrantBookDate2 === 'Invalid date' || inputDataSubmit.WarrantBookDate2 === null ? null : moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
-        formData.append('FirstDatePaid', inputDataSubmit.FirstDatePaid === 'Invalid date' || inputDataSubmit.FirstDatePaid === null ? null : moment(inputDataSubmit.FirstDatePaid).format('YYYY-MM-DD'))
-        formData.append('LastDatePaid', inputDataSubmit.ChangeContactLastDatePaidCommitDate === 'Invalid date' || inputDataSubmit.LastDatePaid === null ? null : moment(inputDataSubmit.LastDatePaid).format('YYYY-MM-DD'))
+        // formData.append('LoanDate', inputDataSubmit.LoanDate === 'Invalid date' || inputDataSubmit.LoanDate === null ? null : moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
+        let LoanDateValue = (inputSelectDate.loandateyyyy === '0000' ? '0000' : inputSelectDate.loandateyyyy - 543)+'-'+inputSelectDate.loandatemm+'-'+inputSelectDate.loandatedd
+        formData.append('LoanDate', LoanDateValue === '0000-00-00' ? null : LoanDateValue)
+        
+        // formData.append('RecDate', inputDataSubmit.RecDate === 'Invalid date' || inputDataSubmit.RecDate === null ? null : moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
+        let RecDateValue = (inputSelectDate.recdateyyyy === '0000' ? '0000' : inputSelectDate.recdateyyyy - 543)+'-'+inputSelectDate.recdatemm+'-'+inputSelectDate.recdatedd
+        formData.append('RecDate', RecDateValue === '0000-00-00' ? null : RecDateValue)
+  
+        // formData.append('SPK_OrderDate', inputDataSubmit.SPK_OrderDate === 'Invalid date' || inputDataSubmit.SPK_OrderDate === null ? null : moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
+        let SPK_OrderDateValue = (inputSelectDate.spkorderdateyyyy === '0000' ? '0000' : inputSelectDate.spkorderdateyyyy - 543)+'-'+inputSelectDate.spkorderdatemm+'-'+inputSelectDate.spkorderdatedd
+        formData.append('SPK_OrderDate', SPK_OrderDateValue === '0000-00-00' ? null : SPK_OrderDateValue)
+  
+        // formData.append('Guarantee_PropertyDate', inputDataSubmit.Guarantee_PropertyDate === 'Invalid date' || inputDataSubmit.Guarantee_PropertyDate === null ? null : moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
+        let Guarantee_PropertyDateValue = (inputSelectDate.guaranteepropertyyyyy === '0000' ? '0000' : inputSelectDate.guaranteepropertyyyyy - 543)+'-'+inputSelectDate.guaranteepropertymm+'-'+inputSelectDate.guaranteepropertydd
+        formData.append('Guarantee_PropertyDate', Guarantee_PropertyDateValue === '0000-00-00' ? null : Guarantee_PropertyDateValue)
+        
+        // formData.append('LoanGuaranteeBookDate', inputDataSubmit.LoanGuaranteeBookDate === 'Invalid date' || inputDataSubmit.LoanGuaranteeBookDate === null ? null : moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
+        let LoanGuaranteeBookDateValue = (inputSelectDate.loanguaranteebookyyyy === '0000' ? '0000' : inputSelectDate.loanguaranteebookyyyy - 543)+'-'+inputSelectDate.loanguaranteebookmm+'-'+inputSelectDate.loanguaranteebookdd
+        formData.append('LoanGuaranteeBookDate', LoanGuaranteeBookDateValue === '0000-00-00' ? null : LoanGuaranteeBookDateValue)
+        
+        // formData.append('WarrantBookDate1', inputDataSubmit.WarrantBookDate1 === 'Invalid date' || inputDataSubmit.WarrantBookDate1 === null ? null : moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
+        let WarrantBookDate1Value = (inputSelectDate.warrantbookdate1yyyy === '0000' ? '0000' : inputSelectDate.warrantbookdate1yyyy - 543)+'-'+inputSelectDate.warrantbookdate1mm+'-'+inputSelectDate.warrantbookdate1dd
+        formData.append('WarrantBookDate1', WarrantBookDate1Value === '0000-00-00' ? null : WarrantBookDate1Value)
+        
+        // formData.append('WarrantBookDate2', inputDataSubmit.WarrantBookDate2 === 'Invalid date' || inputDataSubmit.WarrantBookDate2 === null ? null : moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
+        let WarrantBookDate2Value = (inputSelectDate.warrantbookdate2yyyy === '0000' ? '0000' : inputSelectDate.warrantbookdate2yyyy - 543)+'-'+inputSelectDate.warrantbookdate2mm+'-'+inputSelectDate.warrantbookdate2dd
+        formData.append('WarrantBookDate2', WarrantBookDate2Value === '0000-00-00' ? null : WarrantBookDate2Value)
+        
+        // formData.append('FirstDatePaid', inputDataSubmit.FirstDatePaid === 'Invalid date' || inputDataSubmit.FirstDatePaid === null ? null : moment(inputDataSubmit.FirstDatePaid).format('YYYY-MM-DD'))
+        let FirstDatePaidValue = (inputSelectDate.firstdatepaidyyyy === '0000' ? '0000' : inputSelectDate.firstdatepaidyyyy - 543)+'-'+inputSelectDate.firstdatepaidmm+'-'+inputSelectDate.firstdatepaiddd
+        formData.append('FirstDatePaid', FirstDatePaidValue === '0000-00-00' ? null : FirstDatePaidValue)
+        
+        // formData.append('LastDatePaid', inputDataSubmit.ChangeContactLastDatePaidCommitDate === 'Invalid date' || inputDataSubmit.LastDatePaid === null ? null : moment(inputDataSubmit.LastDatePaid).format('YYYY-MM-DD'))
+        let LastDatePaidValue = (inputSelectDate.lastdatepaidyyyy === '0000' ? '0000' : inputSelectDate.lastdatepaidyyyy - 543)+'-'+inputSelectDate.lastdatepaidmm+'-'+inputSelectDate.lastdatepaiddd
+        formData.append('LastDatePaid', LastDatePaidValue === '0000-00-00' ? null : LastDatePaidValue)
+        
         formData.append('ChangeContactCommitDate', inputDataSubmit.ChangeContactCommitDate === 'Invalid date' || inputDataSubmit.ChangeContactCommitDate === null ? null : moment(inputDataSubmit.ChangeContactCommitDate).format('YYYY-MM-DD'))
+        formData.append('principle', parseFloat(inputDataSubmit.Loan_Obj1Amount) + parseFloat(inputDataSubmit.Loan_Obj2Amount) + parseFloat(inputDataSubmit.Loan_Obj3Amount))
 
         //Loan_Obj1Amount
         let Loan_Obj1Amount_value = inputDataSubmit.Loan_Obj1Amount.toLocaleString('en-US', {minimumFractionDigits: 2})
@@ -816,25 +1118,30 @@ function LoanRequestPrint(props) {
 
         let Interest_value = inputDataSubmit.Interest.toLocaleString('en-US', {minimumFractionDigits: 2})
         formData.set('Interest', parseFloat(Interest_value.split(',').join('')))
-
-        let loandueDataArr = [];
-        loandueDataArr.push(loandue_data1);
-        if(parseInt(inputData.LoanPeriodCode) >= 1) {
-            loandueDataArr.push(loandue_data2);
-            loandueDataArr.push(loandue_data3);
+        
+        // let loandueDataArr = [];
+        // loandueDataArr.push(loandue_data1);
+        // if(parseInt(inputData.LoanPeriodCode) >= 1) {
+        //     loandueDataArr.push(loandue_data2);
+        //     loandueDataArr.push(loandue_data3);
+        // }
+        // if(parseInt(inputData.LoanPeriodCode) >= 2) {
+        //     loandueDataArr.push(loandue_data4);
+        //     loandueDataArr.push(loandue_data5);
+        // }
+        let loandueDataArrValue = []
+        console.log('inputDataSubmit.Free_of_debt_Time',inputDataSubmit.Free_of_debt_Time.length)
+        for(let i=0; i<inputDataSubmit.Free_of_debt_Time; i++) {
+            loandueDataArrValue.push(loandueDataArr[i])
         }
-        if(parseInt(inputData.LoanPeriodCode) >= 2) {
-            loandueDataArr.push(loandue_data4);
-            loandueDataArr.push(loandue_data5);
-        }
-        formData.append('loandue_data', JSON.stringify(loandueDataArr));
+        formData.append('loandue_data', JSON.stringify(loandueDataArrValue));
         let url = '';
-        console.log('action_loanstatus',action_loanstatus)
+        console.log('action_loanstatus:',action_loanstatus)
         if(action==='edit') {
             formData.append('LoanID', loanID)
-            url = `${server_hostname}/admin/api/edit_loanrec`
+            url = `${server_hostname}/admin/api/edit_loanrecc`
         } else {
-            url =`${server_hostname}/admin/api/add_loanrec`
+            url =`${server_hostname}/admin/api/add_loanrecc`
         } 
         console.log(action,'|', action_loanstatus,'|', url.toString())
         console.log('ApplicantID',inputDataSubmit.ApplicantID,'| FarmerID',inputDataSubmit.FarmerID)
@@ -911,6 +1218,96 @@ function LoanRequestPrint(props) {
         // history.push('/manageinfo/searchmember');
 
     };
+
+    const rowTable = (amountRow, dataRow) => {
+        let rowArr = []
+
+        // Check amount of row <= 0 ???
+        if(amountRow <= 0 || amountRow === '') {
+            rowArr.push(
+                <TableRow>
+                    <TableCell align="center"> - </TableCell>
+                    <TableCell align="left">
+                        <div className="select-date-option">
+                            <MuiSelectDay label="" name="dd" value={'00'} inputdisabled="input-disabled" />
+                            <MuiSelectMonth label="" name="mm" value={'00'} inputdisabled="input-disabled" />
+                            <MuiSelectYear label="" name="yyyy" value={'0000'} inputdisabled="input-disabled" />
+                        </div>  
+                    </TableCell>
+                    <TableCell align="center">
+                        <MuiTextfieldCurrency inputdisabled="input-disabled" label="" value={''}  />
+                    </TableCell>
+                </TableRow>
+            )
+        } else {
+            for(let i=0; i<amountRow; i++) {
+                
+                if(action === 'add') {
+                    rowArr.push(
+                        <TableRow key={i}>
+                            <TableCell align="center">{i+1}</TableCell>
+                            <TableCell align="left">
+                                <div className="select-date-option">
+                                    <MuiSelectDay label="" name="dd" value={'00'} onChange={handleSelectDateLoandata} />
+                                    <MuiSelectMonth label="" name="mm" value={'00'} onChange={handleSelectDateLoandata} />
+                                    <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={handleSelectDateLoandata} />
+                                </div>  
+                            </TableCell>
+                            <TableCell align="center">
+                                    <MuiTextfieldCurrency  label="" value={loandueDataArr.PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
+                            </TableCell>
+                        </TableRow>
+                    )
+                } else {
+                    // action === 'edit'
+                    if(loandueDataAPI === null) {
+                        rowArr.push(
+                            <TableRow key={i}>
+                                <TableCell align="center">{i+1}</TableCell>
+                                <TableCell align="left">
+                                    <div className="select-date-option">
+                                        <MuiSelectDay label="" name="dd" value={'00'} onChange={handleSelectDateLoandata} />
+                                        <MuiSelectMonth label="" name="mm" value={'00'} onChange={handleSelectDateLoandata} />
+                                        <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={handleSelectDateLoandata} />
+                                    </div>  
+                                </TableCell>
+                                <TableCell align="center">
+                                    <p>ไม่พบข้อมูล</p>
+                                </TableCell>
+                            </TableRow>
+                        )
+
+                    } else {
+
+                        console.log('dataRow', loandueDataAPI[i] === undefined ? null : loandueDataAPI[i].PAYREC)
+                        rowArr.push(
+                            <TableRow key={i}>
+                                <TableCell align="center">{i+1}</TableCell>
+                                <TableCell align="left">
+                                    <div className="select-date-option">
+                                        <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata.dd} onChange={handleSelectDateLoandata} />
+                                        <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata.mm} onChange={handleSelectDateLoandata} />
+                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDateLoandata.yyyy} onChange={handleSelectDateLoandata} />
+                                    </div>  
+                                </TableCell>
+                                <TableCell align="left">
+                                    {
+                                        loandueDataAPI === null ? 
+                                            <MuiTextfield label="" />
+                                        :
+                                            <MuiTextfieldCurrency label="" id={i} value={loandueDataAPI[i] === undefined ? null : loandueDataAPI[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
+                                    }
+                                </TableCell>
+                            </TableRow>
+                        )
+                    }
+                } 
+            }
+
+        }
+        
+        return rowArr
+    }
 
 
     return (
@@ -1002,7 +1399,12 @@ function LoanRequestPrint(props) {
                                                         <Grid item xs={12} md={6}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่ทำสัญญา"   />
+                                                                    <p>วันที่ทำสัญญา</p>
+                                                                    <div className="select-date-option">
+                                                                        <MuiSelectDay label="" name="recdatedd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
+                                                                        <MuiSelectMonth label="" name="recdatemm" value={inputSelectDate.recdatemm} onChange={handleSelectDate} />
+                                                                        <MuiSelectYear label="" name="recdateyyyy" value={inputSelectDate.recdateyyyy} onChange={handleSelectDate} />
+                                                                    </div>
                                                                 </Grid>
                                                                 {
                                                                     action === 'add' ? '' : <Grid item xs={12} md={6}><MuiTextfield label="เลขที่สัญญา" inputdisabled="input-disabled" value={loanNumber} /></Grid>
@@ -1068,7 +1470,13 @@ function LoanRequestPrint(props) {
                                                             <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่" name="SPK_Order" value={inputDataSubmit.SPK_Order} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            <p>ลงวันที่</p>
+                                                            <div className="select-date-option">
+                                                                <MuiSelectDay label="" name="loandatedd" value={inputSelectDate.loandatedd} onChange={handleSelectDate} />
+                                                                <MuiSelectMonth label="" name="loandatemm" value={inputSelectDate.loandatemm} onChange={handleSelectDate} />
+                                                                <MuiSelectYear label="" name="loandateyyyy" value={inputSelectDate.loandateyyyy} onChange={handleSelectDate} />
+                                                            </div>
+                                                            {/* <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -1086,11 +1494,11 @@ function LoanRequestPrint(props) {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ก" name="Loan_Obj1" value={inputDataSubmit.Loan_Obj1} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ก" name="Loan_Obj1"  inputdisabled="input-disabled"  value={inputDataSubmit.Loan_Obj1} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={11} md={3}>
                                                             <p>เป็นเงิน</p>
-                                                            <MuiTextfieldCurrency  label="" name="Loan_Obj1Amount" value={inputDataSubmit.Loan_Obj1Amount}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="Loan_Obj1Amount" value={inputDataSubmit.Loan_Obj1Amount}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -1102,11 +1510,11 @@ function LoanRequestPrint(props) {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ข" name="Loan_Obj2" value={inputDataSubmit.Loan_Obj2} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ข" name="Loan_Obj2" inputdisabled="input-disabled"  value={inputDataSubmit.Loan_Obj2} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={11} md={3}>
                                                             <p>เป็นเงิน</p>
-                                                            <MuiTextfieldCurrency  label="" name="Loan_Obj2Amount" value={inputDataSubmit.Loan_Obj2Amount}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" name="Loan_Obj2Amount" value={inputDataSubmit.Loan_Obj2Amount}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -1117,11 +1525,11 @@ function LoanRequestPrint(props) {
                                                             <p className="paper-p">&nbsp;</p>
                                                         </Grid> */}
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="ค" name="Loan_Obj3" value={inputDataSubmit.Loan_Obj3} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ค" name="Loan_Obj3" inputdisabled="input-disabled"  value={inputDataSubmit.Loan_Obj3} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={11} md={3}>
                                                             <p>เป็นเงิน</p>
-                                                            <MuiTextfieldCurrency  label="" name="Loan_Obj3Amount" value={inputDataSubmit.Loan_Obj3Amount}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled" label="" name="Loan_Obj3Amount" value={inputDataSubmit.Loan_Obj3Amount}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -1281,7 +1689,13 @@ function LoanRequestPrint(props) {
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            <p>ลงวันที่</p>
+                                                            <div className="select-date-option">
+                                                                <MuiSelectDay label="" name="spkorderdatedd" value={inputSelectDate.spkorderdatedd} onChange={handleSelectDate} />
+                                                                <MuiSelectMonth label="" name="spkorderdatemm" value={inputSelectDate.spkorderdatemm} onChange={handleSelectDate} />
+                                                                <MuiSelectYear label="" name="spkorderdateyyyy" value={inputSelectDate.spkorderdateyyyy} onChange={handleSelectDate} />
+                                                            </div>
+                                                            {/* <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -1316,7 +1730,13 @@ function LoanRequestPrint(props) {
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiDatePicker label="ลงวันที่" name="Guarantee_PropertyDate" value={inputDataSubmit.Guarantee_PropertyDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, Guarantee_PropertyDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                    <p>ลงวันที่</p>
+                                                                    <div className="select-date-option">
+                                                                        <MuiSelectDay label="" name="guaranteepropertydd" value={inputSelectDate.guaranteepropertydd} onChange={handleSelectDate} />
+                                                                        <MuiSelectMonth label="" name="guaranteepropertymm" value={inputSelectDate.guaranteepropertymm} onChange={handleSelectDate} />
+                                                                        <MuiSelectYear label="" name="guaranteepropertyyyyy" value={inputSelectDate.guaranteepropertyyyyy} onChange={handleSelectDate} />
+                                                                    </div>
+                                                                {/* <MuiDatePicker label="ลงวันที่" name="Guarantee_PropertyDate" value={inputDataSubmit.Guarantee_PropertyDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, Guarantee_PropertyDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -1345,7 +1765,13 @@ function LoanRequestPrint(props) {
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ลงวันที่" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            <p>ลงวันที่</p>
+                                                            <div className="select-date-option">
+                                                                <MuiSelectDay label="" name="loanguaranteebookdd" value={inputSelectDate.loanguaranteebookdd} onChange={handleSelectDate} />
+                                                                <MuiSelectMonth label="" name="loanguaranteebookmm" value={inputSelectDate.loanguaranteebookmm} onChange={handleSelectDate} />
+                                                                <MuiSelectYear label="" name="loanguaranteebookyyyy" value={inputSelectDate.loanguaranteebookyyyy} onChange={handleSelectDate} />
+                                                            </div>
+                                                            {/* <MuiDatePicker label="ลงวันที่" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <MuiLabelHeaderCheckbox topic="ค." label="หนังสือสัญญาค้ำประกันของ"/>
@@ -1369,7 +1795,13 @@ function LoanRequestPrint(props) {
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <p>ลงวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="warrantbookdate1dd" value={inputSelectDate.warrantbookdate1dd} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="warrantbookdate1mm" value={inputSelectDate.warrantbookdate1mm} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" name="warrantbookdate1yyyy" value={inputSelectDate.warrantbookdate1yyyy} onChange={handleSelectDate} />
+                                                                </div>
+                                                                {/* <MuiDatePicker label="ลงวันที่" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
@@ -1391,7 +1823,13 @@ function LoanRequestPrint(props) {
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <p>ลงวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="warrantbookdate2dd" value={inputSelectDate.warrantbookdate2dd} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
+                                                                </div>
+                                                                {/* <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -1412,9 +1850,9 @@ function LoanRequestPrint(props) {
                                                                     <Grid item xs={12} md={6}>
                                                                         {
                                                                             Free_of_debt === '0' ? 
-                                                                            <MuiTextNumber label="" name="Free_of_debt_Month" id="no1-year" value={inputDataSubmit.Free_of_debt_Month}  onInput={handleInputDataSubmit} />
+                                                                            <MuiTextNumber label="" name="Free_of_debt_Month" id="no1-year" value={Number(inputDataSubmit.Free_of_debt_Month)}  onInput={handleInputDataSubmit} />
                                                                             :
-                                                                            <MuiTextNumber label="" name="Free_of_debt_Year" id="no2-year" value={inputDataSubmit.Free_of_debt_Year}  onInput={handleInputDataSubmit} />    
+                                                                            <MuiTextNumber label="" name="Free_of_debt_Year" id="no2-year" value={Number(inputDataSubmit.Free_of_debt_Year)}  onInput={handleInputDataSubmit} />    
                                                                         }
                                                                     </Grid>
                                                                     <Grid item xs={12} md={4}>
@@ -1425,14 +1863,20 @@ function LoanRequestPrint(props) {
                                                         </Grid>
                                                         <Grid item xs={11} md={2}>
                                                             <p>รวม</p>
-                                                            <MuiTextfieldCurrency  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfieldCurrency  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
                                                             <p className="paper-p">งวด</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" name="FirstDatePaid" value={inputDataSubmit.FirstDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, FirstDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <p>เริ่มชำระงวดแรกภายในวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="firstdatepaiddd" value={inputSelectDate.firstdatepaiddd} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="firstdatepaidmm" value={inputSelectDate.firstdatepaidmm} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" name="firstdatepaidyyyy" value={inputSelectDate.firstdatepaidyyyy} onChange={handleSelectDate} />
+                                                                </div>
+                                                            {/* <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" name="FirstDatePaid" value={inputDataSubmit.FirstDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, FirstDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                         <Grid item xs={11} md={3}>
                                                             <p>พร้อมทั้งดอกเบี้ยในอัตราร้อยละ</p>
@@ -1443,7 +1887,13 @@ function LoanRequestPrint(props) {
                                                             <p className="paper-p">ต่อปี</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" name="LastDatePaid" value={inputDataSubmit.LastDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LastDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <p>ครบกำหนดงวดสุดท้ายในวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="lastdatepaiddd" value={inputSelectDate.lastdatepaiddd} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="lastdatepaidmm" value={inputSelectDate.lastdatepaidmm} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" name="lastdatepaidyyyy" value={inputSelectDate.lastdatepaidyyyy} onChange={handleSelectDate} />
+                                                                </div>
+                                                            {/* <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" name="LastDatePaid" value={inputDataSubmit.LastDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LastDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" name="OfficeProvince" value={inputDataSubmit.OfficeProvince}  onChange={handleInputDataSubmit} />
@@ -1455,7 +1905,7 @@ function LoanRequestPrint(props) {
                                         </Grid>
                                     </Container>
                                 
-                                    <Container maxWidth="sm">
+                                    <Container maxWidth="md">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
                                                 <div className="table">
@@ -1465,75 +1915,14 @@ function LoanRequestPrint(props) {
                                                             <TableHead>
                                                             <TableRow>
                                                                 <TableCell align="center">งวดที่</TableCell>
-                                                                <TableCell align="center">วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
+                                                                <TableCell align="center" style={{minWidth: '200px'}}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
                                                                 <TableCell align="center">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
                                                             </TableRow>
                                                             </TableHead>
                                                             <TableBody>
-                                                            {/* {
-                                                                [1,2,3,4,5].map((row,i) => (
-                                                                    <TableRow key={i}>
-                                                                        <TableCell align="center">{i+1}</TableCell>
-                                                                        <TableCell align="center">
-                                                                            <MuiDatePicker label=""  defaultValue="2017-05-24" />
-                                                                        </TableCell>
-                                                                        <TableCell align="center">
-                                                                            { 
-                                                                                i === 0 ? 
-                                                                                    <MuiTextfield label=""  defaultValue=""/>
-                                                                                    :
-                                                                                    <MuiTextfieldEndAdornment label=""  defaultValue="" endAdornment={<CloseIcon  className="table-item-del"/>}/>
-                                                                            }
-                                                                        </TableCell>
-                                                                    </TableRow>
-                                                                ))
-                                                            } */}
-
-                                                            <TableRow>
-                                                                <TableCell align="center">1</TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiDatePicker label="" value={loandue_data1.DUEDATE} onChange={(newValue)=>{ setLoandue_data1({ ...loandue_data1, DUEDATE: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                                </TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiTextfieldCurrency  label="" value={loandue_data1.PAYREC} id="loandue_data1" onChange={handleInputLoanDueDataPay} />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow className={parseInt(inputData.LoanPeriodCode) >= 1  ? '' :  'table-row-disabled'} >
-                                                                <TableCell align="center">2</TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiDatePicker label="" value={loandue_data2.DUEDATE} onChange={(newValue)=>{ setLoandue_data2({ ...loandue_data2, DUEDATE: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                                </TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiTextfieldCurrency  label="" value={loandue_data2.PAYREC} id="loandue_data2" onChange={handleInputLoanDueDataPay}/>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow className={parseInt(inputData.LoanPeriodCode) >= 1  ? '' :  'table-row-disabled'}>
-                                                                <TableCell align="center">3</TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiDatePicker label="" value={loandue_data3.DUEDATE} onChange={(newValue)=>{ setLoandue_data3({ ...loandue_data3, DUEDATE: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                                </TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiTextfieldCurrency  label="" value={loandue_data3.PAYREC} id="loandue_data3" onChange={handleInputLoanDueDataPay}/>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow className={parseInt(inputData.LoanPeriodCode) >= 2  ? '' :  'table-row-disabled'}>
-                                                                <TableCell align="center">4</TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiDatePicker label="" value={loandue_data4.DUEDATE} onChange={(newValue)=>{ setLoandue_data4({ ...loandue_data4, DUEDATE: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                                </TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiTextfieldCurrency  label="" value={loandue_data4.PAYREC} id="loandue_data4" onChange={handleInputLoanDueDataPay}/>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow className={parseInt(inputData.LoanPeriodCode) >= 2  ? '' :  'table-row-disabled'}>
-                                                                <TableCell align="center">5</TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiDatePicker label="" value={loandue_data5.DUEDATE} onChange={(newValue)=>{ setLoandue_data5({ ...loandue_data5, DUEDATE: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                                </TableCell>
-                                                                <TableCell align="center">
-                                                                    <MuiTextfieldCurrency  label="" value={loandue_data5.PAYREC} id="loandue_data5" onChange={handleInputLoanDueDataPay}/>
-                                                                </TableCell>
-                                                            </TableRow>
+                                                            {
+                                                                rowTable(inputDataSubmit.Free_of_debt_Time, loandueDataAPI)
+                                                            }
 
                                                             <TableRow className="box box-grey">
                                                                 {/* <TableCell align="right">จำนวนเงินรวม <span className="txt-green">50,000 </span>บาท</TableCell> */}
@@ -1581,28 +1970,52 @@ function LoanRequestPrint(props) {
                                                 <p className="mg-t-35">หมายเหตุ</p>
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName}  onChange={handleInputDataSubmit}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield label="ที่อยู่" name="WitnessAddr" value={inputDataSubmit.WitnessAddr}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={inputDataSubmit.WitnessAddr}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man1-idc" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard}  onInput={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man1-idc" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard}  onInput={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={inputDataSubmit.WitnessIDCardMade}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={inputDataSubmit.WitnessIDCardMade}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2}  onChange={handleInputDataSubmit}  />
+                                                <MuiTextfield inputdisabled="input-disabled" label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield label="ที่อยู่" name="WitnessAddr2" value={inputDataSubmit.WitnessAddr2}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={inputDataSubmit.WitnessAddr2}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man2-idc" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2}  onInput={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man2-idc" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2}  onInput={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={inputDataSubmit.WitnessIDCardMade2}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={inputDataSubmit.WitnessIDCardMade2}  onChange={handleInputDataSubmit} />
+                                            </Grid>
+                                            <Grid item xs={12} md={5}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3}  onChange={handleInputDataSubmit}  />
+                                            </Grid>
+                                            <Grid item xs={12} md={7}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={inputDataSubmit.WitnessAddr3}  onChange={handleInputDataSubmit} />
+                                            </Grid>
+                                            <Grid item xs={12} md={5}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man3-idc" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3}  onInput={handleInputDataSubmit} />
+                                            </Grid>
+                                            <Grid item xs={12} md={7}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade3" value={inputDataSubmit.WitnessIDCardMade3}  onChange={handleInputDataSubmit} />
+                                            </Grid>
+                                            <Grid item xs={12} md={5}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4}  onChange={handleInputDataSubmit}  />
+                                            </Grid>
+                                            <Grid item xs={12} md={7}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={inputDataSubmit.WitnessAddr4}  onChange={handleInputDataSubmit} />
+                                            </Grid>
+                                            <Grid item xs={12} md={5}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man4-idc" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4}  onInput={handleInputDataSubmit} />
+                                            </Grid>
+                                            <Grid item xs={12} md={7}>
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade4" value={inputDataSubmit.WitnessIDCardMade4}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                         </Grid>
                                     </Container>

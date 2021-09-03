@@ -94,6 +94,8 @@ function ManageProjectBudget() {
         PrincipleSue: '', // null,
         InterestSue: '', // null,
         InterestSueNoPay: '', // null
+        PersonalResultPlan: '',
+        ProjectResultPlan: '',
     })
 
     const [inputDataStartEndYear, setInputDataStartEndYear] = useState({
@@ -245,6 +247,8 @@ function ManageProjectBudget() {
                             dCrated: resSpkProjectBudget.dCrated || '', // null,
                             dUpdated: resSpkProjectBudget.dUpdated || '', // null,
                             admin_nMEMID: resSpkProjectBudget.admin_nMEMID || '', // nul
+                            PersonalResultPlan: resSpkProjectBudget.PersonalResultPlan || '',
+                            ProjectResultPlan: resSpkProjectBudget.ProjectResultPlan || '',
                         })
                     } else {
                         resSpkProjectBudget = data.data[0];
@@ -272,6 +276,8 @@ function ManageProjectBudget() {
                             dCrated: resSpkProjectBudget.dCrated || '', // null,
                             dUpdated: resSpkProjectBudget.dUpdated || '', // null,
                             admin_nMEMID: resSpkProjectBudget.admin_nMEMID || '', // null
+                            PersonalResultPlan: resSpkProjectBudget.PersonalResultPlan || '',
+                            ProjectResultPlan: resSpkProjectBudget.ProjectResultPlan || '',
                         })  
                     }
 
@@ -286,6 +292,20 @@ function ManageProjectBudget() {
               setIsLoading(false)
             }
          });
+    }
+
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
+    }
+
+    const reOrderDate = (val) => {
+        let yyyy = Number(val.substring(6,10)) - 543
+        let mm = val.substring(3,5)
+        let dd = val.substring(0,2)
+        return yyyy+'-'+mm+'-'+dd
     }
 
     const getSpkStartEndYear = (year) => {
@@ -312,7 +332,7 @@ function ManageProjectBudget() {
                 }else {
                     // console.log('get_spkprojectbudget',data.data[0])
                     // console.log('get_spkprojectbudget_length',data.data.length)
-                    let resSpkStartEndYear;
+                    // let resSpkStartEndYear;
 
                     // if(data.data.length === 0) {
                     //     resSpkStartEndYear = [];
@@ -322,14 +342,16 @@ function ManageProjectBudget() {
                     //         EndDateFiscalYear: null, 
                     //     })
                     // } else {
-                        resSpkStartEndYear = data.data;
-                        let newStartDataFiscalYear = (parseInt(resSpkStartEndYear.StartDateFiscalYear.substring(0,4)) + 543)+(resSpkStartEndYear.StartDateFiscalYear.substring(4,10));
-                        let newEndDateFiscalYear = (parseInt(resSpkStartEndYear.EndDateFiscalYear.substring(0,4)) + 543)+(resSpkStartEndYear.EndDateFiscalYear.substring(4,10));
+                        let resSpkStartEndYear = data.data;
+                        // let newStartDataFiscalYear = (parseInt(resSpkStartEndYear.StartDateFiscalYear.substring(0,4)) + 543)+(resSpkStartEndYear.StartDateFiscalYear.substring(4,10));
+                        // let newEndDateFiscalYear = (parseInt(resSpkStartEndYear.EndDateFiscalYear.substring(0,4)) + 543)+(resSpkStartEndYear.EndDateFiscalYear.substring(4,10));
                         // alert(newStartDataFiscalYear)
                         setInputDataStartEndYear({
                             ...inputDataStartEndYear,
-                            StartDateFiscalYear: newStartDataFiscalYear || null, // "2020-10-01T00:00:00.000Z",
-                            EndDateFiscalYear: newEndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
+                            StartDateFiscalYear: newOrderDate(resSpkStartEndYear.StartDateFiscalYear) || null,
+                            EndDateFiscalYear: newOrderDate(resSpkStartEndYear.EndDateFiscalYear) || null,
+                            // StartDateFiscalYear: newStartDataFiscalYear || null, // "2020-10-01T00:00:00.000Z",
+                            // EndDateFiscalYear: newEndDateFiscalYear || null, // "2021-09-30T00:00:00.000Z",
                         })  
                     // }
 
@@ -424,11 +446,11 @@ function ManageProjectBudget() {
         formData.append('ProjectYear',null)
         formData.append('ProjectPlanYear',null)
         formData.append('ProjectBudgetID',inputData.ProjectBudgetID);
-        formData.append('StartDateFiscalYear',inputDataStartEndYear.StartDateFiscalYear)
-        formData.append('EndDateFiscalYear',inputDataStartEndYear.EndDateFiscalYear)
+        formData.set('StartDateFiscalYear',reOrderDate(inputDataStartEndYear.StartDateFiscalYear))
+        formData.set('EndDateFiscalYear',reOrderDate(inputDataStartEndYear.EndDateFiscalYear))
         formData.set('FiscalYear',(inputData.FiscalYear + 2500)) // Convert year 2 digit to 4 digit
-        formData.set('PersonalPlan',parseFloat(inputData.PersonalPlan) || 0)
-        formData.set('ProjectPlan',parseFloat(inputData.ProjectPlan) || 0)
+        formData.set('PersonalPlan',parseFloat(inputData.PersonalPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+        formData.set('ProjectPlan',parseFloat(inputData.ProjectPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
         formData.set('PrincipalBalance',parseFloat(inputData.PrincipalBalance) || 0)
         formData.set('Debt',parseFloat(inputData.Debt) || 0)
         formData.set('Interest',parseFloat(inputData.Interest) || 0)
@@ -436,7 +458,9 @@ function ManageProjectBudget() {
         formData.set('PrincipleSue',parseFloat(inputData.PrincipleSue) || 0)
         formData.set('InterestSue',parseFloat(inputData.InterestSue) || 0)
         formData.set('InterestSueNoPay',parseFloat(inputData.InterestSueNoPay) || 0)
-        formData.set('ProjectBudget',parseFloat(setProjectBudget.split(',').join('')) || 0)
+        formData.set('ProjectBudget',parseFloat(setProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+        formData.set('PersonalResultPlan',parseFloat(inputData.PersonalResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+        formData.set('ProjectResultPlan',parseFloat(inputData.ProjectResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
 
         axios.post(
             `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 
@@ -461,7 +485,7 @@ function ManageProjectBudget() {
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                 }
             }
-        ).catch(err => { console.log(err); history.push('/') })
+        ).catch(err => { console.log(err); })
         .finally(() => {
             if (isMounted.current) {
               setIsLoading(false)
@@ -575,10 +599,10 @@ function ManageProjectBudget() {
                                             </Grid> */}
                                             <Grid item xs={12} md={4}>
                                                 {/* <MuiDatePicker label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputData.StartDateFiscalYear} onChange={handleInputDate} /> */}
-                                                 <MuiDatePicker  inputdisabled="input-disabled"  label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputDataStartEndYear.StartDateFiscalYear} onChange={(newValue)=>{ setInputDataStartEndYear({ ...inputDataStartEndYear, StartDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                 <MuiTextfield  inputdisabled="input-disabled"  label="วันที่เริ่มงบประมาณ" name="StartDateFiscalYear"  value={inputDataStartEndYear.StartDateFiscalYear} />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiDatePicker inputdisabled="input-disabled"  label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputDataStartEndYear.EndDateFiscalYear} onChange={(newValue)=>{ setInputDataStartEndYear({ ...inputDataStartEndYear, EndDateFiscalYear: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                <MuiTextfield inputdisabled="input-disabled"  label="วันสิ้นสุดงบประมาณ" name="EndDateFiscalYear" value={inputDataStartEndYear.EndDateFiscalYear}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
                                                 <h1 className="paper-head-green">แผนเงินกู้ปี ปัจจุบัน</h1>
@@ -602,7 +626,7 @@ function ManageProjectBudget() {
                                                         <p className="paper-p txt-right">แผนรายบุคคล</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency  inputdisabled="input-disabled" label="" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency label="" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} />
                                                         {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -616,7 +640,7 @@ function ManageProjectBudget() {
                                                         <p className="paper-p txt-right">แผนรายโครงการ</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency inputdisabled="input-disabled"  label=""  name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} />
+                                                        <MuiTextfieldCurrency label=""  name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} />
                                                     {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="ProjectPlan" value={inputData.ProjectPlan}  onChange={handleInputData} /> */}
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
@@ -628,11 +652,10 @@ function ManageProjectBudget() {
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={5}>
-                                                        <p className="paper-p txt-right">ผลรายปี</p>
+                                                        <p className="paper-p txt-right">ผลรายบุคคล</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency label="" />
-                                                        {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
+                                                        <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   name="PersonalResultPlan" value={inputData.PersonalResultPlan}  onChange={handleInputData} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p className="paper-p">บาท</p>
@@ -645,8 +668,7 @@ function ManageProjectBudget() {
                                                         <p className="paper-p txt-right">ผลรายโครงการ</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
-                                                        <MuiTextfieldCurrency label="" />
-                                                        {/* <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" name="PersonalPlan" value={inputData.PersonalPlan}  onChange={handleInputData} /> */}
+                                                        <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   name="ProjectResultPlan" value={inputData.ProjectResultPlan}  onChange={handleInputData} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p className="paper-p">บาท</p>

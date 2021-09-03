@@ -118,6 +118,7 @@ function AddFarmer(props) {
         BirthDate: '', // '2022-12-11',
         Tel: '', // '087-712-8888',
         IDCardEXP_Date: '', // '2022-12-13',
+        IDCardMade: '',
         IDCARD_AddNo: '', // '123',
         IDCARD_AddMoo: '', // 'หมู่ 4',
         IDCARD_AddrSoiRoad: '', // 'ถ. มิตรภาพ',
@@ -890,7 +891,7 @@ function AddFarmer(props) {
         // }
 
         axios.post(
-            `${server_hostname}/admin/api/add_farmerr`, formData, { headers: { "token": token } } 
+            `${server_hostname}/admin/api/add_farmer`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -1060,6 +1061,10 @@ function AddFarmer(props) {
                                                         <MuiSelectYear label="" limit={10} name="yyyy2" value={inputSelectExpireDate.yyyy2} onChange={handleSelectExpireDate} />
                                                     </div>
                                                     {/* <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="สถานที่ออกบัตร" defaultValue="" value={inputData.IDCardMade} name="IDCardMade" onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     {/* Field Number ---------------------------------------------------*/}
