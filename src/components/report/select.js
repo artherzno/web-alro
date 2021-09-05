@@ -21,7 +21,7 @@ export const Select = ({
                         {isNotEmpty ? null : <option value={''}>{emptyLabel}</option>}
                         {options && options.map(value => {
                             // return <option key={op[idFieldName]} value={op[idFieldName]}>{renderLabel(op)}</option>
-                            return <option key={value.value} value={value.value} label={value.label}><div>{value.label}</div></option>
+                            return <option key={value.value} value={value.value} label={value.label}>{value.label}</option>
                         })}
                     </select>
                 </div>
