@@ -31,7 +31,7 @@ class SummarySignTab extends React.Component {
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
-            displaySection: "",
+            displaySection: 0,
             sectionProvince: "",
             month: "",
             year: "",
@@ -61,11 +61,11 @@ class SummarySignTab extends React.Component {
         const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
 
         const parameter = new FormData()
-        parameter.append('Display1', displaySection);
+        parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
-        parameter.append('Display2', display2);
+        parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
@@ -86,11 +86,11 @@ class SummarySignTab extends React.Component {
         const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
 
         const parameter = new FormData()
-        parameter.append('Display1', displaySection);
+        parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
-        parameter.append('Display2', display2);
+        parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 

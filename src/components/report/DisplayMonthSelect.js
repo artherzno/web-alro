@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import { MonthSelect, YearSelect, DateRange } from './index'
 
 
-const displayList = [{ value: 1, label: "รายปี" },
-{ value: 2, label: "รายเดือน" },
-{ value: 3, label: "ช่วงวันที่" }]
+const displayList = [{ value: 0, label: "รายปี" },
+{ value: 1, label: "รายเดือน" },
+{ value: 2, label: "ช่วงวันที่" }]
 
 export const DisplayMonthSelect = ({
     onChange = () => { },
