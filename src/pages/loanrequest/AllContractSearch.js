@@ -181,8 +181,8 @@ function AllContractSearch() {
         Date: null,
         LoanNumber: "",
         ProjectName: "",
-        StartYear: "0",
-        Type: "2"
+        StartYear: 0,
+        Type: 0
     })
 
     const [inputSelectDate, setInputSelectDate] = useState({
@@ -339,8 +339,52 @@ function AllContractSearch() {
         });
     }
 
+    const handlePrintExcel = (val) => {
+        console.log('Excel - ContractNo(val):', val)
+        let contractDate = (inputSelectDate.yyyy === '0000' ? '0000' : inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
+        let contractType = inputDataSearch.Type === '2' ? '' : inputDataSearch.Type
+        let contractStartYear = inputDataSearch.StartYear === '0' ? '' : Number(inputDataSearch.StartYear) + 2500 - 543
+        
+        
+
+        const formdata = new FormData()
+        formdata.append('FarmerName', inputDataSearch.FarmerName.toString());
+        formdata.append('StartYear', Number(contractStartYear));
+        formdata.append('LoanNumber', inputDataSearch.LoanNumber.toString());
+        formdata.append('ProjectName', inputDataSearch.ProjectName.toString());
+        formdata.append('Type', Number(contractType));
+        formdata.append('Date', contractDate === '0000-00-00' ? '' : contractDate);
+        formdata.append('Username', localStorage.getItem('provinceid').toString());
+        
+        let url = `${siteprint}/api/ExportServices/ExportDebtSettlement`; //your url
+
+        axios.post(url, formdata,
+            {
+                headers:
+                {
+                    'Content-Disposition': "attachment; filename=template.xlsx",
+                    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                },
+                responseType: 'arraybuffer',
+            }
+        ).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_ปี${(Number(inputDataSearch.StartYear) + 2500).toString()}.xlsx`);
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
+
     const getDebtSettlement = () => {
         setIsLoading(true)
+        setRows([])
 
         let contractDate = (inputSelectDate.yyyy === '0000' ? '0000' : inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
         let contractType = inputDataSearch.Type === '2' ? '' : inputDataSearch.Type
@@ -355,8 +399,8 @@ function AllContractSearch() {
                 Date: contractDate === '0000-00-00' ? '' : contractDate,
                 LoanNumber: inputDataSearch.LoanNumber,
                 ProjectName: inputDataSearch.ProjectName,
-                StartYear: contractStartYear,
-                Type: contractType
+                StartYear: Number(contractStartYear),
+                Type: Number(contractType)
             }
         }).then(res => {
                 // console.log(res)
@@ -600,7 +644,7 @@ function AllContractSearch() {
                                         <p>&nbsp;</p>
                                         {
                                             searched ? 
-                                            <ButtonNormalIconStartPrimary label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>} />
+                                            <ButtonNormalIconStartPrimary label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>} onClick={handlePrintExcel}/>
                                             :
                                             <div style={{opacity: '.5', pointerEvents: 'none'}}>
                                                 <ButtonNormalIconStartPrimary label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>} />

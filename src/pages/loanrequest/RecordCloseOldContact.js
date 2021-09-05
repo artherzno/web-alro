@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
+import { AuthContext } from '../../App';
+import { useForm, Controller } from 'react-hook-form';
 
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
@@ -26,6 +30,10 @@ import Nav from '../../components/Nav';
 import {
     MuiTextfield,
     MuiDatePicker,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
+    MuiSelectObjYearStart,
     MuiTextfieldEndAdornment,
     MuiTextfieldStartAdornment,
     MuiRadioButton,
@@ -37,38 +45,89 @@ import {
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
+import { MUItable } from '../../components/MUItable'
+
 function RecordCloseOldContact() {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+    // const { handleSubmit, control } = useForm();
+    
+    let server_hostname = auth.hostname;
+    let server_spkapi = localStorage.getItem('spkapi');
+    let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
-    const [confirm, setConfirm] = useState(false);
-    const [confirmMsg, setConfirmMsg] = useState('ต้องการบันทึกปิดสัญญาเดิมใช่หรือไม่')
+    const [confirm, setConfirm] = useState(false)
+    const [confirmMsg, setConfirmMsg] = useState('ตกลงใช่หรือไม่')
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoading2, setIsLoading2] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [hasData, setHasData] = useState(false);
+    const [insertData, setInsertData] = useState(false);
+    const [insertDateData, setInsertDateData] = useState(false);
+    const [searched, setSearched] = useState(false);
+
     const [inputData, setInputData] = useState({
         typeLoan: '1',
         typeBill: '1',
     })
 
+    const [inputSelectDateRec, setInputSelectDateRec] = useState({
+        dd: '00',
+        mm: '00',
+        yyyy: '0000'
+    })
+
+    const [inputDataSearch, setinputDataSearch] = useState({
+        Username: localStorage.getItem('cUsername'),
+        LoanNumber: "sample string 2",
+        Rentno: "sample string 3",
+        Fullname: "sample string 4",
+        Date: "2021-09-05T16:52:09.5628127+07:00"
+})
+
     useEffect(() => {
         setLoaded(true);
+
+        const checkLogin = () => {
+            axios.post(
+                `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log('checklogin',res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    }
+                    // getSpkAllProject()
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+        checkLogin();
     }, [])
 
-    const tableResult = [
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-    ]
+    
 
      // Radio Button
      const handleChangeTypeBill = (event) => {
@@ -78,6 +137,61 @@ function RecordCloseOldContact() {
         console.log('typeBill ',event.target.value)
     };
     // End Radio Button
+
+    const handleSelectDateRec = (event) => {
+        let type = event.target.name
+        setInputSelectDateRec({
+            ...inputSelectDateRec,
+            [event.target.name]: event.target.value.toString()
+        })
+        console.log('type',type, 'value', event.target.value)
+    }
+
+    const getCloseContactSearch = (loanID) => {
+        setIsLoading(true);
+        // const formdata = new FormData()
+        // formdata.append('Username', inputDataSearch.Username.toString());
+        // formdata.append('LoanNumber', inputDataSearch.LoanNumber.toString());
+        // formdata.append('Rentno', inputDataSearch.Rentno.toString());
+        // formdata.append('Fullname', inputDataSearch.Fullname.toString());
+        // formdata.append('Date', inputDataSearch.Date.toString());
+
+        axios.post(
+            `${server_spkapi}/CloseContact/GetData`, {
+                Username: inputDataSearch.Username.toString(),
+                LoanNumber: inputDataSearch.LoanNumber.toString(),
+                Rentno: inputDataSearch.Rentno.toString(),
+                Fullname: inputDataSearch.Fullname.toString(),
+                Date: inputDataSearch.Date.toString()
+              }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res.data)
+                let data = res.data;
+                setInputData(data)
+                console.log('inputData',inputData)
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    setIsLoading(false)
+                    console.log('get_loandetail',data)
+                }
+        }).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -98,6 +212,7 @@ function RecordCloseOldContact() {
         setErr(false);
         setSuccess(false);
         setConfirm(false);
+        
         // history.push('/manageinfo/searchmember');
 
     };
@@ -120,7 +235,57 @@ function RecordCloseOldContact() {
 
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12} md={12} >
+                                <div className="positionFixed mg-t-20">
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} md={4}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา"  defaultValue="" />
+                                        </Grid>
+                                        <Grid item xs={12} md={4}>
+                                            <p>&nbsp;</p>
+                                            <ButtonFluidPrimary label="ค้นหา" onClick={getCloseContactSearch} />  
+                                        </Grid>
+                                        <Grid item xs={12} md={12}>
+                                        <div className="table">
+                                            <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
+                                                <Table aria-label="normal table">
+                                                    <TableHead>
+                                                    <TableRow>
+                                                        <TableCell align="center">&nbsp;</TableCell>
+                                                        <TableCell align="center">&nbsp;</TableCell>
+                                                        <TableCell align="center">&nbsp;</TableCell>
+                                                        <TableCell align="center">&nbsp;</TableCell>
+                                                    </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>{/* // clear mockup */}
+                                                        <TableRow>
+                                                            <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
+                                                        </TableRow>
+                                            
+                                                    {/* {
+                                                        tableResult.map((row,i) => (
+                                                            <TableRow key={i}>
+                                                                <TableCell align="center">{row.a}</TableCell>
+                                                                <TableCell align="center">{row.b}</TableCell>
+                                                                <TableCell align="center">{row.c}</TableCell>
+                                                                <TableCell align="center">{row.d}</TableCell>
+                                                            </TableRow>
+                                                        ))
+                                                    } */}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </div>
+                                        </Grid>
+                                    </Grid>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
 
                                 {/* Paper 1 - -------------------------------------------------- */}
                                 <Paper className="paper line-top-green paper mg-t-20">
@@ -130,7 +295,12 @@ function RecordCloseOldContact() {
                                                 <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-24" />
+                                                <p>วันที่บันทึก</p>
+                                                <div className="select-date-option">
+                                                    <MuiSelectDay label="" name="dd" value={inputSelectDateRec.dd} onChange={handleSelectDateRec} />
+                                                    <MuiSelectMonth label="" name="mm" value={inputSelectDateRec.mm} onChange={handleSelectDateRec} />
+                                                    <MuiSelectYear label="" name="yyyy" value={inputSelectDateRec.yyyy} onChange={handleSelectDateRec} />
+                                                </div>
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="" defaultValue="45" />
@@ -290,7 +460,7 @@ function RecordCloseOldContact() {
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','ภทต.']} value={inputData.typeBill} onChange={handleChangeTypeBill} type="row" />
+                                                {/* <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','ภทต.']} value={inputData.typeBill} onChange={handleChangeTypeBill} type="row" /> */}
                                             </Grid>
                                             
                                         </Grid>
@@ -395,57 +565,6 @@ function RecordCloseOldContact() {
                                     </Grid>
                                 </Grid>
                             
-                            </Grid>
-
-                            <Grid item xs={12} md={6}  style={{position: 'fixed', width: '100%', right: '0'}}>
-                                <div className="positionFixed mg-t-20">
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} md={4}>
-                                            {/* Field Text ---------------------------------------------------*/}
-                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
-                                        </Grid>
-                                        <Grid item xs={12} md={4}>
-                                            {/* Field Text ---------------------------------------------------*/}
-                                            <MuiTextfield label="ค้นหาเลขที่สัญญา"  defaultValue="" />
-                                        </Grid>
-                                        <Grid item xs={12} md={4}>
-                                            <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ค้นหา" />  
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                        <div className="table">
-                                            <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
-                                                <Table aria-label="normal table">
-                                                    <TableHead>
-                                                    <TableRow>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                    </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>{/* // clear mockup */}
-                                                        <TableRow>
-                                                            <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
-                                                        </TableRow>
-                                            
-                                                    {/* {
-                                                        tableResult.map((row,i) => (
-                                                            <TableRow key={i}>
-                                                                <TableCell align="center">{row.a}</TableCell>
-                                                                <TableCell align="center">{row.b}</TableCell>
-                                                                <TableCell align="center">{row.c}</TableCell>
-                                                                <TableCell align="center">{row.d}</TableCell>
-                                                            </TableRow>
-                                                        ))
-                                                    } */}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </div>
-                                        </Grid>
-                                    </Grid>
-                                </div>
                             </Grid>
                         </Grid>
                     </Container>

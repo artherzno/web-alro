@@ -64,8 +64,8 @@ function SearchMemberPage(props) {
     const [inputData, setInputData] = useState({
         Name: null,
         Sirname: null,
-        IDCard: null,
         FarmerGrade: null,
+        IDCard: null,
         LoanNumber: null,
         order_by: "IDCard",
         order_desc: "DESC",
@@ -74,20 +74,28 @@ function SearchMemberPage(props) {
     })
 
     const headCells = [
-        { id: 'FarmerID', numeric: false, disablePadding: true, label: 'ลำดับ' },
-        { id: 'Name', numeric: true, disablePadding: false, label: 'ชื่อ นามสกุล' },
-        { id: 'FarmerGrade', numeric: true, disablePadding: false, label: 'เกรด' },
+        { id: 'FarmerID', numeric: false, disablePadding: true,  widthCol: '140px',label: 'ลำดับ' },
+        { id: 'Name', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ นามสกุล' },
+        { id: 'FarmerGrade', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เกรด' },
+        { id: 'IDCard', numeric: true, disablePadding: false,  widthCol: '160px', label: 'เลขบัตรประชาชน' },
+        { id: 'LoanNumber', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เลขที่สัญญา' },
+        { id: 'LandNumber', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เลขที่ดิน' },
+        { id: 'Province', numeric: true, disablePadding: false, widthCol: '140px', label: 'จังหวัด' },
     ];
 
     const rowsLabel = [
-        'FarmerID', 'Name', 'FarmerGrade'
+        'FarmerID', 'Name', 'FarmerGrade', 'IDCard', 'LoanNumber', 'LandNumber', 'Province'
     ]
 
-    function createData( FarmerID, Name, FarmerGrade,) {
+    function createData( FarmerID, Name, FarmerGrade, IDCard, LoanNumber, LandNumber, Province) {
         return { 
             FarmerID,
             Name,
             FarmerGrade,
+            IDCard,
+            LoanNumber,
+            LandNumber,
+            Province,
          };
     }
 
@@ -168,7 +176,11 @@ function SearchMemberPage(props) {
                         createData(
                             item.FarmerID,
                             item.FrontName+' '+item.Name+' '+item.Sirname,
-                            item.FarmerGrade === 'Y' ? 'Y (ไม่มีหนี้ค้าง)' : item.FarmerGrade === 'N' ? 'N (มีหนี้ค้าง)' : '-'
+                            item.FarmerGrade === 'Y' ? 'Y (ไม่มีหนี้ค้าง)' : item.FarmerGrade === 'N' ? 'N (มีหนี้ค้าง)' : '-',
+                            item.IDCard,
+                            item.LoanNumber,
+                            item.LandNumber,
+                            item.Province
                         )
                     ))
                 }
@@ -213,6 +225,13 @@ function SearchMemberPage(props) {
     const handleChangeLoanNumber = (event) => {
         setInputData({...inputData,
             LoanNumber: event.target.value
+        })
+        // console.log('LoanNumber ',event.target.value)
+    };
+
+    const handleChangeLandNumber = (event) => {
+        setInputData({...inputData,
+            LandNumber: event.target.value
         })
         // console.log('LoanNumber ',event.target.value)
     };
@@ -309,6 +328,10 @@ function SearchMemberPage(props) {
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="เลขที่สัญญา" id="contact-number-input" defaultValue="" onChange={handleChangeLoanNumber} />
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                {/* Field Text ---------------------------------------------------*/}
+                                                <MuiTextfield label="เลขที่ดิน" id="contact2-number-input" defaultValue="" onChange={handleChangeLandNumber} />
                                             </Grid>
                                             <Grid item xs={12} md={12} className="txt-center">
                                                 <ButtonFluidPrimary label="ค้นหา" onClick={()=>fetchSearchFarmer()} />   

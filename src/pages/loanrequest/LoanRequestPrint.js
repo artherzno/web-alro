@@ -64,6 +64,7 @@ function LoanRequestPrint(props) {
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
     let siteprint = localStorage.getItem('siteprint')
+    let provincename = localStorage.getItem('provincename');
 
     // const [action, setAction] = useState('add');
     const [loaded, setLoaded] = useState(false);
@@ -77,17 +78,40 @@ function LoanRequestPrint(props) {
     const [confirmMsg, setConfirmMsg] = useState('เมื่อยืนยันสร้างสัญญาเรียบร้อย ไม่สามารถแก้ไขสัญญาได้')
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
     const [inputDataSearch, setInputDataSearch] = useState({
         SearchByApplicantNo: '',
         SearchByLoanNumber: '',
         SearchByName: '',
     })
 
-    const [inputSelectDateLoandata, setInputSelectDateLoandata] = useState({
-        dd: '00',
-        mm: '00',
-        yyyy: '0000',
-    })
+    const [inputSelectDateLoandata, setInputSelectDateLoandata] = useState([
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+        { dd: '00', mm: '00', yyyy: '0000',},
+    ])
 
 
     const [inputSelectDate, setInputSelectDate] = useState({
@@ -183,7 +207,7 @@ function LoanRequestPrint(props) {
         Interest: 0, // 4,
         ChargeRate: '', // "",
         LastDatePaid: null, // "null",
-        OfficeProvince: '', // "",
+        OfficeProvince: provincename, // "",
         WitnessName: '', // "",
         WitnessAddr: '', // "",
         WitnessIDCard: '', // "",
@@ -276,6 +300,21 @@ function LoanRequestPrint(props) {
 
     const [Free_of_debt, setFree_of_debt] = useState('0')
 
+    const [summaryTable, setSummaryTable] = useState(0)
+    let summaryLoanObj = 
+    ((inputDataSubmit.Loan_Obj1Amount === 0 || inputDataSubmit.Loan_Obj1Amount === '' ? 0 : parseFloat((inputDataSubmit.Loan_Obj1Amount.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) + 
+    (inputDataSubmit.Loan_Obj2Amount === 0 || inputDataSubmit.Loan_Obj2Amount === '' ? 0 : parseFloat((inputDataSubmit.Loan_Obj2Amount.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+    (inputDataSubmit.Loan_Obj3Amount === 0 || inputDataSubmit.Loan_Obj3Amount === '' ? 0 : parseFloat((inputDataSubmit.Loan_Obj3Amount.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
+
+    let summaryInstallment =  ((inputDataSubmit.Loan_Installment1 === 0 || inputDataSubmit.Loan_Installment1 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment1.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+    (inputDataSubmit.Loan_Installment2 === 0 || inputDataSubmit.Loan_Installment2 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment2.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+    (inputDataSubmit.Loan_Installment3 === 0 || inputDataSubmit.Loan_Installment3 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment3.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) + 
+    (inputDataSubmit.Loan_Installment4 === 0 || inputDataSubmit.Loan_Installment4 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment4.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+    (inputDataSubmit.Loan_Installment5 === 0 || inputDataSubmit.Loan_Installment5 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment5.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
+
+    const [checkSumInstallment, setCheckSumInstallment] = useState(false)
+    const [checkSumTable, setCheckSumTable] = useState(false)
+
     const [tableResult, setTableResult] = useState([])
     const [openLoanRequestInfo, setOpenLoanRequestInfo] = useState(false)
 
@@ -295,6 +334,7 @@ function LoanRequestPrint(props) {
         'RecordCode',
         'RecDate', 
         'ApplicantNo',
+        'ApplicantStatus',
         'ProjectID',
         'ProjectName', 
         'LoanNumber',
@@ -311,6 +351,7 @@ function LoanRequestPrint(props) {
         { id: 'RecordCode', numeric: false, disablePadding: true, widthCol: '140px', label: 'รหัสบันทึก' },
         { id: 'RecDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่บันทึก' },
         { id: 'ApplicantNo', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขคำขอ' },
+        { id: 'ApplicantStatus', numeric: false, disablePadding: false, widthCol: '150px', label: 'สถานะคำขอ' },
         { id: 'ProjectID', numeric: false, disablePadding: false, widthCol: '150px', label: 'รหัสโครงการ' },
         { id: 'ProjectName', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อโครงการ' },
         { id: 'LoanNumber', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขที่สัญญา' },
@@ -359,8 +400,8 @@ function LoanRequestPrint(props) {
         checkLogin();
     }, [])
 
-    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantNo,ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
-        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantNo,ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
+    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
+        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
     }
 
     // New order date
@@ -371,12 +412,20 @@ function LoanRequestPrint(props) {
         return dd+'/'+mm+'/'+yyyy
     }
 
-    // Re order date
-    const reOrderDate = (val) => {
+    // Re order date TH (+543)
+    const reOrderDateENtoTH = (val) => {
         let yyyy = Number(val.substring(0,4)) + 543
         let mm = val.substring(5,7)
         let dd = val.substring(8,10)
-        return yyyy+'/'+mm+'/'+dd
+        return yyyy+'-'+mm+'-'+dd
+    }
+
+    // Re order date EN (-543)
+    const reOrderDateTHtoEN = (val) => {
+        let yyyy = Number(val.substring(0,4)) - 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return yyyy+'-'+mm+'-'+dd
     }
 
     const getSearchApprovedApplicant = () => {
@@ -416,6 +465,7 @@ function LoanRequestPrint(props) {
                                 item.RecordCode === null ? '' : item.RecordCode,
                                 item.RecDate === null ? '' : item.RecDate,
                                 item.ApplicantNo === null ? '' : item.ApplicantNo,
+                                item.ApplicantStatus === null || !item.ApplicantStatus ? 'P' : item.ApplicantStatus,
                                 item.ProjectID === null ? '' : item.ProjectID,
                                 item.ProjectName === null ? '' : item.ProjectName,
                                 item.LoanNumber === null ? '' : item.LoanNumber,
@@ -472,6 +522,71 @@ function LoanRequestPrint(props) {
             { DUEDATE: null, PAYREC : null},
             { DUEDATE: null, PAYREC : null},
         ])
+        setInputSelectDateLoandata([
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+            { dd: '00', mm: '00', yyyy: '0000',},
+        ])
+
+        setInputSelectDate({
+            recdatedd: '00',
+            recdatemm: '00',
+            recdateyyyy: '0000',
+    
+            loandatedd: '00',
+            loandatemm: '00',
+            loandateyyyy: '0000',
+    
+            spkorderdatedd: '00',
+            spkorderdatemm: '00',
+            spkorderdateyyyy: '0000',
+    
+            guaranteepropertydd: '00',
+            guaranteepropertymm: '00',
+            guaranteepropertyyyyy: '0000',
+    
+            loanguaranteebookdd: '00',
+            loanguaranteebookmm: '00',
+            loanguaranteebookyyyy: '0000',
+    
+            warrantbookdate1dd: '00',
+            warrantbookdate1mm: '00',
+            warrantbookdate1yyyy: '0000',
+    
+            warrantbookdate2dd: '00',
+            warrantbookdate2mm: '00',
+            warrantbookdate2yyyy: '0000',
+    
+            firstdatepaiddd: '00',
+            firstdatepaidmm: '00',
+            firstdatepaidyyyy: '0000',
+    
+            lastdatepaiddd: '00',
+            lastdatepaidmm: '00',
+            lastdatepaidyyyy: '0000',
+        })
         
 
         axios.post(
@@ -564,7 +679,7 @@ function LoanRequestPrint(props) {
                             Interest: 0, // 4,
                             ChargeRate: '', // "",
                             LastDatePaid: null, // "null",
-                            OfficeProvince: '', // "",
+                            OfficeProvince: provincename, // "",
                             WitnessName: '', // "",
                             WitnessAddr: '', // "",
                             WitnessIDCard: '', // "",
@@ -702,52 +817,120 @@ function LoanRequestPrint(props) {
                     })
                     setLoanID(loanID)
                     setLoanNumber(loanNumber);
-                    console.warn('Loandue_data',data.loandue_data)
+                    // console.warn('Loandue_data',data.loandue_data)
                     setLoandueDataAPI(data.loandue_data)
 
+                    /* 
+                        ** How to insert Date on edit mode
+                        step 1.loop get date from api insert to 'loandueDataArr'
+                        step 2.
+                    */
+
                     for(let i=0; i<data.loandue_data.length; i++) {
-                        let payrecArr = [...loandueDataArr]
-                        payrecArr[i].PAYREC = parseFloat(data.loandue_data[i].PAYREC)
-                        setLoandueDataArr(payrecArr)
+                        let loandueArr = [...loandueDataArr]
+
+                        // console.warn('DUEDATE',reOrderDateENtoTH(data.loandue_data[i].DUEDATE))
+                        loandueArr[i].DUEDATE = data.loandue_data[i].DUEDATE === null ? '0000-00-00' : data.loandue_data[i].DUEDATE
+                        loandueArr[i].PAYREC = parseFloat(data.loandue_data[i].PAYREC)
+                        setLoandueDataArr(loandueArr)
                     }
+
+                    // console.log('loandueDataArr',loandueDataArr)
+
+                    for(let i=0; i<loandueDataArr.length; i++) {
+                        // console.log('loandueDataArr[i].DUEDATE',loandueDataArr[i].DUEDATE)
+                        let selectLoanDateArr = [...inputSelectDateLoandata]
+                        
+                        selectLoanDateArr[i].dd = loandueDataArr[i].DUEDATE === null ? '00' : loandueDataArr[i].DUEDATE.substring(8,10)
+                        selectLoanDateArr[i].mm = loandueDataArr[i].DUEDATE === null ? '00' : loandueDataArr[i].DUEDATE.substring(5,7)
+                        selectLoanDateArr[i].yyyy = loandueDataArr[i].DUEDATE === null ? '0000' : Number(loandueDataArr[i].DUEDATE.substring(0,4)) + 543
+                        
+                        setInputSelectDateLoandata(selectLoanDateArr)
+                    }
+
+                    // console.log('inputSelectDateLoandata',inputSelectDateLoandata)
 
                     // Insert Radio Free_of_debt
                     data.results[0].Free_of_debt_Month ? setFree_of_debt('0') : setFree_of_debt('1')
 
-                    console.warn('Loandue_data',loandueDataAPI)
+                    // let yyyy = Number(val.substring(0,4)) + 543
+                    // let mm = val.substring(5,7)
+                    // let dd = val.substring(8,10)
+                    // console.log('data.results[0].LoanDate',data.results[0].LoanDate)
+                    setInputSelectDate({
+                        ...inputSelectDate,
+                        loandatedd: data.results[0].LoanDate === null ? '00': data.results[0].LoanDate.substring(8,10),
+                        loandatemm: data.results[0].LoanDate === null ? '00': data.results[0].LoanDate.substring(5,7),
+                        loandateyyyy: data.results[0].LoanDate === null ? '0000': Number(data.results[0].LoanDate.substring(0,4)) + 543,
+
+                        recdatedd: data.results[0].RecDate === null ? '00': data.results[0].RecDate.substring(8,10),
+                        recdatemm: data.results[0].RecDate === null ? '00': data.results[0].RecDate.substring(5,7),
+                        recdateyyyy: data.results[0].RecDate === null ? '0000': Number(data.results[0].RecDate.substring(0,4)) + 543,
+
+                        spkorderdatedd: data.results[0].SPK_OrderDate === null ? '00': data.results[0].SPK_OrderDate.substring(8,10),
+                        spkorderdatemm: data.results[0].SPK_OrderDate === null ? '00': data.results[0].SPK_OrderDate.substring(5,7),
+                        spkorderdateyyyy: data.results[0].SPK_OrderDate === null ? '0000': Number(data.results[0].SPK_OrderDate.substring(0,4)) + 543,
+
+                        guaranteepropertydd: data.results[0].Guarantee_PropertyDate === null ? '00': data.results[0].Guarantee_PropertyDate.substring(8,10),
+                        guaranteepropertymm: data.results[0].Guarantee_PropertyDate === null ? '00': data.results[0].Guarantee_PropertyDate.substring(5,7),
+                        guaranteepropertyyyyy: data.results[0].Guarantee_PropertyDate === null ? '0000': Number(data.results[0].Guarantee_PropertyDate.substring(0,4)) + 543,
+
+                        loanguaranteebookdd: data.results[0].LoanGuaranteeBookDate === null ? '00': data.results[0].LoanGuaranteeBookDate.substring(8,10),
+                        loanguaranteebookmm: data.results[0].LoanGuaranteeBookDate === null ? '00': data.results[0].LoanGuaranteeBookDate.substring(5,7),
+                        loanguaranteebookyyyy: data.results[0].LoanGuaranteeBookDate === null ? '0000': Number(data.results[0].LoanGuaranteeBookDate.substring(0,4)) + 543,
+
+                        warrantbookdate1dd: data.results[0].WarrantBookDate1 === null ? '00': data.results[0].WarrantBookDate1.substring(8,10),
+                        warrantbookdate1mm: data.results[0].WarrantBookDate1 === null ? '00': data.results[0].WarrantBookDate1.substring(5,7),
+                        warrantbookdate1yyyy: data.results[0].WarrantBookDate1 === null ? '0000': Number(data.results[0].WarrantBookDate1.substring(0,4)) + 543,
+
+                        warrantbookdate2dd: data.results[0].WarrantBookDate2 === null ? '00': data.results[0].WarrantBookDate2.substring(8,10),
+                        warrantbookdate2mm: data.results[0].WarrantBookDate2 === null ? '00': data.results[0].WarrantBookDate2.substring(5,7),
+                        warrantbookdate2yyyy: data.results[0].WarrantBookDate2 === null ? '0000': Number(data.results[0].WarrantBookDate2.substring(0,4)) + 543,
+
+                        firstdatepaiddd: data.results[0].FirstDatePaid === null ? '00': data.results[0].FirstDatePaid.substring(8,10),
+                        firstdatepaidmm: data.results[0].FirstDatePaid === null ? '00': data.results[0].FirstDatePaid.substring(5,7),
+                        firstdatepaidyyyy: data.results[0].FirstDatePaid === null ? '0000': Number(data.results[0].FirstDatePaid.substring(0,4)) + 543,
+
+                        lastdatepaiddd: data.results[0].LastDatePaid === null ? '00': data.results[0].LastDatePaid.substring(8,10),
+                        lastdatepaidmm: data.results[0].LastDatePaid === null ? '00': data.results[0].LastDatePaid.substring(5,7),
+                        lastdatepaidyyyy: data.results[0].LastDatePaid === null ? '0000': Number(data.results[0].LastDatePaid.substring(0,4)) + 543,
+                    })
+
+                    
                     
                     for(let i=0; i<data.loandue_data.length; i++) {
 
-                        if(i===0) {
-                            setLoandue_data1({
-                                DUEDATE: data.loandue_data[0].DUEDATE,
-                                PAYREC:  data.loandue_data[0].PAYREC
-                            })
-                        }
-                        if(i===1) {
-                            setLoandue_data2({
-                                DUEDATE: data.loandue_data[1].DUEDATE,
-                                PAYREC:  data.loandue_data[1].PAYREC
-                            })
-                        }
-                        if(i===2) {
-                            setLoandue_data3({
-                                DUEDATE: data.loandue_data[2].DUEDATE,
-                                PAYREC:  data.loandue_data[2].PAYREC
-                            })
-                        }
-                        if(i===3) {
-                            setLoandue_data4({
-                                DUEDATE: data.loandue_data[3].DUEDATE,
-                                PAYREC:  data.loandue_data[3].PAYREC
-                            })
-                        }
-                        if(i===4) {
-                            setLoandue_data5({
-                                DUEDATE: data.loandue_data[4].DUEDATE,
-                                PAYREC:  data.loandue_data[4].PAYREC
-                            })
-                        }
+
+                        // if(i===0) {
+                        //     setLoandue_data1({
+                        //         DUEDATE: data.loandue_data[0].DUEDATE,
+                        //         PAYREC:  data.loandue_data[0].PAYREC
+                        //     })
+                        // }
+                        // if(i===1) {
+                        //     setLoandue_data2({
+                        //         DUEDATE: data.loandue_data[1].DUEDATE,
+                        //         PAYREC:  data.loandue_data[1].PAYREC
+                        //     })
+                        // }
+                        // if(i===2) {
+                        //     setLoandue_data3({
+                        //         DUEDATE: data.loandue_data[2].DUEDATE,
+                        //         PAYREC:  data.loandue_data[2].PAYREC
+                        //     })
+                        // }
+                        // if(i===3) {
+                        //     setLoandue_data4({
+                        //         DUEDATE: data.loandue_data[3].DUEDATE,
+                        //         PAYREC:  data.loandue_data[3].PAYREC
+                        //     })
+                        // }
+                        // if(i===4) {
+                        //     setLoandue_data5({
+                        //         DUEDATE: data.loandue_data[4].DUEDATE,
+                        //         PAYREC:  data.loandue_data[4].PAYREC
+                        //     })
+                        // }
 
                     }
 
@@ -791,31 +974,85 @@ function LoanRequestPrint(props) {
             ...inputSelectDate,
             [event.target.name]: event.target.value.toString()
         })
-        console.log('type',type, 'value', event.target.value)
+        // console.log('type',type, 'value', event.target.value)
 
         if(type === 'firstdatepaiddd' || type === 'firstdatepaidmm' || type === 'firstdatepaidyyyy') {
-            console.log(inputSelectDate)
+            // console.log(inputSelectDate)
             let payrecArr = [...loandueDataArr]
             payrecArr[0].DUEDATE = inputSelectDate.firstdatepaiddd+'-'+inputSelectDate.firstdatepaidmm+'-'+inputSelectDate.firstdatepaidyyyy
             setLoandueDataArr(payrecArr)
         }
     }
 
-    const handleSelectDateLoandata = (event) => {
-        let type = event.target.name
-        setInputSelectDateLoandata({
-            ...inputSelectDateLoandata,
-            [event.target.name]: event.target.value.toString()
-        })
-        console.log('type',type, 'value', event.target.value)
-        
+    // Handle Date on table
+    const handleSelectDateLoandata = (event,index,typeName,installment) => {
+        let name = event.target.name
+        let type = typeName//event.target.name
+        let payrecDateArr = [...loandueDataArr]
+
+        // First pay date value
+        if(name === 'firstdatepaiddd' || name === 'firstdatepaidmm' || name === 'firstdatepaidyyyy') {
+
+            if(name === 'firstdatepaiddd' ) {
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    [event.target.name]: event.target.value.toString(),
+                    'lastdatepaiddd': event.target.value.toString()
+                })
+            } else if (name === 'firstdatepaidmm') {
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    [event.target.name]: event.target.value.toString(),
+                    'lastdatepaidmm': event.target.value.toString()
+                })
+
+            } else if (name === 'firstdatepaidyyyy') {
+                let value = (event.target.value + Number(inputDataSubmit.Free_of_debt_Time) -1).toString()
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    [event.target.name]: event.target.value.toString(),
+                    'lastdatepaidyyyy': value
+                })
+
+            }
+            
+            let DateLoandataArr = [...inputSelectDateLoandata]
+            for(let i=0; i<25; i++) {
+                DateLoandataArr[i][type] = event.target.value.toString()
+                if(name === 'firstdatepaidyyyy') {
+                    DateLoandataArr[i][type] = (Number(event.target.value)+i).toString()
+                }
+
+                // Add to Array of Submit
+                payrecDateArr[i].DUEDATE = DateLoandataArr[i].yyyy === '0000' ? '0000' : DateLoandataArr[i].yyyy - 543+'-'+DateLoandataArr[i].mm+'-'+DateLoandataArr[i].dd
+            }
+            setInputSelectDateLoandata(DateLoandataArr)
+
+        } else {
+            let DateLoandataArr = [...inputSelectDateLoandata]
+            DateLoandataArr[index][type] = event.target.value.toString()
+            setInputSelectDateLoandata(DateLoandataArr)
+    
+            // console.log('index',index,'type',type, 'value', event.target.value)
+            // console.log(inputSelectDateLoandata)
+
+
+            
+            payrecDateArr[index].DUEDATE = (inputSelectDateLoandata[index].yyyy === '0000' ? '0000' : inputSelectDateLoandata[index].yyyy - 543)+'-'+inputSelectDateLoandata[index].mm+'-'+inputSelectDateLoandata[index].dd
+            setLoandueDataArr(payrecDateArr)
+            // console.log('loandueDataArr',loandueDataArr)
+    
+
+        }
     }
 
+    // Handle Value on table
     const handleInputLoanDueDataPay= (event, index, type) => {
+        setSummaryTable('2')
         // let payrecArr = [];
         let payrecValue = event.target.value
-        let payrecID = event.target.id//.toString().slice(-3)
-        console.log(payrecID, payrecValue)
+        // let payrecID = event.target.id//.toString().slice(-3)
+        // console.log(payrecID, payrecValue)
 
         if(type === 'date') {
             
@@ -829,19 +1066,7 @@ function LoanRequestPrint(props) {
         }
         
 
-        console.log(loandueDataArr)
-
-        // if(event.target.id === 'loandue_data1') {
-        //     setLoandue_data1({...loandue_data1, PAYREC: event.target.value.split(',').join('')})
-        // } else if(event.target.id === 'loandue_data2') {
-        //     setLoandue_data2({...loandue_data2, PAYREC: event.target.value.split(',').join('')})
-        // } else if(event.target.id === 'loandue_data3') {
-        //     setLoandue_data3({...loandue_data3, PAYREC: event.target.value.split(',').join('')})
-        // } else if(event.target.id === 'loandue_data4') {
-        //     setLoandue_data4({...loandue_data4, PAYREC: event.target.value.split(',').join('')})
-        // } else if(event.target.id === 'loandue_data5') {
-        //     setLoandue_data5({...loandue_data5, PAYREC: event.target.value.split(',').join('')})
-        // }
+        // console.log('loandueDataArr',loandueDataArr)
     }
 
     const handleInputFreeofDebt = (event) => {
@@ -953,10 +1178,25 @@ function LoanRequestPrint(props) {
                 [event.target.name]: 25
             })
         }
+
+        // Update Last date pay
+        let updateLastdatepaidyyyy;
+        if(event.target.value <= 0 || event.target.value === null || event.target.value === '' || inputSelectDate.firstdatepaidyyyy === '0000') {
+            updateLastdatepaidyyyy = '0000'
+        } else {
+            updateLastdatepaidyyyy = Number(event.target.value) + Number(inputSelectDate.firstdatepaidyyyy) -1
+        }
+        
+        setInputSelectDate({
+            ...inputSelectDate,
+            'lastdatepaidyyyy': updateLastdatepaidyyyy.toString()
+        })
     }
 
     const handleInputDataSubmit = (event) => {
         // console.log('event.target.id',event.target.id)
+        // let name = event.target.name
+
         if(event.target.type === 'number') {
             let typeNumber = event.target.id.toString().slice(-3);
             if(typeNumber === 'tel') {
@@ -999,8 +1239,20 @@ function LoanRequestPrint(props) {
                 ...inputDataSubmit,
                 [event.target.name]: event.target.value
             })
+
         }
         // console.log(event)
+    }
+
+    const handleInputDataSubmitInstallment = (event) => {
+        setInputDataSubmit({
+            ...inputDataSubmit,
+            [event.target.name]: event.target.value
+        })
+
+        // setSummaryInstallment(
+        //     parseFloat(inputDataSubmit.Loan_Installment1) + parseFloat(inputDataSubmit.Loan_Installment2)
+        // )
     }
 
     const handleSubmit = (event, loanstatus) => {
@@ -1130,7 +1382,7 @@ function LoanRequestPrint(props) {
         //     loandueDataArr.push(loandue_data5);
         // }
         let loandueDataArrValue = []
-        console.log('inputDataSubmit.Free_of_debt_Time',inputDataSubmit.Free_of_debt_Time.length)
+        // console.log('inputDataSubmit.Free_of_debt_Time',inputDataSubmit.Free_of_debt_Time.length)
         for(let i=0; i<inputDataSubmit.Free_of_debt_Time; i++) {
             loandueDataArrValue.push(loandueDataArr[i])
         }
@@ -1219,23 +1471,25 @@ function LoanRequestPrint(props) {
 
     };
 
+    const sumTable = () => {
+        let sum = 0;
+        for(let i=0; i<loandueDataArr.length; i++) {
+            sum += loandueDataArr[i].PAYREC
+        }
+        setSummaryTable(sum)
+    }
+
+    const sumPrinciple = () => {}
+
     const rowTable = (amountRow, dataRow) => {
         let rowArr = []
 
         // Check amount of row <= 0 ???
         if(amountRow <= 0 || amountRow === '') {
             rowArr.push(
-                <TableRow>
-                    <TableCell align="center"> - </TableCell>
-                    <TableCell align="left">
-                        <div className="select-date-option">
-                            <MuiSelectDay label="" name="dd" value={'00'} inputdisabled="input-disabled" />
-                            <MuiSelectMonth label="" name="mm" value={'00'} inputdisabled="input-disabled" />
-                            <MuiSelectYear label="" name="yyyy" value={'0000'} inputdisabled="input-disabled" />
-                        </div>  
-                    </TableCell>
-                    <TableCell align="center">
-                        <MuiTextfieldCurrency inputdisabled="input-disabled" label="" value={''}  />
+                <TableRow key={99}>
+                    <TableCell colSpan="3">
+                        <p className="txt-red font-16 txt-center">กรุณาใส่จำนวนงวด</p>
                     </TableCell>
                 </TableRow>
             )
@@ -1248,9 +1502,9 @@ function LoanRequestPrint(props) {
                             <TableCell align="center">{i+1}</TableCell>
                             <TableCell align="left">
                                 <div className="select-date-option">
-                                    <MuiSelectDay label="" name="dd" value={'00'} onChange={handleSelectDateLoandata} />
-                                    <MuiSelectMonth label="" name="mm" value={'00'} onChange={handleSelectDateLoandata} />
-                                    <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={handleSelectDateLoandata} />
+                                    <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata[i].dd} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
+                                    <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata[i].mm} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
+                                    <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                 </div>  
                             </TableCell>
                             <TableCell align="center">
@@ -1266,9 +1520,9 @@ function LoanRequestPrint(props) {
                                 <TableCell align="center">{i+1}</TableCell>
                                 <TableCell align="left">
                                     <div className="select-date-option">
-                                        <MuiSelectDay label="" name="dd" value={'00'} onChange={handleSelectDateLoandata} />
-                                        <MuiSelectMonth label="" name="mm" value={'00'} onChange={handleSelectDateLoandata} />
-                                        <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={handleSelectDateLoandata} />
+                                        <MuiSelectDay label="" name="dd" value={'00'} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
+                                        <MuiSelectMonth label="" name="mm" value={'00'} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
+                                        <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                     </div>  
                                 </TableCell>
                                 <TableCell align="center">
@@ -1279,24 +1533,19 @@ function LoanRequestPrint(props) {
 
                     } else {
 
-                        console.log('dataRow', loandueDataAPI[i] === undefined ? null : loandueDataAPI[i].PAYREC)
+                        // console.log('dataRow', loandueDataAPI[i] === undefined ? null : loandueDataAPI[i].PAYREC)
                         rowArr.push(
                             <TableRow key={i}>
                                 <TableCell align="center">{i+1}</TableCell>
                                 <TableCell align="left">
                                     <div className="select-date-option">
-                                        <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata.dd} onChange={handleSelectDateLoandata} />
-                                        <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata.mm} onChange={handleSelectDateLoandata} />
-                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDateLoandata.yyyy} onChange={handleSelectDateLoandata} />
+                                        <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata[i].dd} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
+                                        <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata[i].mm} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
+                                        <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                     </div>  
                                 </TableCell>
-                                <TableCell align="left">
-                                    {
-                                        loandueDataAPI === null ? 
-                                            <MuiTextfield label="" />
-                                        :
-                                            <MuiTextfieldCurrency label="" id={i} value={loandueDataAPI[i] === undefined ? null : loandueDataAPI[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
-                                    }
+                                <TableCell align="center">
+                                        <MuiTextfieldCurrency  label="" value={loandueDataArr[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
                                 </TableCell>
                             </TableRow>
                         )
@@ -1546,11 +1795,7 @@ function LoanRequestPrint(props) {
                                                         <Grid item xs={12} md={3} className="loanrequestprint-objtotal">
                                                             {/* <p className="paper-p txt-right"><span className="txt-green">500,000</span>&nbsp;&nbsp;บาท</p> */}
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiTextfieldCurrency label="" value={ 
-                                                                        ((inputDataSubmit.Loan_Obj1Amount === 0 || inputDataSubmit.Loan_Obj1Amount === '' ? 0 : parseFloat((inputDataSubmit.Loan_Obj1Amount.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) + 
-                                                                        (inputDataSubmit.Loan_Obj2Amount === 0 || inputDataSubmit.Loan_Obj2Amount === '' ? 0 : parseFloat((inputDataSubmit.Loan_Obj2Amount.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
-                                                                        (inputDataSubmit.Loan_Obj3Amount === 0 || inputDataSubmit.Loan_Obj3Amount === '' ? 0 : parseFloat((inputDataSubmit.Loan_Obj3Amount.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
-                                                                    }  onChange={handleInputData} />
+                                                                <MuiTextfieldCurrency label="" value={ summaryLoanObj }  onChange={handleInputData} />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
@@ -1563,11 +1808,11 @@ function LoanRequestPrint(props) {
                                                         <Grid item xs={12} md={12}>
                                                             <MuiLabelHeader label="ผู้ให้กู้ตกลงให้ผู้กู้ได้รับเงินกู้ตามวรรคแรกในคราวเดียวกันทั้งหมด หรือแบ่งให้เป็นงวดดังต่อไปนี้" />
                                                         </Grid>
-                                                        <Grid item xs={12} md={6}>
+                                                        <Grid item xs={12} md={7}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={11} md={7}>
                                                                     <p>งวดที่ 1 เป็นเงิน</p>
-                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment1" value={inputDataSubmit.Loan_Installment1}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment1" value={inputDataSubmit.Loan_Installment1}  onChange={handleInputDataSubmitInstallment} />
                                                                 </Grid>
                                                                 <Grid item xs={1} md={1}>
                                                                     <p>&nbsp;</p>
@@ -1579,7 +1824,7 @@ function LoanRequestPrint(props) {
                                                                 </Grid> */}
                                                                 <Grid item xs={11} md={7}>
                                                                     <p>งวดที่ 2 เป็นเงิน</p>
-                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment2" value={inputDataSubmit.Loan_Installment2}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment2" value={inputDataSubmit.Loan_Installment2}  onChange={handleInputDataSubmitInstallment} />
                                                                 </Grid>
                                                                 <Grid item xs={1} md={1}>
                                                                     <p>&nbsp;</p>
@@ -1591,7 +1836,7 @@ function LoanRequestPrint(props) {
                                                                 </Grid> */}
                                                                 <Grid item xs={11} md={7}>
                                                                     <p>งวดที่ 3 เป็นเงิน</p>
-                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment3" value={inputDataSubmit.Loan_Installment3}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment3" value={inputDataSubmit.Loan_Installment3}  onChange={handleInputDataSubmitInstallment} />
                                                                 </Grid>
                                                                 <Grid item xs={1} md={1}>
                                                                     <p>&nbsp;</p>
@@ -1603,7 +1848,7 @@ function LoanRequestPrint(props) {
                                                                 </Grid> */}
                                                                 <Grid item xs={11} md={7}>
                                                                     <p>งวดที่ 4 เป็นเงิน</p>
-                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment4" value={inputDataSubmit.Loan_Installment4}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment4" value={inputDataSubmit.Loan_Installment4}  onChange={handleInputDataSubmitInstallment} />
                                                                 </Grid>
                                                                 <Grid item xs={1} md={1}>
                                                                     <p>&nbsp;</p>
@@ -1615,7 +1860,7 @@ function LoanRequestPrint(props) {
                                                                 </Grid> */}
                                                                 <Grid item xs={11} md={7}>
                                                                     <p>งวดที่ 5 เป็นเงิน</p>
-                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment5" value={inputDataSubmit.Loan_Installment5}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfieldCurrency  label="" name="Loan_Installment5" value={inputDataSubmit.Loan_Installment5}  onChange={handleInputDataSubmitInstallment} />
                                                                 </Grid>
                                                                 <Grid item xs={1} md={1}>
                                                                     <p>&nbsp;</p>
@@ -1627,6 +1872,9 @@ function LoanRequestPrint(props) {
                                                                 </Grid> */}
                                                                 <Grid item xs={12} md={12}>
                                                                     <Grid container spacing={2}>
+                                                                        {
+                                                                            summaryInstallment === summaryLoanObj ? null : <Grid item xs={12} md={12}><p className="txt-red">* กรุณาใส่จำนวนเงินรวมให้ตรงกับยอดเงินรวมของวัตถุประสงค์</p> </Grid>
+                                                                        }
                                                                         <Grid item xs={12} md={2}>
                                                                             {/* Field Text ---------------------------------------------------*/}
                                                                             <p className="paper-p">รวมเป็นเงิน</p>
@@ -1634,12 +1882,12 @@ function LoanRequestPrint(props) {
                                                                         <Grid item xs={12} md={5} className="loanrequestprint-objtotal">
                                                                             {/* <p className="paper-p txt-right"><span className="txt-green">500,000</span>&nbsp;&nbsp;บาท</p> */}
                                                                             <Grid item xs={12} md={12}>
-                                                                                <MuiTextfieldCurrency label="" value={ 
-                                                                                        ((inputDataSubmit.Loan_Installment1 === 0 || inputDataSubmit.Loan_Installment1 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment1.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
-                                                                                        (inputDataSubmit.Loan_Installment2 === 0 || inputDataSubmit.Loan_Installment2 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment2.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
-                                                                                        (inputDataSubmit.Loan_Installment3 === 0 || inputDataSubmit.Loan_Installment3 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment3.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) + 
-                                                                                        (inputDataSubmit.Loan_Installment4 === 0 || inputDataSubmit.Loan_Installment4 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment4.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
-                                                                                        (inputDataSubmit.Loan_Installment5 === 0 || inputDataSubmit.Loan_Installment5 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment5.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
+                                                                                <MuiTextfieldCurrency label="" value={ summaryInstallment
+                                                                                        // ((inputDataSubmit.Loan_Installment1 === 0 || inputDataSubmit.Loan_Installment1 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment1.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+                                                                                        // (inputDataSubmit.Loan_Installment2 === 0 || inputDataSubmit.Loan_Installment2 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment2.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+                                                                                        // (inputDataSubmit.Loan_Installment3 === 0 || inputDataSubmit.Loan_Installment3 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment3.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) + 
+                                                                                        // (inputDataSubmit.Loan_Installment4 === 0 || inputDataSubmit.Loan_Installment4 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment4.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
+                                                                                        // (inputDataSubmit.Loan_Installment5 === 0 || inputDataSubmit.Loan_Installment5 === '' ? 0 : parseFloat((inputDataSubmit.Loan_Installment5.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
                                                                                     }  onChange={handleInputData} />
                                                                             </Grid>
                                                                         </Grid>
@@ -1649,6 +1897,7 @@ function LoanRequestPrint(props) {
                                                                         {/* <Grid item xs={12} md={3}>
                                                                             <p className="paper-p">(ห้าแสนบาท)</p>
                                                                         </Grid> */}
+                                                                        
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -1872,9 +2121,9 @@ function LoanRequestPrint(props) {
                                                         <Grid item xs={12} md={3}>
                                                                 <p>เริ่มชำระงวดแรกภายในวันที่</p>
                                                                 <div className="select-date-option">
-                                                                    <MuiSelectDay label="" name="firstdatepaiddd" value={inputSelectDate.firstdatepaiddd} onChange={handleSelectDate} />
-                                                                    <MuiSelectMonth label="" name="firstdatepaidmm" value={inputSelectDate.firstdatepaidmm} onChange={handleSelectDate} />
-                                                                    <MuiSelectYear label="" name="firstdatepaidyyyy" value={inputSelectDate.firstdatepaidyyyy} onChange={handleSelectDate} />
+                                                                    <MuiSelectDay label="" name="firstdatepaiddd" value={inputSelectDate.firstdatepaiddd} onChange={(event)=>handleSelectDateLoandata(event,0,'dd',inputDataSubmit.Free_of_debt_Time)} />
+                                                                    <MuiSelectMonth label="" name="firstdatepaidmm" value={inputSelectDate.firstdatepaidmm} onChange={(event)=>handleSelectDateLoandata(event,0,'mm',inputDataSubmit.Free_of_debt_Time)} />
+                                                                    <MuiSelectYear label="" name="firstdatepaidyyyy" value={inputSelectDate.firstdatepaidyyyy} onChange={(event)=>handleSelectDateLoandata(event,0,'yyyy',inputDataSubmit.Free_of_debt_Time)} />
                                                                 </div>
                                                             {/* <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" name="FirstDatePaid" value={inputDataSubmit.FirstDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, FirstDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
@@ -1891,12 +2140,12 @@ function LoanRequestPrint(props) {
                                                                 <div className="select-date-option">
                                                                     <MuiSelectDay label="" name="lastdatepaiddd" value={inputSelectDate.lastdatepaiddd} onChange={handleSelectDate} />
                                                                     <MuiSelectMonth label="" name="lastdatepaidmm" value={inputSelectDate.lastdatepaidmm} onChange={handleSelectDate} />
-                                                                    <MuiSelectYear label="" name="lastdatepaidyyyy" value={inputSelectDate.lastdatepaidyyyy} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear last={25} label="" name="lastdatepaidyyyy" value={inputSelectDate.lastdatepaidyyyy} onChange={handleSelectDate} />
                                                                 </div>
                                                             {/* <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" name="LastDatePaid" value={inputDataSubmit.LastDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LastDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" name="OfficeProvince" value={inputDataSubmit.OfficeProvince}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" inputdisabled="input-disabled" name="OfficeProvince" value={inputDataSubmit.OfficeProvince}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -1913,15 +2162,18 @@ function LoanRequestPrint(props) {
                                                     <TableContainer className="table-box table-loanrequestprint2 table-summary">
                                                         <Table aria-label="normal table">
                                                             <TableHead>
-                                                            <TableRow>
-                                                                <TableCell align="center">งวดที่</TableCell>
-                                                                <TableCell align="center" style={{minWidth: '200px'}}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
-                                                                <TableCell align="center">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
-                                                            </TableRow>
+                                                                <TableRow>
+                                                                    <TableCell align="center">งวดที่</TableCell>
+                                                                    <TableCell align="center" style={{minWidth: '200px'}}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
+                                                                    <TableCell align="center">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
+                                                                </TableRow>
                                                             </TableHead>
                                                             <TableBody>
                                                             {
                                                                 rowTable(inputDataSubmit.Free_of_debt_Time, loandueDataAPI)
+                                                            }
+                                                            {
+                                                                summaryTable.toLocaleString('en-US', {minimumFractionDigits: 2}) === summaryLoanObj ? null : <TableRow key={99} className="box box-grey"><TableCell colSpan="3"><Grid container spacing={2}><Grid item xs={12} md={12}><p className="txt-red txt-center font-14">* กรุณาใส่จำนวนเงินรวมให้ตรงกับยอดเงินรวมของวัตถุประสงค์</p> </Grid></Grid></TableCell></TableRow>
                                                             }
 
                                                             <TableRow className="box box-grey">
@@ -1934,13 +2186,14 @@ function LoanRequestPrint(props) {
                                                                         </Grid>
                                                                         <Grid item xs={12} md={6} className="loanrequestprint-loanduetotal">
                                                                             <Grid item xs={12} md={12}>
-                                                                                <MuiTextfieldCurrency label="" value={ 
+                                                                                <MuiTextfieldCurrency label="" value={ summaryTable } onChange={sumTable} />
+                                                                                {/* <MuiTextfieldCurrency label="" value={ 
                                                                                         ((loandue_data1.PAYREC === 0 || loandue_data1.PAYREC === '' ? 0 : parseFloat((loandue_data1.PAYREC.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
                                                                                         (loandue_data2.PAYREC === 0 || loandue_data2.PAYREC === '' ? 0 : parseFloat((loandue_data2.PAYREC.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
                                                                                         (loandue_data3.PAYREC === 0 || loandue_data3.PAYREC === '' ? 0 : parseFloat((loandue_data3.PAYREC.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) + 
                                                                                         (loandue_data4.PAYREC === 0 || loandue_data4.PAYREC === '' ? 0 : parseFloat((loandue_data4.PAYREC.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))) +
                                                                                         (loandue_data5.PAYREC === 0 || loandue_data5.PAYREC === '' ? 0 : parseFloat((loandue_data5.PAYREC.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join('')))).toLocaleString('en-US', {minimumFractionDigits: 2})
-                                                                                    }  onChange={handleInputData} />
+                                                                                    }  onChange={handleInputData} /> */}
                                                                             </Grid>
                                                                         </Grid>
                                                                         <Grid item xs={1} md={1}>
@@ -1973,49 +2226,49 @@ function LoanRequestPrint(props) {
                                                 <MuiTextfield inputdisabled="input-disabled" label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={inputDataSubmit.WitnessAddr}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man1-idc" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard}  onInput={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={inputDataSubmit.WitnessIDCardMade}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={inputDataSubmit.WitnessAddr2}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man2-idc" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2}  onInput={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={inputDataSubmit.WitnessIDCardMade2}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={inputDataSubmit.WitnessAddr3}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man3-idc" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3}  onInput={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade3" value={inputDataSubmit.WitnessIDCardMade3}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade3" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={inputDataSubmit.WitnessAddr4}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man4-idc" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4}  onInput={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade4" value={inputDataSubmit.WitnessIDCardMade4}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade4" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                         </Grid>
                                     </Container>
@@ -2046,7 +2299,7 @@ function LoanRequestPrint(props) {
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
+                                                            {/* <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield label="โดย"  defaultValue="" />
@@ -2058,13 +2311,13 @@ function LoanRequestPrint(props) {
                                                             <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
+                                                            {/* <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" />
+                                                            {/* <MuiDatePicker label="ลงวันที่"  defaultValue="2017-05-24" /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -2105,13 +2358,13 @@ function LoanRequestPrint(props) {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่"  defaultValue="2017-05-24" />
+                                                                    {/* <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่"  defaultValue="2017-05-24" /> */}
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่"  defaultValue="2017-05-24" />
+                                                                    {/* <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่"  defaultValue="2017-05-24" /> */}
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด"  defaultValue="" />
+                                                                    {/* <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด"  defaultValue="" /> */}
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -2130,12 +2383,12 @@ function LoanRequestPrint(props) {
                                                     <TableContainer className="table-box table-loanrequestprint3 table-summary">
                                                         <Table aria-label="normal table">
                                                             <TableHead>
-                                                                <TableRow>
+                                                                <TableRow key={1}>
                                                                     <TableCell align="center" rowSpan={2}>งวดที่</TableCell>
                                                                     <TableCell align="center" rowSpan={2}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
                                                                     <TableCell align="center" colSpan={2}>จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
                                                                 </TableRow>
-                                                                <TableRow>
+                                                                <TableRow key={2}>
                                                                     <TableCell align="center">เงินต้นค้างชำระ</TableCell>
                                                                     <TableCell align="center">ดอกเบี้ยค้างชำระ</TableCell>
                                                                 </TableRow>
@@ -2162,7 +2415,7 @@ function LoanRequestPrint(props) {
                                                                     </TableRow>
                                                                 ))
                                                             }
-                                                                <TableRow>
+                                                                <TableRow key={100}>
                                                                     <TableCell>&nbsp;</TableCell>
                                                                     <TableCell align="right">รวม</TableCell>
                                                                     <TableCell align="right">30,000</TableCell>

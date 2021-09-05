@@ -306,7 +306,7 @@ const MUItable = (props) => {
                 }
                 {
                   actionRequest ? 
-                    <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
+                    <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="100px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
                   : null
                 }
                 {
