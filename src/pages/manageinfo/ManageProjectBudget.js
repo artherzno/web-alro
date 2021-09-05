@@ -610,7 +610,7 @@ function ManageProjectBudget() {
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={5}>
-                                                        <p className="paper-p txt-right">เงินจากงบประมาณโครงการ</p>
+                                                        <p className="paper-p txt-right">เงินจากงบประมาณ</p>
                                                     </Grid>
                                                     <Grid item xs={11} md={5}>
                                                         <MuiTextfieldCurrency label="" name="ProjectBudget" value={inputData.ProjectBudget}  onChange={handleInputData} />

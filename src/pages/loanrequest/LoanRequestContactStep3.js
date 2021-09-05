@@ -722,22 +722,22 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                                                     <div style={ inputData.Approval === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
                                                                         <div className="radio-group-content__flex">
                                                                             <Grid container spacing={2}>
-                                                                                <Grid item xs={12} md={3}>
+                                                                                {/* <Grid item xs={12} md={3}>
                                                                                     <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectID'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
-                                                                                </Grid>
+                                                                                </Grid> 
                                                                                 <Grid item xs={12} md={4}>
-                                                                                    {/* Field Text ---------------------------------------------------*/}
                                                                                     <MuiTextfield disabled label="รหัสโครงการรอง" value={projectSubCodeText} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    {/* Field Text ---------------------------------------------------*/}
                                                                                     <MuiTextfield disabled label="ชื่อโครงการรอง" value={projectSubNameText} />
                                                                                 </Grid>
+                                                                            */}
                                                                                 {
                                                                                     errNoticeProject ? 
                                                                                             <p className="txt-red paper-p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{errNoticeProjectMsg}</p> 
                                                                                     : ''
                                                                                 }
+                                                                                
                                                                                 <Grid item xs={11} md={11}>
                                                                                     <p className="paper-p">จำนวน</p>
                                                                                     <MuiTextfieldCurrency label="" name="ProjectValue" value={inputData.ProjectValue}  onChange={handleInputData} /> 

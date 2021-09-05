@@ -887,7 +887,7 @@ function LoanRequestContactStep1(props) {
                                                 {
                                                     props.action === 'view' || props.action === 'edit' ? 
                                                         <Grid item xs={12} md={12}>
-                                                            <p className="txt-green txt-right">{approvalData.Approval === null || (!approvalData.Approval) ? '' : (approvalData.Approval === 0) ? 'C' : 'P' } เลขที่คำขอ {inputData.ApplicantNo}</p>
+                                                            <p className="txt-green txt-right">{approvalData.Approval === null || (!approvalData.Approval) ? '' : (approvalData.Approval === 0) ? 'C' : (approvalData.Approval === 1) ?'P' : 'F' } เลขที่คำขอ {inputData.ApplicantNo}</p>
                                                         </Grid>
                                                     : ''
                                                 }
