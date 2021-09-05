@@ -404,7 +404,7 @@ function LoanRequestPrint(props) {
         return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
     }
 
-    // New order date
+    // New order date 2021-08-23 to 23/08/2564
     const newOrderDate = (val) => {
         let yyyy = Number(val.substring(0,4)) + 543
         let mm = val.substring(5,7)
@@ -412,7 +412,7 @@ function LoanRequestPrint(props) {
         return dd+'/'+mm+'/'+yyyy
     }
 
-    // Re order date TH (+543)
+    // Re order date 2021-08-23 to 2564-08-23
     const reOrderDateENtoTH = (val) => {
         let yyyy = Number(val.substring(0,4)) + 543
         let mm = val.substring(5,7)
@@ -420,11 +420,11 @@ function LoanRequestPrint(props) {
         return yyyy+'-'+mm+'-'+dd
     }
 
-    // Re order date EN (-543)
+    // Re order date 23-08-2564 to 2021-08-23
     const reOrderDateTHtoEN = (val) => {
-        let yyyy = Number(val.substring(0,4)) - 543
-        let mm = val.substring(5,7)
-        let dd = val.substring(8,10)
+        let yyyy = Number(val.substring(6,10)) - 543
+        let mm = val.substring(3,5)
+        let dd = val.substring(0,2)
         return yyyy+'-'+mm+'-'+dd
     }
 
