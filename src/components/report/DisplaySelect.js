@@ -31,8 +31,8 @@ export const DisplaySelect = ({
                     }}  label="แสดง" />
                 </Grid>
 
-                {parseInt(display) === 2 && <Grid item><SectionSelect onChange={onChangeSection}/></Grid>}
-                {parseInt(display) === 3 && <Grid item><ProvinceSelect onChange={onChangeProvince}/></Grid>}
+                {parseInt(display) === 1 && <Grid item><SectionSelect onChange={onChangeSection}/></Grid>}
+                {parseInt(display) === 2 && <Grid item><ProvinceSelect onChange={onChangeProvince}/></Grid>}
 
             </Grid>
 
