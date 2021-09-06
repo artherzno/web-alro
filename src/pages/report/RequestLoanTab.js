@@ -4,7 +4,9 @@ import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -19,6 +21,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class RequestLoanTab extends React.Component {
 
@@ -27,6 +30,7 @@ class RequestLoanTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -69,15 +73,17 @@ class RequestLoanTab extends React.Component {
         parameter.append('EndDate', endDate);
         parameter.append("Result",resultRequest)
 
+        this.setState({ isLoading: true })
         api.getRequestLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -128,6 +134,8 @@ class RequestLoanTab extends React.Component {
         const { dataSummary, page, count} = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -141,7 +149,6 @@ class RequestLoanTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -149,7 +156,6 @@ class RequestLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -157,7 +163,6 @@ class RequestLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -184,7 +189,6 @@ class RequestLoanTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -201,7 +205,6 @@ class RequestLoanTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -211,7 +214,6 @@ class RequestLoanTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -220,7 +222,6 @@ class RequestLoanTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -233,12 +234,16 @@ class RequestLoanTab extends React.Component {
                                     resultRequest: event.target.value,
                                     resultLabel: event.target.label
                                 }, () => {
-                                    this.loadPayLoan()
                                 })
 
                             }}/>
                         </Grid>
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -265,8 +270,9 @@ class RequestLoanTab extends React.Component {
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
+                                   
                                     <StyledTableCell align="center">ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">เลขที่คำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">วันที่ยื่นคำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
@@ -304,26 +310,26 @@ class RequestLoanTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.appDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanReqStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.age}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.address1}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.address2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.tel}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.docType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.docNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.landSize}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.liabilities}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.province}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.appDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanReqStatus}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.age}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.address2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.tel}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.docType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.docNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.landSize}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.liabilities}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanPurpose}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanPurpose}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanType}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loan)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
+                                            <StyledTableCellLine align="center"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
 
 
                                         </TableRow>

@@ -14,12 +14,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles} from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SummaryModifyTab extends React.Component {
 
@@ -28,6 +31,7 @@ class SummaryModifyTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -72,15 +76,17 @@ class SummaryModifyTab extends React.Component {
         parameter.append('EndDate', endDate);
         parameter.append('DebtType', loanType)
 
+        this.setState({ isLoading: true })
         api.getSummaryModify(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -131,6 +137,8 @@ class SummaryModifyTab extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -144,7 +152,6 @@ class SummaryModifyTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -152,7 +159,6 @@ class SummaryModifyTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -160,7 +166,6 @@ class SummaryModifyTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -187,7 +192,6 @@ class SummaryModifyTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -204,7 +208,6 @@ class SummaryModifyTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -214,7 +217,6 @@ class SummaryModifyTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -223,7 +225,6 @@ class SummaryModifyTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -231,7 +232,10 @@ class SummaryModifyTab extends React.Component {
                         
                     </Grid>
                 </Grid>
-
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
+                </Grid>
             </Grid>
 
             <div>
@@ -282,7 +286,7 @@ class SummaryModifyTab extends React.Component {
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center"> {farmer.months} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interestEarned)}</StyledTableCellLine>
@@ -299,7 +303,7 @@ class SummaryModifyTab extends React.Component {
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>

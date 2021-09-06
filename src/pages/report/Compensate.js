@@ -11,7 +11,6 @@ import {
 } from '../../components/MUIinputs';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -28,6 +27,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class Compensate extends React.Component {
 
@@ -36,6 +36,7 @@ class Compensate extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             loaded:true,
             dataList: [],
@@ -70,14 +71,16 @@ class Compensate extends React.Component {
         parameter.append('PayerName', PayerName);
         parameter.append('IDPayer', IDPayer);
 
+        this.setState({ isLoading: true })
         api.getCompensate(parameter).then(response => {
 
             this.setState({
                 dataList: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -88,13 +91,7 @@ class Compensate extends React.Component {
             [state]: event.target.value
         }, () => {
 
-            if (this.delay) {
-                clearTimeout(this.delay)
-                this.delay = null
-            }
-            this.delay = setTimeout(() => {
-                this.loadData()
-            }, 500);
+           
 
         })
 
@@ -108,6 +105,7 @@ class Compensate extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+            <OverlayLoading isLoading={this.state.isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -128,7 +126,7 @@ class Compensate extends React.Component {
                                     <Grid item xs={12} md={3}>
                                         <MuiDatePicker label="วันที่คำสั่ง" value={this.state.dateSelect} onChange={(event) => {
                                             this.setState({ DateOrder: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                this.loadData()
+                                               
                                             })
                                         }} />
                                     </Grid>
@@ -203,10 +201,10 @@ class Compensate extends React.Component {
                                                         <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{data.contratNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{data.idCard}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.payerName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(data.amount)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.interestRatePerYear}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.installments}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{data.payerName}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="right">{formatNumber(data.amount)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="right">{data.interestRatePerYear}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="right">{data.installments}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">
                                                             <Button
                                                                 variant="contained"

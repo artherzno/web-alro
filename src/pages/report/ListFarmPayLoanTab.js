@@ -16,10 +16,14 @@ import { makeStyles, withStyles } from '@material-ui/styles';
 import moment from 'moment'
 import { formatNumber} from '../../utils/Utilities'
 import { ButtonExportExcel} from '../../components'
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class ListFarmPayLoanTab extends React.Component {
 
@@ -28,6 +32,7 @@ class ListFarmPayLoanTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting:false,
             farmerPayLoanList: [],
             dataSummary:{},
@@ -73,15 +78,17 @@ class ListFarmPayLoanTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getPayLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -133,6 +140,8 @@ class ListFarmPayLoanTab extends React.Component {
         const { dataSummary, page, count} = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -146,7 +155,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel:""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -154,7 +162,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel:`จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -162,7 +169,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -189,7 +195,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         dateRangLabel:""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -206,7 +211,6 @@ class ListFarmPayLoanTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -216,7 +220,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         month: event.target.value,
                                         montLabel:`เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -225,7 +228,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -248,7 +250,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         receiptTypeLabel:event.label,
                                         provinceReiptLabel:""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -256,13 +257,17 @@ class ListFarmPayLoanTab extends React.Component {
                                         receiptProvince: event.target.value,
                                         provinceReiptLabel:event.label
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
 
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -314,22 +319,22 @@ class ListFarmPayLoanTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine component="th" scope="row">
+                                            <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.invoiceNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.receiptDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.payChannel}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.payLoan)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.principle)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.remaining)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.payLoan)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.remaining)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
                                         </TableRow>
                                     )
                                 })}
@@ -337,13 +342,13 @@ class ListFarmPayLoanTab extends React.Component {
 
                                 <TableRow  >
                                     <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.payLoan)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.payLoan)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>

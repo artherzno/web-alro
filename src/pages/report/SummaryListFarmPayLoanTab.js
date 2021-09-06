@@ -16,10 +16,13 @@ import { makeStyles, withStyles } from '@material-ui/styles';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SummaryListFarmPayLoanTab extends React.Component {
 
@@ -28,6 +31,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -73,15 +77,17 @@ class SummaryListFarmPayLoanTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getSummaryFarmerPayLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -132,6 +138,8 @@ class SummaryListFarmPayLoanTab extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -145,7 +153,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -153,7 +160,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -161,7 +167,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -188,7 +193,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -205,7 +209,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -215,7 +218,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -224,7 +226,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -246,7 +247,6 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         receiptTypeLabel: event.label,
                                         provinceReiptLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -254,13 +254,17 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                         receiptProvince: event.target.value,
                                         provinceReiptLabel: event.label
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
 
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -310,7 +314,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                             <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
-                                            <StyledTableCellLine align="center"> {farmer.alroProvince}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left"> {farmer.alroProvince}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payOff)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>

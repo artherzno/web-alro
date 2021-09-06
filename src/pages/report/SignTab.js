@@ -14,12 +14,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SignTab extends React.Component {
 
@@ -28,6 +31,7 @@ class SignTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -69,15 +73,17 @@ class SignTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getSignLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -128,6 +134,8 @@ class SignTab extends React.Component {
         
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -141,7 +149,6 @@ class SignTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -149,7 +156,6 @@ class SignTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -157,7 +163,6 @@ class SignTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -184,7 +189,6 @@ class SignTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -201,7 +205,6 @@ class SignTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -211,7 +214,6 @@ class SignTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -220,13 +222,17 @@ class SignTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
                         
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -281,17 +287,17 @@ class SignTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine >{farmer.province} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractID}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.idCard}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.address}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.docType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">{farmer.docNo}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanPurpose}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractID}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center"><div className="btn-more-detail-table">{farmer.idCard}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.address}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.docType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center"><div className="btn-more-detail-table">{farmer.docNo}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanPurpose}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalInstallment}</StyledTableCellLine>

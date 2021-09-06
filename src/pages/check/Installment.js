@@ -26,6 +26,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import { OverlayLoading } from '../../components'
 
 class Installment extends React.Component {
 
@@ -33,6 +34,7 @@ class Installment extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -65,14 +67,17 @@ class Installment extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
+        this.setState({ isLoading: true })
         api.getPayAndAccount(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -142,6 +147,7 @@ class Installment extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />
@@ -245,16 +251,16 @@ class Installment extends React.Component {
                                                             <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.rcpno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rcapital}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rinterrest}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rcharge}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rateC)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.reduce}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.stu}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.rcapital}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.rinterrest}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.rcharge}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rateC)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.reduce}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.stu}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.codeWork}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>

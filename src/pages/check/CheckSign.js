@@ -26,6 +26,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import { OverlayLoading } from '../../components'
 
 class CheckSign extends React.Component {
 
@@ -33,6 +34,7 @@ class CheckSign extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -82,6 +84,7 @@ class CheckSign extends React.Component {
         parameter.append('Display', LoanPurpose);
         parameter.append('Display', LoanType2);
 
+        this.setState({ isLoading: true })
         api.getContract(parameter).then(response => {
 
             const dataSummary = response.data.dataSummary.length > 0 ? response.data.dataSummary[0] : {}
@@ -91,10 +94,12 @@ class CheckSign extends React.Component {
                 loanAmount: dataSummary.loanAmount,
                 remainAmount: dataSummary.remainAmount,
                 totalContract: dataSummary.totalContract,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -172,6 +177,7 @@ class CheckSign extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />
@@ -346,22 +352,22 @@ class CheckSign extends React.Component {
                                                             <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.prefix}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.name}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.lastName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.address}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.name}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.lastName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.address}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.no}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.moo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.subDistrict}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.district}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.subDistrict}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.district}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.province}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.contractDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.mooLand}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.subDistrictLand}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.districtLand}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.subDistrictLand}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.districtLand}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.landType}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.titlno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.groups}</StyledTableCellLine>
@@ -370,24 +376,24 @@ class CheckSign extends React.Component {
                                                             <StyledTableCellLine align="center">{element.ngan}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.wa}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.loanDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.creditLimit)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.interestRate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.creditLimit)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.interestRate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.jobCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.category}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.annuity}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.fineRate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.fineRate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.trnfDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.typeplan}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.note}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.note}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.provinceAbbreviation}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rpay)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.principalDebt)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.court)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.interestDebt)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.fineDebt)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.debtStatus)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rpay)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.principalDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.court)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.interestDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.fineDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.debtStatus)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.objCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.cusCode}</StyledTableCellLine>
 

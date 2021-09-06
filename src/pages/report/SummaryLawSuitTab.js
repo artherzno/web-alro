@@ -14,12 +14,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles} from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SummaryLawSuitTab extends React.Component {
 
@@ -28,6 +31,7 @@ class SummaryLawSuitTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -69,15 +73,17 @@ class SummaryLawSuitTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getSummaryLawSuit(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -129,7 +135,7 @@ class SummaryLawSuitTab extends React.Component {
 
         return (<div>
             <Grid container spacing={2}>
-
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
@@ -141,7 +147,6 @@ class SummaryLawSuitTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -149,7 +154,6 @@ class SummaryLawSuitTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -157,7 +161,6 @@ class SummaryLawSuitTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -184,7 +187,6 @@ class SummaryLawSuitTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -201,7 +203,6 @@ class SummaryLawSuitTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -211,7 +212,6 @@ class SummaryLawSuitTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -220,13 +220,17 @@ class SummaryLawSuitTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
                         
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -268,9 +272,9 @@ class SummaryLawSuitTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine > {farmer.months} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.contractNo)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center"> {farmer.months} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{formatNumber(farmer.contractNo)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interestEarned)}</StyledTableCellLine>
@@ -284,7 +288,7 @@ class SummaryLawSuitTab extends React.Component {
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>

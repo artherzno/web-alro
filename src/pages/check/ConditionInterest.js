@@ -26,6 +26,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import { OverlayLoading } from '../../components'
 
 class ConditionInterest extends React.Component {
 
@@ -33,6 +34,7 @@ class ConditionInterest extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -65,14 +67,17 @@ class ConditionInterest extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
+        this.setState({ isLoading: true })
         api.getTermsAndInterest(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -142,6 +147,7 @@ class ConditionInterest extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />
@@ -247,7 +253,7 @@ class ConditionInterest extends React.Component {
                                                             <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
@@ -256,13 +262,13 @@ class ConditionInterest extends React.Component {
                                                             <StyledTableCellLine align="center">{element.startDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.endDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rateNc)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rate)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.mcapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rateNc)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.mcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.minterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.mcharge)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.mindex1}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.tps}</StyledTableCellLine>

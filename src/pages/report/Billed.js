@@ -6,7 +6,10 @@ import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import { OverlayLoading} from '../../components'
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -30,6 +33,7 @@ class Billed extends React.Component {
         super(props)
 
         this.state = {
+            isLoading:false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -77,15 +81,19 @@ class Billed extends React.Component {
         parameter.append('ReceiptType', receiptType);
         parameter.append('ALROProvince', receiptProvince);
 
+        this.setState({isLoading:true})
+
         api.getBilled(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading:false
             })
 
         }).catch(error => {
 
+            this.setState({isLoading:false})
         })
     }
 
@@ -137,6 +145,7 @@ class Billed extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+            <OverlayLoading isLoading={this.state.isLoading}/>
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
             <Box mt={5} ml={2} mr={2}>
@@ -153,7 +162,6 @@ class Billed extends React.Component {
                                             sectionProvince: "",
                                             provinceZoneLabel: ""
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                     onChangeProvince={(event) => {
@@ -161,7 +169,6 @@ class Billed extends React.Component {
                                             sectionProvince: event.target.value,
                                             provinceZoneLabel: `จังหวัด${event.label}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                     onChangeSection={(event) => {
@@ -169,7 +176,6 @@ class Billed extends React.Component {
                                             sectionProvince: event.target.value,
                                             provinceZoneLabel: `${event.label}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                 />
@@ -197,7 +203,6 @@ class Billed extends React.Component {
                                             dateRangLabel: ""
 
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                     onChangeDate={(event) => {
@@ -214,7 +219,6 @@ class Billed extends React.Component {
                                                 endDate: endDate,
                                                 dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY"):''}`
                                             }, () => {
-                                                this.loadPayLoan()
                                             })
                                         }
                                     }}
@@ -224,7 +228,6 @@ class Billed extends React.Component {
                                             month: event.target.value,
                                             montLabel: `เดือน${event.label}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
 
                                     }}
@@ -233,7 +236,6 @@ class Billed extends React.Component {
                                             year: event.target.value,
                                             yearLabel: event.target.value
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                 />
@@ -256,7 +258,6 @@ class Billed extends React.Component {
                                             receiptTypeLabel: event.label,
                                             provinceReiptLabel: ""
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                     onChangeProvince={(event) => {
@@ -264,13 +265,17 @@ class Billed extends React.Component {
                                             receiptProvince: event.target.value,
                                             provinceReiptLabel: event.label
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }}
                                 />
                             </Grid>
                            
                         </Grid>
+                    </Grid>
+
+                    <Grid item xs={12} md={2}>
+                        <p>&nbsp;</p>
+                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                     </Grid>
 
                 </Grid>
@@ -331,7 +336,7 @@ class Billed extends React.Component {
                                                 <StyledTableCellLine >
                                                     {farmer.receiptNo1}
                                                 </StyledTableCellLine>
-                                                <StyledTableCellLine align="right">{formatNumber(farmer.number)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="center">{formatNumber(farmer.number)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.principle1)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.interest)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.other)}</StyledTableCellLine>
@@ -347,7 +352,7 @@ class Billed extends React.Component {
                                         <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                             รวมทั้งสิ้น
                                         </StyledTableCellLine>
-                                        <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle1)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>

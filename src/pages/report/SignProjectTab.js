@@ -14,12 +14,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles} from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SignProjectTab extends React.Component {
 
@@ -28,6 +31,7 @@ class SignProjectTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -69,15 +73,17 @@ class SignProjectTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getSignProjLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -128,6 +134,7 @@ class SignProjectTab extends React.Component {
 
 
         return (<div>
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -141,7 +148,6 @@ class SignProjectTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -149,7 +155,6 @@ class SignProjectTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -157,7 +162,6 @@ class SignProjectTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -184,7 +188,6 @@ class SignProjectTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -201,7 +204,6 @@ class SignProjectTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -211,7 +213,6 @@ class SignProjectTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -220,13 +221,17 @@ class SignProjectTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
                         
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -271,15 +276,15 @@ class SignProjectTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine > {farmer.province} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center"> {farmer.province} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.projName} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.totalContract} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.totalContract} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.installment} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.principalPeriod} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.installment} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.principalPeriod} </StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -293,8 +298,8 @@ class SignProjectTab extends React.Component {
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
 
                                 </TableRow>
                             </TableBody>

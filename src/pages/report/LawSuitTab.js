@@ -14,12 +14,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
-
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class LawSuitTab extends React.Component {
 
@@ -28,6 +31,7 @@ class LawSuitTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -69,15 +73,17 @@ class LawSuitTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getLawSuit(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -128,6 +134,8 @@ class LawSuitTab extends React.Component {
 
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -141,7 +149,6 @@ class LawSuitTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel: ""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -149,7 +156,6 @@ class LawSuitTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -157,7 +163,6 @@ class LawSuitTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -184,7 +189,6 @@ class LawSuitTab extends React.Component {
                                         dateRangLabel: ""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -201,7 +205,6 @@ class LawSuitTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -211,7 +214,6 @@ class LawSuitTab extends React.Component {
                                         month: event.target.value,
                                         montLabel: `เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -220,13 +222,17 @@ class LawSuitTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
                         
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
@@ -294,33 +300,33 @@ class LawSuitTab extends React.Component {
                                 {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine >{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.projName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.province}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestEarned}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractType2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.courtDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractNo2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractType2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.courtDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractNo2}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interest}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.courtInterest}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.total2)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRateCal}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRate2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.newContractDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.blackNumCase}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.redNumCase}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.judgmentDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right"><div className="btn-more-detail-table">ดูรายละเอียด</div></StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.newContractDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.blackNumCase}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.redNumCase}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.judgmentDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center"><div className="btn-more-detail-table">ดูรายละเอียด</div></StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -330,18 +336,18 @@ class LawSuitTab extends React.Component {
                                     <StyledTableCellLine colSpan={7} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
                                     <StyledTableCellLine align="center" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.courtInterest)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total2)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRateCal)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.courtInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRateCal)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate2)}</StyledTableCellLine>
                                     <StyledTableCellLine align="center" colSpan={7} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                 </TableRow>

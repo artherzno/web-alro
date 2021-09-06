@@ -28,6 +28,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel,ButtonApp } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class DebtPending extends React.Component {
 
@@ -36,6 +37,7 @@ class DebtPending extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             loaded: true,
             dataList: [],
@@ -71,15 +73,17 @@ class DebtPending extends React.Component {
         parameter.append('PayerName', PayerName);
         parameter.append('IDPayer', IDPayer);
 
+        this.setState({ isLoading: true })
         api.getDebtPending(parameter).then(response => {
 
             this.setState({
                 dataList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -131,14 +135,7 @@ class DebtPending extends React.Component {
             [state]: event.target.value
         }, () => {
 
-            if (this.delay) {
-                clearTimeout(this.delay)
-                this.delay = null
-            }
-            this.delay = setTimeout(() => {
-                this.loadData()
-            }, 500);
-
+          
         })
 
 
@@ -151,6 +148,8 @@ class DebtPending extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -171,7 +170,7 @@ class DebtPending extends React.Component {
                                     <Grid item xs={12} md={3}>
                                         <MuiDatePicker label="วันที่คำสั่ง" value={this.state.dateSelect} onChange={(event) => {
                                             this.setState({ DateOrder: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                this.loadData()
+                                               
                                             })
                                         }} />
                                     </Grid>
@@ -252,16 +251,16 @@ class DebtPending extends React.Component {
                                                     return (
                                                         <TableRow key={index}>
                                                             <StyledTableCellLine align="center">{data.no}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.fullName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.accrued1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.paid)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.remaining)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.accruedInterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.accrued2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.receive)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.total)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.totalReceivePeriod)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.accrued1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.paid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.remaining)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.accruedInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.accrued2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.receive)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.total)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.totalReceivePeriod)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{data.remark}</StyledTableCellLine>
 
                                                         </TableRow>

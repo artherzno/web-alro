@@ -28,6 +28,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import { format } from 'date-fns';
+import { OverlayLoading } from '../../components'
 
 class ProcessByPerson extends React.Component {
 
@@ -35,6 +36,7 @@ class ProcessByPerson extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -65,14 +67,17 @@ class ProcessByPerson extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Process', Process);
 
+        this.setState({ isLoading: true })
         api.getAccountsReceivable(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -140,6 +145,8 @@ class ProcessByPerson extends React.Component {
         const { data, page, count } = this.state
         return (
             <div>
+
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />
@@ -288,74 +295,74 @@ class ProcessByPerson extends React.Component {
                                                             <StyledTableCellLine align="center">{element.mid}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.projcode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.projname}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projname}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.rentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.loandate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.paydate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.payrec)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.payrec)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.rcpno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.principle)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.payment)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.paylntr)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.paycharge)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.captpaid)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.intpaid)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.chrgpaid)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.unpaid)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.unpaid1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.unpaid2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.credit)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.dcapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.dinterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.dcharge)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap0)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pinterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pint_0)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pint_1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pint_2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge_0)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge_1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcharge_2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.bcapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.binterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.bcharge)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.scapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.sinterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.minterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.mcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.principle)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.payment)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.paylntr)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.paycharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.captpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.intpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.chrgpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.unpaid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.unpaid1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.unpaid2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.credit)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.dcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.dinterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.dcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcap0)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcap1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcap2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pinterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pint_0)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pint_1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pint_2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcharge_0)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcharge_1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcharge_2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.bcapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.binterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.bcharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.scapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.sinterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.minterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.mcharge)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.appendFlgs}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pPay)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pIntr)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pCharge)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.aCapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.aInterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.aCharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pPay)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pIntr)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pCharge)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.aCapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.aInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.aCharge)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.cmddate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.startdate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.enddate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.rateNC)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.rateNC)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.tps0}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap01)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pcap02)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pintr01)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.pintr02)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.ptotal01)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.uintr01)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.kpkAmt1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.kpkAmt2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.kpkAmt3)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.remarks}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.kCapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.kInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcap01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pcap02)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pintr01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.pintr02)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.ptotal01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.uintr01)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.kpkAmt1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.kpkAmt2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.kpkAmt3)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.remarks}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.kCapital)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.kInterest)}</StyledTableCellLine>
 
 
 

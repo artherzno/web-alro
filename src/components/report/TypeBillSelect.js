@@ -22,7 +22,7 @@ export const TypeBillSelect = ({
         <div>
             <Grid container spacing={2}>
 
-                <Grid item xs={12}>
+                <Grid item>
                     <Select options={typeList} emptyLabel="เลือก" label="ประเภทใบเสร็จรับเงิน" onChange={(event) => {
 
                         const found = typeList.find(element => element.value.toString() === event.target.value)
