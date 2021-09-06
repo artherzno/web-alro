@@ -77,6 +77,7 @@ function AllContractSearch() {
     const [hasData, setHasData] = useState(false);
     const [insertData, setInsertData] = useState(false);
     const [insertDateData, setInsertDateData] = useState(false);
+    const [insertYearData, setInsertYearData] = useState(false);
     const [searched, setSearched] = useState(false);
 
     const [tableResult, setTableResult] = useState([])
@@ -182,7 +183,7 @@ function AllContractSearch() {
         LoanNumber: "",
         ProjectName: "",
         StartYear: 0,
-        Type: 0
+        Type: 2
     })
 
     const [inputSelectDate, setInputSelectDate] = useState({
@@ -270,6 +271,23 @@ function AllContractSearch() {
          };
     }
 
+
+    const handleInputDataSearchYear = (event) => {
+        let type = event.target.name
+        setInputDataSearch({
+            ...inputDataSearch,
+            [event.target.name]: event.target.value
+        })
+        console.log('type',type, 'value', event.target.value)
+        if(event.target.value.toString() === '0' || event.target.value.toString() === '00' || event.target.value.toString() === '0000') {
+            setInsertYearData(false)
+            setInsertDateData(false)
+        } else {
+            setInsertYearData(true)
+            setInsertDateData(true)
+        }
+    }
+
     const handleSelectDate = (event) => {
         let type = event.target.name
         setInputSelectDate({
@@ -283,6 +301,7 @@ function AllContractSearch() {
             setInsertDateData(true)
         }
     }
+    
 
     useEffect(() => {
         setLoaded(true);
@@ -387,7 +406,7 @@ function AllContractSearch() {
         setRows([])
 
         let contractDate = (inputSelectDate.yyyy === '0000' ? '0000' : inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
-        let contractType = inputDataSearch.Type === '2' ? '' : inputDataSearch.Type
+        let contractType = inputDataSearch.Type
         let contractStartYear = inputDataSearch.StartYear === '0' ? '' : Number(inputDataSearch.StartYear) + 2500 - 543
         
         axios({
@@ -400,7 +419,7 @@ function AllContractSearch() {
                 LoanNumber: inputDataSearch.LoanNumber,
                 ProjectName: inputDataSearch.ProjectName,
                 StartYear: Number(contractStartYear),
-                Type: Number(contractType)
+                Type: Number(contractType) === 2 ? '' : Number(contractType)
             }
         }).then(res => {
                 // console.log(res)
@@ -507,6 +526,7 @@ function AllContractSearch() {
             }
          });
     }
+
 
     const handleInputDataSearch = (event) => {
         if(event.target.type === 'number') {
@@ -621,7 +641,7 @@ function AllContractSearch() {
                                         <MuiTextfield label="ค้นหาชื่อโครงการ" name="ProjectName" value={inputDataSearch.ProjectName}  onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={3} className="dropdown-projectplanyear">
-                                        <MuiSelectObjYearStart label="ค้นหาตามปีงบประมาณ" valueStartYaer={2500}  name="StartYear" value={inputDataSearch.StartYear}  onChange={handleInputDataSearch} />
+                                        <MuiSelectObjYearStart label="ค้นหาตามปีงบประมาณ" valueStartYaer={2500}  name="StartYear" value={inputDataSearch.StartYear}  onChange={handleInputDataSearchYear} />
                                     </Grid>
                                     {/* <Grid item xs={12} md={3}>
                                         <MuiSelect label="จัดเรียงตาม" listsValue={['โครงการ','สัญญา','mindex มากไปน้อย','mindex น้อยไปมาก','วันที่บันทึกข้อมูล']} lists={['โครงการ', 'สัญญา', 'mindex มากไปน้อย','mindex น้อยไปมาก','วันที่บันทึกข้อมูล']} />
@@ -632,7 +652,7 @@ function AllContractSearch() {
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
                                         {
-                                            insertData || insertDateData ? 
+                                            (insertData || insertDateData) && insertYearData ? 
                                             <ButtonFluidPrimary label="ค้นหา" onClick={getDebtSettlement} />  
                                             : 
                                             <div style={{opacity: '.5', pointerEvents: 'none'}}>

@@ -1100,7 +1100,8 @@ input {
   pointer-events: none;
   .MuiInputBase-root.MuiInputBase-formControl {
     input,
-    .MuiSelect-select {
+    .MuiSelect-select,
+    .MuiInputBase-inputMultiline {
       background-color: var(--text-input-border);
       border-radius: 4px;
     }

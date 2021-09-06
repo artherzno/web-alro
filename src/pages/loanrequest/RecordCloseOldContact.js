@@ -35,6 +35,7 @@ import {
     MuiSelectYear,
     MuiSelectObjYearStart,
     MuiTextfieldEndAdornment,
+    MuiTextfieldCurrency,
     MuiTextfieldStartAdornment,
     MuiRadioButton,
     MuiSelect,
@@ -72,25 +73,141 @@ function RecordCloseOldContact() {
     const [insertData, setInsertData] = useState(false);
     const [insertDateData, setInsertDateData] = useState(false);
     const [searched, setSearched] = useState(false);
+    const [formField, setFormField] = useState(false)
 
-    const [inputData, setInputData] = useState({
-        typeLoan: '1',
-        typeBill: '1',
+    const [inputDataReceipt, setInputDataReceipt] = useState({
+        ReceiptID: '',// 1,
+        LoanID: '',// 1,
+        ReceiptNumber: '',// "sample string 2",
+        ref_id1: '',// "sample string 3",
+        Reccode: '',// "sample string 4",
+        Mindex: '',// "sample string 5",
+        Time: '',// 1,
+        RecDate: '',// "2021-09-06T16:44:46.2782029+07:00",
+        ReceiptDate: '',// "2021-09-06T16:44:46.279202+07:00",
+        CalculateDate: '',// "2021-09-06T16:44:46.279202+07:00",
+        PaidDate: '',// "2021-09-06T16:44:46.279202+07:00",
+        PrincipleBalance1: '',// 1.1,
+        PrincipleCalculate: '',// 1.1,
+        PaidCalculate: '',// 1.1,
+        PrinciplePaid: '',// 1.1,
+        InterestPaid: '',// 1.1,
+        OverdueInterest: '',// 1.1,
+        DueInterest: '',// 1.1,
+        Fines: '',// 1.1,
+        Other: '',// 1.1,
+        PrincipleBalance2: '',// 1.1,
+        InterestBalance: '',// 1.1,
+        ReceiveInterest: '',// 1.1,
+        Type: '',// "sample string 6",
+        ReceiptTypeID: '',// 1,
+        PrincipleBalance3: '',// 1.1,
+        PrincipleDuePaid: '',// 1.1,
+        FinesInterest: '',// 1.1,
+        FinesInterestDuePaid: '',// 1.1,
+        TotalInterest: '',// 1.1,
+        FinesOverdue: '',// 1.1,
+        TotalPaid: '',// 1.1,
+        PrincipleBalance4: '',// 1.1,
+        Cancel: '',// true,
+        ProvinceID: '',// 1,
+        dCreated: '',// "2021-09-06T16:44:46.2822024+07:00",
+        dUpdated: '',// "2021-09-06T16:44:46.2822024+07:00",
+        admin_nMEMID: '',// 1
+      })
+
+    const [inputDataCloseContact, setInputDataCloseContact] = useState({
+        CloseID: '', // 1,
+        LoanID: '', // 1,
+        FinesRate: '', // 1.1,
+        CreateDate: '', // "2021-09-06T16:44:46.283203+07:00",
+        Comment: '', // "sample string 2",
+        ReceiptNumber: '', // "sample string 3",
+        ReceiptDate: '', // "2021-09-06T16:44:46.283203+07:00",
+        PrincipleBalance: '', // 1.1,
+        PrinciplePaidCalculate: '', // 1.1,
+        PaidCalculate: '', // 1.1,
+        Principle: '', // 1.1,
+        Interest: '', // 1.1,
+        PendingInterest: '', // 1.1,
+        Fines: '', // 1.1,
+        ReceiveInterest: '', // 1.1,
+        Types: '', // "sample string 4",
+        PrincipleBalance2: '', // 1.1,
+        DuePaid: '', // 1.1,
+        Pending_Interest2: '', // 1.1,
+        DueInterest: '', // 1.1,
+        TotalInterest: '', // 1.1,
+        PendingFines: '', // 1.1,
+        TotalPaid: '', // 1.1,
+        TotalBalance: '', // 1.1,
+        dCreated: '', // "2021-09-06T16:44:46.2852027+07:00",
+        dUpdated: '', // "2021-09-06T16:44:46.2862028+07:00",
+        admin_nMEMID: '', // 1
     })
 
-    const [inputSelectDateRec, setInputSelectDateRec] = useState({
-        dd: '00',
-        mm: '00',
-        yyyy: '0000'
+    const [inputDataBeforePay, setInputDataBeforePay] = useState({
+        principleBalance: '',
+        principle1: '',
+        InterestKang2: '',
+        InterestKang22: '',
+        InterestKang222: '',
+        FineKang: '',
+        FineKangSum: '',
+    })
+
+    const [inputSelectDate, setInputSelectDate] = useState({
+        recdatedd: '00',
+        recdatemm: '00',
+        recdateyyyy: '0000',
+
+        loanreceiptdatedd: '00',
+        loanreceiptdatemm: '00',
+        loanreceiptdateyyyy: '0000',
+
+        loandatedd: '00',
+        loandatemm: '00',
+        loandateyyyy: '0000',
+
+        createdatedd: '00',
+        createdatemm: '00',
+        createdateyyyy: '0000',
+
+        receiptdatedd: '00',
+        receiptdatemm: '00',
+        receiptdateyyyyy: '0000',
+
     })
 
     const [inputDataSearch, setinputDataSearch] = useState({
         Username: localStorage.getItem('cUsername'),
-        LoanNumber: "sample string 2",
-        Rentno: "sample string 3",
-        Fullname: "sample string 4",
-        Date: "2021-09-05T16:52:09.5628127+07:00"
-})
+        LoanNumber:"",
+        Rentno: "",
+        Fullname: "",
+        Date: ""
+    })
+
+    const [rows, setRows] = useState([])
+    const [getSelectData, setGetSelectData] = useState([])
+    const [getProcessBeforePayData, setGetProcessBeforePayData] = useState([])
+
+    const rowsLabel = [
+        'LoanNumber',
+        'LoanReceiptDate', 
+        'ProjectName',
+        'ProjectplanYear',
+    ]
+
+    const headCells = [
+        { id: 'LoanNumber', numeric: false, disablePadding: true, widthCol: '80px', label: 'เลขที่สัญญา' },
+        { id: 'LoanReceiptDate', numeric: false, disablePadding: true, widthCol: '80px', label: 'วันที่ใบเสร็จ' },
+        { id: 'ProjectName', numeric: false, disablePadding: true, widthCol: '150px', label: 'ชื่อโครงการ' },
+        { id: 'ProjectplanYear', numeric: false, disablePadding: true, widthCol: '80px', label: 'ปีงบประมาณ' },
+    ]
+
+    function createData(LoanNumber, LoanReceiptDate, ProjectName,ProjectplanYear ) {
+        return {LoanNumber, LoanReceiptDate, ProjectName,ProjectplanYear }
+    }
 
     useEffect(() => {
         setLoaded(true);
@@ -130,31 +247,55 @@ function RecordCloseOldContact() {
     
 
      // Radio Button
-     const handleChangeTypeBill = (event) => {
-        setInputData({...inputData,
-            typeBill: event.target.value
-        })
-        console.log('typeBill ',event.target.value)
-    };
+    //  const handleChangeTypeBill = (event) => {
+    //     setInputData({...inputData,
+    //         typeBill: event.target.value
+    //     })
+    //     console.log('typeBill ',event.target.value)
+    // };
     // End Radio Button
 
-    const handleSelectDateRec = (event) => {
+    // New order date 2021-08-23 to 23/08/2564
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
+    }
+
+    const handleSelectDate = (event) => {
         let type = event.target.name
-        setInputSelectDateRec({
-            ...inputSelectDateRec,
+        setInputSelectDate({
+            ...inputSelectDate,
             [event.target.name]: event.target.value.toString()
         })
         console.log('type',type, 'value', event.target.value)
     }
 
+    const handleInputData = (event) => {
+        setGetSelectData({
+            ...getSelectData,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const handleInputDataCloseContact = (event) => {
+        setInputDataCloseContact({
+            ...inputDataCloseContact,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const handleInputDataReceipt = (event) => {
+        setInputDataReceipt({
+            ...inputDataReceipt,
+            [event.target.name]: event.target.value
+        })
+    }
+
     const getCloseContactSearch = (loanID) => {
         setIsLoading(true);
-        // const formdata = new FormData()
-        // formdata.append('Username', inputDataSearch.Username.toString());
-        // formdata.append('LoanNumber', inputDataSearch.LoanNumber.toString());
-        // formdata.append('Rentno', inputDataSearch.Rentno.toString());
-        // formdata.append('Fullname', inputDataSearch.Fullname.toString());
-        // formdata.append('Date', inputDataSearch.Date.toString());
+        setRows([])
 
         axios.post(
             `${server_spkapi}/CloseContact/GetData`, {
@@ -165,26 +306,136 @@ function RecordCloseOldContact() {
                 Date: inputDataSearch.Date.toString()
               }, { headers: { "token": token } } 
         ).then(res => {
-                console.log(res.data)
-                let data = res.data;
-                setInputData(data)
-                console.log('inputData',inputData)
-                if(data.code === 0 || res === null || res === undefined) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
+            setIsLoading(false)
+            console.log('GetData',res.data)
+            let data = res.data;
+            // setInputData(data)
+            // console.log('inputData',inputData)
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setErrMsg([data.message])
                     }
-                }else {
-                    setIsLoading(false)
-                    console.log('get_loandetail',data)
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
+            }else {
+                setIsLoading(false)
+                console.log('get_loandetail',data)
+                setRows(
+                    data.map((item,i)=>
+                        createData(
+                            item.LoanNumber === null ? '' : item.LoanNumber,
+                            item.LoanReceiptDate ? newOrderDate(item.LoanReceiptDate) : null,
+                            item.ProjectName === null ? '' : item.ProjectName,
+                            item.ProjectplanYear === null ? '' : item.ProjectplanYear + 2500,)
+                    ))
+            }
+        }).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const getCloseContactSelect = (loanNumber) => {
+        setIsLoading(true);
+        // setRows([])
+        setFormField(true)
+
+        axios.post(
+            `${server_spkapi}/CloseContact/GetSelectData`, {
+                Username: inputDataSearch.Username.toString(),
+                LoanNumber: loanNumber,
+                Rentno: "",
+                Fullname: "",
+                Date: ""
+              }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+            console.log('GetSelectData',res.data)
+            let data = res.data;
+            // setInputData(data)
+            // console.log('inputData',inputData)
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                setIsLoading(false)
+                setGetSelectData(data[0])
+                console.log('GetSelectData',getSelectData)
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    loandatedd: data[0].LoanDate === null ? '00': data[0].LoanDate.substring(8,10),
+                    loandatemm: data[0].LoanDate === null ? '00': data[0].LoanDate.substring(5,7),
+                    loandateyyyy: data[0].LoanDate === null ? '0000': Number(data[0].LoanDate.substring(0,4)) + 543,
+
+                    loanreceiptdatedd: data[0].LoanReceiptDate === null ? '00': data[0].LoanReceiptDate.substring(8,10),
+                    loanreceiptdatemm: data[0].LoanReceiptDate === null ? '00': data[0].LoanReceiptDate.substring(5,7),
+                    loanreceiptdateyyyy: data[0].LoanReceiptDate === null ? '0000': Number(data[0].LoanReceiptDate.substring(0,4)) + 543,
+                })
+                
+                getProcessBeforePay(loanNumber)
+            }
+        }).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const getProcessBeforePay = (loanNumber) => {
+        setIsLoading(true);
+        // setRows([])
+        setFormField(true)
+
+        axios.post(
+            `${server_spkapi}/CloseContact/GetProcessBeforePay`, {
+                Username: inputDataSearch.Username.toString(),
+                LoanNumber: loanNumber,
+                Rentno: "",
+                Fullname: "",
+                Date: ""
+              }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+            console.log('GetProcessBeforePay',res)
+            let data = res.data;
+            // setInputData(data)
+            // console.log('inputData',inputData)
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                setIsLoading(false)
+                setGetProcessBeforePayData(data[0])
+                
+                
+            }
         }).catch(err => { console.log(err); })
         .finally(() => {
             if (isMounted.current) {
@@ -218,7 +469,15 @@ function RecordCloseOldContact() {
     };
 
     return (
+        
         <div className="loanrequestprint-page">
+            {
+                isLoading ? 
+                    <div className="overlay">
+                        <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                    </div> : 
+                    ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -240,332 +499,375 @@ function RecordCloseOldContact() {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
-                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
+                                            {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
+                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="Fullname" value={inputDataSearch.Fullname} onChange={handleInputData} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
-                                            <MuiTextfield label="ค้นหาเลขที่สัญญา"  defaultValue="" />
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputData} />
                                         </Grid>
-                                        <Grid item xs={12} md={4}>
+                                        <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={getCloseContactSearch} />  
                                         </Grid>
+                                        <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--20"> 
+                                            <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                                        </Grid>
                                         <Grid item xs={12} md={12}>
-                                        <div className="table">
-                                            <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
-                                                <Table aria-label="normal table">
-                                                    <TableHead>
-                                                    <TableRow>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                    </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>{/* // clear mockup */}
-                                                        <TableRow>
-                                                            <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
-                                                        </TableRow>
-                                            
-                                                    {/* {
-                                                        tableResult.map((row,i) => (
-                                                            <TableRow key={i}>
-                                                                <TableCell align="center">{row.a}</TableCell>
-                                                                <TableCell align="center">{row.b}</TableCell>
-                                                                <TableCell align="center">{row.c}</TableCell>
-                                                                <TableCell align="center">{row.d}</TableCell>
-                                                            </TableRow>
-                                                        ))
-                                                    } */}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </div>
+                                            <div className="table-box table-loanrecivceprint mg-t-10">
+                                                <MUItable 
+                                                    headCells={headCells} 
+                                                    rows={rows} 
+                                                    rowsLabel={rowsLabel} 
+                                                    colSpan={12} 
+                                                    hasCheckbox={false} 
+                                                    hasAction={true}  // show action
+                                                    actionCustom={true} 
+                                                    customName={"ดูสัญญาเดิม"}
+                                                    customWidth={"140px"}
+                                                    customEvent={getCloseContactSelect}
+                                                    customParam1={'LoanNumber'}
+                                                    tableName={'recordcloseoldcontract'}
+                                                />
+                                            </div>
                                         </Grid>
                                     </Grid>
                                 </div>
                             </Grid>
-                            <Grid item xs={12} md={12}>
 
-                                {/* Paper 1 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
+                        {
+                            formField ? 
+                                <Grid item xs={12} md={12}>
+
+                                    {/* Paper 1 - -------------------------------------------------- */}
+                                    <Paper className="paper line-top-green paper mg-t-20">
+                                        <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled" defaultValue="RIET2343525/00003" />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <p>วันที่บันทึก</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectDate.recdatemm} onChange={handleSelectDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDate.recdateyyyy} onChange={handleSelectDate} />
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiTextfield label="" inputdisabled="input-disabled" value={getSelectData.ProvinceID} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiTextfield label="" inputdisabled="input-disabled"  value={getSelectData.PVSCODE} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="" inputdisabled="input-disabled" value={getSelectData.Mindex} onChange={handleInputData}  />
+                                                </Grid>
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiTextfield label="โครงการ" inputdisabled="input-disabled"  value={getSelectData.Projectcode} onChange={handleInputData}  />
+                                                </Grid>
+                                                <Grid item xs={12} md={9}>
+                                                    <MuiTextfield label="&nbsp;" inputdisabled="input-disabled"  value={getSelectData.ProjectName} onChange={handleInputData}  />
+                                                </Grid>
+                                                {/* <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="&nbsp;" value={getSelectData.ProjectMainName} />
+                                                </Grid> */}
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="สัญญาเลขที่" inputdisabled="input-disabled"   value={getSelectData.LoanNumber} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <p>วันที่สัญญา</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectDate.loandatedd} inputdisabled="input-disabled" onChange={handleSelectDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectDate.loandatemm} inputdisabled="input-disabled" onChange={handleSelectDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDate.loandateyyyy} inputdisabled="input-disabled" onChange={handleSelectDate} />
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield label="เลขบัตรประชาชน" inputdisabled="input-disabled"   value={getSelectData.IDCard} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={2}>
+                                                    {/* Field Select ---------------------------------------------------*/}
+                                                    <MuiTextfield label="คำนำหน้า"  inputdisabled="input-disabled" value={getSelectData.FrontName} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="ชื่อ"  inputdisabled="input-disabled" value={getSelectData.Name} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="นามสกุล"  inputdisabled="input-disabled" value={getSelectData.Sirname} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <p>วันที่รับเงินกู้</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectDate.loanreceiptdatedd} inputdisabled="input-disabled" onChange={handleSelectDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectDate.loanreceiptdatemm} inputdisabled="input-disabled" onChange={handleSelectDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDate.loanreceiptdateyyyy} inputdisabled="input-disabled" onChange={handleSelectDate} />
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="จำนวนเงินให้กู้" inputdisabled="input-disabled" value={getSelectData.principle} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="อัตราดอกเบี้ย" inputdisabled="input-disabled" value={getSelectData.Interest} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="อัตราค่าปรับ" inputdisabled="input-disabled" value={getSelectData.ChargeRate} onChange={handleInputData}   />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <p>วันที่จัดทำ</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectDate.createdatedd} onChange={handleSelectDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectDate.createdatemm} onChange={handleSelectDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDate.createdateyyyy} onChange={handleSelectDate} />
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfieldMultiLine label="หมายเหตุ" disabled inputdisabled="input-disabled"  defaultValue="" row="3" />
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <p>วันที่บันทึก</p>
-                                                <div className="select-date-option">
-                                                    <MuiSelectDay label="" name="dd" value={inputSelectDateRec.dd} onChange={handleSelectDateRec} />
-                                                    <MuiSelectMonth label="" name="mm" value={inputSelectDateRec.mm} onChange={handleSelectDateRec} />
-                                                    <MuiSelectYear label="" name="yyyy" value={inputSelectDateRec.yyyy} onChange={handleSelectDateRec} />
-                                                </div>
+                                        </form>
+                                    </Paper>
+
+                                     {/* Paper 3 - -------------------------------------------------- */}
+                                     <Paper className="paper line-top-green paper">
+                                        <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={12}>
+                                                    <h1 className="paper-head-green">ประมวลผลก่อนปรับปรุงหนี้</h1>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="PrincipleBalance" value={inputDataCloseContact.PrincipleBalance} onChange={handleInputDataCloseContact} />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ดอกเบี้ยค้างปรับ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ดอกเบี้ยในงวด</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">รวมดอกเบี้ย</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">รวมต้องชำระทั้งสิ้น</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p">บาท</p>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="" defaultValue="45" />
+                                        </form>
+                                    </Paper>
+
+
+
+                                    {/* Paper 2 - -------------------------------------------------- */}
+                                    <Paper className="paper line-top-green paper">
+                                        <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                            <Grid container spacing={2}>
+                                                {/* 
+                                                
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiTextfield label="ใบเสร็จเลขที่" disabled defaultValue="RIET2343525/00003" />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <p>วันที่ใบเสร็จ</p>
+                                                    <div className="select-date-option">
+                                                        <MuiSelectDay label="" name="dd" value={inputSelectDate.receiptdatedd} onChange={handleSelectDate} />
+                                                        <MuiSelectMonth label="" name="mm" value={inputSelectDate.receiptdatemm} onChange={handleSelectDate} />
+                                                        <MuiSelectYear label="" name="yyyy" value={inputSelectDate.receiptdateyyyy} onChange={handleSelectDate} />
+                                                    </div>
+                                                </Grid> */}
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="" inputdisabled="input-disabled" name="PrincipleBalance" value={inputDataCloseContact.PrincipleBalance} onChange={handleInputDataReceipt} />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right txt-purple">จำนวนเงินต้นที่ชำระ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <ButtonFluidPrimary label="คำนวณเงินชำระ" />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right txt-blue">จำนวนเงินที่ชำระ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="" name="TotalPaid" value={inputDataReceipt.TotalPaid} onChange={handleInputDataReceipt}  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <ButtonFluidPrimary label="คำนวณเงินที่จ่าย" />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">เงินต้น</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="" inputdisabled="input-disabled" name="PrinciplePaid" value={inputDataReceipt.PrinciplePaid} onChange={handleInputDataReceipt}   />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ดอกเบี้ย</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label=""   inputdisabled="input-disabled"  name="InterestPaid" value={inputDataReceipt.InterestPaid} onChange={handleInputDataReceipt}  />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label=""   inputdisabled="input-disabled"  name="OverdueInterest" value={inputDataReceipt.OverdueInterest} onChange={handleInputDataReceipt}  />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ค่าปรับ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label=""   inputdisabled="input-disabled" name="Fines" value={inputDataReceipt.Fines} onChange={handleInputDataReceipt}   />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">ดอกเบี้ยรับ</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label=""   inputdisabled="input-disabled"  />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    {/* <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','ภทต.']} value={inputData.typeBill} onChange={handleChangeTypeBill} type="row" /> */}
+                                                </Grid>
+                                                
                                             </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="" defaultValue="RIET" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="" defaultValue="RIET23435250039/2540" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="สัญญาเลขที่" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="วันที่สัญญา"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                {/* Field Select ---------------------------------------------------*/}
-                                                <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
-                                            </Grid>
-                                            <Grid item xs={12} md={5}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="ชื่อ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={5}>
-                                                {/* Field Text ---------------------------------------------------*/}
-                                                <MuiTextfield label="นามสกุล"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="วันที่รับเงินกู้"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="จำนวนเงินให้กู้" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="อัตราดอกเบี้ย" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="อัตราค่าปรับ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="วันที่จัดทำ"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfieldMultiLine label="หมายเหตุ" defaultValue="" row="3" />
-                                            </Grid>
+                                        </form>
+                                    </Paper>
+
+                                   
+                                    <Grid container spacing={2} className="btn-row txt-center">
+                                        <Grid item xs={12} md={12}>
+                                            <ButtonFluidPrimary label="บันทึกข้อมูล" maxWidth="380px" onClick={()=>{setSuccess(true);}} />
                                         </Grid>
-                                    </form>
-                                </Paper>
-
-                                {/* Paper 2 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            {/* <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="ใบเสร็จเลขที่" disabled defaultValue="RIET2343525/00003" />
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="วันที่ใบเสร็จ"  defaultValue="2017-05-24" />
-                                            </Grid> */}
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right txt-purple">จำนวนเงินต้นที่ชำระ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <ButtonFluidPrimary label="คำนวณเงินชำระ" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right txt-blue">จำนวนเงินที่ชำระ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <ButtonFluidPrimary label="คำนวณเงินที่จ่าย" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">เงินต้น</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ดอกเบี้ย</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ค่าปรับ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ดอกเบี้ยรับ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','ภทต.']} value={inputData.typeBill} onChange={handleChangeTypeBill} type="row" /> */}
-                                            </Grid>
-                                            
-                                        </Grid>
-                                    </form>
-                                </Paper>
-
-                                {/* Paper 3 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={12}>
-                                                <h1 className="paper-head-green">ประมวลผลก่อนปรับปรุงหนี้</h1>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ดอกเบี้ยค้างปรับ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ดอกเบี้ยในงวด</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">รวมดอกเบี้ย</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">รวมต้องชำระทั้งสิ้น</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </form>
-                                </Paper>
-
-
-                                <Grid container spacing={2} className="btn-row">
-                                    <Grid item xs={12} md={12}>
-                                        <ButtonFluidPrimary label="บันทึกข้อมูล" onClick={()=>{setConfirm(true);}} />
                                     </Grid>
+                                
                                 </Grid>
-                            
-                            </Grid>
+                            : null
+                        }
                         </Grid>
                     </Container>
                 </div>
