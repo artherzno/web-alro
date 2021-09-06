@@ -28,6 +28,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel,ButtonApp } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class DebtPending extends React.Component {
 
@@ -36,6 +37,7 @@ class DebtPending extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             loaded: true,
             dataList: [],
@@ -71,15 +73,17 @@ class DebtPending extends React.Component {
         parameter.append('PayerName', PayerName);
         parameter.append('IDPayer', IDPayer);
 
+        this.setState({ isLoading: true })
         api.getDebtPending(parameter).then(response => {
 
             this.setState({
                 dataList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -144,6 +148,8 @@ class DebtPending extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

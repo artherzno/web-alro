@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { OverlayLoading} from '../../components'
 import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
@@ -32,6 +33,7 @@ class Billed extends React.Component {
         super(props)
 
         this.state = {
+            isLoading:false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -79,15 +81,19 @@ class Billed extends React.Component {
         parameter.append('ReceiptType', receiptType);
         parameter.append('ALROProvince', receiptProvince);
 
+        this.setState({isLoading:true})
+
         api.getBilled(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading:false
             })
 
         }).catch(error => {
 
+            this.setState({isLoading:false})
         })
     }
 
@@ -139,6 +145,7 @@ class Billed extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+            <OverlayLoading isLoading={this.state.isLoading}/>
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
             <Box mt={5} ml={2} mr={2}>

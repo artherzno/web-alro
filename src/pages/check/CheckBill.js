@@ -26,6 +26,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import { OverlayLoading } from '../../components'
 
 class CheckBill extends React.Component {
 
@@ -33,6 +34,7 @@ class CheckBill extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -65,14 +67,17 @@ class CheckBill extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
+        this.setState({ isLoading: true })
         api.getInvoice(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -142,6 +147,7 @@ class CheckBill extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />

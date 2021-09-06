@@ -29,6 +29,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import { format } from 'date-fns';
+import { OverlayLoading } from '../../components'
 
 class ProcessLawPerson extends React.Component {
 
@@ -36,6 +37,7 @@ class ProcessLawPerson extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -66,14 +68,16 @@ class ProcessLawPerson extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Process', Process);
 
+        this.setState({ isLoading: true })
         api.getAppraisalCourt(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -144,6 +148,7 @@ class ProcessLawPerson extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />

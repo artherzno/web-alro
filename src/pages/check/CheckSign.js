@@ -26,6 +26,7 @@ import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
+import { OverlayLoading } from '../../components'
 
 class CheckSign extends React.Component {
 
@@ -33,6 +34,7 @@ class CheckSign extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -82,6 +84,7 @@ class CheckSign extends React.Component {
         parameter.append('Display', LoanPurpose);
         parameter.append('Display', LoanType2);
 
+        this.setState({ isLoading: true })
         api.getContract(parameter).then(response => {
 
             const dataSummary = response.data.dataSummary.length > 0 ? response.data.dataSummary[0] : {}
@@ -91,10 +94,12 @@ class CheckSign extends React.Component {
                 loanAmount: dataSummary.loanAmount,
                 remainAmount: dataSummary.remainAmount,
                 totalContract: dataSummary.totalContract,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -172,6 +177,7 @@ class CheckSign extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />

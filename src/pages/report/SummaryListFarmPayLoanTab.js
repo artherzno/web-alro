@@ -22,6 +22,7 @@ import {
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SummaryListFarmPayLoanTab extends React.Component {
 
@@ -30,6 +31,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -75,15 +77,17 @@ class SummaryListFarmPayLoanTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getSummaryFarmerPayLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -134,6 +138,8 @@ class SummaryListFarmPayLoanTab extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>

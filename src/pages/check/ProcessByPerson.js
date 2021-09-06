@@ -28,6 +28,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import { format } from 'date-fns';
+import { OverlayLoading } from '../../components'
 
 class ProcessByPerson extends React.Component {
 
@@ -35,6 +36,7 @@ class ProcessByPerson extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             isExporting: false,
             dateSelect: null,
@@ -65,14 +67,17 @@ class ProcessByPerson extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Process', Process);
 
+        this.setState({ isLoading: true })
         api.getAccountsReceivable(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -140,6 +145,8 @@ class ProcessByPerson extends React.Component {
         const { data, page, count } = this.state
         return (
             <div>
+
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />

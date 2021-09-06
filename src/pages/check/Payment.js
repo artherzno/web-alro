@@ -28,6 +28,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import FormData from 'form-data'
+import { OverlayLoading } from '../../components'
 
 class Payment extends React.Component {
 
@@ -35,6 +36,7 @@ class Payment extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             loaded: true,
             IDCard: "",
             FullName: "",
@@ -85,14 +87,17 @@ class Payment extends React.Component {
         parameter.append('District', District);
         parameter.append('Num', Num);
 
+        this.setState({ isLoading: true })
         api.getPaymentBalance(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
+                isLoading: false
             })
 
         }).catch(error => {
 
+            this.setState({ isLoading: false })
         })
     }
 
@@ -228,6 +233,7 @@ class Payment extends React.Component {
 
         return (
             <div>
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <div className="header-nav">
                     <Header bgColor="bg-light-green" status="logged" />
                     <Nav />

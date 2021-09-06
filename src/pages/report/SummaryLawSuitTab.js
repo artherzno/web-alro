@@ -22,6 +22,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SummaryLawSuitTab extends React.Component {
 
@@ -30,6 +31,7 @@ class SummaryLawSuitTab extends React.Component {
         super(props)
 
         this.state = {
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -71,15 +73,17 @@ class SummaryLawSuitTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        this.setState({ isLoading: true })
         api.getSummaryLawSuit(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -131,7 +135,7 @@ class SummaryLawSuitTab extends React.Component {
 
         return (<div>
             <Grid container spacing={2}>
-
+                <OverlayLoading isLoading={this.state.isLoading} />
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item>
