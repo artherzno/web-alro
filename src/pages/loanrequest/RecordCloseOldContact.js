@@ -90,12 +90,12 @@ function RecordCloseOldContact() {
         PrincipleBalance1: '',// 1.1,
         PrincipleCalculate: '',// 1.1,
         PaidCalculate: '',// 1.1,
-        PrinciplePaid: '',// 1.1,
-        InterestPaid: '',// 1.1,
-        OverdueInterest: '',// 1.1,
-        DueInterest: '',// 1.1,
-        Fines: '',// 1.1,
-        Other: '',// 1.1,
+        PrinciplePaid: 0,// 1.1,
+        InterestPaid: 0,// 1.1,
+        OverdueInterest: 0,// 1.1,
+        DueInterest: 0,// 1.1,
+        Fines: 0,// 1.1,
+        Other: 0,// 1.1,
         PrincipleBalance2: '',// 1.1,
         InterestBalance: '',// 1.1,
         ReceiveInterest: '',// 1.1,
@@ -107,7 +107,7 @@ function RecordCloseOldContact() {
         FinesInterestDuePaid: '',// 1.1,
         TotalInterest: '',// 1.1,
         FinesOverdue: '',// 1.1,
-        TotalPaid: '',// 1.1,
+        TotalPaid: 0,// 1.1,
         PrincipleBalance4: '',// 1.1,
         Cancel: '',// true,
         ProvinceID: '',// 1,
@@ -147,13 +147,13 @@ function RecordCloseOldContact() {
     })
 
     const [inputDataBeforePay, setInputDataBeforePay] = useState({
-        principleBalance: '',
-        principle1: '',
-        InterestKang2: '',
-        InterestKang22: '',
-        InterestKang222: '',
-        FineKang: '',
-        FineKangSum: '',
+        principleBalance: 0,
+        principle1: 0,
+        InterestKang2: 0,
+        InterestKang22: 0,
+        InterestKang222: 0,
+        FineKang: 0,
+        FineKangSum: 0,
     })
 
     const [inputSelectDate, setInputSelectDate] = useState({
@@ -780,7 +780,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right txt-purple">จำนวนเงินต้นที่ชำระ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="" />
+                                                            <MuiTextfield label="" name="PrinciplePaid" value={inputDataReceipt.PrinciplePaid} onChange={handleInputDataReceipt}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <ButtonFluidPrimary label="คำนวณเงินชำระ" />
@@ -846,7 +846,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">ดอกเบี้ยรับ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label=""   inputdisabled="input-disabled"  />
+                                                            <MuiTextfield label=""   inputdisabled="input-disabled"  name="DueInterest" value={inputDataReceipt.DueInterest} onChange={handleInputDataReceipt}  />
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
