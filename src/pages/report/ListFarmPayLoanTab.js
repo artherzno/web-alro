@@ -16,6 +16,9 @@ import { makeStyles, withStyles } from '@material-ui/styles';
 import moment from 'moment'
 import { formatNumber} from '../../utils/Utilities'
 import { ButtonExportExcel} from '../../components'
+import {
+    ButtonFluidPrimary,
+} from '../../components/MUIinputs';
 
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
@@ -146,7 +149,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         sectionProvince: "",
                                         provinceZoneLabel:""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -154,7 +156,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel:`จังหวัด${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeSection={(event) => {
@@ -162,7 +163,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         sectionProvince: event.target.value,
                                         provinceZoneLabel: `${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -189,7 +189,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         dateRangLabel:""
 
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeDate={(event) => {
@@ -206,7 +205,6 @@ class ListFarmPayLoanTab extends React.Component {
                                             endDate: endDate,
                                             dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                         }, () => {
-                                            this.loadPayLoan()
                                         })
                                     }
                                 }}
@@ -216,7 +214,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         month: event.target.value,
                                         montLabel:`เดือน${event.label}`
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
 
                                 }}
@@ -225,7 +222,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         year: event.target.value,
                                         yearLabel: event.target.value
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
@@ -248,7 +244,6 @@ class ListFarmPayLoanTab extends React.Component {
                                         receiptTypeLabel:event.label,
                                         provinceReiptLabel:""
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                                 onChangeProvince={(event) => {
@@ -256,13 +251,17 @@ class ListFarmPayLoanTab extends React.Component {
                                         receiptProvince: event.target.value,
                                         provinceReiptLabel:event.label
                                     }, () => {
-                                        this.loadPayLoan()
                                     })
                                 }}
                             />
                         </Grid>
 
                     </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                    <p>&nbsp;</p>
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>

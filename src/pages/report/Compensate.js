@@ -11,7 +11,6 @@ import {
 } from '../../components/MUIinputs';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -88,13 +87,7 @@ class Compensate extends React.Component {
             [state]: event.target.value
         }, () => {
 
-            if (this.delay) {
-                clearTimeout(this.delay)
-                this.delay = null
-            }
-            this.delay = setTimeout(() => {
-                this.loadData()
-            }, 500);
+           
 
         })
 
@@ -128,7 +121,7 @@ class Compensate extends React.Component {
                                     <Grid item xs={12} md={3}>
                                         <MuiDatePicker label="วันที่คำสั่ง" value={this.state.dateSelect} onChange={(event) => {
                                             this.setState({ DateOrder: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                this.loadData()
+                                               
                                             })
                                         }} />
                                     </Grid>
