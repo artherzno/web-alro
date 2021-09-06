@@ -237,8 +237,8 @@ class CheckBill extends React.Component {
                                                             <StyledTableCellLine align="center">{element.month}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.list}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.numCase)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.numCase)}</StyledTableCellLine>
 
 
                                                         </TableRow>

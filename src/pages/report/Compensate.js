@@ -201,10 +201,10 @@ class Compensate extends React.Component {
                                                         <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{data.contratNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">{data.idCard}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.payerName}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{formatNumber(data.amount)}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.interestRatePerYear}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.installments}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{data.payerName}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="right">{formatNumber(data.amount)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="right">{data.interestRatePerYear}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="right">{data.installments}</StyledTableCellLine>
                                                         <StyledTableCellLine align="center">
                                                             <Button
                                                                 variant="contained"

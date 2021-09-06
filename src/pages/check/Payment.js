@@ -338,11 +338,11 @@ class Payment extends React.Component {
                                                                 this.getCalPayment()
                                                             })
                                                         }}>
-                                                            <StyledTableCellLine align="center">{element.fullName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
 
 
                                                         </TableRow>

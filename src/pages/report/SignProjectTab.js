@@ -276,15 +276,15 @@ class SignProjectTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine > {farmer.province} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center"> {farmer.province} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.projName} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.totalContract} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.totalContract} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.installment} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.principalPeriod} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.installment} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.principalPeriod} </StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -298,8 +298,8 @@ class SignProjectTab extends React.Component {
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
 
                                 </TableRow>
                             </TableBody>

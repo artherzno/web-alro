@@ -287,7 +287,7 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine component="th" scope="row">
+                                            <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.zone}</StyledTableCellLine>

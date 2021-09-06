@@ -246,10 +246,10 @@ class BySign extends React.Component {
                                                             <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.reduce}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rateR}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.dueamount}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.reduce}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.rateR}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.dueamount}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.dateE}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>

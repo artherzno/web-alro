@@ -319,22 +319,22 @@ class ListFarmPayLoanTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine component="th" scope="row">
+                                            <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.invoiceNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.receiptDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.payChannel}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.payLoan)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.principle)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.remaining)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.payLoan)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.remaining)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.overPaid)}</StyledTableCellLine>
                                         </TableRow>
                                     )
                                 })}
@@ -342,13 +342,13 @@ class ListFarmPayLoanTab extends React.Component {
 
                                 <TableRow  >
                                     <StyledTableCellLine className={classes.cellSummary} colSpan={8} align="right">รวมทั้งสิ้น</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.payLoan)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.payLoan)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overdueAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
-                                    <StyledTableCellLine className={classes.cellSummary} align="center">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.remaining)}</StyledTableCellLine>
+                                    <StyledTableCellLine className={classes.cellSummary} align="right">{formatNumber(dataSummary.overPaid)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>

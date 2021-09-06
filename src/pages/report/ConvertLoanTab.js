@@ -298,23 +298,23 @@ class ConvertLoanTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine > {farmer.province} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.no} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.idCard} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.projName} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractType} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractNo} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.idCard} </StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projName} </StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractType} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractNo} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interestEarned)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.total)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interestRate)} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName2} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractType2} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.powers} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.debtApprovalDate} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.contractNo2} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.newContractDate} </StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName2} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractType2} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.powers} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.debtApprovalDate} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.contractNo2} </StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.newContractDate} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle2)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interest)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.total2)} </StyledTableCellLine>
@@ -329,14 +329,14 @@ class ConvertLoanTab extends React.Component {
                                     <StyledTableCellLine colSpan={7} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)} </StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)} </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
                                     <StyledTableCellLine align="center" colSpan={7} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total2)}</StyledTableCellLine>
                                     <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                 </TableRow>

@@ -286,7 +286,7 @@ class SummaryModifyTab extends React.Component {
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center"> {farmer.months} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interestEarned)}</StyledTableCellLine>
@@ -303,7 +303,7 @@ class SummaryModifyTab extends React.Component {
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.accruedInterest)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestEarned)}</StyledTableCellLine>

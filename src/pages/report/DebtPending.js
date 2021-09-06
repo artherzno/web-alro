@@ -251,16 +251,16 @@ class DebtPending extends React.Component {
                                                     return (
                                                         <TableRow key={index}>
                                                             <StyledTableCellLine align="center">{data.no}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.fullName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.accrued1)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.paid)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.remaining)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.accruedInterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.accrued2)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.receive)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.total)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(data.totalReceivePeriod)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.accrued1)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.paid)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.remaining)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.accruedInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.accrued2)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.receive)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.total)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{formatNumber(data.totalReceivePeriod)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="center">{data.remark}</StyledTableCellLine>
 
                                                         </TableRow>

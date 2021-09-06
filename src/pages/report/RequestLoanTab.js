@@ -270,8 +270,9 @@ class RequestLoanTab extends React.Component {
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
+                                   
                                     <StyledTableCell align="center">ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">เลขที่คำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">วันที่ยื่นคำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
@@ -309,26 +310,26 @@ class RequestLoanTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.appDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanReqStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.age}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.address1}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.address2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.tel}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.docType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.docNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.landSize}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.liabilities}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.province}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.appDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanReqStatus}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.age}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.address2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.tel}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.docType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.docNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.landSize}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.liabilities}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanPurpose}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.loanType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanPurpose}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.loanType}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loan)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
+                                            <StyledTableCellLine align="center"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
 
 
                                         </TableRow>

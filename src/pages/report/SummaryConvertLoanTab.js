@@ -274,7 +274,7 @@ class SummaryConvertLoanTab extends React.Component {
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center"> {farmer.months} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center">{farmer.totalContract}</StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -284,7 +284,7 @@ class SummaryConvertLoanTab extends React.Component {
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
 
                                 </TableRow>
                             </TableBody>
