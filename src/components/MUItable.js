@@ -108,6 +108,9 @@ const MUItable = (props) => {
       requestParam1,
       requestParam2,
       actionCreate,
+      actionCreateArr,
+      createArrEvent,
+      createArrParam,
       createEvent,
       createParam,
       actionCustom,
@@ -271,6 +274,16 @@ const MUItable = (props) => {
   function EnhancedTableBody (props) {
     const { index, row, rowsLabel, isItemSelected, labelId, hasCheckbox } = props;
 
+    // const loopCreateArrParam = () => {
+    //   let rowArr = []
+    //   for(let i=0; i<createArrParam.length; i++) {
+    //     rowArr.push(row[createArrParam[i]])
+    //   }
+    //   return rowArr
+    // }
+    // console.log(loopCreateArrParam)
+    
+
     return (
       <TableRow
         hover
@@ -318,6 +331,11 @@ const MUItable = (props) => {
                 {
                   actionCreate ? 
                     <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createEvent(row[createParam])} />
+                  : null
+                }
+                {
+                  actionCreateArr ? 
+                    <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createArrEvent(row[createArrParam[0]],row[createArrParam[1]],row[createArrParam[2]],row[createArrParam[3]],row[createArrParam[4]],row[createArrParam[5]],row[createArrParam[6]],row[createArrParam[7]])} />
                   : null
                 }
                 {
