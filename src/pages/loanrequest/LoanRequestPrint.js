@@ -362,7 +362,7 @@ function LoanRequestPrint(props) {
         { id: 'Sirname', numeric: false, disablePadding: false, widthCol: '150px', label: 'นามสกุล' },
         { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
     ]
-        // <TableCell align="center">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
+        // <TableCell align="left">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
                                                             
     
     useEffect(() => {
@@ -1499,7 +1499,7 @@ function LoanRequestPrint(props) {
                 if(action === 'add') {
                     rowArr.push(
                         <TableRow key={i}>
-                            <TableCell align="center">{i+1}</TableCell>
+                            <TableCell align="left">{i+1}</TableCell>
                             <TableCell align="left">
                                 <div className="select-date-option">
                                     <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata[i].dd} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
@@ -1507,7 +1507,7 @@ function LoanRequestPrint(props) {
                                     <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                 </div>  
                             </TableCell>
-                            <TableCell align="center">
+                            <TableCell align="left">
                                     <MuiTextfieldCurrency  label="" value={loandueDataArr.PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
                             </TableCell>
                         </TableRow>
@@ -1517,7 +1517,7 @@ function LoanRequestPrint(props) {
                     if(loandueDataAPI === null) {
                         rowArr.push(
                             <TableRow key={i}>
-                                <TableCell align="center">{i+1}</TableCell>
+                                <TableCell align="left">{i+1}</TableCell>
                                 <TableCell align="left">
                                     <div className="select-date-option">
                                         <MuiSelectDay label="" name="dd" value={'00'} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
@@ -1525,7 +1525,7 @@ function LoanRequestPrint(props) {
                                         <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                     </div>  
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     <p>ไม่พบข้อมูล</p>
                                 </TableCell>
                             </TableRow>
@@ -1536,7 +1536,7 @@ function LoanRequestPrint(props) {
                         // console.log('dataRow', loandueDataAPI[i] === undefined ? null : loandueDataAPI[i].PAYREC)
                         rowArr.push(
                             <TableRow key={i}>
-                                <TableCell align="center">{i+1}</TableCell>
+                                <TableCell align="left">{i+1}</TableCell>
                                 <TableCell align="left">
                                     <div className="select-date-option">
                                         <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata[i].dd} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
@@ -1544,7 +1544,7 @@ function LoanRequestPrint(props) {
                                         <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                     </div>  
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                         <MuiTextfieldCurrency  label="" value={loandueDataArr[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
                                 </TableCell>
                             </TableRow>
@@ -2163,9 +2163,9 @@ function LoanRequestPrint(props) {
                                                         <Table aria-label="normal table">
                                                             <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell align="center">งวดที่</TableCell>
-                                                                    <TableCell align="center" style={{minWidth: '200px'}}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
-                                                                    <TableCell align="center">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
+                                                                    <TableCell align="left">งวดที่</TableCell>
+                                                                    <TableCell align="left" style={{minWidth: '200px'}}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
+                                                                    <TableCell align="left">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
                                                                 </TableRow>
                                                             </TableHead>
                                                             <TableBody>
@@ -2384,27 +2384,27 @@ function LoanRequestPrint(props) {
                                                         <Table aria-label="normal table">
                                                             <TableHead>
                                                                 <TableRow key={1}>
-                                                                    <TableCell align="center" rowSpan={2}>งวดที่</TableCell>
-                                                                    <TableCell align="center" rowSpan={2}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
-                                                                    <TableCell align="center" colSpan={2}>จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
+                                                                    <TableCell align="left" rowSpan={2}>งวดที่</TableCell>
+                                                                    <TableCell align="left" rowSpan={2}>วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
+                                                                    <TableCell align="left" colSpan={2}>จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
                                                                 </TableRow>
                                                                 <TableRow key={2}>
-                                                                    <TableCell align="center">เงินต้นค้างชำระ</TableCell>
-                                                                    <TableCell align="center">ดอกเบี้ยค้างชำระ</TableCell>
+                                                                    <TableCell align="left">เงินต้นค้างชำระ</TableCell>
+                                                                    <TableCell align="left">ดอกเบี้ยค้างชำระ</TableCell>
                                                                 </TableRow>
                                                             </TableHead>
                                                             <TableBody>
                                                             {
                                                                 [1,2,3,4,5].map((row,i) => (
                                                                     <TableRow key={i}>
-                                                                        <TableCell align="center">{i+1}</TableCell>
-                                                                        <TableCell align="center">
+                                                                        <TableCell align="left">{i+1}</TableCell>
+                                                                        <TableCell align="left">
                                                                             <MuiDatePicker label=""  defaultValue="2017-05-24" />
                                                                         </TableCell>
-                                                                        <TableCell align="center">
+                                                                        <TableCell align="left">
                                                                             <MuiTextfield label=""  defaultValue=""/>
                                                                         </TableCell>
-                                                                        <TableCell align="center">
+                                                                        <TableCell align="left">
                                                                             { 
                                                                                 i === 0 ? 
                                                                                     <MuiTextfield label=""  defaultValue=""/>

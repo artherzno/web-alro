@@ -295,15 +295,15 @@ class ProcessLawPerson extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center"><Checkbox /></StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.mid}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.projcode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left"><Checkbox /></StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.mid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projcode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projname}</StyledTableCellLine>
 
-                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rcpno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.date}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.rcpno}</StyledTableCellLine>
 
 
                                                             <StyledTableCellLine align="right">{formatNumber(element.principle)}</StyledTableCellLine>
@@ -354,14 +354,14 @@ class ProcessLawPerson extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.jCharge)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateC)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.cmddate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.startdate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.enddate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.cmddate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.startdate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.enddate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.types1}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateNC)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.tps0}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.tps0}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.tps1}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.pcap01)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.pcap02)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.pintr01)}</StyledTableCellLine>

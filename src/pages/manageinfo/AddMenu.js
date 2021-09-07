@@ -189,16 +189,16 @@ function AddMenu(props) {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">MenuID</TableCell>
-                                                <TableCell align="center">MenuName</TableCell>
-                                                <TableCell align="center">MenuLink</TableCell>
-                                                <TableCell align="center">MenuStatus</TableCell>
-                                                <TableCell align="center">Action</TableCell>
+                                                <TableCell align="left">MenuID</TableCell>
+                                                <TableCell align="left">MenuName</TableCell>
+                                                <TableCell align="left">MenuLink</TableCell>
+                                                <TableCell align="left">MenuStatus</TableCell>
+                                                <TableCell align="left">Action</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={5} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
@@ -213,13 +213,13 @@ function AddMenu(props) {
                                                         {
                                                             tableResult[i].submenu.map((row,i) => (
                                                             <TableRow key={row.a}>
-                                                                <TableCell align="center">{i+1}</TableCell>
+                                                                <TableCell align="left">{i+1}</TableCell>
                                                                 <TableCell align="left">{row.b}</TableCell>
-                                                                <TableCell align="center">{row.c}</TableCell>
-                                                                <TableCell align="center">
+                                                                <TableCell align="left">{row.c}</TableCell>
+                                                                <TableCell align="left">
                                                                     <MuiRadioButton label="" lists={['on','off']} value={inputData.typeMemberStatus} onChange={handleChangeTypeMemberStatus} type="row" />
                                                                 </TableCell>
-                                                                <TableCell align="center" className="tb-w-18em">
+                                                                <TableCell align="left" className="tb-w-18em">
                                                                     <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} />
                                                                     <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} />
                                                                 </TableCell>

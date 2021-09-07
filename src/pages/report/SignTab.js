@@ -288,16 +288,16 @@ class SignTab extends React.Component {
                                         <TableRow key={index}>
                                             <StyledTableCellLine >{farmer.province} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.contractID}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center"><div className="btn-more-detail-table">{farmer.idCard}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.contractDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractID}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left"><div className="btn-more-detail-table">{farmer.idCard}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.address}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.docType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center"><div className="btn-more-detail-table">{farmer.docNo}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.docType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left"><div className="btn-more-detail-table">{farmer.docNo}<Box ml={1}><i className="far fa-file-alt"></i></Box></div></StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanPurpose}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanPurpose}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalInstallment}</StyledTableCellLine>

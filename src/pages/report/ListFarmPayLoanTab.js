@@ -300,7 +300,7 @@ class ListFarmPayLoanTab extends React.Component {
                                     <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อ-นามสกุล</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>เลขที่ใบแจ้งหนี้</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบเสร็จ</Typography></div></StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}><div><Typography align="left" variant="body2">ว/ด/ป</Typography><Typography align="left" variant="body2">ใบเสร็จ</Typography></div></StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>เลขที่ใบเสร็จ</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ช่องทางการชำระเงิน</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชำระเงินกู้</StyledTableCell>
@@ -322,13 +322,13 @@ class ListFarmPayLoanTab extends React.Component {
                                             <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.invoiceNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.receiptDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.payChannel}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.invoiceNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.receiptDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.receiptNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.payChannel}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payLoan)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>

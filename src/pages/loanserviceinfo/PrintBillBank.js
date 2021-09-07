@@ -340,7 +340,7 @@ function PrintBillBank() {
                                                 })}
                                             {emptyRows > 0 && (
                                                 <TableRow style={{ height: emptyRows }}>
-                                                        <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
+                                                        <TableCell colSpan={14} align="left">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
                                             )}
                                         </TableBody>

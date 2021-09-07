@@ -278,9 +278,9 @@ class SummaryRequestLoanTab extends React.Component {
                                 {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center">{farmer.months}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.months}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
 
                                         </TableRow>
@@ -291,7 +291,7 @@ class SummaryRequestLoanTab extends React.Component {
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
                                 </TableRow>

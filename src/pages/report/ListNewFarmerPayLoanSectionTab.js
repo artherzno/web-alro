@@ -231,15 +231,15 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
 
                                 </TableRow>
                                 {/* <TableRow >
-                                <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>
+                                <StyledTableCellLine colSpan={2} align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>
                                     รวมภาคเหนือ
                                 </StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
 
                             </TableRow>
 
@@ -271,15 +271,15 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
                             </TableRow>
 
                             <TableRow >
-                                <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>
+                                <StyledTableCellLine colSpan={2} align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>
                                     รวมภาคกลาง
                                 </StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
-                                <StyledTableCellLine align="center" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
+                                <StyledTableCellLine align="left" className={`${classes.cellGreen} ${classes.cellSummary}`}>xxx</StyledTableCellLine>
 
                             </TableRow> */}
 
@@ -290,7 +290,7 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
                                             <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.zone}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.zone}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>

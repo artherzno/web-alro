@@ -322,9 +322,9 @@ function SearchMemberPage(props) {
                                                     <Table aria-label="simple table">
                                                         <TableHead>
                                                             <TableRow>
-                                                                <TableCell align="center">ลำดับ</TableCell>
-                                                                <TableCell align="center">ชื่อ นามสกุล</TableCell>
-                                                                <TableCell align="center">
+                                                                <TableCell align="left">ลำดับ</TableCell>
+                                                                <TableCell align="left">ชื่อ นามสกุล</TableCell>
+                                                                <TableCell align="left">
                                                                     เกรด
                                                                     <Tooltip title={<div>Y ไม่มีหนี้ค้าง<br />N มีหนี้ค้าง</div>} arrow placement="right">
                                                                         <IconButton>
@@ -332,8 +332,8 @@ function SearchMemberPage(props) {
                                                                         </IconButton>
                                                                     </Tooltip>
                                                                 </TableCell>
-                                                                <TableCell align="center">ยื่นคำขอ</TableCell>
-                                                                <TableCell align="center">แก้ไขข้อมูล</TableCell>
+                                                                <TableCell align="left">ยื่นคำขอ</TableCell>
+                                                                <TableCell align="left">แก้ไขข้อมูล</TableCell>
                                                             </TableRow>
                                                         </TableHead>
                                                         <TableBody>
@@ -344,18 +344,18 @@ function SearchMemberPage(props) {
                                                                         : tableResult
                                                                     ).map((cell,i) => (
                                                                     <TableRow key={i}>
-                                                                        <TableCell align="center">{cell.FarmerID}</TableCell>
+                                                                        <TableCell align="left">{cell.FarmerID}</TableCell>
                                                                         <TableCell align="left">
                                                                             {cell.FrontName}&nbsp;
                                                                             {cell.Name} {cell.Sirname}</TableCell>
-                                                                        <TableCell align="center">{cell.FarmerGrade || '-'}</TableCell>
-                                                                        <TableCell align="center">{
+                                                                        <TableCell align="left">{cell.FarmerGrade || '-'}</TableCell>
+                                                                        <TableCell align="left">{
                                                                             cell.FarmerGrade ? 
                                                                                 '-' 
                                                                             : 
                                                                                 <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="120px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, 'add')} />
                                                                         }</TableCell>
-                                                                        <TableCell align="center">
+                                                                        <TableCell align="left">
                                                                             <ButtonFluidPrimary label="แก้ไขข้อมูล" maxWidth="120px" onClick={()=>gotoEditMember(cell.FarmerID)} />
                                                                         </TableCell>
                                                                     </TableRow>
@@ -363,7 +363,7 @@ function SearchMemberPage(props) {
                                                             ))
                                                             : 
                                                             <TableRow>
-                                                                <TableCell colSpan={5} align="center">
+                                                                <TableCell colSpan={5} align="left">
                                                                     ไม่พบข้อมูล'
                                                                 </TableCell>
                                                             </TableRow>

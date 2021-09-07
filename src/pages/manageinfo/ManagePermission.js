@@ -249,27 +249,27 @@ function ManagePermission(props) {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">เมนูที่เข้าถึงได้</TableCell>
-                                                <TableCell align="center">สิทธิ์</TableCell>
+                                                <TableCell align="left">เมนูที่เข้าถึงได้</TableCell>
+                                                <TableCell align="left">สิทธิ์</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>  {/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={2} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={2} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             {/* {
                                                 tableResult.map((row,i) => (
                                                     <React.Fragment>
                                                         <TableRow>
-                                                                <TableCell align="center" style={{width: '54%'}}><MuiCheckbox label={row.maintitle} /></TableCell>
-                                                                <TableCell align="center">
+                                                                <TableCell align="left" style={{width: '54%'}}><MuiCheckbox label={row.maintitle} /></TableCell>
+                                                                <TableCell align="left">
                                                                     <MuiRadioButton label="" lists={['read only','modify']} value={inputData.typeAllow} onChange={handleChangeTypeAllow} type="row" />
                                                                 </TableCell>
                                                         </TableRow>
                                                         { row.subtitle.map((rowsub,i)=>(
                                                             <TableRow>
                                                                 <TableCell style={{paddingLeft: '3.2em'}}><MuiCheckbox label={rowsub} /></TableCell>
-                                                                <TableCell align="center">
+                                                                <TableCell align="left">
                                                                     <MuiRadioButton label="" lists={['read only','modify']} value={inputData.typeAllow} onChange={handleChangeTypeAllow} type="row" />
                                                                 </TableCell>
                                                             </TableRow>

@@ -121,44 +121,44 @@ function CancelBill() {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">สัญญาเลขที่</TableCell>
-                                                <TableCell align="center">วันที่ใบเสร็จ</TableCell>
-                                                <TableCell align="center">เลขที่ใบเสร็จ</TableCell>
-                                                <TableCell align="center">เงินต้น</TableCell>
-                                                <TableCell align="center">ดอกเบี้ย</TableCell>
-                                                <TableCell align="center">ค่าปรับ</TableCell>
-                                                <TableCell align="center">item</TableCell>
-                                                <TableCell align="center">Mindex</TableCell>
-                                                <TableCell align="center">Pcapital</TableCell>
-                                                <TableCell align="center">Pcap_1</TableCell>
+                                                <TableCell align="left">รหัสบันทึก</TableCell>
+                                                <TableCell align="left">วันที่บันทึก</TableCell>
+                                                <TableCell align="left">รหัสโครงการ</TableCell>
+                                                <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                <TableCell align="left">สัญญาเลขที่</TableCell>
+                                                <TableCell align="left">วันที่ใบเสร็จ</TableCell>
+                                                <TableCell align="left">เลขที่ใบเสร็จ</TableCell>
+                                                <TableCell align="left">เงินต้น</TableCell>
+                                                <TableCell align="left">ดอกเบี้ย</TableCell>
+                                                <TableCell align="left">ค่าปรับ</TableCell>
+                                                <TableCell align="left">item</TableCell>
+                                                <TableCell align="left">Mindex</TableCell>
+                                                <TableCell align="left">Pcapital</TableCell>
+                                                <TableCell align="left">Pcap_1</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={14} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
                                                 tableResult.map((row,i) => (
                                                 <TableRow key={i}>
-                                                    <TableCell align="center">{row.a}</TableCell>
-                                                    <TableCell align="center">{row.b}</TableCell>
-                                                    <TableCell align="center">{row.c}</TableCell>
-                                                    <TableCell align="center">{row.d}</TableCell>
-                                                    <TableCell align="center">{row.f}</TableCell>
-                                                    <TableCell align="center">{row.g}</TableCell>
-                                                    <TableCell align="center">{row.h}</TableCell>
-                                                    <TableCell align="center">{row.i}</TableCell>
-                                                    <TableCell align="center">{row.j}</TableCell>
-                                                    <TableCell align="center">{row.k}</TableCell>
-                                                    <TableCell align="center">{row.l}</TableCell>
-                                                    <TableCell align="center">{row.m}</TableCell>
-                                                    <TableCell align="center">{row.n}</TableCell>
-                                                    <TableCell align="center">{row.o}</TableCell>
+                                                    <TableCell align="left">{row.a}</TableCell>
+                                                    <TableCell align="left">{row.b}</TableCell>
+                                                    <TableCell align="left">{row.c}</TableCell>
+                                                    <TableCell align="left">{row.d}</TableCell>
+                                                    <TableCell align="left">{row.f}</TableCell>
+                                                    <TableCell align="left">{row.g}</TableCell>
+                                                    <TableCell align="left">{row.h}</TableCell>
+                                                    <TableCell align="left">{row.i}</TableCell>
+                                                    <TableCell align="left">{row.j}</TableCell>
+                                                    <TableCell align="left">{row.k}</TableCell>
+                                                    <TableCell align="left">{row.l}</TableCell>
+                                                    <TableCell align="left">{row.m}</TableCell>
+                                                    <TableCell align="left">{row.n}</TableCell>
+                                                    <TableCell align="left">{row.o}</TableCell>
                                                 </TableRow>
                                             ))} */}
                                         </TableBody>

@@ -197,15 +197,15 @@ class Compensate extends React.Component {
 
                                                 return (
                                                     <TableRow key={index}>
-                                                        <StyledTableCellLine align="center">{data.no}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.contratNo}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">{data.idCard}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{data.no}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{data.orderNo}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{data.contratNo}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{data.idCard}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{data.payerName}</StyledTableCellLine>
                                                         <StyledTableCellLine align="right">{formatNumber(data.amount)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="right">{data.interestRatePerYear}</StyledTableCellLine>
                                                         <StyledTableCellLine align="right">{data.installments}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="center">
+                                                        <StyledTableCellLine align="left">
                                                             <Button
                                                                 variant="contained"
                                                                 color="primary"

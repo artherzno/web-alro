@@ -253,20 +253,20 @@ function AddRepaymentContract() {
                                             <TableHead>
                                             <TableRow>
                                                  <TableCell align="center">ลำดับที่</TableCell>
-                                                <TableCell align="center">
+                                                <TableCell align="left">
                                                     <MuiCheckbox label="&nbsp;"  />
                                                 </TableCell>
-                                                <TableCell align="center">เลขที่สัญญาที่ชดใช้หนี้แทน</TableCell>
-                                                <TableCell align="center">เลขประจำตัวประชาชน</TableCell>
-                                                <TableCell align="center">ชื่อ-สกุล เกษตกร</TableCell>
-                                                <TableCell align="center">สัญญาเริ่มต้น</TableCell>
-                                                <TableCell align="center">สัญญาสิ้นสุด</TableCell>
-                                                <TableCell align="center">วงเงินกู้</TableCell>
-                                                <TableCell align="center">เงินต้นคงเหลือ</TableCell>
-                                                <TableCell align="center">ดอกเบี้ย</TableCell>
-                                                <TableCell align="center">ค่าปรับ</TableCell>
-                                                <TableCell align="center">ผู้ชดใช้หนี้แทน</TableCell>
-                                                <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>&nbsp;</TableCell>
+                                                <TableCell align="left">เลขที่สัญญาที่ชดใช้หนี้แทน</TableCell>
+                                                <TableCell align="left">เลขประจำตัวประชาชน</TableCell>
+                                                <TableCell align="left">ชื่อ-สกุล เกษตกร</TableCell>
+                                                <TableCell align="left">สัญญาเริ่มต้น</TableCell>
+                                                <TableCell align="left">สัญญาสิ้นสุด</TableCell>
+                                                <TableCell align="left">วงเงินกู้</TableCell>
+                                                <TableCell align="left">เงินต้นคงเหลือ</TableCell>
+                                                <TableCell align="left">ดอกเบี้ย</TableCell>
+                                                <TableCell align="left">ค่าปรับ</TableCell>
+                                                <TableCell align="left">ผู้ชดใช้หนี้แทน</TableCell>
+                                                <TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>&nbsp;</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -277,19 +277,19 @@ function AddRepaymentContract() {
                                                             : tableResult
                                                         ).map((cell,i) => (
                                                         <TableRow key={i}>
-                                                            <TableCell align="center">{cell.RecordCode}</TableCell>
-                                                            <TableCell align="center">{cell.RecDate === null ? '' : moment(cell.RecDate).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center">{cell.ApplicantNo}</TableCell>
-                                                            <TableCell align="center">{cell.ProjectID === 0 ? '' : cell.ProjectID}</TableCell>
-                                                            <TableCell align="center">{cell.ProjectName}</TableCell>
-                                                            <TableCell align="center">{cell.LoanNumber}</TableCell>
-                                                            <TableCell align="center">{cell.dCreated === null ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center">{cell.IDCard}</TableCell>
-                                                            <TableCell align="center">{cell.FrontName}</TableCell>
-                                                            <TableCell align="center">{cell.Name}</TableCell>
-                                                            <TableCell align="center">{cell.Sirname}</TableCell>
-                                                            <TableCell align="center">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
-                                                            <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>
+                                                            <TableCell align="left">{cell.RecordCode}</TableCell>
+                                                            <TableCell align="left">{cell.RecDate === null ? '' : moment(cell.RecDate).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="left">{cell.ApplicantNo}</TableCell>
+                                                            <TableCell align="left">{cell.ProjectID === 0 ? '' : cell.ProjectID}</TableCell>
+                                                            <TableCell align="left">{cell.ProjectName}</TableCell>
+                                                            <TableCell align="left">{cell.LoanNumber}</TableCell>
+                                                            <TableCell align="left">{cell.dCreated === null ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="left">{cell.IDCard}</TableCell>
+                                                            <TableCell align="left">{cell.FrontName}</TableCell>
+                                                            <TableCell align="left">{cell.Name}</TableCell>
+                                                            <TableCell align="left">{cell.Sirname}</TableCell>
+                                                            <TableCell align="left">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
+                                                            <TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
                                                                 <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>gotoLoanRequestPrint(cell.xxx)} />
                                                             </TableCell>
                                                         </TableRow>
@@ -297,7 +297,7 @@ function AddRepaymentContract() {
                                                     ))
                                                     : 
                                                     <TableRow>
-                                                        <TableCell colSpan={13} align="center">ไม่พบข้อมูล</TableCell>
+                                                        <TableCell colSpan={13} align="left">ไม่พบข้อมูล</TableCell>
                                                     </TableRow>
                                                 }
                                             </TableBody>

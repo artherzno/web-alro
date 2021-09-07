@@ -340,8 +340,8 @@ class Payment extends React.Component {
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.fullName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.idCard}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.projCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.idCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
 
 

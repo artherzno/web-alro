@@ -283,23 +283,23 @@ class PayLoanTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center"> {farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.provinceCode}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.projName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.contractNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.provinceCode}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.bank}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.bankNumber}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.receiptNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.bank}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.bankNumber}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.receiptNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.payDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.dueDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payout)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payFirstInstallment)}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.interestRate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.memStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.workingDay}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.memStatus}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.workingDay}</StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -309,9 +309,9 @@ class PayLoanTab extends React.Component {
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                    <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine colSpan={3} align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.payFirstInstallment)}</StyledTableCellLine>
-                                    <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine colSpan={3} align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                 </TableRow>
 

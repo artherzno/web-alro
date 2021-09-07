@@ -683,24 +683,24 @@ function AllContractSearch() {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">เลขคำขอ</TableCell>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                <TableCell align="center">วันที่กู้</TableCell>
-                                                <TableCell align="center">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="center">คำนำหน้า</TableCell>
-                                                <TableCell align="center">ชื่อ</TableCell>
-                                                <TableCell align="center">นามสกุล</TableCell>
-                                                <TableCell align="center">ที่อยู่</TableCell>
-                                                <TableCell align="center" className="sticky tb-w-14em">&nbsp;</TableCell>
+                                                <TableCell align="left">รหัสบันทึก</TableCell>
+                                                <TableCell align="left">วันที่บันทึก</TableCell>
+                                                <TableCell align="left">เลขคำขอ</TableCell>
+                                                <TableCell align="left">รหัสโครงการ</TableCell>
+                                                <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                <TableCell align="left">วันที่กู้</TableCell>
+                                                <TableCell align="left">เลขบัตรประชาชน</TableCell>
+                                                <TableCell align="left">คำนำหน้า</TableCell>
+                                                <TableCell align="left">ชื่อ</TableCell>
+                                                <TableCell align="left">นามสกุล</TableCell>
+                                                <TableCell align="left">ที่อยู่</TableCell>
+                                                <TableCell align="left" className="sticky tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             <TableRow>
-                                                <TableCell colSpan={13} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={13} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                         </TableBody>
                                     </Table>
@@ -1196,20 +1196,20 @@ function AllContractSearch() {
                                                     <Table aria-label="normal table">
                                                         <TableHead>
                                                         <TableRow>
-                                                            <TableCell align="center" style={{minWidth: '100px'}}>งวดที่</TableCell>
-                                                            <TableCell align="center">วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
-                                                            <TableCell align="center">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
+                                                            <TableCell align="left" style={{minWidth: '100px'}}>งวดที่</TableCell>
+                                                            <TableCell align="left">วัน เดือน ปี ครบกำหนดชำระเงิน</TableCell>
+                                                            <TableCell align="left">จำนวนเงินกู้ที่ต้องชำระ (บาท)</TableCell>
                                                         </TableRow>
                                                         </TableHead>
                                                         <TableBody>
                                                         {
                                                             inputData.loandue_data.map((row,i) => (
                                                                 <TableRow key={i}>
-                                                                    <TableCell align="center">{row.ITEM}</TableCell>
-                                                                    <TableCell align="center">
+                                                                    <TableCell align="left">{row.ITEM}</TableCell>
+                                                                    <TableCell align="left">
                                                                         <MuiTextfield label="" inputdisabled="input-disabled"  value={newOrderDate(row.DUEDATE)} />
                                                                     </TableCell>
-                                                                    <TableCell align="center">
+                                                                    <TableCell align="left">
                                                                         <MuiTextfieldCurrency inputdisabled="input-disabled"  label="" value={row.PAYREC} />
                                                                     </TableCell>
                                                                 </TableRow>

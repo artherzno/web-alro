@@ -309,27 +309,27 @@ class RequestLoanTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.appDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanReqStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.age}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanReqStatus}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.age}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.address2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.tel}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.docType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.docNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.tel}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.docType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.docNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.landSize}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.liabilities}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.landSize}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.liabilities}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanPurpose}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanPurpose}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanType}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loan)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
 
 
                                         </TableRow>
@@ -342,9 +342,9 @@ class RequestLoanTab extends React.Component {
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loan)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                 </TableRow>
                             </TableBody>
