@@ -110,6 +110,12 @@ const MUItable = (props) => {
       actionCreate,
       createEvent,
       createParam,
+      actionCustom,
+      customEvent,
+      customParam1,
+      customParam2,
+      customName,
+      customWidth,
       tableName,
       loanrequestprintEvent,
       loanrequestprintAction,
@@ -316,7 +322,7 @@ const MUItable = (props) => {
                 }
                 {
                   actionView ? 
-                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="90px" onClick={()=>viewEvent(row[viewParam], row[viewParam2])} />
+                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>viewEvent(row[viewParam], row[viewParam2])} />
                   : null
                 }
                 {
@@ -332,6 +338,11 @@ const MUItable = (props) => {
                 {
                   actionPrint ? 
                     <ButtonFluidPrimary label="พิมพ์" maxWidth="80px" onClick={()=>printEvent(row[printParam1], row[printParam2])} />
+                  : null
+                }
+                {
+                  actionCustom ? 
+                    <ButtonFluidPrimary label={customName} maxWidth={customWidth} onClick={()=>customEvent(row[customParam1], row[customParam2])} />
                   : null
                 }
               </TableCell>

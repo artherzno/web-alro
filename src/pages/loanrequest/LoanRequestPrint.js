@@ -825,27 +825,30 @@ function LoanRequestPrint(props) {
                         step 1.loop get date from api insert to 'loandueDataArr'
                         step 2.
                     */
+console.log('data.loandue_data.length',data.loandue_data.length)
+                    if(data.loandue_data.length > 0) {
+                        for(let i=0; i<data.loandue_data.length; i++) {
+                            let loandueArr = [...loandueDataArr]
 
-                    for(let i=0; i<data.loandue_data.length; i++) {
-                        let loandueArr = [...loandueDataArr]
+                            // console.warn('DUEDATE',reOrderDateENtoTH(data.loandue_data[i].DUEDATE))
+                            loandueArr[i].DUEDATE = data.loandue_data[i].DUEDATE === null ? '0000-00-00' : data.loandue_data[i].DUEDATE
+                            loandueArr[i].PAYREC = parseFloat(data.loandue_data[i].PAYREC)
+                            setLoandueDataArr(loandueArr)
+                        }
 
-                        // console.warn('DUEDATE',reOrderDateENtoTH(data.loandue_data[i].DUEDATE))
-                        loandueArr[i].DUEDATE = data.loandue_data[i].DUEDATE === null ? '0000-00-00' : data.loandue_data[i].DUEDATE
-                        loandueArr[i].PAYREC = parseFloat(data.loandue_data[i].PAYREC)
-                        setLoandueDataArr(loandueArr)
-                    }
+                        // console.log('loandueDataArr',loandueDataArr)
 
-                    // console.log('loandueDataArr',loandueDataArr)
+                        for(let i=0; i<loandueDataArr.length; i++) {
+                            // console.log('loandueDataArr[i].DUEDATE',loandueDataArr[i].DUEDATE)
+                            let selectLoanDateArr = [...inputSelectDateLoandata]
+                            
+                            selectLoanDateArr[i].dd = loandueDataArr[i].DUEDATE === null ? '00' : loandueDataArr[i].DUEDATE.substring(8,10)
+                            selectLoanDateArr[i].mm = loandueDataArr[i].DUEDATE === null ? '00' : loandueDataArr[i].DUEDATE.substring(5,7)
+                            selectLoanDateArr[i].yyyy = loandueDataArr[i].DUEDATE === null ? '0000' : Number(loandueDataArr[i].DUEDATE.substring(0,4)) + 543
+                            
+                            setInputSelectDateLoandata(selectLoanDateArr)
+                        }
 
-                    for(let i=0; i<loandueDataArr.length; i++) {
-                        // console.log('loandueDataArr[i].DUEDATE',loandueDataArr[i].DUEDATE)
-                        let selectLoanDateArr = [...inputSelectDateLoandata]
-                        
-                        selectLoanDateArr[i].dd = loandueDataArr[i].DUEDATE === null ? '00' : loandueDataArr[i].DUEDATE.substring(8,10)
-                        selectLoanDateArr[i].mm = loandueDataArr[i].DUEDATE === null ? '00' : loandueDataArr[i].DUEDATE.substring(5,7)
-                        selectLoanDateArr[i].yyyy = loandueDataArr[i].DUEDATE === null ? '0000' : Number(loandueDataArr[i].DUEDATE.substring(0,4)) + 543
-                        
-                        setInputSelectDateLoandata(selectLoanDateArr)
                     }
 
                     // console.log('inputSelectDateLoandata',inputSelectDateLoandata)
@@ -1514,7 +1517,7 @@ function LoanRequestPrint(props) {
                     )
                 } else {
                     // action === 'edit'
-                    if(loandueDataAPI === null) {
+                    if(loandueDataAPI === null || loandueDataAPI.length === 0) {
                         rowArr.push(
                             <TableRow key={i}>
                                 <TableCell align="left">{i+1}</TableCell>
@@ -2170,7 +2173,7 @@ function LoanRequestPrint(props) {
                                                             </TableHead>
                                                             <TableBody>
                                                             {
-                                                                rowTable(inputDataSubmit.Free_of_debt_Time, loandueDataAPI)
+                                                                rowTable(inputDataSubmit.Free_of_debt_Time > 25 ? 25 : inputDataSubmit.Free_of_debt_Time, loandueDataAPI)
                                                             }
                                                             {
                                                                 summaryTable.toLocaleString('en-US', {minimumFractionDigits: 2}) === summaryLoanObj ? null : <TableRow key={99} className="box box-grey"><TableCell colSpan="3"><Grid container spacing={2}><Grid item xs={12} md={12}><p className="txt-red txt-center font-14">* กรุณาใส่จำนวนเงินรวมให้ตรงกับยอดเงินรวมของวัตถุประสงค์</p> </Grid></Grid></TableCell></TableRow>

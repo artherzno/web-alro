@@ -73,6 +73,11 @@ function LoanRecivcePrint() {
     const [searched, setSearched] = useState(false);
     const [formField, setFormField] = useState(false)
 
+    const [inputDataSearch, setInputDataSearch] = useState({
+        Name: '',
+        LoanNumber: ''
+    })
+
 
     const [inputData, setInputData] = useState({
         LoanID: 0, // Int = 10,
@@ -100,9 +105,10 @@ function LoanRecivcePrint() {
     })
 
     const [rows, setRows] = useState([
-        { RecordCode: '1234', RecDate: '2021-08-23', ApplicantNo: 12345, ProjectID: 163, ProjectName: 'test project', LoanNumber: 234, dCreated: '2021-08-22',IDCard: 1234567890123, FrontName: 'นาย', Name: 'ทดสอบ', Sirname: 'สอบทด', IDCARD_AddNo: '134 ม.4',
-        }
+        // { RecordCode: '1234', RecDate: '2021-08-23', ApplicantNo: 12345, ProjectID: 163, ProjectName: 'test project', LoanNumber: 234, dCreated: '2021-08-22',IDCard: 1234567890123, FrontName: 'นาย', Name: 'ทดสอบ', Sirname: 'สอบทด', IDCARD_AddNo: '134 ม.4',
+        // }
     ])
+    const [rowsInfo, setRowsInfo] = useState([])
 
     const rowsLabel = [
         // 'ApplicantID',
@@ -117,6 +123,7 @@ function LoanRecivcePrint() {
         'FrontName',
         'Name',
         'Sirname', 
+        // 'IDCARD_AddNo',
         'IDCARD_AddNo',
     ]
 
@@ -133,11 +140,37 @@ function LoanRecivcePrint() {
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
         { id: 'Sirname', numeric: false, disablePadding: false, widthCol: '150px', label: 'นามสกุล' },
+        // { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
         { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
     ]
 
-    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantNo, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
-        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantNo, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
+    function createData(LoanID,RecordCode,
+        RecDate, 
+        ApplicantNo,
+        ProjectID,
+        ProjectName, 
+        LoanNumber,
+        dCreated,
+        IDCard, 
+        FrontName,
+        Name,
+        Sirname,
+        IDCARD_AddNo,) {
+        return {
+            LoanID,
+            RecordCode,
+            RecDate, 
+            ApplicantNo,
+            ProjectID,
+            ProjectName, 
+            LoanNumber,
+            dCreated,
+            IDCard, 
+            FrontName,
+            Name,
+            Sirname,
+            IDCARD_AddNo,
+        }
     }
 
     useEffect(() => {
@@ -175,12 +208,27 @@ function LoanRecivcePrint() {
         checkLogin();
     }, [])
 
+    // New order date 2021-08-23 to 23/08/2564
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
+    }
+
     const handleSelectDate = (event) => {
         let type = event.target.name
         
         setInputSelectDate({
             ...inputSelectDate,
             [event.target.name]: event.target.value.toString()
+        })
+    }
+
+    const handleInputDataSearch = (event) => {
+        setInputDataSearch({
+            ...inputDataSearch,
+            [event.target.name]: event.target.value
         })
     }
 
@@ -224,6 +272,121 @@ function LoanRecivcePrint() {
             setIsLoading(false)
             }
         });
+    }
+
+    const searchLoanRecivcePrint = () => {
+        setIsLoading(true)
+        axios.post(
+            `${server_hostname}/admin/api/search_loanfarmergetmoney`, {
+                Name: inputDataSearch.Name,
+                LoanNumber: inputDataSearch.LoanNumber,
+            }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+            console.log(res)
+            let data = res.data;
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                if(data.data.length === 0) {
+                    setErr(true);
+                    setErrMsg('ไม่พบข้อมูล')
+                }else {
+                    // setRows(data.data)
+                    setRows(
+                        data.data.map((item,i)=>
+                            createData(
+                                item.LoanID === null ? 1234 : item.LoanID,
+                                item.RecordCode === null ? '' : item.RecordCode,
+                                item.RecDate === null ? '' : item.RecDate,
+                                item.ApplicantNo === null ? '' : item.ApplicantNo,
+                                item.ProjectID === null ? '' : item.ProjectID,
+                                item.ProjectName === null ? '' : item.ProjectName,
+                                item.LoanNumber === null ? '' : item.LoanNumber,
+                                item.dCreated ? newOrderDate(item.dCreated) : null,
+                                item.IDCard === null ? '' : item.IDCard,
+                                item.FrontName === null ? '' : item.FrontName,
+                                item.Name === null ? '' : item.Name,
+                                item.Sirname === null ? '' : item.Sirname,
+                                '' //item.IDCARD_AddNo 
+                                // item.FarmerID,
+                                // item.ApplicantID,
+                                // item.LoanID,
+                                // item.RecordCode === null ? '' : item.RecordCode,
+                                // item.RecDate === null ? '' : item.RecDate,
+                                // item.ApplicantNo === null ? '' : item.ApplicantNo,
+                                // item.ApplicantStatus === null || !item.ApplicantStatus ? 'P' : item.ApplicantStatus,
+                                // item.ProjectID === null ? '' : item.ProjectID,
+                                // item.ProjectName === null ? '' : item.ProjectName,
+                                // item.LoanNumber === null ? '' : item.LoanNumber,
+                                // item.dCreated ? newOrderDate(item.dCreated) : null,
+                                // item.IDCard === null ? '' : item.IDCard,
+                                // item.FrontName === null ? '' : item.FrontName,
+                                // item.Name === null ? '' : item.Name,
+                                // item.Sirname === null ? '' : item.Sirname,
+                                // item.IDCARD_AddNo === undefined ? '' : item.IDCARD_AddNo +' '+item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo+' '+item.IDCARD_AddrSoiRoad === undefined ? '' : item.IDCARD_AddrSoiRoad+' '+item.IDCARD_AddrSubdistrictName === undefined ? '' : item.IDCARD_AddrSubdistrictName+' '+item.IDCARD_AddrDistrictName === undefined ? '' : item.IDCARD_AddrDistrictName+' '+item.IDCARD_AddrProvinceName === undefined ? '' : item.IDCARD_AddrProvinceName+' '+item.IDCARD_Postcode  === undefined ? '' : item.IDCARD_Postcode
+                            )
+                        )
+                    )
+                }
+            }
+        }).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+
+    const openInfoDialog = (loanID) => {
+        setInfo(true)
+        setIsLoading(true)
+        axios.post(
+            `${server_hostname}/admin/api/view_loanfarmergetmoney`, {
+                LoanID: loanID
+            }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+            console.log(res)
+            let data = res.data;
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                if(data.data.length === 0) {
+                    setErr(true);
+                    setErrMsg('ไม่พบข้อมูล')
+                }else {
+                    console.log('data.data',data)
+                    setRowsInfo(data.data)
+                }
+            }
+        }).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
     }
 
 
@@ -282,9 +445,6 @@ function LoanRecivcePrint() {
 
     };
 
-    const openInfoDialog = () => {
-        setInfo(true)
-    }
 
     const openFormField = () => {
         setFormField(true)
@@ -292,6 +452,13 @@ function LoanRecivcePrint() {
 
     return (
         <div className="loanrequestprint-page">
+            {
+                isLoading ? 
+                <div className="overlay">
+                    <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                </div> : 
+                ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -308,15 +475,15 @@ function LoanRecivcePrint() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
-                                        <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
+                                        <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
-                                        <MuiTextfield label="ค้นหาเลขที่สัญญา"  defaultValue="" />
+                                        <MuiTextfield label="ค้นหาเลขที่สัญญา"  name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={searchLoanRecivcePrint}  />  
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -325,20 +492,21 @@ function LoanRecivcePrint() {
 
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
-                                <div className="table-box table-loanrequestprint mg-t-10">
+                            <Grid item xs={12} md={12}>
+                                <div className="table-box table-loanrecivceprint mg-t-10">
                                     <MUItable 
                                         headCells={headCells} 
                                         rows={rows} 
                                         rowsLabel={rowsLabel} 
                                         colSpan={12} 
                                         hasCheckbox={false} 
-                                        hasAction={true} 
+                                        hasAction={true} // show action
                                         actionView={true} 
                                         actionCreate={true}
                                         actionEdit={false} 
                                         actionDelete={false} 
                                         viewEvent={openInfoDialog}
+                                        viewParam={'LoanID'}
                                         createEvent={openFormField}
                                         tableName={'loanrecivceprint'}
                                     />
@@ -569,13 +737,13 @@ function LoanRecivcePrint() {
                                     <hr style={{width: '100%', margin: '20px 0 10px', borderTop: '2px solid #2284d0'}} />
                                             
                                     {
-                                        [1,2,3].map((item,i)=>
+                                        rowsInfo.map((item,i)=> // rowsInfo & [1,2,3]
                                             <React.Fragment>
                                                 <Grid item xs={12} md={12}>
                                                     <p className="font-18 txt-blue txt-bold">รายการที่ {i+1}</p>
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" />
+                                                    <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" value={item}/>
                                                     
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
@@ -694,6 +862,31 @@ function LoanRecivcePrint() {
                         <p className="txt-center txt-black">{successMsg}</p>
                         <br/>
                         <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
                             <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
