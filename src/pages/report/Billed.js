@@ -336,12 +336,12 @@ class Billed extends React.Component {
                                                 <StyledTableCellLine >
                                                     {farmer.receiptNo1}
                                                 </StyledTableCellLine>
-                                                <StyledTableCellLine align="center">{formatNumber(farmer.number)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="left">{formatNumber(farmer.number)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.principle1)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.interest)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.other)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
-                                                <StyledTableCellLine align="center">{farmer.receiptNo2}</StyledTableCellLine>
+                                                <StyledTableCellLine align="left">{farmer.receiptNo2}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
 
                                             </TableRow>
@@ -352,12 +352,12 @@ class Billed extends React.Component {
                                         <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                             รวมทั้งสิ้น
                                         </StyledTableCellLine>
-                                        <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle1)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
-                                        <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                        <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle2)}</StyledTableCellLine>
 
                                     </TableRow>

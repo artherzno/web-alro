@@ -117,32 +117,32 @@ function EditContractDebt() {
                                             <Table aria-label="normal table">
                                                 <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="center">รหัสบันทึก</TableCell>
-                                                    <TableCell align="center">วันที่บันทึก</TableCell>
-                                                    <TableCell align="center">รหัสโครงการ</TableCell>
-                                                    <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                    <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                    <TableCell align="center">คำนำหน้า</TableCell>
-                                                    <TableCell align="center">ชื่อ</TableCell>
-                                                    <TableCell align="center">นามสกุล</TableCell>
+                                                    <TableCell align="left">รหัสบันทึก</TableCell>
+                                                    <TableCell align="left">วันที่บันทึก</TableCell>
+                                                    <TableCell align="left">รหัสโครงการ</TableCell>
+                                                    <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                    <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                    <TableCell align="left">คำนำหน้า</TableCell>
+                                                    <TableCell align="left">ชื่อ</TableCell>
+                                                    <TableCell align="left">นามสกุล</TableCell>
                                                 </TableRow>
                                                 </TableHead>
                                                 <TableBody>{/* // clear mockup */}
                                                     <TableRow>
-                                                        <TableCell colSpan={8} align="center">ไม่พบข้อมูล</TableCell>
+                                                        <TableCell colSpan={8} align="left">ไม่พบข้อมูล</TableCell>
                                                     </TableRow>
                                             
                                                 {/* {
                                                     tableResult.map((row,i) => (
                                                         <TableRow key={i}>
-                                                            <TableCell align="center">{row.a}</TableCell>
-                                                            <TableCell align="center">{row.b}</TableCell>
-                                                            <TableCell align="center">{row.c}</TableCell>
-                                                            <TableCell align="center">{row.d}</TableCell>
-                                                            <TableCell align="center">{row.e}</TableCell>
-                                                            <TableCell align="center">{row.f}</TableCell>
-                                                            <TableCell align="center">{row.g}</TableCell>
-                                                            <TableCell align="center">{row.h}</TableCell>
+                                                            <TableCell align="left">{row.a}</TableCell>
+                                                            <TableCell align="left">{row.b}</TableCell>
+                                                            <TableCell align="left">{row.c}</TableCell>
+                                                            <TableCell align="left">{row.d}</TableCell>
+                                                            <TableCell align="left">{row.e}</TableCell>
+                                                            <TableCell align="left">{row.f}</TableCell>
+                                                            <TableCell align="left">{row.g}</TableCell>
+                                                            <TableCell align="left">{row.h}</TableCell>
                                                         </TableRow>
                                                     ))
                                                 } */}
@@ -653,28 +653,28 @@ function EditContractDebt() {
                                                             <Table aria-label="normal table">
                                                                 <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell align="center">Item</TableCell>
-                                                                    <TableCell align="center">Mindex</TableCell>
-                                                                    <TableCell align="center">Projcode</TableCell>
-                                                                    <TableCell align="center">Projname</TableCell>
-                                                                    <TableCell align="center">Renton</TableCell>
-                                                                    <TableCell align="center">Duedate</TableCell>
+                                                                    <TableCell align="left">Item</TableCell>
+                                                                    <TableCell align="left">Mindex</TableCell>
+                                                                    <TableCell align="left">Projcode</TableCell>
+                                                                    <TableCell align="left">Projname</TableCell>
+                                                                    <TableCell align="left">Renton</TableCell>
+                                                                    <TableCell align="left">Duedate</TableCell>
                                                                 </TableRow>
                                                                 </TableHead>
                                                                 <TableBody>{/* // clear mockup */}
                                                                     <TableRow>
-                                                                        <TableCell colSpan={6} align="center">ไม่พบข้อมูล</TableCell>
+                                                                        <TableCell colSpan={6} align="left">ไม่พบข้อมูล</TableCell>
                                                                     </TableRow>
                                             
                                                                 {/* {
                                                                     [1,2,3,4,5].map((row,i) => (
                                                                         <TableRow key={i}>
-                                                                            <TableCell align="center">1</TableCell>
-                                                                            <TableCell align="center">PNGA00031</TableCell>
-                                                                            <TableCell align="center">00031</TableCell>
-                                                                            <TableCell align="center">วช.กลุ่มผู้ปลูกแตงโม</TableCell>
-                                                                            <TableCell align="center">ปน.ศาล154/49</TableCell>
-                                                                            <TableCell align="center">1 พฤศจิกายน</TableCell>
+                                                                            <TableCell align="left">1</TableCell>
+                                                                            <TableCell align="left">PNGA00031</TableCell>
+                                                                            <TableCell align="left">00031</TableCell>
+                                                                            <TableCell align="left">วช.กลุ่มผู้ปลูกแตงโม</TableCell>
+                                                                            <TableCell align="left">ปน.ศาล154/49</TableCell>
+                                                                            <TableCell align="left">1 พฤศจิกายน</TableCell>
                                                                         </TableRow>
                                                                     ))
                                                                 } */}
@@ -699,28 +699,28 @@ function EditContractDebt() {
                                                             <Table aria-label="normal table">
                                                                 <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell align="center">Item</TableCell>
-                                                                    <TableCell align="center">Mindex</TableCell>
-                                                                    <TableCell align="center">Projcode</TableCell>
-                                                                    <TableCell align="center">Projname</TableCell>
-                                                                    <TableCell align="center">Renton</TableCell>
-                                                                    <TableCell align="center">Duedate</TableCell>
+                                                                    <TableCell align="left">Item</TableCell>
+                                                                    <TableCell align="left">Mindex</TableCell>
+                                                                    <TableCell align="left">Projcode</TableCell>
+                                                                    <TableCell align="left">Projname</TableCell>
+                                                                    <TableCell align="left">Renton</TableCell>
+                                                                    <TableCell align="left">Duedate</TableCell>
                                                                 </TableRow>
                                                                 </TableHead>
                                                                 <TableBody>{/* // clear mockup */}
                                                                     <TableRow>
-                                                                        <TableCell colSpan={6} align="center">ไม่พบข้อมูล</TableCell>
+                                                                        <TableCell colSpan={6} align="left">ไม่พบข้อมูล</TableCell>
                                                                     </TableRow>
                                             
                                                                 {/* {
                                                                     [1,2,3,4,5].map((row,i) => (
                                                                         <TableRow key={i}>
-                                                                            <TableCell align="center">1</TableCell>
-                                                                            <TableCell align="center">PNGA00031</TableCell>
-                                                                            <TableCell align="center">00031</TableCell>
-                                                                            <TableCell align="center">วช.กลุ่มผู้ปลูกแตงโม</TableCell>
-                                                                            <TableCell align="center">ปน.ศาล154/49</TableCell>
-                                                                            <TableCell align="center">1 พฤศจิกายน</TableCell>
+                                                                            <TableCell align="left">1</TableCell>
+                                                                            <TableCell align="left">PNGA00031</TableCell>
+                                                                            <TableCell align="left">00031</TableCell>
+                                                                            <TableCell align="left">วช.กลุ่มผู้ปลูกแตงโม</TableCell>
+                                                                            <TableCell align="left">ปน.ศาล154/49</TableCell>
+                                                                            <TableCell align="left">1 พฤศจิกายน</TableCell>
                                                                         </TableRow>
                                                                     ))
                                                                 } */}
@@ -745,24 +745,24 @@ function EditContractDebt() {
                                                             <Table aria-label="normal table">
                                                                 <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell align="center">Item</TableCell>
-                                                                    <TableCell align="center">Mindex</TableCell>
-                                                                    <TableCell align="center">Projcode</TableCell>
-                                                                    <TableCell align="center">Projname</TableCell>
-                                                                    <TableCell align="center">Renton</TableCell>
-                                                                    <TableCell align="center">Duedate</TableCell>
+                                                                    <TableCell align="left">Item</TableCell>
+                                                                    <TableCell align="left">Mindex</TableCell>
+                                                                    <TableCell align="left">Projcode</TableCell>
+                                                                    <TableCell align="left">Projname</TableCell>
+                                                                    <TableCell align="left">Renton</TableCell>
+                                                                    <TableCell align="left">Duedate</TableCell>
                                                                 </TableRow>
                                                                 </TableHead>
                                                                 <TableBody>
                                                                 {
                                                                     [1,2,3,4,5].map((row,i) => (
                                                                         <TableRow key={i}>
-                                                                            <TableCell align="center">1</TableCell>
-                                                                            <TableCell align="center">PNGA00031</TableCell>
-                                                                            <TableCell align="center">00031</TableCell>
-                                                                            <TableCell align="center">วช.กลุ่มผู้ปลูกแตงโม</TableCell>
-                                                                            <TableCell align="center">ปน.ศาล154/49</TableCell>
-                                                                            <TableCell align="center">1 พฤศจิกายน</TableCell>
+                                                                            <TableCell align="left">1</TableCell>
+                                                                            <TableCell align="left">PNGA00031</TableCell>
+                                                                            <TableCell align="left">00031</TableCell>
+                                                                            <TableCell align="left">วช.กลุ่มผู้ปลูกแตงโม</TableCell>
+                                                                            <TableCell align="left">ปน.ศาล154/49</TableCell>
+                                                                            <TableCell align="left">1 พฤศจิกายน</TableCell>
                                                                         </TableRow>
                                                                     ))
                                                                 }

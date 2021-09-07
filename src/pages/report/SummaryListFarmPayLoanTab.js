@@ -314,7 +314,7 @@ class SummaryListFarmPayLoanTab extends React.Component {
                                             <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
-                                            <StyledTableCellLine align="left"> {farmer.alroProvince}</StyledTableCellLine>
+                                            <StyledTableCellLine align="center"> {farmer.alroProvince}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payOff)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.overdueAmount)}</StyledTableCellLine>

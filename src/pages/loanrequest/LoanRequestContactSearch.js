@@ -354,10 +354,10 @@ function LoanRequestContactSearch() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">วันที่ยื่นคำขอ</TableCell>
-                                                <TableCell align="center">เลขบัตรประจำตัวประชาชน</TableCell>
-                                                <TableCell align="center">ชื่อเกษตรกร</TableCell>
-                                                <TableCell align="center">Action</TableCell>
+                                                <TableCell align="left">วันที่ยื่นคำขอ</TableCell>
+                                                <TableCell align="left">เลขบัตรประจำตัวประชาชน</TableCell>
+                                                <TableCell align="left">ชื่อเกษตรกร</TableCell>
+                                                <TableCell align="left">Action</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -368,10 +368,10 @@ function LoanRequestContactSearch() {
                                                             : tableResult
                                                         ).map((cell,i) => (
                                                         <TableRow key={i}>
-                                                            <TableCell align="center">{moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center">{cell.IDCard}</TableCell>
-                                                            <TableCell align="center">{cell.FrontName} {cell.Name} {cell.Sirname}</TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">{moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="left">{cell.IDCard}</TableCell>
+                                                            <TableCell align="left">{cell.FrontName} {cell.Name} {cell.Sirname}</TableCell>
+                                                            <TableCell align="left">
                                                                 <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, cell.ApplicantID,'edit')} />
                                                                 <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="80px" onClick={()=>gotoLoanRequestContact(cell.FarmerID, cell.ApplicantID, 'view')} />
                                                             </TableCell>
@@ -380,7 +380,7 @@ function LoanRequestContactSearch() {
                                                     ))
                                                     : 
                                                     <TableRow>
-                                                        <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                                        <TableCell colSpan={5} align="left">ไม่พบข้อมูล</TableCell>
                                                     </TableRow>
                                                 }
                                             </TableBody>

@@ -730,23 +730,23 @@ function LoanRecivcePrint() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">เลขคำขอ</TableCell>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                <TableCell align="center">วันที่กู้</TableCell>
-                                                <TableCell align="center">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="center">คำนำหน้า</TableCell>
-                                                <TableCell align="center">ชื่อ</TableCell>
-                                                <TableCell align="center">นามสกุล</TableCell>
-                                                <TableCell align="center">ที่อยู่</TableCell>
+                                                <TableCell align="left">รหัสบันทึก</TableCell>
+                                                <TableCell align="left">วันที่บันทึก</TableCell>
+                                                <TableCell align="left">เลขคำขอ</TableCell>
+                                                <TableCell align="left">รหัสโครงการ</TableCell>
+                                                <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                <TableCell align="left">วันที่กู้</TableCell>
+                                                <TableCell align="left">เลขบัตรประชาชน</TableCell>
+                                                <TableCell align="left">คำนำหน้า</TableCell>
+                                                <TableCell align="left">ชื่อ</TableCell>
+                                                <TableCell align="left">นามสกุล</TableCell>
+                                                <TableCell align="left">ที่อยู่</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell colSpan={12} align="center">ไม่พบข้อมูล</TableCell>
+                                                    <TableCell colSpan={12} align="left">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
                                             
                                             </TableBody>
@@ -841,13 +841,13 @@ function LoanRecivcePrint() {
                                                 <Table aria-label="normal table">
                                                     <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="center">รายการ</TableCell>
-                                                        <TableCell align="center">จำนวนเงิน</TableCell>
+                                                        <TableCell align="left">รายการ</TableCell>
+                                                        <TableCell align="left">จำนวนเงิน</TableCell>
                                                     </TableRow>
                                                     </TableHead>
                                                     <TableBody>
                                                         <TableRow>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">
                                                                 <MuiTextfield label="" name="LoanReceiptList" value={inputData.LoanReceiptList} onChange={handleInputData}  />    
                                                             </TableCell>
                                                             <TableCell align="center">
@@ -855,7 +855,7 @@ function LoanRecivcePrint() {
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">
                                                                 <MuiTextfield label="" name="LoanReceiptList1" value={inputData.LoanReceiptList1} onChange={handleInputData}  />    
                                                             </TableCell>
                                                             <TableCell align="center">
@@ -863,7 +863,7 @@ function LoanRecivcePrint() {
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">
                                                                 <MuiTextfield label="" name="LoanReceiptList2" value={inputData.LoanReceiptList2} onChange={handleInputData}  />    
                                                             </TableCell>
                                                             <TableCell align="center">
@@ -871,7 +871,7 @@ function LoanRecivcePrint() {
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">
                                                                 <MuiTextfield label="" name="LoanReceiptList3" value={inputData.LoanReceiptList3} onChange={handleInputData}  />    
                                                             </TableCell>
                                                             <TableCell align="center">
@@ -881,17 +881,17 @@ function LoanRecivcePrint() {
                                                     {/* {
                                                         [1,2,3].map((row,i) => (
                                                             <TableRow key={i}>
-                                                                <TableCell align="center">
+                                                                <TableCell align="left">
                                                                     <MuiTextfieldStartAdornment label=""  defaultValue="" startAdornment={(i+1)+'. '} />    
                                                                 </TableCell>
-                                                                <TableCell align="center">
+                                                                <TableCell align="left">
                                                                     <MuiTextfieldCurrency  label="" />
                                                                 </TableCell>
                                                             </TableRow>
                                                         )) 
                                                     }*/}
                                                         {/* <TableRow>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">
                                                                 <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่มรายการ" />
                                                             </TableCell>
                                                             <TableCell align="right">
@@ -899,7 +899,7 @@ function LoanRecivcePrint() {
                                                             </TableCell>
                                                         </TableRow> */}
                                                         <TableRow>
-                                                            <TableCell align="center">
+                                                            <TableCell align="left">
                                                                 &nbsp;
                                                             </TableCell>
                                                             <TableCell align="right">
@@ -1014,25 +1014,25 @@ function LoanRecivcePrint() {
                                                             <Table aria-label="normal table">
                                                                 <TableHead>
                                                                 <TableRow>
-                                                                    <TableCell align="center">รายการ</TableCell>
-                                                                    <TableCell align="center">จำนวนเงิน</TableCell>
+                                                                    <TableCell align="left">รายการ</TableCell>
+                                                                    <TableCell align="left">จำนวนเงิน</TableCell>
                                                                 </TableRow>
                                                                 </TableHead>
                                                                 <TableBody>
                                                                 {
                                                                     [1,2,3].map((row,i) => (
                                                                         <TableRow key={i}>
-                                                                            <TableCell align="center">
+                                                                            <TableCell align="left">
                                                                                 <p className="font-16">{i+1}. เพื่อส่งเสริมการปลูก</p>  
                                                                             </TableCell>
-                                                                            <TableCell align="center">
+                                                                            <TableCell align="left">
                                                                                 <p>10,000.00</p>
                                                                             </TableCell>
                                                                         </TableRow>
                                                                     ))
                                                                 }
                                                                     <TableRow>
-                                                                        <TableCell align="center">
+                                                                        <TableCell align="left">
                                                                             &nbsp;
                                                                         </TableCell>
                                                                         <TableCell align="right">

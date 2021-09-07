@@ -496,19 +496,19 @@ console.log('submit')
                                     <Table aria-label="simple table">
                                         <TableHead>
                                         <TableRow>
-                                            <TableCell align="center" className="tb-w-8em">รหัสโครงการ</TableCell>
-                                            <TableCell align="center" className="tb-w-8em">แผนปี</TableCell>
-                                            <TableCell align="center" className="tb-w-14em">ชื่อโครงการ</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">จังหวัด</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">รหัสโครงการหลัก</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">ชื่อโครงการหลัก</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">รหัสโครงการรอง</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">ชื่อโครงการรอง</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">ประเภทกู้ยืม</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">ระยะเวลากู้ยืม</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">วัตถุประสงค์การกู้ยืม</TableCell>
-                                            <TableCell align="center" className="tb-w-12em">ประเภทผู้กู้</TableCell>
-                                            <TableCell align="center" className="sticky tb-w-24em">&nbsp;</TableCell>
+                                            <TableCell align="left" className="tb-w-8em">รหัสโครงการ</TableCell>
+                                            <TableCell align="left" className="tb-w-8em">แผนปี</TableCell>
+                                            <TableCell align="left" className="tb-w-14em">ชื่อโครงการ</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">จังหวัด</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">รหัสโครงการหลัก</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">ชื่อโครงการหลัก</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">รหัสโครงการรอง</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">ชื่อโครงการรอง</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">ประเภทกู้ยืม</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">ระยะเวลากู้ยืม</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">วัตถุประสงค์การกู้ยืม</TableCell>
+                                            <TableCell align="left" className="tb-w-12em">ประเภทผู้กู้</TableCell>
+                                            <TableCell align="left" className="sticky tb-w-24em">&nbsp;</TableCell>
                                         </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -519,19 +519,19 @@ console.log('submit')
                                                         : tableResult
                                                     ).map((cell,i) => (
                                                     <TableRow key={i}>
-                                                            <TableCell align="center" className="tb-w-8em">{cell.ProjectCode}</TableCell>
-                                                            <TableCell align="center" className="tb-w-8em">{cell.ProjectPlanYear}</TableCell>
-                                                            <TableCell align="center" className="tb-w-14em">{cell.ProjectName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.ProvinceName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.ProjectMainCode}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.ProjectMainName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.ProjectSubCode}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.ProjectSubName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.LoanTypeName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.LoanPeriodName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.LoanObjName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.LoanFarmerTypeName}</TableCell>
-                                                            <TableCell align="center" className="sticky tb-w-14em">
+                                                            <TableCell align="left" className="tb-w-8em">{cell.ProjectCode}</TableCell>
+                                                            <TableCell align="left" className="tb-w-8em">{cell.ProjectPlanYear}</TableCell>
+                                                            <TableCell align="left" className="tb-w-14em">{cell.ProjectName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.ProvinceName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.ProjectMainCode}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.ProjectMainName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.ProjectSubCode}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.ProjectSubName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.LoanTypeName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.LoanPeriodName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.LoanObjName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.LoanFarmerTypeName}</TableCell>
+                                                            <TableCell align="left" className="sticky tb-w-14em">
                                                             {
                                                                 roleID === '8' || roleID === '9' ?  <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>gotoEditLoanRequestProject(cell.ProjectID)}/>
                                                                 : ''
@@ -543,7 +543,7 @@ console.log('submit')
                                                 ))
                                                 : 
                                                 <TableRow>
-                                                    <TableCell colSpan={12} align="center">ไม่พบข้อมูล</TableCell>
+                                                    <TableCell colSpan={12} align="left">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
                                             }
                                         </TableBody>

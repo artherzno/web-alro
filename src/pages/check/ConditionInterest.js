@@ -248,20 +248,20 @@ class ConditionInterest extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.orders}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.id}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.date}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.orderNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.orderDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.startDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.endDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.date}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.orderNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.orderDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.startDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.endDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.code}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateNc)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
@@ -269,15 +269,15 @@ class ConditionInterest extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.mcapital)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.minterest)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.mcharge)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.mindex1}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.types1}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.tps}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.tps1}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.dateE}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.cname}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.mindex1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.types1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.tps}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.tps1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.dateE}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.cuserid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.cname}</StyledTableCellLine>
 
 
                                                         </TableRow>

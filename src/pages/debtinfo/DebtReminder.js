@@ -544,7 +544,7 @@ function DebtReminder() {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">
+                                                <TableCell align="left">
                                                 <Checkbox
                                                     color="primary"
                                                     indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -553,24 +553,24 @@ function DebtReminder() {
                                                     inputProps={{ 'aria-label': 'select all desserts' }}
                                                 />
                                                 </TableCell>
-                                                <TableCell align="center">ลำดับ</TableCell>
-                                                <TableCell align="center">รหัสจังหวัด</TableCell>
-                                                <TableCell align="center">ลำดับข้อมูล</TableCell>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">คำนำหน้า</TableCell>
-                                                <TableCell align="center">ชื่อ</TableCell>
-                                                <TableCell align="center">นามสกุล</TableCell>
-                                                <TableCell align="center">วันที่ประมวล</TableCell>
-                                                <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                <TableCell align="center">วันที่กู้</TableCell>
-                                                <TableCell align="center">เงินกู้</TableCell>
-                                                <TableCell align="center">เงินงวดชำระ</TableCell>
+                                                <TableCell align="left">ลำดับ</TableCell>
+                                                <TableCell align="left">รหัสจังหวัด</TableCell>
+                                                <TableCell align="left">ลำดับข้อมูล</TableCell>
+                                                <TableCell align="left">รหัสโครงการ</TableCell>
+                                                <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                <TableCell align="left">คำนำหน้า</TableCell>
+                                                <TableCell align="left">ชื่อ</TableCell>
+                                                <TableCell align="left">นามสกุล</TableCell>
+                                                <TableCell align="left">วันที่ประมวล</TableCell>
+                                                <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                <TableCell align="left">วันที่กู้</TableCell>
+                                                <TableCell align="left">เงินกู้</TableCell>
+                                                <TableCell align="left">เงินงวดชำระ</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={14} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={14} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
@@ -586,26 +586,26 @@ function DebtReminder() {
                                                         tabIndex={-1}
                                                         key={row.id}
                                                         selected={isItemSelected}>
-                                                            <TableCell padding="checkbox" align="center">
+                                                            <TableCell padding="checkbox" align="left">
                                                                 <Checkbox
                                                                 color="primary"
                                                                 checked={isItemSelected}
                                                                 inputProps={{ 'aria-labelledby': labelId }}
                                                             />
                                                             </TableCell>
-                                                            <TableCell align="center" id={labelId}>{row.id}</TableCell>
-                                                            <TableCell align="center">{row.a}</TableCell>
-                                                            <TableCell align="center">{row.b}</TableCell>
-                                                            <TableCell align="center">{row.c}</TableCell>
-                                                            <TableCell align="center">{row.d}</TableCell>
-                                                            <TableCell align="center">{row.e}</TableCell>
-                                                            <TableCell align="center">{row.f}</TableCell>
-                                                            <TableCell align="center">{row.g}</TableCell>
-                                                            <TableCell align="center">{row.h}</TableCell>
-                                                            <TableCell align="center">{row.i}</TableCell>
-                                                            <TableCell align="center">{row.j}</TableCell>
-                                                            <TableCell align="center">{row.k}</TableCell>
-                                                            <TableCell align="center">{row.l}</TableCell>
+                                                            <TableCell align="left" id={labelId}>{row.id}</TableCell>
+                                                            <TableCell align="left">{row.a}</TableCell>
+                                                            <TableCell align="left">{row.b}</TableCell>
+                                                            <TableCell align="left">{row.c}</TableCell>
+                                                            <TableCell align="left">{row.d}</TableCell>
+                                                            <TableCell align="left">{row.e}</TableCell>
+                                                            <TableCell align="left">{row.f}</TableCell>
+                                                            <TableCell align="left">{row.g}</TableCell>
+                                                            <TableCell align="left">{row.h}</TableCell>
+                                                            <TableCell align="left">{row.i}</TableCell>
+                                                            <TableCell align="left">{row.j}</TableCell>
+                                                            <TableCell align="left">{row.k}</TableCell>
+                                                            <TableCell align="left">{row.l}</TableCell>
                                                         </TableRow>
                                                     )
                                                 })

@@ -860,26 +860,26 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                     <Table aria-label="normal table">
                                         <TableHead>
                                         <TableRow>
-                                            <TableCell align="center">งวดที่</TableCell>
-                                            <TableCell align="center">กำหนดชำระภายในวันที่</TableCell>
-                                            <TableCell align="center">ชำระเงินต้น(บาท)</TableCell>
-                                            <TableCell align="center">ชำระดอกเบี้ย(บาท)</TableCell>
-                                            <TableCell align="center">ต้นเงินคงเหลือ(บาท)</TableCell>
+                                            <TableCell align="left">งวดที่</TableCell>
+                                            <TableCell align="left">กำหนดชำระภายในวันที่</TableCell>
+                                            <TableCell align="left">ชำระเงินต้น(บาท)</TableCell>
+                                            <TableCell align="left">ชำระดอกเบี้ย(บาท)</TableCell>
+                                            <TableCell align="left">ต้นเงินคงเหลือ(บาท)</TableCell>
                                         </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
                                                 <TableRow>
-                                                    <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                                    <TableCell colSpan={5} align="left">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
                                                 
                                         {/* {
                                             tableResult.map((row,i) => (
                                                 <TableRow key={i}>
-                                                <TableCell align="center">{row.a}</TableCell>
-                                                <TableCell align="center">{row.b}</TableCell>
-                                                <TableCell align="center">{row.c}</TableCell>
-                                                <TableCell align="center">{row.d}</TableCell>
-                                                <TableCell align="center">{row.e}</TableCell>
+                                                <TableCell align="left">{row.a}</TableCell>
+                                                <TableCell align="left">{row.b}</TableCell>
+                                                <TableCell align="left">{row.c}</TableCell>
+                                                <TableCell align="left">{row.d}</TableCell>
+                                                <TableCell align="left">{row.e}</TableCell>
                                                 </TableRow>
                                             ))
                                         } */}

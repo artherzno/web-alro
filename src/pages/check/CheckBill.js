@@ -229,14 +229,14 @@ class CheckBill extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.calDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.invoiceNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.month}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.list}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.calDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.invoiceNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.month}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.list}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.times}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.numCase)}</StyledTableCellLine>
 

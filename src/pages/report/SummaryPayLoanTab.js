@@ -259,8 +259,8 @@ class SumaryPayLoanTab extends React.Component {
                                     <StyledTableCell align="center">ส.ป.ก.จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนราย</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
-                                    <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
+                                    <StyledTableCell align="center"><div><Typography align="left" variant="body2">ว/ด/ป</Typography><Typography align="left" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
+                                    <StyledTableCell align="center"><div><Typography align="left" variant="body2">ว/ด/ป</Typography><Typography align="left" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
                                     <StyledTableCell align="center">วันยื่นกู้</StyledTableCell>
                                     <StyledTableCell align="center">วันจ่ายเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
@@ -277,13 +277,13 @@ class SumaryPayLoanTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.alroProvince}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.alroProvince}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanAppDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanPayDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.payDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.dueDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanAppDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanPayDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
@@ -300,7 +300,7 @@ class SumaryPayLoanTab extends React.Component {
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.numCase)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="center" colSpan={4} className={`${classes.cellBlue} ${classes.firstInstallment}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.firstInstallment}`}></StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.original)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.new)}</StyledTableCellLine>

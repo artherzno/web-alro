@@ -131,7 +131,6 @@ class RealPay extends React.Component {
                 this.delay = null
             }
             this.delay = setTimeout(() => {
-                this.loadData()
             }, 500);
 
         })
@@ -165,7 +164,7 @@ class RealPay extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <MuiDatePicker label="วันที่" value={this.state.dateSelect} onChange={(event) => {
                                                 this.setState({ Date: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                    this.loadData()
+                                                   
                                                 })
                                             }} />
                                         </Grid>
@@ -241,16 +240,16 @@ class RealPay extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.ridIt}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.orders}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.ridIt}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.orders}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.id}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.dueDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.rcpno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.rcapital}</StyledTableCellLine>
@@ -260,10 +259,10 @@ class RealPay extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateC)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.reduce}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.stu}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.codeWork}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.stu}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.codeWork}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>
 
 
                                                         </TableRow>

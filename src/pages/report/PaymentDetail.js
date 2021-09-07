@@ -222,19 +222,19 @@ class PaymentDetail extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center" >{data.installment}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.payDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.receiptNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.beginPeriod}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.paid}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.remaining}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left" >{data.installment}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.payDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.receiptNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.beginPeriod}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.paid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.remaining}</StyledTableCellLine>
                                                             
-                                                            <StyledTableCellLine align="center">{data.accruedInterest}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.accrued}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.receive}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.total}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.totalReceivePeriod}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.remark}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.accruedInterest}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.accrued}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.receive}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.total}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.totalReceivePeriod}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.remark}</StyledTableCellLine>
                                                             
 
                                                         </TableRow>

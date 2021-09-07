@@ -277,12 +277,12 @@ class SumaryProjectPayLoanTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center" >{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" >{farmer.projName}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.loanDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.payDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.dueDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.payDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.dueDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>

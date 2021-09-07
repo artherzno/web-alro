@@ -250,9 +250,9 @@ class DebtPending extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center">{data.no}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.no}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{data.fullName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.orderNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.orderNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(data.accrued1)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(data.paid)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(data.remaining)}</StyledTableCellLine>
@@ -261,13 +261,13 @@ class DebtPending extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(data.receive)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(data.total)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(data.totalReceivePeriod)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{data.remark}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{data.remark}</StyledTableCellLine>
 
                                                         </TableRow>
                                                     )
                                                 })}
                                             <TableRow>
-                                                <StyledTableCellLine align="center" colSpan={3} className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                                <StyledTableCellLine align="left" colSpan={3} className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                                     รวม
                                                 </StyledTableCellLine>
                                                 <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxx</StyledTableCellLine>

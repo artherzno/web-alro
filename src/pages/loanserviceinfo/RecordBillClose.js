@@ -485,24 +485,24 @@ function RecordBillClose() {
                                                 <Table aria-label="normal table">
                                                     <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
                                                     </TableRow>
                                                     </TableHead>
                                                     <TableBody>{/* // clear mockup */}
                                                         <TableRow>
-                                                            <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
+                                                            <TableCell colSpan={4} align="left">ไม่พบข้อมูล</TableCell>
                                                         </TableRow>
                                                         
                                                     {/* {
                                                         tableResult.map((row,i) => (
                                                             <TableRow key={i}>
-                                                                <TableCell align="center">{row.a}</TableCell>
-                                                                <TableCell align="center">{row.b}</TableCell>
-                                                                <TableCell align="center">{row.c}</TableCell>
-                                                                <TableCell align="center">{row.d}</TableCell>
+                                                                <TableCell align="left">{row.a}</TableCell>
+                                                                <TableCell align="left">{row.b}</TableCell>
+                                                                <TableCell align="left">{row.c}</TableCell>
+                                                                <TableCell align="left">{row.d}</TableCell>
                                                             </TableRow>
                                                         ))
                                                     } */}

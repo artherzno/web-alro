@@ -280,7 +280,7 @@ function FaultCondition() {
                                                 <Table aria-label="normal table">
                                                     <TableHead>
                                                     <TableRow>
-                                                    <TableCell align="center">
+                                                    <TableCell align="left">
                                                         <Checkbox
                                                             color="primary"
                                                             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -289,15 +289,15 @@ function FaultCondition() {
                                                             inputProps={{ 'aria-label': 'select all desserts' }}
                                                         />
                                                     </TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
-                                                        <TableCell align="center">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
+                                                        <TableCell align="left">&nbsp;</TableCell>
                                                     </TableRow>
                                                     </TableHead>
                                                     <TableBody>{/* // clear mockup */}
                                                         <TableRow>
-                                                            <TableCell colSpan={5} align="center">ไม่พบข้อมูล</TableCell>
+                                                            <TableCell colSpan={5} align="left">ไม่พบข้อมูล</TableCell>
                                                         </TableRow>
                                             
                                                     {/* {
@@ -313,17 +313,17 @@ function FaultCondition() {
                                                                 tabIndex={-1}
                                                                 key={row.id}
                                                                 selected={isItemSelected}>
-                                                                <TableCell padding="checkbox" align="center">
+                                                                <TableCell padding="checkbox" align="left">
                                                                     <Checkbox
                                                                         color="primary"
                                                                         checked={isItemSelected}
                                                                         inputProps={{ 'aria-labelledby': labelId }}
                                                                     />
                                                                 </TableCell>
-                                                                <TableCell align="center">{row.a}</TableCell>
-                                                                <TableCell align="center">{row.b}</TableCell>
-                                                                <TableCell align="center">{row.c}</TableCell>
-                                                                <TableCell align="center">{row.d}</TableCell>
+                                                                <TableCell align="left">{row.a}</TableCell>
+                                                                <TableCell align="left">{row.b}</TableCell>
+                                                                <TableCell align="left">{row.c}</TableCell>
+                                                                <TableCell align="left">{row.d}</TableCell>
                                                             </TableRow>
                                                         )}
                                                         )

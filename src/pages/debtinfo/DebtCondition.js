@@ -115,46 +115,46 @@ function DebtCondition() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">เลขคำขอ</TableCell>
-                                                <TableCell align="center">อ้างถึง</TableCell>
-                                                <TableCell align="center">รหัสสารบัญ</TableCell>
-                                                <TableCell align="center">ลำดับ</TableCell>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                <TableCell align="center">วันที่กู้</TableCell>
-                                                <TableCell align="center">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="center">คำนำหน้า</TableCell>
-                                                <TableCell align="center">ชื่อ</TableCell>
-                                                <TableCell align="center">นามสกุล</TableCell>
-                                                <TableCell align="center">ที่อยู่</TableCell>
+                                                <TableCell align="left">รหัสบันทึก</TableCell>
+                                                <TableCell align="left">วันที่บันทึก</TableCell>
+                                                <TableCell align="left">เลขคำขอ</TableCell>
+                                                <TableCell align="left">อ้างถึง</TableCell>
+                                                <TableCell align="left">รหัสสารบัญ</TableCell>
+                                                <TableCell align="left">ลำดับ</TableCell>
+                                                <TableCell align="left">รหัสโครงการ</TableCell>
+                                                <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                <TableCell align="left">วันที่กู้</TableCell>
+                                                <TableCell align="left">เลขบัตรประชาชน</TableCell>
+                                                <TableCell align="left">คำนำหน้า</TableCell>
+                                                <TableCell align="left">ชื่อ</TableCell>
+                                                <TableCell align="left">นามสกุล</TableCell>
+                                                <TableCell align="left">ที่อยู่</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={15} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={15} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
                                                 tableResult.map((row,i) => (
                                                     <TableRow key={i}>
-                                                        <TableCell align="center">{row.a}</TableCell>
-                                                        <TableCell align="center">{row.b}</TableCell>
-                                                        <TableCell align="center">{row.c}</TableCell>
-                                                        <TableCell align="center">{row.d}</TableCell>
-                                                        <TableCell align="center">{row.e}</TableCell>
-                                                        <TableCell align="center">{row.f}</TableCell>
-                                                        <TableCell align="center">{row.g}</TableCell>
-                                                        <TableCell align="center">{row.h}</TableCell>
-                                                        <TableCell align="center">{row.i}</TableCell>
-                                                        <TableCell align="center">{row.j}</TableCell>
-                                                        <TableCell align="center">{row.k}</TableCell>
-                                                        <TableCell align="center">{row.l}</TableCell>
-                                                        <TableCell align="center">{row.m}</TableCell>
-                                                        <TableCell align="center">{row.n}</TableCell>
-                                                        <TableCell align="center">{row.o}</TableCell>
+                                                        <TableCell align="left">{row.a}</TableCell>
+                                                        <TableCell align="left">{row.b}</TableCell>
+                                                        <TableCell align="left">{row.c}</TableCell>
+                                                        <TableCell align="left">{row.d}</TableCell>
+                                                        <TableCell align="left">{row.e}</TableCell>
+                                                        <TableCell align="left">{row.f}</TableCell>
+                                                        <TableCell align="left">{row.g}</TableCell>
+                                                        <TableCell align="left">{row.h}</TableCell>
+                                                        <TableCell align="left">{row.i}</TableCell>
+                                                        <TableCell align="left">{row.j}</TableCell>
+                                                        <TableCell align="left">{row.k}</TableCell>
+                                                        <TableCell align="left">{row.l}</TableCell>
+                                                        <TableCell align="left">{row.m}</TableCell>
+                                                        <TableCell align="left">{row.n}</TableCell>
+                                                        <TableCell align="left">{row.o}</TableCell>
                                                     </TableRow>
                                                 ))
                                             } */}
@@ -390,34 +390,34 @@ function DebtCondition() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                <TableCell align="center">วันที่บันทึก</TableCell>
-                                                <TableCell align="center">คำสั่ง คปจ.</TableCell>
-                                                <TableCell align="center">วันที่คำสั่ง</TableCell>
-                                                <TableCell align="center">วันที่เริ่มปรับ</TableCell>
-                                                <TableCell align="center">วันที่สิ้นสุด</TableCell>
-                                                <TableCell align="center">ประเภท</TableCell>
-                                                <TableCell align="center">อัตราดอกเบี้ย</TableCell>
-                                                <TableCell align="center">จำนวนเงิน</TableCell>
+                                                <TableCell align="left">รหัสบันทึก</TableCell>
+                                                <TableCell align="left">วันที่บันทึก</TableCell>
+                                                <TableCell align="left">คำสั่ง คปจ.</TableCell>
+                                                <TableCell align="left">วันที่คำสั่ง</TableCell>
+                                                <TableCell align="left">วันที่เริ่มปรับ</TableCell>
+                                                <TableCell align="left">วันที่สิ้นสุด</TableCell>
+                                                <TableCell align="left">ประเภท</TableCell>
+                                                <TableCell align="left">อัตราดอกเบี้ย</TableCell>
+                                                <TableCell align="left">จำนวนเงิน</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={9} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={9} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
                                                 tableResult2.map((row,i) => (
                                                     <TableRow key={i}>
-                                                        <TableCell align="center">{row.a}</TableCell>
-                                                        <TableCell align="center">{row.b}</TableCell>
-                                                        <TableCell align="center">{row.c}</TableCell>
-                                                        <TableCell align="center">{row.d}</TableCell>
-                                                        <TableCell align="center">{row.e}</TableCell>
-                                                        <TableCell align="center">{row.f}</TableCell>
-                                                        <TableCell align="center">{row.g}</TableCell>
-                                                        <TableCell align="center">{row.h}</TableCell>
-                                                        <TableCell align="center">{row.i}</TableCell>
+                                                        <TableCell align="left">{row.a}</TableCell>
+                                                        <TableCell align="left">{row.b}</TableCell>
+                                                        <TableCell align="left">{row.c}</TableCell>
+                                                        <TableCell align="left">{row.d}</TableCell>
+                                                        <TableCell align="left">{row.e}</TableCell>
+                                                        <TableCell align="left">{row.f}</TableCell>
+                                                        <TableCell align="left">{row.g}</TableCell>
+                                                        <TableCell align="left">{row.h}</TableCell>
+                                                        <TableCell align="left">{row.i}</TableCell>
                                                     </TableRow>
                                                 ))
                                             } */}

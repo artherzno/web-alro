@@ -162,48 +162,48 @@ function FaultCondition() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">รหัสโครงการ</TableCell>
-                                                <TableCell align="center">ชื่อโครงการ</TableCell>
-                                                <TableCell align="center">เลขที่สัญญา</TableCell>
-                                                <TableCell align="center">คำนำหน้า</TableCell>
-                                                <TableCell align="center">ชื่อ</TableCell>
-                                                <TableCell align="center">นามสกุล</TableCell>
-                                                <TableCell align="center">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="center">บ้านเลขที่</TableCell>
-                                                <TableCell align="center">หมู่ที่</TableCell>
-                                                <TableCell align="center">ถนน</TableCell>
-                                                <TableCell align="center">ตำบล</TableCell>
-                                                <TableCell align="center">อำเภอ</TableCell>
-                                                <TableCell align="center">จังหวัด</TableCell>
-                                                <TableCell align="center">เบอร์โทรศัพท์</TableCell>
-                                                <TableCell align="center" className="cell-blue">จำนวนเงินให้กู้</TableCell>
-                                                <TableCell align="center" className="cell-green">อัตราดอกเบี้ย</TableCell>
-                                                <TableCell align="center" className="cell-red">หนี้ค้างชำระ</TableCell>
+                                                <TableCell align="left">รหัสโครงการ</TableCell>
+                                                <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                <TableCell align="left">คำนำหน้า</TableCell>
+                                                <TableCell align="left">ชื่อ</TableCell>
+                                                <TableCell align="left">นามสกุล</TableCell>
+                                                <TableCell align="left">เลขบัตรประชาชน</TableCell>
+                                                <TableCell align="left">บ้านเลขที่</TableCell>
+                                                <TableCell align="left">หมู่ที่</TableCell>
+                                                <TableCell align="left">ถนน</TableCell>
+                                                <TableCell align="left">ตำบล</TableCell>
+                                                <TableCell align="left">อำเภอ</TableCell>
+                                                <TableCell align="left">จังหวัด</TableCell>
+                                                <TableCell align="left">เบอร์โทรศัพท์</TableCell>
+                                                <TableCell align="left" className="cell-blue">จำนวนเงินให้กู้</TableCell>
+                                                <TableCell align="left" className="cell-green">อัตราดอกเบี้ย</TableCell>
+                                                <TableCell align="left" className="cell-red">หนี้ค้างชำระ</TableCell>
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={17} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={17} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
                                                 tableResult.map((row,i) => (
                                                     <TableRow key={i}>
-                                                        <TableCell align="center">{row.a}</TableCell>
-                                                        <TableCell align="center">{row.b}</TableCell>
-                                                        <TableCell align="center">{row.c}</TableCell>
-                                                        <TableCell align="center">{row.d}</TableCell>
-                                                        <TableCell align="center">{row.d2}</TableCell>
-                                                        <TableCell align="center">{row.e}</TableCell>
-                                                        <TableCell align="center">{row.f}</TableCell>
-                                                        <TableCell align="center">{row.g}</TableCell>
-                                                        <TableCell align="center">{row.h}</TableCell>
-                                                        <TableCell align="center">{row.i}</TableCell>
-                                                        <TableCell align="center">{row.j}</TableCell>
-                                                        <TableCell align="center">{row.k}</TableCell>
-                                                        <TableCell align="center">{row.l}</TableCell>
-                                                        <TableCell align="center">{row.m}</TableCell>
-                                                        <TableCell align="center">{row.n}</TableCell>
+                                                        <TableCell align="left">{row.a}</TableCell>
+                                                        <TableCell align="left">{row.b}</TableCell>
+                                                        <TableCell align="left">{row.c}</TableCell>
+                                                        <TableCell align="left">{row.d}</TableCell>
+                                                        <TableCell align="left">{row.d2}</TableCell>
+                                                        <TableCell align="left">{row.e}</TableCell>
+                                                        <TableCell align="left">{row.f}</TableCell>
+                                                        <TableCell align="left">{row.g}</TableCell>
+                                                        <TableCell align="left">{row.h}</TableCell>
+                                                        <TableCell align="left">{row.i}</TableCell>
+                                                        <TableCell align="left">{row.j}</TableCell>
+                                                        <TableCell align="left">{row.k}</TableCell>
+                                                        <TableCell align="left">{row.l}</TableCell>
+                                                        <TableCell align="left">{row.m}</TableCell>
+                                                        <TableCell align="left">{row.n}</TableCell>
                                                     </TableRow>
                                                 ))
                                             } */}

@@ -319,14 +319,14 @@ function ManageUser() {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">UserID</TableCell>
-                                                <TableCell align="center">OfficerName</TableCell>
-                                                <TableCell align="center">UserName</TableCell>
-                                                <TableCell align="center">CreateDate</TableCell>
-                                                <TableCell align="center">ActiveStatus</TableCell>
-                                                <TableCell align="center">ExpireDate</TableCell>
-                                                <TableCell align="center">UserRole</TableCell>
-                                                <TableCell align="center" className="sticky tb-w-14em">&nbsp;</TableCell>
+                                                <TableCell align="left">UserID</TableCell>
+                                                <TableCell align="left">OfficerName</TableCell>
+                                                <TableCell align="left">UserName</TableCell>
+                                                <TableCell align="left">CreateDate</TableCell>
+                                                <TableCell align="left">ActiveStatus</TableCell>
+                                                <TableCell align="left">ExpireDate</TableCell>
+                                                <TableCell align="left">UserRole</TableCell>
+                                                <TableCell align="left" className="sticky tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -337,14 +337,14 @@ function ManageUser() {
                                                         : tableResult
                                                     ).map((cell,i) => (
                                                     <TableRow key={i}>
-                                                            <TableCell align="center" className="tb-w-8em">{cell.nMEMID}</TableCell>
-                                                            <TableCell align="center" className="tb-w-8em">{cell.OfficerName}</TableCell>
-                                                            <TableCell align="center" className="tb-w-14em">{cell.cUsername}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{(cell.dCreated === null) ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{(cell.bActive) ? 1 : 0}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{(cell.ExpireDate === null) ? '' : moment(cell.ExpireDate).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="center" className="tb-w-12em">{cell.nRolename}</TableCell>
-                                                            <TableCell align="center" className="sticky tb-w-14em">
+                                                            <TableCell align="left" className="tb-w-8em">{cell.nMEMID}</TableCell>
+                                                            <TableCell align="left" className="tb-w-8em">{cell.OfficerName}</TableCell>
+                                                            <TableCell align="left" className="tb-w-14em">{cell.cUsername}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{(cell.dCreated === null) ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{(cell.bActive) ? 1 : 0}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{(cell.ExpireDate === null) ? '' : moment(cell.ExpireDate).format('DD/MM/YYYY')}</TableCell>
+                                                            <TableCell align="left" className="tb-w-12em">{cell.nRolename}</TableCell>
+                                                            <TableCell align="left" className="sticky tb-w-14em">
                                                                 <ButtonNormalIconStartPrimary label="แก้ไข" startIcon={<EditOutlinedIcon />} onClick={()=>{gotoEditUser(cell.nMEMID)}} />
                                                                 <ButtonNormalIconStartSecondary label="ลบ" startIcon={<DeleteOutlineOutlinedIcon />} />
                                                             </TableCell>
@@ -353,7 +353,7 @@ function ManageUser() {
                                                 ))
                                                 : 
                                                 <TableRow>
-                                                    <TableCell colSpan={8} align="center">ไม่พบข้อมูล</TableCell>
+                                                    <TableCell colSpan={8} align="left">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>
                                             }
                                         </TableBody>

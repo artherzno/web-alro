@@ -195,7 +195,9 @@ class CheckBilled extends React.Component {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
                                             <FormControlLabel
-                                                control={<Checkbox  onChange={() =>{}} name="billed" />}
+                                                control={<Checkbox  onChange={(e) =>{
+                                                    
+                                                }} name="billed" />}
                                                 label="ดูใบเสร็จฟ้องศาล"
                                             />
                                         </Grid>
@@ -267,23 +269,23 @@ class CheckBilled extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
-                                                            <StyledTableCellLine align="center">{element.saveCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.recordingDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.mindex}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.times}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.id}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.times}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.id}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.contractNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.prentno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.dueDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.receiptNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rcpno1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.prentno}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.dueDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.receiptNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.rcpno1}</StyledTableCellLine>
 
                                                             <StyledTableCellLine align="right">{formatNumber(element.payPrincipal)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.payInterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{formatNumber(element.fine)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{formatNumber(element.fine)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rate)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.refId}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.refId}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.payment)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rcapital)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.pcap1)}</StyledTableCellLine>
@@ -292,22 +294,22 @@ class CheckBilled extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.pint2)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.paychage)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.pother)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.pbank}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pbank}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.stu}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.sFlag}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.pvCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.dateC}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.cuserid}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.finishFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.sFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.dateC}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.cuserid}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateNc)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.rFlag}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.code}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.pindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.rFlag}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.code}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.bcapital)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.sPrint}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.bankFile}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">{element.cname}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.sPrint}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.bankFile}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.cname}</StyledTableCellLine>
 
 
                                                         </TableRow>

@@ -111,15 +111,15 @@ function PrintContractDebt() {
                                     <Table aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="center">เลขที่สัญญาเดิม</TableCell>
-                                                <TableCell align="center">เลขบัตรประจำตัวประชาชน</TableCell>
-                                                <TableCell align="center">ชื่อเกษตรกร</TableCell>
-                                                <TableCell align="center" className="tb-w-14em">&nbsp;</TableCell>
+                                                <TableCell align="left">เลขที่สัญญาเดิม</TableCell>
+                                                <TableCell align="left">เลขบัตรประจำตัวประชาชน</TableCell>
+                                                <TableCell align="left">ชื่อเกษตรกร</TableCell>
+                                                <TableCell align="left" className="tb-w-14em">&nbsp;</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>{/* // clear mockup */}
                                             <TableRow>
-                                                <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
+                                                <TableCell colSpan={4} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>
                                             
                                             {/* {
@@ -128,10 +128,10 @@ function PrintContractDebt() {
                                                     : tableResult
                                                   ).map((row,i) => (
                                                 <TableRow key={i}>
-                                                        <TableCell align="center">{row.a}</TableCell>
-                                                        <TableCell align="center">{row.b}</TableCell>
-                                                        <TableCell align="center">{row.c}</TableCell>
-                                                    <TableCell align="center" className="tb-w-24em">
+                                                        <TableCell align="left">{row.a}</TableCell>
+                                                        <TableCell align="left">{row.b}</TableCell>
+                                                        <TableCell align="left">{row.c}</TableCell>
+                                                    <TableCell align="left" className="tb-w-24em">
                                                             <ButtonNormalIconStartPrimary label="แก้ไข" onClick={()=>gotoEditContactDebt()} />
                                                             <ButtonNormalIconStartPrimary label="ออกสัญญาแปลงหนี้" onClick={()=>gotoPrintContactDebt()}  />
                                                 </TableCell>

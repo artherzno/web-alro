@@ -32,7 +32,7 @@ export const TypeBillSelect = ({
                     }} />
                 </Grid>
 
-                {parseInt(display) === 2 && <Grid item><ProvinceSelect onChange={onChangeProvince}/></Grid>}
+                {/* {parseInt(display) === 2 && <Grid item><ProvinceSelect onChange={onChangeProvince}/></Grid>} */}
             </Grid>
 
         </div>
