@@ -161,7 +161,6 @@ class CheckSign extends React.Component {
                 this.delay = null
             }
             this.delay = setTimeout(() => {
-                this.loadData()
             }, 500);
 
         })
@@ -196,7 +195,7 @@ class CheckSign extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <MuiDatePicker label="วันที่" value={this.state.dateSelect} onChange={(event) => {
                                                 this.setState({ Date: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                    this.loadData()
+                                                   
                                                 })
                                             }} />
                                         </Grid>

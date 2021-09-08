@@ -28,6 +28,9 @@ import {
     ButtonFluidIconStartPrimary,
 } from '../../components/MUIinputs';
 
+import { Formik, Form, Field, } from 'formik';
+import { MTextField, D } from '../../components/MaterialUI'
+
 function RecordBillAlro() {
     const history = useHistory();
 
@@ -42,29 +45,30 @@ function RecordBillAlro() {
     }, [])
 
     const tableResult = [
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
-        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541'},
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
+        { a: '00095/2541', b: 'ปรับปรุงที่ดิน40', c: '40', d: '23 มีนาคม 2541' },
     ]
 
-     // Radio Button
-     const handleChangeTypeBill = (event) => {
-        setInputData({...inputData,
+    // Radio Button
+    const handleChangeTypeBill = (event) => {
+        setInputData({
+            ...inputData,
             typeBill: event.target.value
         })
-        console.log('typeBill ',event.target.value)
+        console.log('typeBill ', event.target.value)
     };
     // End Radio Button
 
     const handleSubmit = (event) => {
         event.preventDefault();
-    
+
         // if (value === 'best') {
         //   setHelperText('You got it!');
         //   setError(false);
@@ -87,11 +91,84 @@ function RecordBillAlro() {
                 <div className="fade">
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page">
                                 <h1>บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด</h1>
                             </Grid>
                         </Grid>
                     </Container>
+                    {/* <Formik
+                        enableReinitialize={true}
+                        initialValues={{ guaranteeAmount: '',date:"" }}
+                        validate={values => {
+                            const requires = ['guaranteeAmount','date']
+                            let errors = {};
+                            requires.forEach(field => {
+                                if (!values[field]) {
+                                    errors[field] = 'Required';
+                                }
+                            });
+
+
+                            return errors;
+                        }}
+                        onSubmit={(value, actions) => {
+
+                            let dataRole = this.state.dataRole
+                            if (value.is_admin) {
+                                dataRole = { ...dataRole, ...this.getDefaultData(true) }
+                            }
+                            dataRole.is_admin = value.is_admin
+                            dataRole.role_name = value.role_name
+
+                            if (this.state.isCreate) {
+                                this.createRole(dataRole)
+                            } else {
+                                this.updateRole({ ...dataRole, _id: dataRole._id })
+                            }
+
+
+                        }}
+                        render={(formik) => {
+
+                            const { errors, status, values, touched, isSubmitting, handleChange, handleBlur, submitForm, handleSubmit } = formik
+
+
+                            return (
+                                <Form>
+                                    <MuiTextfield
+                                        name="guaranteeAmount"
+                                        value={values.guaranteeAmount}
+                                        error={errors.guaranteeAmount}
+                                        helperText={errors.guaranteeAmount}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        label="เลขที่บันทึก"
+                                        defaultValue="PNGA0001600005/00001" />
+
+                                    <MuiDatePicker
+                                        name="guaranteeAmount"
+                                        value={values.date}
+                                        error={errors.date}
+                                        helperText={errors.date}
+                                        onChange={(event) => {
+                                            // moment(event).format("YYYY-MM-DD")
+                                        }}
+                                        onChangeDate={handleChange}
+                                        onBlur={handleBlur}
+                                        label="วันที่บันทึก"
+                                        defaultValue="2017-05-15" />
+
+                                    <Field
+                                        type="number"
+                                        name="guaranteeAmount"
+                                        fullWidth
+                                        placeholder="ระบุวงเงินที่ต้องการเพิ่ม"
+                                        label="ทดสอบ"
+                                        component={MTextField}
+                                    />
+                                </Form>)
+                        }}
+                    /> */}
 
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
@@ -105,7 +182,7 @@ function RecordBillAlro() {
                                                 <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="PNGA0001600005/00001" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-15" />
+                                                <MuiDatePicker label="วันที่บันทึก" defaultValue="2017-05-15" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="" defaultValue="84" />
@@ -123,7 +200,7 @@ function RecordBillAlro() {
                                                 <MuiTextfield label="ใบแจ้งหนี้" defaultValue="" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
+                                                <MuiSelect label="โครงการ" lists={['00001', '00002', '00003']} />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 <MuiTextfield label="&nbsp;" defaultValue="00016" />
@@ -144,19 +221,19 @@ function RecordBillAlro() {
                                                 <MuiTextfield label="ประเภทกู้ยืม" defaultValue="01" />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="รายบุคคล" />
+                                                <MuiTextfield label="&nbsp;" defaultValue="รายบุคคล" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="หมวดโครงการ" defaultValue="07" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="กองทุนที่ดิน" />
+                                                <MuiTextfield label="&nbsp;" defaultValue="กองทุนที่ดิน" />
                                             </Grid>
                                             <Grid item xs={12} md={2}>
                                                 <MuiTextfield label="ประเภทเงินกู้" defaultValue="ย" />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="เงินกู้ระยะยาว" />
+                                                <MuiTextfield label="&nbsp;" defaultValue="เงินกู้ระยะยาว" />
                                             </Grid>
                                             <Grid item xs={12} md={6}>
                                                 <MuiTextfield label="เลขบัตรประจำตัวประชาชน" id="" defaultValue="3-4535-22345-56-0" />
@@ -249,7 +326,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -272,7 +349,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right txt-red">จำนวนเงินที่ชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <ButtonFluidPrimary label="คำนวณ" />
@@ -285,7 +362,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">เงินต้น</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -295,7 +372,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ดอกเบี้ย</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -305,7 +382,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -315,7 +392,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ดอกเบี้ยครบชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -325,7 +402,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ค่าปรับ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -335,7 +412,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">อื่นๆ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -345,7 +422,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -355,11 +432,11 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ดอกเบี้ยคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label=""  defaultValue="" />
+                                                        <MuiTextfield label="" defaultValue="" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            
+
                                         </Grid>
                                     </form>
                                 </Paper>
@@ -380,7 +457,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -390,7 +467,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -400,7 +477,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ดอกเบี้ยค้างปรับ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -410,7 +487,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ดอกเบี้ยครบชำระ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -420,7 +497,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">รวมดอกเบี้ย</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -430,7 +507,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -440,7 +517,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">รวมต้องชำระทั้งสิ้น</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -450,7 +527,7 @@ function RecordBillAlro() {
                                                         <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                    <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
+                                                        <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท" />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -464,45 +541,45 @@ function RecordBillAlro() {
                                         <ButtonFluidPrimary label="บันทึกการเพิ่ม" />
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <ButtonFluidIconStartPrimary label="พิมพ์ใบเสร็จรับเงิน" startIcon={<PrintIcon />}  />
+                                        <ButtonFluidIconStartPrimary label="พิมพ์ใบเสร็จรับเงิน" startIcon={<PrintIcon />} />
                                     </Grid>
                                 </Grid>
-                            
+
                             </Grid>
 
-                            <Grid item xs={12} md={6}  style={{position: 'fixed', width: '100%', right: '0'}}>
+                            <Grid item xs={12} md={6} style={{ position: 'fixed', width: '100%', right: '0' }}>
                                 <div className="positionFixed mg-t-20">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
-                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" />
+                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล" defaultValue="" />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
-                                            <MuiTextfield label="ค้นหาเลขที่สัญญา"  defaultValue="" />
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" defaultValue="" />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ค้นหา" />  
+                                            <ButtonFluidPrimary label="ค้นหา" />
                                         </Grid>
                                         <Grid item xs={12} md={12}>
-                                        <div className="table">
-                                            <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
-                                                <Table aria-label="normal table">
-                                                    <TableHead>
-                                                    <TableRow>
-                                                        <TableCell align="left">&nbsp;</TableCell>
-                                                        <TableCell align="left">&nbsp;</TableCell>
-                                                        <TableCell align="left">&nbsp;</TableCell>
-                                                        <TableCell align="left">&nbsp;</TableCell>
-                                                    </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>{/* // clear mockup */}
-                                                        <TableRow>
-                                                            <TableCell colSpan={4} align="left">ไม่พบข้อมูล</TableCell>
-                                                        </TableRow>
-                                            
-                                                    {/* {
+                                            <div className="table">
+                                                <TableContainer className="table-box table-recordcloseoldContact1 mg-t-10">
+                                                    <Table aria-label="normal table">
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell align="left">&nbsp;</TableCell>
+                                                                <TableCell align="left">&nbsp;</TableCell>
+                                                                <TableCell align="left">&nbsp;</TableCell>
+                                                                <TableCell align="left">&nbsp;</TableCell>
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>{/* // clear mockup */}
+                                                            <TableRow>
+                                                                <TableCell colSpan={4} align="left">ไม่พบข้อมูล</TableCell>
+                                                            </TableRow>
+
+                                                            {/* {
                                                         tableResult.map((row,i) => (
                                                             <TableRow key={i}>
                                                                 <TableCell align="left">{row.a}</TableCell>
@@ -512,10 +589,10 @@ function RecordBillAlro() {
                                                             </TableRow>
                                                         ))
                                                     } */}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </div>
+                                                        </TableBody>
+                                                    </Table>
+                                                </TableContainer>
+                                            </div>
                                         </Grid>
                                     </Grid>
                                 </div>

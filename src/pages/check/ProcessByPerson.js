@@ -126,13 +126,7 @@ class ProcessByPerson extends React.Component {
             [state]: event.target.value
         }, () => {
 
-            if (this.delay) {
-                clearTimeout(this.delay)
-                this.delay = null
-            }
-            this.delay = setTimeout(() => {
-                this.loadData()
-            }, 500);
+  
 
         })
 

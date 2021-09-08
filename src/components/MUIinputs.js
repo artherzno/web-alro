@@ -327,7 +327,7 @@ const MuiLabelHeaderCheckbox = (props) => {
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled, error } = props;
+    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled, error, helperText } = props;
 
     return (
         <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
@@ -337,7 +337,7 @@ const MuiTextfield = (props) => {
             }
             {
                 (error) ? 
-                    <TextField error name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />
+                    <TextField error name={name} helperText={helperText} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />
                 : 
                     <TextField name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />  
             }
@@ -549,7 +549,7 @@ const MuiDatePicker = (props) => {
 
                             // console.log("params", params)
                             // const valueDisplay = moment()
-                            return <TextField {...params} inputProps={{ ...params.inputProps, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
+                            return <TextField {...params} inputProps={{ ...params.inputProps, onChange: props.onChangeDate ? props.onChangeDate : () =>{}, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
                         }}
                         inputFormat="DD/MM/YYYY"
                         className="MuiDatePicker"
