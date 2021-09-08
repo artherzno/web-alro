@@ -259,8 +259,8 @@ class SumaryPayLoanTab extends React.Component {
                                     <StyledTableCell align="center">ส.ป.ก.จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนราย</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center"><div><Typography align="left" variant="body2">ว/ด/ป</Typography><Typography align="left" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
-                                    <StyledTableCell align="center"><div><Typography align="left" variant="body2">ว/ด/ป</Typography><Typography align="left" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
+                                    <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
+                                    <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
                                     <StyledTableCell align="center">วันยื่นกู้</StyledTableCell>
                                     <StyledTableCell align="center">วันจ่ายเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>

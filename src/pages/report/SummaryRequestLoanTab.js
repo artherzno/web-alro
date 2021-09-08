@@ -21,6 +21,7 @@ import { formatNumber } from '../../utils/Utilities'
 import { ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
+import { OverlayLoading } from '../../components'
 
 class SummaryRequestLoanTab extends React.Component {
 
@@ -30,6 +31,7 @@ class SummaryRequestLoanTab extends React.Component {
 
         this.state = {
             isExporting: false,
+            isLoading:false,
             farmerPayLoanList: [],
             dataSummary: {},
             displaySection: 0,
@@ -71,15 +73,17 @@ class SummaryRequestLoanTab extends React.Component {
         parameter.append('EndDate', endDate);
         parameter.append("Result", resultRequest)
 
+         this.setState({ isLoading: true })
         api.getSummaryRequestLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
+                isLoading: false
             })
 
         }).catch(error => {
-
+            this.setState({ isLoading: false })
         })
     }
 
@@ -131,6 +135,8 @@ class SummaryRequestLoanTab extends React.Component {
 
 
         return (<div>
+
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Grid container spacing={2}>
 
                 <Grid item>
@@ -280,7 +286,7 @@ class SummaryRequestLoanTab extends React.Component {
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="left">{farmer.months}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
 
                                         </TableRow>
@@ -291,7 +297,7 @@ class SummaryRequestLoanTab extends React.Component {
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
 
                                 </TableRow>

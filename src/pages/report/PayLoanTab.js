@@ -282,7 +282,7 @@ class PayLoanTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center"> {farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left"> {farmer.no}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.provinceCode}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>

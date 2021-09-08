@@ -273,7 +273,7 @@ class SummarySignTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center"> {farmer.months} </StyledTableCellLine>
+                                            <StyledTableCellLine align="left"> {farmer.months} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
