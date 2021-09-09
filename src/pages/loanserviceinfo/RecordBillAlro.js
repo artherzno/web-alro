@@ -30,6 +30,7 @@ import {
 
 import { Formik, Form, Field, } from 'formik';
 import { MTextField, D } from '../../components/MaterialUI'
+import moment from 'moment';
 
 function RecordBillAlro() {
     const history = useHistory();
@@ -96,7 +97,7 @@ function RecordBillAlro() {
                             </Grid>
                         </Grid>
                     </Container>
-                    {/* <Formik
+                    <Formik
                         enableReinitialize={true}
                         initialValues={{ guaranteeAmount: '',date:"" }}
                         validate={values => {
@@ -130,7 +131,7 @@ function RecordBillAlro() {
                         }}
                         render={(formik) => {
 
-                            const { errors, status, values, touched, isSubmitting, handleChange, handleBlur, submitForm, handleSubmit } = formik
+                            const { errors, status, values, touched, isSubmitting,setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
 
 
                             return (
@@ -146,29 +147,30 @@ function RecordBillAlro() {
                                         defaultValue="PNGA0001600005/00001" />
 
                                     <MuiDatePicker
-                                        name="guaranteeAmount"
+                                        name="date"
                                         value={values.date}
                                         error={errors.date}
                                         helperText={errors.date}
                                         onChange={(event) => {
                                             // moment(event).format("YYYY-MM-DD")
+                                            setFieldValue("date", moment(event).format("YYYY-MM-DD"))
                                         }}
                                         onChangeDate={handleChange}
                                         onBlur={handleBlur}
                                         label="วันที่บันทึก"
                                         defaultValue="2017-05-15" />
 
-                                    <Field
+                                    {/* <Field
                                         type="number"
                                         name="guaranteeAmount"
                                         fullWidth
                                         placeholder="ระบุวงเงินที่ต้องการเพิ่ม"
                                         label="ทดสอบ"
                                         component={MTextField}
-                                    />
+                                    /> */}
                                 </Form>)
                         }}
-                    /> */}
+                    />
 
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
