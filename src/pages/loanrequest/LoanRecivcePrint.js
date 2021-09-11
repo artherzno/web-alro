@@ -310,6 +310,7 @@ function LoanRecivcePrint() {
     }
 
     const searchLoanRecivcePrint = () => {
+        setRows([])
         setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_loanfarmergetmoney`, {
@@ -429,7 +430,7 @@ function LoanRecivcePrint() {
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.post(
-            `${server_hostname}/admin/api/add_loanfarmergetmoneyy`, {
+            `${server_hostname}/admin/api/add_loanfarmergetmoney`, {
                 
                 LoanReceiptDate: reOrderDateTHtoEN(inputSelectDate.dd+'-'+inputSelectDate.mm+'-'+inputSelectDate.yyyy),
                 LoanReceiptfrom: inputData.LoanReceiptfrom.toString(),
@@ -611,6 +612,15 @@ function LoanRecivcePrint() {
                                                 <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount2 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount2.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
                                             </TableCell>
                                         </TableRow>
+
+                                        <TableRow>
+                                            <TableCell align="left">
+                                                <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3 === null ? '-' : '3.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3}</p>  
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                            </TableCell>
+                                        </TableRow>
                                     {/* {
                                         [1,2,3].map((row,i) => (
                                             <TableRow key={i}>
@@ -701,7 +711,7 @@ function LoanRecivcePrint() {
                                         colSpan={12} 
                                         hasCheckbox={false} 
                                         hasAction={true} // show action
-                                        actionView={true} 
+                                        actionView={false} 
                                         actionCreate={false}
                                         createEvent={openFormField}
                                         createParam={'LoanID'}
@@ -841,8 +851,8 @@ function LoanRecivcePrint() {
                                                 <Table aria-label="normal table">
                                                     <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="left">รายการ</TableCell>
-                                                        <TableCell align="left">จำนวนเงิน</TableCell>
+                                                        <TableCell align="center">รายการ</TableCell>
+                                                        <TableCell align="center">จำนวนเงิน</TableCell>
                                                     </TableRow>
                                                     </TableHead>
                                                     <TableBody>
@@ -854,7 +864,7 @@ function LoanRecivcePrint() {
                                                                 <MuiTextfieldCurrency  label="" name="LoanReceiptAmount" value={inputData.LoanReceiptAmount.toLocaleString('en-US', {minimumFractionDigits: 2})} onChange={handleInputData} />
                                                             </TableCell>
                                                         </TableRow>
-                                                        <TableRow>
+                                                        {/* <TableRow>
                                                             <TableCell align="left">
                                                                 <MuiTextfield label="" name="LoanReceiptList1" value={inputData.LoanReceiptList1} onChange={handleInputData}  />    
                                                             </TableCell>
@@ -877,7 +887,7 @@ function LoanRecivcePrint() {
                                                             <TableCell align="center">
                                                                 <MuiTextfieldCurrency  label="" name="LoanReceiptAmount3" value={inputData.LoanReceiptAmount3.toLocaleString('en-US', {minimumFractionDigits: 2})} onChange={handleInputData} />
                                                             </TableCell>
-                                                        </TableRow>
+                                                        </TableRow> */}
                                                     {/* {
                                                         [1,2,3].map((row,i) => (
                                                             <TableRow key={i}>

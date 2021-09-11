@@ -59,10 +59,11 @@ const listmenu = [
             },{
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
                 subpath: '/loanrequest/editcontract'
-            },{
+            },
+            /*{
                 subtitle: 'ค้นหาสัญญาทั้งหมด',
                 subpath: '/loanrequest/allcontractsearch'
-            }
+            }*/
         ]
     },{
         title: 'ข้อมูลการให้บริการสินเชื่อ',
@@ -72,11 +73,13 @@ const listmenu = [
             {
                 subtitle: 'บันทึกใบเสร็จรับเงิน ณ ส.ป.ก.จังหวัด',
                 subpath: '/loanserviceinfo/recordbillalro'
-            },{
+            },
+            /*{
                 // subtitle: 'บันทึกใบเสร็จรับเงิน (ปิดสัญญาแล้ว)',
                 subtitle: 'ตรวจสอบใบเสร็จรับเงิน',
                 subpath: '/loanserviceinfo/recordbillclose'
-            },{
+            },*/
+            {
                 subtitle: 'ยกเลิกใบเสร็จรับเงิน',
                 subpath: '/loanserviceinfo/cancelbill'
             },{

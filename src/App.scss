@@ -670,6 +670,11 @@ body {
   // padding: 5px 10px;
 }
 
+.txt-err {
+  color: var(--red);
+  margin-top: -5px;
+}
+
 .line-top-green {
   border-top: 4px solid var(--green);
 }
