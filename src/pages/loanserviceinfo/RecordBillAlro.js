@@ -160,6 +160,7 @@ function RecordBillAlro() {
                                         label="วันที่บันทึก"
                                         defaultValue="2017-05-15" />
 
+                                    <MuiSelect label="โครงการ" lists={['00001', '00002', '00003']} />
                                     {/* <Field
                                         type="number"
                                         name="guaranteeAmount"

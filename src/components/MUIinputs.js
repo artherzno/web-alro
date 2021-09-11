@@ -522,8 +522,8 @@ const MuiDatePickerValidate = (props) => {
 }
 
 const MuiDatePicker = (props) => {
-    // const classes = useStyles();
-    const { topic, label, value, yearValue, monthValue, dayValue, onChange, inputdisabled } = props;
+    const classes = useStyles();
+    const { topic, label, name, id, textAlign, value, error, helperText, yearValue, monthValue, dayValue, type, onBlur, onChange, disabled, inputdisabled } = props;
     // let value = '2560-12-01'
     // let dayValue = value.slice(-2);
     // let monthValue = value.slice(5,7);
@@ -531,14 +531,13 @@ const MuiDatePicker = (props) => {
 
 // console.log(value,'>>>',yearValue,'-',monthValue,'-',dayValue)
     return (
+  
+
         <React.Fragment >
             
-            <FormControl className={`MuiDatePicker ${inputdisabled}`}>
+            <FormControl className={`${classes.textbox} ${inputdisabled}`}>
                 { 
                     (label) === '' ? '' :
-                    // <InputLabel shrink htmlFor={id} className={classes.label}>
-                    //     <span className="txt-green">{topic}&nbsp;</span>{label}
-                    // </InputLabel>
                     <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
                 }
                 <LocalizationProvider dateAdapter={OverwriteMomentBE} >
@@ -549,62 +548,15 @@ const MuiDatePicker = (props) => {
 
                             // console.log("params", params)
                             // const valueDisplay = moment()
-                            return <TextField {...params} inputProps={{ ...params.inputProps, onChange: props.onChangeDate ? props.onChangeDate : () =>{}, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
+                            return <TextField {...params} helperText={props.helperText} inputProps={{ ...params.inputProps, style: { padding: '10px 12px' }, onChange: props.onChangeDate ? props.onChangeDate : () =>{}, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
                         }}
                         inputFormat="DD/MM/YYYY"
                         className="MuiDatePicker"
-                        helperText={null}
                     />
                 </LocalizationProvider>
             
             </FormControl>
-            {/* <FormControl className="MuiDatePicker">
-                <Select
-                    value={dayValue}
-                    // name={name}
-                    // input={<BootstrapInput />}
-                    onChange={onChange}
-                >
-                    {day.map((item,i)=>
-                        <MenuItem key={i} value={item}>{item}</MenuItem>
-                    )}
-                </Select>
-            </FormControl>
-            <FormControl className="MuiDatePicker">
-                    <Select
-                        value={monthValue}
-                        // name={name}
-                        // input={<BootstrapInput />}
-                        onChange={onChange}
-                    >
-                        {month.map((item,i)=>
-                            <MenuItem key={i} value={item}>{item}</MenuItem>
-                        )}
-                </Select> 
-            </FormControl>
-            <FormControl className="MuiDatePicker">
-                    <Select
-                        value={yearValue}
-                        // name={name}
-                        // input={<BootstrapInput />}
-                        onChange={onChange}
-                    >
-                        {year.map((item,i)=>
-                            <MenuItem key={i} value={item}>{item}</MenuItem>
-                        )}
-                </Select> 
-            </FormControl> */}
-            {/* <BootstrapInput name={name} type="date" value={value} id={id} /> */}
-            {/* <LocalizationProvider dateAdapter={AdapterDateFns} locale={thLocale}>
-                <DatePicker
-                    value={value}
-                    onChange={onChange}
-                    renderInput={(params) => <TextField {...params} />}
-                    inputFormat="dd/MM/yyyy"
-                    className="MuiDatePicker"
-                    helperText={null}
-                />
-            </LocalizationProvider> */}
+          
         </React.Fragment>
     );
 }
