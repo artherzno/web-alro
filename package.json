@@ -19,6 +19,7 @@
     "date-fns": "^2.22.1",
     "form-data": "^4.0.0",
     "formik": "^2.2.6",
+    "formik-error-focus": "^1.1.0",
     "js-cookie": "^2.2.1",
     "moment": "^2.29.1",
     "react": "^17.0.1",

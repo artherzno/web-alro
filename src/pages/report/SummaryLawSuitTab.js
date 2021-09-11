@@ -272,8 +272,8 @@ class SummaryLawSuitTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center"> {farmer.months} </StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{formatNumber(farmer.contractNo)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left"> {farmer.months} </StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>

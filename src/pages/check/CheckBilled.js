@@ -130,13 +130,7 @@ class CheckBilled extends React.Component {
             [state]: event.target.value
         }, () => {
 
-            if (this.delay) {
-                clearTimeout(this.delay)
-                this.delay = null
-            }
-            this.delay = setTimeout(() => {
-                this.loadData()
-            }, 500);
+
 
         })
 
@@ -170,7 +164,7 @@ class CheckBilled extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <MuiDatePicker label="วันที่" value={this.state.dateSelect} onChange={(event) => {
                                                 this.setState({ Date: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                    this.loadData()
+                                                   
                                                 })
                                             }} />
                                         </Grid>

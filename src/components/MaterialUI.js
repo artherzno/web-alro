@@ -35,6 +35,10 @@ const styles = theme => ({
             borderColor: theme.palette.primary.dark,
         },
     },
+    textbox: {
+        width: '100%',
+        fontSize: '16px',
+    },
     cssFocused: {},
     notchedOutline: {},
 })
@@ -111,7 +115,7 @@ function NumberFormatCustom(props) {
 const MTextField = withStyles(styles)(
     (props) => {
 
-        const { field, form: { touched, errors, isSubmitting }, classes, onChange, type, InputLabelProps, ...other } = props
+        const { field, topic, label, inputdisabled, form: { touched, errors, isSubmitting }, classes, onChange, type, InputLabelProps, ...other } = props
         const isError = Boolean((errors[field.name] && touched[field.name]))
 
         useEffect(() => {
@@ -124,8 +128,57 @@ const MTextField = withStyles(styles)(
         })
 
         return (
-            <div className={classes.filed}>
+            <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
+                {
+                    (label) === '' ? '' :
+                        <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                }
                 <TextField
+                    {...other}
+                    id={field.name}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.cssLabel,
+                            focused: classes.cssFocused,
+                        },
+                        ...InputLabelProps
+                    }}
+                    type={type === 'password' ? type : (type === 'tax' ? 'number' : 'text')}
+                    onWheel={event => { event.preventDefault(); }}
+                    {...field} 
+                    error={isError} 
+                    helperText={isError && errors[field.name]}
+                    inputProps={{
+                        style: { textAlign: 'left', padding: '10px 12px' },
+                        inputComponent: type === 'number' ? NumberFormatCustom : 'input',
+                        classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                        },
+                        ...props.InputProps,
+                        onChange: event => {
+
+                            var e = event
+                            if (props.maxLength) {
+                                e.target.value = e.target.value.slice(0, props.maxLength);
+                            }
+
+                            if (props.positive && e.target.value.length > 0) {
+                                e.target.value = e.target.value.replace('-', "")
+                            }
+                            if (props.max && e.target.value > props.max) {
+                                e.target.value = props.max
+                            }
+                            if (props.min && e.target.value < props.min) {
+                                e.target.value = props.min
+                            }
+
+
+                            field.onChange(e)
+                        }
+                    }} />
+                {/* <TextField
                     {...other}
                     id={field.name}
                     InputLabelProps={{
@@ -166,8 +219,10 @@ const MTextField = withStyles(styles)(
                             field.onChange(e)
                         }
                     }}
-                    variant="outlined" {...field} error={isError} helperText={isError && errors[field.name]} />
-            </div>
+                    variant="outlined" 
+                    {...field} error={isError} helperText={isError && errors[field.name]} 
+                    /> */}
+            </FormControl>
 
         )
     }

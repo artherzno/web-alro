@@ -197,7 +197,7 @@ class Compensate extends React.Component {
 
                                                 return (
                                                     <TableRow key={index}>
-                                                        <StyledTableCellLine align="left">{data.no}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="center">{data.no}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{data.orderNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{data.contratNo}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{data.idCard}</StyledTableCellLine>

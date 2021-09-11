@@ -323,7 +323,7 @@ class RequestLoanTab extends React.Component {
                                             <StyledTableCellLine align="left">{farmer.docType}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.docNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.landSize}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.landSize}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.liabilities}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanPurpose}</StyledTableCellLine>
