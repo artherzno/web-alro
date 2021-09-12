@@ -3,26 +3,15 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { AuthContext } from '../../App';
-import { useForm, Controller } from 'react-hook-form';
 
-import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import CloseIcon from '@material-ui/icons/Close';
-import PrintIcon from '@material-ui/icons/Print';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -453,6 +442,16 @@ function RecordCloseOldContact() {
                 })
                 
                 getProcessBeforePay(loanNumber, )
+
+                setInputDataReceipt({
+                    ...inputDataReceipt,
+                    LoanID: data[0].LoanID
+                })
+        
+                setInputDataCloseContact({
+                    ...inputDataCloseContact,
+                    LoanID: data[0].LoanID
+                })
             }
         }).catch(err => { console.log(err); })
         .finally(() => {
@@ -595,6 +594,16 @@ function RecordCloseOldContact() {
             DueInterest: Number(dueinterest) ,
             Fines: Number(fines) ,
         })
+        
+        setInputDataCloseContact({
+            ...inputDataCloseContact,
+            // PrinciplePaid: Number(parsePrinciplePaid),
+            TotalPaid: Number(totalpaid) ,
+            InterestPaid: Number(interestpaid) ,
+            // OverdueInterest: Number(overdueinterest) ,
+            DueInterest: Number(dueinterest) ,
+            Fines: Number(fines) ,
+        })
     }
 
     const calcTotalPaid = () => {
@@ -641,42 +650,21 @@ function RecordCloseOldContact() {
             DueInterest: step2 <= 0 ? 0 : step2,
             Fines: parseFinekang <= 0 ? 0 : parseFinekang,
         })
+
+        setInputDataCloseContact({
+            ...inputDataCloseContact,
+            // PrinciplePaid: step4 <= 0 ? 0 : step4,
+            TotalPaid: parseTotalPaid <= 0 ? 0 : parseTotalPaid,
+            InterestPaid: step3 <= 0 ? 0 : step3,
+            // OverdueInterest: step1 <= 0 ? 0 : step1,
+            DueInterest: step2 <= 0 ? 0 : step2,
+            Fines: parseFinekang <= 0 ? 0 : parseFinekang,
+        })
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
-        validateValue('ReceiptTypeID',radioType,'* กรุณาเลือกประเภท')
-
-        console.log('inputDataReceipt',inputDataReceipt)
-        console.log('inputDataCloseContact',inputDataCloseContact)
-
-        setInputDataReceipt({
-            ...inputDataReceipt,
-            // LoanID: 12324
-        })
-        
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
-    };
-    
-    const handleClosePopup = () => {
-        setErr(false);
-        setSuccess(false);
-        setConfirm(false);
-        
-        // history.push('/manageinfo/searchmember');
-
-    };
-
+    // Function Check validate
+    let validateErrArr = []
     const validateValue = (id,val,msg) => {
         // let value = document.getElementById(id).value;
         let value = val
@@ -693,6 +681,7 @@ function RecordCloseOldContact() {
             console.log('append err')  
             if(!lengthTxtErr) {
                 document.getElementById(id).appendChild(para);  
+                validateErrArr.push(id+'-txt-err')
             }
         } else {
             if(lengthTxtErr) {
@@ -701,6 +690,69 @@ function RecordCloseOldContact() {
             console.log('remove err')
         }
     }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // validate => (id, value, msg)
+        validateValue('ReceiptTypeID',radioType,'* กรุณาเลือกประเภท')
+        console.log('validateErrArr.length ',validateErrArr.length )
+
+        // check validate amount
+        if(validateErrArr.length <= 0) {
+            console.log('inputDataReceipt',inputDataReceipt)
+            console.log('inputDataCloseContact',inputDataCloseContact)
+            const dataSend = {
+                Receipt: inputDataReceipt,
+                CloseContact: inputDataCloseContact
+            }
+    
+            axios.post(
+                `${server_spkapi}/CloseContact/Insert`, 
+                    dataSend
+                  , { headers: { "token": token } } 
+            ).then(res => {
+                setIsLoading(false)
+                console.log('Insert',res.data)
+                let data = res.data;
+                // setInputData(data)
+                // console.log('inputData',inputData)
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    setIsLoading(false)
+                    setSuccess(true)
+                }
+            }).catch(err => { console.log(err); })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+
+    };
+    
+    const handleClosePopup = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        
+        // history.push('/manageinfo/searchmember');
+
+    };
+
 
 
     return (
