@@ -209,7 +209,7 @@ const MUItable = (props) => {
           
           {
             hasAction ? 
-              <TableCell align="left"  className="sticky">
+              <TableCell align="center"  className="sticky">
                 Aciton
               </TableCell>
             : null
@@ -314,7 +314,7 @@ const MUItable = (props) => {
 
         {
             hasAction ? 
-              <TableCell align="left"  className="sticky">
+              <TableCell align="center"  className="sticky">
                 {
                   tableName === 'loanrequestprint' && row['LoanNumber'] ? 
                     <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{loanrequestprintAction('edit'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />

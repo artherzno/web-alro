@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
+import { AuthContext } from '../../App';
 
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -21,46 +24,127 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
-
-// All Data for DataGrid & Table ---------------------------------------------//
-
-const tableResult = [
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-    { a: 'RIET16310/00003', b: '3 8517 13368 44 4', c: 'นางชญาภา สลิลโรจน์',},
-]
-
-// End All Data for DataGrid ---------------------------------------------//
-
+import { MUItable } from '../../components/MUItable'
 
 function PrintContractDebt() {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+    // const { handleSubmit, control } = useForm();
+    
+    let server_hostname = auth.hostname;
+    let server_spkapi = localStorage.getItem('spkapi');
+    let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
 
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [confirm, setConfirm] = useState(false)
+    const [confirmMsg, setConfirmMsg] = useState('ตกลงใช่หรือไม่')
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading2, setIsLoading2] = useState(false);
     const [loaded, setLoaded] = useState(false);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [hasData, setHasData] = useState(false);
+    const [insertData, setInsertData] = useState(false);
+    const [insertDateData, setInsertDateData] = useState(false);
+    const [searched, setSearched] = useState(false);
+    const [formField, setFormField] = useState(false)
+
+    const [inputDataSearch, setInputDataSearch] = useState({
+        Username: localStorage.getItem('cUsername'),
+        LoanNumber:"",
+        Name: "",
+        IDCard: "",
+        Status: ""
+    })
 
     useEffect(() => {
         setLoaded(true);
+
+        const checkLogin = () => {
+            axios.post(
+                `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
+            ).then(res => {
+                    console.log('checklogin',res)
+                    let data = res.data;
+                    if(data.code === 0) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
+                        } else {
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
+                        }
+                    }
+                    // getSpkAllProject()
+                }
+            ).catch(err => { console.log(err);  history.push('/'); })
+            .finally(() => {
+                if (isMounted.current) {
+                  setIsLoading(false)
+                }
+             });
+        }
+
+        checkLogin();
     }, [])
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-      };
-    
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-      };
+    const getConvertDebtSearch = (loanID) => {
+        setIsLoading(true);
+        // setRows([])
+
+        axios.post(
+            `${server_spkapi}/GetConvertDebt/GetMain`, {
+                Username: inputDataSearch.Username.toString(),
+                LoanNumber: inputDataSearch.LoanNumber.toString(),
+                Name: inputDataSearch.Name.toString(),
+                IDCard: inputDataSearch.IDCard.toString(),
+                Status: inputDataSearch.Status.toString()
+              }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+            console.log('GetData',res.data)
+            let data = res.data;
+            // setInputData(data)
+            // console.log('inputData',inputData)
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                setIsLoading(false)
+                console.log('get_main',data)
+                
+            }
+        }).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const handleInputDataSearch = (event) => {
+        setInputDataSearch({
+            ...inputDataSearch,
+            [event.target.name]: event.target.value
+        })
+    }
 
     const gotoEditContactDebt = () => {
         history.push('/loanrequest/editcontractdebt');
@@ -72,6 +156,13 @@ function PrintContractDebt() {
     
     return (
         <div className="allcontractsearch-page">
+            {
+                isLoading ? 
+                    <div className="overlay">
+                        <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                    </div> : 
+                    ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -88,19 +179,19 @@ function PrintContractDebt() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
-                                        <MuiTextfield label="เลขที่สัญญาเดิม" defaultValue="" />
+                                        <MuiTextfield label="เลขที่สัญญาเดิม" name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
-                                        <MuiTextfield label="ชื่อเกษตรกร" defaultValue="" />
+                                        <MuiTextfield label="ชื่อเกษตรกร" name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch}/>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
-                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="" />
+                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" name="IDCard" value={inputDataSearch.IDCard} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={getConvertDebtSearch} />  
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -140,21 +231,7 @@ function PrintContractDebt() {
                                         </TableBody>
                                     </Table>
                                     </TableContainer>
-                                    <TablePagination
-                                        rowsPerPageOptions={[5, 10, 25]}
-                                        component="div"
-                                        count={tableResult.length}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        onChangePage={handleChangePage}
-                                        onChangeRowsPerPage={handleChangeRowsPerPage}
-                                        labelRowsPerPage="แสดงจำนวนแถว"
-                                    />
                                 </div>
-                                {/* Data Grid --------------------------------*/}
-                                    {/* <div style={{ height: 400, width: '100%' }}>
-                                    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                                </div> */}
                             </Grid>
                         </Grid>
                     </Container>
