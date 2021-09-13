@@ -613,6 +613,22 @@ const api = {
         })
 
     },
+    getReceiptSelectData(params) {
+
+        return post({
+            path: "Receipt/GetSelectData",
+            params
+        })
+
+    },
+    getProcessBeforePay(params) {
+
+        return post({
+            path: "Receipt/GetProcessBeforePay",
+            params
+        })
+
+    },
    
 };
 

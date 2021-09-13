@@ -6,7 +6,7 @@ import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 
 import { createTheme, alpha, styled } from '@material-ui/core/styles';
-import { makeStyles, withStyles,} from '@material-ui/styles';
+import { makeStyles, withStyles, } from '@material-ui/styles';
 // import { Fade, } from '@material-ui/core';
 // import Box from '@material-ui/core/Box';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -34,7 +34,7 @@ import AdapterMoment from '@material-ui/lab/AdapterMoment'
 import OverwriteMomentBE from '../utils/OverwriteMomentBE'
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DatePicker from '@material-ui/lab/DatePicker';
-
+import FormHelperText from '@material-ui/core/FormHelperText';
 import thLocale from 'date-fns/locale/th';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -89,56 +89,56 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '& .error': {
         borderColor: 'red',
     }
-    
+
 }));
 
 
 const BlueRadio = withStyles({
     root: {
-      color: '#bfbfbf',
-      '&$checked': {
-        color: '#2284d0',
-      },
+        color: '#bfbfbf',
+        '&$checked': {
+            color: '#2284d0',
+        },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
 const RedRadio = withStyles({
     root: {
-      color: '#bfbfbf',
-      '&$checked': {
-        color: '#da2828',
-      },
+        color: '#bfbfbf',
+        '&$checked': {
+            color: '#da2828',
+        },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
 const YellowRadio = withStyles({
     root: {
-      color: '#bfbfbf',
-      '&$checked': {
-        color: '#fcbd0a',
-      },
+        color: '#bfbfbf',
+        '&$checked': {
+            color: '#fcbd0a',
+        },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
 const GreyRadio = withStyles({
     root: {
-      color: '#bfbfbf',
-      '&$checked': {
-        color: '#959595',
-      },
+        color: '#bfbfbf',
+        '&$checked': {
+            color: '#959595',
+        },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
 
 const BlueskyRadio = withStyles({
     root: {
-      color: '#bfbfbf',
-      '&$checked': {
-        color: '#16c5e5',
-      },
+        color: '#bfbfbf',
+        '&$checked': {
+            color: '#16c5e5',
+        },
     },
     checked: {},
 })((props) => <Radio color="default" {...props} />);
@@ -150,7 +150,7 @@ const useStyles = makeStyles({
         fontSize: '16px',
         color: '#262626',
         transform: 'scale(1)',
-    },labelHeader: {
+    }, labelHeader: {
         fontSize: '18px',
         fontWeight: '400',
         color: '#262626',
@@ -161,32 +161,32 @@ const useStyles = makeStyles({
         marginTop: '-10px'
     },
     iconGreen: {
-      color: '#27AE60',
-      fill: '#27AE60',
-      width: '1em',
-      height: '1em',
-      display: 'inline-block',
-      fontSize: '1.5rem',
-      transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-      flexShrink: '0',
-      userSelect: 'none',
+        color: '#27AE60',
+        fill: '#27AE60',
+        width: '1em',
+        height: '1em',
+        display: 'inline-block',
+        fontSize: '1.5rem',
+        transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        flexShrink: '0',
+        userSelect: 'none',
     },
     iconRed: {
-      color: '#da2828',
-      fill: '#da2828',
-      width: '1em',
-      height: '1em',
-      display: 'inline-block',
-      fontSize: '1.5rem',
-      transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-      flexShrink: '0',
-      userSelect: 'none',
+        color: '#da2828',
+        fill: '#da2828',
+        width: '1em',
+        height: '1em',
+        display: 'inline-block',
+        fontSize: '1.5rem',
+        transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        flexShrink: '0',
+        userSelect: 'none',
     },
     boxDashed: {
-      border: '1px dashed #D9D9D9 !important',
-      padding: '20px !important',
-      backgroundColor: '#FAFAFA',
-      width: '100%',
+        border: '1px dashed #D9D9D9 !important',
+        padding: '20px !important',
+        backgroundColor: '#FAFAFA',
+        width: '100%',
     },
     buttonYellow: {
         backgroundColor: '#fcbd0a',
@@ -217,86 +217,86 @@ const useStyles = makeStyles({
         color: '#6E6E6E',
     },
     buttonNormal: {
-      fontSize: '16px',
+        fontSize: '16px',
     },
     buttonFluid: {
-      width: '100%',
-      fontSize: '16px',
+        width: '100%',
+        fontSize: '16px',
     },
     buttonRow: {
-      margin: '35px 0',
+        margin: '35px 0',
     },
     buttonFluidOutlinePrimary: {
-      backgroundColor: 'transparent !important',
-      border: '1px solid #2284d0 !important',
-      color: '#2284d0 !important',
-      width: '100%',
+        backgroundColor: 'transparent !important',
+        border: '1px solid #2284d0 !important',
+        color: '#2284d0 !important',
+        width: '100%',
     },
     buttonOutlinePrimary: {
-      backgroundColor: 'transparent !important',
-      border: '1px solid #2284d0 !important',
-      color: '#2284d0 !important',
-      minWidth: '190px',
+        backgroundColor: 'transparent !important',
+        border: '1px solid #2284d0 !important',
+        color: '#2284d0 !important',
+        minWidth: '190px',
     },
     buttonFluidOutlineSecondary: {
-      backgroundColor: 'transparent !important',
-      border: '1px solid #da2828 !important',
-      color: '#da2828 !important',
-      width: '100%',
+        backgroundColor: 'transparent !important',
+        border: '1px solid #da2828 !important',
+        color: '#da2828 !important',
+        width: '100%',
     },
     buttonOutlineSecondary: {
-      backgroundColor: 'transparent !important',
-      border: '1px solid #da2828 !important',
-      color: '#da2828 !important',
-      minWidth: '190px',
+        backgroundColor: 'transparent !important',
+        border: '1px solid #da2828 !important',
+        color: '#da2828 !important',
+        minWidth: '190px',
     },
     buttonOutlineGrey: {
-      backgroundColor: 'transparent !important',
-      border: '1px solid #E2E2E2 !important',
-      color: '#262626 !important',
-      minWidth: '120px',
+        backgroundColor: 'transparent !important',
+        border: '1px solid #E2E2E2 !important',
+        color: '#262626 !important',
+        minWidth: '120px',
     },
     textbox: {
-      width: '100%',
-      fontSize: '16px',
+        width: '100%',
+        fontSize: '16px',
     },
     inputfile: {
-      display: 'none',
+        display: 'none',
     },
     tableNoResult: {
-      backgroundColor: '#FAFAFA',
-      border: '1px solid #D9D9D9',
-      width: '100%',
-      height: '20vh',
+        backgroundColor: '#FAFAFA',
+        border: '1px solid #D9D9D9',
+        width: '100%',
+        height: '20vh',
     },
     boostrapRoot: {
-      'label + &': {
-        marginTop: theme.spacing(3),
-      },
+        'label + &': {
+            marginTop: theme.spacing(3),
+        },
     },
     boostrapInput: {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: theme.palette.common.white,
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      width: '100%',
-      padding: '10px 12px',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      '&:focus': {
-        //   boxShadow: `${Fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-        borderColor: theme.palette.primary.main,
-      },
+        borderRadius: 4,
+        position: 'relative',
+        backgroundColor: theme.palette.common.white,
+        border: '1px solid #ced4da',
+        fontSize: 16,
+        width: '100%',
+        padding: '10px 12px',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        '&:focus': {
+            //   boxShadow: `${Fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+            borderColor: theme.palette.primary.main,
+        },
     },
     boostrapInputLabel: {
-      fontSize: '16px',
-      color: '#262626',
-      transform: 'scale(1)',
+        fontSize: '16px',
+        color: '#262626',
+        transform: 'scale(1)',
     },
     boostrapInputLabelHeader: {
-      fontSize: '18px',
-      color: '#262626',
-      transform: 'scale(1)',
+        fontSize: '18px',
+        color: '#262626',
+        transform: 'scale(1)',
     },
 });
 
@@ -312,7 +312,7 @@ const MuiLabelHeader = (props) => {
         //     </InputLabel>&nbsp;
         // </FormControl>
         <h3 className={classes.labelHeader} ><span className="txt-green">{topic}&nbsp;</span>{label}</h3>
-        );
+    );
 }
 
 const MuiLabelHeaderCheckbox = (props) => {
@@ -320,29 +320,29 @@ const MuiLabelHeaderCheckbox = (props) => {
     const { topic, label } = props;
     return (
         <FormControl className={classes.textbox}>
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
         </FormControl>
-        );
+    );
 }
 
 const MuiTextfield = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, textAlign, disabled, onChange, onBlur, name, inputdisabled, error, helperText } = props;
+    const { topic, label, id, value, type, textAlign, disabled, placeholder, onChange, onBlur, name, inputdisabled, error, helperText } = props;
 
     return (
         <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {
-                (error) ? 
-                    <TextField error name={name} helperText={helperText} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />
-                : 
-                    <TextField name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} />  
+                (error) ?
+                    <TextField error name={name} placeholder={placeholder} helperText={helperText} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{ style: { textAlign: textAlign, padding: '10px 12px' } }} />
+                    :
+                    <TextField name={name} placeholder={placeholder} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} inputProps={{ style: { textAlign: textAlign, padding: '10px 12px' } }} />
             }
             {/* <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} /> */}
-            
+
         </FormControl>
     );
 }
@@ -353,26 +353,26 @@ const MuiTextfieldValidate = (props) => {
 
     return (
         <FormControl error className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            
-            <TextField 
-                name={name} 
-                onChange={onChange} 
-                onBlur={onBlur} 
-                type={type} 
-                disabled={disabled} 
-                value={value} 
-                id={id} 
-                inputProps={{style: { textAlign: textAlign, padding: '10px 12px' }}} 
+
+            <TextField
+                name={name}
+                onChange={onChange}
+                onBlur={onBlur}
+                type={type}
+                disabled={disabled}
+                value={value}
+                id={id}
+                inputProps={{ style: { textAlign: textAlign, padding: '10px 12px' } }}
                 helperText={helperText}
                 error={error}
-            />  
-            
+            />
+
             {/* <BootstrapInput name={name} onChange={onChange} onBlur={onBlur} type={type} disabled={disabled} value={value} id={id} error inputProps={{style: { textAlign: textAlign }}} /> */}
-            
+
         </FormControl>
     );
 }
@@ -383,15 +383,15 @@ const MuiTextfieldMultiLine = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {
-                (error) ? 
-                    <TextField error name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign, padding: '10px 12px'  }}}/>
-                : 
-                    <TextField name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign, padding: '10px 12px'  }}}/>
+                (error) ?
+                    <TextField error name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{ style: { textAlign: textAlign, padding: '10px 12px' } }} />
+                    :
+                    <TextField name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{ style: { textAlign: textAlign, padding: '10px 12px' } }} />
             }
             {/* <BootstrapInput error name={name} onChange={onChange} type={type} value={value} id={id} multiline rows={row} inputProps={{style: { textAlign: textAlign }}} /> */}
         </FormControl>
@@ -404,9 +404,9 @@ const MuiTextfieldCurrency = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <NumberFormat
                 className="input-currency"
@@ -433,11 +433,11 @@ const MuiTextfieldStartAdornment = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>} inputProps={{ style: { textAlign: textAlign } }} />
         </FormControl>
     );
 }
@@ -448,11 +448,11 @@ const MuiTextfieldEndAdornment = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange}  endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} />
+            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{ style: { textAlign: textAlign } }} />
         </FormControl>
     );
 }
@@ -463,15 +463,15 @@ const MuiTextNumber = (props) => {
 
     return (
         <FormControl className={classes.textbox}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {
-                (error) ? 
-                    <TextField error name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur} inputProps={{style: { padding: '10px 12px' }}} />
-                : 
-                    <TextField  name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur} inputProps={{style: { padding: '10px 12px' }}} />  
+                (error) ?
+                    <TextField error name={name} type="number" placeholder={placeholder} id={id} value={value} onInput={onInput} onBlur={onBlur} inputProps={{ style: { padding: '10px 12px' } }} />
+                    :
+                    <TextField name={name} type="number" placeholder={placeholder} id={id} value={value} onInput={onInput} onBlur={onBlur} inputProps={{ style: { padding: '10px 12px' } }} />
             }
             {/* <BootstrapInput name={name} type="number" placeholder={placeholder} id={id} value={value} onInput = {onInput} onBlur={onBlur}  /> */}
         </FormControl>
@@ -479,13 +479,13 @@ const MuiTextNumber = (props) => {
 }
 
 let d = new Date();
-const day = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
-const month = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+const day = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 // const month = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
 let fullyear = d.getFullYear() + 543;
 let year = [];
 year.push('เลือกปี')
-for(let i=0; i<=10; i++) {
+for (let i = 0; i <= 10; i++) {
     year.push(fullyear - i);
 }
 
@@ -493,11 +493,11 @@ const MuiDatePickerValidate = (props) => {
     const { topic, label, value, yearValue, monthValue, dayValue, onChange, inputdisabled, error, helperText } = props;
     return (
         <React.Fragment >
-            
+
             <FormControl className={`MuiDatePicker ${inputdisabled}`}>
-                { 
+                {
                     (label) === '' ? '' :
-                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                        <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
                 }
                 <LocalizationProvider dateAdapter={OverwriteMomentBE} >
                     <DatePicker
@@ -515,7 +515,7 @@ const MuiDatePickerValidate = (props) => {
                         error={error}
                     />
                 </LocalizationProvider>
-            
+
             </FormControl>
         </React.Fragment>
     )
@@ -529,16 +529,16 @@ const MuiDatePicker = (props) => {
     // let monthValue = value.slice(5,7);
     // let yearValue = (parseInt(value.slice(0,4)) + 543).toString();
 
-// console.log(value,'>>>',yearValue,'-',monthValue,'-',dayValue)
+    // console.log(value,'>>>',yearValue,'-',monthValue,'-',dayValue)
     return (
-  
+
 
         <React.Fragment >
-            
-            <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-                { 
+
+            <FormControl className={`${classes.textbox} ${inputdisabled}`} error={error}>
+                {
                     (label) === '' ? '' :
-                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                        <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
                 }
                 <LocalizationProvider dateAdapter={OverwriteMomentBE} >
                     <DatePicker
@@ -548,15 +548,15 @@ const MuiDatePicker = (props) => {
 
                             // console.log("params", params)
                             // const valueDisplay = moment()
-                            return <TextField {...params} helperText={props.helperText} inputProps={{ ...params.inputProps, style: { padding: '10px 12px' }, onChange: props.onChangeDate ? props.onChangeDate : () =>{}, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : ''}} />
+                            return <TextField {...params} error={error} helperText={props.helperText} inputProps={{ ...params.inputProps, style: { padding: '10px 12px' }, onChange: props.onChangeDate ? props.onChangeDate : () => { }, value: params.inputProps.value ? moment(params.inputProps.value, 'DD/MM/YYYY').add(543, 'year').format('DD/MM/YYYY') : '' }} />
                         }}
                         inputFormat="DD/MM/YYYY"
                         className="MuiDatePicker"
                     />
                 </LocalizationProvider>
-            
+
             </FormControl>
-          
+
         </React.Fragment>
     );
 }
@@ -567,45 +567,45 @@ const MuiCheckbox = (props) => {
 
     return (
         <React.Fragment>
-        {
-            (type === 'row') ? 
-            <FormGroup row>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            name={name}
-                            defaultChecked={defaultChecked}
-                            checked={checkedValue}
-                            onChange={onChange}
-                            // name="checkedB"
-                            color="primary"
-                            id={id}
+            {
+                (type === 'row') ?
+                    <FormGroup row>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    name={name}
+                                    defaultChecked={defaultChecked}
+                                    checked={checkedValue}
+                                    onChange={onChange}
+                                    // name="checkedB"
+                                    color="primary"
+                                    id={id}
+                                />
+                            }
+                            label={label}
                         />
-                    }
-                    label={label}
-                />
-            </FormGroup> 
-            :
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            name={name}
-                            defaultChecked={defaultChecked}
-                            checked={checkedValue}
-                            onChange={onChange}
-                            // name="checkedB"
-                            color="primary"
-                            id={id}
+                    </FormGroup>
+                    :
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    name={name}
+                                    defaultChecked={defaultChecked}
+                                    checked={checkedValue}
+                                    onChange={onChange}
+                                    // name="checkedB"
+                                    color="primary"
+                                    id={id}
+                                />
+                            }
+                            label={label}
                         />
-                    }
-                    label={label}
-                />
-            </FormGroup>
-        }
+                    </FormGroup>
+            }
         </React.Fragment>
-        
-        
+
+
     );
 }
 
@@ -614,50 +614,50 @@ const MuiRadioButton = (props) => {
     const { topic, label, id, lists, value, onChange, type, color, name, } = props;
 
     let radioValue = value;
-    if(value === null) {
+    if (value === null) {
         radioValue = ''
     }
 
     return (
         <FormControl className={classes.textbox}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {/* { (label) === '' ? '' : <span>&nbsp;</span> }   */}
 
             {/* Check row or column */}
             {
-                (type === 'row') ? 
-                <RadioGroup row aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
-                    {lists.map((item,i)=>
-                        (color === 'red') ? 
+                (type === 'row') ?
+                    <RadioGroup row aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
+                        {lists.map((item, i) =>
+                            (color === 'red') ?
                                 <FormControlLabel key={i} value={(i).toString()} control={<RedRadio />} label={item} />
-                            : (color === 'yellow') ? 
-                                <FormControlLabel key={i} value={(i).toString()} control={<YellowRadio />} label={item} />
-                            : (color === 'grey') ? 
-                                <FormControlLabel key={i} value={(i).toString()} control={<GreyRadio />} label={item} />
-                            : (color === 'bluesky') ? 
-                                <FormControlLabel key={i} value={(i).toString()} control={<BlueskyRadio />} label={item} />
-                            :
-                                <FormControlLabel key={i} value={(i).toString()} control={<BlueRadio />} label={item} />
-                    )}
-                </RadioGroup> 
-                :
-                <RadioGroup aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
-                    {lists.map((item,i)=>
-                        (color === 'red') ? 
-                            <FormControlLabel key={i} value={(i).toString()} control={<RedRadio />} label={item} />
-                        : (color === 'yellow') ? 
-                            <FormControlLabel key={i} value={(i).toString()} control={<YellowRadio />} label={item} />
-                        : (color === 'grey') ? 
-                            <FormControlLabel key={i} value={(i).toString()} control={<GreyRadio />} label={item} />
-                        : (color === 'bluesky') ? 
-                            <FormControlLabel key={i} value={(i).toString()} control={<BlueskyRadio />} label={item} />
-                        :
-                            <FormControlLabel key={i} value={(i).toString()} control={<BlueRadio />} label={item} />
-                    )}
-                </RadioGroup>
+                                : (color === 'yellow') ?
+                                    <FormControlLabel key={i} value={(i).toString()} control={<YellowRadio />} label={item} />
+                                    : (color === 'grey') ?
+                                        <FormControlLabel key={i} value={(i).toString()} control={<GreyRadio />} label={item} />
+                                        : (color === 'bluesky') ?
+                                            <FormControlLabel key={i} value={(i).toString()} control={<BlueskyRadio />} label={item} />
+                                            :
+                                            <FormControlLabel key={i} value={(i).toString()} control={<BlueRadio />} label={item} />
+                        )}
+                    </RadioGroup>
+                    :
+                    <RadioGroup aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
+                        {lists.map((item, i) =>
+                            (color === 'red') ?
+                                <FormControlLabel key={i} value={(i).toString()} control={<RedRadio />} label={item} />
+                                : (color === 'yellow') ?
+                                    <FormControlLabel key={i} value={(i).toString()} control={<YellowRadio />} label={item} />
+                                    : (color === 'grey') ?
+                                        <FormControlLabel key={i} value={(i).toString()} control={<GreyRadio />} label={item} />
+                                        : (color === 'bluesky') ?
+                                            <FormControlLabel key={i} value={(i).toString()} control={<BlueskyRadio />} label={item} />
+                                            :
+                                            <FormControlLabel key={i} value={(i).toString()} control={<BlueRadio />} label={item} />
+                        )}
+                    </RadioGroup>
             }
         </FormControl>
     );
@@ -669,15 +669,15 @@ const MuiSelectDay = (props) => {
 
     // console.log('MuiSelectProvince:', lists)
 
-    const dayObj = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
+    const dayObj = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -687,8 +687,8 @@ const MuiSelectDay = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value="00">{ startText ? startText : 'วัน' }</MenuItem>
-                {dayObj.map((item,i)=>
+                <MenuItem value="00">{startText ? startText : 'วัน'}</MenuItem>
+                {dayObj.map((item, i) =>
                     <MenuItem key={i} value={item}>{item}</MenuItem>
                 )}
             </Select>
@@ -705,26 +705,26 @@ const MuiSelectMonth = (props) => {
     // const monthObj = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
     // const monthValueObj = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     const monthObj = [
-        { name: 'มกราคม', value: '01'},
-        { name: 'กุมภาพันธ์', value: '02'},
-        { name: 'มีนาคม', value: '03'},
-        { name: 'เมษายน', value: '04'},
-        { name: 'พฤษภาคม', value: '05'},
-        { name: 'มิถุนายน', value: '06'},
-        { name: 'กรกฎาคม', value: '07'},
-        { name: 'สิงหาคม', value: '08'},
-        { name: 'กันยายน', value: '09'},
-        { name: 'ตุลาคม', value: '10'},
-        { name: 'พฤศจิกายน', value: '11'},
-        { name: 'ธันวาคม', value: '12'},
+        { name: 'มกราคม', value: '01' },
+        { name: 'กุมภาพันธ์', value: '02' },
+        { name: 'มีนาคม', value: '03' },
+        { name: 'เมษายน', value: '04' },
+        { name: 'พฤษภาคม', value: '05' },
+        { name: 'มิถุนายน', value: '06' },
+        { name: 'กรกฎาคม', value: '07' },
+        { name: 'สิงหาคม', value: '08' },
+        { name: 'กันยายน', value: '09' },
+        { name: 'ตุลาคม', value: '10' },
+        { name: 'พฤศจิกายน', value: '11' },
+        { name: 'ธันวาคม', value: '12' },
     ]
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -734,8 +734,8 @@ const MuiSelectMonth = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value="00">{ startText ? startText : 'เดือน' }</MenuItem>
-                {monthObj.map((item,i)=>
+                <MenuItem value="00">{startText ? startText : 'เดือน'}</MenuItem>
+                {monthObj.map((item, i) =>
                     <MenuItem key={i} value={item.value}>{item.name}</MenuItem>
                 )}
             </Select>
@@ -747,17 +747,17 @@ const MuiSelectYear = (props) => {
     const classes = useStyles();
     const { topic, label, id, lists, name, value, onChange, inputdisabled, startText, limit, last } = props;
 
-    let fullyear = d.getFullYear() + (limit >= 0 ? (limit+543) : 548) + (last ? last : 0); // specify limit value of year
+    let fullyear = d.getFullYear() + (limit >= 0 ? (limit + 543) : 548) + (last ? last : 0); // specify limit value of year
     let yearObj = [];
-    for(let i=0; i<=100; i++) {
+    for (let i = 0; i <= 100; i++) {
         yearObj.push(fullyear - i);
     }
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -767,8 +767,8 @@ const MuiSelectYear = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value="0000">{ startText ? startText : 'ปี' }</MenuItem>
-                {yearObj.map((item,i)=>
+                <MenuItem value="0000">{startText ? startText : 'ปี'}</MenuItem>
+                {yearObj.map((item, i) =>
                     <MenuItem key={i} value={item}>{item}</MenuItem>
                 )}
             </Select>
@@ -784,10 +784,10 @@ const MuiSelectProvince = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -797,8 +797,8 @@ const MuiSelectProvince = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value={0}>{ startText ? startText : 'เลือกจังหวัด' }</MenuItem>
-                {lists.map((item,i)=>
+                <MenuItem value={0}>{startText ? startText : 'เลือกจังหวัด'}</MenuItem>
+                {lists.map((item, i) =>
                     <MenuItem key={i} value={item.ProvinceID}>{item.PV_NAME}</MenuItem>
                 )}
             </Select>
@@ -814,10 +814,10 @@ const MuiSelectDistrict = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -828,7 +828,7 @@ const MuiSelectDistrict = (props) => {
                 onChange={onChange}
             >
                 <MenuItem value={0}>เลือกเขต/อำเภอ</MenuItem>
-                {lists.map((item,i)=>
+                {lists.map((item, i) =>
                     <MenuItem key={i} value={item.DistrictID}>{item.AM_NAME}</MenuItem>
                 )}
             </Select>
@@ -844,10 +844,10 @@ const MuiSelectSubDistrict = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -858,7 +858,7 @@ const MuiSelectSubDistrict = (props) => {
                 onChange={onChange}
             >
                 <MenuItem value={0}>เลือกแขวง/ตำบล</MenuItem>
-                {lists.map((item,i)=>
+                {lists.map((item, i) =>
                     <MenuItem key={i} value={item.SubdistrictID}>{item.TB_NAME}</MenuItem>
                 )}
             </Select>
@@ -884,12 +884,12 @@ const MuiSelectObjYear = (props) => {
     let fullyear = d.getFullYear() + buddhaYear;
     let yearList = [];
     let countYaerNum = valueYaer || 10;
-    
-    for(let i=0; i<countYaerNum; i++) {
+
+    for (let i = 0; i < countYaerNum; i++) {
         yearList.push(
             {
                 yearname: fullyear - i,
-                yearvalue: (fullyear - i)-2500
+                yearvalue: (fullyear - i) - 2500
             }
         );
     }
@@ -898,10 +898,10 @@ const MuiSelectObjYear = (props) => {
 
     return (
         <FormControl className={classes.textbox}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -912,7 +912,7 @@ const MuiSelectObjYear = (props) => {
                 onChange={onChange}
             >
                 <MenuItem value={0}>กรุณาเลือก</MenuItem>
-                {yearList.map((item,i)=>
+                {yearList.map((item, i) =>
                     <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
                 )}
             </Select>
@@ -935,7 +935,7 @@ const MuiSelectObjYearValue = (props) => {
     // }
     let fullyear = d.getFullYear() + buddhaYear;
     let yearList = [];
-    
+
     yearList.push(
         // {
         //     yearname: fullyear + 1,
@@ -943,20 +943,20 @@ const MuiSelectObjYearValue = (props) => {
         // },
         {
             yearname: fullyear,
-            yearvalue: (fullyear)-2500
-        },{
-            yearname: fullyear - 1,
-            yearvalue: (fullyear - 1)-2500
-        }
+            yearvalue: (fullyear) - 2500
+        }, {
+        yearname: fullyear - 1,
+        yearvalue: (fullyear - 1) - 2500
+    }
     );
-    
+
 
     return (
         <FormControl className={classes.textbox}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -967,7 +967,7 @@ const MuiSelectObjYearValue = (props) => {
                 onChange={onChange}
             >
                 <MenuItem value={0}>กรุณาเลือก</MenuItem>
-                {yearList.map((item,i)=>
+                {yearList.map((item, i) =>
                     <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
                 )}
             </Select>
@@ -993,14 +993,14 @@ const MuiSelectObjYearStart = (props) => {
     // }
     let fullyear = d.getFullYear() + buddhaYear;
     let yearList = [];
-    let countYaerNum = (Number(fullyear)+1) - valueStartYaer || 10;
-    
-    for(let i=0; i<countYaerNum; i++) {
-        let fullYearValue = (fullyear - i)-2500
+    let countYaerNum = (Number(fullyear) + 1) - valueStartYaer || 10;
+
+    for (let i = 0; i < countYaerNum; i++) {
+        let fullYearValue = (fullyear - i) - 2500
         yearList.push(
             {
                 yearname: fullyear - i,
-                yearvalue: fullYearValue.toString().length === 2 ? fullYearValue : '0'+fullYearValue
+                yearvalue: fullYearValue.toString().length === 2 ? fullYearValue : '0' + fullYearValue
             }
         );
     }
@@ -1009,10 +1009,10 @@ const MuiSelectObjYearStart = (props) => {
 
     return (
         <FormControl className={classes.textbox}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -1023,7 +1023,7 @@ const MuiSelectObjYearStart = (props) => {
                 onChange={onChange}
             >
                 <MenuItem value={0}>กรุณาเลือก</MenuItem>
-                {yearList.map((item,i)=>
+                {yearList.map((item, i) =>
                     <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
                 )}
             </Select>
@@ -1039,10 +1039,10 @@ const MuiSelectObj = (props) => {
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
-            { 
+            {
                 (label) === '' ? '' :
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             <Select
                 value={value}
@@ -1053,7 +1053,7 @@ const MuiSelectObj = (props) => {
                 onChange={onChange}
             >
                 <MenuItem value={0}>กรุณาเลือก</MenuItem>
-                {lists.map((item,i)=>
+                {lists.map((item, i) =>
                     <MenuItem key={i} value={item[itemValue]}>{item[itemName]}</MenuItem>
                 )}
             </Select>
@@ -1063,73 +1063,77 @@ const MuiSelectObj = (props) => {
 
 const MuiSelect = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, listsValue, name, value, onChange } = props;
+    const { topic, label, lists, listsValue, name, id, textAlign, value, error, helperText, onChange } = props;
 
     // console.log('MuiSelect:', listsValue)
 
     return (
-        <FormControl className={classes.textbox}>
-            { 
+        <FormControl className={classes.textbox} error>
+            {
                 (label) === '' ? '' :
-                // <InputLabel shrink htmlFor={id} className={classes.label}>
-                //     {label}
-                // </InputLabel>
+                    // <InputLabel shrink htmlFor={id} className={classes.label}>
+                    //     {label}
+                    // </InputLabel>
 
-                <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
             {
 
-                listsValue === undefined ? 
-                <Select
-                    value={value}
-                    name={name}
-                    labelId={id}
-                    id={id}
-                    input={<BootstrapInput />}
-                    onChange={onChange}
-                >
-                    {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
-                    {lists.map((item,i)=>
-                        <MenuItem key={i} value={i}>{item}</MenuItem>
-                    )}
-                </Select> 
-            :
-                <Select
-                    value={value}
-                    name={name}
-                    labelId={id}
-                    id={id}
-                    input={<BootstrapInput />}
-                    onChange={onChange}
-                >
-                    {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
-                    {lists.map((item,i)=>
-                        <MenuItem key={i} value={listsValue[i]}>{item}</MenuItem>
-                    )}
-                </Select>
+                listsValue === undefined ?
+                    <Select
+                        value={value}
+                        error={error}
+                        name={name}
+                        labelId={id}
+                        id={id}
+                        input={<BootstrapInput />}
+                        onChange={onChange}
+                    >
+                        {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
+                        {lists.map((item, i) =>
+                            <MenuItem key={i} value={i}>{item}</MenuItem>
+                        )}
+                    </Select>
+                    :
+                    <Select
+                        value={value}
+                        error={error}
+                        name={name}
+                        labelId={id}
+                        id={id}
+                        input={<BootstrapInput />}
+                        onChange={onChange}
+                    >
+                        {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
+                        {lists.map((item, i) =>
+                            <MenuItem key={i} value={listsValue[i]}>{item}</MenuItem>
+                        )}
+                    </Select>
 
             }
-            
+
+            {error && <FormHelperText>{helperText}</FormHelperText>}
+
         </FormControl>
     );
 
-//     return(
-//         <FormControl fullWidth>
-//             {(label) === '' ? '' : <InputLabel variant="standard" htmlFor="uncontrolled-native">
-//                 {label}
-//   </InputLabel>}
-            
-//             <Select
-//                 labelId={id}
-//                 id={id}
-//                 input={<BootstrapInput />}
-//             >
-//                 {lists.map((item, i) =>
-//                     <MenuItem key={i} value={i + 1}>{item}</MenuItem>
-//                 )}
-//             </Select>
-//         </FormControl>
-//     )
+    //     return(
+    //         <FormControl fullWidth>
+    //             {(label) === '' ? '' : <InputLabel variant="standard" htmlFor="uncontrolled-native">
+    //                 {label}
+    //   </InputLabel>}
+
+    //             <Select
+    //                 labelId={id}
+    //                 id={id}
+    //                 input={<BootstrapInput />}
+    //             >
+    //                 {lists.map((item, i) =>
+    //                     <MenuItem key={i} value={i + 1}>{item}</MenuItem>
+    //                 )}
+    //             </Select>
+    //         </FormControl>
+    //     )
 }
 
 const MuiUpload = (props) => {
@@ -1138,31 +1142,31 @@ const MuiUpload = (props) => {
 
     return (
         <FormControl className={classes.boxDashed}>
-            { 
+            {
                 (label) === '' ? '' : <label>{label}</label>
             }
-            { 
-            imgUpload ? 
-            <List className={classes.lists}>
-                {imgUpload.map((item,i)=>
-                    <ListItem key={i}>
-                        <ListItemIcon>
-                            <AttachFileIcon  className={classes.iconGreen}/>
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={item}
-                        />
-                        <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete"  onClick={onClick} >
-                                <RemoveCircleOutlineIcon color="secondary" style={{color: '#da2828' }} />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                )}
+            {
+                imgUpload ?
+                    <List className={classes.lists}>
+                        {imgUpload.map((item, i) =>
+                            <ListItem key={i}>
+                                <ListItemIcon>
+                                    <AttachFileIcon className={classes.iconGreen} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={item}
+                                />
+                                <ListItemSecondaryAction>
+                                    <IconButton edge="end" aria-label="delete" onClick={onClick} >
+                                        <RemoveCircleOutlineIcon color="secondary" style={{ color: '#da2828' }} />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        )}
 
-            </List>
-            : ''
-                }
+                    </List>
+                    : ''
+            }
             <input
                 accept="image/*"
                 className={classes.inputfile}
@@ -1173,8 +1177,8 @@ const MuiUpload = (props) => {
                 name={name}
             />
             <label htmlFor={id} className="btn-upload">
-                <Button variant="contained" className={classes.buttonOutlinePrimary}  color="primary" component="span">
-                เลือกไฟล์
+                <Button variant="contained" className={classes.buttonOutlinePrimary} color="primary" component="span">
+                    เลือกไฟล์
                 </Button>
             </label>
         </FormControl>
@@ -1187,7 +1191,7 @@ const ButtonNormalIconStartPrimary = (props) => {
 
     return (
         <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
-                                            
+
     );
 }
 
@@ -1197,7 +1201,7 @@ const ButtonNormalIconStartSecondary = (props) => {
 
     return (
         <Button className={classes.buttonNormal} edge="end" variant="contained" color="secondary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828' }}>{label}</Button>
-                                            
+
     );
 }
 
@@ -1207,7 +1211,7 @@ const ButtonNormalIconStartGrey = (props) => {
 
     return (
         <Button className={classes.buttonNormal} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
-                                            
+
     );
 }
 
@@ -1217,7 +1221,7 @@ const ButtonFluidIconStartPrimary = (props) => {
 
     return (
         <Button className={classes.buttonFluid} edge="end" variant="contained" color="primary" size="large" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
-                                            
+
     );
 }
 
@@ -1227,7 +1231,7 @@ const ButtonOutlineIconStartGrey = (props) => {
     const { label, maxWidth, startIcon, onClick } = props;
 
     return (
-        <Button className={classes.buttonOutlineGrey} edge="end" color="primary" variant="contained" size="small" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>                                   
+        <Button className={classes.buttonOutlineGrey} edge="end" color="primary" variant="contained" size="small" startIcon={startIcon} onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
     );
 }
 
@@ -1237,7 +1241,7 @@ const ButtonFluidPrimary = (props) => {
 
     return (
         <Button className={classes.buttonFluid} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
-                                            
+
     );
 }
 
@@ -1246,19 +1250,19 @@ const ButtonFluidSecondary = (props) => {
     const { label, maxWidth, onClick } = props;
 
     return (
-        <Button className={classes.buttonFluid} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828'  }}>{label}</Button>
-                                            
+        <Button className={classes.buttonFluid} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828' }}>{label}</Button>
+
     );
 }
 
 const ButtonFluidColor = (props) => {
     const classes = useStyles();
     const { label, maxWidth, onClick, color } = props;
-    let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey :'';
+    let bgColor = (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey : '';
 
     return (
-        <Button className={classes.buttonFluid+' '+bgColor} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
-                                            
+        <Button className={classes.buttonFluid + ' ' + bgColor} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
+
     );
 }
 
@@ -1269,7 +1273,7 @@ const ButtonFluidOutlinePrimary = (props) => {
 
     return (
         <Button className={classes.buttonFluidOutlinePrimary} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
-                                            
+
     );
 }
 
@@ -1278,8 +1282,8 @@ const ButtonFluidOutlineSecondary = (props) => {
     const { label, maxWidth, onClick } = props;
 
     return (
-        <Button className={classes.buttonFluidOutlineSecondary} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828'  }}>{label}</Button>
-                                            
+        <Button className={classes.buttonFluidOutlineSecondary} variant="contained" color="secondary" size="large" onClick={onClick} style={{ maxWidth: maxWidth, backgroundColor: '#da2828' }}>{label}</Button>
+
     );
 }
 
