@@ -29,6 +29,9 @@ import {
     ButtonFluidPrimary,
     ButtonFluidIconStartPrimary,
     ButtonFluidOutlinePrimary,
+    MuiSelectDistrict,
+    MuiSelectProvince,
+    MuiSelectSubDistrict,
 } from '../../components/MUIinputs';
 
 import { MUItable } from '../../components/MUItable'
@@ -379,43 +382,54 @@ function EditContractDebt() {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={12} md={1} className="txt-center-v">
+                                                        <Grid item xs={12} md={2} className="txt-center-v txt-center">
                                                             <p>ฝ่ายหนึ่งกับ</p>
                                                         </Grid>
+
+                                                        <Grid item xs={12} md={7}>
+                                                            <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <p>&nbsp;</p>
+                                                            <ButtonFluidPrimary label="ค้นหา"  />
+                                                        </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
+                                                            <MuiSelect label="คำนำหน้า"  inputdisabled="input-disabled"  lists={['นาย','นาง','นางสาว']} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ชื่อ" defaultValue="" />
+                                                            <MuiTextfield label="ชื่อ" inputdisabled="input-disabled"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="นามสกุล" defaultValue="" />
+                                                            <MuiTextfield label="นามสกุล" inputdisabled="input-disabled"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfieldEndAdornment label="อายุ" defaultValue="" endAdornment="ปี"/>
+                                                            <MuiTextfieldEndAdornment label="อายุ" inputdisabled="input-disabled"  defaultValue="" endAdornment="ปี"/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เลขบัตรประชาชน" defaultValue="" />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="อยู่บ้านเลขที่" defaultValue="" />
+                                                            <MuiTextfield label="อยู่บ้านเลขที่" inputdisabled="input-disabled"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ถนน"  defaultValue="" />
+                                                            <MuiTextfield label="ถนน"  inputdisabled="input-disabled"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="หมู่"  defaultValue="" />
+                                                            <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelect label="จังหวัด"  lists={['จังหวัด1','จังหวัด2','จังหวัด3']} />
+                                                            <MuiSelectSubDistrict label="จังหวัด"  inputdisabled="input-disabled"  lists={['จังหวัด1','จังหวัด2','จังหวัด3']} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelect label="เขต/อำเภอ"  lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
+                                                            <MuiSelectDistrict label="เขต/อำเภอ"  inputdisabled="input-disabled"  lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelect label="แขวง/ตำบล"  lists={['แขวง/ตำบล1','แขวง/ตำบล2','แขวง/ตำบล3']} />
+                                                            <MuiSelectProvince label="แขวง/ตำบล"  inputdisabled="input-disabled" lists={['แขวง/ตำบล1','แขวง/ตำบล2','แขวง/ตำบล3']} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="รหัสไปรษณีย์" inputdisabled="input-disabled" defaultValue="" />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="ที่ตั้งที่ดิน" defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <p>ปรากฏตามสำเนาภาพถ่ายบัตรประจำตัวประชาชนและสำเนาทะเบียนบ้านแนบท้ายสัญญานี้ ซึ่งต่อไปในสัญญานี้เรียกว่า “ลูกหนี้ใหม่” อีกฝ่ายหนึ่ง</p>
@@ -547,7 +561,7 @@ function EditContractDebt() {
                                             </Paper>
                                             
                                             {/* Paper 3 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper">
+                                            <Paper className="paper line-top-green paper" style={{display: 'none'}}>
                                                 <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={8}>

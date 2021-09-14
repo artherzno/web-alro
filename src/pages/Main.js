@@ -74,6 +74,8 @@ import Payment from './check/Payment'
 import CloseRepaymentContract from './repaymentcontract/CloseRepaymentContract';
 import AddRepaymentContract from './repaymentcontract/AddRepaymentContract';
 import TestValidate from './TestValidate';
+import PrintBillOtherBank from './loanserviceinfo/PrintBillOtherBank';
+import PayFromOtherBank from './loanserviceinfo/PayFromOtherBank';
 
 
 
@@ -115,6 +117,8 @@ function Main() {
                     <Route path="/loanserviceinfo/cancelbill" component={CancelBill} />
                     <Route path="/loanserviceinfo/uploadinfobaac" component={UploadInfoBaac} />
                     <Route path="/loanserviceinfo/printbillbank" component={PrintBillBank} />
+                    <Route path="/loanserviceinfo/printbillotherbank" component={PrintBillOtherBank} />
+                    <Route path="/loanserviceinfo/payfromotherbank" component={PayFromOtherBank} />
                     {/* Debt Info Page */}
                     <Route path="/debtinfo/printinvoice" component={PrintInvoice} />
                     <Route path="/debtinfo/noticeinvoice" component={NoticeInvoice} />

@@ -88,6 +88,12 @@ const listmenu = [
             },{
                 subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
                 subpath: '/loanserviceinfo/printbillbank'
+            },{
+                subtitle: 'ชำระเงินจากธนาคารอื่น',
+                subpath: '/loanserviceinfo/payfromotherbank'
+            },{
+                subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคารอื่น',
+                subpath: '/loanserviceinfo/printbillotherbank'
             }
         ]
     },{

@@ -18,6 +18,9 @@ import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
     MuiSelect,
+    MuiSelectDistrict,
+    MuiSelectProvince,
+    MuiSelectSubDistrict,
     MuiRadioButton,
     MuiCheckbox,
     ButtonFluidColor,
@@ -453,42 +456,45 @@ function AddRecordCourtContract() {
                                         <Paper className="paper line-top-green paper">
                                             <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={8}>
+                                                    {/* <Grid item xs={12} md={8}>
                                                         <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         <p>&nbsp;</p>
                                                         <ButtonFluidPrimary label="ค้นหา"  />
-                                                    </Grid>
+                                                    </Grid> */}
                                                     <Grid item xs={12} md={2}>
-                                                        <MuiSelect disabled label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
+                                                            <MuiSelect label="คำนำหน้า"  inputdisabled="input-disabled"  lists={['นาย','นาง','นางสาว']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield disabled label="ชื่อ" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="ชื่อ" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield disabled label="นามสกุล" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="นามสกุล" defaultValue="" />
                                                     </Grid>
-                                                    <Grid item xs={12} md={9}>
-                                                        <MuiTextfield disabled label="ที่อยู่" defaultValue="" />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" inputdisabled="input-disabled" defaultValue="" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="ที่อยู่" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        <MuiTextfield disabled label="เลขที่" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="เลขที่" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={1}>
-                                                        <MuiTextfield disabled label="หมู่" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="หมู่" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="ตำบล" defaultValue="" />
+                                                        <MuiSelectSubDistrict label="จังหวัด"  inputdisabled="input-disabled"  lists={['จังหวัด1','จังหวัด2','จังหวัด3']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="อำเภอ" defaultValue="" />
+                                                        <MuiSelectDistrict label="เขต/อำเภอ"  inputdisabled="input-disabled"  lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="จังหวัด" defaultValue="" />
+                                                        <MuiSelectProvince label="แขวง/ตำบล"  inputdisabled="input-disabled" lists={['แขวง/ตำบล1','แขวง/ตำบล2','แขวง/ตำบล3']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="รหัสไปรษณีย์" defaultValue="" />
+                                                        <MuiTextfield label="รหัสไปรษณีย์" inputdisabled="input-disabled" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         <MuiTextfield label="ที่ตั้งที่ดิน" defaultValue="" />
