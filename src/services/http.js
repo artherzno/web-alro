@@ -1,7 +1,7 @@
 // import axios from 'axios'
 import { axios } from './custom-axios'
+// const BASE_URL = 'http://147.50.143.84:3800/' //process.env.REACT_APP_API_HOST
 const BASE_URL = process.env.REACT_APP_API_HOST
-
 const setHeader = (isMultipart, token) => {
 
     // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
