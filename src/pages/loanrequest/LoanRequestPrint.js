@@ -670,6 +670,7 @@ function LoanRequestPrint(props) {
                     console.log('action',action)
 
                     getProject(data.data[0].ProjectPlanYear, data.data[0].ProjectID)
+                    getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber)
                     
 
                     if(action === 'add') {
@@ -822,6 +823,8 @@ function LoanRequestPrint(props) {
                         setLoanNumber(loanNumber);
                         // setApplicantProjectYear(data.data[0].ProjectPlanYear)
                         // console.warn(data.data[0].ProjectPlanYear)
+                        
+                        
 
                     } else {
                         // Action : Edit
@@ -1646,7 +1649,8 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>พิมพ์สัญญากู้ยืมเงิน</h1>
+                                <h1>สร้าง / พิมพ์สัญญากู้ยืมเงิน</h1>
+                                {/* <h1>พิมพ์สัญญากู้ยืมเงิน</h1> */}
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">

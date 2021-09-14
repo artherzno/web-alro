@@ -1018,7 +1018,7 @@ function AddFarmer(props) {
                                                     : ''
                                                 }
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                    <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}
