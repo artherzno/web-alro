@@ -291,7 +291,7 @@ class LawSuitTab extends React.Component {
                                     <StyledTableCell align="center" >อัตราดอกเบี้ยตามที่ศาลสั่ง</StyledTableCell>
                                     <StyledTableCell align="center" >คำพิพากษา</StyledTableCell>
 
-                                </TableRow>
+                                </TableRow> 
 
                             </TableHead>
                             <TableBody>
