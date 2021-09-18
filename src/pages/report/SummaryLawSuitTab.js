@@ -109,7 +109,7 @@ class SummaryLawSuitTab extends React.Component {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'สรุปรายงานสัญญาการดำเนินคดีทางศาล.xlsx');
+            link.setAttribute('download', 'สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล.xlsx');
             document.body.appendChild(link);
             link.click();
 
@@ -237,7 +237,7 @@ class SummaryLawSuitTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">สรุปรายงานสัญญาการดำเนินคดีทางศาล {`${this.state.provinceZoneLabel}`}</Typography>
+                    <Typography variant="h6" align="center">สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
@@ -262,7 +262,7 @@ class SummaryLawSuitTab extends React.Component {
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center" >เงินต้น</StyledTableCell>
                                     <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
-                                    <StyledTableCell align="center" >ดอกเบี้ยที่รับ</StyledTableCell>
+                                    <StyledTableCell align="center" >ค่าปรับ</StyledTableCell>
                                     <StyledTableCell align="center" >รวม</StyledTableCell>
 
                                 </TableRow>

@@ -4,11 +4,22 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
+import ListNewFarmerPayLoanTab from './ListNewFarmerPayLoanTab'
+import ListNewFarmerPayLoanSectionTab from './ListNewFarmerPayLoanSectionTab'
 import PayLoanTab from './PayLoanTab'
 import SumaryPayLoanTab from './SummaryPayLoanTab'
 import SumaryProjectPayLoanTab from './SummaryProjectPayLoanTab'
 
-const tabs = [{
+
+const tabs = [
+    {
+        title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
+        id: "list_new_farmer_pay"
+    },
+    {
+        title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่ รายภาค',
+        id: "list_new_farmer_pay_sector"
+    },{
     title: 'รายงานการจ่ายเงินกู้',
     id: "pay_loan"
 },
@@ -62,7 +73,7 @@ class PayLoan extends React.Component {
                 </Box>
                 <div className="line-horizontal" />
 
-                <Box mt={5} ml={2} mr={2}>
+                <Box mt={5} ml={2} mr={2} mr={2} mr={2}>
                     {this.renderContent()}
                 </Box>
 
@@ -72,20 +83,29 @@ class PayLoan extends React.Component {
     }
 
     renderContent() {
-
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <PayLoanTab />
+                <ListNewFarmerPayLoanTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
+                <ListNewFarmerPayLoanSectionTab />
+            )
+        }
+        else if (this.state.tabSelected === tabs[2].id) {
+            return (
+                <PayLoanTab />
+            )
+        } else if (this.state.tabSelected === tabs[3].id) {
+            return (
                 <SumaryPayLoanTab />
             )
-        } else if (this.state.tabSelected === tabs[2].id) {
+        } else if (this.state.tabSelected === tabs[4].id) {
             return (
                 <SumaryProjectPayLoanTab />
             )
         }
+        
     }
 }
 
