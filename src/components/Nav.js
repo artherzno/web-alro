@@ -27,11 +27,11 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'ข้อมูลเกษตกร',
+                subtitle: 'ข้อมูลเกษตรกร / บันทึกคำกู้ยืมยืม',
                 subpath: '/manageinfo/searchmember'
             },
             {
-                subtitle: 'ตรวจสอบคำขอกู้ยืมเงิน',
+                subtitle: 'ตรวจสอบคำขอกู้ยืมเงิน / แก้ไข',
                 subpath: '/loanrequest/loanrequestcontactsearch'
             },
             // {
@@ -39,27 +39,30 @@ const listmenu = [
             //     subpath: '/loanrequest/loanrequestcontact'
             // },
             {
-                subtitle: 'บันทึก / พิมพ์สัญญากู้ยืมเงิน',
+                subtitle: 'สร้าง / พิมพ์สัญญากู้ยืมเงิน',
                 subpath: '/loanrequest/loanrequestprint'
             },{
-                subtitle: 'บันทึก / พิมพ์สัญญาใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
+                subtitle: 'สร้าง / พิมพ์ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
                 subpath: '/loanrequest/loanrecivceprint'
             },{
                 subtitle: 'บันทึกปิดสัญญาเดิม',
                 subpath: '/loanrequest/recordcloseoldcontact'
             },{
-                subtitle: 'สร้าง / บันทึกสัญญาแปลงหนี้',
+                subtitle: 'สร้าง / พิมพ์สัญญาแปลงหนี้',
                 subpath: '/loanrequest/recordcontractdebt'
-            },{
-                subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
-                subpath: '/loanrequest/printcontractdebt'
-            },{
-                subtitle: 'สร้าง / บันทึกสัญญาฟ้องศาล',
+            },
+            // {
+            //     subtitle: 'พิมพ์ใบสัญญาแปลงหนี้',
+            //     subpath: '/loanrequest/printcontractdebt'
+            // },
+            {
+                subtitle: 'บันทึกตามคำพิพากษาศาล',
                 subpath: '/loanrequest/addrecordcourtcontract'
-            },{
+            },
+            /*{
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
                 subpath: '/loanrequest/editcontract'
-            },
+            },*/
             /*{
                 subtitle: 'ค้นหาสัญญาทั้งหมด',
                 subpath: '/loanrequest/allcontractsearch'
@@ -88,6 +91,12 @@ const listmenu = [
             },{
                 subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
                 subpath: '/loanserviceinfo/printbillbank'
+            },{
+                subtitle: 'ชำระเงินจากธนาคารอื่น',
+                subpath: '/loanserviceinfo/payfromotherbank'
+            },{
+                subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคารอื่น',
+                subpath: '/loanserviceinfo/printbillotherbank'
             }
         ]
     },{

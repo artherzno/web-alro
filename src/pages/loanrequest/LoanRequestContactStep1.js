@@ -153,9 +153,11 @@ function LoanRequestContactStep1(props) {
         Debt: '', // 0,
         Debt_Owner: '', // "",
         Debt_Amount: 0, // 0
+        dCreated: null,
     })
 
     const [approvalData, setApprovalData] = useState([])
+    const [approvalStatus, setApprovalStatus] = useState('')
 
     const [countAddActivityProject, setCountAddActivityProject] = useState(1);
 
@@ -182,6 +184,14 @@ function LoanRequestContactStep1(props) {
 
     useEffect(() => {
         setLoaded(true);
+
+        // New order date 2021-08-23 to 23/08/2564
+        const newOrderDate = (val) => {
+            let yyyy = Number(val.substring(0,4)) + 543
+            let mm = val.substring(5,7)
+            let dd = val.substring(8,10)
+            return dd+'/'+mm+'/'+yyyy
+        }
 
         console.log('---------------------')
         console.log('Step1 applicantID', inputData.ApplicantID || props.ApplicantID)
@@ -238,8 +248,11 @@ function LoanRequestContactStep1(props) {
                         setRai(dataLand.Rai)
                         setNgan(dataLand.Ngan)
                         setWa(dataLand.Wa)
+                        
 
+                        console.log(data.approval_data.length)
                         setApprovalData(dataApproval)
+                        setApprovalStatus(data.approval_data.length === undefined ? '' : data.approval_data[0].Approval === 1 ? 'P' : data.approval_data[0].Approval === 0 ? 'C' : data.approval_data[0].Approval === null || data.approval_data[0].Approval === '' ? '' : 'F')
 
                         setInputData({
                             ...inputData,
@@ -310,6 +323,7 @@ function LoanRequestContactStep1(props) {
                             Debt: dataDetail.Debt === '' || dataDetail.Debt === null ? '' : (!dataDetail.Debt) ? '0' : '1', // 0,
                             Debt_Owner: dataDetail.Debt_Owner || '', // "",
                             Debt_Amount: dataDetail.Debt_Amount || 0, // 0
+                            dCreated: dataDetail.dCreated === null ? '-' : newOrderDate(dataDetail.dCreated),
                         })
                         // let resApplicant = res.data.data[0];
                         setIsLoading(false)
@@ -886,9 +900,15 @@ function LoanRequestContactStep1(props) {
                                                 </Grid> */}
                                                 {
                                                     props.action === 'view' || props.action === 'edit' ? 
-                                                        <Grid item xs={12} md={12}>
-                                                            <p className="txt-green txt-right">{approvalData.Approval === null || (!approvalData.Approval) ? '' : (approvalData.Approval === 0) ? 'C' : (approvalData.Approval === 1) ?'P' : 'F' } เลขที่คำขอ {inputData.ApplicantNo}</p>
+                                                    <React.Fragment>
+                                                        <Grid item xs={12} md={6}>
+                                                            <p className="txt-green txt-left">วันที่ยื่นคำขอ {inputData.dCreated} </p>
                                                         </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <p className="txt-green txt-right">{approvalStatus}  เลขที่คำขอ {inputData.ApplicantNo}</p>
+                                                            {/* <p className="txt-green txt-right">{approvalData.Approval === null || (!approvalData.Approval) ? '' : (approvalData.Approval === 0) ? 'C' : (approvalData.Approval === 1) ?'P' : 'F' } เลขที่คำขอ {inputData.ApplicantNo}</p> */}
+                                                        </Grid>
+                                                    </React.Fragment>
                                                     : ''
                                                 }
                                                 <Grid item xs={12} md={6}>

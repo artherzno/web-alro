@@ -274,7 +274,7 @@ function RecordCloseOldContact() {
      const handleChangeReceiptTypeID = (event) => {
          setRadioType(event.target.value)
 
-         let type = event.target.value === '2' ? 'กทด.' : event.target.value === '1' ? 'ปน.' : 'ปน.ศาล'
+         let type = event.target.value === '4' ? 'ปิดหนี้เพื่อจำหน่ายหนี้0' : event.target.value === '3' ? 'ชดใช้หนี้' : event.target.value === '2' ? 'กทด.' : event.target.value === '1' ? 'ปน.' : 'ปน.ศาล'
         //  let typeFull = event.target.value === '2' ? 'กทด.' : event.target.name === '1' ? 'แปลงหนี้' : 'คำสั่งศาล'
         setInputDataReceipt({...inputDataReceipt,
             // [event.target.name]: event.target.value,
@@ -1144,7 +1144,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">&nbsp;</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4} id="ReceiptTypeID">
-                                                            <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','กทด.']} name="ReceiptTypeID" value={radioType} onChange={handleChangeReceiptTypeID} type="row" />
+                                                            <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','กทด.','ชดใช้หนี้','ปิดหนี้เพื่อจำหน่ายหนี้ 0']} name="ReceiptTypeID" value={radioType} onChange={handleChangeReceiptTypeID} type="row" />
                                                         </Grid>
                                                     </Grid></Grid>
                                                 

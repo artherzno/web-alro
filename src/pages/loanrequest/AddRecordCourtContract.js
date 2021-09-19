@@ -18,6 +18,12 @@ import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
     MuiSelect,
+    MuiSelectDay,
+    MuiSelectMonth,
+    MuiSelectYear,
+    MuiSelectDistrict,
+    MuiSelectProvince,
+    MuiSelectSubDistrict,
     MuiRadioButton,
     MuiCheckbox,
     ButtonFluidColor,
@@ -74,6 +80,12 @@ function AddRecordCourtContract() {
         LoanNumber: '',
     })
 
+    const [inputSelectDate, setInputSelectDate] = useState({
+        recdatedd: '00',
+        recdatemm: '00',
+        recdateyyyy: '0000',
+    })
+
     const [rows, setRows] = useState([])
 
     const rowsLabel = [
@@ -102,8 +114,8 @@ function AddRecordCourtContract() {
         { id: 'Tel', numeric: false, disablePadding: false, widthCol: '150px', label: 'โทรศัพท์' },
     ]
 
-    function createData(FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel) {
-        return {FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel }
+    function createData(LoanID,FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel) {
+        return {LoanID,FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel }
     }
 
     // New order date 2021-08-23 to 23/08/2564
@@ -183,6 +195,7 @@ function AddRecordCourtContract() {
                     setRows(
                         data.data.map((item,i)=>
                             createData(
+                                item.LoanID,
                                 item.FarmerGrade,
                                 item.ApplicantID,
                                 item.Statue === null ? '' : !item.Statue ? 'ปิด' : 'เปิด',
@@ -206,10 +219,57 @@ function AddRecordCourtContract() {
          });
     }
 
+    const getCloseLoanDetail = (loanID) => {
+        setIsLoading(true)
+        axios.post(
+            `${server_hostname}/admin/api/get_closeloandetail`, {
+                LoanID: loanID,
+            }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    setFormField(true)
+                    console.log('get_closeloandetail',data)
+                    // setTableResult(data.data)
+                    // setRows(data.data)
+                    
+                }
+            }
+        ).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
     const handleInputDataSearch = (event) => {
         setInputDataSearch({
             ...inputDataSearch,
             [event.target.name]: event.target.value
+        })
+    }
+
+    const handleSelectDate = (event) => {
+        let type = event.target.name
+        
+        setInputSelectDate({
+            ...inputSelectDate,
+            [event.target.name]: event.target.value.toString()
         })
     }
 
@@ -269,7 +329,8 @@ function AddRecordCourtContract() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>สร้าง / บันทึกสัญญาฟ้องศาล</h1>
+                                {/* <h1>สร้าง / บันทึกสัญญาฟ้องศาล</h1> */}
+                                <h1>บันทึกตามคำพิพากษาศาล</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
@@ -313,9 +374,9 @@ function AddRecordCourtContract() {
                                         actionView={false} 
                                         actionEdit={false} 
                                         actionDelete={false} 
-                                        printParam1={'LoanNumber'}
                                         tableName={'addRecordCourtContract'}
-                                        createEvent={openFormField}
+                                        createEvent={getCloseLoanDetail}
+                                        createParam={'LoanID'}
                                     />
                                 </div>
                             </Grid>
@@ -332,7 +393,12 @@ function AddRecordCourtContract() {
                                                         <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="PNGA0001600005/00001" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-15" />
+                                                        <p>วันที่บันทึก</p>
+                                                        <div className="select-date-option">
+                                                            <MuiSelectDay label="" name="recdatedd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
+                                                            <MuiSelectMonth label="" name="recdatemm" value={inputSelectDate.recdatemm} onChange={handleSelectDate} />
+                                                            <MuiSelectYear label="" name="recdateyyyy" value={inputSelectDate.recdateyyyy} onChange={handleSelectDate} />
+                                                        </div>
                                                     </Grid>
                                                     <Grid item xs={12} md={1}>
                                                         <MuiTextfield label="&nbsp;" defaultValue="2563" />
@@ -453,42 +519,45 @@ function AddRecordCourtContract() {
                                         <Paper className="paper line-top-green paper">
                                             <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={8}>
+                                                    {/* <Grid item xs={12} md={8}>
                                                         <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         <p>&nbsp;</p>
                                                         <ButtonFluidPrimary label="ค้นหา"  />
-                                                    </Grid>
+                                                    </Grid> */}
                                                     <Grid item xs={12} md={2}>
-                                                        <MuiSelect disabled label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
+                                                            <MuiSelect label="คำนำหน้า"  inputdisabled="input-disabled"  lists={['นาย','นาง','นางสาว']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield disabled label="ชื่อ" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="ชื่อ" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={5}>
-                                                        <MuiTextfield disabled label="นามสกุล" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="นามสกุล" defaultValue="" />
                                                     </Grid>
-                                                    <Grid item xs={12} md={9}>
-                                                        <MuiTextfield disabled label="ที่อยู่" defaultValue="" />
+                                                    <Grid item xs={12} md={5}>
+                                                        <MuiTextfield label="เลขบัตรประจำตัวประชาชน" inputdisabled="input-disabled" defaultValue="" />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}>
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="ที่อยู่" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        <MuiTextfield disabled label="เลขที่" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="เลขที่" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={1}>
-                                                        <MuiTextfield disabled label="หมู่" defaultValue="" />
+                                                        <MuiTextfield inputdisabled="input-disabled"  label="หมู่" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="ตำบล" defaultValue="" />
+                                                        <MuiSelectSubDistrict label="จังหวัด"  inputdisabled="input-disabled"  lists={['จังหวัด1','จังหวัด2','จังหวัด3']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="อำเภอ" defaultValue="" />
+                                                        <MuiSelectDistrict label="เขต/อำเภอ"  inputdisabled="input-disabled"  lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="จังหวัด" defaultValue="" />
+                                                        <MuiSelectProvince label="แขวง/ตำบล"  inputdisabled="input-disabled" lists={['แขวง/ตำบล1','แขวง/ตำบล2','แขวง/ตำบล3']} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield disabled label="รหัสไปรษณีย์" defaultValue="" />
+                                                        <MuiTextfield label="รหัสไปรษณีย์" inputdisabled="input-disabled" defaultValue="" />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         <MuiTextfield label="ที่ตั้งที่ดิน" defaultValue="" />

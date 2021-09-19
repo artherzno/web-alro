@@ -158,6 +158,14 @@ function LoanRequestContactSearch() {
         fetchCheckLogin();
     }, [])
 
+    // New order date 2021-08-23 to 23/08/2564
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
+    }
+
     const handleSelectDate = (event) => {
         let type = event.target.name
         setInputSelectDate({
@@ -221,7 +229,7 @@ function LoanRequestContactSearch() {
                                 farmerid: data.data[i].FarmerID,
                                 fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
                                 idcard: data.data[i].IDCard,
-                                dcreated: moment(data.data[i].dCreated).format('DD/MM/YYYY'),
+                                dcreated: data.data[i].dCreated === null ? null : newOrderDate(data.data[i].dCreated),
                                 applicantno: data.data[i].ApplicantNo,
                             })
                         }
@@ -300,7 +308,8 @@ function LoanRequestContactSearch() {
                     <Container maxWidth="md">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>ตรวจสอบคำขอกู้ยืมเงิน</h1>
+                                {/* <h1>ตรวจสอบคำขอกู้ยืมเงิน</h1> */}
+                                <h1>ตรวจสอบคำขอกู้ยืมเงิน / แก้ไข</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">

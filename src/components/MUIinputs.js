@@ -1258,8 +1258,9 @@ const ButtonFluidSecondary = (props) => {
 const ButtonFluidColor = (props) => {
     const classes = useStyles();
     const { label, maxWidth, onClick, color } = props;
-    let bgColor = (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey : '';
 
+    console.warn(color)
+    let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey :'';
     return (
         <Button className={classes.buttonFluid + ' ' + bgColor} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
 

@@ -79,6 +79,13 @@ function LoanRequestPrint(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
+    const [applicantProjectYear, setApplicantProjectYear] = useState()
+    const [projectList, setProjectList] = useState([]);
+    const [projectSubCodeText, setProjectSubCodeText] = useState('')
+    const [projectSubNameText, setProjectSubNameText] = useState('')
+    const [errNoticeProject, setErrNoticeProject] = useState(false);
+    const [errNoticeProjectMsg, setErrNoticeProjectMsg] = useState('ไม่พบข้อมูล');
+
     const [inputDataSearch, setInputDataSearch] = useState({
         SearchByApplicantNo: '',
         SearchByLoanNumber: '',
@@ -428,8 +435,53 @@ function LoanRequestPrint(props) {
         return yyyy+'-'+mm+'-'+dd
     }
 
+    const getProject = (planYear, projectID) => {
+            
+        axios.post(
+            `${server_hostname}/admin/api/search_project_step3`, {
+                "ProjectYear": planYear + 2500
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                // console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    // setErr(true);
+                    setErrNoticeProject(true);
+                    setErrNoticeProjectMsg('ไม่พบข้อมูลโครงการ');
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log('ProjectList',data.data)
+                    setProjectList(data.data)
+
+                    // Set detail ProjectID
+                    for(let i=0; i<data.data.length; i++) {
+                        if(data.data[i].ProjectID === projectID) {
+                            setProjectSubCodeText(data.data[i].ProjectSubCode)
+                            setProjectSubNameText(data.data[i].ProjectSubName)
+                        }
+                    }
+                }
+            }
+        ).catch(err => { console.log(err);})
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
+
     const getSearchApprovedApplicant = () => {
         setIsLoading(true)
+        setOpenLoanRequestInfo(false)
         axios.post(
             `${server_hostname}/admin/api/search_approved_applicant`, {
                 ApplicantNo: parseInt(inputDataSearch.SearchByApplicantNo) || '',
@@ -616,6 +668,9 @@ function LoanRequestPrint(props) {
                     setOpenLoanRequestInfo(true);
                     console.log(applicantID, farmerID,data.Farmer[0])
                     console.log('action',action)
+
+                    getProject(data.data[0].ProjectPlanYear, data.data[0].ProjectID)
+                    getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber)
                     
 
                     if(action === 'add') {
@@ -626,6 +681,11 @@ function LoanRequestPrint(props) {
                         setLoandueDataAPI(null)
                         setIsLoading(false);
                         setApplicantNo(applicantNo);
+
+                        handleInputData({
+                            ...inputData,
+                            ProjectID: 0
+                        })
                         // setinputDataLoan({
                         //     ...inputDataLoan,
 
@@ -761,6 +821,10 @@ function LoanRequestPrint(props) {
 
                         setLoanID(loanID)
                         setLoanNumber(loanNumber);
+                        // setApplicantProjectYear(data.data[0].ProjectPlanYear)
+                        // console.warn(data.data[0].ProjectPlanYear)
+                        
+                        
 
                     } else {
                         // Action : Edit
@@ -769,6 +833,8 @@ function LoanRequestPrint(props) {
                         setInputData(data.data[0])
                         setApplicantNo(applicantNo);
                         setIsLoading(false);
+                        // setApplicantProjectYear(data.data[0].ProjectPlanYear)
+                        // console.warn(data.data[0].ProjectPlanYear)
 
                         getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber)
                     }
@@ -1116,6 +1182,16 @@ console.log('data.loandue_data.length',data.loandue_data.length)
 
             }
         } else {
+            // Get ProjectSub data
+            if(event.target.name === 'ProjectID') {
+                // console.log('event.target.ProjectCode',event.target.value)
+                for(let i=0; i<projectList.length; i++) {
+                    if(projectList[i].ProjectID === event.target.value) {
+                        setProjectSubCodeText(projectList[i].ProjectSubCode)
+                        setProjectSubNameText(projectList[i].ProjectSubName)
+                    }
+                }
+            }
             setInputData({
                 ...inputData,
                 [event.target.name]: event.target.value
@@ -1573,7 +1649,8 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>พิมพ์สัญญากู้ยืมเงิน</h1>
+                                <h1>สร้าง / พิมพ์สัญญากู้ยืมเงิน</h1>
+                                {/* <h1>พิมพ์สัญญากู้ยืมเงิน</h1> */}
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
@@ -1729,6 +1806,15 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                                 <MuiSelectYear label="" name="loandateyyyy" value={inputSelectDate.loandateyyyy} onChange={handleSelectDate} />
                                                             </div>
                                                             {/* <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                        </Grid>
+                                                        <Grid item xs={12} md={2}>
+                                                            <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectID'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
+                                                        </Grid> 
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield disabled label="รหัสโครงการรอง" value={projectSubCodeText} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield disabled label="ชื่อโครงการรอง" value={projectSubNameText} />
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
