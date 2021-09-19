@@ -17,7 +17,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import api from '../../services/webservice'
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -138,6 +138,7 @@ function PrintInvoice() {
 
     useEffect(() => {
         setLoaded(true);
+        getInvoiceList()
     }, [])
 
     const handlePrintExcel = () => {
@@ -228,6 +229,20 @@ console.log('printDAte',printDate.toString())
         //   setError(true);
         // }
     };
+
+    function getInvoiceList(){
+
+        const parameter = {
+            item: 1,
+            start_date: "2020-09-18"
+        }
+
+        api.getInvoiceList(parameter).then(response =>{
+
+        }).catch(error =>{
+
+        })
+    }
 
     return (
         <div className="printinvoice-page">
