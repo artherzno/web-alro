@@ -27,7 +27,7 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'ข้อมูลเกษตรกร / บันทึกคำกู้ยืมยืม',
+                subtitle: 'ข้อมูลเกษตรกร / บันทึกคำกู้ขอยืมเงิน',
                 subpath: '/manageinfo/searchmember'
             },
             {
@@ -245,6 +245,32 @@ const listmenu = [
                 subpath: '/repaymentcontract/addrepaymentcontract'
             }
         ]
+    },{
+        title: 'UpLoadFile',
+        component: 'UpLoadFile',
+        path: '/home',
+        // submenu: [
+        //     {
+        //         subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/closerepaymentcontract'
+        //     },{
+        //         subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/addrepaymentcontract'
+        //     }
+        // ]
+    },{
+        title: 'พิมพ์แบบฟอร์ม',
+        component: 'PrintForm',
+        path: '/home',
+        // submenu: [
+        //     {
+        //         subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/closerepaymentcontract'
+        //     },{
+        //         subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/addrepaymentcontract'
+        //     }
+        // ]
     },
 ]
 

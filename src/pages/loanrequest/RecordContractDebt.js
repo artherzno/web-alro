@@ -21,10 +21,12 @@ import Nav from '../../components/Nav';
 
 import {
     MuiTextfield,
+    MuiTextfieldCurrency,
     MuiDatePicker,
     MuiSelectDay,
     MuiSelectMonth,
     MuiSelectYear,
+    MuiLabelHeaderCheckbox,
     MuiRadioButton,
     MuiTextfieldEndAdornment,
     MuiSelect,
@@ -35,9 +37,14 @@ import {
     MuiSelectDistrict,
     MuiSelectProvince,
     MuiSelectSubDistrict,
+    MuiTextNumber,
+    MuiSelectObj,
 } from '../../components/MUIinputs';
 
 import { MUItable } from '../../components/MUItable'
+
+let action = 'add';
+let action_loanstatus = 'draft';
 
 function EditContractDebt() {
     const history = useHistory();
@@ -62,15 +69,76 @@ function EditContractDebt() {
     const [confirmMsg, setConfirmMsg] = useState('เมื่อยืนยันสร้างสัญญาเรียบร้อย ไม่สามารถแก้ไขสัญญาได้')
     const [tableResult, setTableResult] = useState([])
     const [formField, setFormField] = useState(false)
+    const [confirmSuccessStep1, setConfirmSuccessStep1] = useState(false)
 
-    const [provinceList, setprovinceList] = useState(['กรุณาเลือกจังหวัด']);
+
+    const [loanNumber, setLoanNumber] = useState('')
+    const [dueAmount, setDueAmount] = useState(2)
+    const dueAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+
+    // const [provinceList, setprovinceList] = useState(['กรุณาเลือกจังหวัด']);
+    let provinceList = JSON.parse(localStorage.getItem('provincelist'))
     // Get District
     let districtList = JSON.parse(localStorage.getItem('districtlist'))
      // Get SubDistrict
     let subdistrictList = JSON.parse(localStorage.getItem('subdistrictlist'))
-    const [inputData, setInputData] = useState({
-        typeDoc: '1',
+
+    const [inputDataFarmer, setInputDataFarmer] = useState({
+        BirthDate: moment(),
+        Contact_AddMoo: null,
+        Contact_AddNo: null,
+        Contact_AddrDistrictID: null,
+        Contact_AddrProvinceID: null,
+        Contact_AddrSoiRoad: null,
+        Contact_AddrSubdistrictID: null,
+        Contact_Addrzone: null,
+        Contact_PicPatch: null,
+        Contact_Postcode: null,
+        FarmerGrade: null,
+        FarmerID: null,
+        FrontName: null,
+        IDCARD_AddMoo: null,
+        IDCARD_AddNo: null,
+        IDCARD_AddrDistrictID: null,
+        IDCARD_AddrProvinceID: null,
+        IDCARD_AddrSoiRoad: null,
+        IDCARD_AddrSubdistrictID: null,
+        IDCARD_Postcode: null,
+        IDCard: null,
+        IDCardEXP_Date: moment(),
+        IDCard_Addrzone: null,
+        IDCard_PicPatch: null,
+        LoanFarmerTypeID: null,
+        Name: null,
+        Request: null,
+        Sirname: null,
+        Tel: null,
+        admin_nMEMID: null,
+        dCreated: null,
+
     })
+    const [inputDataLandData, setInputDataLandData] = useState([])
+    const [inputDataLoanDuc, setInputDataLoanDuc] = useState([])
+    const [inputDataLoanDus, setInputDataLoanDus] = useState([])
+    const [inputDataLoanDue, setInputDataLoanDue] = useState([])
+    const [inputDataLoanRec, setInputDataLoanRec] = useState([])
+
+    const [inputDataNewFarmerID, setInputDataNewFarmerID] = useState(null)
+    const [inputDataNewFarmer, setInputDataNewFarmer] = useState({
+        FarmerGrade: null,
+        FarmerID: 0,
+        FrontName: null,
+        IDCard: null,
+        Name: null,
+        OldName1: null,
+        OldName2: null,
+        OldSirname1: null,
+        OldSirname2: null,
+        Sirname: null,
+
+    })
+
+    const [inputDataIndividualcard, setInputDataIndividualcard] = useState([])
 
     const [inputDataSearch, setInputDataSearch] = useState({
         Name: '',
@@ -80,82 +148,28 @@ function EditContractDebt() {
         LoanNumber: '',
     })
 
-    const [inputSelectDate, setInputSelectDate] = useState({
-        // วันที่บันทึก
-        recdatedd: '00',
-        recdatemm: '00',
-        recdateyyyy: '0000',
-
-        // วันที่สัญญาทำขึ้น
-        createdatedd: '00',
-        createdatemm: '00',
-        createdateyyyy: '0000',
-
-        // วันที่สัญญา
-        contractdatedd: '00',
-        contractdatemm: '00',
-        contractdateyyyy: '0000',
-
-        // มอบอำจาจ
-        proxydatedd: '00',
-        proxydatemm: '00',
-        proxydateyyyy: '0000',
-
-        // คำสั่งจังหวัด
-        orderdatedd: '00',
-        orderdatemm: '00',
-        orderdateyyyy: '0000',
-
-        // เปลี่ยนสัญญา
-        changecontractdatedd: '00',
-        changecontractdatemm: '00',
-        changecontractdateyyyy: '0000',
-
-        // แปลงหนี้
-        changedebtdatedd: '00',
-        changedebtdatemm: '00',
-        changedebtdateyyyy: '0000',
-
-        // หมายเหตุ
-        noticedatedd: '00',
-        noticedatemm: '00',
-        noticedateyyyy: '0000',
-
-        // จำนอง
-        mortgagedatedd: '00',
-        mortgagedatemm: '00',
-        mortgagedateyyyy: '0000',
-
-        // หนังสือรับรอง
-        bookguaranteedatedd: '00',
-        bookguaranteedatemm: '00',
-        bookguaranteedateyyyy: '0000',
-
-        // ค้ำประกัน 1
-         guarantee1datedd: '00',
-         guarantee1datemm: '00',
-         guarantee1dateyyyy: '0000',
-
-         // ค้ำประกัน 2
-          guarantee2datedd: '00',
-          guarantee2datemm: '00',
-          guarantee2dateyyyy: '0000',
+    const [inputDataSubmitIndividual, setInputDataSubmitIndividual] = useState({
+        principle: 0,
+        Interest: 0,
+        OldInterest: 0,
+        OldFine: 0,
+        ChargeRate: 0,
     })
 
     const [inputDataSubmit, setInputDataSubmit] = useState({
-        Old_LoanID: 1,
+        Old_LoanID: null,
     
-        ChangeDeptDate: '',
+        ChangeDebtDate: moment(),
         OldInterest: '',
         OldFine: '',
         
-        LoanDate: '',
-        Nationality: "ไทย",
+        LoanDate: moment(),
+        Nationality: 'ไทย',
         RecordCode: '',
-        RecDate: '',
+        RecDate: moment(),
         FarmerID: '',
         AGE: '',
-        ProjectID: 123,
+        ProjectID: null,
         IDCardMadeDistrict: '',
         IDCardMadeProvince: '',
         FarmerInDistrict: '',
@@ -163,7 +177,7 @@ function EditContractDebt() {
         Officer: '',
         OfficerRank: '',
         SPK_Order: '',
-        SPK_OrderDate: '',
+        SPK_OrderDate: moment(),
         Loan_Obj1: '',
         Loan_Obj1Amount: '',
         Loan_Obj2: '',
@@ -178,24 +192,24 @@ function EditContractDebt() {
         Farmer_Accept: '',
         Guarantee_Property: '',
         LoanContactBook: '',
-        Guarantee_PropertyDate: '',
+        Guarantee_PropertyDate: moment(),
         Guarantee_Person: '',
         LoanGuaranteeBook: '',
-        LoanGuaranteeBookDate: null,
+        LoanGuaranteeBookDate: moment(),
         WarrantBookOwner1: '',
         WarrantBook1: '',
-        WarrantBookDate1: null,
+        WarrantBookDate1: moment(),
         WarrantBookOwner2: '',
         WarrantBook2: '',
-        WarrantBookDate2: null,
+        WarrantBookDate2: moment(),
         Free_of_debt_Month: '',
         Free_of_debt_Year: '',
         Free_of_debt_Time: '',
-        FirstDatePaid: null,
-        principle: 123,
-        Interest: 4,
+        FirstDatePaid: moment(),
+        principle: 0,
+        Interest: 0,
         ChargeRate: '',
-        LastDatePaid: null,
+        LastDatePaid: moment(),
         OfficeProvince: '',
         WitnessName: '',
         WitnessAddr: '',
@@ -214,7 +228,7 @@ function EditContractDebt() {
         WitnessIDCard4: '',
         WitnessIDCardMade4: '',
         ChangeContactCommit: '',
-        ChangeContactCommitDate: '',
+        ChangeContactCommitDate: moment(),
         ChangeContactCommitTime: '',
         Overdue_debt: '',
         Overdue_debt_principle: '',
@@ -244,20 +258,59 @@ function EditContractDebt() {
         IDCard: '',
         LoanStatus: '',
         loandue_data: [
-            {
-                DUEDATE: "2022-01-01",
-                PAYREC: 1000.00
-            },
-            {
-                DUEDATE: "2023-01-01",
-                PAYREC: 2000.00
-            },
-            {
-                DUEDATE: "2024-01-01",
-                PAYREC: 500.00
-            }
-        ]
+            // {
+            //     DUEDATE: "2022-01-01",
+            //     PAYREC: 1000.00
+            // },
+            // {
+            //     DUEDATE: "2023-01-01",
+            //     PAYREC: 2000.00
+            // },
+            // {
+            //     DUEDATE: "2024-01-01",
+            //     PAYREC: 500.00
+            // }
+        ],
+
+        DebtEditNumber: '',
+        CurrentYear: '',
+        RecYear: '',
+        PV_CODE: '',
+        PV_NAME: '',
+        ProjectSubCode: '',
+        ProjectSubName: '',
+        DebtEditDate: moment(),
+        LoanChangeDate: moment(),
     })
+
+    const [summaryTable, setSummaryTable] = useState(0)
+    const [inputDataSubmitLoanDUE, setInputDataSubmitLoanDUE] = useState([
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+    ])
 
     const [rows, setRows] = useState([])
 
@@ -363,25 +416,30 @@ function EditContractDebt() {
                     }
                 }else {
                     console.log(data)
-                    setTableResult(data.data)
-                    // setRows(data.data)
-                    setRows(
-                        data.data.map((item,i)=>
-                            createData(
-                                item.LoanID,
-                                item.FarmerGrade,
-                                item.ApplicantID,
-                                item.Statue === null ? '' : !item.Statue ? 'ปิด' : 'เปิด',
-                                item.LoanNumber === null ? '' : item.LoanNumber,
-                                item.dCreated ? newOrderDate(item.dCreated) : null,
-                                item.IDCard === null ? '' : item.IDCard,
-                                item.FrontName === null ? '' : item.FrontName,
-                                item.Name === null ? '' : item.Name,
-                                item.Sirname === null ? '' : item.Sirname,
-                                item.Tel === undefined ? '' : item.Tel 
+                    if(!data.length) {
+                        setErr(true);
+                        setErrMsg('ไม่พบข้อมูล')
+                    } else {
+                        setTableResult(data.data)
+                        // setRows(data.data)
+                        setRows(
+                            data.data.map((item,i)=>
+                                createData(
+                                    item.LoanID,
+                                    item.FarmerGrade,
+                                    item.ApplicantID,
+                                    item.Statue === null ? '' : !item.Statue ? 'ปิด' : 'เปิด',
+                                    item.LoanNumber === null ? '' : item.LoanNumber,
+                                    item.dCreated ? newOrderDate(item.dCreated) : null,
+                                    item.IDCard === null ? '' : item.IDCard,
+                                    item.FrontName === null ? '' : item.FrontName,
+                                    item.Name === null ? '' : item.Name,
+                                    item.Sirname === null ? '' : item.Sirname,
+                                    item.Tel === undefined ? '' : item.Tel 
+                                )
                             )
                         )
-                    )
+                    }
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -395,6 +453,60 @@ function EditContractDebt() {
 
     const getCloseLoanDetail = (loanID) => {
         setIsLoading(true)
+        setFormField(false)
+        setInputDataFarmer({
+            BirthDate: moment(),
+            Contact_AddMoo: null,
+            Contact_AddNo: null,
+            Contact_AddrDistrictID: null,
+            Contact_AddrProvinceID: null,
+            Contact_AddrSoiRoad: null,
+            Contact_AddrSubdistrictID: null,
+            Contact_Addrzone: null,
+            Contact_PicPatch: null,
+            Contact_Postcode: null,
+            FarmerGrade: null,
+            FarmerID: null,
+            FrontName: null,
+            IDCARD_AddMoo: null,
+            IDCARD_AddNo: null,
+            IDCARD_AddrDistrictID: null,
+            IDCARD_AddrProvinceID: null,
+            IDCARD_AddrSoiRoad: null,
+            IDCARD_AddrSubdistrictID: null,
+            IDCARD_Postcode: null,
+            IDCard: null,
+            IDCardEXP_Date: moment(),
+            IDCard_Addrzone: null,
+            IDCard_PicPatch: null,
+            LoanFarmerTypeID: null,
+            Name: null,
+            Request: null,
+            Sirname: null,
+            Tel: null,
+            admin_nMEMID: null,
+            dCreated: null,
+    
+        })
+        setInputDataNewFarmer({
+            FarmerGrade: null,
+            FarmerID: 0,
+            FrontName: null,
+            IDCard: null,
+            Name: null,
+            OldName1: null,
+            OldName2: null,
+            OldSirname1: null,
+            OldSirname2: null,
+            Sirname: null,
+    
+        })
+        setInputDataLandData([])
+        setInputDataLoanDuc([])
+        setInputDataLoanDus([])
+        setInputDataLoanDue([])
+        setInputDataLoanRec([])
+
         axios.post(
             `${server_hostname}/admin/api/get_closeloandetail`, {
                 LoanID: loanID,
@@ -417,18 +529,125 @@ function EditContractDebt() {
                     }
                 }else {
                     setFormField(true)
-                    console.log('get_closeloandetail',data)
+                    console.log('get_closeloandetail',data.farmer_data)
+                    setInputDataFarmer(data.farmer_data)
+                    setInputDataLandData(data.farmer_data.land_data === undefined ? [] : data.farmer_data.land_data[0] )
+                    setInputDataLoanDuc(data.loanduc_data)
+                    setInputDataLoanDus(data.loandus_data)
+                    setInputDataLoanDue(data.loandue_data)
+                    setInputDataLoanRec(data.loanrec_data[0])
+
+                    setLoanNumber(data.loanrec_data[0].LoanNumber)
                     // setTableResult(data.data)
                     // setRows(data.data)
+
+                    setInputDataFarmer({
+                        ...inputDataFarmer,
+                        IDCARD_AddrSubdistrictID: data.farmer_data.IDCARD_AddrSubdistrictID === null ? '' : data.farmer_data.IDCARD_AddrSubdistrictID,
+                        IDCARD_AddrDistrictID: data.farmer_data.IDCARD_AddrDistrictID === null ? '' : data.farmer_data.IDCARD_AddrDistrictID,
+                        IDCARD_AddrProvinceID: data.farmer_data.IDCARD_AddrProvinceID === null ? '' : data.farmer_data.IDCARD_AddrProvinceID,
+                    })
+
+                    getIndividualcard(data.loanrec_data[0].LoanNumber)
                     
                 }
             }
-        ).catch(err => { console.log(err); history.push('/') })
+        ).catch(err => { console.log(err); })
         .finally(() => {
             if (isMounted.current) {
               setIsLoading(false)
             }
          });
+    }
+
+    const getNewFarmerDetail = () => {
+        setIsLoading(true)
+
+        if((inputDataNewFarmerID === null || inputDataNewFarmerID === '')) {
+            setErr(true)
+            setErrMsg('กรุณาใส่เลขบัตรประชาชน')
+        } else {
+            if(inputDataNewFarmerID.length === 13) {
+                axios.post(
+                    `${server_hostname}/admin/api/search_farmer`, {
+                        Name: null,
+                        Sirname: null,
+                        IDCard: inputDataNewFarmerID,
+                        FarmerGrade: null,
+                        LoanNumber: null,
+                        order_by: "IDCard",
+                        order_desc: "DESC",
+                        page_number: 1,
+                        page_length: 200,
+                    }, { headers: { "token": token } } 
+                ).then(res => {
+                    setIsLoading(false)
+                        console.log(res)
+                        let data = res.data;
+                        if(data.code === 0 || res === null || res === undefined) {
+                            setErr(true);
+                            if(Object.keys(data.message).length !== 0) {
+                                console.error(data)
+                                if(typeof data.message === 'object') {
+                                    setErrMsg('ไม่สามารถทำรายการได้')
+                                } else {
+                                    setErrMsg([data.message])
+                                }
+                            } else {
+                                setErrMsg(['ไม่สามารถทำรายการได้'])
+                            }
+                        }else {
+                            console.log(data.data[0])
+                            setInputDataNewFarmer(data.data[0])
+                        }
+                    }
+                ).catch(err => { console.log(err); history.push('/') })
+                .finally(() => {
+                    if (isMounted.current) {
+                    setIsLoading(false)
+                    }
+                });
+            } else {
+                setErr(true)
+                setErrMsg('เลขบัตรประชาชนไม่ถูกต้อง')
+            }
+           
+        }
+    }
+
+    const getIndividualcard = (loanNumberVal) => {
+        setIsLoading(true)
+        axios.post(
+            `${server_hostname}/admin/api/get_individualcard`, {
+                LoanNumber: loanNumberVal,
+            }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log('getIndividualcard',data.data[data.data.length - 1])
+                    setInputDataIndividualcard(data.data[data.data.length - 1])
+                }
+            }
+        ).catch(err => { console.log(err);})
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
     }
 
     const handleInputDataSearch = (event) => {
@@ -438,47 +657,287 @@ function EditContractDebt() {
         })
     }
 
-    const handleSelectDate = (event) => {
-        let type = event.target.name
+    // const handleSelectDate = (event) => {
+    //     let type = event.target.name
         
-        setInputSelectDate({
-            ...inputSelectDate,
-            [event.target.name]: event.target.value.toString()
-        })
-    }
+    //     setInputSelectDate({
+    //         ...inputSelectDate,
+    //         [event.target.name]: event.target.value.toString()
+    //     })
+    // }
 
-    // Radio Button
-    const handleChangeTypeDoc = (event) => {
-        setInputData({...inputData,
-            typeDoc: event.target.value
-        })
-        console.log('typeBill ',event.target.value)
-    };
-    // End Radio Button
+    const handleInputDataFarmer = (event) => {
+        if(event.target.type === 'number') {
+            let typeNumber = event.target.id.toString().slice(-3);
+            if(typeNumber === 'tel') {
+                event.target.value = event.target.value.toString().slice(0, 10)
+                setInputDataFarmer({
+                    ...inputDataFarmer,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'zip') {
+                event.target.value = event.target.value.toString().slice(0, 5)
+                setInputDataFarmer({
+                    ...inputDataFarmer,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'idc') {
+                event.target.value = event.target.value.toString().slice(0, 13)
+                setInputDataFarmer({
+                    ...inputDataFarmer,
+                    [event.target.name]: event.target.value
+                })
+
+            } else {
+                setInputDataFarmer({
+                    ...inputDataFarmer,
+                    [event.target.name]: event.target.value
+                })
+
+            }
+        } else {
+            setInputDataFarmer({
+                ...inputDataFarmer,
+                [event.target.name]: event.target.value
+            })
+        }
+    }
 
     const openFormField = () => {
         setFormField(true)
     }
 
-    const handleSubmit = (event) => {
+    const handleNewFarmer = (event) => {
+        event.target.value = event.target.value.toString().slice(0, 13)  
+        // console.log(event.target.value)
+        setInputDataNewFarmerID(event.target.value)
+    }
+
+    const handleDUEAmount = (event) => {
+        setDueAmount(event.target.value)
+        console.log(event.target.value)
+        setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+        ])
+    }
+
+    const handleInputDataSubmit = (event) => {
+        console.log('event.target.value',event.target.value)
+        // let name = event.target.name
+        // let value = event.target.value.toLocaleString('en-US', {minimumFractionDigits: 2})
+
+        if(event.target.type === 'number') {
+            let typeNumber = event.target.id.toString().slice(-3);
+            if(typeNumber === 'tel') {
+                event.target.value = event.target.value.toString().slice(0, 10)
+                setInputDataSubmit({
+                    ...inputDataSubmit,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'age' || typeNumber === 'year') {
+                event.target.value = event.target.value.toString().slice(0, 3)
+                setInputDataSubmit({
+                    ...inputDataSubmit,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'zip') {
+                event.target.value = event.target.value.toString().slice(0, 5)
+                setInputDataSubmit({
+                    ...inputDataSubmit,
+                    [event.target.name]: event.target.value
+                })
+
+            } else if (typeNumber === 'idc') {
+                event.target.value = event.target.value.toString().slice(0, 13)
+                setInputDataSubmit({
+                    ...inputDataSubmit,
+                    [event.target.name]: event.target.value
+                })
+
+            } else {
+                setInputDataSubmit({
+                    ...inputDataSubmit,
+                    [event.target.name]: event.target.value
+                })
+
+            }
+        } else {
+            setInputDataSubmit({
+                ...inputDataSubmit,
+                [event.target.name]: event.target.value
+            })
+
+        }
+        // console.log(event)
+    }
+
+    const handleInputDataSubmitIndividual = (event) => {
+        let value = event.target.value.toLocaleString('en-US', {minimumFractionDigits: 2})
+
+        setInputDataSubmitIndividual({
+            ...inputDataSubmitIndividual,
+            [event.target.name]: parseFloat(value.split(',').join(''))
+        })
+    }
+
+    const handleSubmitLoanDUEItem = (event,ind) => {
+        let loanDUEArr = [...inputDataSubmitLoanDUE]
+        loanDUEArr[ind].ITEM = event.target.value
+        setInputDataSubmitLoanDUE(loanDUEArr)
+    }
+
+    const handleSubmitLoanDUEDate = (newValue,ind) => {
+        let loanDUEArr = [...inputDataSubmitLoanDUE]
+        
+        loanDUEArr[ind].DUEDATE = moment(newValue).format('YYYY-MM-DD')
+        setInputDataSubmitLoanDUE(loanDUEArr)
+    }
+
+    const handleSubmitLoanDUEPayrec = (event,ind) => {
+        let value = event.target.value.toLocaleString('en-US', {minimumFractionDigits: 2})
+        let loanDUEArr = [...inputDataSubmitLoanDUE]
+        loanDUEArr[ind].PAYREC = parseFloat(value.split(',').join(''))
+        setInputDataSubmitLoanDUE(loanDUEArr)
+    }
+
+    const handleSubmit = (event, loanstatus) => {
+        action_loanstatus = loanstatus;
         event.preventDefault();
     
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
+        let recordcontractdebt = document.getElementById('recordcontractdebt');
+        let formData = new FormData(recordcontractdebt);
+        formData.append('LoanStatus', action_loanstatus)
+
+        formData.append('SPK_OrderDate', moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
+        formData.append('RecDate', moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
+        formData.append('LoanDate', moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
+        formData.append('LoanChangeDate', moment(inputDataSubmit.LoanChangeDate).format('YYYY-MM-DD'))
+        formData.append('Guarantee_PropertyDate', moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
+        formData.append('DebtEditDate', moment(inputDataSubmit.DebtEditDate).format('YYYY-MM-DD'))
+        formData.append('LoanGuaranteeBookDate', moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
+        formData.append('WarrantBookDate1', moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
+        formData.append('WarrantBookDate2', moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
+
+        // let principle_value = inputDataSubmit.principle.toLocaleString('en-US', {minimumFractionDigits: 2})
+        // formData.set('principle', parseFloat(principle_value.split(',').join('')))
+        // let OldInterest_value = inputDataSubmit.OldInterest.toLocaleString('en-US', {minimumFractionDigits: 2})
+        // formData.set('OldInterest', parseFloat(OldInterest_value.split(',').join('')))
+        // let OldFine_value = inputDataSubmit.OldFine.toLocaleString('en-US', {minimumFractionDigits: 2})
+        // formData.set('OldFine', parseFloat(OldFine_value.split(',').join('')))
+        // let Interest_value = inputDataSubmit.Interest.toLocaleString('en-US', {minimumFractionDigits: 2})
+        // formData.set('Interest', parseFloat(Interest_value.split(',').join('')))
+        // let ChargeRate_value = inputDataSubmit.ChargeRate.toLocaleString('en-US', {minimumFractionDigits: 2})
+        // formData.set('ChargeRate', parseFloat(ChargeRate_value.split(',').join('')))
+
+        formData.set('principle', inputDataSubmitIndividual.principle)
+        formData.set('OldInterest', inputDataSubmitIndividual.OldInterest)
+        formData.set('OldFine', inputDataSubmitIndividual.OldFine)
+        formData.set('Interest', inputDataSubmitIndividual.Interest)
+        formData.set('ChargeRate', inputDataSubmitIndividual.ChargeRate)
+
+
+        // formData.append('loandue_data', inputDataSubmitLoanDUE)
+
+        let loandueDataArrValue = []
+        for(let i=0; i<(dueAmount+1); i++) {
+            loandueDataArrValue.push(inputDataSubmitLoanDUE[i])
+        }
+        formData.append('loandue_data', JSON.stringify(loandueDataArrValue));
+
+        console.log(formData)
+        // admin/api/add_loandebt
+        let url = ''
+        url =`${server_hostname}/admin/api/add_loandebtt`
+        axios.post(
+            url, formData, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                    setConfirmSuccessStep1(true)
+                }
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
     };
+
+    const handlePrintPDF = () => {
+        console.log('PDF - ContractNo:', loanNumber)
+
+        let formData = new FormData(); 
+        formData.append('ContractNo', loanNumber)
+
+        axios({
+        url: `${siteprint}/report/pdf/GetContractDebtPdf`, //your url
+        method: 'POST',
+        data: formData,
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
     
     const handleClosePopup = () => {
         setErr(false);
         setSuccess(false);
         setConfirm(false);
+        setIsLoading(false)
         
         // history.push('/manageinfo/searchmember');
 
@@ -486,6 +945,43 @@ function EditContractDebt() {
 
     const gotoPrintContractDebt = () => {
         history.push('/loanrequest/PrintContractDebt');
+    }
+
+    const sumTable = () => {
+        let sum = 0;
+        for(let i=0; i<(dueAmount+1); i++) {
+            sum += isNaN(inputDataSubmitLoanDUE[i].PAYREC) ? 0 : inputDataSubmitLoanDUE[i].PAYREC
+            console.log('inputDataSubmitLoanDUE',inputDataSubmitLoanDUE[i].PAYREC)
+            console.log('Sum inputDataSubmitLoanDUE',sum)
+        }
+        setSummaryTable(sum)
+    }
+
+    const rowTable = (val) => {
+        // console.log('dueAmount',dueAmount)
+        let rowArr = []
+        for(let i=0; i<val; i++) {
+            rowArr.push(
+                <div style={{flex: '1', width: '100%', display: 'flex'}}>
+                    <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
+                        <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
+                    </Grid>
+                    <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
+                        <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE} onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
+                        {/* <div className="select-date-option">
+                            <MuiSelectDay label=''  />
+                            <MuiSelectMonth label=''  />
+                            <MuiSelectYear label='' />
+                        </div> */}
+                    </Grid>
+                    <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
+                        <MuiTextfieldCurrency label='' value={inputDataSubmitLoanDUE[i].PAYREC === null ? 0 : inputDataSubmitLoanDUE[i].PAYREC} onChange={(event)=>{handleSubmitLoanDUEPayrec(event,i); sumTable();}} />
+                    </Grid>
+                </div>
+            )
+        }
+
+        return rowArr
     }
 
     return (
@@ -563,70 +1059,56 @@ function EditContractDebt() {
                     </Container>
                     {
                         formField ? 
-                            <React.Fragment>       
-                                <Container maxWidth="lg">
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12} md={12}>
-                                            <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ RIET2343525/00003</p>
-                                            {/* Paper 1 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper mg-t-10">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                            <React.Fragment>  
+                                <form className="root" id="recordcontractdebt" noValidate autoComplete="off" onSubmit={handleSubmit}>     
+                                    <Container maxWidth="lg">
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} md={12}>
+                                                <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ RIET2343525/00003</p>
+                                                {/* Paper 1 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper mg-t-10">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>สัญญานี้ทำขึ้นเมื่อวันที่</p>
-                                                            <div className="select-date-option">
-                                                                <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.contractdatedd} onChange={handleSelectDate} />
-                                                                <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.contractdatemm} onChange={handleSelectDate} />
-                                                                <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.contractdateyyyy} onChange={handleSelectDate} />
-                                                            </div>
+                                                            <MuiDatePicker label="สัญญานี้ทำขึ้นเมื่อวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ณ สำนักงานการปฏิรูปที่ดินจังหวัด" name="OfficeProvince" />
+                                                            <MuiTextfield label="ณ สำนักงานการปฏิรูปที่ดินจังหวัด" name="OfficeProvince" value={inputDataSubmit.OfficeProvince} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ถนน" defaultValue='' />
+                                                            <MuiTextfield label="ถนน" value={inputDataFarmer.IDCARD_AddrSoiRoad} onChange={handleInputDataFarmer} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ตำบล" defaultValue='' />
+                                                            <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataFarmer.IDCARD_AddrSubdistrictID}  onInput = {handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="อำเภอ" defaultValue='' />
+                                                            <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataFarmer.IDCARD_AddrDistrictID} onInput = {handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="จังหวัด" defaultValue='' />
+                                                            <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList}  value={inputDataFarmer.IDCARD_AddrProvinceID} onInput = {handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="ระหว่างสำนักงานการปฏิรูปที่ดินเพื่อเกษตรกรรม (ส.ป.ก.) โดย" defaultValue='' />
+                                                            <MuiTextfield label="ระหว่างสำนักงานการปฏิรูปที่ดินเพื่อเกษตรกรรม (ส.ป.ก.) โดย" name="Officer" value={inputDataSubmit.Officer} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="จังหวัด" defaultValue='' />
+                                                            <MuiTextfield label="ตำแหน่ง" name="OfficerRank" value={inputDataSubmit.OfficerRank} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="ผู้รับมอบอำนาจให้ทำสัญญาแทนตามคำสั่งสำนักงานการปฏิรูปที่ดินเพื่อเกษตรกรรม ที่" defaultValue='' />
+                                                            <MuiTextfield label="ผู้รับมอบอำนาจให้ทำสัญญาแทนตามคำสั่งสำนักงานการปฏิรูปที่ดินเพื่อเกษตรกรรม ที่" name="SPK_Order" value={inputDataSubmit.SPK_Order} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>ลงวันที่</p>
-                                                            <div className="select-date-option">
-                                                                <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.proxydatedd} onChange={handleSelectDate} />
-                                                                <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.proxydatemm} onChange={handleSelectDate} />
-                                                                <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.proxydateyyyy} onChange={handleSelectDate} />
-                                                            </div>
+                                                            <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="และคำสั่งจังหวัด" defaultValue='' />
+                                                                    <MuiTextfield label="และคำสั่งจังหวัด" inputdisabled="input-disabled"  value={inputDataFarmer.IDCARD_AddrSoiRoad} onChange={handleInputDataFarmer}  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ที่" defaultValue='' />
+                                                                    <MuiTextfield label="ที่" inputdisabled="input-disabled"  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <p>ลงวันที่</p>
-                                                                    <div className="select-date-option">
-                                                                        <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.orderdatedd} onChange={handleSelectDate} />
-                                                                        <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.orderdatemm} onChange={handleSelectDate} />
-                                                                        <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.orderdateyyyy} onChange={handleSelectDate} />
-                                                                    </div>
+                                                                    {/* ApproveDate */}
+                                                                    <MuiDatePicker label="ลงวันที่"  inputdisabled="input-disabled"  />
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -635,23 +1117,23 @@ function EditContractDebt() {
                                                         </Grid>
 
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue='' />
+                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataNewFarmerID} onInput={handleNewFarmer} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <p>&nbsp;</p>
-                                                            <ButtonFluidPrimary label="ค้นหา"  />
+                                                            <ButtonFluidPrimary label="ค้นหา" onClick={getNewFarmerDetail} />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelect label="คำนำหน้า"  inputdisabled="input-disabled"  lists={['นาย','นาง','นางสาว']} />
+                                                            <MuiTextfield label="คำนำหน้า" inputdisabled="input-disabled" value={inputDataNewFarmer.FrontName} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ชื่อ" inputdisabled="input-disabled"  defaultValue='' />
+                                                            <MuiTextfield label="ชื่อ" inputdisabled="input-disabled" value={inputDataNewFarmer.Name} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="นามสกุล" inputdisabled="input-disabled"  defaultValue='' />
+                                                            <MuiTextfield label="นามสกุล" inputdisabled="input-disabled" value={inputDataNewFarmer.Sirname}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfieldEndAdornment label="อายุ" inputdisabled="input-disabled"  defaultValue='' endAdornment="ปี"/>
+                                                            <MuiTextfieldEndAdornment label="อายุ" inputdisabled="input-disabled" value={inputDataNewFarmer.Age} endAdornment="ปี"/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="อยู่บ้านเลขที่" inputdisabled="input-disabled"  defaultValue='' />
@@ -676,161 +1158,151 @@ function EditContractDebt() {
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="รหัสไปรษณีย์" inputdisabled="input-disabled" defaultValue='' />
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="ที่ตั้งที่ดิน" defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={12}>
                                                             <p>ปรากฏตามสำเนาภาพถ่ายบัตรประจำตัวประชาชนและสำเนาทะเบียนบ้านแนบท้ายสัญญานี้ ซึ่งต่อไปในสัญญานี้เรียกว่า “ลูกหนี้ใหม่” อีกฝ่ายหนึ่ง</p>
                                                         </Grid>
-                                                        
                                                     </Grid>
-                                                </form>
-                                            </Paper>
+                                                </Paper>
 
-                                            {/* Paper 2 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper mg-t-20">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                                {/* Paper 2 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper mg-t-20">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เลขที่บันทึก" disabled="true" defaultValue="PNGA0001600005/00001" />
+                                                            <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled"  name="DebtEditNumber" value={inputDataSubmit.DebtEditNumber} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>วันที่บันทึก</p>
-                                                            <div className="select-date-option">
-                                                                <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
-                                                                <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.recdatemm} onChange={handleSelectDate} />
-                                                                <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.recdateyyyy} onChange={handleSelectDate} />
-                                                            </div>
+                                                            <MuiDatePicker label="วันที่บันทึก" inputdisabled="input-disabled" name="RecDate" value={inputDataSubmit.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="&nbsp;" defaultValue='' />
+                                                            <MuiTextfield label="ปีปัจจุบัน" inputdisabled="input-disabled" name="CurrentYear" value={inputDataSubmit.CurrentYear} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
+                                                            <MuiTextfield label="PV_CODE" inputdisabled="input-disabled"  name="PV_CODE" value={inputDataSubmit.PV_CODE} onChange={handleInputDataSubmit}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="PV_NAME" inputdisabled="input-disabled"  name="PV_NAME" value={inputDataSubmit.PV_NAME} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="สัญญาเดิม" name="Old_LoanID" value={inputDataSubmit.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="สัญญาเดิม" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="&nbsp;" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;" defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="เงินต้นค้างเดิม" defaultValue='' />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="ดอกเบี้ยค้างเดิม" defaultValue='' />
                                                         </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ค่าปรับค้างเดิม" defaultValue='' />
-                                                                </Grid>
-                                                            </Grid>
+                                                        {/* <Grid item xs={12} md={12}>
+                                                            <Grid container spacing={2}> */}
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="ค่าปรับค้างเดิม" defaultValue='' />
                                                         </Grid>
-                                                        <Grid item xs={12} md={2}>
+                                                            {/* </Grid>
+                                                        </Grid> */}
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการรอง" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="ชื่อโครงการรอง" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการ" defaultValue='' />
+                                                            <MuiTextfield label="รหัสโครงการ" inputdisabled="input-disabled" name="Projectcode" value={inputDataSubmit.Projectcode} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการ" defaultValue='' />
+                                                            <MuiTextfield label="ชื่อโครงการ" inputdisabled="input-disabled" name="ProjectName" value={inputDataSubmit.ProjectName} onChange={handleInputDataSubmit}   />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={2}>
+                                                            <MuiTextfield label="รหัสโครงการรอง" inputdisabled="input-disabled" name="ProjectSubCode" value={inputDataSubmit.ProjectSubCode} onChange={handleInputDataSubmit}  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="ชื่อโครงการรอง" inputdisabled="input-disabled" name="ProjectSubName" value={inputDataSubmit.ProjectSubName} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเลขที่" defaultValue='' />
+                                                            <MuiTextfield label="สัญญาเลขที่" inputdisabled="input-disabled" inputdisabled="input-disabled" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>วันที่สัญญา</p>
-                                                            <div className="select-date-option">
-                                                                <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.contractdatedd} onChange={handleSelectDate} />
-                                                                <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.contractdatemm} onChange={handleSelectDate} />
-                                                                <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.contractdateyyyy} onChange={handleSelectDate} />
-                                                            </div>
+                                                            <MuiDatePicker label="วันที่สัญญา" inputdisabled="input-disabled" inputdisabled="input-disabled" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;" id='' defaultValue='' />
+                                                            <MuiTextfield label="&nbsp;" id='' inputdisabled="input-disabled" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ใช้เงินตามแผนปี" id='' defaultValue='' />
+                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" inputdisabled="input-disabled" id='' name="RecYear" value={inputDataSubmit.RecYear} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="จำนวนเงินให้กู้" id='' defaultValue='' />
+                                                            {/* principle */}
+                                                            <MuiTextfield label="จำนวนเงินให้กู้" inputdisabled="input-disabled" id='' inputdisabled="input-disabled"/>
                                                         </Grid>
-                                                        <Grid item xs={12} md={2}>
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="โครงการหลัก"  lists={['โครงการหลัก1','โครงการหลัก2','โครงการหลัก3']} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={2}>
+                                                            <MuiTextfield label="รหัสโครงการหลัก" inputdisabled="input-disabled" name="Projectcode" value={inputDataSubmit.Projectcode} onChange={handleInputDataSubmit}  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="ชื่อโครงการหลัก" inputdisabled="input-disabled" name="ProjectName" value={inputDataSubmit.ProjectName} onChange={handleInputDataSubmit}  />
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="วัตถุประสงค์การกู้ยืม"  lists={['วัตถุประสงค์การกู้ยืม1','วัตถุประสงค์การกู้ยืม2','วัตถุประสงค์การกู้ยืม3']} />
+                                                        </Grid> */}
+                                                        <Grid item xs={12} md={6}>
+                                                            {/* objective1 */}
+                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" inputdisabled="input-disabled"/>
                                                         </Grid>
-                                                        <Grid item xs={12} md={1}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelect label="ประเภทเงินกู้"  lists={['ประเภทเงินกู้1','ประเภทเงินกู้2','ประเภทเงินกู้3']} />
+                                                            <MuiSelect label="ประเภทเงินกู้" inputdisabled="input-disabled" lists={['ประเภทเงินกู้1','ประเภทเงินกู้2','ประเภทเงินกู้3']} value={0} />
                                                         </Grid>
-                                                        <Grid item xs={12} md={1}>
+                                                        <Grid item xs={12} md={4}>
+                                                            {/* LoanPeriod */}
+                                                            <MuiTextfield label="&nbsp;" inputdisabled="input-disabled" />
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelect label="ประเภทกู้ยืม"  lists={['ประเภทกู้ยืม1','ประเภทกู้ยืม2','ประเภทกู้ยืม3']} />
+                                                            <MuiSelect label="ประเภทกู้ยืม" inputdisabled="input-disabled" lists={['ประเภทกู้ยืม1','ประเภทกู้ยืม2','ประเภทกู้ยืม3']} value={0} />
                                                         </Grid>
-                                                        <Grid item xs={12} md={1}>
+                                                        <Grid item xs={12} md={4}>
+                                                            {/* LoanobjName */}
+                                                            <MuiTextfield label="&nbsp;" inputdisabled="input-disabled"  />
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelect label="ประเภทผู้กู้"  lists={['ประเภทเผู้กู้1','ประเภทเผู้กู้2','ประเภทเผู้กู้3']} />
+                                                            <MuiSelect label="ประเภทผู้กู้" inputdisabled="input-disabled" lists={['ประเภทผู้กู้1','ประเภทผู้กู้2','ประเภทผู้กู้3']} value={0} />
                                                         </Grid>
-                                                        <Grid item xs={12} md={1}>
+                                                        <Grid item xs={12} md={4}>
+                                                            {/* LoanFarmerTypeName */}
+                                                            <MuiTextfield label="&nbsp;" inputdisabled="input-disabled"/>
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;"  defaultValue='' />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         
                                                     </Grid>
-                                                </form>
-                                            </Paper>
-                                            
-                                            {/* Paper 3 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper" style={{display: 'none'}}>
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                                </Paper>
+                                                
+                                                {/* Paper 3 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper" style={{display: 'none'}}>
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={8}>
-                                                            <MuiTextfield label="เลขบัตรประจำตัวประชาชน" defaultValue='' />
+                                                            <MuiTextfield label="เลขบัตรประจำตัวประชาชน"/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <p>&nbsp;</p>
                                                             <ButtonFluidPrimary label="ค้นหา"  />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelect disabled label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
+                                                            <MuiSelect disabled label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} value={0} />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             <MuiTextfield disabled label="ชื่อ" defaultValue='' />
@@ -866,59 +1338,110 @@ function EditContractDebt() {
                                                             <MuiRadioButton label="&nbsp;" lists={['คำสั่งศาล','เปลี่ยนสัญญา','กทด.']} value={inputData.typeContract} onChange={handleChangeTypeContract} type="row" />
                                                         </Grid> */}
                                                     </Grid>
-                                                </form>
-                                            </Paper>
+                                                </Paper>
 
-                                            {/* Paper 4 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                                {/* Paper 4 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={1}>
-                                                            <MuiSelect label="ตำบล"  lists={['ตำบล1','ตำบล2','ตำบล3']} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="&nbsp;" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={1}>
-                                                            <MuiSelect label="อำเภอ"  lists={['อำเภอ1','อำเภอ2','อำเภอ3']} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="&nbsp;" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={1}>
-                                                            <MuiSelect label="ประเภทที่ดิน"  lists={['ประเภทที่ดิน1','ประเภทที่ดิน2','ประเภทที่ดิน3']} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="&nbsp;" defaultValue='' />
+                                                            {/* Land_AddMoo */}
+                                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" inputdisabled="input-disabled" value={inputDataLandData.Land_AddMoo} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เลขที่" defaultValue='' />
+                                                            {/* Land_AddrSubdistrict */}
+                                                            <MuiTextfield label="แขวง/ตำบล" inputdisabled="input-disabled"  value={inputDataLandData.Land_AddrSubdistrict}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="กลุ่ม" defaultValue='' />
+                                                            {/* Land_AddrDistrict */}
+                                                            <MuiTextfield label="เขต/อำเภอ" inputdisabled="input-disabled"  value={inputDataLandData.Land_AddrDistrict}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="แปลง" defaultValue='' />
+                                                            {/* DocLand_name */}
+                                                            <MuiTextfield label="ประเภทที่ดิน" inputdisabled="input-disabled"  value={inputDataLandData.DocLand_name}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            {/* LandNumber */}
+                                                            <MuiTextfield label="เลขที่" inputdisabled="input-disabled" value={inputDataLandData.LandNumber} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            {/* LandGroup */}
+                                                            <MuiTextfield label="กลุ่ม" inputdisabled="input-disabled" value={inputDataLandData.LandGroup} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            {/* Plang */}
+                                                            <MuiTextfield label="แปลง" inputdisabled="input-disabled" value={inputDataLandData.Plang} />
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="ไร่" defaultValue='' />
+                                                            {/* Rai */}
+                                                            <MuiTextfield label="ไร่" inputdisabled="input-disabled" value={inputDataLandData.Rai} />
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="งาน" defaultValue='' />
+                                                            {/* Ngan */}
+                                                            <MuiTextfield label="งาน" inputdisabled="input-disabled" value={inputDataLandData.Ngan} />
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="วา" defaultValue='' />
+                                                            {/* Wa */}
+                                                            <MuiTextfield label="วา" inputdisabled="input-disabled" value={inputDataLandData.Wa} />
                                                         </Grid>
                                                     </Grid>
-                                                </form>
-                                            </Paper>
+                                                </Paper>
 
-                                            {/* Paper 5 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper mg-t-35">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                                {/* Paper 6 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper mg-t-35">
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={8}>
+                                                            <p className="txt-green">เพิ่มข้อมูลลง DUE ให้เพิ่มต่อเนื่องอย่ากระโดดปี</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <Grid container spacing={2}>
+                                                                <Grid item xs={12} md={9}>
+                                                                    <p className="paper-p txt-right">จำนวนข้อมูล DUE</p>
+                                                                </Grid>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <MuiSelect label="" lists={dueAmountList} value={dueAmount} onChange={handleDUEAmount} />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiLabelHeaderCheckbox label="งวด"  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiLabelHeaderCheckbox label="วันครบกำหนด"  />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiLabelHeaderCheckbox label="จำนวนเงินต้น" />
+                                                        </Grid>
+                                                        <div style={{width: '100%', height: '200px', overflow: 'auto'}}>
+                                                            {
+                                                                rowTable(dueAmount + 1)
+                                                            }
+                                                            {/* {
+                                                                inputDataSubmitLoanDUE.map((item,i)=>{
+                                                                    return (
+                                                                        <div style={{flex: '1', width: '100%', display: 'flex'}}>
+                                                                            <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
+                                                                                <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
+                                                                                <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE} onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
+                                                                                <MuiTextfieldCurrency label='' value={inputDataSubmitLoanDUE[i].PAYREC} onChange={(event)=>{handleSubmitLoanDUEPayrec(event,i)}} />
+                                                                            </Grid>
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                                )
+                                                            } */}
+                                                        </div>
+                                                        {/* <Grid item xs={12} md={12} className="txt-center">
+                                                            <ButtonFluidIconStartPrimary label="เพิ่ม" startIcon={<AddIcon />} maxWidth="275px" />
+                                                        </Grid> */}
+                                                    </Grid>
+                                                </Paper>
+
+                                                {/* Paper 5 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper mg-t-35">
                                                     <Grid container spacing={2} className="paper-container">
                                                         <Grid item xs={12} md={12} >
                                                             <Grid container spacing={2} >
@@ -926,189 +1449,147 @@ function EditContractDebt() {
                                                                     <Grid item xs={12} md={12}>
                                                                         <Grid container spacing={2}>
                                                                             <Grid item xs={12} md={6}>
-                                                                                <p>วันที่เปลี่ยนสัญญ</p>
-                                                                                <div className="select-date-option">
-                                                                                    <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.changecontractdatedd} onChange={handleSelectDate} />
-                                                                                    <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.changecontractdatemm} onChange={handleSelectDate} />
-                                                                                    <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.changecontractdateyyyy} onChange={handleSelectDate} />
-                                                                                </div>
+                                                                                <MuiDatePicker label="วันที่เปลี่ยนสัญญา" name="LoanChangeDate" value={inputDataSubmit.LoanChangeDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanChangeDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={6}>
-                                                                                <p>วันที่รับแปลงหนี้</p>
-                                                                                <div className="select-date-option">
-                                                                                    <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.changedebtdatedd} onChange={handleSelectDate} />
-                                                                                    <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.changedebtdatemm} onChange={handleSelectDate} />
-                                                                                    <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.changedebtdateyyyy} onChange={handleSelectDate} />
-                                                                                </div>
+                                                                                <MuiDatePicker label="วันที่รับแปลงหนี้" name="DebtEditDate" value={inputDataSubmit.DebtEditDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, DebtEditDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
                                                                                 <MuiTextfieldMultiLine label="หมายเหตุ" row="3" defaultValue='' />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield label="&nbsp;" defaultValue='เงินกู้' />
+                                                                            </Grid>
+                                                                            {/* <Grid item xs={12} md={6}>
                                                                                 <p>&nbsp;</p>
                                                                                 <div className="select-date-option">
                                                                                     <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.noticedatedd} onChange={handleSelectDate} />
                                                                                     <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.noticedatemm} onChange={handleSelectDate} />
                                                                                     <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.noticedateyyyy} onChange={handleSelectDate} />
                                                                                 </div>
-                                                                            </Grid>
+                                                                            </Grid> */}
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                                 
                                                                 <Grid item xs={12} md={6}>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">เงินต้น</p>
+                                                                    <Grid  container spacing={2}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">เงินต้น</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency label='' name="principle" value={inputDataSubmitIndividual.principle === null || inputDataSubmitIndividual.principle === '' ? 0 : inputDataSubmitIndividual.principle} onChange={handleInputDataSubmitIndividual}/>
+                                                                                </Grid>
                                                                             </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">ดอกเบี้ย</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency label='' name="OldInterest" value={inputDataSubmitIndividual.OldInterest === null || inputDataSubmitIndividual.OldInterest === '' ? 0 : inputDataSubmitIndividual.OldInterest} onChange={handleInputDataSubmitIndividual}/>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">ค่าปรับ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency label=''name="OldFine" value={inputDataSubmitIndividual.OldFine === null || inputDataSubmitIndividual.OldFine === '' ? 0 : inputDataSubmitIndividual.OldFine} onChange={handleInputDataSubmitIndividual}/>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">เงินต้น สัญญาเดิม</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.principle}/> 
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.Interest}/> 
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">อัตราดอกเบี้ย</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency label='' name="Interest" value={inputDataSubmitIndividual.Interest === null || inputDataSubmitIndividual.Interest === '' ? 0 : inputDataSubmitIndividual.Interest} onChange={handleInputDataSubmitIndividual}/>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">อัตราค่าปรับ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency label='' name="ChargeRate" value={inputDataSubmitIndividual.ChargeRate === null || inputDataSubmitIndividual.ChargeRate === '' ? 0 : inputDataSubmitIndividual.ChargeRate} onChange={handleInputDataSubmitIndividual}/>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">ผลรวมเงินต้น</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataSubmitIndividual.principle === null ? 0 : inputDataSubmitIndividual.principle} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">ผลรวมงวดชำระ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={summaryTable} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">ดอกเบี้ย</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">ค่าปรับ</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">เงินต้น สัญญาเดิม</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">อัตราดอกเบี้ย</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">อัตราค่าปรับ</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">ผลรวมเงินต้น</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid container spacing={2}>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <p className="paper-p txt-right">ผลรวมงวดชำระ</p>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} md={5}>
-                                                                                <MuiTextfield label='' defaultValue=''/>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                </form>
-                                            </Paper>
-                                        
-                                            {/* Paper 6 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green paper mg-t-35">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                                    <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <p className="txt-green">เพิ่มข้อมูลลง DUE ให้เพิ่มต่อเนื่องอย่ากระโดดปี</p>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="งวด" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiDatePicker label="วันครบกำหนด"  defaultValue="2017-05-24" />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="จำนวนเงินต้น" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label='' defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiDatePicker label=''  defaultValue="2017-05-24" />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label='' defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12} className="txt-center">
-                                                            <ButtonFluidIconStartPrimary label="เพิ่ม" startIcon={<AddIcon />} maxWidth="275px" />
-                                                        </Grid>
-                                                    </Grid>
-                                                </form>
-                                            </Paper>
-
-                                            {/* Paper 7 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                                </Paper>
+                                            
+                                                {/* Paper 7 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={12}>
                                                             <p>ในวันทำสัญญานี้ ลูกหนี้ใหม่ได้มอบหลักประกัน ดังต่อไปนี้</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ก. อสังหาริมทัพย์ที่ปราศจากข้อผูกพันใด ๆ คือ" defaultValue='' />
+                                                            <MuiTextfield label="ก. อสังหาริมทัพย์ที่ปราศจากข้อผูกพันใด ๆ คือ" name="Guarantee_Property" value={inputDataSubmit.Guarantee_Property} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="โดยนำมาจำนองไว้กับผู้ให้กู้ตามหนังสือสัญญาจำนองที่" defaultValue='' />
+                                                            <MuiTextfield label="โดยนำมาจำนองไว้กับผู้ให้กู้ตามหนังสือสัญญาจำนองที่" name="LoanContactBook" value={inputDataSubmit.LoanContactBook} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}> 
-                                                            <p>ลงวันที่</p>
-                                                            <div className="select-date-option">
-                                                                <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.mortgagedatedd} onChange={handleSelectDate} />
-                                                                <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.mortgagedatemm} onChange={handleSelectDate} />
-                                                                <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.mortgagedateyyyy} onChange={handleSelectDate} />
-                                                            </div>
+                                                            <MuiDatePicker label="ลงวันที่" name="Guarantee_PropertyDate" value={inputDataSubmit.Guarantee_PropertyDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, Guarantee_PropertyDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={8}>
+                                                            <MuiTextfieldEndAdornment label="ข. หนังสือสัญญารับรองผูกพันตนรับผิดชอบอย่างลูกหนี้ร่วมกันต่อ ส.ป.ก. ของเกษตรกรรวม" endAdornment="ราย" name="Guarantee_Person" value={inputDataSubmit.Guarantee_Person} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={8}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={12}>
                                                                     <p>ข. หนังสือสัญญารับรองผูกพันตนรับผิดชอบอย่างลูกหนี้ร่วมกันต่อ ส.ป.ก. ของเกษตรกรรวม</p>
@@ -1120,113 +1601,114 @@ function EditContractDebt() {
                                                                     <span style={{marginTop: '8px'}}>(&nbsp;</span><MuiTextfieldEndAdornment label='' defaultValue='' endAdornment=") ราย"/>
                                                                 </Grid>
                                                             </Grid>
+                                                        </Grid> */}
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="ตามหนังสือสัญญารับรองฯ ที่" name="LoanGuaranteeBook" value={inputDataSubmit.LoanGuaranteeBook} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ตามหนังสือสัญญารับรองฯ ที่" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <p>ลงวันที่</p>
-                                                            <div className="select-date-option">
-                                                                <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.bookguaranteedatedd} onChange={handleSelectDate} />
-                                                                <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.bookguaranteedatemm} onChange={handleSelectDate} />
-                                                                <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.bookguaranteedateyyyy} onChange={handleSelectDate} />
-                                                            </div>
+                                                            <MuiDatePicker label="ลงวันที่" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <p>ค. หนังสือสัญญาค้ำประกันของ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="(1)" defaultValue='' />
+                                                            <MuiTextfield label="(1)"  name="WarrantBookOwner1" value={inputDataSubmit.WarrantBookOwner1} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ตามหนังสือสัญญาค้ำประกันที่" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={12}>
-                                                                    <p>ลงวันที่</p>
-                                                                    <div className="select-date-option">
-                                                                        <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.guarantee1datedd} onChange={handleSelectDate} />
-                                                                        <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.guarantee1datemm} onChange={handleSelectDate} />
-                                                                        <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.guarantee1dateyyyy} onChange={handleSelectDate} />
-                                                                    </div>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="(2)" defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ตามหนังสือสัญญาค้ำประกันที่" defaultValue='' />
+                                                            <MuiTextfield label="ตามหนังสือสัญญาค้ำประกันที่" name="WarrantBook1" value={inputDataSubmit.WarrantBook1} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={12}>
-                                                                    <p>ลงวันที่</p>
-                                                                    <div className="select-date-option">
-                                                                        <MuiSelectDay label='' name="recdatedd" value={inputSelectDate.guarantee2datedd} onChange={handleSelectDate} />
-                                                                        <MuiSelectMonth label='' name="recdatemm" value={inputSelectDate.guarantee2datemm} onChange={handleSelectDate} />
-                                                                        <MuiSelectYear label='' name="recdateyyyy" value={inputSelectDate.guarantee2dateyyyy} onChange={handleSelectDate} />
-                                                                    </div>
+                                                                    <MuiDatePicker label="ลงวันที่" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="(2)" name="WarrantBookOwner2" value={inputDataSubmit.WarrantBookOwner2} onChange={handleInputDataSubmit}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextfield label="ตามหนังสือสัญญาค้ำประกันที่"  name="WarrantBook2" value={inputDataSubmit.WarrantBook2} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <Grid container spacing={2}>
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
                                                     </Grid>
-                                                </form>
-                                            </Paper>
+                                                </Paper>
 
-                                            {/* Paper 8 - -------------------------------------------------- */}
-                                            <Paper className="paper line-top-green">
-                                                <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                                {/* Paper 8 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={12}>
                                                             <p>หมายเหตุ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="1. ชื่อพยาน" defaultValue='' />
+                                                            <MuiTextfield label="1. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName" value={inputDataSubmit.WitnessName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" defaultValue='' />
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr" value={inputDataSubmit.WitnessAddr} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" defaultValue='' />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="สถานที่ออกบัตร" defaultValue='' />
+                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade" value={inputDataSubmit.WitnessIDCardMade} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="2. ชื่อพยาน" defaultValue='' />
+                                                            <MuiTextfield label="2. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName2" value={inputDataSubmit.WitnessName2} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" defaultValue='' />
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={inputDataSubmit.WitnessAddr2} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" defaultValue='' />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="สถานที่ออกบัตร" defaultValue='' />
+                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade2" value={inputDataSubmit.WitnessIDCardMade2} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                     </Grid>
-                                                </form>
-                                            </Paper>
+                                                </Paper>
+
+                                            </Grid>
 
                                         </Grid>
+                                    </Container>
+                                    
+                                    {/* Button row */}
+                                    <Container maxWidth="md">
+                                        {
+                                            (Number(inputDataSubmitIndividual.principle) === summaryTable) && Number(inputDataSubmitIndividual.principle) > 0 && summaryTable > 0 ?
+                                            <Grid container spacing={2} className="btn-row txt-center">
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
+                                                </Grid>
+                                                <Grid item xs={12} md={4} >
+                                                    <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                                </Grid>
+                                            </Grid>
+                                            :
+                                            <Grid container spacing={2} className="btn-row txt-center" style={{opacity: '0.5', pointerEvents: 'none'}}>
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidPrimary label="บันทึกชั่วคราว" id=""  />
+                                                </Grid>
+                                                <Grid item xs={12} md={4} >
+                                                    <ButtonFluidPrimary label="ยืนยันสร้างสัญญา"/>
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} />
+                                                </Grid>
+                                            </Grid>
+                                        }
 
-                                    </Grid>
-                                </Container>
-                                
-                                {/* Button row */}
-                                <Container maxWidth="sm">
-                                    <Grid container spacing={2} className="btn-row">
-                                        <Grid item xs={12} md={6}>
-                                            <ButtonFluidPrimary label="ยืนยันการเพิ่ม" onClick={()=>gotoPrintContractDebt()} />
-                                        </Grid>
-                                        <Grid item xs={12} md={6}>
-                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} />
-                                        </Grid>
-                                    </Grid>
-                                </Container>
+                                    </Container>
+                                </form>
                             </React.Fragment>
                         : null
                     }
@@ -1267,13 +1749,12 @@ function EditContractDebt() {
                 {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
                 <DialogContent>
 
-                    <div className="dialog-success">
+                <div className="dialog-confirm">
                         <p className="txt-center txt-black">{confirmMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                            <ButtonFluidOutlinePrimary label="ยกเลิก" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
-                            &nbsp;&nbsp;
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidOutlinePrimary label="ยกเลิก" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}}/> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={(event)=>{ handleSubmit(event, 'confirm');}} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     
