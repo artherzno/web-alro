@@ -20,6 +20,13 @@ import Billed from './report/Billed'
 import Compensate from './report/Compensate'
 import DebtPending from './report/DebtPending'
 import PaymentDetail from './report/PaymentDetail'
+import DebtStatus from './report/DebtStatus'
+import Target from './report/Target'
+import Compare from './report/Compare'
+import Stt from './report/Stt'
+import DebtAge from './report/DebtAge'
+import Limitation from './report/Limitation'
+import Liability from './report/Liability'
 import AddFarmer from './manageinfo/AddFarmer';
 import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -141,6 +148,13 @@ function Main() {
                     <Route path="/report/compensate" component={Compensate} />
                     <Route path="/report/debtpending" component={DebtPending} />
                     <Route path="/report/payment/detail/:paymentID" component={PaymentDetail} />
+                    <Route path="/report/debtstatus" component={DebtStatus} />
+                    <Route path="/report/target" component={Target} />
+                    <Route path="/report/compare" component={Compare} />
+                    <Route path="/report/stt" component={Stt} />
+                    <Route path="/report/debtage" component={DebtAge} />
+                    <Route path="/report/limitation" component={Limitation } />
+                    <Route path="/report/liability" component={Liability } />
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />

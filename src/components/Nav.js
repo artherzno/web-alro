@@ -216,26 +216,27 @@ const listmenu = [
                 subtitle: 'รายงานการทำสัญญาชดใช้หนี้แทนเกษตรกร',
                 subpath: '/report/compensate'
             }, {
-                subtitle: 'รายงานสถานะหนี้เงินรอเรียกคืน',
-                subpath: '/report/debtpending'
+                subtitle: 'รายงานสถานะหนี้',
+                subpath: '/report/debtstatus'
+               // subpath: '/report/debtpending'
             }, {
                 subtitle: 'รายงานเป้าจัดเก็บ',
-                subpath: '/report/debtpending'
+                subpath: '/report/target'
             }, {
                 subtitle: 'รายงานสรุปเปรียบเทียบแผน / ผล จัดเก็บ',
-                subpath: '/report/debtpending'
+                subpath: '/report/compare'
             }, {
                 subtitle: 'รายงาน สศก',
-                subpath: '/report/debtpending'
+                subpath: '/report/stt'
             }, {
                 subtitle: 'รายงานอายุหนี้',
-                subpath: '/report/debtpending'
+                subpath: '/report/debtage'
             }, {
                 subtitle: 'รายงานอายุความ',
-                subpath: '/report/debtpending'
+                subpath: '/report/limitation'
             }, {
-                subtitle: 'รายงานสภาพความรับผิดชอบ',
-                subpath: '/report/debtpending'
+                subtitle: 'รายงานสภาพความรับผิด',
+                subpath: '/report/liability'
             }, {
                 subtitle: 'รายงานสภาพหนี้',
                 subpath: '/report/debtpending'
