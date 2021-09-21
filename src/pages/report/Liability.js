@@ -11,7 +11,7 @@ import LiabilityPerProvinceTab from './LiabilityPerProvinceTab'
 
 const tabs = [{
     title: 'รายงานสภาพความรับผิด',
-    id: "liability _per_contract"
+    id: "liability _per_contract" 
 },
 {
     title: 'รายงานสภาพความรับผิด (รายประเภทโครงการหลัก)',
