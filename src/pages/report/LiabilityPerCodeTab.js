@@ -364,4 +364,4 @@ class LiabilityPerCodeTab extends React.Component {
     }
 }
 
-export default withStyles(styles)(LiabilityPerCodeTab)
+export default withStyles(styles)(LiabilityPerCodeTab) 
