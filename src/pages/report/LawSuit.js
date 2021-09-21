@@ -16,7 +16,7 @@ const tabs = [{
     id: "sum_lawsuit"
 },]
 
-class LawSuit extends React.Component {
+class LawSuit extends React.Component { 
 
     constructor(props) {
         super(props)
