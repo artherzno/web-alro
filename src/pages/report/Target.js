@@ -4,19 +4,27 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LawSuitTab from './LawSuitTab'
-import SummaryLawSuitTab from './SummaryLawSuitTab'
+import TargetPerContractTTab from './TargetPerContractTTab'
+import TargetPerContractPTab from './TargetPerContractPTab'
+import TargetPerProjectYTab from './TargetPerProjectYTab'
+import TargetPerGroupTab from './TargetPerGroupTab'
 
 const tabs = [{
-    title: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "lawsuit"
+    title: 'รายงานเป้าจัดเก็บ รายสัญญา (ตำบล)',
+    id: "target_per_contract_t"
 },
 {
-    title: 'สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "sum_lawsuit"
-},]
+    title: 'รายงานเป้าจัดเก็บ รายสัญญา (โครงการ)',
+    id: "target_per_contract_p"
+},{
+    title: 'รายงานเป้าจัดเก็บ รายโครงการ (ปี)',
+    id: "target_per_project_y"
+},{
+    title: 'รายงานเป้าจัดเก็บ กลุ่มลูกหนี้ (รายสัญญา/โครงการ)',
+    id: "target_per_group"
+}]
 
-class LawSuit extends React.Component { 
+class Target extends React.Component {
 
     constructor(props) {
         super(props)
@@ -57,7 +65,7 @@ class LawSuit extends React.Component {
                 </Box>
                 <div className="line-horizontal" />
 
-                <Box mt={5} ml={2} mr={2}>
+                <Box mt={5} ml={2} mr={2} mr={2}>
                     {this.renderContent()}
                 </Box>
 
@@ -70,14 +78,22 @@ class LawSuit extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LawSuitTab />
+                <TargetPerContractTTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <SummaryLawSuitTab />
+                <TargetPerContractPTab />
             )
-        }
+        } else if (this.state.tabSelected === tabs[2].id) {
+            return (
+                <TargetPerProjectYTab />
+            )
+        } else if (this.state.tabSelected === tabs[3].id) {
+            return (
+                <TargetPerGroupTab />
+            )
+        } 
     }
 }
 
-export default LawSuit
+export default Target

@@ -109,7 +109,7 @@ class LawSuitTab extends React.Component {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'รายงานสัญญาการดำเนินคดีทางศาล.xlsx');
+            link.setAttribute('download', 'รายงานตั้งหนี้ตามคำพิพากษาศาล.xlsx');
             document.body.appendChild(link);
             link.click();
 
@@ -239,7 +239,7 @@ class LawSuitTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">รายงานสัญญาการดำเนินคดีทางศาล {`${this.state.provinceZoneLabel}`}</Typography>
+                    <Typography variant="h6" align="center">รายงานตั้งหนี้ตามคำพิพากษาศาล {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
@@ -262,38 +262,36 @@ class LawSuitTab extends React.Component {
                                     <StyledTableCell align="center" rowSpan={2}>จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>โครงการหลัก</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={8}>สัญญาเดิม</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={15}>สัญญาใหม่</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={7}>สัญญาเดิม</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={18}>หนี้ตามคำพิพากษาศาล</StyledTableCell>
 
                                 </TableRow>
                                 <TableRow>
-                                    <StyledTableCell align="center" >ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center" >ประเภทสัญญา</StyledTableCell>
+                                    <StyledTableCell align="center" >ชื่อ-สกุล</StyledTableCell>
                                     <StyledTableCell align="center" >เลขที่สัญญา</StyledTableCell>
-                                    <StyledTableCell align="center" >เงินต้น</StyledTableCell>
+                                    <StyledTableCell align="center" >เงินต้นตามสัญญาเดิม</StyledTableCell>
                                     <StyledTableCell align="center" >ดอกเบี้ยค้าง</StyledTableCell>
-                                    <StyledTableCell align="center" >ดอกเบี้ยปรับ</StyledTableCell>
+                                    <StyledTableCell align="center" >ค่าปรับ</StyledTableCell>
                                     <StyledTableCell align="center" >รวม</StyledTableCell>
-                                    <StyledTableCell align="center" >อัตตราดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" >อัตราดอกเบี้ย</StyledTableCell>
 
-                                    <StyledTableCell align="center" >ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center" >ประเภทสัญญา</StyledTableCell>
-                                    <StyledTableCell align="center" >วันที่ฟ้องศาล</StyledTableCell>
+                                    <StyledTableCell align="center" >ชื่อ-สกุล</StyledTableCell>
+                                    <StyledTableCell align="center" >วันที่บันทึกคำสั่งศาล</StyledTableCell>
                                     <StyledTableCell align="center" >เลขที่สัญญา</StyledTableCell>
-                                    <StyledTableCell align="center" >เงินต้น</StyledTableCell>
-                                    <StyledTableCell align="center" >ดอกเบี้ย</StyledTableCell>
-                                    <StyledTableCell align="center" >ดอกเบี้ยที่ศาลสั่งเพิ่มเติม</StyledTableCell>
+                                    <StyledTableCell align="center" >วันที่ศาลสั่ง</StyledTableCell>
+                                    <StyledTableCell align="center" >เงินต้นตามที่ศาลสั่ง</StyledTableCell>
+
+                                 
+                                    <StyledTableCell align="center" >ดอกเบี้ยรวมตามสัญญาเดิม</StyledTableCell>
+                                    <StyledTableCell align="center" >ดอกเบี้ยที่ศาลสั่ง</StyledTableCell>
                                     <StyledTableCell align="center" >รวม</StyledTableCell>
-                                    <StyledTableCell align="center" >การคิดอัตตราดอกเบี้ย</StyledTableCell>
-                                    <StyledTableCell align="center" >อัตตราดอกเบี้ย</StyledTableCell>
-                                    <StyledTableCell align="center" >วันที่ทำสัญญาใหม่</StyledTableCell>
-                                    <StyledTableCell align="center" >คดีหมายเลขดำ</StyledTableCell>
-                                    <StyledTableCell align="center" >คดีหมายเลขแดง</StyledTableCell>
-                                    <StyledTableCell align="center" >วันพิพากษา</StyledTableCell>
+                                    <StyledTableCell align="center" >การคิดอัตราดอกเบี้ย</StyledTableCell>
+                                    <StyledTableCell align="center" >อัตราดอกเบี้ยตามที่ศาลสั่ง</StyledTableCell>
                                     <StyledTableCell align="center" >คำพิพากษา</StyledTableCell>
 
-                                </TableRow>
+                                </TableRow> 
 
                             </TableHead>
                             <TableBody>
@@ -303,9 +301,9 @@ class LawSuitTab extends React.Component {
                                             <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.contractType}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.accruedInterest)}</StyledTableCellLine>
@@ -313,19 +311,18 @@ class LawSuitTab extends React.Component {
                                             <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.contractType2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.courtDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.newContractDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.contractNo2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.courtDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.principle2)}</StyledTableCellLine>
+                                            
+                                           
                                             <StyledTableCellLine align="right">{farmer.interest}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.courtInterest}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.total2)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRateCal}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.interestRate2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.newContractDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.blackNumCase}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.redNumCase}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.judgmentDate}</StyledTableCellLine>
+                                           
                                             <StyledTableCellLine align="left"><div className="btn-more-detail-table">ดูรายละเอียด</div></StyledTableCellLine>
 
                                         </TableRow>

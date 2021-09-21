@@ -4,19 +4,27 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LawSuitTab from './LawSuitTab'
-import SummaryLawSuitTab from './SummaryLawSuitTab'
+import LiabilityPerContractTab from './LiabilityPerContractTab'
+import LiabilityPerCodeTab from './LiabilityPerCodeTab'
+import LiabilityPerProjListTab from './LiabilityPerProjListTab'
+import LiabilityPerProvinceTab from './LiabilityPerProvinceTab'
 
 const tabs = [{
-    title: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "lawsuit"
+    title: 'รายงานสภาพความรับผิด',
+    id: "liability _per_contract" 
 },
 {
-    title: 'สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "sum_lawsuit"
-},]
+    title: 'รายงานสภาพความรับผิด (รายประเภทโครงการหลัก)',
+    id: "liability _per_code"
+},{
+    title: 'รายงานสภาพความรับผิด (รายโครงการ)',
+    id: "liability _per_projlist"
+},{
+    title: 'สรุปรายงานสภาพความรับผิด',
+    id: "liability _per_province"
+}]
 
-class LawSuit extends React.Component { 
+class Liability extends React.Component {
 
     constructor(props) {
         super(props)
@@ -57,7 +65,7 @@ class LawSuit extends React.Component {
                 </Box>
                 <div className="line-horizontal" />
 
-                <Box mt={5} ml={2} mr={2}>
+                <Box mt={5} ml={2} mr={2} mr={2}>
                     {this.renderContent()}
                 </Box>
 
@@ -70,14 +78,22 @@ class LawSuit extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LawSuitTab />
+                <LiabilityPerContractTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <SummaryLawSuitTab />
+                <LiabilityPerCodeTab />
             )
-        }
+        } else if (this.state.tabSelected === tabs[2].id) {
+            return (
+                <LiabilityPerProjListTab />
+            )
+        } else if (this.state.tabSelected === tabs[3].id) {
+            return (
+                <LiabilityPerProvinceTab />
+            )
+        } 
     }
 }
 
-export default LawSuit
+export default Liability

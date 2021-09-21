@@ -182,39 +182,76 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
-                subpath: '/report/listfarmerpayloan'
-            },{
-                subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
-                subpath: '/report/listnewfarmerpayloan'
-            },{
-                subtitle: 'รายงานการจ่ายเงินกู้',
-                subpath: '/report/payLoan'
-            },{
-                subtitle: 'รายงานคำขอกู้ยืมรายสัญญา',
+                subtitle: 'รายงานคำขอกู้ยืม',
                 subpath: '/report/requestloan'
             },{
                 subtitle: 'รายงานการทำสัญญา',
                 subpath: '/report/listsign'
             },{
+                subtitle: 'รายงานการจ่ายเงินกู้',
+                subpath: '/report/payLoan'
+            }
+            ,{
+                subtitle: 'รายงานรับชำระเงินกู้',
+                subpath: '/report/listfarmerpayloan'
+            },
+            /*{
+                subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
+                subpath: '/report/listnewfarmerpayloan'
+            },*/
+            {
+                subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
+                subpath: '/report/billed'
+            },
+           {
                 subtitle: 'รายงานการทำสัญญาแปลงหนี้',
                 subpath: '/report/convertloan'
             },{
-                subtitle: 'รายงานสัญญาการดำเนินคดีทางศาล',
+                subtitle: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
                 subpath: '/report/lawsuit'
             },{
                 subtitle: 'รายงานการทำสัญญาปรับปรุงโครงสร้างหนี้',
                 subpath: '/report/modify'
-            },{
-                subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
-                subpath: '/report/billed'
             }, {
-                subtitle: 'รายงานการชดใช้หนี้แทนเกษตรกร',
+                subtitle: 'รายงานการทำสัญญาชดใช้หนี้แทนเกษตรกร',
                 subpath: '/report/compensate'
             }, {
-                subtitle: 'รายงานสถานะหนี้เงินรอเรียกคืน',
+                subtitle: 'รายงานสถานะหนี้',
+                subpath: '/report/debtstatus'
+               // subpath: '/report/debtpending'
+            }, {
+                subtitle: 'รายงานเป้าจัดเก็บ',
+                subpath: '/report/target'
+            }, {
+                subtitle: 'รายงานสรุปเปรียบเทียบแผน / ผล จัดเก็บ',
+                subpath: '/report/compare'
+            }, {
+                subtitle: 'รายงาน สศก',
+                subpath: '/report/stt'
+            }, {
+                subtitle: 'รายงานอายุหนี้',
+                subpath: '/report/debtage'
+            }, {
+                subtitle: 'รายงานอายุความ',
+                subpath: '/report/limitation'
+            }, {
+                subtitle: 'รายงานสภาพความรับผิด',
+                subpath: '/report/liability'
+            }, {
+                subtitle: 'รายงานสภาพหนี้',
+                subpath: '/report/debtpending'
+            }, {
+                subtitle: 'รายงานการขอผ่อนผัน',
+                subpath: '/report/debtpending'
+            }, {
+                subtitle: 'รายงานการขยายเวลา',
+                subpath: '/report/debtpending'
+            }, {
+                subtitle: 'รายงานจัดชั้นหนี้',
                 subpath: '/report/debtpending'
             }
+            
+            
         ]
     },{
         title: 'จัดการข้อมูลพื้นฐาน',

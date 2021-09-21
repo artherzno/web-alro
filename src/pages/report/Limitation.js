@@ -4,19 +4,27 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LawSuitTab from './LawSuitTab'
-import SummaryLawSuitTab from './SummaryLawSuitTab'
+import LimitPerContractTab from './LimitPerContractTab'
+import LimitPerCodeTab from './LimitPerCodeTab'
+import LimitPerProjListTab from './LimitPerProjListTab'
+import LimitPerProvinceTab from './LimitPerProvinceTab'
 
 const tabs = [{
-    title: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "lawsuit"
+    title: 'รายงานอายุความ',
+    id: "limit_per_contract"
 },
 {
-    title: 'สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "sum_lawsuit"
-},]
+    title: 'รายงานอายุความ (รายประเภทโครงการหลัก)',
+    id: "limit_per_code"
+},{
+    title: 'รายงานอายุความ (รายโครงการ)',
+    id: "limit_per_projlist"
+},{
+    title: 'สรุปรายงานอายุความ',
+    id: "limit_per_province"
+}]
 
-class LawSuit extends React.Component { 
+class Limitation extends React.Component {
 
     constructor(props) {
         super(props)
@@ -57,7 +65,7 @@ class LawSuit extends React.Component {
                 </Box>
                 <div className="line-horizontal" />
 
-                <Box mt={5} ml={2} mr={2}>
+                <Box mt={5} ml={2} mr={2} mr={2}>
                     {this.renderContent()}
                 </Box>
 
@@ -70,14 +78,22 @@ class LawSuit extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LawSuitTab />
+                <LimitPerContractTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <SummaryLawSuitTab />
+                <LimitPerCodeTab />
             )
-        }
+        } else if (this.state.tabSelected === tabs[2].id) {
+            return (
+                <LimitPerProjListTab />
+            )
+        } else if (this.state.tabSelected === tabs[3].id) {
+            return (
+                <LimitPerProvinceTab />
+            )
+        } 
     }
 }
 
-export default LawSuit
+export default Limitation

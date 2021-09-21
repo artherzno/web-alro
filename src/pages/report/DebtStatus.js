@@ -4,19 +4,27 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LawSuitTab from './LawSuitTab'
-import SummaryLawSuitTab from './SummaryLawSuitTab'
+import DebtStatusPerContractTab from './DebtStatusPerContractTab'
+import DebtStatusPerProjectTab from './DebtStatusPerProjectTab'
+import DebtStatusPerLoanTypeTab from './DebtStatusPerLoanTypeTab'
+import DebtPending from './DebtPending'
 
 const tabs = [{
-    title: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "lawsuit"
+    title: 'รายงานสถานะหนี้เงินกู้ รายสัญญา',
+    id: "debtstatus_per_contract"
 },
 {
-    title: 'สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล',
-    id: "sum_lawsuit"
-},]
+    title: 'รายงานสถานะหนี้เงินกู้ รายโครงการ',
+    id: "debtstatus_per_project"
+},{
+    title: 'รายงานสถานะหนี้เงินกู้ ระยะสั้น ระยะยาว',
+    id: "debtstatus_per_loantype"
+},{
+    title: 'รายงานสถานะหนี้เงินรอเรียกคืน',
+    id: "debtstatus_per_wait"
+}]
 
-class LawSuit extends React.Component { 
+class DebtStatus extends React.Component {
 
     constructor(props) {
         super(props)
@@ -57,7 +65,7 @@ class LawSuit extends React.Component {
                 </Box>
                 <div className="line-horizontal" />
 
-                <Box mt={5} ml={2} mr={2}>
+                <Box mt={5} ml={2} mr={2} mr={2}>
                     {this.renderContent()}
                 </Box>
 
@@ -70,14 +78,22 @@ class LawSuit extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LawSuitTab />
+                <DebtStatusPerContractTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <SummaryLawSuitTab />
+                <DebtStatusPerProjectTab />
             )
-        }
+        } else if (this.state.tabSelected === tabs[2].id) {
+            return (
+                <DebtStatusPerLoanTypeTab />
+            )
+        } else if (this.state.tabSelected === tabs[3].id) {
+            return (
+                <DebtPending />
+            )
+        } 
     }
 }
 
-export default LawSuit
+export default DebtStatus
