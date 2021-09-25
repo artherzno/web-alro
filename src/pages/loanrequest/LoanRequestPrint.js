@@ -165,6 +165,7 @@ function LoanRequestPrint(props) {
     const [inputDataFarmer, setInputDataFarmer] = useState([])
     const [inputDataLand, setInputDataLand] = useState([])
     const [inputData, setInputData] = useState([])
+    const [loanPeriodCodeValue, setLoanPeriodCodeValue] = useState(null)
     // const [inputDataLoan, setinputDataLoan] = useState([])
     const [inputDataSubmit, setInputDataSubmit] = useState({
         ApplicantID: '', // 1,
@@ -673,11 +674,12 @@ function LoanRequestPrint(props) {
                     
 
                     if(action === 'add') {
-                        console.log('data.data[0].objective1',data.data[0].objective1, 'data.data[0].Loan_amount1',data.data[0].Loan_amount1)
+                        console.log('data.data[0].LoanPeriodCode',data.data[0].LoanPeriodCode)
                         // Action : Add
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode)
                         setLoandueDataAPI(null)
                         setIsLoading(false);
                         setApplicantNo(applicantNo);
@@ -1703,7 +1705,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                 <Paper className="paper line-top-green paper">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={6} className="form-view">
-                                                            <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode"  value={parseInt(inputData.LoanPeriodCode)} onChange={handleInputData} type="row" />
+                                                            <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode"  value={loanPeriodCodeValue} onChange={handleInputData} type="row" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid container spacing={2}>

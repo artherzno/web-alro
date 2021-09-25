@@ -233,28 +233,44 @@ function LoginPage() {
     }, [])
 
     const hostname = window.location.hostname;
-    let url = ''
-    if(hostname === 'localhost') {
-        url = `${server_hostname}/admin/api/login/local`
-    } else {        
-        url = `${server_hostname}/admin/api/login`
-    }
 
     async function fetchDataLogin(tokenValue) {
         // console.log('google token', tokenValue)
-        const res = await fetch(url, {
-            method: 'POST',
-            // body: JSON.stringify(dataLogin),
-            body: JSON.stringify({
+        let url = ''
+        let dataBody = ''
+        let dataHeaders = ''
+
+        if(hostname === 'localhost') {
+            url = `${server_hostname}/admin/api/login/local`
+            dataBody = JSON.stringify({
+                "username": dataLogin.username,
+                "password": dataLogin.password,
+            })
+            dataHeaders = {
+                // "x-application-secret-key": apiXKey,
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Basic dXNlcl9zYXA6blpCbTkzblNITHF2cXRxeg==",
+            }
+        } else {        
+            url = `${server_hostname}/admin/api/login`
+            dataBody = JSON.stringify({
                 "username": dataLogin.username,
                 "password": dataLogin.password,
                 "token": tokenValue
-            }),
-            headers: {
+            })
+            dataHeaders = {
                 // "x-application-secret-key": apiXKey,
                 "Content-Type": "application/json",
                 "Accept": "application/json"
-            },
+            }
+        }
+
+        const res = await fetch(url, {
+            method: 'POST',
+            // body: JSON.stringify(dataLogin),
+            body: dataBody,
+            headers: dataHeaders,
             credentials: 'same-origin'
         });
 

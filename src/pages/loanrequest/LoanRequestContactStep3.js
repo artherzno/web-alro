@@ -91,7 +91,7 @@ function LoanRequestContactStep3(props) {
         ApplicantID: props.ApplicantID, // 1,
         FarmerInPorJor: '', // "",
         LoanTime: '', // "",
-        ApplicantDate: null, // "",
+        ApplicantDate: moment().format(), // "",
         Behave: '', // "",
         PayHistory: '', // "",
         Allasset: 0, // "",
@@ -108,8 +108,8 @@ function LoanRequestContactStep3(props) {
         ProjectValue: 0, // 0,
         Condition: '', // "",
         Reason: '', // "",
-        AprovalNo: '', // "",
-        ApproveDate: null, // "",
+        ApprovalNo: '', // "",
+        ApproveDate: moment().format(), // "",
         ApproveDetail: '', // ""
     })
 
@@ -208,7 +208,8 @@ function LoanRequestContactStep3(props) {
                             ApplicantID: props.ApplicantID, // 1,
                             FarmerInPorJor: dataViewStep3.FarmerInPorJor || '', // "",
                             LoanTime: dataViewStep3.LoanTime || '', // "",
-                            ApplicantDate: newOrderDate(dataViewStep3.ApplicantDate, '1'), // "",
+                            // ApplicantDate: newOrderDate(dataViewStep3.ApplicantDate, '1'), // "",
+                            ApplicantDate: moment(dataViewStep3.ApplicantDate).format(),
                             Behave: dataViewStep3.Behave || '', // "",
                             PayHistory: dataViewStep3.PayHistory || '', // "",
                             Allasset: dataViewStep3.Allasset || 0, // "",
@@ -225,8 +226,9 @@ function LoanRequestContactStep3(props) {
                             ProjectValue: dataViewStep3.ProjectValue || 0, // 0,
                             Condition: dataViewStep3.Condition || '', // "",
                             Reason: dataViewStep3.Reason || '', // "",
-                            AprovalNo: dataViewStep3.AprovalNo || '', // "",
-                            ApproveDate: newOrderDate(dataViewStep3.ApproveDate,'2'), // "",
+                            ApprovalNo: dataViewStep3.ApprovalNo || '', // "",
+                            // ApproveDate: newOrderDate(dataViewStep3.ApproveDate,'2'), // "",
+                            ApproveDate: moment(dataViewStep3.ApproveDate).format(), // "",
                             ApproveDetail: dataViewStep3.ApproveDetail || '', // ""
                         })
                         // let resApplicant = res.data.data[0];
@@ -478,8 +480,10 @@ const handleInputData = (event) => {
 
         // formData.append('ApplicantDate', moment(inputData.ApplicantDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApplicantDate)
         // formData.append('ApproveDate', moment(inputData.ApproveDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApproveDate)
-        formData.append('ApplicantDate', Number(inputSelectDate1.yyyy1) - 543+'-'+inputSelectDate1.mm1+'-'+inputSelectDate1.dd1)
-        formData.append('ApproveDate', Number(inputSelectDate2.yyyy2) - 543+'-'+inputSelectDate2.mm2+'-'+inputSelectDate2.dd2)
+        // formData.append('ApplicantDate', Number(inputSelectDate1.yyyy1) - 543+'-'+inputSelectDate1.mm1+'-'+inputSelectDate1.dd1)
+        // formData.append('ApproveDate', Number(inputSelectDate2.yyyy2) - 543+'-'+inputSelectDate2.mm2+'-'+inputSelectDate2.dd2)
+        formData.append('ApplicantDate', inputData.ApplicantDate)
+        formData.append('ApproveDate', inputData.ApproveDate)
         
         formData.delete('dd1')
         formData.delete('mm1')
@@ -612,13 +616,13 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>
-                                                        <p>วันที่</p>
+                                                        {/* <p>วันที่</p>
                                                         <div className="select-date-option">
                                                             <MuiSelectDay label="" name="dd1" value={inputSelectDate1.dd1} onChange={handleSelectDate} />
                                                             <MuiSelectMonth label="" name="mm1" value={inputSelectDate1.mm1} onChange={handleSelectDate} />
                                                             <MuiSelectYear label="" limit={0} name="yyyy1" value={inputSelectDate1.yyyy1} onChange={handleSelectDate} />
-                                                        </div>
-                                                        {/* <MuiDatePicker label="วันที่" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                        </div> */}
+                                                        <MuiDatePicker label="วันที่" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format()}) }}  />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <MuiTextfieldMultiLine label="และเป็นผู้มีความประพฤติ" defaultValue="" row="3" name="Behave" value={inputData.Behave}  onChange={handleInputData}  />
@@ -780,16 +784,16 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
                                                                 {/* Field Text ---------------------------------------------------*/}
-                                                                <MuiTextfield label="เลขที่" name="AprovalNo" value={inputData.AprovalNo} onChange={handleInputData}/>        
+                                                                <MuiTextfield label="เลขที่" name="ApprovalNo" value={inputData.ApprovalNo} onChange={handleInputData}/>        
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                <p>ลงวันที่</p>
+                                                                {/* <p>ลงวันที่</p>
                                                                 <div className="select-date-option">
                                                                     <MuiSelectDay label="" name="dd2" value={inputSelectDate2.dd2} onChange={handleSelectDate} />
                                                                     <MuiSelectMonth label="" name="mm2" value={inputSelectDate2.mm2} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" limit={0} name="yyyy2" value={inputSelectDate2.yyyy2} onChange={handleSelectDate} />
-                                                                </div>
-                                                                {/* <MuiDatePicker label="ลงวันที่" name="ApproveDate" value={inputData.ApproveDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                                </div> */}
+                                                                <MuiDatePicker label="ลงวันที่" name="ApproveDate" value={inputData.ApproveDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApproveDate: moment(newValue).format()}) }}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
                                                                 {/* Field Text ---------------------------------------------------*/}

@@ -71,7 +71,7 @@ function EditContractDebt() {
     const [formField, setFormField] = useState(false)
     const [confirmSuccessStep1, setConfirmSuccessStep1] = useState(false)
 
-
+    const [loanID, setLoanID] = useState(null)
     const [loanNumber, setLoanNumber] = useState('')
     const [dueAmount, setDueAmount] = useState(2)
     const dueAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
@@ -122,6 +122,8 @@ function EditContractDebt() {
     const [inputDataLoanDus, setInputDataLoanDus] = useState([])
     const [inputDataLoanDue, setInputDataLoanDue] = useState([])
     const [inputDataLoanRec, setInputDataLoanRec] = useState([])
+    const [inputDataClosecontact, setInputDataClosecontact] = useState([])
+    const [inputDataSpkInfo, setInputDataSpkInfo] = useState([])
 
     const [inputDataNewFarmerID, setInputDataNewFarmerID] = useState(null)
     const [inputDataNewFarmer, setInputDataNewFarmer] = useState({
@@ -135,7 +137,12 @@ function EditContractDebt() {
         OldSirname1: null,
         OldSirname2: null,
         Sirname: null,
-
+        Contact_AddMoo: '',
+        Contact_AddNo: '',
+        Contact_AddrSoiRoad: '',
+        Contact_AddrSubdistrictID: 0,
+        Contact_AddrDistrictID: 0,
+        Contact_AddrProvinceID: 0,
     })
 
     const [inputDataIndividualcard, setInputDataIndividualcard] = useState([])
@@ -390,12 +397,15 @@ function EditContractDebt() {
 
     const getSearchCloseLoanRec = () => {
         setIsLoading(true)
+        setFormField(false)
+        setRows([])
+
         axios.post(
             `${server_hostname}/admin/api/search_close_loanrec`, {
                 Name: inputDataSearch.Name,
                 Sirname: inputDataSearch.Sirname,
                 IDCard: inputDataSearch.IDCard,
-                LoanID: inputDataSearch.LoanID,
+                LoanID: Number(inputDataSearch.LoanID),
                 LoanNumber: inputDataSearch.LoanNumber,
             }, { headers: { "token": token } } 
         ).then(res => {
@@ -499,6 +509,12 @@ function EditContractDebt() {
             OldSirname1: null,
             OldSirname2: null,
             Sirname: null,
+            Contact_AddMoo: '',
+            Contact_AddNo: '',
+            Contact_AddrSoiRoad: '',
+            Contact_AddrSubdistrictID: 0,
+            Contact_AddrDistrictID: 0,
+            Contact_AddrProvinceID: 0,
     
         })
         setInputDataLandData([])
@@ -536,8 +552,21 @@ function EditContractDebt() {
                     setInputDataLoanDus(data.loandus_data)
                     setInputDataLoanDue(data.loandue_data)
                     setInputDataLoanRec(data.loanrec_data[0])
+                    setInputDataClosecontact(data.closecontact_data[0])
+                    
+                    if(data.spkinfo_data[0].length === 0) {
+                        setInputDataSpkInfo({
+                            Road: '',
+                            Subdistrict: '',
+                            District: '',
+                            Province: '',
+                        })
+                    } else {
+                        setInputDataSpkInfo(data.spkinfo_data[0])
+                    }
 
                     setLoanNumber(data.loanrec_data[0].LoanNumber)
+                    setLoanID(data.loanrec_data[0].LoanID)
                     // setTableResult(data.data)
                     // setRows(data.data)
 
@@ -638,8 +667,8 @@ function EditContractDebt() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
-                    console.log('getIndividualcard',data.data[data.data.length - 1])
-                    setInputDataIndividualcard(data.data[data.data.length - 1])
+                    console.log('getIndividualcard',data.singlecard_data[data.singlecard_data.length - 1])
+                    setInputDataIndividualcard(data.singlecard_data[data.singlecard_data.length - 1])
                 }
             }
         ).catch(err => { console.log(err);})
@@ -748,7 +777,7 @@ function EditContractDebt() {
     }
 
     const handleInputDataSubmit = (event) => {
-        console.log('event.target.value',event.target.value)
+        // console.log('event.target.value',event.target.value)
         // let name = event.target.name
         // let value = event.target.value.toLocaleString('en-US', {minimumFractionDigits: 2})
 
@@ -835,6 +864,7 @@ function EditContractDebt() {
         let recordcontractdebt = document.getElementById('recordcontractdebt');
         let formData = new FormData(recordcontractdebt);
         formData.append('LoanStatus', action_loanstatus)
+        formData.append('Old_LoanID', loanID)
 
         formData.append('SPK_OrderDate', moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
         formData.append('RecDate', moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
@@ -845,17 +875,6 @@ function EditContractDebt() {
         formData.append('LoanGuaranteeBookDate', moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate1', moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate2', moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
-
-        // let principle_value = inputDataSubmit.principle.toLocaleString('en-US', {minimumFractionDigits: 2})
-        // formData.set('principle', parseFloat(principle_value.split(',').join('')))
-        // let OldInterest_value = inputDataSubmit.OldInterest.toLocaleString('en-US', {minimumFractionDigits: 2})
-        // formData.set('OldInterest', parseFloat(OldInterest_value.split(',').join('')))
-        // let OldFine_value = inputDataSubmit.OldFine.toLocaleString('en-US', {minimumFractionDigits: 2})
-        // formData.set('OldFine', parseFloat(OldFine_value.split(',').join('')))
-        // let Interest_value = inputDataSubmit.Interest.toLocaleString('en-US', {minimumFractionDigits: 2})
-        // formData.set('Interest', parseFloat(Interest_value.split(',').join('')))
-        // let ChargeRate_value = inputDataSubmit.ChargeRate.toLocaleString('en-US', {minimumFractionDigits: 2})
-        // formData.set('ChargeRate', parseFloat(ChargeRate_value.split(',').join('')))
 
         formData.set('principle', inputDataSubmitIndividual.principle)
         formData.set('OldInterest', inputDataSubmitIndividual.OldInterest)
@@ -872,10 +891,16 @@ function EditContractDebt() {
         }
         formData.append('loandue_data', JSON.stringify(loandueDataArrValue));
 
-        console.log(formData)
+        console.log(action)
         // admin/api/add_loandebt
         let url = ''
-        url =`${server_hostname}/admin/api/add_loandebtt`
+        if( action==='edit') {
+            url =`${server_hostname}/admin/api/edit_loandebt`
+            formData.append('LoanID', loanID)
+        } else {
+            url =`${server_hostname}/admin/api/add_loandebt`
+        }
+        
         axios.post(
             url, formData, { headers: { "token": token } } 
         ).then(res => {
@@ -943,6 +968,10 @@ function EditContractDebt() {
 
     };
 
+    const getAction = (actionVal) => {
+        action = actionVal;
+    }
+
     const gotoPrintContractDebt = () => {
         history.push('/loanrequest/PrintContractDebt');
     }
@@ -951,8 +980,8 @@ function EditContractDebt() {
         let sum = 0;
         for(let i=0; i<(dueAmount+1); i++) {
             sum += isNaN(inputDataSubmitLoanDUE[i].PAYREC) ? 0 : inputDataSubmitLoanDUE[i].PAYREC
-            console.log('inputDataSubmitLoanDUE',inputDataSubmitLoanDUE[i].PAYREC)
-            console.log('Sum inputDataSubmitLoanDUE',sum)
+            // console.log('inputDataSubmitLoanDUE',inputDataSubmitLoanDUE[i].PAYREC)
+            // console.log('Sum inputDataSubmitLoanDUE',sum)
         }
         setSummaryTable(sum)
     }
@@ -1036,7 +1065,7 @@ function EditContractDebt() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table-box table-loanrequestprint mg-t-10">
+                                <div className="table-box table-recordcontractdebt mg-t-10">
                                     <MUItable 
                                         headCells={headCells} 
                                         rows={rows} 
@@ -1044,14 +1073,17 @@ function EditContractDebt() {
                                         colSpan={36} 
                                         hasCheckbox={false} 
                                         hasAction={true} 
-                                        actionCreate={true}
+                                        actionCreate={false}
                                         actionView={false} 
                                         actionEdit={false} 
                                         actionDelete={false} 
                                         printParam1={'LoanNumber'}
-                                        tableName={'addRecordCourtContract'}
-                                        createEvent={getCloseLoanDetail}
+                                        tableName={'recordcontractdebt'}
+                                        recordcontractdebtAction={getAction}
+                                        recordcontractdebtEvent={getCloseLoanDetail}
                                         createParam={'LoanID'}
+                                        editEvent={getCloseLoanDetail}
+                                        eventParam={'LoanID'}
                                     />
                                 </div>
                             </Grid>
@@ -1075,16 +1107,19 @@ function EditContractDebt() {
                                                             <MuiTextfield label="ณ สำนักงานการปฏิรูปที่ดินจังหวัด" name="OfficeProvince" value={inputDataSubmit.OfficeProvince} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ถนน" value={inputDataFarmer.IDCARD_AddrSoiRoad} onChange={handleInputDataFarmer} />
+                                                            <MuiTextfield label="ถนน" inputdisabled="input-disabled"  value={inputDataSpkInfo.Road} onChange={handleInputDataFarmer} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataFarmer.IDCARD_AddrSubdistrictID}  onInput = {handleInputDataFarmer}  />
+                                                            <MuiTextfield label="แขวง / ตำบล" inputdisabled="input-disabled"  value={inputDataSpkInfo.Subdistrict} onChange={handleInputDataFarmer} />
+                                                        {/* <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataFarmer.IDCARD_AddrSubdistrictID}  onInput = {handleInputDataFarmer}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataFarmer.IDCARD_AddrDistrictID} onInput = {handleInputDataFarmer}  />
+                                                            <MuiTextfield label="เขต / อำเภอ" inputdisabled="input-disabled"  value={inputDataSpkInfo.District} onChange={handleInputDataFarmer} />
+                                                        {/* <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataFarmer.IDCARD_AddrDistrictID} onInput = {handleInputDataFarmer}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList}  value={inputDataFarmer.IDCARD_AddrProvinceID} onInput = {handleInputDataFarmer}  />
+                                                            <MuiTextfield label="จังหวัด" inputdisabled="input-disabled"  value={inputDataSpkInfo.Province} onChange={handleInputDataFarmer} />
+                                                        {/* <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList}  value={inputDataFarmer.IDCARD_AddrProvinceID} onInput = {handleInputDataFarmer}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield label="ระหว่างสำนักงานการปฏิรูปที่ดินเพื่อเกษตรกรรม (ส.ป.ก.) โดย" name="Officer" value={inputDataSubmit.Officer} onChange={handleInputDataSubmit}  />
@@ -1101,14 +1136,14 @@ function EditContractDebt() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="และคำสั่งจังหวัด" inputdisabled="input-disabled"  value={inputDataFarmer.IDCARD_AddrSoiRoad} onChange={handleInputDataFarmer}  />
+                                                                    <MuiTextfield label="และคำสั่งจังหวัด" inputdisabled="input-disabled"  value={inputDataSpkInfo.Province} onChange={handleInputDataFarmer}  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ที่" inputdisabled="input-disabled"  />
+                                                                    <MuiTextfield label="ที่" inputdisabled="input-disabled" value={inputDataLoanRec.ApprovalNo} onChange={handleInputDataFarmer}  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
                                                                     {/* ApproveDate */}
-                                                                    <MuiDatePicker label="ลงวันที่"  inputdisabled="input-disabled"  />
+                                                                    <MuiDatePicker label="ลงวันที่"  inputdisabled="input-disabled"  value={inputDataLoanRec.ApproveDate} onChange={handleInputDataFarmer}  />
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1124,39 +1159,39 @@ function EditContractDebt() {
                                                             <ButtonFluidPrimary label="ค้นหา" onClick={getNewFarmerDetail} />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="คำนำหน้า" inputdisabled="input-disabled" value={inputDataNewFarmer.FrontName} />
+                                                            <MuiTextfield label="คำนำหน้า" inputdisabled="input-disabled" value={inputDataNewFarmer.FrontName} onChange={handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ชื่อ" inputdisabled="input-disabled" value={inputDataNewFarmer.Name} />
+                                                            <MuiTextfield label="ชื่อ" inputdisabled="input-disabled" value={inputDataNewFarmer.Name} onChange={handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="นามสกุล" inputdisabled="input-disabled" value={inputDataNewFarmer.Sirname}  />
+                                                            <MuiTextfield label="นามสกุล" inputdisabled="input-disabled" value={inputDataNewFarmer.Sirname} onChange={handleInputDataFarmer}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfieldEndAdornment label="อายุ" inputdisabled="input-disabled" value={inputDataNewFarmer.Age} endAdornment="ปี"/>
+                                                            <MuiTextfieldEndAdornment label="อายุ" inputdisabled="input-disabled" value={inputDataLoanRec.Age} endAdornment="ปี" onChange={handleInputDataFarmer} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="อยู่บ้านเลขที่" inputdisabled="input-disabled"  defaultValue='' />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ถนน"  inputdisabled="input-disabled"  defaultValue='' />
+                                                            <MuiTextfield label="อยู่บ้านเลขที่" inputdisabled="input-disabled"  value={inputDataNewFarmer.Contact_AddNo} onChange={handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  defaultValue='' />
+                                                            <MuiTextfield label="หมู่"  inputdisabled="input-disabled" value={inputDataNewFarmer.Contact_AddMoo} onChange={handleInputDataFarmer}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelectSubDistrict label="จังหวัด"  inputdisabled="input-disabled"  lists={['จังหวัด1','จังหวัด2','จังหวัด3']} />
+                                                            {/* Field Text ---------------------------------------------------*/}
+                                                            <MuiTextfield label="ถนน"  inputdisabled="input-disabled"  value={inputDataNewFarmer.Contact_AddrSoiRoad} onChange={handleInputDataFarmer}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelectDistrict label="เขต/อำเภอ"  inputdisabled="input-disabled"  lists={['เขต/อำเภอ1','เขต/อำเภอ2','เขต/อำเภอ3']} />
+                                                            <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" startText={' '}  lists={subdistrictList} value={inputDataNewFarmer.Contact_AddrSubdistrictID === null ? '' : inputDataNewFarmer.Contact_AddrSubdistrictID} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiSelectProvince label="แขวง/ตำบล"  inputdisabled="input-disabled" lists={['แขวง/ตำบล1','แขวง/ตำบล2','แขวง/ตำบล3']} />
+                                                            <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ"  startText={' '} lists={districtList} value={inputDataNewFarmer.Contact_AddrDistrictID === null ? '' : inputDataNewFarmer.Contact_AddrDistrictID} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="รหัสไปรษณีย์" inputdisabled="input-disabled" defaultValue='' />
+                                                            <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" startText={' '} lists={provinceList} value={inputDataNewFarmer.Contact_AddrProvinceID === null ? '' : inputDataNewFarmer.Contact_AddrProvinceID}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="รหัสไปรษณีย์" inputdisabled="input-disabled"   value={inputDataNewFarmer.Contact_Postcode} onChange={handleInputDataFarmer}   />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="ที่ตั้งที่ดิน" defaultValue='' />
@@ -1171,22 +1206,22 @@ function EditContractDebt() {
                                                 <Paper className="paper line-top-green paper mg-t-20">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled"  name="DebtEditNumber" value={inputDataSubmit.DebtEditNumber} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled"  name="DebtEditNumber" value={inputDataLoanRec.DebtEditNumber} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="วันที่บันทึก" inputdisabled="input-disabled" name="RecDate" value={inputDataSubmit.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            <MuiDatePicker label="วันที่บันทึก" inputdisabled="input-disabled" name="RecDate" value={inputDataLoanRec.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="ปีปัจจุบัน" inputdisabled="input-disabled" name="CurrentYear" value={inputDataSubmit.CurrentYear} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ปีปัจจุบัน" inputdisabled="input-disabled" name="CurrentYear" value={inputDataLoanRec.CurrentYear} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="PV_CODE" inputdisabled="input-disabled"  name="PV_CODE" value={inputDataSubmit.PV_CODE} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="PV_CODE" inputdisabled="input-disabled"  name="PV_CODE" value={inputDataLoanRec.PV_CODE} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="PV_NAME" inputdisabled="input-disabled"  name="PV_NAME" value={inputDataSubmit.PV_NAME} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="PV_NAME" inputdisabled="input-disabled"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเดิม" name="Old_LoanID" value={inputDataSubmit.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="สัญญาเดิม" inputdisabled="input-disabled" name="Old_LoanID" value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
@@ -1195,15 +1230,15 @@ function EditContractDebt() {
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เงินต้นค้างเดิม" defaultValue='' />
+                                                            <MuiTextfield label="เงินต้นค้างเดิม" inputdisabled="input-disabled"  value={inputDataIndividualcard.principle} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม" defaultValue='' />
+                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม" inputdisabled="input-disabled"  value={inputDataIndividualcard.Interest} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ค่าปรับค้างเดิม" defaultValue='' />
+                                                            <MuiTextfield label="ค่าปรับค้างเดิม" inputdisabled="input-disabled"  value={inputDataLoanRec.OldFine} />
                                                         </Grid>
                                                             {/* </Grid>
                                                         </Grid> */}
@@ -1211,78 +1246,83 @@ function EditContractDebt() {
                                                             <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการ" inputdisabled="input-disabled" name="Projectcode" value={inputDataSubmit.Projectcode} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="รหัสโครงการ" inputdisabled="input-disabled" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการ" inputdisabled="input-disabled" name="ProjectName" value={inputDataSubmit.ProjectName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการ" inputdisabled="input-disabled" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการรอง" inputdisabled="input-disabled" name="ProjectSubCode" value={inputDataSubmit.ProjectSubCode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการรอง" inputdisabled="input-disabled" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการรอง" inputdisabled="input-disabled" name="ProjectSubName" value={inputDataSubmit.ProjectSubName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการรอง" inputdisabled="input-disabled" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเลขที่" inputdisabled="input-disabled" inputdisabled="input-disabled" />
+                                                            <MuiTextfield label="สัญญาเลขที่" inputdisabled="input-disabled" value={inputDataLoanRec.LoanNumber} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="วันที่สัญญา" inputdisabled="input-disabled" inputdisabled="input-disabled" />
+                                                            <MuiDatePicker label="วันที่สัญญา" inputdisabled="input-disabled" value={inputDataLoanRec.LoanDate} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;" id='' inputdisabled="input-disabled" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" inputdisabled="input-disabled" id='' name="RecYear" value={inputDataSubmit.RecYear} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" inputdisabled="input-disabled" id='' name="RecYear" value={inputDataLoanRec.DebtEditDate} onChange={handleInputDataSubmit}   />
                                                         </Grid>
-                                                        <Grid item xs={12} md={6}>
+                                                        <Grid item xs={12} md={5}>
                                                             {/* principle */}
-                                                            <MuiTextfield label="จำนวนเงินให้กู้" inputdisabled="input-disabled" id='' inputdisabled="input-disabled"/>
+                                                            <p>จำนวนเงินให้กู้</p>
+                                                            <MuiTextfieldCurrency label="" inputdisabled="input-disabled" value={inputDataLoanRec.principle} onChange={handleInputDataSubmit}  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p>&nbsp;</p>
+                                                            <p className="paper-p">บาท</p>
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="โครงการหลัก"  lists={['โครงการหลัก1','โครงการหลัก2','โครงการหลัก3']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการหลัก" inputdisabled="input-disabled" name="Projectcode" value={inputDataSubmit.Projectcode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการหลัก" inputdisabled="input-disabled" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการหลัก" inputdisabled="input-disabled" name="ProjectName" value={inputDataSubmit.ProjectName} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="ชื่อโครงการหลัก" inputdisabled="input-disabled" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="วัตถุประสงค์การกู้ยืม"  lists={['วัตถุประสงค์การกู้ยืม1','วัตถุประสงค์การกู้ยืม2','วัตถุประสงค์การกู้ยืม3']} />
                                                         </Grid> */}
-                                                        <Grid item xs={12} md={6}>
+                                                        <Grid item xs={12} md={3}>
                                                             {/* objective1 */}
-                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" inputdisabled="input-disabled"/>
+                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" inputdisabled="input-disabled" value={inputDataLoanRec.objective1} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
                                                         </Grid> */}
-                                                        <Grid item xs={12} md={2}>
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="ประเภทเงินกู้" inputdisabled="input-disabled" lists={['ประเภทเงินกู้1','ประเภทเงินกู้2','ประเภทเงินกู้3']} value={0} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
+                                                        </Grid> */}
+                                                        <Grid item xs={12} md={3}>
                                                             {/* LoanPeriod */}
-                                                            <MuiTextfield label="&nbsp;" inputdisabled="input-disabled" />
+                                                            <MuiTextfield label="ประเภทเงินกู้" inputdisabled="input-disabled" value={inputDataLoanRec.LoanPeriod} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
                                                         </Grid> */}
-                                                        <Grid item xs={12} md={2}>
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="ประเภทกู้ยืม" inputdisabled="input-disabled" lists={['ประเภทกู้ยืม1','ประเภทกู้ยืม2','ประเภทกู้ยืม3']} value={0} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
+                                                        </Grid> */}
+                                                        <Grid item xs={12} md={3}>
                                                             {/* LoanobjName */}
-                                                            <MuiTextfield label="&nbsp;" inputdisabled="input-disabled"  />
+                                                            <MuiTextfield label="ประเภทกู้ยืม" inputdisabled="input-disabled" value={inputDataLoanRec.LoanobjName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
                                                         </Grid> */}
-                                                        <Grid item xs={12} md={2}>
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="ประเภทผู้กู้" inputdisabled="input-disabled" lists={['ประเภทผู้กู้1','ประเภทผู้กู้2','ประเภทผู้กู้3']} value={0} />
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4}>
+                                                        </Grid> */}
+                                                        <Grid item xs={12} md={3}>
                                                             {/* LoanFarmerTypeName */}
-                                                            <MuiTextfield label="&nbsp;" inputdisabled="input-disabled"/>
+                                                            <MuiTextfield label="ประเภทผู้กู้" inputdisabled="input-disabled" value={inputDataLoanRec.LoanFarmerTypeName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1510,7 +1550,7 @@ function EditContractDebt() {
                                                                                     <p className="paper-p txt-right">เงินต้น สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.principle}/> 
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.principle} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -1520,7 +1560,7 @@ function EditContractDebt() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.Interest}/> 
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.interest} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -1647,28 +1687,52 @@ function EditContractDebt() {
                                                             <p>หมายเหตุ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="1. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName" value={inputDataSubmit.WitnessName} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="1. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName" value={inputDataLoanRec.WitnessName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr" value={inputDataSubmit.WitnessAddr} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr" value={inputDataLoanRec.WitnessAddr} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard" value={inputDataLoanRec.WitnessIDCard} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade" value={inputDataSubmit.WitnessIDCardMade} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade" value={inputDataLoanRec.WitnessIDCardMade} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="2. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName2" value={inputDataSubmit.WitnessName2} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="2. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName2" value={inputDataLoanRec.WitnessName2} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={inputDataSubmit.WitnessAddr2} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={inputDataLoanRec.WitnessAddr2} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard2" value={inputDataLoanRec.WitnessIDCard2} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade2" value={inputDataSubmit.WitnessIDCardMade2} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade2" value={inputDataLoanRec.WitnessIDCardMade2} onChange={handleInputDataSubmit}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={5}>
+                                                            <MuiTextfield label="3. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName3" value={inputDataLoanRec.WitnessName3} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={7}>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr3" value={inputDataLoanRec.WitnessAddr3} onChange={handleInputDataSubmit}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={5}>
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard3" value={inputDataLoanRec.WitnessIDCard3} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={7}>
+                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade3" value={inputDataLoanRec.WitnessIDCardMade3} onChange={handleInputDataSubmit}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={5}>
+                                                            <MuiTextfield label="4. ชื่อพยาน" inputdisabled="input-disabled" name="WitnessName4" value={inputDataLoanRec.WitnessName4} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={7}>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr4" value={inputDataLoanRec.WitnessAddr4} onChange={handleInputDataSubmit}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={5}>
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" inputdisabled="input-disabled" name="WitnessIDCard4" value={inputDataLoanRec.WitnessIDCard4} onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={7}>
+                                                            <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade4" value={inputDataLoanRec.WitnessIDCardMade4} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -1680,7 +1744,18 @@ function EditContractDebt() {
                                     
                                     {/* Button row */}
                                     <Container maxWidth="md">
-                                        {
+                                          <Grid container spacing={2} className="btn-row txt-center">
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
+                                                </Grid>
+                                                <Grid item xs={12} md={4} >
+                                                    <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                                </Grid>
+                                            </Grid>
+                                        {/* {
                                             (Number(inputDataSubmitIndividual.principle) === summaryTable) && Number(inputDataSubmitIndividual.principle) > 0 && summaryTable > 0 ?
                                             <Grid container spacing={2} className="btn-row txt-center">
                                                 <Grid item xs={12} md={4}>
@@ -1694,18 +1769,21 @@ function EditContractDebt() {
                                                 </Grid>
                                             </Grid>
                                             :
-                                            <Grid container spacing={2} className="btn-row txt-center" style={{opacity: '0.5', pointerEvents: 'none'}}>
-                                                <Grid item xs={12} md={4}>
-                                                    <ButtonFluidPrimary label="บันทึกชั่วคราว" id=""  />
+                                            <Grid container spacing={2} className="btn-row txt-center">
+                                                 <Grid item xs={12} md={12}>
+                                                    <p className="txt-red">ผลรวมเงินต้น , ผลรวมงวดชำระ จำนวนไม่เท่ากัน</p>
                                                 </Grid>
-                                                <Grid item xs={12} md={4} >
-                                                    <ButtonFluidPrimary label="ยืนยันสร้างสัญญา"/>
+                                                <Grid item xs={12} md={4}  style={{opacity: '0.5', pointerEvents: 'none'}} >
+                                                    <ButtonFluidPrimary label="บันทึกชั่วคราว" id=""/>
                                                 </Grid>
-                                                <Grid item xs={12} md={4}>
+                                                <Grid item xs={12} md={4}  style={{opacity: '0.5', pointerEvents: 'none'}}  >
+                                                    <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}  style={{opacity: '0.5', pointerEvents: 'none'}} >
                                                     <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} />
                                                 </Grid>
                                             </Grid>
-                                        }
+                                        } */}
 
                                     </Container>
                                 </form>
