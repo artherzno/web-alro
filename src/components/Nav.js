@@ -239,16 +239,16 @@ const listmenu = [
                 subpath: '/report/liability'
             }, {
                 subtitle: 'รายงานสภาพหนี้',
-                subpath: '/report/debtpending'
+                subpath: '/report/debtcondi'
             }, {
                 subtitle: 'รายงานการขอผ่อนผัน',
-                subpath: '/report/debtpending'
+                subpath: '/report/waive'
             }, {
                 subtitle: 'รายงานการขยายเวลา',
-                subpath: '/report/debtpending'
+                subpath: '/report/extendtime'
             }, {
                 subtitle: 'รายงานจัดชั้นหนี้',
-                subpath: '/report/debtpending'
+                subpath: '/report/debtclass'
             }
             
             
