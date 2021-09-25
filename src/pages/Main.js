@@ -27,6 +27,10 @@ import Stt from './report/Stt'
 import DebtAge from './report/DebtAge'
 import Limitation from './report/Limitation'
 import Liability from './report/Liability'
+import DebtCondi from './report/DebtCondi'
+import Waive from './report/Waive'
+import ExtendTime from './report/ExtendTime'
+import DebtClass from './report/DebtClass'
 import AddFarmer from './manageinfo/AddFarmer';
 import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -155,6 +159,10 @@ function Main() {
                     <Route path="/report/debtage" component={DebtAge} />
                     <Route path="/report/limitation" component={Limitation } />
                     <Route path="/report/liability" component={Liability } />
+                    <Route path="/report/debtcondi" component={DebtCondi } />
+                    <Route path="/report/waive" component={Waive } />
+                    <Route path="/report/extendtime" component={ExtendTime } />
+                    <Route path="/report/debtclass" component={DebtClass } />
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />
