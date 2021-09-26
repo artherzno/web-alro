@@ -27,7 +27,7 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'ข้อมูลเกษตรกร / บันทึกคำกู้ยืมยืม',
+                subtitle: 'ข้อมูลเกษตรกร / บันทึกคำกู้ขอยืมเงิน',
                 subpath: '/manageinfo/searchmember'
             },
             {
@@ -182,39 +182,76 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
-                subpath: '/report/listfarmerpayloan'
-            },{
-                subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
-                subpath: '/report/listnewfarmerpayloan'
-            },{
-                subtitle: 'รายงานการจ่ายเงินกู้',
-                subpath: '/report/payLoan'
-            },{
-                subtitle: 'รายงานคำขอกู้ยืมรายสัญญา',
+                subtitle: 'รายงานคำขอกู้ยืม',
                 subpath: '/report/requestloan'
             },{
                 subtitle: 'รายงานการทำสัญญา',
                 subpath: '/report/listsign'
             },{
+                subtitle: 'รายงานการจ่ายเงินกู้',
+                subpath: '/report/payLoan'
+            }
+            ,{
+                subtitle: 'รายงานรับชำระเงินกู้',
+                subpath: '/report/listfarmerpayloan'
+            },
+            /*{
+                subtitle: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
+                subpath: '/report/listnewfarmerpayloan'
+            },*/
+            {
+                subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
+                subpath: '/report/billed'
+            },
+           {
                 subtitle: 'รายงานการทำสัญญาแปลงหนี้',
                 subpath: '/report/convertloan'
             },{
-                subtitle: 'รายงานสัญญาการดำเนินคดีทางศาล',
+                subtitle: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
                 subpath: '/report/lawsuit'
             },{
                 subtitle: 'รายงานการทำสัญญาปรับปรุงโครงสร้างหนี้',
                 subpath: '/report/modify'
-            },{
-                subtitle: 'รายงานการใช้ใบเสร็จรับเงิน',
-                subpath: '/report/billed'
             }, {
-                subtitle: 'รายงานการชดใช้หนี้แทนเกษตรกร',
+                subtitle: 'รายงานการทำสัญญาชดใช้หนี้แทนเกษตรกร',
                 subpath: '/report/compensate'
             }, {
-                subtitle: 'รายงานสถานะหนี้เงินรอเรียกคืน',
-                subpath: '/report/debtpending'
+                subtitle: 'รายงานสถานะหนี้',
+                subpath: '/report/debtstatus'
+               // subpath: '/report/debtpending'
+            }, {
+                subtitle: 'รายงานเป้าจัดเก็บ',
+                subpath: '/report/target'
+            }, {
+                subtitle: 'รายงานสรุปเปรียบเทียบแผน / ผล จัดเก็บ',
+                subpath: '/report/compare'
+            }, {
+                subtitle: 'รายงาน สศก',
+                subpath: '/report/stt'
+            }, {
+                subtitle: 'รายงานอายุหนี้',
+                subpath: '/report/debtage'
+            }, {
+                subtitle: 'รายงานอายุความ',
+                subpath: '/report/limitation'
+            }, {
+                subtitle: 'รายงานสภาพความรับผิด',
+                subpath: '/report/liability'
+            }, {
+                subtitle: 'รายงานสภาพหนี้',
+                subpath: '/report/debtcondi'
+            }, {
+                subtitle: 'รายงานการขอผ่อนผัน',
+                subpath: '/report/waive'
+            }, {
+                subtitle: 'รายงานการขยายเวลา',
+                subpath: '/report/extendtime'
+            }, {
+                subtitle: 'รายงานจัดชั้นหนี้',
+                subpath: '/report/debtclass'
             }
+            
+            
         ]
     },{
         title: 'จัดการข้อมูลพื้นฐาน',
@@ -245,6 +282,32 @@ const listmenu = [
                 subpath: '/repaymentcontract/addrepaymentcontract'
             }
         ]
+    },{
+        title: 'UpLoadFile',
+        component: 'UpLoadFile',
+        path: '/home',
+        // submenu: [
+        //     {
+        //         subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/closerepaymentcontract'
+        //     },{
+        //         subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/addrepaymentcontract'
+        //     }
+        // ]
+    },{
+        title: 'พิมพ์แบบฟอร์ม',
+        component: 'PrintForm',
+        path: '/home',
+        // submenu: [
+        //     {
+        //         subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/closerepaymentcontract'
+        //     },{
+        //         subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
+        //         subpath: '/repaymentcontract/addrepaymentcontract'
+        //     }
+        // ]
     },
 ]
 

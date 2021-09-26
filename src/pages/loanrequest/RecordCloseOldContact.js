@@ -480,7 +480,7 @@ function RecordCloseOldContact() {
             let data = res.data;
             // setInputData(data)
             // console.log('inputData',inputData)
-            if(data.code === 0 || res === null || res === undefined) {
+            if(data.code === 0 || res === null || res === undefined || res.Message === 'An error has occurred.') {
                 setErr(true);
                 if(Object.keys(data.message).length !== 0) {
                     console.error(data)
@@ -501,8 +501,7 @@ function RecordCloseOldContact() {
                 setInputDataBeforePay(dataBeforepay[0])
                 dataCloseContactSelectArr = dataBeforepay
 
-                let interestKang2result = Number((dataBeforepay[dataBeforepay.length - 1].InterestKang2) - (dataBeforepay[dataBeforepay.length - 2].InterestKang2) <= 0? 0 : (dataBeforepay[dataBeforepay.length - 1].InterestKang2) - (dataBeforepay[dataBeforepay.length - 2].InterestKang2))
-
+                
                 if(dataBeforepay.length === 0) {
                     setInputDataCloseContactSelect({
                         ...inputDataCloseContactSelect,
@@ -526,6 +525,8 @@ function RecordCloseOldContact() {
                         allpay: Number(dataBeforepay[0].StuckMoney + dataBeforepay[0].InterestKang2 + dataBeforepay[dataBeforepay.length - 1].FineKang),
                     })
                 } else {
+                    let interestKang2result = Number((dataBeforepay[dataBeforepay.length - 1].InterestKang2) - (dataBeforepay[dataBeforepay.length - 2].InterestKang2) <= 0? 0 : (dataBeforepay[dataBeforepay.length - 1].InterestKang2) - (dataBeforepay[dataBeforepay.length - 2].InterestKang2))
+
                     setInputDataCloseContactSelect({
                         ...inputDataCloseContactSelect,
                         principleBalance: Number(dataBeforepay[dataBeforepay.length - 1].principalBalance),
@@ -542,7 +543,7 @@ function RecordCloseOldContact() {
                 
                 
             }
-        }).catch(err => { console.log(err); })
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำการได้'); setFormField(false) })
         .finally(() => {
             if (isMounted.current) {
               setIsLoading(false)
@@ -748,6 +749,7 @@ function RecordCloseOldContact() {
         setErr(false);
         setSuccess(false);
         setConfirm(false);
+        setIsLoading(false)
         
         // history.push('/manageinfo/searchmember');
 

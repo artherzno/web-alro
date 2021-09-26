@@ -13,6 +13,8 @@ import Header from '../components/Header';
 import BgImg from '../assets/login-bg.png';
 import { AuthContext } from '../App';
 
+const SITE_KEY = "6Ld4bX0cAAAAAKjFcYfp9uBU5l6MwfUcTvgwBYQJ";
+
 function LoginPage() {
     const auth = useContext(AuthContext);
     const history = useHistory();
@@ -20,7 +22,8 @@ function LoginPage() {
 
     const [dataLogin, setDataLogin] = useState({
         username: '',
-        password: ''
+        password: '',
+        'g-recaptcha-response': '',
     });
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState('เกิดข้อผิดพลาด')
@@ -30,6 +33,11 @@ function LoginPage() {
     const [forgotDialog, setForgotDialog] = useState(false);
     const [changeDialog, setChangeDialog] = useState(false);
 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [response, setResponse] = useState(null);
+
     let server_port = auth.port;
     let server_hostname = auth.hostname;
 
@@ -37,82 +45,82 @@ function LoginPage() {
     const fetchDataProvince = (token, provinceId) => {
         axios.post(
             `${server_hostname}/admin/api/get_provinces`, {
-                "ProvinceID": "",
-                "PV_NAME": ""
-            }, { headers: { "token": token } } 
+            "ProvinceID": "",
+            "PV_NAME": ""
+        }, { headers: { "token": token } }
         ).then(res => {
-                // console.log(res)
-                let data = res.data;
-                if(data.code === 0) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
+            // console.log(res)
+            let data = res.data;
+            if (data.code === 0) {
+                setErr(true);
+                if (Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if (typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setErrMsg([data.message])
                     }
-                }else {
-                    provinceList.push(data.data)
-                    
-                    for(let i=0; i<provinceList[0].length; i++) {
-                        if(provinceList[0][i].ProvinceID === parseInt(provinceId)) {
-                            localStorage.setItem('provincename',provinceList[0][i].PV_NAME)
-                            // setProviceName(provinceList[0][i].PV_NAME);
-                        }
-                    }
-                    
-                    let provinceListJSONString = JSON.stringify(provinceList[0]);
-                    localStorage.setItem('provincelist', provinceListJSONString)
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
+            } else {
+                provinceList.push(data.data)
+
+                for (let i = 0; i < provinceList[0].length; i++) {
+                    if (provinceList[0][i].ProvinceID === parseInt(provinceId)) {
+                        localStorage.setItem('provincename', provinceList[0][i].PV_NAME)
+                        // setProviceName(provinceList[0][i].PV_NAME);
+                    }
+                }
+
+                let provinceListJSONString = JSON.stringify(provinceList[0]);
+                localStorage.setItem('provincelist', provinceListJSONString)
             }
+        }
         ).catch(err => { console.log(err) })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
+            .finally(() => {
+                if (isMounted.current) {
+                    setIsLoading(false)
+                }
+            });
     }
 
     let districtList = [];
     const fetchDataDistrict = (token) => {
         axios.post(
             `${server_hostname}/admin/api/get_districts`, {
-                "ProvinceID": "",
-                "DistrictID": "",
-                "AM_NAME": ""
-            }, { headers: { "token": token } } 
+            "ProvinceID": "",
+            "DistrictID": "",
+            "AM_NAME": ""
+        }, { headers: { "token": token } }
         ).then(res => {
-                // console.log(res)
-                let data = res.data;
-                if(data.code === 0) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
+            // console.log(res)
+            let data = res.data;
+            if (data.code === 0) {
+                setErr(true);
+                if (Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if (typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setErrMsg([data.message])
                     }
-                }else {
-                    districtList.push(data.data)
-                    // console.log(districtList)
-                    let districtListJSONString = JSON.stringify(districtList[0]);
-                    localStorage.setItem('districtlist', districtListJSONString)
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
+            } else {
+                districtList.push(data.data)
+                // console.log(districtList)
+                let districtListJSONString = JSON.stringify(districtList[0]);
+                localStorage.setItem('districtlist', districtListJSONString)
             }
+        }
         ).catch(err => { console.log(err) })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
+            .finally(() => {
+                if (isMounted.current) {
+                    setIsLoading(false)
+                }
+            });
     }
 
 
@@ -120,138 +128,190 @@ function LoginPage() {
     const fetchDataSubDistrict = (token) => {
         axios.post(
             `${server_hostname}/admin/api/get_subdistricts`, {
-                "ProvinceID": "",
-                "DistrictID": "",
-                "SubdistrictID": "",
-                "TB_NAME": ""
-            }, { headers: { "token": token } } 
+            "ProvinceID": "",
+            "DistrictID": "",
+            "SubdistrictID": "",
+            "TB_NAME": ""
+        }, { headers: { "token": token } }
         ).then(res => {
-                // console.log(res)
-                let data = res.data;
-                if(data.code === 0) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
+            // console.log(res)
+            let data = res.data;
+            if (data.code === 0) {
+                setErr(true);
+                if (Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if (typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setErrMsg([data.message])
                     }
-                }else {
-                    subDistrictList.push(data.data)
-                    // console.log(subDistrictList)
-                    let subDistrictListJSONString = JSON.stringify(subDistrictList[0]);
-                    localStorage.setItem('subdistrictlist', subDistrictListJSONString)
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
+            } else {
+                subDistrictList.push(data.data)
+                // console.log(subDistrictList)
+                let subDistrictListJSONString = JSON.stringify(subDistrictList[0]);
+                localStorage.setItem('subdistrictlist', subDistrictListJSONString)
             }
+        }
         ).catch(err => { console.log(err) })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
+            .finally(() => {
+                if (isMounted.current) {
+                    setIsLoading(false)
+                }
+            });
     }
 
     let docLandTypeList = [];
     const fetchDataDocLandType = (token) => {
         axios.post(
             `${server_hostname}/admin/api/get_doclandtype`, {
-                "DocLand_code": "",
-                "DocLand_name": ""
-            }, { headers: { "token": token } } 
+            "DocLand_code": "",
+            "DocLand_name": ""
+        }, { headers: { "token": token } }
         ).then(res => {
-                // console.log(res)
-                let data = res.data;
-                if(data.code === 0) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
+            // console.log(res)
+            let data = res.data;
+            if (data.code === 0) {
+                setErr(true);
+                if (Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if (typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setErrMsg([data.message])
                     }
-                }else {
-                    docLandTypeList.push(data.data)
-                    
-                    // console.log('DOC_LAND_TYPE', data.data)
-                    let docLandTypeListJSONString = JSON.stringify(data.data);
-                    localStorage.setItem('doclandtypelist', docLandTypeListJSONString)
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
+            } else {
+                docLandTypeList.push(data.data)
+
+                // console.log('DOC_LAND_TYPE', data.data)
+                let docLandTypeListJSONString = JSON.stringify(data.data);
+                localStorage.setItem('doclandtypelist', docLandTypeListJSONString)
             }
+        }
         ).catch(err => { console.log(err) })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
+            .finally(() => {
+                if (isMounted.current) {
+                    setIsLoading(false)
+                }
+            });
     }
 
     useEffect(() => {
+        const loadScriptByURL = (id, url, callback) => {
+            const isScriptExist = document.getElementById(id);
+
+            if (!isScriptExist) {
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = url;
+                script.id = id;
+                script.onload = function () {
+                    if (callback) callback();
+                };
+                document.body.appendChild(script);
+            }
+
+            if (isScriptExist && callback) callback();
+        }
+
+        // load the script by passing the URL
+        loadScriptByURL("recaptcha-key", `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`, function () {
+            console.log("Script loaded!");
+        });
+
         // executed when component mounted
-      isMounted.current = true;
-      return () => {
-        // executed when unmount
-        isMounted.current = false;
-      }
+        isMounted.current = true;
+        return () => {
+            // executed when unmount
+            isMounted.current = false;
+        }
     }, [])
 
-    async function fetchDataLogin() {
-        const res = await fetch(`${server_hostname}/admin/api/login`, {
-            method: 'POST',
-            body: JSON.stringify(dataLogin),
-            headers: {
+    const hostname = window.location.hostname;
+
+    async function fetchDataLogin(tokenValue) {
+        // console.log('google token', tokenValue)
+        let url = ''
+        let dataBody = ''
+        let dataHeaders = ''
+
+        if(hostname === 'localhost') {
+            url = `${server_hostname}/admin/api/login/local`
+            dataBody = JSON.stringify({
+                "username": dataLogin.username,
+                "password": dataLogin.password,
+            })
+            dataHeaders = {
+                // "x-application-secret-key": apiXKey,
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Basic dXNlcl9zYXA6blpCbTkzblNITHF2cXRxeg==",
+            }
+        } else {        
+            url = `${server_hostname}/admin/api/login`
+            dataBody = JSON.stringify({
+                "username": dataLogin.username,
+                "password": dataLogin.password,
+                "token": tokenValue
+            })
+            dataHeaders = {
                 // "x-application-secret-key": apiXKey,
                 "Content-Type": "application/json",
                 "Accept": "application/json"
-            },
+            }
+        }
+
+        const res = await fetch(url, {
+            method: 'POST',
+            // body: JSON.stringify(dataLogin),
+            body: dataBody,
+            headers: dataHeaders,
             credentials: 'same-origin'
-        }); 
+        });
 
         // const res = await fetch(`http://127.0.0.1:3800/spk/api/healthcheck`, {
         //     method: 'GET',})
-  
+
         res
-        .json()
-        .then(res => {
-        if (res.code === 0 || res === null || res === undefined ) {
-            setIsLoaded(true);
-            setErr(true);
-                if(Object.keys(res.message).length !== 0) {
-                    setErrMsg([res.message])
+            .json()
+            .then(res => {
+                if (res.code === 0 || res === null || res === undefined) {
+                    setIsLoaded(true);
+                    setErr(true);
+                    if (Object.keys(res.message).length !== 0) {
+                        setErrMsg([res.message])
+                    } else {
+                        setErrMsg(['Incorrect Username and/or Password!'])
+                    }
                 } else {
-                    setErrMsg(['Incorrect Username and/or Password!'])
+                    console.log('login:', res);
+                    setIsLoaded(true);
+                    localStorage.setItem('token', res.token)
+                    localStorage.setItem('username', ((res.recordset[0].Name === null) ? '' : res.recordset[0].Name) + ' ' + ((res.recordset[0].Sirname === null) ? '' : res.recordset[0].Sirname))
+                    localStorage.setItem('provinceid', res.recordset[0].ProvinceID)
+                    localStorage.setItem('nROLEID', res.recordset[0].nROLEID)
+                    localStorage.setItem('cUsername', res.recordset[0].cUsername)
+
+                    fetchDataDocLandType(res.token);
+                    fetchDataProvince(res.token, res.recordset[0].ProvinceID)
+                    fetchDataDistrict(res.token)
+                    fetchDataSubDistrict(res.token)
+                    history.push('/home');
+
                 }
-        } else {
-            console.log('login:',res);
-            setIsLoaded(true);
-            localStorage.setItem('token',res.token)
-            localStorage.setItem('username',((res.recordset[0].Name === null) ? '' : res.recordset[0].Name)+' '+((res.recordset[0].Sirname === null) ? '' : res.recordset[0].Sirname))
-            localStorage.setItem('provinceid',res.recordset[0].ProvinceID)
-            localStorage.setItem('nROLEID',res.recordset[0].nROLEID)
-            localStorage.setItem('cUsername',res.recordset[0].cUsername)
 
-            fetchDataDocLandType(res.token);
-            fetchDataProvince(res.token, res.recordset[0].ProvinceID)
-            fetchDataDistrict(res.token)
-            fetchDataSubDistrict(res.token)
-            history.push('/home');
-
-        }
-
-        })
-        .catch(err => {
-            console.log(err);
-            setIsLoaded(true);
-            setErr(true);
-            history.push('/');
-        });
+            })
+            .catch(err => {
+                console.log(err);
+                setIsLoaded(true);
+                setErr(true);
+                history.push('/');
+            });
     }
 
     const handleClose = () => {
@@ -273,34 +333,39 @@ function LoginPage() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        fetchDataLogin();
+        setLoading(true);
+        window.grecaptcha.ready(() => {
+            window.grecaptcha.execute(SITE_KEY, { action: 'submit' }).then(token => {
+                fetchDataLogin(token);
+            });
+        });
     }
 
     return (
-        <div className="login-page" style={{backgroundImage: `url(${BgImg})`, backgroundSize: 'cover'}}>
+        <div className="login-page" style={{ backgroundImage: `url(${BgImg})`, backgroundSize: 'cover' }}>
             <Header bgColor="bg-green" status="login" />
-            
+
             <div className="card">
                 <p className="font-18">เข้าสู่ระบบสินเชื่อกองทุนการปฏิรูปที่ดินเพื่อเกษตรกรรม </p>
-                <form  onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="form-input">
                         <label>Username</label>
-                        <input autoFocus type="text" name="username" value={dataLogin.username} placeholder="" onChange={handleChange} onFocus={()=> setErr(false)} />
+                        <input autoFocus type="text" name="username" value={dataLogin.username} placeholder="" onChange={handleChange} onFocus={() => setErr(false)} />
                     </div>
                     <div className="form-input">
                         <label>Password</label>
-                        <input type="password" name="password" value={dataLogin.password} placeholder="" onChange={handleChange}  onFocus={()=> setErr(false)} />
+                        <input type="password" name="password" value={dataLogin.password} placeholder="" onChange={handleChange} onFocus={() => setErr(false)} />
                     </div>
                     <button className="btn btn-blue">เข้าสู่ระบบ</button>
                     <p className="err font-14">
-                        { err ? <span >{errMsg}</span> : ''}
+                        {err ? <span >{errMsg}</span> : ''}
                     </p>
                     <div className="login-option">
                         <div className="login-forgot-pwd">
-                            <p onClick={()=>setChangeDialog(true)}>เปลี่ยนรหัสผ่าน</p>
+                            <p onClick={() => setChangeDialog(true)}>เปลี่ยนรหัสผ่าน</p>
                         </div>
                         <div className="login-change-pwd">
-                            <p onClick={()=>setForgotDialog(true)}>ลืมรหัสผ่าน</p>
+                            <p onClick={() => setForgotDialog(true)}>ลืมรหัสผ่าน</p>
                         </div>
                     </div>
                 </form>
@@ -318,11 +383,11 @@ function LoginPage() {
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
 
-                    <form  onSubmit={handleSubmit}>
-                        <div className="form-input">
-                            <input autoFocus type="text" name="changeemail" placeholder="" />
-                        </div>
-                   </form>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-input">
+                                <input autoFocus type="text" name="changeemail" placeholder="" />
+                            </div>
+                        </form>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -346,16 +411,16 @@ function LoginPage() {
                 <DialogTitle id="alert-dialog-title"><p>{"ลืมรหัสผ่าน"}</p></DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                    <form  onSubmit={handleSubmit}>
-                        <div className="form-input">
-                            <label>รหัสผ่านเก่า</label>
-                            <input autoFocus type="text" name="oldpassword" placeholder="" onChange={handleChange}  />
-                        </div>
-                        <div className="form-input">
-                            <label>รหัสผ่านใหม่</label>
-                            <input type="text" name="newpassowd" placeholder="" onChange={handleChange}/>
-                        </div>
-                    </form>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-input">
+                                <label>รหัสผ่านเก่า</label>
+                                <input autoFocus type="text" name="oldpassword" placeholder="" onChange={handleChange} />
+                            </div>
+                            <div className="form-input">
+                                <label>รหัสผ่านใหม่</label>
+                                <input type="text" name="newpassowd" placeholder="" onChange={handleChange} />
+                            </div>
+                        </form>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

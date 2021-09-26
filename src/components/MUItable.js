@@ -122,6 +122,8 @@ const MUItable = (props) => {
       tableName,
       loanrequestprintEvent,
       loanrequestprintAction,
+      recordcontractdebtEvent,
+      recordcontractdebtAction,
     } = props;
 
   useEffect(() => {
@@ -324,6 +326,14 @@ const MUItable = (props) => {
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
                 }
                 {
+                  tableName === 'recordcontractdebt' && (row['Old_LoanID'])  ? 
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{recordcontractdebtAction('edit'); recordcontractdebtEvent(row['LoanID'])}} />
+                  : tableName === 'recordcontractdebt' && (row['Old_LoanID'] === '' || row['Old_LoanID'] === null || row['Old_LoanID'] === undefined ) ?  
+                    <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{recordcontractdebtAction('add'); recordcontractdebtEvent(row['LoanID'])}} />
+                  : null
+                    // (applicantID, farmerID, applicantNo, loanID, loanNumber)
+                }
+                {
                   actionRequest ? 
                     <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="100px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
                   : null
@@ -335,7 +345,7 @@ const MUItable = (props) => {
                 }
                 {
                   actionCreateArr ? 
-                    <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createArrEvent(row[createArrParam[0]],row[createArrParam[1]],row[createArrParam[2]],row[createArrParam[3]],row[createArrParam[4]],row[createArrParam[5]],row[createArrParam[6]],row[createArrParam[7]])} />
+                    <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createArrEvent(row[createArrParam[0]],row[createArrParam[1]],row[createArrParam[2]],row[createArrParam[3]],row[createArrParam[4]],row[createArrParam[5]],row[createArrParam[6]],row[createArrParam[7]],row[createArrParam[8]])} />
                   : null
                 }
                 {

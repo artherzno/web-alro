@@ -8,15 +8,15 @@ import LawSuitTab from './LawSuitTab'
 import SummaryLawSuitTab from './SummaryLawSuitTab'
 
 const tabs = [{
-    title: 'รายงานสัญญาการดำเนินคดีทางศาล',
+    title: 'รายงานตั้งหนี้ตามคำพิพากษาศาล',
     id: "lawsuit"
 },
 {
-    title: 'สรุปรายงานสัญญาการดำเนินคดีทางศาล',
+    title: 'สรุปรายงานตั้งหนี้ตามคำพิพากษาศาล',
     id: "sum_lawsuit"
 },]
 
-class LawSuit extends React.Component {
+class LawSuit extends React.Component { 
 
     constructor(props) {
         super(props)

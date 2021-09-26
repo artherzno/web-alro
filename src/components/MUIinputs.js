@@ -419,6 +419,7 @@ const MuiTextfieldCurrency = (props) => {
                 // format={format || null}
                 type="text"
                 thousandSeparator={true}
+                decimalScale={2} 
                 onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
             />
 
@@ -797,7 +798,17 @@ const MuiSelectProvince = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value={0}>{startText ? startText : 'เลือกจังหวัด'}</MenuItem>
+                {/* <MenuItem value={0}>{startText ? startText : 'เลือกจังหวัด'}</MenuItem>
+                {lists.map((item, i) =>
+                    <MenuItem key={i} value={item.ProvinceID}>{item.PV_NAME}</MenuItem>
+                )} */}
+
+                { value===null || value==='' ?
+                    <MenuItem value={null}></MenuItem> 
+                    :
+                    <MenuItem value={0}>{startText ? startText : 'เลือกจังหวัด'}</MenuItem>
+                }
+
                 {lists.map((item, i) =>
                     <MenuItem key={i} value={item.ProvinceID}>{item.PV_NAME}</MenuItem>
                 )}
@@ -808,7 +819,7 @@ const MuiSelectProvince = (props) => {
 
 const MuiSelectDistrict = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange, inputdisabled } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
 
     // console.log('MuiSelect:', lists)
 
@@ -827,7 +838,16 @@ const MuiSelectDistrict = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value={0}>เลือกเขต/อำเภอ</MenuItem>
+                {/* <MenuItem value={0}>เลือกเขต/อำเภอ</MenuItem>
+                {lists.map((item, i) =>
+                    <MenuItem key={i} value={item.DistrictID}>{item.AM_NAME}</MenuItem>
+                )} */}
+
+                { value===null || value==='' ?
+                    <MenuItem value={null}></MenuItem> 
+                    :
+                    <MenuItem value={0}>{startText ? startText : 'เลือกเขต/อำเภอ'}</MenuItem>
+                }
                 {lists.map((item, i) =>
                     <MenuItem key={i} value={item.DistrictID}>{item.AM_NAME}</MenuItem>
                 )}
@@ -838,7 +858,7 @@ const MuiSelectDistrict = (props) => {
 
 const MuiSelectSubDistrict = (props) => {
     const classes = useStyles();
-    const { topic, label, id, lists, name, value, onChange, inputdisabled } = props;
+    const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
 
     // console.log('MuiSelect:', lists)
 
@@ -857,8 +877,12 @@ const MuiSelectSubDistrict = (props) => {
                 input={<BootstrapInput />}
                 onChange={onChange}
             >
-                <MenuItem value={0}>เลือกแขวง/ตำบล</MenuItem>
-                {lists.map((item, i) =>
+                { value===null || value==='' ?
+                    <MenuItem value={null}></MenuItem> 
+                    :
+                    <MenuItem value={0}>{startText ? startText : 'เลือกแขวง/ตำบล'}</MenuItem>
+                }
+                 {lists.map((item, i) =>
                     <MenuItem key={i} value={item.SubdistrictID}>{item.TB_NAME}</MenuItem>
                 )}
             </Select>
@@ -1063,12 +1087,12 @@ const MuiSelectObj = (props) => {
 
 const MuiSelect = (props) => {
     const classes = useStyles();
-    const { topic, label, lists, listsValue, name, id, textAlign, value, error, helperText, onChange } = props;
+    const { topic, label, lists, listsValue, name, id, textAlign, value, error, helperText, onChange, inputdisabled } = props;
 
     // console.log('MuiSelect:', listsValue)
 
     return (
-        <FormControl className={classes.textbox} error>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`} error>
             {
                 (label) === '' ? '' :
                     // <InputLabel shrink htmlFor={id} className={classes.label}>

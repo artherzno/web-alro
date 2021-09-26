@@ -165,6 +165,7 @@ function LoanRequestPrint(props) {
     const [inputDataFarmer, setInputDataFarmer] = useState([])
     const [inputDataLand, setInputDataLand] = useState([])
     const [inputData, setInputData] = useState([])
+    const [loanPeriodCodeValue, setLoanPeriodCodeValue] = useState(null)
     // const [inputDataLoan, setinputDataLoan] = useState([])
     const [inputDataSubmit, setInputDataSubmit] = useState({
         ApplicantID: '', // 1,
@@ -515,7 +516,7 @@ function LoanRequestPrint(props) {
                                 item.ApplicantID,
                                 item.LoanID,
                                 item.RecordCode === null ? '' : item.RecordCode,
-                                item.RecDate === null ? '' : item.RecDate,
+                                item.RecDate === null ? '' : newOrderDate(item.RecDate),
                                 item.ApplicantNo === null ? '' : item.ApplicantNo,
                                 item.ApplicantStatus === null || !item.ApplicantStatus ? 'P' : item.ApplicantStatus,
                                 item.ProjectID === null ? '' : item.ProjectID,
@@ -670,19 +671,20 @@ function LoanRequestPrint(props) {
                     console.log('action',action)
 
                     getProject(data.data[0].ProjectPlanYear, data.data[0].ProjectID)
-                    getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber)
                     
 
                     if(action === 'add') {
+                        console.log('data.data[0].LoanPeriodCode',data.data[0].LoanPeriodCode)
                         // Action : Add
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode)
                         setLoandueDataAPI(null)
                         setIsLoading(false);
                         setApplicantNo(applicantNo);
 
-                        handleInputData({
+                        setInputData({
                             ...inputData,
                             ProjectID: 0
                         })
@@ -694,90 +696,15 @@ function LoanRequestPrint(props) {
                             ...inputDataSubmit, 
                             FarmerID: farmerID,
                             ApplicantID: applicantID,
-                            LoanDate: null, // "",
-                            RecordCode: '', // "",
-                            RecDate: null, // "",
                             AGE: data.Farmer[0].AGE || '', // "",
-                            Nationality: '',
-                            IDCardMadeDistrict: '', // "",
-                            IDCardMadeProvince: '0', // "",
-                            FarmerInDistrict: '', // "",
-                            FarmerInProvince: '0', // "",
-                            Officer: '', // "",
-                            OfficerRank: '', // "",
-                            SPK_Order: '', // "",
-                            SPK_OrderDate: null, // "",
                             Loan_Obj1: data.data[0].objective1 === null ? '' : data.data[0].objective1, // "",
                             Loan_Obj1Amount: data.data[0].Loan_amount1 === null ? 0 : data.data[0].Loan_amount1, // "",
                             Loan_Obj2: data.data[0].objective2 === null ? '' : data.data[0].objective2, // "",
                             Loan_Obj2Amount: data.data[0].Loan_amount1 === null ? 0 : data.data[0].Loan_amount2, // "",
                             Loan_Obj3: data.data[0].objective3 === null ? '' : data.data[0].objective3, // "",
                             Loan_Obj3Amount: data.data[0].Loan_amount3 === null ? '' : data.data[0].Loan_amount3, // "",
-                            Loan_Installment1: 0, // "",
-                            Loan_Installment2: 0, // "",
-                            Loan_Installment3: 0, // "",
-                            Loan_Installment4: 0, // "",
-                            Loan_Installment5: 0, // "",
-                            Farmer_Accept: '', // "",
-                            Guarantee_Property: '', // "",
-                            LoanContactBook: '', // "",
-                            Guarantee_PropertyDate: null, // "",
-                            Guarantee_Person: '', // "",
-                            LoanGuaranteeBook: '', // "",
-                            LoanGuaranteeBookDate: null, // "null",
-                            WarrantBookOwner1: '', // "",
-                            WarrantBook1: '', // "",
-                            WarrantBookDate1: null, // "null",
-                            WarrantBookOwner2: '', // "",
-                            WarrantBook2: '', // "",
-                            WarrantBookDate2: null, // "null",
-                            Free_of_debt_Month: '', // "",
-                            Free_of_debt_Year: '', // "",
-                            Free_of_debt_Time: 0, // "",
-                            FirstDatePaid: null, // "null",
-                            principle: '', // 123,
-                            Interest: 0, // 4,
-                            ChargeRate: '', // "",
-                            LastDatePaid: null, // "null",
                             OfficeProvince: provincename, // "",
-                            WitnessName: '', // "",
-                            WitnessAddr: '', // "",
-                            WitnessIDCard: '', // "",
-                            WitnessIDCardMade: '', // "",
-                            WitnessName2: '', // "",
-                            WitnessAddr2: '', // "",
-                            WitnessIDCard2: '', // "",
-                            WitnessIDCardMade2: '', // "",
-                            ChangeContactCommit: '', // "",
-                            ChangeContactCommitDate: null, // "",
-                            ChangeContactCommitTime: '', // "",
-                            Overdue_debt: '', // "",
-                            Overdue_debt_principle: '', // "",
-                            Overdue_debt_interest: '', // "",
-                            PaidOverdue_debt_principle_Interest: '', // "",
-                            PaidYear: '', // "",
-                            PaidTime_month: '', // "",
-                            TotalPaidTime: '', // "",
-                            LoanTypeID: '', // "",
-                            LoanStatus: '',
-                            projectID: '', // "",
-                            Projectcode: '', // "",
-                            ProjectName: '', // "",
-                            Obj: '', // "",
-                            LoanCost: '', // "",
-                            FarmArea_Rai: '', // "",
-                            Plant_Type: '', // "",
-                            YearProductPer_Rai: '', // "",
-                            Total_Year_cost: '', // "",
-                            YearInterest: '', // "",
-                            Debt: '', // "",
-                            DebtWith: '', // "",
-                            DebtCost: '', // "",
-                            LoanDocPatch: '', // "",
-                            LoanStatusID: '', // "",
-                            Status: '', // "",
-                            ProvinceID: '', // "",
-                            IDCard: '', // "",
+                            
                         })
 
                         setInputSelectDate({
@@ -1060,7 +987,56 @@ console.log('data.loandue_data.length',data.loandue_data.length)
         let payrecDateArr = [...loandueDataArr]
 
         // First pay date value
-        if(name === 'firstdatepaiddd' || name === 'firstdatepaidmm' || name === 'firstdatepaidyyyy') {
+
+        if(name === 'recdatedd' || name === 'recdatemm' || name === 'recdateyyyy') {
+            if(name === 'recdatedd' ) {
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    [event.target.name]: event.target.value.toString(),
+                    'firstdatepaiddd': event.target.value.toString(),
+                    'lastdatepaiddd': event.target.value.toString()
+                })
+            } else if (name === 'recdatemm') {
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    [event.target.name]: event.target.value.toString(),
+                    'firstdatepaidmm': event.target.value.toString(),
+                    'lastdatepaidmm': event.target.value.toString()
+                })
+
+            } else if (name === 'recdateyyyy') {
+                console.log('recdateyyyy',event.target.value)
+
+                console.log(Number(inputDataSubmit.Free_of_debt_Time))
+                let value = 0;
+                if(Number(inputDataSubmit.Free_of_debt_Time) === 0 || Number(inputDataSubmit.Free_of_debt_Time) === '') {
+                    value = (event.target.value+1).toString()
+                } else {
+                    value = ((event.target.value+1) + Number(inputDataSubmit.Free_of_debt_Time) -1).toString()
+                }
+                // let value = (event.target.value + Number(inputDataSubmit.Free_of_debt_Time) -1).toString()
+                setInputSelectDate({
+                    ...inputSelectDate,
+                    [event.target.name]: event.target.value.toString(),
+                    'firstdatepaidyyyy': (event.target.value+1).toString(),
+                    'lastdatepaidyyyy': value
+                })
+
+            }
+
+            let DateLoandataArr = [...inputSelectDateLoandata]
+            for(let i=0; i<25; i++) {
+                DateLoandataArr[i][type] = event.target.value.toString()
+                if(name === 'recdateyyyy') {
+                    DateLoandataArr[i][type] = (Number(event.target.value+1)+i).toString()
+                }
+
+                // Add to Array of Submit
+                payrecDateArr[i].DUEDATE = DateLoandataArr[i].yyyy === '0000' ? '0000' : DateLoandataArr[i].yyyy - 543+'-'+DateLoandataArr[i].mm+'-'+DateLoandataArr[i].dd
+            }
+            setInputSelectDateLoandata(DateLoandataArr)
+
+        } else if(name === 'firstdatepaiddd' || name === 'firstdatepaidmm' || name === 'firstdatepaidyyyy') {
 
             if(name === 'firstdatepaiddd' ) {
                 setInputSelectDate({
@@ -1076,7 +1052,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                 })
 
             } else if (name === 'firstdatepaidyyyy') {
-                let value = (event.target.value + Number(inputDataSubmit.Free_of_debt_Time) -1).toString()
+                let value = 0;
+                if(Number(inputDataSubmit.Free_of_debt_Time) === 0 || Number(inputDataSubmit.Free_of_debt_Time) === '') {
+                    value = event.target.value.toString()
+                } else {
+                    value = (event.target.value + Number(inputDataSubmit.Free_of_debt_Time) -1).toString()
+                }
+                // let value = (event.target.value + Number(inputDataSubmit.Free_of_debt_Time) -1).toString()
                 setInputSelectDate({
                     ...inputSelectDate,
                     [event.target.name]: event.target.value.toString(),
@@ -1723,16 +1705,16 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                 <Paper className="paper line-top-green paper">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={6} className="form-view">
-                                                            <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode"  value={parseInt(inputData.LoanPeriodCode)} onChange={handleInputData} type="row" />
+                                                            <MuiRadioButton label="ประเภทเงินกู้" lists={['ระยะสั้น','ระยะปานกลาง','ระยะยาว']} name="LoanPeriodCode"  value={loanPeriodCodeValue} onChange={handleInputData} type="row" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={6}>
                                                                     <p>วันที่ทำสัญญา</p>
                                                                     <div className="select-date-option">
-                                                                        <MuiSelectDay label="" name="recdatedd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
-                                                                        <MuiSelectMonth label="" name="recdatemm" value={inputSelectDate.recdatemm} onChange={handleSelectDate} />
-                                                                        <MuiSelectYear label="" name="recdateyyyy" value={inputSelectDate.recdateyyyy} onChange={handleSelectDate} />
+                                                                        <MuiSelectDay label="" name="recdatedd" value={inputSelectDate.recdatedd} onChange={(event)=>handleSelectDateLoandata(event,0,'dd',inputDataSubmit.Free_of_debt_Time)} />
+                                                                        <MuiSelectMonth label="" name="recdatemm" value={inputSelectDate.recdatemm} onChange={(event)=>handleSelectDateLoandata(event,0,'mm',inputDataSubmit.Free_of_debt_Time)} />
+                                                                        <MuiSelectYear label="" name="recdateyyyy" value={inputSelectDate.recdateyyyy} onChange={(event)=>handleSelectDateLoandata(event,0,'yyyy',inputDataSubmit.Free_of_debt_Time)} />
                                                                     </div>
                                                                 </Grid>
                                                                 {

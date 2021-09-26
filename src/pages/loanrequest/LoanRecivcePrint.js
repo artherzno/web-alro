@@ -95,11 +95,11 @@ function LoanRecivcePrint() {
         FrontName: '',
         Name: '',
         Sirname: '',
-        Contact_AddNo: '',
-        Contact_AddMoo: '',
-        Contact_AddrSubdistrictID: '',
-        Contact_AddrDistrictID: '',
-        Contact_AddrProvinceID: '',
+        IDCARD_AddNo: '',
+        IDCARD_AddMoo: '',
+        IDCARD_AddrSubdistrictID: '',
+        IDCARD_AddrDistrictID: '',
+        IDCARD_AddrProvinceID: '',
     })
 
     const [inputData, setInputData] = useState({
@@ -170,8 +170,13 @@ function LoanRecivcePrint() {
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
         { id: 'Sirname', numeric: false, disablePadding: false, widthCol: '150px', label: 'นามสกุล' },
-        // { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
         { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
+        // { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'เลขที่' },
+        // { id: 'IDCARD_AddMoo', numeric: false, disablePadding: false, widthCol: '250px', label: 'หมู่' },
+        // { id: 'IDCARD_AddrSoiRoad', numeric: false, disablePadding: false, widthCol: '250px', label: 'ซอย / ถนน' },
+        // { id: 'IDCARD_AddrSubdistrictID', numeric: false, disablePadding: false, widthCol: '250px', label: 'แขวง / ตำบล' },
+        // { id: 'IDCARD_AddrDistrictID', numeric: false, disablePadding: false, widthCol: '250px', label: 'เขต / อำเภอ' },
+        // { id: 'IDCARD_AddrProvinceID', numeric: false, disablePadding: false, widthCol: '250px', label: 'จังหวัด' },
     ]
 
     function createData(LoanID,RecordCode,
@@ -185,7 +190,13 @@ function LoanRecivcePrint() {
         FrontName,
         Name,
         Sirname,
-        IDCARD_AddNo,) {
+        IDCARD_AddMoo,
+        IDCARD_AddNo,
+        IDCARD_AddrSubdistrictID,
+        IDCARD_AddrDistrictID,
+        IDCARD_AddrProvinceID,
+        // IDCARD_AddrSoiRoad,
+        ) {
         return {
             LoanID,
             RecordCode,
@@ -199,7 +210,13 @@ function LoanRecivcePrint() {
             FrontName,
             Name,
             Sirname,
+            IDCARD_AddMoo,
             IDCARD_AddNo,
+            IDCARD_AddrSubdistrictID,
+            IDCARD_AddrDistrictID,
+            IDCARD_AddrProvinceID,
+            // IDCARD_AddrSoiRoad,
+
         }
     }
 
@@ -349,12 +366,18 @@ function LoanRecivcePrint() {
                                 item.ProjectID === null ? '' : item.ProjectID,
                                 item.ProjectName === null ? '' : item.ProjectName,
                                 item.LoanNumber === null ? '' : item.LoanNumber,
-                                item.dCreated ? newOrderDate(item.dCreated) : null,
+                                item.dCreated === null ? newOrderDate(item.dCreated) : null,
                                 item.IDCard === null ? '' : item.IDCard,
                                 item.FrontName === null ? '' : item.FrontName,
                                 item.Name === null ? '' : item.Name,
                                 item.Sirname === null ? '' : item.Sirname,
-                                '' //item.IDCARD_AddNo 
+                                item.IDCARD_AddMoo === null ? '' : item.IDCARD_AddMoo,
+                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo,
+                                item.IDCARD_AddrSubdistrictID === null ? '' : item.IDCARD_AddrSubdistrictID,
+                                item.IDCARD_AddrDistrictID === null ? '' : item.IDCARD_AddrDistrictID,
+                                item.IDCARD_AddrProvinceID === null ? '' : item.IDCARD_AddrProvinceID,
+                                // item.IDCARD_AddrSoiRoad === null ? '' : item.IDCARD_AddrSoiRoad,
+                                //item.IDCARD_AddNo 
                                 // item.FarmerID,
                                 // item.ApplicantID,
                                 // item.LoanID,
@@ -520,11 +543,11 @@ function LoanRecivcePrint() {
             FrontName: frontname,
             Name: name,
             Sirname: sirname,
-            Contact_AddNo: no,
-            Contact_AddMoo: moo,
-            Contact_AddrSubdistrictID: subdistrict,
-            Contact_AddrDistrictID: district,
-            Contact_AddrProvinceID: province,
+            IDCARD_AddNo: no,
+            IDCARD_AddMoo: moo,
+            IDCARD_AddrSubdistrictID: subdistrict,
+            IDCARD_AddrDistrictID: district,
+            IDCARD_AddrProvinceID: province,
         })
     }
 
@@ -554,19 +577,19 @@ function LoanRecivcePrint() {
                         <MuiTextfield label="นามสกุล"  inputdisabled="input-disabled" value={dataInfo.data[i].Sirname} />
                     </Grid>
                     <Grid item xs={12} md={1}>
-                        <MuiTextfield label="บ้านเลขที่"  inputdisabled="input-disabled"  value={dataInfo.data[i].Contact_AddNo} />
+                        <MuiTextfield label="บ้านเลขที่"  inputdisabled="input-disabled"  value={dataInfo.data[i].IDCARD_AddNo} />
                     </Grid>
                     <Grid item xs={12} md={2}>
-                        <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  value={dataInfo.data[i].Contact_AddMoo} />
+                        <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  value={dataInfo.data[i].IDCARD_AddMoo} />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={dataInfo.data[i].Contact_AddrSubdistrictID === null ? '' : dataInfo.data[i].Contact_AddrSubdistrictID} />
+                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={dataInfo.data[i].IDCARD_AddrSubdistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrSubdistrictID} />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={dataInfo.data[i].Contact_AddrDistrictID === null ? '' : dataInfo.data[i].Contact_AddrDistrictID} />
+                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={dataInfo.data[i].IDCARD_AddrDistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrDistrictID} />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[i].Contact_AddrProvinceID === null ? '' : dataInfo.data[i].Contact_AddrProvinceID}/>
+                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[i].IDCARD_AddrProvinceID === null ? '' : dataInfo.data[i].IDCARD_AddrProvinceID}/>
                     </Grid>
                     <Grid item xs={12} md={3}>
                         <MuiTextfield label="ได้รับเงินจากกรม"  inputdisabled="input-disabled"  value={dataInfo.data[i].LoanReceiptfrom} />
@@ -726,11 +749,11 @@ function LoanRecivcePrint() {
                                         'FrontName',
                                         'Name',
                                         'Sirname',
-                                        'Contact_AddNo',
-                                        'Contact_AddMoo',
-                                        'Contact_AddrSubdistrictID',
-                                        'Contact_AddrDistrictID',
-                                        'Contact_AddrProvinceID']}
+                                        'IDCARD_AddNo',
+                                        'IDCARD_AddMoo',
+                                        'IDCARD_AddrSubdistrictID',
+                                        'IDCARD_AddrDistrictID',
+                                        'IDCARD_AddrProvinceID']}
                                         tableName={'loanrecivceprint'}
                                     />
                                 </div>
@@ -816,21 +839,21 @@ function LoanRecivcePrint() {
                                                     </Grid>
                                                     <Grid item xs={12} md={1}>
                                                         {/* Field Select ---------------------------------------------------*/}
-                                                        <MuiTextfield label="บ้านเลขที่"  inputdisabled="input-disabled" value={inputDataShow.Contact_AddNo} />
+                                                        <MuiTextfield label="บ้านเลขที่"  inputdisabled="input-disabled" value={inputDataShow.IDCARD_AddNo} />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfield label="หมู่"  inputdisabled="input-disabled" value={inputDataShow.Contact_AddMoo} />
+                                                        <MuiTextfield label="หมู่"  inputdisabled="input-disabled" value={inputDataShow.IDCARD_AddMoo} />
                                                     </Grid>
 
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataShow.Contact_AddrSubdistrictID === null ? '' : inputDataShow.Contact_AddrSubdistrictID} />
+                                                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataShow.IDCARD_AddrSubdistrictID === null ? '' : inputDataShow.IDCARD_AddrSubdistrictID} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataShow.Contact_AddrDistrictID === null ? '' : inputDataShow.Contact_AddrDistrictID} />
+                                                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataShow.IDCARD_AddrDistrictID === null ? '' : inputDataShow.IDCARD_AddrDistrictID} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={inputDataShow.Contact_AddrProvinceID === null ? '' : inputDataShow.Contact_AddrProvinceID}/>
+                                                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={inputDataShow.IDCARD_AddrProvinceID === null ? '' : inputDataShow.IDCARD_AddrProvinceID}/>
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         {/* Field Text ---------------------------------------------------*/}
