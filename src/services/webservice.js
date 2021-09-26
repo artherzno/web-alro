@@ -629,6 +629,30 @@ const api = {
         })
 
     },
+    saveReceipt(params) {
+
+        return post({
+            path: "Receipt/Insert",
+            params
+        })
+
+    },
+    getInvoiceList(params) {
+
+        return post({
+            path: "Invoice/GetAll",
+            params
+        })
+
+    },
+    getInvoiceAlert(params) {
+
+        return post({
+            path: "Invoice/Alert",
+            params
+        })
+
+    },
    
 };
 

@@ -53,6 +53,27 @@ function RecordBillAlro() {
     }, [])
 
 
+    function saveData(values) {
+
+        const account = getAccount()
+
+        const parameter = {
+            ...values,
+            dCreated:null,
+            dUpdated:null,
+            admin_nMEMID:null
+        }
+
+        api.saveReceipt(parameter).then(response => {
+
+            console.log("response", response.data)
+        }).catch(error => {
+
+        })
+
+
+    }
+
     function getReceiptSelectData(values) {
 
         const account = getAccount()
@@ -273,6 +294,7 @@ function RecordBillAlro() {
                                     onSubmit={(values, actions) => {
 
                                         console.log("values", values)
+                                        saveData(values)
 
                                     }}
                                     render={(formik) => {
