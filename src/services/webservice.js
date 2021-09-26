@@ -645,6 +645,14 @@ const api = {
         })
 
     },
+    getInvoiceAlert(params) {
+
+        return post({
+            path: "Invoice/Alert",
+            params
+        })
+
+    },
    
 };
 

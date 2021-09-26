@@ -25,7 +25,7 @@ import {
     ButtonFluidPrimary,
     ButtonNormalIconStartPrimary,
 } from '../../components/MUIinputs';
-
+import api from '../../services/webservice'
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
@@ -100,6 +100,8 @@ function NoticeInvoice() {
 
     useEffect(() => {
         setLoaded(true);
+        getInvoiceAlert()
+
     }, [])
 
 
@@ -150,6 +152,29 @@ function NoticeInvoice() {
         //   setError(true);
         // }
     };
+
+    function getInvoiceAlert() {
+
+        const parameter = {
+            Username: "",
+            mDate: "",
+            voucher: "",
+            mDate: "",
+            ref_id1: "",
+            ref_id: "",
+            farmer: "",
+            rentno: "",
+            paidstatus: "",
+            item: "",
+            StartDate: "",
+        }
+
+        api.getInvoiceAlert(parameter).then(response => {
+
+        }).catch(error => {
+
+        })
+    }
 
     return (
         <div className="noticeinvoice-page">
