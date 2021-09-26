@@ -405,7 +405,7 @@ function EditContractDebt() {
                 Name: inputDataSearch.Name,
                 Sirname: inputDataSearch.Sirname,
                 IDCard: inputDataSearch.IDCard,
-                LoanID: Number(inputDataSearch.LoanID),
+                LoanID: inputDataSearch.LoanID,
                 LoanNumber: inputDataSearch.LoanNumber,
             }, { headers: { "token": token } } 
         ).then(res => {
@@ -554,7 +554,7 @@ function EditContractDebt() {
                     setInputDataLoanRec(data.loanrec_data[0])
                     setInputDataClosecontact(data.closecontact_data[0])
                     
-                    if(data.spkinfo_data[0].length === 0) {
+                    if(data.spkinfo_data[0] === undefined) {
                         setInputDataSpkInfo({
                             Road: '',
                             Subdistrict: '',
@@ -569,6 +569,8 @@ function EditContractDebt() {
                     setLoanID(data.loanrec_data[0].LoanID)
                     // setTableResult(data.data)
                     // setRows(data.data)
+
+                    console.warn('action',action)
 
                     setInputDataFarmer({
                         ...inputDataFarmer,
@@ -1292,7 +1294,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* objective1 */}
-                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" inputdisabled="input-disabled" value={inputDataLoanRec.objective1} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataLoanRec.objective1} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1302,7 +1304,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanPeriod */}
-                                                            <MuiTextfield label="ประเภทเงินกู้" inputdisabled="input-disabled" value={inputDataLoanRec.LoanPeriod} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataLoanRec.LoanPeriod} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1312,7 +1314,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanobjName */}
-                                                            <MuiTextfield label="ประเภทกู้ยืม" inputdisabled="input-disabled" value={inputDataLoanRec.LoanobjName} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataLoanRec.LoanobjName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1322,7 +1324,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanFarmerTypeName */}
-                                                            <MuiTextfield label="ประเภทผู้กู้" inputdisabled="input-disabled" value={inputDataLoanRec.LoanFarmerTypeName} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ประเภทผู้กู้" name="LoanFarmerTypeName" value={inputDataLoanRec.LoanFarmerTypeName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1744,7 +1746,7 @@ function EditContractDebt() {
                                     
                                     {/* Button row */}
                                     <Container maxWidth="md">
-                                          <Grid container spacing={2} className="btn-row txt-center">
+                                          {/* <Grid container spacing={2} className="btn-row txt-center">
                                                 <Grid item xs={12} md={4}>
                                                     <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
                                                 </Grid>
@@ -1754,8 +1756,8 @@ function EditContractDebt() {
                                                 <Grid item xs={12} md={4}>
                                                     <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
                                                 </Grid>
-                                            </Grid>
-                                        {/* {
+                                            </Grid> */}
+                                        {
                                             (Number(inputDataSubmitIndividual.principle) === summaryTable) && Number(inputDataSubmitIndividual.principle) > 0 && summaryTable > 0 ?
                                             <Grid container spacing={2} className="btn-row txt-center">
                                                 <Grid item xs={12} md={4}>
@@ -1783,7 +1785,7 @@ function EditContractDebt() {
                                                     <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} />
                                                 </Grid>
                                             </Grid>
-                                        } */}
+                                        }
 
                                     </Container>
                                 </form>
