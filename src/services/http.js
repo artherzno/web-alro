@@ -24,16 +24,25 @@ const setHeader = (isMultipart, token) => {
 const post = (path, parameter, token, isMultipart, config = {}) => {
 
     const provinceid = localStorage.getItem('provinceid')
-    const parameters = {
-        ...parameter,
-        Username: provinceid
+    let parameters = parameter
+
+    if (parameter instanceof FormData) {
+        parameters.append("Username", provinceid)
+    } else {
+        parameters = {
+            ...parameter,
+            Username: provinceid
+        }
     }
+
+    console.log("parameter", parameter instanceof FormData)
+
     return new Promise((resolve, reject) => {
 
         setHeader(isMultipart, token)
 
         return axios
-            .post(path, parameters, config)
+            .post(path, parameter, config)
             .then(response => {
                 resolve(response);
             })
