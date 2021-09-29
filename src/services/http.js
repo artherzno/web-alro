@@ -23,13 +23,17 @@ const setHeader = (isMultipart, token) => {
 
 const post = (path, parameter, token, isMultipart, config = {}) => {
 
-
+    const provinceid = localStorage.getItem('provinceid')
+    const parameters = {
+        ...parameter,
+        Username: provinceid
+    }
     return new Promise((resolve, reject) => {
 
         setHeader(isMultipart, token)
 
         return axios
-            .post(path, parameter, config)
+            .post(path, parameters, config)
             .then(response => {
                 resolve(response);
             })
@@ -40,14 +44,14 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
     });
 }
 
-const get = (path, parameter, token, config = {},data) => {
+const get = (path, parameter, token, config = {}, data) => {
     return new Promise((resolve, reject) => {
 
         setHeader(true, token)
 
         var configRequest = config
 
-        if (data){
+        if (data) {
 
             configRequest = {
                 ...config,
@@ -55,7 +59,7 @@ const get = (path, parameter, token, config = {},data) => {
             }
         }
 
-        
+
         return axios
             .get(path, { params: parameter, ...configRequest })
             .then(response => {
