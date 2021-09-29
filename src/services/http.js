@@ -35,14 +35,13 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
         }
     }
 
-    console.log("parameter", parameter instanceof FormData)
 
     return new Promise((resolve, reject) => {
 
         setHeader(isMultipart, token)
 
         return axios
-            .post(path, parameter, config)
+            .post(path, parameters, config)
             .then(response => {
                 resolve(response);
             })

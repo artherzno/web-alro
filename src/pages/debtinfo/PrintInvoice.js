@@ -138,7 +138,7 @@ function PrintInvoice() {
 
     useEffect(() => {
         setLoaded(true);
-        getInvoiceList()
+        getPrintInvoice()
     }, [])
 
     const handlePrintExcel = () => {
@@ -230,14 +230,13 @@ console.log('printDAte',printDate.toString())
         // }
     };
 
-    function getInvoiceList(){
+    function getPrintInvoice(){
 
         const parameter = {
-            item: 1,
-            start_date: "2020-09-18"
+            start_date: "2018-09-30"
         }
 
-        api.getInvoiceList(parameter).then(response =>{
+        api.getPrintInvoice(parameter).then(response =>{
 
         }).catch(error =>{
 

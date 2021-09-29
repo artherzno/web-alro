@@ -653,6 +653,14 @@ const api = {
         })
 
     },
+    getPrintInvoice(params) {
+
+        return post({
+            path: "Invoice/Print",
+            params
+        })
+
+    },
    
 };
 
