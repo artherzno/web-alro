@@ -1641,10 +1641,10 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                         <MuiTextfield label="ค้นหาชื่อ-นามสกุล" value={inputDataSearch.SearchByName} name="SearchByName" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ค้นหาเลขที่สัญญา" value={inputDataSearch.SearchByApplicantNo} name="SearchByApplicantNo" onChange={handleInputDataSearch} />
+                                        <MuiTextfield label="ค้นหาเลขที่คำขอกู้ยืมเงิน" value={inputDataSearch.SearchByApplicantNo} name="SearchByApplicantNo" onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ค้นหาเลขที่คำขอกู้ยืมเงิน" value={inputDataSearch.SearchByLoanNumber} name="SearchByLoanNumber" onChange={handleInputDataSearch} />
+                                        <MuiTextfield label="ค้นหาเลขที่สัญญา" value={inputDataSearch.SearchByLoanNumber} name="SearchByLoanNumber" onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
