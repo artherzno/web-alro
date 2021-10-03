@@ -31,6 +31,7 @@ import DebtCondi from './report/DebtCondi'
 import Waive from './report/Waive'
 import ExtendTime from './report/ExtendTime'
 import DebtClass from './report/DebtClass'
+import DebtArea from './report/DebtArea'
 import AddFarmer from './manageinfo/AddFarmer';
 import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -163,6 +164,7 @@ function Main() {
                     <Route path="/report/waive" component={Waive } />
                     <Route path="/report/extendtime" component={ExtendTime } />
                     <Route path="/report/debtclass" component={DebtClass } />
+                    <Route path="/report/debtarea" component={DebtArea } />
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />

@@ -249,6 +249,30 @@ const listmenu = [
             }, {
                 subtitle: 'รายงานจัดชั้นหนี้',
                 subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานการออกจัดเก็บหนี้ในพื้นที่',
+                subpath: '/report/debtarea'
+            }, {
+                subtitle: 'รายงานปฏิทินการจัดเก็บหนี้ประจำปี (ใบแจ้งหนี้/ใบเตือนหนี้)',
+                subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานผลจัดเก็บหนี้ค้างชำระ/หนี้คงเหลือ',
+                subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานหนี้เงินต้นและดอกเบี้ยค้างชำระ',
+                subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานประมาณการแผนการจ่ายเงินกู้',
+                subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้',
+                subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานสรุปงบกระแสเงินสดรับ-จ่าย',
+                subpath: '/report/debtclass'
+            }, {
+                subtitle: 'รายงานการโอนปรับปรุงทะเบียนสิ้นปี/ระหว่างปี',
+                subpath: '/report/debtclass'
             }
             
             
@@ -372,7 +396,7 @@ export default function Nav() {
                     {...TransitionProps}
                     style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
                     >
-                    <Paper style={{maxHeight:500,overflowY:'scroll'}}>
+                    <Paper style={{maxHeight:400,overflowY:'scroll'}}>
                         <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList  autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                             { subtitle.map((item,i)=><MenuItem key={i} onClick={(event)=>{handleClose(event); goto(item.subpath)}}>{item.subtitle}</MenuItem>)}
