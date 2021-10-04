@@ -1,7 +1,7 @@
 // import axios from 'axios'
 import { axios } from './custom-axios'
-// const BASE_URL = 'http://147.50.143.84:3800/' //process.env.REACT_APP_API_HOST
-const BASE_URL = process.env.REACT_APP_API_HOST
+const BASE_URL = 'http://147.50.143.84:3800/' //process.env.REACT_APP_API_HOST
+// const BASE_URL = process.env.REACT_APP_API_HOST
 const setHeader = (isMultipart, token) => {
 
     // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -27,11 +27,11 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
     let parameters = parameter
 
     if (parameter instanceof FormData) {
-        parameters.append("Username", provinceid)
+        parameters.append("Username",'admin67') //provinceid)
     } else {
         parameters = {
             ...parameter,
-            Username: provinceid
+            Username: 'admin67'//provinceid
         }
     }
 

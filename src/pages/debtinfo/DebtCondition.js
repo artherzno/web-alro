@@ -31,56 +31,38 @@ import {
     MuiTextfieldMultiLine,
 } from '../../components/MUIinputs';
 
+import api from '../../services/webservice'
+import { formatNumber } from '../../utils/Utilities';
+import { useFormikContext, Formik, Form, Field, } from 'formik';
+import moment from 'moment';
+
+
 function DebtCondition() {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
+    const [loanNumber, setLoanNumber] = useState("")
+    const [resultList, setResultList] = useState([])
+    const [page, setPage] = useState(0)
+    const [count, setCount] = useState(10)
+    const [selectedData, setSelectedData] = useState({})
 
     useEffect(() => {
         setLoaded(true);
     }, [])
 
-    const tableResult = [
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-    ]
-    const tableResult2 = [
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '', d: '10/05/2019', e: '10/05/2019', f: '10/05/2021', g: '5', h: '0.00', i: '0.00'},
-    ]
+    function getChagestructureDataByLoan(){
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
-    };
+        const parameter = {
+            LoanNumber: loanNumber
+        }
+        api.getChagestructureDataByLoan(parameter).then(response =>{
+
+        }).catch(error =>{
+
+        })
+    }
+
 
     return (
         <div className="debtcondition-page">
@@ -172,7 +154,7 @@ function DebtCondition() {
 
                                 {/* Paper 1 - -------------------------------------------------- */}
                                 <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                    <form className="root" noValidate autoComplete="off">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
@@ -261,7 +243,7 @@ function DebtCondition() {
                                 
                                 {/* Paper 2 - -------------------------------------------------- */}
                                 <Paper className="paper line-top-green paper mg-t-35">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                                    <form className="root" noValidate autoComplete="off">
                                         <Grid container spacing={2} className="paper-container">
                                             <Grid item xs={12} md={12} >
                                                 <Grid container spacing={2} >
@@ -372,63 +354,14 @@ function DebtCondition() {
 
                     <Container maxWidth="md">
                         <Grid container spacing={2} className="btn-row txt-center">
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="ยืนยันการเพิ่ม" />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="บันทึกแก้ไข" />
+                            <Grid item xs={12} md={12}>
+                                <ButtonFluidPrimary label="บันทึก" maxWidth="320px"  />
                             </Grid>
                         </Grid>
                     </Container>
                 
                     
-                    <Container maxWidth={false}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={12}> 
-                                <div className="table">
-                                    <TableContainer className="table-box table-recordinstallmentpayment1 max-h-250 mg-t-10">
-                                        <Table aria-label="normal table">
-                                            <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">รหัสบันทึก</TableCell>
-                                                <TableCell align="left">วันที่บันทึก</TableCell>
-                                                <TableCell align="left">คำสั่ง คปจ.</TableCell>
-                                                <TableCell align="left">วันที่คำสั่ง</TableCell>
-                                                <TableCell align="left">วันที่เริ่มปรับ</TableCell>
-                                                <TableCell align="left">วันที่สิ้นสุด</TableCell>
-                                                <TableCell align="left">ประเภท</TableCell>
-                                                <TableCell align="left">อัตราดอกเบี้ย</TableCell>
-                                                <TableCell align="left">จำนวนเงิน</TableCell>
-                                            </TableRow>
-                                            </TableHead>
-                                            <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={9} align="left">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                            {/* {
-                                                tableResult2.map((row,i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell align="left">{row.a}</TableCell>
-                                                        <TableCell align="left">{row.b}</TableCell>
-                                                        <TableCell align="left">{row.c}</TableCell>
-                                                        <TableCell align="left">{row.d}</TableCell>
-                                                        <TableCell align="left">{row.e}</TableCell>
-                                                        <TableCell align="left">{row.f}</TableCell>
-                                                        <TableCell align="left">{row.g}</TableCell>
-                                                        <TableCell align="left">{row.h}</TableCell>
-                                                        <TableCell align="left">{row.i}</TableCell>
-                                                    </TableRow>
-                                                ))
-                                            } */}
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Container>
-
+               
                 </div>
             </Fade>
             

@@ -130,6 +130,9 @@ function DebtReminder() {
         yyyy: '0000'
     })
 
+    const [startDateSelect, setStartDateSelect] = useState(null)
+    const [startDateSearch,setStartDateSearch] = useState('')
+
     useEffect(() => {
         setLoaded(true);
 
@@ -220,17 +223,8 @@ function DebtReminder() {
     const getInvoiceGetAll = () => {
         // let dateSearch = inputDataSearch.start_date === null ? null : (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
         setTableAllResult([])
-        // setDateSearch(inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
-        console.log('dateSelectSearch',inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
-        let searchDate;
-        if(inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {
-            searchDate = '';
-        } else {
-            searchDate = (inputSelectDate.yyyy-543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd;
-        }
-        console.log('dateSearch',searchDate)
-
-        if(searchDate === '' ) {
+    
+        if (startDateSearch === '' ) {
             setErr(true);
             setErrMsg('กรุณาใส่วันที่')
         } else {
@@ -238,7 +232,7 @@ function DebtReminder() {
                 url: `${server_spkapi}/Invoice/GetAll`, //your url
                 method: 'POST',
                 data: {
-                    start_date: searchDate, // 2561-08-11
+                    start_date: startDateSearch, // 2561-08-11
                     item: amountProcess,
                 }
             }).then(res => {
@@ -380,13 +374,14 @@ function DebtReminder() {
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        {/* <MuiDatePicker label="ตรวจสอบวันที่ประมวล" defaultValue="" /> */}
-                                        <p>ตรวจสอบวันที่ประมวล</p>
-                                        <div className="select-date-option">
-                                            <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
-                                            <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
-                                            <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
-                                        </div>
+                                   
+                                        <MuiDatePicker label="ตรวจสอบวันที่ประมวล" value={startDateSelect} onChange={(event) => {
+
+                                            setStartDateSearch(moment(event).format("YYYY-MM-DD"))
+                                            setStartDateSelect(event)
+
+                                        }} />
+
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <MuiSelect label="ประมวลผลเกษตรกรครบกำหนดออกใบเตือน" listsValue={[1,2,]} lists={['ครั้งที่ 1','ครั้งที่ 2']} value={amountProcess} onChange={(e)=>{setAmountProcess(e.target.value)}} />

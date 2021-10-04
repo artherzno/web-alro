@@ -18,10 +18,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import api from '../../services/webservice'
+import moment from 'moment'
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
-import { 
+import {
     MuiSelectDay,
     MuiSelectMonth,
     MuiSelectYear,
@@ -29,39 +30,42 @@ import {
     MuiDatePicker,
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
+import { dateFormatTensiveMenu, formatNumber, formatNumberInt } from '../../utils/Utilities';
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '100%',
+        width: '100%',
     },
     button: {
-      marginRight: theme.spacing(1),
+        marginRight: theme.spacing(1),
     },
     completed: {
-      display: 'inline-block',
-      color: 'red',
+        display: 'inline-block',
+        color: 'red',
     },
     instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
 }));
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
 const tableResult = [
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4'},
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
+    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
 ]
 
 const columns = [
@@ -87,9 +91,9 @@ const columns = [
     //   valueGetter: (params) =>
     //     `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
     // },
-  ];
-  
-  const rows = [
+];
+
+const rows = [
     { id: 1, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
     { id: 2, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
     { id: 3, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
@@ -102,7 +106,7 @@ const columns = [
     { id: 10, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
     { id: 11, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
     { id: 12, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-  ];
+];
 
 // End All Data for DataGrid ---------------------------------------------//
 
@@ -124,6 +128,12 @@ function PrintInvoice() {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [isLoading, setIsLoading] = useState(false);
+    const [start_date, setStartDate] = useState(null)
+    const [startDateSelect, setStartDateSelect] = useState(null)
+    const [printList, setPrintList] = useState([])
+
+    const [page, setPage] = useState(0)
+    const [pageCount,setPageCount] = useState(10)
 
     // Variable for Checkbox in Table
     const [selected, setSelected] = React.useState([]);
@@ -142,8 +152,8 @@ function PrintInvoice() {
     }, [])
 
     const handlePrintExcel = () => {
-        let printDate = (inputSelectDate.yyyy - 543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
-console.log('printDAte',printDate.toString())
+        let printDate = (inputSelectDate.yyyy - 543) + '-' + inputSelectDate.mm + '-' + inputSelectDate.dd
+        console.log('printDAte', printDate.toString())
         const startDateValue = new FormData()
         startDateValue.append('startDate', printDate.toString());
         let url = `${siteprint}/api/ExportServices/ExportPrintInvoiceAll`; //your url
@@ -164,12 +174,12 @@ console.log('printDAte',printDate.toString())
             link.setAttribute('download', 'template.xlsx');
             document.body.appendChild(link);
             link.click();
-        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
-        .finally(() => {
-            if (isMounted.current) {
-            setIsLoading(false)
-            }
-        });
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+            .finally(() => {
+                if (isMounted.current) {
+                    setIsLoading(false)
+                }
+            });
     }
 
     const handleSelectDate = (event) => {
@@ -178,37 +188,37 @@ console.log('printDAte',printDate.toString())
             ...inputSelectDate,
             [event.target.name]: event.target.value.toString()
         })
-        console.log('type',type, 'value', event.target.value)
+        console.log('type', type, 'value', event.target.value)
     }
 
 
     // Select CheckBox in Table
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-          const newSelecteds = rows.map((n) => n.id);
-          setSelected(newSelecteds);
-          return;
+            const newSelecteds = rows.map((n) => n.id);
+            setSelected(newSelecteds);
+            return;
         }
         setSelected([]);
-      };
+    };
 
     const handleClickSelect = (event, name) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected = [];
-    
+
         if (selectedIndex === -1) {
-          newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, name);
         } else if (selectedIndex === 0) {
-          newSelected = newSelected.concat(selected.slice(1));
+            newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
-          newSelected = newSelected.concat(selected.slice(0, -1));
+            newSelected = newSelected.concat(selected.slice(0, -1));
         } else if (selectedIndex > 0) {
-          newSelected = newSelected.concat(
-            selected.slice(0, selectedIndex),
-            selected.slice(selectedIndex + 1),
-          );
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
         }
-    
+
         setSelected(newSelected);
     };
 
@@ -217,7 +227,7 @@ console.log('printDAte',printDate.toString())
 
     const handleSubmit = (event) => {
         event.preventDefault();
-    
+
         // if (value === 'best') {
         //   setHelperText('You got it!');
         //   setError(false);
@@ -230,15 +240,15 @@ console.log('printDAte',printDate.toString())
         // }
     };
 
-    function getPrintInvoice(){
+    function getPrintInvoice() {
 
         const parameter = {
-            start_date: "2018-09-30"
+            start_date: start_date
         }
 
-        api.getPrintInvoice(parameter).then(response =>{
-
-        }).catch(error =>{
+        api.getPrintInvoice(parameter).then(response => {
+            setPrintList(response.data)
+        }).catch(error => {
 
         })
     }
@@ -254,73 +264,99 @@ console.log('printDAte',printDate.toString())
                 <div className="fade">
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page">
                                 <h1>รายงานใบแจ้งหนี้</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* <MuiTextfield label="ตรวจสอบวันที่ประมวล" defaultValue="Wednesday, September 12" /> */}
-                                        {/* <MuiDatePicker label="ตรวจสอบวันที่ประมวล" /> */}
-                                        <p>ตรวจสอบวันที่ประมวล</p>
-                                        <div className="select-date-option">
-                                            <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
-                                            <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
-                                            <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
-                                        </div>
+
+                                        <MuiDatePicker label="ตรวจสอบวันที่ประมวล" value={startDateSelect} onChange={(event) => {
+
+                                            setStartDate(moment(event).format("YYYY-MM-DD"))
+                                            setStartDateSelect(event)
+
+                                        }} />
+
                                     </Grid>
                                     {/* <Grid item xs={12} md={2}>
                                         <MuiTextfield label="&nbsp;" defaultValue="เงินกู้" />
                                     </Grid> */}
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { getPrintInvoice() }} />
                                     </Grid>
 
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <div className="table-box max-h-300 mg-t-10">
-                                    <TableContainer >
-                                    <Table aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">รหัสบันทึก</TableCell>
-                                                <TableCell align="left">วันที่บันทึก</TableCell>
-                                                <TableCell align="left">วันที่ประมวล</TableCell>
-                                                <TableCell align="left">เลขที่ใบเตือนหนี้</TableCell>
-                                                <TableCell align="left">จำนวนเงินรวม</TableCell>
-                                                <TableCell align="center">ลำดับที่ใบเตือนหนี้</TableCell>
-                                                <TableCell align="left">คำนวณสิ้นปีงบประมาณ</TableCell>
-                                                <TableCell align="left">ราย</TableCell>
-                                                <TableCell align="left">No</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={9} align="left">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                            {/* {
-                                                tableResult.map((row,i) => (
-                                                <TableRow key={i}>
-                                                   <TableCell align="left">{row.a}</TableCell>
-                                                    <TableCell align="left">{row.b}</TableCell>
-                                                    <TableCell align="left">{row.c}</TableCell>
-                                                    <TableCell align="left">{row.d}</TableCell>
-                                                    <TableCell align="left">{row.f}</TableCell>
-                                                    <TableCell align="left">{row.g}</TableCell>
-                                                    <TableCell align="left">{row.h}</TableCell>
-                                                    <TableCell align="left">{row.i}</TableCell>
-                                                    <TableCell align="left">{row.j}</TableCell>
-                                                </TableRow>
-                                            ))} */}
-                                        </TableBody>
-                                    </Table>
-                                    </TableContainer>
+                                    <Paper>
+                                        <TableContainer >
+                                            <Table aria-label="simple table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell align="left">รหัสบันทึก</TableCell>
+                                                        <TableCell align="left">วันที่บันทึก</TableCell>
+                                                        <TableCell align="left">วันที่ประมวล</TableCell>
+                                                        <TableCell align="left">เลขที่ใบเตือนหนี้</TableCell>
+                                                        <TableCell align="left">จำนวนเงินรวม</TableCell>
+                                                        <TableCell align="center">ใบแจ้งหนี้ที่</TableCell>
+                                                        <TableCell align="left">ประจำเดือน</TableCell>
+                                                        <TableCell align="left">ราย</TableCell>
+                                                        <TableCell align="left">No</TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>{/* // clear mockup */}
+
+                                                    {printList.length <= 0 ? <TableRow>
+                                                        <TableCell colSpan={9} align="left">ไม่พบข้อมูล</TableCell>
+                                                    </TableRow> : printList.map((element, index) => {
+
+                                                        return (
+                                                            <TableRow key={index}>
+                                                                <TableCell align="left">{element.voucher}</TableCell>
+                                                                <TableCell align="left">{dateFormatTensiveMenu(element.mdate)}</TableCell>
+                                                                <TableCell align="left">{dateFormatTensiveMenu(element.start_date)}</TableCell>
+                                                                <TableCell align="left">{element.ref_id}</TableCell>
+                                                                <TableCell align="left">{formatNumber(element.Total)}</TableCell>
+                                                                <TableCell align="left">{element.cmonth}</TableCell>
+                                                                <TableCell align="left">{element.ref_name}</TableCell>
+                                                                <TableCell align="left">{'API ไม่มีค่ามา'}</TableCell>
+                                                                <TableCell align="left">{formatNumberInt(element.Num)}</TableCell>
+                                                            </TableRow>
+                                                        )
+                                                    })}
+
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+
+                                        <TablePagination
+                                            rowsPerPageOptions={[5, 10, 25]}
+                                            component="div"
+                                            count={printList.length}
+                                            rowsPerPage={pageCount}
+                                            page={page}
+                                            onPageChange={(e, newPage) => {
+
+                                               setPage(newPage)
+                                            }}
+                                            onRowsPerPageChange={(event) => {
+
+                                        
+                                                setPage(0)
+                                                setPageCount(+event.target.value)
+                                            }}
+                                        />
+
+                                    </Paper>
+
+
                                 </div>
                                 {/* Data Grid --------------------------------*/}
-                                    {/* <div style={{ height: 400, width: '100%' }}>
+                                {/* <div style={{ height: 400, width: '100%' }}>
                                     <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
                                 </div> */}
                             </Grid>
@@ -336,149 +372,14 @@ console.log('printDAte',printDate.toString())
                             <Grid item xs={12} md={2} className="mg-t-10">
                                 <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" onClick={handlePrintExcel} />
                             </Grid>
-                            {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
-                            <Grid item xs={12} md={12} style={{display: 'none'}}>
-                                <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่ใบเตือนหนี้"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="คำนวณสิ้นปีงบประมาณ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่ประมวลผล"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เงินครบชำระ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เงินต้นค้างชำระ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="ลำดับที่ใบเตือนหนี้"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="จำนวนราย"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เงินต้นคงเหลือ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ดอกเบี้ยที่ต้องชำระ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ดอกเบี้ยค้างชำระ"  defaultValue="" />
-                                            </Grid>
-                                        </Grid>
-                                    </form>
-                                </Paper>
-                            </Grid>
-
+                      
                         </Grid>
                     </Container>
-                    
-                    <Container maxWidth={false} style={{display: 'none'}}>
-                    {/* Data Grid --------------------------------*/}
-                        {/* <div style={{ height: 400, width: '100%' }}>
-                            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                        </div> */}
-                        <Grid item xs={12} md={12}>
-                                <div className="table-box max-h-300 mg-t-35">
-                                    <TableContainer >
-                                    <Table aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">
-                                                <Checkbox
-                                                    color="primary"
-                                                    indeterminate={numSelected > 0 && numSelected < rowCount}
-                                                    checked={rowCount > 0 && numSelected === rowCount}
-                                                    onChange={handleSelectAllClick}
-                                                    inputProps={{ 'aria-label': 'select all desserts' }}
-                                                />
-                                                </TableCell>
-                                                <TableCell align="left">ลำดับ</TableCell>
-                                                <TableCell align="left">รหัสจังหวัด</TableCell>
-                                                <TableCell align="left">ลำดับข้อมูล</TableCell>
-                                                <TableCell align="left">รหัสโครงการ</TableCell>
-                                                <TableCell align="left">ชื่อโครงการ</TableCell>
-                                                <TableCell align="left">คำนำหน้า</TableCell>
-                                                <TableCell align="left">ชื่อ</TableCell>
-                                                <TableCell align="left">นามสกุล</TableCell>
-                                                <TableCell align="left">วันที่ประมวล</TableCell>
-                                                <TableCell align="left">เลขที่สัญญา</TableCell>
-                                                <TableCell align="left">วันที่กู้</TableCell>
-                                                <TableCell align="left">เงินกู้</TableCell>
-                                                <TableCell align="left">เงินงวดชำระ</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={14} align="left">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                            {/* {
-                                                rows.map((row,i) => { 
-                                                    const isItemSelected = isSelected(row.id);
-                                                    const labelId = `enhanced-table-checkbox-${i}`;
-                                                
-                                                    return(
-                                                        <TableRow hover
-                                                        onClick={(event) => handleClickSelect(event, row.id)}
-                                                        role="checkbox"
-                                                        aria-checked={isItemSelected}
-                                                        tabIndex={-1}
-                                                        key={row.id}
-                                                        selected={isItemSelected}>
-                                                            <TableCell padding="checkbox" align="left">
-                                                                <Checkbox
-                                                                color="primary"
-                                                                checked={isItemSelected}
-                                                                inputProps={{ 'aria-labelledby': labelId }}
-                                                            />
-                                                            </TableCell>
-                                                            <TableCell align="left" id={labelId}>{row.id}</TableCell>
-                                                            <TableCell align="left">{row.a}</TableCell>
-                                                            <TableCell align="left">{row.b}</TableCell>
-                                                            <TableCell align="left">{row.c}</TableCell>
-                                                            <TableCell align="left">{row.d}</TableCell>
-                                                            <TableCell align="left">{row.e}</TableCell>
-                                                            <TableCell align="left">{row.f}</TableCell>
-                                                            <TableCell align="left">{row.g}</TableCell>
-                                                            <TableCell align="left">{row.h}</TableCell>
-                                                            <TableCell align="left">{row.i}</TableCell>
-                                                            <TableCell align="left">{row.j}</TableCell>
-                                                            <TableCell align="left">{row.k}</TableCell>
-                                                            <TableCell align="left">{row.l}</TableCell>
-                                                        </TableRow>
-                                                    )
-                                                })
-                                            } */}
-                                        </TableBody>
-                                    </Table>
-                                    </TableContainer>
-                                </div>
-                                {/* Data Grid --------------------------------*/}
-                                    {/* <div style={{ height: 400, width: '100%' }}>
-                                    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                                </div> */}
-                            </Grid>
-                    </Container>
-                    
+
+                
                 </div>
             </Fade>
-            
+
         </div>
     )
 }

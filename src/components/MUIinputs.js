@@ -1089,8 +1089,6 @@ const MuiSelect = (props) => {
     const classes = useStyles();
     const { topic, label, lists, listsValue, name, id, textAlign, value, error, helperText, onChange, inputdisabled } = props;
 
-    // console.log('MuiSelect:', listsValue)
-
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`} error>
             {

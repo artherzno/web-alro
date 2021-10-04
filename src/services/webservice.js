@@ -661,6 +661,64 @@ const api = {
         })
 
     },
+    getDataByLoan(params) {
+
+        return post({
+            path: "GetDebt/GetDataByLoan",
+            params
+        })
+
+    },
+
+    getDataByRelentNumber(params) {
+
+        return post({
+            path: "Relent/GetDataByRelentNumber",
+            params
+        })
+
+    },
+    selectDataByLoan(params) {
+
+        return post({
+            path: "Relent/SelectDataByLoan",
+            params
+        })
+
+    },
+    saveRelent(params) {
+
+        return post({
+            path: "Relent/Save",
+            params
+        })
+
+    },
+    getDebtDataByLoan(params) {
+
+        return post({
+            path: "GetDebt/GetDataByLoan",
+            params
+        })
+
+    },
+    getDebtDataByID(params) {
+
+        return post({
+            path: "GetDebt/GetDataByID",
+            params
+        })
+
+    },
+    getChagestructureDataByLoan(params) {
+
+        return post({
+            path: "Chagestructure/GetDataByLoan",
+            params
+        })
+
+    },
+
    
 };
 
