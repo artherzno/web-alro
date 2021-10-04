@@ -51,6 +51,8 @@ import {
 } from '../../components/MUIinputs';
 
 import { MUItable } from '../../components/MUItable'
+import { nullFormat } from 'numeral';
+import { nullLiteral } from '@babel/types';
 
 let action = 'add';
 let action_loanstatus = 'draft';
@@ -169,9 +171,9 @@ function LoanRequestPrint(props) {
     // const [inputDataLoan, setinputDataLoan] = useState([])
     const [inputDataSubmit, setInputDataSubmit] = useState({
         ApplicantID: '', // 1,
-        LoanDate: null, // "",
+        LoanDate: moment().format(), // "",
         RecordCode: '', // "",
-        RecDate: null, // "",
+        RecDate: moment().format(), // "",
         FarmerID: '', // "",
         AGE: '', // "",
         Nationality: '',
@@ -182,7 +184,7 @@ function LoanRequestPrint(props) {
         Officer: '', // "",
         OfficerRank: '', // "",
         SPK_Order: '', // "",
-        SPK_OrderDate: null, // "",
+        SPK_OrderDate: moment().format(), // "",
         Loan_Obj1: '', // "",
         Loan_Obj1Amount: 0, // "",
         Loan_Obj2: '', // "",
@@ -197,24 +199,24 @@ function LoanRequestPrint(props) {
         Farmer_Accept: '', // "",
         Guarantee_Property: '', // "",
         LoanContactBook: '', // "",
-        Guarantee_PropertyDate: null, // "",
+        Guarantee_PropertyDate: moment().format(), // "",
         Guarantee_Person: '', // "",
         LoanGuaranteeBook: '', // "",
-        LoanGuaranteeBookDate: null, // "null",
+        LoanGuaranteeBookDate: moment().format(), // "null",
         WarrantBookOwner1: '', // "",
         WarrantBook1: '', // "",
-        WarrantBookDate1: null, // "null",
+        WarrantBookDate1: moment().format(), // "null",
         WarrantBookOwner2: '', // "",
         WarrantBook2: '', // "",
-        WarrantBookDate2: null, // "null",
+        WarrantBookDate2: moment().format(), // "null",
         Free_of_debt_Month: '', // "",
         Free_of_debt_Year: '', // "",
         Free_of_debt_Time: 0, // "",
-        FirstDatePaid: null, // "null",
+        FirstDatePaid: moment().add(1, 'Y').format(), // "null",
         principle: '', // 123,
         Interest: 0, // 4,
         ChargeRate: '', // "",
-        LastDatePaid: null, // "null",
+        LastDatePaid: moment().add(1, 'Y').format(), // "null",
         OfficeProvince: provincename, // "",
         WitnessName: '', // "",
         WitnessAddr: '', // "",
@@ -225,7 +227,7 @@ function LoanRequestPrint(props) {
         WitnessIDCard2: '', // "",
         WitnessIDCardMade2: '', // "",
         ChangeContactCommit: '', // "",
-        ChangeContactCommitDate: null, // "",
+        ChangeContactCommitDate: moment().format(), // "",
         ChangeContactCommitTime: '', // "",
         Overdue_debt: '', // "",
         Overdue_debt_principle: '', // "",
@@ -485,7 +487,7 @@ function LoanRequestPrint(props) {
         setOpenLoanRequestInfo(false)
         axios.post(
             `${server_hostname}/admin/api/search_approved_applicant`, {
-                ApplicantNo: parseInt(inputDataSearch.SearchByApplicantNo) || '',
+                ApplicantNo: inputDataSearch.SearchByApplicantNo || '',
                 LoanNumber: inputDataSearch.SearchByLoanNumber || '',
                 Name: inputDataSearch.SearchByName || '',
             }, { headers: { "token": token } } 
@@ -542,7 +544,10 @@ function LoanRequestPrint(props) {
     }
 
     const getDataApprovedApplicant = (applicantID, farmerID, applicantNo, loanID, loanNumber) => {
+        
         setIsLoading(true);
+        setInputDataFarmer([])
+        setInputDataLand([])
         setLoandue_data1({ DUEDATE: null, PAYREC: ''  })
         setLoandue_data2({ DUEDATE: null, PAYREC: ''  })
         setLoandue_data3({ DUEDATE: null, PAYREC: ''  })
@@ -704,6 +709,82 @@ function LoanRequestPrint(props) {
                             Loan_Obj3: data.data[0].objective3 === null ? '' : data.data[0].objective3, // "",
                             Loan_Obj3Amount: data.data[0].Loan_amount3 === null ? '' : data.data[0].Loan_amount3, // "",
                             OfficeProvince: provincename, // "",
+                            LoanDate: moment().format(), // "",
+                            RecordCode: '', // "",
+                            RecDate: moment().format(), // "",
+                            Nationality: '',
+                            IDCardMadeDistrict: '', // "",
+                            IDCardMadeProvince: '0', // "",
+                            FarmerInDistrict: '', // "",
+                            FarmerInProvince: '0', // "",
+                            Officer: '', // "",
+                            OfficerRank: '', // "",
+                            SPK_Order: '', // "",
+                            SPK_OrderDate: moment().format(), // "",
+                            Loan_Installment1: 0, // "",
+                            Loan_Installment2: 0, // "",
+                            Loan_Installment3: 0, // "",
+                            Loan_Installment4: 0, // "",
+                            Loan_Installment5: 0, // "",
+                            Farmer_Accept: '', // "",
+                            Guarantee_Property: '', // "",
+                            LoanContactBook: '', // "",
+                            Guarantee_PropertyDate: moment().format(), // "",
+                            Guarantee_Person: '', // "",
+                            LoanGuaranteeBook: '', // "",
+                            LoanGuaranteeBookDate: moment().format(), // "null",
+                            WarrantBookOwner1: '', // "",
+                            WarrantBook1: '', // "",
+                            WarrantBookDate1: moment().format(), // "null",
+                            WarrantBookOwner2: '', // "",
+                            WarrantBook2: '', // "",
+                            WarrantBookDate2: moment().format(), // "null",
+                            Free_of_debt_Month: '', // "",
+                            Free_of_debt_Year: '', // "",
+                            Free_of_debt_Time: 0, // "",
+                            FirstDatePaid: moment().add(1, 'Y').format(), // "null",
+                            principle: '', // 123,
+                            Interest: 0, // 4,
+                            ChargeRate: '', // "",
+                            LastDatePaid: moment().add(1, 'Y').format(), // "null",
+                            WitnessName: '', // "",
+                            WitnessAddr: '', // "",
+                            WitnessIDCard: '', // "",
+                            WitnessIDCardMade: '', // "",
+                            WitnessName2: '', // "",
+                            WitnessAddr2: '', // "",
+                            WitnessIDCard2: '', // "",
+                            WitnessIDCardMade2: '', // "",
+                            ChangeContactCommit: '', // "",
+                            ChangeContactCommitDate: moment().format(), // "",
+                            ChangeContactCommitTime: '', // "",
+                            Overdue_debt: '', // "",
+                            Overdue_debt_principle: '', // "",
+                            Overdue_debt_interest: '', // "",
+                            PaidOverdue_debt_principle_Interest: '', // "",
+                            PaidYear: '', // "",
+                            PaidTime_month: '', // "",
+                            TotalPaidTime: '', // "",
+                            LoanTypeID: '', // "",
+                            LoanStatus: '',
+                            projectID: '', // "",
+                            Projectcode: '', // "",
+                            ProjectName: '', // "",
+                            Obj: '', // "",
+                            LoanCost: '', // "",
+                            FarmArea_Rai: '', // "",
+                            Plant_Type: '', // "",
+                            YearProductPer_Rai: '', // "",
+                            Total_Year_cost: '', // "",
+                            YearInterest: '', // "",
+                            Debt: '', // "",
+                            DebtWith: '', // "",
+                            DebtCost: '', // "",
+                            LoanDocPatch: '', // "",
+                            LoanStatusID: '', // "",
+                            Status: '', // "",
+                            ProvinceID: '', // "",
+                            IDCard: '', // "",
                             
                         })
 
@@ -824,7 +905,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                             let loandueArr = [...loandueDataArr]
 
                             // console.warn('DUEDATE',reOrderDateENtoTH(data.loandue_data[i].DUEDATE))
-                            loandueArr[i].DUEDATE = data.loandue_data[i].DUEDATE === null ? '0000-00-00' : data.loandue_data[i].DUEDATE
+                            loandueArr[i].DUEDATE = data.loandue_data[i].DUEDATE === null ? null : data.loandue_data[i].DUEDATE
                             loandueArr[i].PAYREC = parseFloat(data.loandue_data[i].PAYREC)
                             setLoandueDataArr(loandueArr)
                         }
@@ -1101,16 +1182,21 @@ console.log('data.loandue_data.length',data.loandue_data.length)
     const handleInputLoanDueDataPay= (event, index, type) => {
         setSummaryTable('2')
         // let payrecArr = [];
-        let payrecValue = event.target.value
         // let payrecID = event.target.id//.toString().slice(-3)
         // console.log(payrecID, payrecValue)
 
         if(type === 'date') {
-            
+            console.log('DUEDATE',event)
+            let payrecValue = event
+            let payrecArr = [...loandueDataArr]
+            // if(action === 'add') {}
+            payrecArr[index].DUEDATE = payrecValue
+            setLoandueDataArr(payrecArr)
             // loandueDataArray[index].DUEDATE = parseFloat(payrecValue.split(',').join(''))
         } else {
+            let payrecValue = event.target.value
             let payrecArr = [...loandueDataArr]
-            if(action === 'add') {}
+            // if(action === 'add') {}
             payrecArr[index].PAYREC = parseFloat(payrecValue.split(',').join(''))
             setLoandueDataArr(payrecArr)
             // loandueDataArray[index].PAYREC = parseFloat(payrecValue.split(',').join(''))
@@ -1221,37 +1307,88 @@ console.log('data.loandue_data.length',data.loandue_data.length)
         }
     }
 
-    const handleInputDataSubmitFreeDebtTime = (event) => {
+    const handleRecdate = (newValue) => {
+        console.log(moment(newValue).format())
+        setInputDataSubmit({
+            ...inputDataSubmit,
+            RecDate: moment(newValue).format(),
+            FirstDatePaid: moment(newValue).add(1, 'Y'),
+            LastDatePaid: moment(newValue).add(Number(inputDataSubmit.Free_of_debt_Time), 'Y')
+        })
+        
+    }
 
-        if(event.target.value <= 25) {
+    const handleFirstDatePaid = (newValue) => {
+        console.log(moment(newValue).format())
+        setInputDataSubmit({
+            ...inputDataSubmit,
+            FirstDatePaid: moment(newValue).format(),
+            LastDatePaid: moment(newValue).add(Number(inputDataSubmit.Free_of_debt_Time), 'Y')
+        })
+
+        console.warn(loandueDataArr)
+    }
+
+    const handleInputDataSubmitFreeDebtTime = (event) => {
+console.log('FreeDebtTime',event.target.value)
+        
+        if(event.target.value <= 25 && event.target.value > 0) {
             setInputDataSubmit({
                 ...inputDataSubmit,
-                [event.target.name]: event.target.value
+                [event.target.name]: event.target.value,     
+                LastDatePaid: moment(inputDataSubmit.FirstDatePaid).add((Number(event.target.value) -1), 'Y')
             })
-        } else if(event.target.value < 0) {
+            for(let i=0; i<Number(event.target.value); i++) {
+
+                let payrecArr = [...loandueDataArr]
+                // if(action === 'add') {}
+                payrecArr[i].DUEDATE = moment(inputDataSubmit.FirstDatePaid).add(i,'Y').format()
+                setLoandueDataArr(payrecArr)
+    
+            }
+        } else if(event.target.value <= 0) {
             setInputDataSubmit({
                 ...inputDataSubmit,
-                [event.target.name]: 0
+                [event.target.name]: 0,
+                LastDatePaid: moment(inputDataSubmit.FirstDatePaid).format()
             })
+            for(let i=0; i<loandueDataArr.length; i++) {
+
+                let payrecArr = [...loandueDataArr]
+                // if(action === 'add') {}
+                payrecArr[i].DUEDATE = null
+                setLoandueDataArr(payrecArr)
+    
+            }
         } else {
             setInputDataSubmit({
                 ...inputDataSubmit,
-                [event.target.name]: 25
+                [event.target.name]: 25,
+                LastDatePaid: moment(inputDataSubmit.FirstDatePaid).add((25 -1), 'Y')
             })
+
+            for(let i=0; i<25; i++) {
+
+                let payrecArr = [...loandueDataArr]
+                // if(action === 'add') {}
+                payrecArr[i].DUEDATE = moment(inputDataSubmit.FirstDatePaid).add(i,'Y').format()
+                setLoandueDataArr(payrecArr)
+    
+            }
         }
 
         // Update Last date pay
-        let updateLastdatepaidyyyy;
-        if(event.target.value <= 0 || event.target.value === null || event.target.value === '' || inputSelectDate.firstdatepaidyyyy === '0000') {
-            updateLastdatepaidyyyy = '0000'
-        } else {
-            updateLastdatepaidyyyy = Number(event.target.value) + Number(inputSelectDate.firstdatepaidyyyy) -1
-        }
+        // let updateLastdatepaidyyyy;
+        // if(event.target.value <= 0 || event.target.value === null || event.target.value === '' || inputSelectDate.firstdatepaidyyyy === '0000') {
+        //     updateLastdatepaidyyyy = '0000'
+        // } else {
+        //     updateLastdatepaidyyyy = Number(event.target.value) + Number(inputSelectDate.firstdatepaidyyyy) -1
+        // }
         
-        setInputSelectDate({
-            ...inputSelectDate,
-            'lastdatepaidyyyy': updateLastdatepaidyyyy.toString()
-        })
+        // setInputSelectDate({
+        //     ...inputSelectDate,
+        //     'lastdatepaidyyyy': updateLastdatepaidyyyy.toString()
+        // })
     }
 
     const handleInputDataSubmit = (event) => {
@@ -1368,41 +1505,41 @@ console.log('data.loandue_data.length',data.loandue_data.length)
         formData.append('ApplicantID', inputDataSubmit.ApplicantID)
         formData.append('LoanStatus', action_loanstatus)
 
-        // formData.append('LoanDate', inputDataSubmit.LoanDate === 'Invalid date' || inputDataSubmit.LoanDate === null ? null : moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
-        let LoanDateValue = (inputSelectDate.loandateyyyy === '0000' ? '0000' : inputSelectDate.loandateyyyy - 543)+'-'+inputSelectDate.loandatemm+'-'+inputSelectDate.loandatedd
-        formData.append('LoanDate', LoanDateValue === '0000-00-00' ? null : LoanDateValue)
+        formData.append('LoanDate', inputDataSubmit.LoanDate === 'Invalid date' || inputDataSubmit.LoanDate === null ? null : moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
+        // let LoanDateValue = (inputSelectDate.loandateyyyy === '0000' ? '0000' : inputSelectDate.loandateyyyy - 543)+'-'+inputSelectDate.loandatemm+'-'+inputSelectDate.loandatedd
+        // formData.append('LoanDate', LoanDateValue === '0000-00-00' ? null : LoanDateValue)
         
-        // formData.append('RecDate', inputDataSubmit.RecDate === 'Invalid date' || inputDataSubmit.RecDate === null ? null : moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
-        let RecDateValue = (inputSelectDate.recdateyyyy === '0000' ? '0000' : inputSelectDate.recdateyyyy - 543)+'-'+inputSelectDate.recdatemm+'-'+inputSelectDate.recdatedd
-        formData.append('RecDate', RecDateValue === '0000-00-00' ? null : RecDateValue)
+        formData.append('RecDate', inputDataSubmit.RecDate === 'Invalid date' || inputDataSubmit.RecDate === null ? null : moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
+        // let RecDateValue = (inputSelectDate.recdateyyyy === '0000' ? '0000' : inputSelectDate.recdateyyyy - 543)+'-'+inputSelectDate.recdatemm+'-'+inputSelectDate.recdatedd
+        // formData.append('RecDate', RecDateValue === '0000-00-00' ? null : RecDateValue)
   
-        // formData.append('SPK_OrderDate', inputDataSubmit.SPK_OrderDate === 'Invalid date' || inputDataSubmit.SPK_OrderDate === null ? null : moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
-        let SPK_OrderDateValue = (inputSelectDate.spkorderdateyyyy === '0000' ? '0000' : inputSelectDate.spkorderdateyyyy - 543)+'-'+inputSelectDate.spkorderdatemm+'-'+inputSelectDate.spkorderdatedd
-        formData.append('SPK_OrderDate', SPK_OrderDateValue === '0000-00-00' ? null : SPK_OrderDateValue)
+        formData.append('SPK_OrderDate', inputDataSubmit.SPK_OrderDate === 'Invalid date' || inputDataSubmit.SPK_OrderDate === null ? null : moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
+        // let SPK_OrderDateValue = (inputSelectDate.spkorderdateyyyy === '0000' ? '0000' : inputSelectDate.spkorderdateyyyy - 543)+'-'+inputSelectDate.spkorderdatemm+'-'+inputSelectDate.spkorderdatedd
+        // formData.append('SPK_OrderDate', SPK_OrderDateValue === '0000-00-00' ? null : SPK_OrderDateValue)
   
-        // formData.append('Guarantee_PropertyDate', inputDataSubmit.Guarantee_PropertyDate === 'Invalid date' || inputDataSubmit.Guarantee_PropertyDate === null ? null : moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
-        let Guarantee_PropertyDateValue = (inputSelectDate.guaranteepropertyyyyy === '0000' ? '0000' : inputSelectDate.guaranteepropertyyyyy - 543)+'-'+inputSelectDate.guaranteepropertymm+'-'+inputSelectDate.guaranteepropertydd
-        formData.append('Guarantee_PropertyDate', Guarantee_PropertyDateValue === '0000-00-00' ? null : Guarantee_PropertyDateValue)
+        formData.append('Guarantee_PropertyDate', inputDataSubmit.Guarantee_PropertyDate === 'Invalid date' || inputDataSubmit.Guarantee_PropertyDate === null ? null : moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
+        // let Guarantee_PropertyDateValue = (inputSelectDate.guaranteepropertyyyyy === '0000' ? '0000' : inputSelectDate.guaranteepropertyyyyy - 543)+'-'+inputSelectDate.guaranteepropertymm+'-'+inputSelectDate.guaranteepropertydd
+        // formData.append('Guarantee_PropertyDate', Guarantee_PropertyDateValue === '0000-00-00' ? null : Guarantee_PropertyDateValue)
         
-        // formData.append('LoanGuaranteeBookDate', inputDataSubmit.LoanGuaranteeBookDate === 'Invalid date' || inputDataSubmit.LoanGuaranteeBookDate === null ? null : moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
-        let LoanGuaranteeBookDateValue = (inputSelectDate.loanguaranteebookyyyy === '0000' ? '0000' : inputSelectDate.loanguaranteebookyyyy - 543)+'-'+inputSelectDate.loanguaranteebookmm+'-'+inputSelectDate.loanguaranteebookdd
-        formData.append('LoanGuaranteeBookDate', LoanGuaranteeBookDateValue === '0000-00-00' ? null : LoanGuaranteeBookDateValue)
+        formData.append('LoanGuaranteeBookDate', inputDataSubmit.LoanGuaranteeBookDate === 'Invalid date' || inputDataSubmit.LoanGuaranteeBookDate === null ? null : moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
+        // let LoanGuaranteeBookDateValue = (inputSelectDate.loanguaranteebookyyyy === '0000' ? '0000' : inputSelectDate.loanguaranteebookyyyy - 543)+'-'+inputSelectDate.loanguaranteebookmm+'-'+inputSelectDate.loanguaranteebookdd
+        // formData.append('LoanGuaranteeBookDate', LoanGuaranteeBookDateValue === '0000-00-00' ? null : LoanGuaranteeBookDateValue)
         
-        // formData.append('WarrantBookDate1', inputDataSubmit.WarrantBookDate1 === 'Invalid date' || inputDataSubmit.WarrantBookDate1 === null ? null : moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
-        let WarrantBookDate1Value = (inputSelectDate.warrantbookdate1yyyy === '0000' ? '0000' : inputSelectDate.warrantbookdate1yyyy - 543)+'-'+inputSelectDate.warrantbookdate1mm+'-'+inputSelectDate.warrantbookdate1dd
-        formData.append('WarrantBookDate1', WarrantBookDate1Value === '0000-00-00' ? null : WarrantBookDate1Value)
+        formData.append('WarrantBookDate1', inputDataSubmit.WarrantBookDate1 === 'Invalid date' || inputDataSubmit.WarrantBookDate1 === null ? null : moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
+        // let WarrantBookDate1Value = (inputSelectDate.warrantbookdate1yyyy === '0000' ? '0000' : inputSelectDate.warrantbookdate1yyyy - 543)+'-'+inputSelectDate.warrantbookdate1mm+'-'+inputSelectDate.warrantbookdate1dd
+        // formData.append('WarrantBookDate1', WarrantBookDate1Value === '0000-00-00' ? null : WarrantBookDate1Value)
         
-        // formData.append('WarrantBookDate2', inputDataSubmit.WarrantBookDate2 === 'Invalid date' || inputDataSubmit.WarrantBookDate2 === null ? null : moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
-        let WarrantBookDate2Value = (inputSelectDate.warrantbookdate2yyyy === '0000' ? '0000' : inputSelectDate.warrantbookdate2yyyy - 543)+'-'+inputSelectDate.warrantbookdate2mm+'-'+inputSelectDate.warrantbookdate2dd
-        formData.append('WarrantBookDate2', WarrantBookDate2Value === '0000-00-00' ? null : WarrantBookDate2Value)
+        formData.append('WarrantBookDate2', inputDataSubmit.WarrantBookDate2 === 'Invalid date' || inputDataSubmit.WarrantBookDate2 === null ? null : moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
+        // let WarrantBookDate2Value = (inputSelectDate.warrantbookdate2yyyy === '0000' ? '0000' : inputSelectDate.warrantbookdate2yyyy - 543)+'-'+inputSelectDate.warrantbookdate2mm+'-'+inputSelectDate.warrantbookdate2dd
+        // formData.append('WarrantBookDate2', WarrantBookDate2Value === '0000-00-00' ? null : WarrantBookDate2Value)
         
-        // formData.append('FirstDatePaid', inputDataSubmit.FirstDatePaid === 'Invalid date' || inputDataSubmit.FirstDatePaid === null ? null : moment(inputDataSubmit.FirstDatePaid).format('YYYY-MM-DD'))
-        let FirstDatePaidValue = (inputSelectDate.firstdatepaidyyyy === '0000' ? '0000' : inputSelectDate.firstdatepaidyyyy - 543)+'-'+inputSelectDate.firstdatepaidmm+'-'+inputSelectDate.firstdatepaiddd
-        formData.append('FirstDatePaid', FirstDatePaidValue === '0000-00-00' ? null : FirstDatePaidValue)
+        formData.append('FirstDatePaid', inputDataSubmit.FirstDatePaid === 'Invalid date' || inputDataSubmit.FirstDatePaid === null ? null : moment(inputDataSubmit.FirstDatePaid).format('YYYY-MM-DD'))
+        // let FirstDatePaidValue = (inputSelectDate.firstdatepaidyyyy === '0000' ? '0000' : inputSelectDate.firstdatepaidyyyy - 543)+'-'+inputSelectDate.firstdatepaidmm+'-'+inputSelectDate.firstdatepaiddd
+        // formData.append('FirstDatePaid', FirstDatePaidValue === '0000-00-00' ? null : FirstDatePaidValue)
         
-        // formData.append('LastDatePaid', inputDataSubmit.ChangeContactLastDatePaidCommitDate === 'Invalid date' || inputDataSubmit.LastDatePaid === null ? null : moment(inputDataSubmit.LastDatePaid).format('YYYY-MM-DD'))
-        let LastDatePaidValue = (inputSelectDate.lastdatepaidyyyy === '0000' ? '0000' : inputSelectDate.lastdatepaidyyyy - 543)+'-'+inputSelectDate.lastdatepaidmm+'-'+inputSelectDate.lastdatepaiddd
-        formData.append('LastDatePaid', LastDatePaidValue === '0000-00-00' ? null : LastDatePaidValue)
+        formData.append('LastDatePaid', inputDataSubmit.ChangeContactLastDatePaidCommitDate === 'Invalid date' || inputDataSubmit.LastDatePaid === null ? null : moment(inputDataSubmit.LastDatePaid).format('YYYY-MM-DD'))
+        // let LastDatePaidValue = (inputSelectDate.lastdatepaidyyyy === '0000' ? '0000' : inputSelectDate.lastdatepaidyyyy - 543)+'-'+inputSelectDate.lastdatepaidmm+'-'+inputSelectDate.lastdatepaiddd
+        // formData.append('LastDatePaid', LastDatePaidValue === '0000-00-00' ? null : LastDatePaidValue)
         
         formData.append('ChangeContactCommitDate', inputDataSubmit.ChangeContactCommitDate === 'Invalid date' || inputDataSubmit.ChangeContactCommitDate === null ? null : moment(inputDataSubmit.ChangeContactCommitDate).format('YYYY-MM-DD'))
         formData.append('principle', parseFloat(inputDataSubmit.Loan_Obj1Amount) + parseFloat(inputDataSubmit.Loan_Obj2Amount) + parseFloat(inputDataSubmit.Loan_Obj3Amount))
@@ -1455,6 +1592,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
             url = `${server_hostname}/admin/api/edit_loanrec`
         } else {
             url =`${server_hostname}/admin/api/add_loanrec`
+            action = 'edit'
         } 
         console.log(action,'|', action_loanstatus,'|', url.toString())
         console.log('ApplicantID',inputDataSubmit.ApplicantID,'| FarmerID',inputDataSubmit.FarmerID)
@@ -1529,8 +1667,16 @@ console.log('data.loandue_data.length',data.loandue_data.length)
         setConfirm(false);
         setIsLoading(false)
         // history.push('/manageinfo/searchmember');
-
+        window.location.reload();
     };
+    
+    const handleClosePopupErr = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        setIsLoading(false)
+    };
+
 
     const sumTable = () => {
         let sum = 0;
@@ -1562,11 +1708,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                         <TableRow key={i}>
                             <TableCell align="left">{i+1}</TableCell>
                             <TableCell align="left">
-                                <div className="select-date-option">
+                                {/* <div className="select-date-option">
                                     <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata[i].dd} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
                                     <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata[i].mm} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
                                     <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
-                                </div>  
+                                </div>   */}
+                                <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
+                                                                
                             </TableCell>
                             <TableCell align="left">
                                     <MuiTextfieldCurrency  label="" value={loandueDataArr.PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
@@ -1580,14 +1728,15 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                             <TableRow key={i}>
                                 <TableCell align="left">{i+1}</TableCell>
                                 <TableCell align="left">
-                                    <div className="select-date-option">
+                                    {/* <div className="select-date-option">
                                         <MuiSelectDay label="" name="dd" value={'00'} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
                                         <MuiSelectMonth label="" name="mm" value={'00'} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
                                         <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
-                                    </div>  
+                                    </div>   */}
+                                    <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }   />
                                 </TableCell>
                                 <TableCell align="left">
-                                    <p>ไม่พบข้อมูล</p>
+                                        <MuiTextfieldCurrency  label="" value={loandueDataArr[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
                                 </TableCell>
                             </TableRow>
                         )
@@ -1599,11 +1748,12 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                             <TableRow key={i}>
                                 <TableCell align="left">{i+1}</TableCell>
                                 <TableCell align="left">
-                                    <div className="select-date-option">
+                                    {/* <div className="select-date-option">
                                         <MuiSelectDay label="" name="dd" value={inputSelectDateLoandata[i].dd} onChange={(event)=>handleSelectDateLoandata(event,i,'dd')} />
                                         <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata[i].mm} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
                                         <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
-                                    </div>  
+                                    </div>   */}
+                                    <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
                                 </TableCell>
                                 <TableCell align="left">
                                         <MuiTextfieldCurrency  label="" value={loandueDataArr[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
@@ -1710,12 +1860,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                         <Grid item xs={12} md={6}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={6}>
-                                                                    <p>วันที่ทำสัญญา</p>
+                                                                    {/* <p>วันที่ทำสัญญา</p>
                                                                     <div className="select-date-option">
                                                                         <MuiSelectDay label="" name="recdatedd" value={inputSelectDate.recdatedd} onChange={(event)=>handleSelectDateLoandata(event,0,'dd',inputDataSubmit.Free_of_debt_Time)} />
                                                                         <MuiSelectMonth label="" name="recdatemm" value={inputSelectDate.recdatemm} onChange={(event)=>handleSelectDateLoandata(event,0,'mm',inputDataSubmit.Free_of_debt_Time)} />
                                                                         <MuiSelectYear label="" name="recdateyyyy" value={inputSelectDate.recdateyyyy} onChange={(event)=>handleSelectDateLoandata(event,0,'yyyy',inputDataSubmit.Free_of_debt_Time)} />
-                                                                    </div>
+                                                                    </div> */}
+                                                                    <MuiDatePicker label="วันที่ทำสัญญา" name="RecDate" value={inputDataSubmit.RecDate} onChange={(newValue)=>handleRecdate(newValue)}  />
                                                                 </Grid>
                                                                 {
                                                                     action === 'add' ? '' : <Grid item xs={12} md={6}><MuiTextfield label="เลขที่สัญญา" inputdisabled="input-disabled" value={loanNumber} /></Grid>
@@ -1781,13 +1932,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                             <MuiTextfield label="ได้รับมอบอำนาจให้ลงนามในสัญญาแทนเลขาธิการ ส.ป.ก. ตามคำสั่ง ส.ป.ก. ที่" name="SPK_Order" value={inputDataSubmit.SPK_Order} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>ลงวันที่</p>
+                                                            {/* <p>ลงวันที่</p>
                                                             <div className="select-date-option">
                                                                 <MuiSelectDay label="" name="loandatedd" value={inputSelectDate.loandatedd} onChange={handleSelectDate} />
                                                                 <MuiSelectMonth label="" name="loandatemm" value={inputSelectDate.loandatemm} onChange={handleSelectDate} />
                                                                 <MuiSelectYear label="" name="loandateyyyy" value={inputSelectDate.loandateyyyy} onChange={handleSelectDate} />
-                                                            </div>
-                                                            {/* <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                            </div> */}
+                                                            <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
                                                             <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectID'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
@@ -2009,13 +2160,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>ลงวันที่</p>
+                                                            {/* <p>ลงวันที่</p>
                                                             <div className="select-date-option">
                                                                 <MuiSelectDay label="" name="spkorderdatedd" value={inputSelectDate.spkorderdatedd} onChange={handleSelectDate} />
                                                                 <MuiSelectMonth label="" name="spkorderdatemm" value={inputSelectDate.spkorderdatemm} onChange={handleSelectDate} />
                                                                 <MuiSelectYear label="" name="spkorderdateyyyy" value={inputSelectDate.spkorderdateyyyy} onChange={handleSelectDate} />
-                                                            </div>
-                                                            {/* <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                            </div> */}
+                                                            <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -2050,13 +2201,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid item xs={12} md={3}>
-                                                                    <p>ลงวันที่</p>
+                                                                    {/* <p>ลงวันที่</p>
                                                                     <div className="select-date-option">
                                                                         <MuiSelectDay label="" name="guaranteepropertydd" value={inputSelectDate.guaranteepropertydd} onChange={handleSelectDate} />
                                                                         <MuiSelectMonth label="" name="guaranteepropertymm" value={inputSelectDate.guaranteepropertymm} onChange={handleSelectDate} />
                                                                         <MuiSelectYear label="" name="guaranteepropertyyyyy" value={inputSelectDate.guaranteepropertyyyyy} onChange={handleSelectDate} />
-                                                                    </div>
-                                                                {/* <MuiDatePicker label="ลงวันที่" name="Guarantee_PropertyDate" value={inputDataSubmit.Guarantee_PropertyDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, Guarantee_PropertyDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                                    </div> */}
+                                                                <MuiDatePicker label="ลงวันที่" name="Guarantee_PropertyDate" value={inputDataSubmit.Guarantee_PropertyDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, Guarantee_PropertyDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -2085,13 +2236,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <p>ลงวันที่</p>
+                                                            {/* <p>ลงวันที่</p>
                                                             <div className="select-date-option">
                                                                 <MuiSelectDay label="" name="loanguaranteebookdd" value={inputSelectDate.loanguaranteebookdd} onChange={handleSelectDate} />
                                                                 <MuiSelectMonth label="" name="loanguaranteebookmm" value={inputSelectDate.loanguaranteebookmm} onChange={handleSelectDate} />
                                                                 <MuiSelectYear label="" name="loanguaranteebookyyyy" value={inputSelectDate.loanguaranteebookyyyy} onChange={handleSelectDate} />
-                                                            </div>
-                                                            {/* <MuiDatePicker label="ลงวันที่" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                            </div> */}
+                                                            <MuiDatePicker label="ลงวันที่" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <MuiLabelHeaderCheckbox topic="ค." label="หนังสือสัญญาค้ำประกันของ"/>
@@ -2115,13 +2266,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid item xs={12} md={12}>
-                                                                <p>ลงวันที่</p>
+                                                                {/* <p>ลงวันที่</p>
                                                                 <div className="select-date-option">
                                                                     <MuiSelectDay label="" name="warrantbookdate1dd" value={inputSelectDate.warrantbookdate1dd} onChange={handleSelectDate} />
                                                                     <MuiSelectMonth label="" name="warrantbookdate1mm" value={inputSelectDate.warrantbookdate1mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate1yyyy" value={inputSelectDate.warrantbookdate1yyyy} onChange={handleSelectDate} />
-                                                                </div>
-                                                                {/* <MuiDatePicker label="ลงวันที่" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                                </div> */}
+                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
@@ -2143,13 +2294,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid item xs={12} md={12}>
-                                                                <p>ลงวันที่</p>
+                                                                {/* <p>ลงวันที่</p>
                                                                 <div className="select-date-option">
                                                                     <MuiSelectDay label="" name="warrantbookdate2dd" value={inputSelectDate.warrantbookdate2dd} onChange={handleSelectDate} />
                                                                     <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
-                                                                </div>
-                                                                {/* <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                                </div> */}
+                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -2190,13 +2341,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                             <p className="paper-p">งวด</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                                <p>เริ่มชำระงวดแรกภายในวันที่</p>
+                                                                {/* <p>เริ่มชำระงวดแรกภายในวันที่</p>
                                                                 <div className="select-date-option">
                                                                     <MuiSelectDay label="" name="firstdatepaiddd" value={inputSelectDate.firstdatepaiddd} onChange={(event)=>handleSelectDateLoandata(event,0,'dd',inputDataSubmit.Free_of_debt_Time)} />
                                                                     <MuiSelectMonth label="" name="firstdatepaidmm" value={inputSelectDate.firstdatepaidmm} onChange={(event)=>handleSelectDateLoandata(event,0,'mm',inputDataSubmit.Free_of_debt_Time)} />
                                                                     <MuiSelectYear label="" name="firstdatepaidyyyy" value={inputSelectDate.firstdatepaidyyyy} onChange={(event)=>handleSelectDateLoandata(event,0,'yyyy',inputDataSubmit.Free_of_debt_Time)} />
-                                                                </div>
-                                                            {/* <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" name="FirstDatePaid" value={inputDataSubmit.FirstDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, FirstDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                                </div> */}
+                                                            <MuiDatePicker label="เริ่มชำระงวดแรกภายในวันที่" name="FirstDatePaid" value={inputDataSubmit.FirstDatePaid} onChange={(newValue)=>handleFirstDatePaid(newValue)}  />
                                                         </Grid>
                                                         <Grid item xs={11} md={3}>
                                                             <p>พร้อมทั้งดอกเบี้ยในอัตราร้อยละ</p>
@@ -2207,13 +2358,13 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                                                             <p className="paper-p">ต่อปี</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                                <p>ครบกำหนดงวดสุดท้ายในวันที่</p>
+                                                                {/* <p>ครบกำหนดงวดสุดท้ายในวันที่</p>
                                                                 <div className="select-date-option">
                                                                     <MuiSelectDay label="" name="lastdatepaiddd" value={inputSelectDate.lastdatepaiddd} onChange={handleSelectDate} />
                                                                     <MuiSelectMonth label="" name="lastdatepaidmm" value={inputSelectDate.lastdatepaidmm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear last={25} label="" name="lastdatepaidyyyy" value={inputSelectDate.lastdatepaidyyyy} onChange={handleSelectDate} />
-                                                                </div>
-                                                            {/* <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" name="LastDatePaid" value={inputDataSubmit.LastDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LastDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                                </div> */}
+                                                            <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" name="LastDatePaid" value={inputDataSubmit.LastDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LastDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" inputdisabled="input-disabled" name="OfficeProvince" value={inputDataSubmit.OfficeProvince}  onChange={handleInputDataSubmit} />
@@ -2596,7 +2747,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
 
             <Dialog
                 open={err}
-                onClose={handleClosePopup}
+                onClose={handleClosePopupErr}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
@@ -2610,7 +2761,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                         <br/>
                         <Box textAlign='center'>
                             
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopupErr} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     
