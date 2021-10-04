@@ -11,28 +11,28 @@ const api = {
     getProvinceList(){
 
         return post({
-            path:"api/ReportServices/GetProvinces"
+            path:"api/api/ReportServices/GetProvinces"
         })
 
     },
     getMonthList() {
 
         return post({
-            path: "api/ReportServices/GetMonth"
+            path: "api/api/ReportServices/GetMonth"
         })
 
     },
     getZoneList() {
 
         return post({
-            path: "api/ReportServices/GetZone"
+            path: "api/api/ReportServices/GetZone"
         })
 
     },
     getPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetFarmerPayLoan",
+            path: "api/api/ReportServices/GetFarmerPayLoan",
             params
         })
 
@@ -40,7 +40,7 @@ const api = {
     getSummaryFarmerPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryFarmerPayLoan",
+            path: "api/api/ReportServices/GetSummaryFarmerPayLoan",
             params
         })
 
@@ -48,7 +48,7 @@ const api = {
     exportPayloanExcel(params){
 
         return post({
-            path: "api/ReportServices/ExportFarmerPayLoan",
+            path: "api/api/ReportServices/ExportFarmerPayLoan",
             params,
             config:{
                 responseType: 'arraybuffer',
@@ -59,7 +59,7 @@ const api = {
     exportSummayPayloanExcel(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryFarmerPayLoan",
+            path: "api/api/ReportServices/ExportSummaryFarmerPayLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -70,7 +70,7 @@ const api = {
     getNewFarmerPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetNewFarmerPayLoan",
+            path: "api/api/ReportServices/GetNewFarmerPayLoan",
             params
         })
 
@@ -78,7 +78,7 @@ const api = {
     exportNewFarmerPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportNewFarmerPayLoan",
+            path: "api/api/ReportServices/ExportNewFarmerPayLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -89,7 +89,7 @@ const api = {
     getNewSummaryFarmerPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetNewSummaryFarmerPayLoan",
+            path: "api/api/ReportServices/GetNewSummaryFarmerPayLoan",
             params
         })
 
@@ -97,7 +97,7 @@ const api = {
     exportNewSummaryFarmerPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportNewSummaryFarmerPayLoan",
+            path: "api/api/ReportServices/ExportNewSummaryFarmerPayLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -108,7 +108,7 @@ const api = {
     getPayLoanList(params) {
 
         return post({
-            path: "api/ReportServices/GetPayLoan",
+            path: "api/api/ReportServices/GetPayLoan",
             params
         })
 
@@ -116,7 +116,7 @@ const api = {
     exportPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportPayLoan",
+            path: "api/api/ReportServices/ExportPayLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -127,7 +127,7 @@ const api = {
     getSummaryPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryPayLoan",
+            path: "api/api/ReportServices/GetSummaryPayLoan",
             params
         })
 
@@ -135,7 +135,7 @@ const api = {
     exportSummaryPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryPayLoan",
+            path: "api/api/ReportServices/ExportSummaryPayLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -146,7 +146,7 @@ const api = {
     getSummaryProjPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryProjPayLoan",
+            path: "api/api/ReportServices/GetSummaryProjPayLoan",
             params
         })
 
@@ -154,7 +154,7 @@ const api = {
     exportSummaryProjPayLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryProjPayLoan",
+            path: "api/api/ReportServices/ExportSummaryProjPayLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -165,7 +165,7 @@ const api = {
     getRequestLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetRequestLoan",
+            path: "api/api/ReportServices/GetRequestLoan",
             params
         })
 
@@ -173,7 +173,7 @@ const api = {
     exportRequestLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportRequestLoan",
+            path: "api/api/ReportServices/ExportRequestLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -184,7 +184,7 @@ const api = {
     getSummaryRequestLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryRequestLoan",
+            path: "api/api/ReportServices/GetSummaryRequestLoan",
             params
         })
 
@@ -192,7 +192,7 @@ const api = {
     exportSummaryRequestLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryRequestLoan",
+            path: "api/api/ReportServices/ExportSummaryRequestLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -203,7 +203,7 @@ const api = {
     getSignLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSignLoan",
+            path: "api/api/ReportServices/GetSignLoan",
             params
         })
 
@@ -211,7 +211,7 @@ const api = {
     exportSignLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSignLoan",
+            path: "api/api/ReportServices/ExportSignLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -222,7 +222,7 @@ const api = {
     getSignProjLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSignProjLoan",
+            path: "api/api/ReportServices/GetSignProjLoan",
             params
         })
 
@@ -230,7 +230,7 @@ const api = {
     exportSignProjLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSignProjLoan",
+            path: "api/api/ReportServices/ExportSignProjLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -241,7 +241,7 @@ const api = {
     getSummarySignLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSummarySignLoan",
+            path: "api/api/ReportServices/GetSummarySignLoan",
             params
         })
 
@@ -249,7 +249,7 @@ const api = {
     exportSummarySignLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummarySignLoan",
+            path: "api/api/ReportServices/ExportSummarySignLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -260,7 +260,7 @@ const api = {
     getConvertLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetConvertLoan",
+            path: "api/api/ReportServices/GetConvertLoan",
             params
         })
 
@@ -268,7 +268,7 @@ const api = {
     exportConvertLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportConvertLoan",
+            path: "api/api/ReportServices/ExportConvertLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -279,7 +279,7 @@ const api = {
     getSummaryConvertLoan(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryConvertLoan",
+            path: "api/api/ReportServices/GetSummaryConvertLoan",
             params
         })
 
@@ -287,7 +287,7 @@ const api = {
     exportSummaryConvertLoan(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryConvertLoan",
+            path: "api/api/ReportServices/ExportSummaryConvertLoan",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -298,7 +298,7 @@ const api = {
     getLawSuit(params) {
 
         return post({
-            path: "api/ReportServices/GetLawSuit",
+            path: "api/api/ReportServices/GetLawSuit",
             params
         })
 
@@ -306,7 +306,7 @@ const api = {
     exportLawSuit(params) {
 
         return post({
-            path: "api/ReportServices/ExportLawSuit",
+            path: "api/api/ReportServices/ExportLawSuit",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -317,7 +317,7 @@ const api = {
     getSummaryLawSuit(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryLawSuit",
+            path: "api/api/ReportServices/GetSummaryLawSuit",
             params
         })
 
@@ -325,7 +325,7 @@ const api = {
     exportSummaryLawSuit(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryLawSuit",
+            path: "api/api/ReportServices/ExportSummaryLawSuit",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -336,7 +336,7 @@ const api = {
     getModify(params) {
 
         return post({
-            path: "api/ReportServices/GetModify",
+            path: "api/api/ReportServices/GetModify",
             params
         })
 
@@ -344,7 +344,7 @@ const api = {
     exportModify(params) {
 
         return post({
-            path: "api/ReportServices/ExportModify",
+            path: "api/api/ReportServices/ExportModify",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -355,7 +355,7 @@ const api = {
     getSummaryModify(params) {
 
         return post({
-            path: "api/ReportServices/GetSummaryModify",
+            path: "api/api/ReportServices/GetSummaryModify",
             params
         })
 
@@ -363,7 +363,7 @@ const api = {
     exportSummaryModify(params) {
 
         return post({
-            path: "api/ReportServices/ExportSummaryModify",
+            path: "api/api/ReportServices/ExportSummaryModify",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -374,7 +374,7 @@ const api = {
     getBilled(params) {
 
         return post({
-            path: "api/ReportServices/GetBilled",
+            path: "api/api/ReportServices/GetBilled",
             params
         })
 
@@ -382,7 +382,7 @@ const api = {
     exportBilled(params) {
 
         return post({
-            path: "api/ReportServices/ExportBilled",
+            path: "api/api/ReportServices/ExportBilled",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -393,7 +393,7 @@ const api = {
     getContractPayment(params) {
 
         return post({
-            path: "api/CheckServices/GetContractPayment",
+            path: "api/api/CheckServices/GetContractPayment",
             params
         })
 
@@ -401,7 +401,7 @@ const api = {
     exportContractPayment(params) {
 
         return post({
-            path: "api/CheckServices/ExportContractPayment",
+            path: "api/api/CheckServices/ExportContractPayment",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -413,7 +413,7 @@ const api = {
     getAppraisalCourt(params) {
 
         return post({
-            path: "api/CheckServices/GetAppraisalCourt",
+            path: "api/api/CheckServices/GetAppraisalCourt",
             params
         })
 
@@ -421,7 +421,7 @@ const api = {
     exportAppraisalCourt(params) {
 
         return post({
-            path: "api/CheckServices/ExportAppraisalCourt",
+            path: "api/api/CheckServices/ExportAppraisalCourt",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -432,7 +432,7 @@ const api = {
     getTermsAndInterest(params) {
 
         return post({
-            path: "api/CheckServices/GetTermsAndInterest",
+            path: "api/api/CheckServices/GetTermsAndInterest",
             params
         })
 
@@ -440,7 +440,7 @@ const api = {
     exportTermsAndInterest(params) {
 
         return post({
-            path: "api/CheckServices/ExportTermsAndInterest",
+            path: "api/api/CheckServices/ExportTermsAndInterest",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -451,7 +451,7 @@ const api = {
     getAccountsReceivable(params) {
 
         return post({
-            path: "api/CheckServices/GetAccountsReceivable",
+            path: "api/api/CheckServices/GetAccountsReceivable",
             params
         })
 
@@ -459,7 +459,7 @@ const api = {
     exportAccountsReceivable(params) {
 
         return post({
-            path: "api/CheckServices/ExportAccountsReceivable",
+            path: "api/api/CheckServices/ExportAccountsReceivable",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -470,7 +470,7 @@ const api = {
     getInvoice(params) {
 
         return post({
-            path: "api/CheckServices/GetInvoice",
+            path: "api/api/CheckServices/GetInvoice",
             params
         })
 
@@ -478,7 +478,7 @@ const api = {
     exportInvoice(params) {
 
         return post({
-            path: "api/CheckServices/ExportInvoice",
+            path: "api/api/CheckServices/ExportInvoice",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -489,7 +489,7 @@ const api = {
     getPayAndAccount(params) {
 
         return post({
-            path: "api/CheckServices/GetPayAndAccount",
+            path: "api/api/CheckServices/GetPayAndAccount",
             params
         })
 
@@ -497,7 +497,7 @@ const api = {
     exportPayAndAccount(params) {
 
         return post({
-            path: "api/CheckServices/ExportPayAndAccount",
+            path: "api/api/CheckServices/ExportPayAndAccount",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -508,7 +508,7 @@ const api = {
     getActualPayment(params) {
 
         return post({
-            path: "api/CheckServices/GetActualPayment",
+            path: "api/api/CheckServices/GetActualPayment",
             params
         })
 
@@ -516,7 +516,7 @@ const api = {
     exportActualPayment(params) {
 
         return post({
-            path: "api/CheckServices/ExportActualPayment",
+            path: "api/api/CheckServices/ExportActualPayment",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -527,7 +527,7 @@ const api = {
     getReceipt(params) {
 
         return post({
-            path: "api/CheckServices/GetReceipt",
+            path: "api/api/CheckServices/GetReceipt",
             params
         })
 
@@ -535,7 +535,7 @@ const api = {
     exportReceipt(params) {
 
         return post({
-            path: "api/CheckServices/ExportReceipt",
+            path: "api/api/CheckServices/ExportReceipt",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -546,7 +546,7 @@ const api = {
     getPaymentBalance(params) {
 
         return post({
-            path: "api/CheckServices/GetPaymentBalance",
+            path: "api/api/CheckServices/GetPaymentBalance",
             params: params
         })
 
@@ -554,7 +554,7 @@ const api = {
     getCalPayment(params) {
 
         return post({
-            path: "api/CheckServices/GetCalPayment",
+            path: "api/api/CheckServices/GetCalPayment",
             params: params
         })
 
@@ -562,7 +562,7 @@ const api = {
     exportPaymentBalance(params) {
 
         return post({
-            path: "api/CheckServices/ExportPaymentBalance",
+            path: "api/api/CheckServices/ExportPaymentBalance",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -573,7 +573,7 @@ const api = {
     getContract(params) {
 
         return post({
-            path: "api/CheckServices/GetContract",
+            path: "api/api/CheckServices/GetContract",
             params
         })
 
@@ -581,7 +581,7 @@ const api = {
     exportContract(params) {
 
         return post({
-            path: "api/CheckServices/ExportContract",
+            path: "api/api/CheckServices/ExportContract",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -592,7 +592,7 @@ const api = {
     getCompensate(params) {
 
         return post({
-            path: "api/ReportServices/GetCompensate",
+            path: "api/api/ReportServices/GetCompensate",
             params
         })
 
@@ -600,7 +600,7 @@ const api = {
     getCompensateDetail(params) {
 
         return post({
-            path: "api/ReportServices/GetCompensateDetail",
+            path: "api/api/ReportServices/GetCompensateDetail",
             params
         })
 
@@ -608,7 +608,7 @@ const api = {
     getDebtPending(params) {
 
         return post({
-            path: "api/ReportServices/GetDebtPending",
+            path: "api/api/ReportServices/GetDebtPending",
             params
         })
 
@@ -653,6 +653,72 @@ const api = {
         })
 
     },
+    getPrintInvoice(params) {
+
+        return post({
+            path: "Invoice/Print",
+            params
+        })
+
+    },
+    getDataByLoan(params) {
+
+        return post({
+            path: "GetDebt/GetDataByLoan",
+            params
+        })
+
+    },
+
+    getDataByRelentNumber(params) {
+
+        return post({
+            path: "Relent/GetDataByRelentNumber",
+            params
+        })
+
+    },
+    selectDataByLoan(params) {
+
+        return post({
+            path: "Relent/SelectDataByLoan",
+            params
+        })
+
+    },
+    saveRelent(params) {
+
+        return post({
+            path: "Relent/Save",
+            params
+        })
+
+    },
+    getDebtDataByLoan(params) {
+
+        return post({
+            path: "GetDebt/GetDataByLoan",
+            params
+        })
+
+    },
+    getDebtDataByID(params) {
+
+        return post({
+            path: "GetDebt/GetDataByID",
+            params
+        })
+
+    },
+    getChagestructureDataByLoan(params) {
+
+        return post({
+            path: "Chagestructure/GetDataByLoan",
+            params
+        })
+
+    },
+
    
 };
 

@@ -448,29 +448,14 @@ console.log('printDAte',printDate.toString())
                             <Grid item xs={12} md={12} className="mg-t-0">
                             <form onSubmit={handleSubmit(handleSubmitSearch)}>
                                 <Grid container spacing={2}>
-                                    {/* <Grid item xs={12} md={2}><Controller
-                                            name="firstName"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                            <MuiDatePickerValidate
-                                                label="First Name"
-                                                value={value} 
-                                                onChange={onChange}
-                                                error={!!error}
-                                                helperText={error ? error.message : null}
-                                            />
-                                            )}
-                                            rules={{ required: 'First name required' }}
-                                        />   
-                                    </Grid> */}
+                                  
                                     <Grid item xs={12} md={3}>
-                                        <p>วันที่ครบกำหนดชำระหนี้</p>
-                                        <div className="select-date-option">
-                                            <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
-                                            <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
-                                            <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
-                                        </div>
+                               
+                                            <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" onChange={(event) => {
+
+                                              
+                                            }} />
+
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <MuiTextfield label="เลขที่สัญญา" name="rentno" value={inputDataSearch.rentno} onChange={handleInputDataSearch} />
