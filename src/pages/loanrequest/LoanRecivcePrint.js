@@ -455,7 +455,7 @@ function LoanRecivcePrint() {
         axios.post(
             `${server_hostname}/admin/api/add_loanfarmergetmoney`, {
                 
-                LoanReceiptDate: reOrderDateTHtoEN(inputSelectDate.dd+'-'+inputSelectDate.mm+'-'+inputSelectDate.yyyy),
+                LoanReceiptDate: inputData.LoanReceiptDate === 'Invalid date' || inputData.LoanReceiptDate === null ? null : moment(inputData.LoanReceiptDate).format('YYYY-MM-DD'),
                 LoanReceiptfrom: inputData.LoanReceiptfrom.toString(),
                 LoanReceiptfrom2: inputData.LoanReceiptfrom2.toString(),
                 LoanReceiptList: inputData.LoanReceiptList.toString(),
@@ -817,13 +817,13 @@ function LoanRecivcePrint() {
                                                         </div> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <p>ลงวันที่</p>
+                                                        {/* <p>ลงวันที่</p>
                                                         <div className="select-date-option">
                                                             <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
                                                             <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
                                                             <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
-                                                        </div>
-                                                        {/* <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputData.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputData, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                        </div> */}
+                                                        <MuiDatePicker label="ลงวันที่" name="LoanReceiptDate" value={inputData.LoanReceiptDate} onChange={(newValue)=>{ setInputData({ ...inputData, LoanReceiptDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                     </Grid>
                                                     <Grid item xs={12} md={1}>
                                                         {/* Field Select ---------------------------------------------------*/}

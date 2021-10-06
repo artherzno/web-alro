@@ -359,7 +359,9 @@ export default function Nav() {
 
         const goto = (subpath) => {
             // console.log(subpath)
+            // window.location.reload();
             history.push(subpath);
+            // window.location.reload();
         }
 
         function handleListKeyDown(event) {

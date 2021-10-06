@@ -192,7 +192,7 @@ function LoanRequestContactSearch() {
             `${server_hostname}/admin/api/search_applicant`, {
                 Name: inputData.Name, // "",
                 IDCard: inputData.IDCard, // "1234567889015",
-                dCreated: searchDate, // "",    
+                dCreated: inputData.dCreated, // "",    
                 order_by: 'Name', // "Name",
                 order_desc: 'DESC', // "DESC",
                 page_number: 1, // 1,
@@ -324,12 +324,14 @@ function LoanRequestContactSearch() {
                                     </Grid>
 
                                     <Grid item xs={12} md={3}>
-                                        <p>วันที่ครบกำหนดชำระหนี้</p>
+                                        {/* <p>วันที่ครบกำหนดชำระหนี้</p>
                                         <div className="select-date-option">
                                             <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
                                             <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
                                             <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
-                                        </div>
+                                        </div> */}
+                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="dCreated" value={inputData.dCreated === 'Invalid date' ? null : inputData.dCreated} onChange={(newValue)=>{ setInputData({ ...inputData, dCreated: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                    
                                     </Grid>
                                     {/* <Grid item xs={12} md={3}>
                                         <MuiDatePicker label="วันที่ยื่นคำขอ" name="dCreated" value={inputData.dCreated === 'Invalid date' ? null : inputData.dCreated} onChange={(newValue)=>{ setInputData({ ...inputData, dCreated: moment(newValue).format('YYYY-MM-DD')}) }}  />

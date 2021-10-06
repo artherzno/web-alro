@@ -376,16 +376,22 @@ function RecordCloseOldContact() {
                     setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
             }else {
-                setIsLoading(false)
-                console.log('get_loandetail',data)
-                setRows(
-                    data.map((item,i)=>
-                        createData(
-                            item.LoanNumber === null ? '' : item.LoanNumber,
-                            item.LoanReceiptDate ? newOrderDate(item.LoanReceiptDate) : null,
-                            item.ProjectName === null ? '' : item.ProjectName,
-                            item.ProjectplanYear === null ? '' : item.ProjectplanYear + 2500,)
-                    ))
+                if(data.length) {
+                    setIsLoading(false)
+                    console.log('get_loandetail',data)
+                    setRows(
+                        data.map((item,i)=>
+                            createData(
+                                item.LoanNumber === null ? '' : item.LoanNumber,
+                                item.LoanReceiptDate ? newOrderDate(item.LoanReceiptDate) : null,
+                                item.ProjectName === null ? '' : item.ProjectName,
+                                item.ProjectplanYear === null ? '' : item.ProjectplanYear + 2500,)
+                        ))
+
+                } else {
+                    setErr(true)
+                    setErrMsg('ไม่พบข้อมูล')
+                }
             }
         }).catch(err => { console.log(err); })
         .finally(() => {

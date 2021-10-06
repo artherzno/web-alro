@@ -111,7 +111,8 @@ function Main() {
                     {/* Loan Request Contact Page */}
                     <Route path="/loanrequest/loanrequestcontactsearch" component={LoanRequestContactSearch} />
                     <Route path="/loanrequest/loanrequestcontact" component={LoanRequestContact} />
-                    <Route path="/loanrequest/loanrequestprint" component={LoanRequestPrint} />
+                    {/* <Route path="/loanrequest/loanrequestprint" component={LoanRequestPrint} key={Math.random()}  /> */}
+                    <Route path={"/loanrequest/loanrequestprint" } render={(props) => <LoanRequestPrint {...props} key={Math.random()}/>} />
                     <Route path="/loanrequest/loanrecivceprint" component={LoanRecivcePrint} />
                     <Route path="/loanrequest/recordcloseoldcontact" component={RecordCloseOldContact} />
                     <Route path="/loanrequest/editcontract" component={EditContract} />
