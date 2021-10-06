@@ -718,6 +718,22 @@ const api = {
         })
 
     },
+    getAdvanceInvoiceAll(params) {
+
+        return post({
+            path: "AdvanceInvoice/GetAll",
+            params
+        })
+
+    },
+    getAdvanceInvoiceGetTotal(params) {
+
+        return post({
+            path: "AdvanceInvoice/GetTotal",
+            params
+        })
+
+    },
 
    
 };
