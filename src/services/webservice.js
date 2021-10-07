@@ -740,6 +740,13 @@ const api = {
             path: "ChangeDeptStructures/Save",
             params
         })
+    },
+    extendTimeGetDataLoan(params) {
+
+        return post({
+            path: "ExtendTime/GetDataLoan",
+            params
+        })
     }
    
 };

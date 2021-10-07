@@ -91,7 +91,7 @@ function DebtCondition() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         <Box display="flex" justifyContent="flex-start">
-                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" />
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={(e) => { setLoanNumber(e.target.value) }} />
                                         </Box>
                                     </Grid>
                                     <Grid item xs={12} md={2}>
@@ -157,6 +157,22 @@ function DebtCondition() {
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
+
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={resultList.length}
+                                        rowsPerPage={count}
+                                        page={page}
+                                        onPageChange={(e, newPage) => {
+                                            setPage(newPage)
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            setPage(0)
+                                            setCount(+event.target.value)
+                                        }}
+                                    />
                                 </div>
                             </Grid>
                         </Grid>
@@ -167,7 +183,7 @@ function DebtCondition() {
                         innerRef={formikRef}
                         initialValues={{
                             ...selectedData,
-                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").format("YYYY") : ''
+                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543,'years').format("YYYY") : ''
                         }}
                         validate={values => {
                             const requires = []
