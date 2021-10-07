@@ -734,7 +734,13 @@ const api = {
         })
 
     },
+    changeDeptStructuresSave(params){
 
+        return post({
+            path: "ChangeDeptStructures/Save",
+            params
+        })
+    }
    
 };
 

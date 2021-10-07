@@ -562,15 +562,17 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
                                                             {/* Field Select ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiSelect
                                                                 name="FrontName"
+                                                                id="FrontName"
                                                                 value={values.FrontName}
                                                                 error={errors.FrontName}
                                                                 helperText={errors.FrontName}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="คำนำหน้า"
-                                                                label="คำนำหน้า" />
+                                                                listsValue={['นาย', 'นาง', 'นางสาว']}
+                                                                label="คำนำหน้า" lists={['นาย', 'นาง', 'นางสาว']} />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             {/* Field Text ---------------------------------------------------*/}
