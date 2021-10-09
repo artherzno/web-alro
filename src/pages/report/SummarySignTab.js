@@ -276,7 +276,7 @@ class SummarySignTab extends React.Component {
                                     <StyledTableCell align="center">เดือน</StyledTableCell>
                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนเงิน (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงินตามสัญญา</StyledTableCell>
 
                                 </TableRow>
                             </TableHead>

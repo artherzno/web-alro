@@ -235,7 +235,7 @@ class SumaryPayLoanTab extends React.Component {
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">สรุปรายงานการจ่ายเงินกู้ {`${this.state.provinceZoneLabel}`}</Typography>
+                    <Typography variant="h6" align="center">สรุปรายงานการจ่ายเงินกู้ (15 วันทำการ)   {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
@@ -257,11 +257,11 @@ class SumaryPayLoanTab extends React.Component {
                                 <TableRow>
                                     <StyledTableCell align="center">ลำดับที่</StyledTableCell>
                                     <StyledTableCell align="center">ส.ป.ก.จังหวัด</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
                                     <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
-                                    <StyledTableCell align="center">วันยื่นกู้</StyledTableCell>
+                                    <StyledTableCell align="center">วันที่ยื่นคำขอ</StyledTableCell>
                                     <StyledTableCell align="center">วันจ่ายเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
                                     <StyledTableCell align="center">รายเดิม</StyledTableCell>

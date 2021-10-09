@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect,TypeContractSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -72,6 +72,7 @@ class SignProjectTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
+        parameter.append("Result",resultRequest)
 
         this.setState({ isLoading: true })
         api.getSignProjLoan(parameter).then(response => {
@@ -99,6 +100,7 @@ class SignProjectTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
+        parameter.append("Result",resultRequest)
 
         this.setState({
             isExporting: true
@@ -228,14 +230,24 @@ class SignProjectTab extends React.Component {
                         
                     </Grid>
                 </Grid>
+                <Grid item>
+                            <TypeContractSelect onChange={(event) =>{
 
+                                this.setState({
+                                    resultRequest: event.target.value,
+                                    resultLabel: event.target.label
+                                }, () => {
+                                })
+
+                            }}/>
+                </Grid>
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
                 </Grid>
 
             </Grid>
-
+           
             <div>
                 <Box mt={5} mb={5}>
                     <Typography variant="h6" align="center">รายงานการทำสัญญารายโครงการ {`${this.state.provinceZoneLabel}`}</Typography>
@@ -263,9 +275,6 @@ class SignProjectTab extends React.Component {
                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
-                                    <StyledTableCell align="center">งวดสุดท้าย</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวน (งวด)</StyledTableCell>
                                     <StyledTableCell align="center">ระยะเวลาปลอดการชำระเงินต้น</StyledTableCell>
 
                                 </TableRow>
@@ -280,9 +289,6 @@ class SignProjectTab extends React.Component {
                                             <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.projName} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalContract} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.installment} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.principalPeriod} </StyledTableCellLine>
 
@@ -295,9 +301,6 @@ class SignProjectTab extends React.Component {
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
                                     <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.installment)}</StyledTableCellLine>
                                     <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalPeriod)}</StyledTableCellLine>
 
