@@ -398,6 +398,14 @@ const api = {
         })
 
     },
+    getInvoiceById(params) {
+
+        return post({
+            path: "api/api/CheckServices/GetInvoiceById",
+            params
+        })
+
+    },
     exportContractPayment(params) {
 
         return post({

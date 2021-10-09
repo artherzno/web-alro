@@ -333,9 +333,11 @@ class CheckSign extends React.Component {
                                                     <StyledTableCell align="center">ศาล(ต้น+ดอก)</StyledTableCell>
                                                     <StyledTableCell align="center">ตั้งหนี้ดอกเบี้ย</StyledTableCell>
                                                     <StyledTableCell align="center">ตั้งหนี้ค่าปรับ</StyledTableCell>
+                                                    <StyledTableCell align="center">อัตราดอกเบี้ยตามคำสั่งศาล </StyledTableCell>
                                                     <StyledTableCell align="center">สถานะตั้งหนี้</StyledTableCell>
                                                     <StyledTableCell align="center">Obj_code</StyledTableCell>
                                                     <StyledTableCell align="center">Cus_code</StyledTableCell>
+                                                    <StyledTableCell align="center">วัตถุประสงค์การกู้ โครงการรอง</StyledTableCell>
                                                 </TableRow>
 
                                             </TableHead>
@@ -389,9 +391,11 @@ class CheckSign extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.court)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.interestDebt)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.fineDebt)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{'รอค่าจาก API'}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.debtStatus)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.objCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.cusCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{'รอค่าจาก API'}</StyledTableCellLine>
 
 
                                                         </TableRow>

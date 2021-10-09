@@ -160,14 +160,15 @@ class ProcessByPerson extends React.Component {
                                             <MuiTextfield label="เลขที่สัญญา" onChange={this.onChange("ContractNo")} />
                                         </Grid>
 
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ค้นหาชื่อโครงการ" onChange={this.onChange("ProjName")} />
-                                        </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="อัตราดอกเบี้ย" type="number"/>
-                                        </Grid>
+                                       
                                         <Grid item xs={12} md={2}>
                                             <YearSelect label="ปี" onChange={this.onChange("Year")} />
+                                        </Grid>
+                                        <Grid item xs={12} md={3}>
+                                            <SortCheck onChange={this.onChange("Order")} />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
+                                            <ProcessSelect onChange={this.onChange("Process")} />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
@@ -181,13 +182,8 @@ class ProcessByPerson extends React.Component {
 
                                  <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12} md={3}>
-                                            <SortCheck onChange={this.onChange("Order")}/>
-                                        </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            <ProcessSelect onChange={this.onChange("Process")}/>
-                                        </Grid>
-                                        <Grid item xs={12} md={4}>
+                                        
+                                        <Grid item xs={12} md={10}>
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>

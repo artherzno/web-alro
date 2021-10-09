@@ -46,7 +46,10 @@ class CheckBill extends React.Component {
             Display: "",
             data: [],
             page: 0,
-            count: 10
+            count: 10,
+            resultList: [],
+            pageSub: 0,
+            countSub: 10
         }
     }
 
@@ -127,17 +130,31 @@ class CheckBill extends React.Component {
             [state]: event.target.value
         }, () => {
 
-           
+
 
         })
 
 
     }
 
+    getInvoiceById(invoiceNo) {
+        const parameter = new FormData()
+        parameter.append("InvoiceNo", invoiceNo)
+        api.getInvoiceById(parameter).then(response => {
+
+            this.setState({
+                resultList: response.data.data
+            })
+
+        }).catch(error => {
+
+        })
+    }
+
     render() {
 
         const { classes } = this.props;
-        const { data, page, count } = this.state
+        const { data, page, count,resultList,pageSub,countSub } = this.state
 
         return (
             <div>
@@ -157,23 +174,27 @@ class CheckBill extends React.Component {
 
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
+
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="เลขที่หนังสือ" onChange={this.onChange("BookNo")}/>
-                                        </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            
+
                                             <MuiDatePicker label="วันที่รับเงิน" value={this.state.dateSelect} onChange={(event) => {
                                                 this.setState({ PaymentDate: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                   
+
                                                 })
-                                            }}/>
+                                            }} />
+                                        </Grid>
+
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="เลขที่ใบแจ้งหนี้" onChange={this.onChange("InvoiceNo")} />
+                                        </Grid>
+
+                                        <Grid item xs={12} md={2}>
+                                            <SortCheck onChange={this.onChange("Order")} />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="ค้นหาชื่อโครงการ" onChange={this.onChange("ProjName")}/>
+                                            <DisplayCheck onChange={this.onChange("Display")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
-                                            <MuiTextfield label="เลขที่ใบแจ้งหนี้" onChange={this.onChange("InvoiceNo")}/>
-                                        </Grid>
+
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
@@ -184,13 +205,8 @@ class CheckBill extends React.Component {
 
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12} md={3}>
-                                            <SortCheck onChange={this.onChange("Order")} />
-                                        </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            <DisplayCheck onChange={this.onChange("Display")} />
-                                        </Grid>
-                                        <Grid item xs={12} md={4}></Grid>
+
+                                        <Grid item xs={12} md={10}></Grid>
                                         <Grid item xs={12} md={2}>
                                             <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                                         </Grid>
@@ -200,7 +216,7 @@ class CheckBill extends React.Component {
                             </Grid>
 
                             <Box mt={2}>
-                               <Paper>
+                                <Paper>
                                     <TableContainer>
                                         <Table className={classes.table} aria-label="customized table">
                                             <TableHead>
@@ -222,7 +238,9 @@ class CheckBill extends React.Component {
                                                 {data.slice(page * count, page * count + count).map((element, index) => {
 
                                                     return (
-                                                        <TableRow key={index}>
+                                                        <TableRow key={index} hover={true} onClick={() => {
+                                                            this.getInvoiceById(element.invoiceNo)
+                                                        }}>
                                                             <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
@@ -266,7 +284,114 @@ class CheckBill extends React.Component {
                                         }}
                                     />
 
-                               </Paper>
+                                </Paper>
+                            </Box>
+
+                            <Box mt={2}>
+                                <Paper>
+                                    <TableContainer>
+                                        <Table className={classes.table} aria-label="customized table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่คำนวน</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสจังหวัด</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อ</StyledTableCell>
+                                                    <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
+                                                    <StyledTableCell align="center">โครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่ยืม</StyledTableCell>
+                                                    <StyledTableCell align="center">ใบแจ้งหนี้</StyledTableCell>
+                                                    <StyledTableCell align="center">สัญญาเลขที่</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">งวดชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">เงินต้น</StyledTableCell>
+                                                    <StyledTableCell align="center">ดอกเบี้ย</StyledTableCell>
+                                                    <StyledTableCell align="center">ดอกเบี้ยค้างชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">ดอกเบี้ยชำระ</StyledTableCell>
+                                                    <StyledTableCell align="center">Mindex</StyledTableCell>
+                                                    <StyledTableCell align="center">จำนวนเงินรับ</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่รับเงิน</StyledTableCell>
+                                                    <StyledTableCell align="center">สถานะรับสภาพ</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่รับสภาพ</StyledTableCell>
+                                                    <StyledTableCell align="center">Pindex</StyledTableCell>
+                                                    <StyledTableCell align="center">Stu</StyledTableCell>
+                                                    <StyledTableCell align="center">P_stu</StyledTableCell>
+                                                    <StyledTableCell align="center">P_date</StyledTableCell>
+                                                    <StyledTableCell align="center">Post_date</StyledTableCell>
+                                                </TableRow>
+
+                                            </TableHead>
+                                            <TableBody>
+                                                {resultList.slice(pageSub * countSub, pageSub * countSub + countSub).map((element, index) => {
+
+                                                    return (
+                                                        <TableRow key={index} hover={true} onClick={() => {
+                                                            this.getInvoiceById(element.invoiceNo)
+                                                        }}>
+                                                            <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.calDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            
+                                                            <StyledTableCellLine align="left">{element.fullName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.idCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.borrDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.invoice}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.contractNo}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.dueDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.installment}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.principle}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.interest}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.accruedInterest}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.interestPayment}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.number}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.paymentDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.acquiringStatus}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.acquiringDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.pindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.stu}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.pStu}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.pDate}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right">{element.postDate}</StyledTableCellLine>
+
+
+                                                        </TableRow>
+                                                    )
+                                                })}
+
+
+                                            </TableBody>
+                                        </Table>
+
+
+                                    </TableContainer>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={this.state.resultList.length}
+                                        rowsPerPage={this.state.countSub}
+                                        page={this.state.pageSub}
+                                        onPageChange={(e, newPage) => {
+
+                                            this.setState({
+                                                pageSub: newPage
+                                            })
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            this.setState({
+                                                countSub: +event.target.value,
+                                                pageSub: 0
+                                            })
+                                        }}
+                                    />
+
+                                </Paper>
                             </Box>
 
                         </Container>
