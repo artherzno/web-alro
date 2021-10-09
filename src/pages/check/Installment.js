@@ -209,23 +209,15 @@ class Installment extends React.Component {
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
                                                     <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
                                                     <StyledTableCell align="center">Rcpno</StyledTableCell>
-                                                    <StyledTableCell align="center">Rcapital</StyledTableCell>
-                                                    <StyledTableCell align="center">Rinterest</StyledTableCell>
-                                                    <StyledTableCell align="center">Rcharge</StyledTableCell>
-                                                    <StyledTableCell align="center">Rate</StyledTableCell>
-                                                    <StyledTableCell align="center">Rate_c</StyledTableCell>
-                                                    <StyledTableCell align="center">Reduce</StyledTableCell>
-                                                    <StyledTableCell align="center">Rate_n</StyledTableCell>
-                                                    <StyledTableCell align="center">Stu</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัสงาน</StyledTableCell>
+                                                    <StyledTableCell align="center">ผู้แก้ไข</StyledTableCell>
                                                     <StyledTableCell align="center">Finish_flag</StyledTableCell>
                                                 </TableRow>
 
@@ -247,14 +239,6 @@ class Installment extends React.Component {
                                                             <StyledTableCellLine align="left">{element.dueDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.rcpno}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.rcapital}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.rinterrest}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.rcharge}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{formatNumber(element.rate)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{formatNumber(element.rateC)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.reduce}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.stu}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.codeWork}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>

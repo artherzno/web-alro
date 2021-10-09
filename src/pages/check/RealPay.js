@@ -214,7 +214,7 @@ class RealPay extends React.Component {
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
@@ -230,8 +230,7 @@ class RealPay extends React.Component {
                                                     <StyledTableCell align="center">Rate_n</StyledTableCell>
                                                     <StyledTableCell align="center">Stu</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัสงาน</StyledTableCell>
-                                                    <StyledTableCell align="center">Finish_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">ผู้แก้ไข</StyledTableCell>
                                                 </TableRow>
 
                                             </TableHead>
@@ -262,7 +261,6 @@ class RealPay extends React.Component {
                                                             <StyledTableCellLine align="left">{element.stu}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.codeWork}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>
 
 
                                                         </TableRow>

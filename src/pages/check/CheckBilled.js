@@ -216,22 +216,21 @@ class CheckBilled extends React.Component {
                                             <TableHead>
                                                 <TableRow>
                                                     <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
-                                                    <StyledTableCell align="center">วันที่</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ครั้งที่</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่ชำระ</StyledTableCell>
-                                                    <StyledTableCell align="center">ใบเสร็จเลขที่</StyledTableCell>
+                                                    <StyledTableCell align="center">เล่มที่/เลขที่</StyledTableCell>
                                                     <StyledTableCell align="center">Rcpno 1</StyledTableCell>
                                                     <StyledTableCell align="center">จ่ายเงินต้น</StyledTableCell>
                                                     <StyledTableCell align="center">จ่ายดอกเบี้ย</StyledTableCell>
                                                     <StyledTableCell align="center">จ่ายค่าปรับ</StyledTableCell>
                                                     <StyledTableCell align="center">Rate</StyledTableCell>
                                                     <StyledTableCell align="center">Ref_id</StyledTableCell>
-                                                    <StyledTableCell align="center">Payment</StyledTableCell>
+                                                    <StyledTableCell align="center">รวมทั้งสิ้น</StyledTableCell>
                                                     <StyledTableCell align="center">Pcapital</StyledTableCell>
                                                     <StyledTableCell align="center">Pcap_1</StyledTableCell>
                                                     <StyledTableCell align="center">Pcap_2</StyledTableCell>
@@ -240,15 +239,11 @@ class CheckBilled extends React.Component {
                                                     <StyledTableCell align="center">Paycharge</StyledTableCell>
                                                     <StyledTableCell align="center">Pother</StyledTableCell>
                                                     <StyledTableCell align="center">Pbank</StyledTableCell>
-                                                    <StyledTableCell align="center">Stu</StyledTableCell>
-                                                    <StyledTableCell align="center">S_flag</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่แก้ไข</StyledTableCell>
                                                     <StyledTableCell align="center">Cuserid</StyledTableCell>
-                                                    <StyledTableCell align="center">Finish_flag</StyledTableCell>
                                                     <StyledTableCell align="center">Rate_n</StyledTableCell>
                                                     <StyledTableCell align="center">Rate_nc</StyledTableCell>
-                                                    <StyledTableCell align="center">R_flag</StyledTableCell>
                                                     <StyledTableCell align="center">Code</StyledTableCell>
                                                     <StyledTableCell align="center">Pindex</StyledTableCell>
                                                     <StyledTableCell align="center">Bcapital</StyledTableCell>
@@ -270,7 +265,6 @@ class CheckBilled extends React.Component {
                                                             <StyledTableCellLine align="left">{element.id}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.dueDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.receiptNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.rcpno1}</StyledTableCellLine>
@@ -289,15 +283,11 @@ class CheckBilled extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.paychage)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.pother)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pbank}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.stu}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.sFlag}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.dateC}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.cuserid}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateN)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.rateNc)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.rFlag}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.code}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.bcapital)}</StyledTableCellLine>

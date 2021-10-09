@@ -210,17 +210,15 @@ class BySign extends React.Component {
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
                                                     <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
-                                                    <StyledTableCell align="center">Reduce</StyledTableCell>
                                                     <StyledTableCell align="center">Rate_r</StyledTableCell>
-                                                    <StyledTableCell align="center">Dueamount</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่แก้ไข</StyledTableCell>
                                                     <StyledTableCell align="center">Code</StyledTableCell>
                                                 </TableRow>
 
@@ -241,9 +239,7 @@ class BySign extends React.Component {
                                                             <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.dueDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.reduce}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.rateR}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.dueamount}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.dateE}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.code}</StyledTableCellLine>

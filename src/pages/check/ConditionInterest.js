@@ -214,9 +214,8 @@ class ConditionInterest extends React.Component {
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                                    <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
                                                     <StyledTableCell align="center">Date</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่คำสั่ง</StyledTableCell>
@@ -237,7 +236,7 @@ class ConditionInterest extends React.Component {
                                                     <StyledTableCell align="center">Tps_</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
                                                     <StyledTableCell align="center">Finish_flag</StyledTableCell>
-                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่แก้ไข</StyledTableCell>
                                                     <StyledTableCell align="center">Cuserid</StyledTableCell>
                                                     <StyledTableCell align="center">Cname</StyledTableCell>
                                                 </TableRow>
@@ -254,7 +253,6 @@ class ConditionInterest extends React.Component {
                                                             <StyledTableCellLine align="left">{element.orders}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.id}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.prentno}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.date}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.orderNo}</StyledTableCellLine>

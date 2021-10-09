@@ -234,9 +234,7 @@ class CheckSign extends React.Component {
                                         <Grid item xs={12} md={4}>
                                             <MainProjectSelect onChange={this.onChange("ProjMain")}/>
                                         </Grid>
-                                        <Grid item xs={12} md={4}>
-                                            <SecondProjectSelect onChange={this.onChange("ProjSec")} />
-                                        </Grid>
+                                        
                                         <Grid item xs={12} md={4}>
                                             <LoanTypeSelect onChange={this.onChange("LoanType")}/>
                                         </Grid>
@@ -246,9 +244,7 @@ class CheckSign extends React.Component {
                                         <Grid item xs={12} md={4}>
                                             <ObjectiveLoanSelect onChange={this.onChange("LoanPlan")}/>
                                         </Grid>
-                                        <Grid item xs={12} md={4}>
-                                            <BorrowTypeSelect onChange={this.onChange("LoanPurpose")}/>
-                                        </Grid>
+                                       
                                         <Grid item xs={12} md={4}>
                                             <LoanPlanSelect onChange={this.onChange("LoanType2")}/>
                                         </Grid>
@@ -275,12 +271,13 @@ class CheckSign extends React.Component {
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield disabled={true} value={this.state.loanAmount} label="จำนวนสัญญา" />
                                     </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        <MuiTextfield disabled={true} value={this.state.totalContract} label="วงเงินกู้" />
+                                    </Grid>
                                     <Grid item xs={12}  md={3}>
                                         <MuiTextfield disabled={true} value={this.state.remainAmount} label="จำนวนเงินเหลือ" />
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
-                                        <MuiTextfield disabled={true} value={this.state.totalContract} label="จำนวนเงินกู้" />
-                                    </Grid>
+                                   
                            
                                 </Grid>
                             </Box>
@@ -294,7 +291,7 @@ class CheckSign extends React.Component {
                                                     <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">คำนำหน้า</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อ</StyledTableCell>
@@ -322,12 +319,12 @@ class CheckSign extends React.Component {
                                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
                                                     <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
                                                     <StyledTableCell align="center">รหัสงาน</StyledTableCell>
-                                                    <StyledTableCell align="center">ประเภท</StyledTableCell>
-                                                    <StyledTableCell align="center">ใช้เงินปี</StyledTableCell>
+                                                    <StyledTableCell align="center">ประเภทเงินกู้</StyledTableCell>
+                                                    <StyledTableCell align="center">แผนสินเชื่อปี</StyledTableCell>
                                                     <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
                                                     <StyledTableCell align="center">อัตราค่าปรับ</StyledTableCell>
                                                     <StyledTableCell align="center">Trnf_date</StyledTableCell>
-                                                    <StyledTableCell align="center">Typeplan</StyledTableCell>
+                                                    <StyledTableCell align="center">ประเภทกู้ยืม</StyledTableCell>
                                                     <StyledTableCell align="center">หมายเหตุ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อย่อจังหวัด</StyledTableCell>
                                                     <StyledTableCell align="center">Finish_flag</StyledTableCell>
