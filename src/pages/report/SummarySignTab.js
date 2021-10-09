@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect,TypeContractSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -72,6 +72,7 @@ class SummarySignTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
+        parameter.append('Result', resultRequest);
 
         this.setState({ isLoading: true })
         api.getSummarySignLoan(parameter).then(response => {
@@ -99,6 +100,7 @@ class SummarySignTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
+        parameter.append('Result', resultRequest);
 
         this.setState({
             isExporting: true
@@ -231,6 +233,17 @@ class SummarySignTab extends React.Component {
                     </Grid>
                 </Grid>
 
+                <Grid item>
+                            <TypeContractSelect onChange={(event) =>{
+
+                                this.setState({
+                                    resultRequest: event.target.value,
+                                    resultLabel: event.target.label
+                                }, () => {
+                                })
+
+                            }}/>
+                </Grid>
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
