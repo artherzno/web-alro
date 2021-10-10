@@ -10,10 +10,16 @@ const setHeader = (isMultipart, token) => {
     axios.defaults.maxContentLength = 100000000
     axios.defaults.maxBodyLength = 100000000
 
+    let aut = {}
+    if (token) {
+        aut = { token: token }
+    }
+
     axios.defaults.headers = {
         "Content-Type": isMultipart ? 'multipart/form-data' : "application/json",
         // "Access-Control-Allow-Origin": "*",
         // "Authorization": token == null ? "" : "bearer " + token,
+        ...aut
     };
 
     axios.defaults.timeout = 60 * 4 * 1000;
@@ -27,8 +33,8 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
     let parameters = parameter
 
     if (parameter instanceof FormData) {
-        parameters.append("Username",'admin67') //provinceid)
-    } else if (parameter){
+        parameters.append("Username", 'admin67') //provinceid)
+    } else if (parameter) {
         parameters = {
             ...parameter,
             Username: 'admin67'//provinceid
