@@ -785,7 +785,23 @@ const api = {
             token: token,
             isExternal:true
         })
-    }
+    },
+    selectDataExtendNumber(params) {
+
+        return post({
+            path: "ExtendTime/SelectDataExtendNumber",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
+    extendTimeInsert(params) {
+
+        return post({
+            path: "ExtendTime/Insert",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
 
 };
 

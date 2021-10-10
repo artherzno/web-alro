@@ -35,6 +35,7 @@ import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
 import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
+import { OverlayLoading,dialog } from '../../components';
 
 
 function DebtCondition() {
@@ -46,9 +47,11 @@ function DebtCondition() {
     const [page, setPage] = useState(0)
     const [count, setCount] = useState(10)
     const [selectedData, setSelectedData] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setLoaded(true);
+        getChagestructureDataByLoan()
     }, [])
 
     function getChagestructureDataByLoan() {
@@ -56,25 +59,36 @@ function DebtCondition() {
         const parameter = {
             LoanNumber: loanNumber
         }
+        setIsLoading(true)
         api.getChagestructureDataByLoan(parameter).then(response => {
-
+            setIsLoading(false)
             setResultList(response.data)
         }).catch(error => {
-
+            setIsLoading(false)
         })
     }
 
     function changeDeptStructuresSave(values){
-
+      
+        dialog.showLoading()
         api.changeDeptStructuresSave(values).then(response =>{
-
+           
+            dialog.close()
+            setTimeout(() => {
+                dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
+            }, 500);
+            
         }).catch(error =>{
-
+            dialog.close()
+            
         })
     }
 
     return (
         <div className="debtcondition-page">
+
+            <OverlayLoading isLoading={isLoading} />
+
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

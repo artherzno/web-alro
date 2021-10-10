@@ -31,102 +31,22 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 import { dateFormatTensiveMenu, formatNumber, formatNumberInt } from '../../utils/Utilities';
+import { OverlayLoading } from '../../components';
 
 
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-    },
-    button: {
-        marginRight: theme.spacing(1),
-    },
-    completed: {
-        display: 'inline-block',
-        color: 'red',
-    },
-    instructions: {
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    },
-}));
-
-// All Data for DataGrid & Table ---------------------------------------------//
-
-const tableResult = [
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-    { a: 'RIET16310/00002', b: '13/07/2020', c: '13/07/2020', d: '6308/000006', f: '53,071,235.10', g: '00137/ใบแจ้งหนี้ 6/63', h: 'กันยายน', i: '2564', j: '4' },
-]
-
-const columns = [
-    { field: 'id', headerAlign: 'center', align: 'center', headerName: 'ลำดับ', width: 100 },
-    { field: 'a', headerAlign: 'center', align: 'center', headerName: 'รหัสจังหวัด', width: 100 },
-    { field: 'b', headerAlign: 'center', align: 'center', headerName: 'ลำดับข้อมูล', width: 150 },
-    { field: 'c', headerAlign: 'center', align: 'center', headerName: 'รหัสโครงการ', type: 'number', width: 130 },
-    { field: 'd', headerAlign: 'center', align: 'center', headerName: 'ชื่อโครงการ', width: 130 },
-    { field: 'e', headerAlign: 'center', align: 'center', headerName: 'คำนำหน้า', width: 100 },
-    { field: 'f', headerAlign: 'center', align: 'center', headerName: 'ชื่อ', width: 130 },
-    { field: 'g', headerAlign: 'center', align: 'center', headerName: 'นามสกุล', width: 130 },
-    { field: 'h', headerAlign: 'center', align: 'center', headerName: 'วันที่ประมวล', width: 130, type: 'date' },
-    { field: 'i', headerAlign: 'center', align: 'center', headerName: 'เลขที่สัญญา', width: 130 },
-    { field: 'j', headerAlign: 'center', align: 'center', headerName: 'วันที่กู้', width: 130, type: 'date' },
-    { field: 'k', headerAlign: 'center', align: 'center', headerName: 'เงินกู้', width: 100 },
-    { field: 'l', headerAlign: 'center', align: 'center', headerName: 'เงินงวดชำระ', width: 100 },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (params) =>
-    //     `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-    // },
-];
-
-const rows = [
-    { id: 1, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 2, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 3, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 4, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 5, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 6, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 7, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 8, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 9, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 10, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 11, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-    { id: 12, a: 'RIET', b: 'RIET16310/00002', c: '000003', d: 'ปรับปรุงดิน40', e: 'นาย', f: 'ถาวร', g: 'นุ่มทอง', h: '13/07/2020', i: '00023/2530', j: '13/7/2020', k: '7,500.00', l: '0.00' },
-];
 
 // End All Data for DataGrid ---------------------------------------------//
 
 
 function PrintInvoice() {
-    const history = useHistory();
-    const classes = useStyles();
-    const auth = useContext(AuthContext);
     const isMounted = useRef(null);
 
-    let server_hostname = auth.hostname;
-    let server_spkapi = localStorage.getItem('spkapi');
-    let token = localStorage.getItem('token');
     let siteprint = localStorage.getItem('siteprint')
-
-    const [loaded, setLoaded] = useState(false);
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
+    const [loaded, setLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [start_date, setStartDate] = useState(null)
     const [startDateSelect, setStartDateSelect] = useState(null)
@@ -136,10 +56,6 @@ function PrintInvoice() {
     const [pageCount,setPageCount] = useState(10)
 
     // Variable for Checkbox in Table
-    const [selected, setSelected] = React.useState([]);
-    const isSelected = (name) => selected.indexOf(name) !== -1;
-    const rowCount = rows.length;
-    const numSelected = selected.length;
     const [inputSelectDate, setInputSelectDate] = useState({
         dd: '00',
         mm: '00',
@@ -188,15 +104,19 @@ function PrintInvoice() {
             start_date: start_date
         }
 
+        setIsLoading(true)
+
         api.getPrintInvoice(parameter).then(response => {
             setPrintList(response.data)
+            setIsLoading(false)
         }).catch(error => {
-
+            setIsLoading(false)
         })
     }
 
     return (
         <div className="printinvoice-page">
+            <OverlayLoading isLoading={isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

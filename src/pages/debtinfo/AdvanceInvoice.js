@@ -43,6 +43,7 @@ import {
 
 import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
+import { OverlayLoading } from '../../components';
 
 
 function AdvanceInvoice(props) {
@@ -68,7 +69,7 @@ function AdvanceInvoice(props) {
     const [startDateSelect, setStartDateSelect] = useState(null)
     const [printActive, setPrintActive] = useState(false)
     const [selectedData,setSelectedData] = useState({})
-
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
@@ -118,11 +119,12 @@ function AdvanceInvoice(props) {
             projname: projName,
             farmer: farmer,
         }
-
+        setIsLoading(true)
         api.getAdvanceInvoiceAll(parameter).then(response => {
             setResultList(response.data)
+            setIsLoading(false)
         }).catch(error => {
-
+            setIsLoading(false)
         })
     }
 
@@ -135,15 +137,18 @@ function AdvanceInvoice(props) {
             farmer: values.idCard,
         }
 
+        setIsLoading(true)
         api.getAdvanceInvoiceGetTotal(parameter).then(response => {
             setSelectedData(response.data.length > 0 ? response.data[0] : {})
+            setIsLoading(false)
         }).catch(error => {
-
+            setIsLoading(false)
         })
     }
 
     return (
         <div className="advanceinvoice-page">
+            <OverlayLoading isLoading={isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
