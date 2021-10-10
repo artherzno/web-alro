@@ -46,7 +46,8 @@ class RealPay extends React.Component {
             Display: "",
             data: [],
             page: 0,
-            count: 10
+            count: 10,
+            dataSummary: {},
         }
     }
 
@@ -72,6 +73,7 @@ class RealPay extends React.Component {
 
             this.setState({
                 data: response.data.data,
+                dataSummary: response.data.dataSummary,
                 isLoading: false
             })
 
@@ -141,7 +143,7 @@ class RealPay extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data, page, count} = this.state
+        const { data, page, count, dataSummary} = this.state
 
         return (
             <div>
@@ -266,6 +268,19 @@ class RealPay extends React.Component {
                                                         </TableRow>
                                                     )
                                                 })}
+
+                                                <TableRow>
+                                                    <StyledTableCellLine colSpan={10} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                                        รวมทั้งสิ้น
+                                                    </StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rate)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rateC)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.rateC)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" colSpan={5} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                </TableRow>
 
 
                                             </TableBody>
