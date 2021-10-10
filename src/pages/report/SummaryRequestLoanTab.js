@@ -274,10 +274,16 @@ class SummaryRequestLoanTab extends React.Component {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">เดือน</StyledTableCell>
-                                    <StyledTableCell align="center">เลฃที่คำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนคำขอกู้</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
-
+                                    <StyledTableCell align="center">จำนวนเงินที่ยื่นคำขอ (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">อนุมัติจำนวนคำขอกู้ </StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงินที่ยื่นคำขอ (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">ไม่อนุมัติจำนวนคำขอกู้  </StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงินที่ยื่นคำขอ (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">ยกเลิกจำนวนคำขอกู้ </StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงินที่ยื่นคำขอ (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">ระหว่างจำนวนคำขอกู้ </StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนเงินที่ยื่นคำขอ (บาท)</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -285,21 +291,34 @@ class SummaryRequestLoanTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="left">{farmer.months}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                         </TableRow>
                                     )
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={1} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>

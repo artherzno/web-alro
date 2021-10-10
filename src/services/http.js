@@ -10,16 +10,10 @@ const setHeader = (isMultipart, token) => {
     axios.defaults.maxContentLength = 100000000
     axios.defaults.maxBodyLength = 100000000
 
-    let aut = {}
-    if(token){
-        aut = { token: token}
-    }
-
     axios.defaults.headers = {
         "Content-Type": isMultipart ? 'multipart/form-data' : "application/json",
         // "Access-Control-Allow-Origin": "*",
         // "Authorization": token == null ? "" : "bearer " + token,
-        ...aut
     };
 
     axios.defaults.timeout = 60 * 4 * 1000;

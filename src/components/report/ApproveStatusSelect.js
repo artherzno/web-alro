@@ -2,9 +2,10 @@ import React from 'react'
 import { Select } from './select'
 
 const result = [
-    { value: 1, label: "อยู่ระหว่างพิจารณา" },
+    { value: 1, label: "รอผลพิจารณา" },
     { value: 2, label: "อนุมัติ" },
-    { value: 3, label: "ไม่อนุมัติ" }
+    { value: 3, label: "ไม่อนุมัติ" },
+    { value: 4, label: "ยกเลิก" }
 ]
 
 export const ApproveStatusSelect = ({ onChange = () => { } }) => {
