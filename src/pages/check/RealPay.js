@@ -233,6 +233,7 @@ class RealPay extends React.Component {
                                                     <StyledTableCell align="center">Stu</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
                                                     <StyledTableCell align="center">ผู้แก้ไข</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่แก้ไข</StyledTableCell>
                                                 </TableRow>
 
                                             </TableHead>
@@ -263,6 +264,8 @@ class RealPay extends React.Component {
                                                             <StyledTableCellLine align="left">{element.stu}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.codeWork}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.editDate}</StyledTableCellLine>
+                                                            
 
 
                                                         </TableRow>

@@ -76,13 +76,13 @@ class CheckSign extends React.Component {
         parameter.append('FullName', FullName);
         parameter.append('Order', Order);
         parameter.append('Display', Display);
-        parameter.append('Display', ProjMain);
-        parameter.append('Display', ProjSec);
-        parameter.append('Display', LoanType);
-        parameter.append('Display', BorrowerType);
-        parameter.append('Display', LoanPlan);
-        parameter.append('Display', LoanPurpose);
-        parameter.append('Display', LoanType2);
+        parameter.append('ProjMain', ProjMain);
+        parameter.append('ProjSec', ProjSec);
+        parameter.append('LoanType', LoanType);
+        parameter.append('BorrowerType', BorrowerType);
+        parameter.append('LoanPlan', LoanPlan);
+        parameter.append('LoanPurpose', LoanPurpose);
+        parameter.append('LoanType2', LoanType2);
 
         this.setState({ isLoading: true })
         api.getContract(parameter).then(response => {
@@ -115,13 +115,13 @@ class CheckSign extends React.Component {
         parameter.append('FullName', FullName);
         parameter.append('Order', Order);
         parameter.append('Display', Display);
-        parameter.append('Display', ProjMain);
-        parameter.append('Display', ProjSec);
-        parameter.append('Display', LoanType);
-        parameter.append('Display', BorrowerType);
-        parameter.append('Display', LoanPlan);
-        parameter.append('Display', LoanPurpose);
-        parameter.append('Display', LoanType2);
+        parameter.append('ProjMain', ProjMain);
+        parameter.append('ProjSec', ProjSec);
+        parameter.append('LoanType', LoanType);
+        parameter.append('BorrowerType', BorrowerType);
+        parameter.append('LoanPlan', LoanPlan);
+        parameter.append('LoanPurpose', LoanPurpose);
+        parameter.append('LoanType2', LoanType2);
 
         this.setState({
             isExporting: true
