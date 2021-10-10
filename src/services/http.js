@@ -34,7 +34,7 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
 
     if (parameter instanceof FormData) {
         parameters.append("Username",'admin67') //provinceid)
-    } else {
+    } else if (parameter){
         parameters = {
             ...parameter,
             Username: 'admin67'//provinceid
