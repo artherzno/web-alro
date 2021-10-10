@@ -2,11 +2,12 @@ import React from 'react'
 import { Select } from './select'
 
 const result = [
-    { value: 1, label: "สัญญาปกติ" },
-    { value: 2, label: "สัญญาแปลงหนี้" },
+    { value: 1, label: "ปกติ" },
+    { value: 2, label: "แปลงหนี้" },
     { value: 3, label: "ตั้งหนี้ตามคำพิพากษาศาล" },
-    { value: 4, label: "สัญญาปรับปรุงโครงสร้างหนี้" },
-    { value: 5, label: "สัญญาชดใช้หนี้แทนเกษตรกร" }
+    { value: 4, label: "ปรับปรุงโครงสร้างหนี้" },
+    { value: 5, label: "ชดใช้หนี้แทนเกษตรกร" },
+    { value: 6, label: "กทด" }
 ]
 
 export const TypeContractSelect = ({ onChange = () => { } }) => {

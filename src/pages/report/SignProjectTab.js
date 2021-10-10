@@ -2,6 +2,8 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect,TypeContractSelect } from '../../components/report'
+import { DatePicker, SortCheck, DisplayCheck, MainProjectSelect, SecondProjectSelect, LoanTypeSelect, LoanderTypeSelect, ObjectiveLoanSelect, LoanPlanSelect, BorrowTypeSelect } from '../../components/check'
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
@@ -44,6 +46,8 @@ class SignProjectTab extends React.Component {
             endDate: "",
             resultRequest: "",
             resultLabel: "",
+            resultMainProj: "",
+            resultMainProjLabel: "",
             provinceZoneLabel: "",
             montLabel: "",
             yearLabel: "",
@@ -231,6 +235,17 @@ class SignProjectTab extends React.Component {
                     </Grid>
                 </Grid>
                 <Grid item>
+                            <MainProjectSelect onChange={(event) =>{
+
+                                this.setState({
+                                    resultMainProj: event.target.value,
+                                    resultMainProjLabel: event.target.label
+                                }, () => {
+                                })
+
+                            }}/>
+                </Grid>
+                <Grid item>
                             <TypeContractSelect onChange={(event) =>{
 
                                 this.setState({
@@ -241,6 +256,7 @@ class SignProjectTab extends React.Component {
 
                             }}/>
                 </Grid>
+                
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
