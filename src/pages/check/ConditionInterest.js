@@ -46,7 +46,8 @@ class ConditionInterest extends React.Component {
             Display: "",
             data: [],
             page: 0,
-            count: 10
+            count: 10,
+            dataSummary:{}
         }
     }
 
@@ -72,6 +73,7 @@ class ConditionInterest extends React.Component {
 
             this.setState({
                 data: response.data.data,
+                dataSummary: response.data.dataSummary,
                 isLoading: false
             })
 
@@ -143,7 +145,7 @@ class ConditionInterest extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data, page, count } = this.state
+        const { data, page, count, dataSummary } = this.state
 
         return (
             <div>
@@ -282,6 +284,19 @@ class ConditionInterest extends React.Component {
                                                     )
                                                 })}
 
+                                                <TableRow>
+                                                    <StyledTableCellLine colSpan={13} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                                        รวมทั้งสิ้น
+                                                    </StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rateNc)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rate)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rateN)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.mcapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.minterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.mcharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" colSpan={9} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                </TableRow>
 
                                             </TableBody>
                                         </Table>

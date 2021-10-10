@@ -47,7 +47,8 @@ class ProcessByPerson extends React.Component {
             Process: "",
             data: [],
             page: 0,
-            count: 10
+            count: 10,
+            dataSummary: {},
         }
     }
 
@@ -72,6 +73,7 @@ class ProcessByPerson extends React.Component {
 
             this.setState({
                 data: response.data.data,
+                dataSummary: response.data.dataSummary || {},
                 isLoading: false
             })
 
@@ -136,7 +138,7 @@ class ProcessByPerson extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data, page, count } = this.state
+        const { data, page, count, dataSummary} = this.state
         return (
             <div>
 
@@ -359,7 +361,69 @@ class ProcessByPerson extends React.Component {
                                                         </TableRow>
                                                     )
                                                 })}
-
+                                                {/* <TableRow>
+                                                    <StyledTableCellLine colSpan={10} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                                        รวมทั้งสิ้น
+                                                    </StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.payrec)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.payment)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.paylntr)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.paycharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.captpaid)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.intpaid)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.chrgpaid)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.unpaid)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.unpaid1)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.unpaid2)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.credit)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.dcapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.dinterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.dcharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcap0)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcap1)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcap2)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pinterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pint_0)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pint_1)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pint_2)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcharge_0)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcharge_1)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcharge_2)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.bcapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.binterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.bcharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.scapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.sinterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.minterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.mcharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pPay)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pIntr)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pCharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.aCapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.aInterest)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.aCharge)}</StyledTableCellLine>
+                                                    <StyledTableCellLine colSpan={4} align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.rateN)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.rateNC)}</StyledTableCellLine>
+                                                    <StyledTableCellLine colSpan={2} align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.pcap01)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.pcap02)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.pintr01)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.pintr02)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.ptotal01)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.uintr01)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.kpkAmt1)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.kpkAmt2)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.kpkAmt3)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.kCapital)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.kInterest)}</StyledTableCellLine>
+                                                </TableRow> */}
 
                                             </TableBody>
                                         </Table>

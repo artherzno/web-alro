@@ -391,11 +391,11 @@ class CheckSign extends React.Component {
                                                             <StyledTableCellLine align="right">{formatNumber(element.court)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.interestDebt)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.fineDebt)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{'รอค่าจาก API'}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.RateCourt}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.debtStatus)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.objCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.cusCode}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{'รอค่าจาก API'}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Obj}</StyledTableCellLine>
 
 
                                                         </TableRow>
