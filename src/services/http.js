@@ -1,10 +1,8 @@
 // import axios from 'axios'
 import { axios } from './custom-axios'
-<<<<<<< .mineconst BASE_URL = 'https://loanfund.alro.go.th/' //process.env.REACT_APP_API_HOST
-// const BASE_URL = process.env.REACT_APP_API_HOST
-=======// const BASE_URL = 'http://147.50.143.84:3800/' //process.env.REACT_APP_API_HOST
+// const BASE_URL = 'http://147.50.143.84:3800/' //process.env.REACT_APP_API_HOST
 const BASE_URL = process.env.REACT_APP_API_HOST
->>>>>>> .theirsconst setHeader = (isMultipart, token) => {
+const setHeader = (isMultipart, token) => {
 
     // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     axios.defaults.baseURL = BASE_URL
@@ -12,16 +10,10 @@ const BASE_URL = process.env.REACT_APP_API_HOST
     axios.defaults.maxContentLength = 100000000
     axios.defaults.maxBodyLength = 100000000
 
-    let aut = {}
-    if(token){
-        aut = { token: token}
-    }
-
     axios.defaults.headers = {
         "Content-Type": isMultipart ? 'multipart/form-data' : "application/json",
         // "Access-Control-Allow-Origin": "*",
         // "Authorization": token == null ? "" : "bearer " + token,
-        ...aut
     };
 
     axios.defaults.timeout = 60 * 4 * 1000;
