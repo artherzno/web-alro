@@ -182,64 +182,6 @@ function PrintInvoice() {
             });
     }
 
-    const handleSelectDate = (event) => {
-        let type = event.target.name
-        setInputSelectDate({
-            ...inputSelectDate,
-            [event.target.name]: event.target.value.toString()
-        })
-        console.log('type', type, 'value', event.target.value)
-    }
-
-
-    // Select CheckBox in Table
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.id);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
-
-    const handleClickSelect = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
-
-        setSelected(newSelected);
-    };
-
-    // End Select Checkbox
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
-    };
-
     function getPrintInvoice() {
 
         const parameter = {

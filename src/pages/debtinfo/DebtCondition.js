@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Fade from '@material-ui/core/Fade';
@@ -15,12 +15,12 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import AddIcon from '@material-ui/icons/Add';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
-import { 
+import {
     MuiSelect,
     MuiCheckbox,
     ButtonNormalIconStartPrimary,
@@ -32,14 +32,14 @@ import {
 } from '../../components/MUIinputs';
 
 import api from '../../services/webservice'
-import { formatNumber } from '../../utils/Utilities';
+import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
 import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
 
 
 function DebtCondition() {
     const history = useHistory();
-
+    const formikRef = useRef();
     const [loaded, setLoaded] = useState(false);
     const [loanNumber, setLoanNumber] = useState("")
     const [resultList, setResultList] = useState([])
@@ -51,18 +51,27 @@ function DebtCondition() {
         setLoaded(true);
     }, [])
 
-    function getChagestructureDataByLoan(){
+    function getChagestructureDataByLoan() {
 
         const parameter = {
             LoanNumber: loanNumber
         }
-        api.getChagestructureDataByLoan(parameter).then(response =>{
+        api.getChagestructureDataByLoan(parameter).then(response => {
+
+            setResultList(response.data)
+        }).catch(error => {
+
+        })
+    }
+
+    function changeDeptStructuresSave(values){
+
+        api.changeDeptStructuresSave(values).then(response =>{
 
         }).catch(error =>{
 
         })
     }
-
 
     return (
         <div className="debtcondition-page">
@@ -75,296 +84,678 @@ function DebtCondition() {
                 <div className="fade">
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page">
                                 <h1>เงื่อนไขปรับโครงสร้างหนี้</h1>
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <Grid container spacing={2}>
-                                     <Grid item xs={12} md={3}>
-                                        <Box  display="flex" justifyContent="flex-start">
-                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" />
-                                        </Box>  
+                                    <Grid item xs={12} md={3}>
+                                        <Box display="flex" justifyContent="flex-start">
+                                            <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={(e) => { setLoanNumber(e.target.value) }} />
+                                        </Box>
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={() =>{
+                                            getChagestructureDataByLoan()
+                                        }}/>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} md={12}> 
+                            <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <TableContainer className="table-box table-recordinstallmentpayment1 max-h-250 mg-t-10">
                                         <Table aria-label="normal table">
                                             <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">รหัสบันทึก</TableCell>
-                                                <TableCell align="left">วันที่บันทึก</TableCell>
-                                                <TableCell align="left">เลขคำขอ</TableCell>
-                                                <TableCell align="left">อ้างถึง</TableCell>
-                                                <TableCell align="left">รหัสสารบัญ</TableCell>
-                                                <TableCell align="left">ลำดับ</TableCell>
-                                                <TableCell align="left">รหัสโครงการ</TableCell>
-                                                <TableCell align="left">ชื่อโครงการ</TableCell>
-                                                <TableCell align="left">เลขที่สัญญา</TableCell>
-                                                <TableCell align="left">วันที่กู้</TableCell>
-                                                <TableCell align="left">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="left">คำนำหน้า</TableCell>
-                                                <TableCell align="left">ชื่อ</TableCell>
-                                                <TableCell align="left">นามสกุล</TableCell>
-                                                <TableCell align="left">ที่อยู่</TableCell>
-                                            </TableRow>
+                                                <TableRow>
+                                                    <TableCell align="left">รหัสบันทึก</TableCell>
+                                                    <TableCell align="left">วันที่บันทึก</TableCell>
+                                                    <TableCell align="left">เลขคำขอ</TableCell>
+                                                    <TableCell align="left">อ้างถึง</TableCell>
+                                                    <TableCell align="left">รหัสสารบัญ</TableCell>
+                                                    <TableCell align="left">ลำดับ</TableCell>
+                                                    <TableCell align="left">รหัสโครงการ</TableCell>
+                                                    <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                    <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                    <TableCell align="left">วันที่กู้</TableCell>
+                                                    <TableCell align="left">เลขบัตรประชาชน</TableCell>
+                                                    <TableCell align="left">คำนำหน้า</TableCell>
+                                                    <TableCell align="left">ชื่อ</TableCell>
+                                                    <TableCell align="left">นามสกุล</TableCell>
+                                                    <TableCell align="left">ที่อยู่</TableCell>
+                                                </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={15} align="left">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                            {/* {
-                                                tableResult.map((row,i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell align="left">{row.a}</TableCell>
-                                                        <TableCell align="left">{row.b}</TableCell>
-                                                        <TableCell align="left">{row.c}</TableCell>
-                                                        <TableCell align="left">{row.d}</TableCell>
-                                                        <TableCell align="left">{row.e}</TableCell>
-                                                        <TableCell align="left">{row.f}</TableCell>
-                                                        <TableCell align="left">{row.g}</TableCell>
-                                                        <TableCell align="left">{row.h}</TableCell>
-                                                        <TableCell align="left">{row.i}</TableCell>
-                                                        <TableCell align="left">{row.j}</TableCell>
-                                                        <TableCell align="left">{row.k}</TableCell>
-                                                        <TableCell align="left">{row.l}</TableCell>
-                                                        <TableCell align="left">{row.m}</TableCell>
-                                                        <TableCell align="left">{row.n}</TableCell>
-                                                        <TableCell align="left">{row.o}</TableCell>
-                                                    </TableRow>
-                                                ))
-                                            } */}
+                                                {resultList.length <= 0 && <TableRow>
+                                                    <TableCell colSpan={15} align="left">ไม่พบข้อมูล</TableCell>
+                                                </TableRow>}
+                                                {resultList.slice(page * count, page * count + count).map((element, index) => {
+
+                                                    return (
+                                                        <TableRow key={index} hover={true} onClick={() => {
+                                                           setSelectedData(element)
+                                                        }}>
+                                                            <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.ChangeDeptNumber}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Ref1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Order}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Projectcode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.ProjectName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.LoanNumber}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.LoanDate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.IDCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.FrontName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Name}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.SirName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{"ไม่รู้จัก Field"}</StyledTableCellLine>
+                                                        </TableRow>
+                                                    )
+                                                })}
+
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
+
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={resultList.length}
+                                        rowsPerPage={count}
+                                        page={page}
+                                        onPageChange={(e, newPage) => {
+                                            setPage(newPage)
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            setPage(0)
+                                            setCount(+event.target.value)
+                                        }}
+                                    />
                                 </div>
                             </Grid>
                         </Grid>
                     </Container>
 
-                    <Container maxWidth="lg">
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={12}>
+                    <Formik
+                        enableReinitialize={true}
+                        innerRef={formikRef}
+                        initialValues={{
+                            ...selectedData,
+                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543,'years').format("YYYY") : ''
+                        }}
+                        validate={values => {
+                            const requires = []
+                            let errors = {};
+                            requires.forEach(field => {
+                                if (!values[field]) {
+                                    errors[field] = 'Required';
+                                }
+                            });
 
-                                {/* Paper 1 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off">
+
+                            return errors;
+                        }}
+                        onSubmit={(values, actions) => {
+                            changeDeptStructuresSave(values)
+                        }}
+                        render={(formik) => {
+
+                            const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
+
+                            return (
+                                <Form>
+                                    <Container maxWidth="lg">
                                         <Grid container spacing={2}>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-15" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="2563" />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="RET" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="ร้อยเอ็ด" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่คำขอ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อ้างถึง"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อ้างถึง" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="สัญญาเลขที่" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่สัญญา"  defaultValue="2017-05-15" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ใช้เงินตามแผนปี"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่รับเงินกู้" defaultValue="2017-05-15" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="จำนวนเงินให้กู้" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อัตราดอกเบี้ย" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อัตราค่าปรับ" defaultValue="" />
-                                            </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={6}>
+
+                                                {/* Paper 1 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper mg-t-20">
+                                                    <form className="root" noValidate autoComplete="off">
                                                         <Grid container spacing={2}>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiSelect label="รหัสโครงการ"  lists={['00001','00002','00003']} />
+                                                                <MuiTextfield
+                                                                    name="RecNum"
+                                                                    value={values.RecNum}
+                                                                    error={errors.RecNum}
+                                                                    helperText={errors.RecNum}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขที่บันทึก"
+                                                                    label="เลขที่บันทึก"
+                                                                    disabled />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield label="รหัสโครงการรอง" defaultValue="" />
+                                                                <MuiDatePicker
+                                                                    name="ChangeDeptDate"
+                                                                    value={values.ChangeDeptDate}
+                                                                    error={errors.ChangeDeptDate}
+                                                                    helperText={errors.ChangeDeptDate}
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("ChangeDeptDate", moment(event).format("YYYY-MM-DD"))
+                                                                    }}
+                                                                    onChangeDate={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="วันที่บันทึก"
+                                                                    label="วันที่บันทึก"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={1}>
+                                                                <MuiTextfield
+                                                                    name="YEAR"
+                                                                    value={values.YEAR}
+                                                                    error={errors.YEAR}
+                                                                    helperText={errors.YEAR}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="ปี"
+                                                                    label="&nbsp;" />
+                                                            </Grid>
+
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="PVSCODE"
+                                                                    value={values.PVSCODE}
+                                                                    error={errors.PVSCODE}
+                                                                    helperText={errors.PVSCODE}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}>
+                                                                <MuiTextfield
+                                                                    name="PV_NAME"
+                                                                    value={values.PV_NAME}
+                                                                    error={errors.PV_NAME}
+                                                                    helperText={errors.PV_NAME}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="จังหวัด"
+                                                                    label="จังหวัด" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="ChangeDeptNumber"
+                                                                    value={values.ChangeDeptNumber}
+                                                                    error={errors.ChangeDeptNumber}
+                                                                    helperText={errors.ChangeDeptNumber}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขที่คำขอ"
+                                                                    label="เลขที่คำขอ" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="Ref1"
+                                                                    value={values.Ref1}
+                                                                    error={errors.Ref1}
+                                                                    helperText={errors.Ref1}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อ้างถึง"
+                                                                    label="อ้างถึง"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="Ref2"
+                                                                    value={values.Ref2}
+                                                                    error={errors.Ref2}
+                                                                    helperText={errors.Ref2}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อ้างถึง"
+                                                                    label="อ้างถึง"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={1}>
+                                                                <MuiTextfield
+                                                                    name="Order"
+                                                                    value={values.Order}
+                                                                    error={errors.Order}
+                                                                    helperText={errors.Order}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    label="&nbsp;"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="LoanNumber"
+                                                                    value={values.LoanNumber}
+                                                                    error={errors.LoanNumber}
+                                                                    helperText={errors.LoanNumber}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="สัญญาเลขที่"
+                                                                    label="สัญญาเลขที่"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    // name="LoanNumber"
+                                                                    // value={values.LoanNumber}
+                                                                    // error={errors.LoanNumber}
+                                                                    // helperText={errors.LoanNumber}
+                                                                    // onChange={handleChange}
+                                                                    // onBlur={handleBlur}
+                                                                    // placeholder="สัญญาเลขที่"
+                                                                    label="&nbsp;" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiDatePicker
+                                                                    name="LoanDate"
+                                                                    value={values.LoanDate}
+                                                                    error={errors.LoanDate}
+                                                                    helperText={errors.LoanDate}
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("LoanDate", moment(event).format("YYYY-MM-DD"))
+                                                                    }}
+                                                                    onChangeDate={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="วันที่สัญญา"
+                                                                    label="วันที่สัญญา" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="ProjectPlanYear"
+                                                                    value={values.ProjectPlanYear}
+                                                                    error={errors.ProjectPlanYear}
+                                                                    helperText={errors.ProjectPlanYear}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="ใช้เงินตามแผนปี"
+                                                                    label="ใช้เงินตามแผนปี" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiDatePicker
+                                                                    name="LoanReceiptDate"
+                                                                    value={values.LoanReceiptDate}
+                                                                    error={errors.LoanReceiptDate}
+                                                                    helperText={errors.LoanReceiptDate}
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("LoanReceiptDate", moment(event).format("YYYY-MM-DD"))
+                                                                    }}
+                                                                    onChangeDate={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="วันที่รับเงินกู้"
+                                                                    label="วันที่รับเงินกู้" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="principle"
+                                                                    value={values.principle}
+                                                                    error={errors.principle}
+                                                                    helperText={errors.principle}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="จำนวนเงินให้กู้"
+                                                                    label="จำนวนเงินให้กู้" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="Interest"
+                                                                    value={values.Interest}
+                                                                    error={errors.Interest}
+                                                                    helperText={errors.Interest}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อัตราดอกเบี้ย"
+                                                                    label="อัตราดอกเบี้ย" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="ChargeRate"
+                                                                    value={values.ChargeRate}
+                                                                    error={errors.ChargeRate}
+                                                                    helperText={errors.ChargeRate}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อัตราค่าปรับ"
+                                                                    label="อัตราค่าปรับ" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <Grid container spacing={2}>
+                                                                    <Grid item xs={12} md={6}>
+                                                                        <Grid container spacing={2}>
+                                                                            <Grid item xs={12} md={3}>
+                                                                                <MuiTextfield
+                                                                                    name="Projectcode"
+                                                                                    value={values.Projectcode}
+                                                                                    error={errors.Projectcode}
+                                                                                    helperText={errors.Projectcode}
+                                                                                    onChange={handleChange}
+                                                                                    onBlur={handleBlur}
+                                                                                    placeholder="รหัสโครงการรอง"
+                                                                                    label="รหัสโครงการรอง" defaultValue="" />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield
+                                                                                    name="ProjectName"
+                                                                                    value={values.ProjectName}
+                                                                                    error={errors.ProjectName}
+                                                                                    helperText={errors.ProjectName}
+                                                                                    onChange={handleChange}
+                                                                                    onBlur={handleBlur}
+                                                                                    placeholder="ชื่อโครงการรอง"
+                                                                                    label="ชื่อโครงการรอง" defaultValue="" />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="ชื่อโครงการรอง"  defaultValue="" />
+                                                                <MuiTextfield
+                                                                    name="IDCard"
+                                                                    value={values.IDCard}
+                                                                    error={errors.IDCard}
+                                                                    helperText={errors.IDCard}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขบัตรประชาชน"
+                                                                    label="เลขบัตรประชาชน" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={1}>
+                                                                <MuiSelect
+                                                                    name="FrontName"
+                                                                    id="FrontName"
+                                                                    value={values.FrontName}
+                                                                    error={errors.FrontName}
+                                                                    helperText={errors.FrontName}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="คำนำหน้า"
+                                                                    listsValue={['นาย', 'นาง', 'นางสาว']}
+                                                                    label="คำนำหน้า" lists={['นาย', 'นาง', 'นางสาว']} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}>
+                                                                <MuiTextfield
+                                                                    name="Name"
+                                                                    value={values.Name}
+                                                                    error={errors.Name}
+                                                                    helperText={errors.Name}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="ชื่อ"
+                                                                    label="ชื่อ" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="SirName"
+                                                                    value={values.SirName}
+                                                                    error={errors.SirName}
+                                                                    helperText={errors.SirName}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="นามสกุล"
+                                                                    label="นามสกุล" defaultValue="" />
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="ชื่อ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="นามสกุล" defaultValue="" />
+                                                    </form>
+                                                </Paper>
+
+
+                                                {/* Paper 2 - -------------------------------------------------- */}
+                                                <Paper className="paper line-top-green paper mg-t-35">
+                                                    <form className="root" noValidate autoComplete="off">
+                                                        <Grid container spacing={2} className="paper-container">
+                                                            <Grid item xs={12} md={12} >
+                                                                <Grid container spacing={2} >
+                                                                    <Grid item xs={12} md={6}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={12}>
+                                                                                    <MuiTextfieldMultiLine
+                                                                                        name="Command"
+                                                                                        value={values.Command}
+                                                                                        error={errors.Command}
+                                                                                        helperText={errors.Command}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="หมายเหตุ"
+                                                                                        label="หมายเหตุ" row="3" defaultValue="" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={6}>
+                                                                                    <MuiTextfield
+                                                                                        name="CommandNum"
+                                                                                        value={values.CommandNum}
+                                                                                        error={errors.CommandNum}
+                                                                                        helperText={errors.CommandNum}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="เลขที่คำสั่ง"
+                                                                                        label="เลขที่คำสั่ง" disabled />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={6}>
+                                                                                    <MuiDatePicker
+                                                                                        name="CommandDate"
+                                                                                        value={values.CommandDate}
+                                                                                        error={errors.CommandDate}
+                                                                                        helperText={errors.CommandDate}
+                                                                                        onChange={(event) => {
+                                                                                            setFieldValue("CommandDate", moment(event).format("YYYY-MM-DD"))
+                                                                                        }}
+                                                                                        onChangeDate={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="วันที่คำสั่ง"
+                                                                                        label="วันที่คำสั่ง" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={6}>
+                                                                                    <MuiDatePicker
+                                                                                        name="StartCommandDate"
+                                                                                        value={values.StartCommandDate}
+                                                                                        error={errors.StartCommandDate}
+                                                                                        helperText={errors.StartCommandDate}
+                                                                                        onChange={(event) => {
+                                                                                            setFieldValue("StartCommandDate", moment(event).format("YYYY-MM-DD"))
+                                                                                        }}
+                                                                                        onChangeDate={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="วันที่เริ่มคำสั่ง"
+                                                                                        label="วันที่เริ่มคำสั่ง" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={6}>
+                                                                                    <MuiDatePicker
+                                                                                        name="EndCommandDate"
+                                                                                        value={values.EndCommandDate}
+                                                                                        error={errors.EndCommandDate}
+                                                                                        helperText={errors.EndCommandDate}
+                                                                                        onChange={(event) => {
+                                                                                            setFieldValue("EndCommandDate", moment(event).format("YYYY-MM-DD"))
+                                                                                        }}
+                                                                                        onChangeDate={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="วันที่สิ้นสุด"
+                                                                                        label="วันที่สิ้นสุด" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiSelect name="ConditionCode" label="ประเภท" lists={['นาย', 'นาง', 'นางสาว']} />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiTextfield
+                                                                                        name="ConditionName"
+                                                                                        value={values.ConditionName}
+                                                                                        error={errors.ConditionName}
+                                                                                        helperText={errors.ConditionName}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="&nbsp;"
+                                                                                        defaultValue="" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={6}>
+                                                                                    <MuiTextfield
+                                                                                        name="ConditionDetail"
+                                                                                        value={values.ConditionDetail}
+                                                                                        error={errors.ConditionDetail}
+                                                                                        helperText={errors.ConditionDetail}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="&nbsp;"
+                                                                                        defaultValue="" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiTextfield
+                                                                                        name="Item"
+                                                                                        value={values.Item}
+                                                                                        error={errors.Item}
+                                                                                        helperText={errors.Item}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="ลำดับที่"
+                                                                                        label="ลำดับที่" defaultValue="" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiTextfield
+                                                                                        name="Order"
+                                                                                        value={values.Order}
+                                                                                        error={errors.Order}
+                                                                                        helperText={errors.Order}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="ครั้งที่"
+                                                                                        label="ครั้งที่" defaultValue="" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiTextfield
+                                                                                        name="Tps"
+                                                                                        value={values.Tps}
+                                                                                        error={errors.Tps}
+                                                                                        helperText={errors.Tps}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="Tps"
+                                                                                        label="Tps" defaultValue="" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={3}>
+                                                                                    <MuiTextfield
+                                                                                        name="Tps_"
+                                                                                        value={values.Tps_}
+                                                                                        error={errors.Tps_}
+                                                                                        helperText={errors.Tps_}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="Tps_"
+                                                                                        label="Tps_" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+
+                                                                    <Grid item xs={12} md={6}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment
+                                                                                        name="ReducePrinciple"
+                                                                                        value={values.ReducePrinciple}
+                                                                                        error={errors.ReducePrinciple}
+                                                                                        helperText={errors.ReducePrinciple}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินลดดอก</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment
+                                                                                        name="InterestReduce"
+                                                                                        value={values.InterestReduce}
+                                                                                        error={errors.InterestReduce}
+                                                                                        helperText={errors.InterestReduce}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินลดค่าปรับ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment
+                                                                                        name="ReduceFines"
+                                                                                        value={values.ReduceFines}
+                                                                                        error={errors.ReduceFines}
+                                                                                        helperText={errors.ReduceFines}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินปรับโครงสร้าง</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment
+                                                                                        name="ChangeDeptCost"
+                                                                                        value={values.ChangeDeptCost}
+                                                                                        error={errors.ChangeDeptCost}
+                                                                                        helperText={errors.ChangeDeptCost}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">อัตราดอกเบี้ยที่เปลี่ยน</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfield
+                                                                                        name="ChangeInterest"
+                                                                                        value={values.ChangeInterest}
+                                                                                        error={errors.ChangeInterest}
+                                                                                        helperText={errors.ChangeInterest}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="" defaultValue="" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </form>
+                                                </Paper>
                                             </Grid>
                                         </Grid>
-                                    </form>
-                                </Paper>
+                                    </Container>
 
-                                
-                                {/* Paper 2 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper mg-t-35">
-                                    <form className="root" noValidate autoComplete="off">
-                                        <Grid container spacing={2} className="paper-container">
-                                            <Grid item xs={12} md={12} >
-                                                <Grid container spacing={2} >
-                                                    <Grid item xs={12} md={6}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={12}>
-                                                                    <MuiTextfieldMultiLine label="หมายเหตุ" row="3" defaultValue="" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiTextfield label="เลขที่คำสั่ง" disabled defaultValue="RIET2343525/00003" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่คำสั่ง" defaultValue="2017-05-15" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่เริ่มคำสั่ง" defaultValue="2017-05-15" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่สิ้นสุด" defaultValue="2017-05-15" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiSelect label="ประเภท" lists={['นาย','นาง','นางสาว']} />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="&nbsp;" defaultValue="" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiTextfield label="&nbsp;" defaultValue="" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ลำดับที่" defaultValue="" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ครั้งที่" defaultValue="" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="Tps" defaultValue="" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="Tps_" defaultValue="" />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                    <Grid item xs={12} md={6}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินลดดอก</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินลดค่าปรับ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินปรับโครงสร้าง</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">อัตราดอกเบี้ยที่เปลี่ยน</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfield label="" defaultValue=""/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-
-                                                    </Grid>
-                                                </Grid>
+                                    <Container maxWidth="md">
+                                        <Grid container spacing={2} className="btn-row txt-center">
+                                            <Grid item xs={12} md={12}>
+                                                <ButtonFluidPrimary label="บันทึก" maxWidth="320px" onClick={handleSubmit}/>
                                             </Grid>
                                         </Grid>
-                                    </form>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </Container>
+                                    </Container>
 
-                    <Container maxWidth="md">
-                        <Grid container spacing={2} className="btn-row txt-center">
-                            <Grid item xs={12} md={12}>
-                                <ButtonFluidPrimary label="บันทึก" maxWidth="320px"  />
-                            </Grid>
-                        </Grid>
-                    </Container>
-                
-                    
-               
+                                </Form>
+                            )
+                        }} />
+
+
+
                 </div>
             </Fade>
-            
+
         </div>
     )
 }

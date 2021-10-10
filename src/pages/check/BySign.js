@@ -46,7 +46,8 @@ class BySign extends React.Component {
             Display:"",
             data:[],
             page:0,
-            count:10
+            count:10,
+            dataSummary: {},
         }
     }
 
@@ -72,6 +73,7 @@ class BySign extends React.Component {
 
             this.setState({
                 data: response.data.data,
+                dataSummary: response.data.dataSummary,
                 isLoading: false
             })
 
@@ -137,7 +139,7 @@ class BySign extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const {data,page,count} = this.state
+        const { data, page, count, dataSummary} = this.state
 
 
         return (
@@ -210,17 +212,15 @@ class BySign extends React.Component {
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่ครบชำระ</StyledTableCell>
                                                     <StyledTableCell align="center">ยอดชำระ</StyledTableCell>
-                                                    <StyledTableCell align="center">Reduce</StyledTableCell>
                                                     <StyledTableCell align="center">Rate_r</StyledTableCell>
-                                                    <StyledTableCell align="center">Dueamount</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                    <StyledTableCell align="center">Date_e</StyledTableCell>
+                                                    <StyledTableCell align="center">วันที่แก้ไข</StyledTableCell>
                                                     <StyledTableCell align="center">Code</StyledTableCell>
                                                 </TableRow>
 
@@ -241,9 +241,7 @@ class BySign extends React.Component {
                                                             <StyledTableCellLine align="left">{element.contractNo}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.dueDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.reduce}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.rateR}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.dueamount}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.dateE}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.code}</StyledTableCellLine>
@@ -253,6 +251,15 @@ class BySign extends React.Component {
                                                     )
                                                 })}
 
+
+                                                <TableRow>
+                                                    <StyledTableCellLine colSpan={10} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                                        รวมทั้งสิ้น
+                                                    </StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+
+                                                </TableRow>
 
                                             </TableBody>
                                         </Table>

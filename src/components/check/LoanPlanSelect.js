@@ -1,17 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Select } from '../report/select'
 import Grid from '@material-ui/core/Grid';
-
-const typeList = [
-    { value: 1, label: "01" },
-    { value: 2, label: "26" },
-    { value: 3, label: "28" },
-    { value: 4, label: "32" },
-    { value: 5, label: "36" },
-    { value: 6, label: "37" },
-    { value: 7, label: "39" },
-    { value: 8, label: "40" },
-]
+import moment from 'moment'
 
 export const LoanPlanSelect = ({
     onChange = () => { },
@@ -19,6 +9,24 @@ export const LoanPlanSelect = ({
 }) => {
 
     const [display, setDisplay] = useState(0)
+    const [typeList,setTypeList] = useState([])
+
+    useEffect(() =>{
+
+        const years = []
+        const date = new Date()
+        for (let i = 0; i <= 9; i++) {
+            const year = date.getFullYear() - i
+            const yearStr = moment(year,"YYYY").add(543,'years').format("YYYY")
+            years.push({
+                label: yearStr,
+                value: yearStr
+            })
+        }
+
+        setTypeList(years)
+
+    },[])
 
     return (
         <div>

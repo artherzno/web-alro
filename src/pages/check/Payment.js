@@ -253,18 +253,15 @@ class Payment extends React.Component {
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={this.onChange("ContractNo")} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="โครงการ" onChange={this.onChange("ProjName")} />
+                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" onChange={this.onChange("Address")} />
                                         </Grid>
-
                                     </Grid>
                                 </Grid>
 
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
 
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" onChange={this.onChange("Address")} />
-                                        </Grid>
+                                       
                                         <Grid item xs={12} md={3}>
                                             <MuiTextfield label="ตำบล" onChange={this.onChange("SubDistrict")} />
                                         </Grid>
@@ -272,18 +269,19 @@ class Payment extends React.Component {
                                             <MuiTextfield label="อำเภอ" onChange={this.onChange("District")} />
                                         </Grid>
 
-                                    </Grid>
-                                </Grid>
-
-                                <Grid item xs={12} md={12} className="mg-t-0">
-                                    <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
                                             <MuiTextfield label="ประเภทที่ดิน" onChange={this.onChange("LandType")} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
                                             <MuiTextfield label="เลขที่" onChange={this.onChange("Num")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid item xs={12} md={12} className="mg-t-0">
+                                    <Grid container spacing={2}>
+                                        
+                                        <Grid item xs={12} md={8}>
                                         </Grid>
 
 

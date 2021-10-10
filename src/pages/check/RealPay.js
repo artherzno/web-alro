@@ -46,7 +46,8 @@ class RealPay extends React.Component {
             Display: "",
             data: [],
             page: 0,
-            count: 10
+            count: 10,
+            dataSummary: {},
         }
     }
 
@@ -72,6 +73,7 @@ class RealPay extends React.Component {
 
             this.setState({
                 data: response.data.data,
+                dataSummary: response.data.dataSummary,
                 isLoading: false
             })
 
@@ -141,7 +143,7 @@ class RealPay extends React.Component {
     render() {
 
         const { classes } = this.props;
-        const { data, page, count} = this.state
+        const { data, page, count, dataSummary} = this.state
 
         return (
             <div>
@@ -214,7 +216,7 @@ class RealPay extends React.Component {
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">ลำดับ</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัส</StyledTableCell>
+                                                    <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">Prentno</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
@@ -230,8 +232,7 @@ class RealPay extends React.Component {
                                                     <StyledTableCell align="center">Rate_n</StyledTableCell>
                                                     <StyledTableCell align="center">Stu</StyledTableCell>
                                                     <StyledTableCell align="center">Pv_code</StyledTableCell>
-                                                    <StyledTableCell align="center">รหัสงาน</StyledTableCell>
-                                                    <StyledTableCell align="center">Finish_flag</StyledTableCell>
+                                                    <StyledTableCell align="center">ผู้แก้ไข</StyledTableCell>
                                                 </TableRow>
 
                                             </TableHead>
@@ -262,12 +263,24 @@ class RealPay extends React.Component {
                                                             <StyledTableCellLine align="left">{element.stu}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.codeWork}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.finishFlag}</StyledTableCellLine>
 
 
                                                         </TableRow>
                                                     )
                                                 })}
+
+                                                <TableRow>
+                                                    <StyledTableCellLine colSpan={10} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                                        รวมทั้งสิ้น
+                                                    </StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rate)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rateC)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.rateN}`}>{formatNumber(dataSummary.rateC)}</StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" colSpan={5} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                </TableRow>
 
 
                                             </TableBody>
