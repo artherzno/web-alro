@@ -283,7 +283,7 @@ class ListFarmPayLoanTab extends React.Component {
                 <Grid item xs>
 
                 </Grid>
-
+                
                 <Grid item>
                     <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
                 </Grid>
@@ -296,17 +296,17 @@ class ListFarmPayLoanTab extends React.Component {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อ-นามสกุล</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>เลขที่ใบแจ้งหนี้</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ใบเสร็จ</Typography></div></StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>เลขที่ใบเสร็จ</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>เล่มที่/เลขที่</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ช่องทางการชำระเงิน</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>ชำระเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>จำนวนเงินชำระเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>เงินต้น</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={2}> ค้างรับ</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>ค่าปรับ</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ดอกเบี้ย</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชำระเกิน</StyledTableCell>
                                 </TableRow>
                                 <TableRow>
@@ -322,8 +322,8 @@ class ListFarmPayLoanTab extends React.Component {
                                             <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
                                             </StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.invoiceNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.receiptDate}</StyledTableCellLine>

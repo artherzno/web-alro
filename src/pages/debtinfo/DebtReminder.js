@@ -35,6 +35,7 @@ import {
     MuiCheckbox,
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
+import { OverlayLoading } from '../../components';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -183,6 +184,8 @@ function DebtReminder() {
             searchDate = (inputSelectDate.yyyy-543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
         }
         
+        setIsLoading(true);
+
         axios({
             url: `${server_spkapi}/Invoice/GetTotal`, //your url
             method: 'POST',
@@ -210,12 +213,15 @@ function DebtReminder() {
                     setTableTotalResult(data[0])
                     
                 }
+
+            setIsLoading(false);
             }
+            
         ).catch(err => { console.log(err) })
         .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
+           
+
+            setIsLoading(false);
         })
     }
 
@@ -223,79 +229,77 @@ function DebtReminder() {
     const getInvoiceGetAll = () => {
         // let dateSearch = inputDataSearch.start_date === null ? null : (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
         setTableAllResult([])
-    
-        if (startDateSearch === '' ) {
-            setErr(true);
-            setErrMsg('กรุณาใส่วันที่')
-        } else {
-            axios({
-                url: `${server_spkapi}/Invoice/GetAll`, //your url
-                method: 'POST',
-                data: {
-                    start_date: startDateSearch, // 2561-08-11
-                    item: amountProcess,
-                }
-            }).then(res => {
-                    console.log(res)
-                    let data = res.data;
-                    if(data.code === 0) {
-                        setErr(true);
-                        if(Object.keys(data.message).length !== 0) {
-                            console.error(data)
-                            if(typeof data.message === 'object') {
-                                setErrMsg('ไม่สามารถทำรายการได้')
-                            } else {
-                                setErrMsg([data.message])
-                            }
-                        } else {
-                            setErrMsg(['ไม่สามารถทำรายการได้'])
-                        }
-                    } else if(data.length === 0) {
-                        setErr(true);
-                        setErrMsg(['ไม่พบข้อมูลในตารางใบแจ้งหนี้'])
-                        getInvoiceGetTotal()
-                    } else {
-                        console.log('Get InvoiceAll:',data)
-                        setTableAllResult(data)
-                        let dataArr = [];
-                        for(let i=0; i<data.length; i++) {
-                            dataArr.push({
-                                id: data[i].ROWID,
-                                ROWID: data[i].ROWID,
-                                pv_code: data[i].pv_code,
-                                nrec: data[i].nrec,
-                                projcode: data[i].projcode,
-                                projname: data[i].projname,
-                                sex: data[i].sex,
-                                firstname: data[i].firstname,
-                                lastname: data[i].lastname,
-                                start_date: (data[i].start_date === null) ? '' : (moment(data[i].start_date).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(data[i].start_date).format('DD/MM/YYYY').substring(6,10)) + 543),
-                                rentno: data[i].rentno,
-                                loandate: (data[i].loandate === null) ? '' : (moment(data[i].loandate).format('DD/MM/YYYY').substring(0,6))+(parseInt(moment(data[i].loandate).format('DD/MM/YYYY').substring(6,10)) + 543),
-                                principle: data[i].principle,
-                                payrec: data[i].payrec,
-                                credit: data[i].credit,
-                                unpaid: data[i].unpaid,
-                                bcapital1: data[i].bcapital1,
-                                binterest1: data[i].binterest1,
-                                binterest: data[i].binterest,
-                                sinterest: data[i].sinterest,
-                            })
-                        }
-                        setRows(dataArr)
 
-                        getInvoiceGetTotal()
-                        setPrintActive(true)
-                        
+        setIsLoading(true);
+
+        console.log("startDateSearch", startDateSearch)
+        axios({
+            url: `${server_spkapi}/Invoice/GetAll`, //your url
+            method: 'POST',
+            data: {
+                start_date: startDateSearch, // 2561-08-11
+                item: amountProcess,
+            }
+        }).then(res => {
+            console.log(res)
+            let data = res.data;
+            if (data.code === 0) {
+                setErr(true);
+                if (Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if (typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
                     }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
-            ).catch(err => { console.log(err) })
-            .finally(() => {
-                if (isMounted.current) {
-                setIsLoading(false)
+            } else if (data.length === 0) {
+                setErr(true);
+                setErrMsg(['ไม่พบข้อมูลในตารางใบแจ้งหนี้'])
+                getInvoiceGetTotal()
+            } else {
+                console.log('Get InvoiceAll:', data)
+                setTableAllResult(data)
+                let dataArr = [];
+                for (let i = 0; i < data.length; i++) {
+                    dataArr.push({
+                        id: data[i].ROWID,
+                        ROWID: data[i].ROWID,
+                        pv_code: data[i].pv_code,
+                        nrec: data[i].nrec,
+                        projcode: data[i].projcode,
+                        projname: data[i].projname,
+                        sex: data[i].sex,
+                        firstname: data[i].firstname,
+                        lastname: data[i].lastname,
+                        start_date: (data[i].start_date === null) ? '' : (moment(data[i].start_date).format('DD/MM/YYYY').substring(0, 6)) + (parseInt(moment(data[i].start_date).format('DD/MM/YYYY').substring(6, 10)) + 543),
+                        rentno: data[i].rentno,
+                        loandate: (data[i].loandate === null) ? '' : (moment(data[i].loandate).format('DD/MM/YYYY').substring(0, 6)) + (parseInt(moment(data[i].loandate).format('DD/MM/YYYY').substring(6, 10)) + 543),
+                        principle: data[i].principle,
+                        payrec: data[i].payrec,
+                        credit: data[i].credit,
+                        unpaid: data[i].unpaid,
+                        bcapital1: data[i].bcapital1,
+                        binterest1: data[i].binterest1,
+                        binterest: data[i].binterest,
+                        sinterest: data[i].sinterest,
+                    })
                 }
-            })
+                setRows(dataArr)
+
+                getInvoiceGetTotal()
+                setPrintActive(true)
+
+            }
+
+            setIsLoading(false);
         }
+        ).catch(err => { console.log(err) })
+            .finally(() => {
+                setIsLoading(false)
+            })
     }
 
 
@@ -305,7 +309,6 @@ function DebtReminder() {
             ...inputSelectDate,
             [event.target.name]: event.target.value.toString()
         })
-        console.log('type',type, 'value', event.target.value)
     }
 
 
@@ -359,6 +362,7 @@ function DebtReminder() {
 
     return (
         <div className="debtreminder-page">
+            <OverlayLoading isLoading={isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />

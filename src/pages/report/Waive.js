@@ -10,17 +10,17 @@ import WaivePerProjListTab from './WaivePerProjListTab'
 import WaivePerProvinceTab from './WaivePerProvinceTab'
 
 const tabs = [{
-    title: 'รายงานสภาพหนี้',
+    title: 'รายงานการขอผ่อนผัน',
     id: "debtcon _per_contract" 
 },
 {
-    title: 'รายงานสภาพหนี้ (รายประเภทโครงการหลัก)',
+    title: 'รายงานการขอผ่อนผัน (รายประเภทโครงการหลัก)',
     id: "debtcon _per_code"
 },{
-    title: 'รายงานสภาพหนี้ (รายโครงการ)',
+    title: 'รายงานการขอผ่อนผัน (รายโครงการ)',
     id: "debtcon _per_projlist"
 },{
-    title: 'สรุปรายงานสภาพหนี้',
+    title: 'สรุปรายงานการขอผ่อนผัน',
     id: "debtcon _per_province"
 }]
 

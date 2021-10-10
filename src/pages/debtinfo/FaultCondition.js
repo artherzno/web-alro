@@ -37,6 +37,7 @@ import api from '../../services/webservice'
 import { formatNumber } from '../../utils/Utilities';
 import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
+import { OverlayLoading } from '../../components';
 
 function FaultCondition() {
     const history = useHistory();
@@ -49,6 +50,7 @@ function FaultCondition() {
     const [page, setPage] = useState(0)
     const [count, setCount] = useState(10)
     const [selectedData, setSelectedData] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setLoaded(true);
@@ -68,13 +70,13 @@ function FaultCondition() {
         }
 
         try {
-
+            setIsLoading(true)
             const res = await Promise.all([api.getDebtDataByLoan(parameter), api.getDebtDataByID(parameter1)])
             const resultList = res[0].data.concat(res[1].data)
             setResultList(resultList)
-
+            setIsLoading(false)
         } catch (error) {
-
+            setIsLoading(false)
             console.log("error", error)
         }
 
@@ -86,6 +88,7 @@ function FaultCondition() {
 
     return (
         <div className="faultcondition-page">
+            <OverlayLoading isLoading={isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -196,6 +199,8 @@ function FaultCondition() {
                         innerRef={formikRef}
                         initialValues={{
                             ...selectedData,
+                            Total:0,
+
                         }}
                         validate={values => {
                             const requires = []
@@ -216,7 +221,6 @@ function FaultCondition() {
 
                             const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
 
-                            console.log("values.FrontName", values.FrontName)
                             return (
                                 <Form>
                                     <Container maxWidth={false}>
@@ -250,12 +254,35 @@ function FaultCondition() {
                                                             <Grid item xs={12} md={3}>
                                                                 <p>ยอด ณ วันที่</p>
                                                                 {/* <Box className="box box-black-summary"> */}
-                                                                <MuiDatePicker label="" />
+                                                                <MuiDatePicker 
+                                                                    name="mDate"
+                                                                    value={values.mDate}
+                                                                    error={errors.mDate}
+                                                                    helperText={errors.mDate}
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("mDate", moment(event).format("YYYY-MM-DD"))
+
+                                                                        if (selectedData.ReceiptDate && selectedData.ReceiptDate!=""){
+
+                                                               
+                                                                            const diffDate = moment(event).diff(moment(selectedData.ReceiptDate, "YYYY-MM-DD"),'days')
+                                                                            const interest = selectedData.PrincipleBalance2 * ((selectedData.Interest / 100) / 365) * diffDate
+                                                                            setFieldValue("Interest",interest)
+                                                                            setFieldValue("Total", selectedData.PrincipleBalance2+interest)
+
+                                                                        }
+                                                                      
+                                                                    }}
+                                                                    onChangeDate={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="วันที่บันทึก"
+                                                                    label="วันที่บันทึก"
+                                                                label="" />
                                                                 {/* </Box> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
                                                                 <p>รวมเป็นจำนวนเงินทั้งสิ้น</p>
-                                                                <Box className="box box-red-summary">123,899.00</Box>
+                                                                <Box className="box box-red-summary">{formatNumber(values.Total)}</Box>
                                                             </Grid>
                                                         </Grid>
                                                     </form>

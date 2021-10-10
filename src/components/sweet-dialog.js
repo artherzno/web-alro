@@ -263,7 +263,7 @@ const dialog = {
         })
     },
 
-    showLoading(title = "Uploading", description = "") {
+    showLoading(title = "กำลังบันทึก", description = "") {
 
         return swal.fire({
             allowOutsideClick: false,

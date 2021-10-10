@@ -27,6 +27,7 @@ import {
 } from '../../components/MUIinputs';
 import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
+import { OverlayLoading } from '../../components';
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
@@ -98,6 +99,9 @@ function NoticeInvoice() {
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const rowCount = rows.length;
     const numSelected = selected.length;
+    const [page, setPage] = useState(0)
+    const [count, setCount] = useState(10)
+    const [isLoading, setIsLoading] = useState(false);
     const [resultList, setResultList] = useState([])
     const [mDate, setMdate] = useState(null)
     const [startDate, setStartDate] = useState(null)
@@ -127,11 +131,13 @@ function NoticeInvoice() {
 
     function getInvoiceAlert() {
 
+        setIsLoading(true)
         api.getInvoiceAlert(paramFechtData).then(response => {
 
             setResultList(response.data)
+            setIsLoading(false)
         }).catch(error => {
-
+            setIsLoading(false)
         })
     }
 
@@ -145,6 +151,9 @@ function NoticeInvoice() {
 
     return (
         <div className="noticeinvoice-page">
+
+            <OverlayLoading isLoading={isLoading} />
+
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -195,7 +204,7 @@ function NoticeInvoice() {
                                 <Grid container spacing={2}>
 
                                     <Grid item xs={12} md={2}>
-                                        <MuiSelect label="แสดงสถานะการชำระเงิน" listsValue={['', true, false]} lists={['ทั้งหมด', 'ชำระแล้ว', 'ยังไม่ชำระ']} onChange={e => setDataParams('paidstatus', e.target.value)} />
+                                        <MuiSelect label="แสดงสถานะการชำระเงิน" listsValue={['', 'True', 'False']} lists={['ทั้งหมด', 'ชำระแล้ว', 'ยังไม่ชำระ']} onChange={e => setDataParams('paidstatus', e.target.value)} />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <MuiSelect label="การเตือน" listsValue={[0, 1, 2]} lists={['ทั้งหมด', 'ครั้งที่ 1', 'ครั้งที่ 2']} onChange={e => setDataParams('item', e.target.value)} />
@@ -212,9 +221,9 @@ function NoticeInvoice() {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={12}>
-                                <div className="table-box max-h-300 mg-t-10">
+                                <div className="table-box  mg-t-10">
                                     <TableContainer >
-                                        <Table aria-label="simple table">
+                                        <Table >
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell align="left">รหัสบันทึก</TableCell>
@@ -247,7 +256,7 @@ function NoticeInvoice() {
                                                     <TableCell colSpan={22} align="left">ไม่พบข้อมูล</TableCell>
                                                 </TableRow>}
                                                
-                                                {resultList.map((element, index) => {
+                                                {resultList.slice(page * count, page * count + count).map((element, index) => {
 
                                                     return (
                                                         <TableRow key={index}>
@@ -277,9 +286,26 @@ function NoticeInvoice() {
                                                     )
                                                 })}
 
+                                               
+
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={resultList.length}
+                                        rowsPerPage={count}
+                                        page={page}
+                                        onPageChange={(e, newPage) => {
+                                            setPage(newPage)
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            setPage(0)
+                                            setCount(+event.target.value)
+                                        }}
+                                    />
                                 </div>
 
                             </Grid>

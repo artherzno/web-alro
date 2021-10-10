@@ -3,15 +3,17 @@ import cookie from "js-cookie";
 import { dialog } from "../components";
 import axios from 'axios'
 
+const REACT_APP_API_HOST_1 = process.env.REACT_APP_API_HOST_1
+const REACT_APP_API_HOST_2 = process.env.REACT_APP_API_HOST_2
 
 
 const api = {
 
-    
-    getProvinceList(){
+
+    getProvinceList() {
 
         return post({
-            path:"api/api/ReportServices/GetProvinces"
+            path: "api/api/ReportServices/GetProvinces"
         })
 
     },
@@ -45,12 +47,12 @@ const api = {
         })
 
     },
-    exportPayloanExcel(params){
+    exportPayloanExcel(params) {
 
         return post({
             path: "api/api/ReportServices/ExportFarmerPayLoan",
             params,
-            config:{
+            config: {
                 responseType: 'arraybuffer',
             }
         })
@@ -398,6 +400,14 @@ const api = {
         })
 
     },
+    getInvoiceById(params) {
+
+        return post({
+            path: "api/api/CheckServices/GetInvoiceById",
+            params
+        })
+
+    },
     exportContractPayment(params) {
 
         return post({
@@ -617,7 +627,8 @@ const api = {
 
         return post({
             path: "Receipt/GetSelectData",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -625,7 +636,8 @@ const api = {
 
         return post({
             path: "Receipt/GetProcessBeforePay",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -633,7 +645,8 @@ const api = {
 
         return post({
             path: "Receipt/Insert",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -641,7 +654,8 @@ const api = {
 
         return post({
             path: "Invoice/GetAll",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -649,7 +663,8 @@ const api = {
 
         return post({
             path: "Invoice/Alert",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -657,7 +672,8 @@ const api = {
 
         return post({
             path: "Invoice/Print",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -665,7 +681,8 @@ const api = {
 
         return post({
             path: "GetDebt/GetDataByLoan",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -674,7 +691,8 @@ const api = {
 
         return post({
             path: "Relent/GetDataByRelentNumber",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -682,7 +700,8 @@ const api = {
 
         return post({
             path: "Relent/SelectDataByLoan",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -690,7 +709,8 @@ const api = {
 
         return post({
             path: "Relent/Save",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -698,7 +718,8 @@ const api = {
 
         return post({
             path: "GetDebt/GetDataByLoan",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -706,7 +727,8 @@ const api = {
 
         return post({
             path: "GetDebt/GetDataByID",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
@@ -714,19 +736,81 @@ const api = {
 
         return post({
             path: "Chagestructure/GetDataByLoan",
-            params
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
         })
 
     },
+    getAdvanceInvoiceAll(params) {
 
-   
+        return post({
+            path: "AdvanceInvoice/GetAll",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
+    getAdvanceInvoiceGetTotal(params) {
+
+        return post({
+            path: "AdvanceInvoice/GetTotal",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
+    changeDeptStructuresSave(params) {
+
+        return post({
+            path: "ChangeDeptStructures/Save",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
+    extendTimeGetDataLoan(params) {
+
+        return post({
+            path: "ExtendTime/GetDataLoan",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
+    getSpkMainProject(params) {
+
+        const token = localStorage.getItem('token')
+        return post({
+            path: "nodeapi/admin/api/get_spkmainproject",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_2 },
+            token: token,
+            isExternal:true
+        })
+    },
+    selectDataExtendNumber(params) {
+
+        return post({
+            path: "ExtendTime/SelectDataExtendNumber",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
+    extendTimeInsert(params) {
+
+        return post({
+            path: "ExtendTime/Insert",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
+
 };
 
 function getToken() {
-    
-    const token = cookie.get("token");
 
-    return token;
+    const token = localStorage.getItem('token')
+
+    // return token;
+    return ""
 }
 
 function post({
@@ -808,7 +892,7 @@ function deletes({
     });
 }
 
-function get({ path, params,data, isShowError = true, config = {}, context, token, isExternal }) {
+function get({ path, params, data, isShowError = true, config = {}, context, token, isExternal }) {
     return new Promise((resolve, reject) => {
         return http
             .get(path, params, isExternal ? token : getToken(context), config, data)
@@ -827,11 +911,11 @@ function get({ path, params,data, isShowError = true, config = {}, context, toke
 
 function handleError(error, reject) {
 
-    
+
     showErrorDialog(error)
     reject(error);
 
-   
+
 }
 
 export function showErrorDialog(error) {
@@ -842,7 +926,7 @@ export function showErrorDialog(error) {
             : error.message;
 
     dialog.showDialogWarning({ message });
-    
+
 }
 
 

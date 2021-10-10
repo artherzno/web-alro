@@ -34,6 +34,7 @@ import moment from 'moment';
 import { getAccount } from '../../utils/Auth'
 import api from '../../services/webservice'
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
+import { dialog } from '../../components';
 
 function RecordBillAlro() {
     const history = useHistory();
@@ -64,11 +65,16 @@ function RecordBillAlro() {
             admin_nMEMID:null
         }
 
+        dialog.showLoading()
         api.saveReceipt(parameter).then(response => {
 
-            console.log("response", response.data)
-        }).catch(error => {
+            dialog.close()
+            setTimeout(() => {
+                dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
+            }, 500);
 
+        }).catch(error => {
+            dialog.close()
         })
 
 
@@ -562,15 +568,17 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
                                                             {/* Field Select ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiSelect
                                                                 name="FrontName"
+                                                                id="FrontName"
                                                                 value={values.FrontName}
                                                                 error={errors.FrontName}
                                                                 helperText={errors.FrontName}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="คำนำหน้า"
-                                                                label="คำนำหน้า" />
+                                                                listsValue={['นาย', 'นาง', 'นางสาว']}
+                                                                label="คำนำหน้า" lists={['นาย', 'นาง', 'นางสาว']} />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             {/* Field Text ---------------------------------------------------*/}

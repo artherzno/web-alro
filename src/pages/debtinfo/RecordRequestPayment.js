@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Fade from '@material-ui/core/Fade';
@@ -15,13 +15,13 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-
+import IconButton from '@material-ui/core/IconButton'
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
-import { 
+import {
     MuiSelect,
     MuiCheckbox,
     ButtonNormalIconStartPrimary,
@@ -32,47 +32,147 @@ import {
     MuiTextfieldMultiLine,
 } from '../../components/MUIinputs';
 
+import api from '../../services/webservice'
+import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
+import { useFormikContext, Formik, Form, Field, } from 'formik';
+import moment from 'moment';
+import { getAccount } from '../../utils/Auth'
+import { dialog, OverlayLoading } from '../../components';
+
 function RecordRequestPayment() {
     const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
+    const formikRef = useRef();
+    const [resultList, setResultList] = useState([])
+    const [page, setPage] = useState(0)
+    const [count, setCount] = useState(10)
+    const [selectedData, setSelectedData] = useState({})
+    const [loanNumber, setLoanNumber] = useState("")
+    const [selectedExtendData, setSelectedExtendData] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setLoaded(true);
     }, [])
 
-    const tableResult = [
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-        { a: 'RIET16310/00002', b: '13/07/2020', c: '163/00071', d: 'ใบคำขอผ่อนผัน 123', e: 'RIET0055100137/2562', f: '56', g: '00551', h: 'เพื่อส่งเสริมการปลูกข้าวหอมมะลิ', i: '00137/2562', j: '10/05/2019', k: '2287654478986', l: 'นาง', m: 'บัวลี', n: 'บางวิเศษ', o: ''},
-    ]
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
-    };
+
+    function extendTimeGetDataLoan() {
+
+        const parameter = {
+            LoanNumber: loanNumber
+        }
+        setIsLoading(true)
+        api.extendTimeGetDataLoan(parameter).then(response => {
+
+            setResultList(response.data)
+            setIsLoading(false)
+        }).catch(error => {
+            setIsLoading(false)
+        })
+
+    }
+
+    function getProcessBeforePay(date) {
+
+        const account = getAccount()
+
+        const parameter = {
+            LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
+            Fullname: '',//values.Fullname,
+            Username: account.username,
+            Rentno: selectedData.LoanNumber,
+            Date: date
+        }
+        setIsLoading(true)
+        api.getProcessBeforePay(parameter).then(response => {
+
+
+            const beforeProcess = response.data
+            if (beforeProcess.length > 0) {
+
+                const recData = beforeProcess[beforeProcess.length - 1]
+                const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
+
+                formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
+                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2 : 0)
+                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
+                formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
+                formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
+                formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
+
+            }
+
+            setIsLoading(false)
+
+        }).catch(error => {
+            setIsLoading(false)
+        })
+
+
+    }
+
+    function selectDataExtendNumber(extendNumber){
+
+        const parameter = {
+            ExtendNumber:'163/00003'//extendNumber
+        }
+        setIsLoading(true)
+        api.selectDataExtendNumber(parameter).then(response =>{
+
+            setSelectedExtendData(response.data)
+            setIsLoading(false)
+        }).catch(error =>{
+            setIsLoading(false)
+        })
+
+    }
+
+    function onChangeRealPay(key,value,index){
+
+        const realPay = selectedExtendData.RealPay
+        if (realPay && realPay.length -1<= index) {
+            realPay[index][key] = value
+        }
+        setSelectedData({
+            ...selectedExtendData,
+            RealPay: realPay
+        })
+    }
+
+    function saveRecord(){
+        
+        const realPay = selectedExtendData.RealPay
+        if(realPay){
+
+            dialog.showLoading()
+
+            const parameter  = {
+                ExtendTime: realPay,
+                LoanDus:realPay
+            }
+           
+            api.extendTimeInsert(parameter).then(response => {
+
+                dialog.close()
+                setTimeout(() => {
+                    dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
+                }, 500);
+
+            }).catch(error => {
+                dialog.close()
+            })
+        }
+    }
+ 
 
     return (
         <div className="recordrequestpayment-page">
+
+            <OverlayLoading isLoading={isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -82,400 +182,724 @@ function RecordRequestPayment() {
                 <div className="fade">
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page">
                                 <h1>บันทึกคำขอขยาย</h1>
                             </Grid>
-                            
+
                             <Grid item xs={12} md={3}>
-                                <Box  display="flex" justifyContent="flex-start">
-                                    <MuiTextfield label="ค้นหาเลขที่สัญญา" />
-                                </Box>  
+                                <Box display="flex" justifyContent="flex-start">
+                                    <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={(e) => { setLoanNumber(e.target.value) }} />
+                                </Box>
                             </Grid>
                             <Grid item xs={12} md={2}>
                                 <p>&nbsp;</p>
-                                <ButtonFluidPrimary label="ค้นหา" />  
+                                <ButtonFluidPrimary label="ค้นหา" onClick={() => {
+                                    extendTimeGetDataLoan()
+                                }} />
                             </Grid>
-                            <Grid item xs={12} md={7}>
+                            {/* <Grid item xs={12} md={7}>
                                 <Box  display="flex" justifyContent="flex-end">
                                     <ButtonNormalIconStartPrimary label="เพิ่มคำขอ" startIcon={<AddIcon />} />
                                 </Box>  
-                            </Grid>
-                            <Grid item xs={12} md={12}> 
+                            </Grid> */}
+                            <Grid item xs={12} md={12}>
                                 <div className="table">
                                     <TableContainer className="table-box table-recordinstallmentpayment1 max-h-250 mg-t-10">
                                         <Table aria-label="normal table">
                                             <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">รหัสบันทึก</TableCell>
-                                                <TableCell align="left">วันที่บันทึก</TableCell>
-                                                <TableCell align="left">เลขคำขอ</TableCell>
-                                                <TableCell align="left">อ้างถึง</TableCell>
-                                                <TableCell align="left">รหัสสารบัญ</TableCell>
-                                                <TableCell align="left">ลำดับ</TableCell>
-                                                <TableCell align="left">รหัสโครงการ</TableCell>
-                                                <TableCell align="left">ชื่อโครงการ</TableCell>
-                                                <TableCell align="left">เลขที่สัญญา</TableCell>
-                                                <TableCell align="left">วันที่กู้</TableCell>
-                                                <TableCell align="left">เลขบัตรประชาชน</TableCell>
-                                                <TableCell align="left">คำนำหน้า</TableCell>
-                                                <TableCell align="left">ชื่อ</TableCell>
-                                                <TableCell align="left">นามสกุล</TableCell>
-                                                <TableCell align="left">ที่อยู่</TableCell>
-                                            </TableRow>
+                                                <TableRow>
+                                                    <TableCell align="left">รหัสบันทึก</TableCell>
+                                                    <TableCell align="left">วันที่บันทึก</TableCell>
+                                                    <TableCell align="left">เลขคำขอ</TableCell>
+                                                    <TableCell align="left">อ้างถึง</TableCell>
+                                                    <TableCell align="left">รหัสสารบัญ</TableCell>
+                                                    <TableCell align="left">ลำดับ</TableCell>
+                                                    <TableCell align="left">รหัสโครงการ</TableCell>
+                                                    <TableCell align="left">ชื่อโครงการ</TableCell>
+                                                    <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                    <TableCell align="left">วันที่กู้</TableCell>
+                                                    <TableCell align="left">เลขบัตรประชาชน</TableCell>
+                                                    <TableCell align="left">คำนำหน้า</TableCell>
+                                                    <TableCell align="left">ชื่อ</TableCell>
+                                                    <TableCell align="left">นามสกุล</TableCell>
+                                                    <TableCell align="left">ที่อยู่</TableCell>
+                                                </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
-                                                <TableRow>
+                                                {resultList.length <= 0 && <TableRow>
                                                     <TableCell colSpan={15} align="left">ไม่พบข้อมูล</TableCell>
-                                                </TableRow>
-                                            
-                                            {/* {
-                                                tableResult.map((row,i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell align="left">{row.a}</TableCell>
-                                                        <TableCell align="left">{row.b}</TableCell>
-                                                        <TableCell align="left">{row.c}</TableCell>
-                                                        <TableCell align="left">{row.d}</TableCell>
-                                                        <TableCell align="left">{row.e}</TableCell>
-                                                        <TableCell align="left">{row.f}</TableCell>
-                                                        <TableCell align="left">{row.g}</TableCell>
-                                                        <TableCell align="left">{row.h}</TableCell>
-                                                        <TableCell align="left">{row.i}</TableCell>
-                                                        <TableCell align="left">{row.j}</TableCell>
-                                                        <TableCell align="left">{row.k}</TableCell>
-                                                        <TableCell align="left">{row.l}</TableCell>
-                                                        <TableCell align="left">{row.m}</TableCell>
-                                                        <TableCell align="left">{row.n}</TableCell>
-                                                        <TableCell align="left">{row.o}</TableCell>
-                                                    </TableRow>
-                                                ))
-                                            } */}
+                                                </TableRow>}
+                                                {resultList.slice(page * count, page * count + count).map((element, index) => {
+
+                                                    return (
+                                                        <TableRow key={index} hover={true} onClick={() => {
+                                                            setSelectedData(element)
+                                                            selectDataExtendNumber(element.LoanNumber)
+                                                        }}>
+                                                            <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.ExtendNumber}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Ref1}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Mindex}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Order}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Projectcode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.ProjectName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.LoanNumber}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.LoanDate)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.IDCard}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.FrontName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Name}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.SirName}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{"ไม่รู้จัก Field"}</StyledTableCellLine>
+                                                        </TableRow>
+                                                    )
+                                                })}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
+
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={resultList.length}
+                                        rowsPerPage={count}
+                                        page={page}
+                                        onPageChange={(e, newPage) => {
+                                            setPage(newPage)
+                                        }}
+                                        onRowsPerPageChange={(event) => {
+
+                                            setPage(0)
+                                            setCount(+event.target.value)
+                                        }}
+                                    />
                                 </div>
                             </Grid>
                         </Grid>
                     </Container>
 
-                    <Container maxWidth="lg">
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={12}>
 
-                                {/* Paper 1 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            {/* <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="PNGA0001600005/00001" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-15" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="2563" />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="RET" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="ร้อยเอ็ด" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่คำขอ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อ้างถึง"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="อ้างถึง" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่คำสั่ง"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={6}>
-                                                        <MuiDatePicker label="วันที่คำสั่ง"  defaultValue="2017-05-15" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid> */}
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="สัญญาเลขที่" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="&nbsp;" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่สัญญา"  defaultValue="2017-05-15" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ใช้เงินตามแผนปี"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่รับเงินกู้" defaultValue="2017-05-15" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="จำนวนเงินให้กู้" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อัตราดอกเบี้ย" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="อัตราค่าปรับ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={6}>
+                    <Formik
+                        enableReinitialize={true}
+                        innerRef={formikRef}
+                        initialValues={{
+                            ...selectedData,
+                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
+                        }}
+                        validate={values => {
+                            const requires = []
+                            let errors = {};
+                            requires.forEach(field => {
+                                if (!values[field]) {
+                                    errors[field] = 'Required';
+                                }
+                            });
+
+
+                            return errors;
+                        }}
+                        onSubmit={(values, actions) => {
+
+                        }}
+                        render={(formik) => {
+
+                            const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
+
+                            return (
+                                <Form>
+                                    <div>
+                                        <Container maxWidth="lg">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={12}>
+
+                                                    {/* Paper 1 - -------------------------------------------------- */}
+                                                    <Paper className="paper line-top-green paper mg-t-20">
                                                         <Grid container spacing={2}>
+
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiSelect label="รหัสโครงการ"  lists={['00001','00002','00003']} />
+                                                                <MuiTextfield
+                                                                    name="RecNum"
+                                                                    value={values.RecNum}
+                                                                    error={errors.RecNum}
+                                                                    helperText={errors.RecNum}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขที่บันทึก"
+                                                                    label="เลขที่บันทึก"
+                                                                    disabled />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield label="รหัสโครงการรอง" defaultValue="" />
+                                                                <MuiDatePicker
+                                                                    name="ExtendDate"
+                                                                    value={values.ExtendDate}
+                                                                    error={errors.ExtendDate}
+                                                                    helperText={errors.ExtendDate}
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("ExtendDate", moment(event).format("YYYY-MM-DD"))
+                                                                    }}
+                                                                    onChangeDate={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="วันที่บันทึก"
+                                                                    label="วันที่บันทึก"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={1}>
+                                                                <MuiTextfield
+                                                                    name="YEAR"
+                                                                    value={values.YEAR}
+                                                                    error={errors.YEAR}
+                                                                    helperText={errors.YEAR}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="ปี"
+                                                                    label="&nbsp;" />
+                                                            </Grid>
+
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="PVSCODE"
+                                                                    value={values.PVSCODE}
+                                                                    error={errors.PVSCODE}
+                                                                    helperText={errors.PVSCODE}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}>
+                                                                <MuiTextfield
+                                                                    name="PV_NAME"
+                                                                    value={values.PV_NAME}
+                                                                    error={errors.PV_NAME}
+                                                                    helperText={errors.PV_NAME}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="จังหวัด"
+                                                                    label="จังหวัด" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="ExtendNumber"
+                                                                    value={values.ExtendNumber}
+                                                                    error={errors.ExtendNumber}
+                                                                    helperText={errors.ExtendNumber}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขที่คำขอ"
+                                                                    label="เลขที่คำขอ" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="Ref1"
+                                                                    value={values.Ref1}
+                                                                    error={errors.Ref1}
+                                                                    helperText={errors.Ref1}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อ้างถึง"
+                                                                    label="อ้างถึง"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="Ref2"
+                                                                    value={values.Ref2}
+                                                                    error={errors.Ref2}
+                                                                    helperText={errors.Ref2}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อ้างถึง"
+                                                                    label="อ้างถึง"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={1}>
+                                                                <MuiTextfield
+                                                                    name="Order"
+                                                                    value={values.Order}
+                                                                    error={errors.Order}
+                                                                    helperText={errors.Order}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    label="&nbsp;"
+                                                                    defaultValue="" />
+                                                            </Grid>
+
+                                                            <Grid item xs={12} md={2}>
+                                                                <MuiTextfield
+                                                                    name="Command"
+                                                                    value={values.Command}
+                                                                    error={errors.Command}
+                                                                    helperText={errors.Command}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขที่คำสั่ง"
+                                                                    label="เลขที่คำสั่ง"
+                                                                    defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiDatePicker
+                                                                    // name="ExtendDate"
+                                                                    // value={values.ExtendDate}
+                                                                    // error={errors.ExtendDate}
+                                                                    // helperText={errors.ExtendDate}
+                                                                    // onChange={(event) => {
+                                                                    //     setFieldValue("ExtendDate", moment(event).format("YYYY-MM-DD"))
+                                                                    // }}
+                                                                    // onChangeDate={handleChange}
+                                                                    // onBlur={handleBlur}
+                                                                    placeholder="วันที่คำสั่ง"
+                                                                    label="วันที่คำสั่ง"
+                                                                    defaultValue="" />
+                                                            </Grid>
+
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="LoanNumber"
+                                                                    value={values.LoanNumber}
+                                                                    error={errors.LoanNumber}
+                                                                    helperText={errors.LoanNumber}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="สัญญาเลขที่"
+                                                                    label="สัญญาเลขที่" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    // name="LoanNumber"
+                                                                    // value={values.LoanNumber}
+                                                                    // error={errors.LoanNumber}
+                                                                    // helperText={errors.LoanNumber}
+                                                                    // onChange={handleChange}
+                                                                    // onBlur={handleBlur}
+                                                                    // placeholder="สัญญาเลขที่"
+                                                                    label="&nbsp;" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="ProjectPlanYear"
+                                                                    value={values.ProjectPlanYear}
+                                                                    error={errors.ProjectPlanYear}
+                                                                    helperText={errors.ProjectPlanYear}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="ใช้เงินตามแผนปี"
+                                                                    label="ใช้เงินตามแผนปี" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="principle"
+                                                                    value={values.principle}
+                                                                    error={errors.principle}
+                                                                    helperText={errors.principle}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="จำนวนเงินให้กู้"
+                                                                    label="จำนวนเงินให้กู้" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield
+                                                                    name="Interest"
+                                                                    value={values.Interest}
+                                                                    error={errors.Interest}
+                                                                    helperText={errors.Interest}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="อัตราดอกเบี้ย"
+                                                                    label="อัตราดอกเบี้ย" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                <Grid container spacing={2}>
+                                                                    <Grid item xs={12} md={6}>
+                                                                        <Grid container spacing={2}>
+                                                                            <Grid item xs={12} md={3}>
+                                                                                <MuiTextfield
+                                                                                    name="Projectcode"
+                                                                                    value={values.Projectcode}
+                                                                                    error={errors.Projectcode}
+                                                                                    helperText={errors.Projectcode}
+                                                                                    onChange={handleChange}
+                                                                                    onBlur={handleBlur}
+                                                                                    placeholder="รหัสโครงการ"
+                                                                                    label="รหัสโครงการ" defaultValue="" />
+                                                                            </Grid>
+                                                                            <Grid item xs={12} md={6}>
+                                                                                <MuiTextfield
+                                                                                    name="ProjectName"
+                                                                                    value={values.ProjectName}
+                                                                                    error={errors.ProjectName}
+                                                                                    helperText={errors.ProjectName}
+                                                                                    onChange={handleChange}
+                                                                                    onBlur={handleBlur}
+                                                                                    placeholder="ชื่อโครงการชื่อโครงการ"
+                                                                                    label="ชื่อโครงการชื่อโครงการ" defaultValue="" />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="ชื่อโครงการชื่อโครงการรอง"  defaultValue="" />
+                                                                <MuiTextfield
+                                                                    name="IDCard"
+                                                                    value={values.IDCard}
+                                                                    error={errors.IDCard}
+                                                                    helperText={errors.IDCard}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="เลขบัตรประชาชน"
+                                                                    label="เลขบัตรประชาชน" id="" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={1}>
+                                                                <MuiSelect
+                                                                    name="FrontName"
+                                                                    id="FrontName"
+                                                                    value={values.FrontName}
+                                                                    error={errors.FrontName}
+                                                                    helperText={errors.FrontName}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="คำนำหน้า"
+                                                                    listsValue={['นาย', 'นาง', 'นางสาว']}
+                                                                    label="คำนำหน้า" lists={['นาย', 'นาง', 'นางสาว']} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}>
+                                                                <MuiTextfield name="Name"
+                                                                    value={values.Name}
+                                                                    error={errors.Name}
+                                                                    helperText={errors.Name}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="ชื่อ" label="ชื่อ" defaultValue="" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={3}>
+                                                                <MuiTextfield name="SirName"
+                                                                    value={values.SirName}
+                                                                    error={errors.SirName}
+                                                                    helperText={errors.SirName}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder="นามสกุล" label="นามสกุล" defaultValue="" />
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+
+                                                    </Paper>
+
+
+                                                    {/* Paper 2 - -------------------------------------------------- */}
+                                                    <Paper className="paper line-top-green paper mg-t-35">
+                                                        <Grid container spacing={2} className="paper-container">
+                                                            <Grid item xs={12} md={12} >
+                                                                <Grid container spacing={2} >
+                                                                    <Grid item xs={12} md={6}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={6}>
+                                                                                    <MuiDatePicker
+                                                                                        label="วันที่ประมวล"
+                                                                                        name="ExtendDate"
+                                                                                        value={values.ExtendDate}
+                                                                                        error={errors.ExtendDate}
+                                                                                        helperText={errors.ExtendDate}
+                                                                                        onChange={(event) => {
+                                                                                            setFieldValue("ExtendDate", moment(event).format("YYYY-MM-DD"))
+                                                                                            getProcessBeforePay(moment(event).format("YYYY-MM-DD"))
+                                                                                        }}
+                                                                                        onChangeDate={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                    />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={12}>
+                                                                                    <MuiTextfieldMultiLine
+                                                                                        name="Commend"
+                                                                                        value={values.Commend}
+                                                                                        error={errors.Commend}
+                                                                                        helperText={errors.Commend}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="หมายเหตุ"
+                                                                                        label="หมายเหตุ"
+                                                                                        row="3"
+                                                                                        defaultValue="" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+
+                                                                    <Grid item xs={12} md={6}>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment
+                                                                                        name="RecPrincipleBalance"
+                                                                                        value={values.RecPrincipleBalance}
+                                                                                        error={errors.RecPrincipleBalance}
+                                                                                        helperText={errors.RecPrincipleBalance}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        label=""
+                                                                                        defaultValue=""
+                                                                                        endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment 
+                                                                                        name="RecPrinciple"
+                                                                                        value={values.RecPrinciple}
+                                                                                        error={errors.RecPrinciple}
+                                                                                        helperText={errors.RecPrinciple}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment 
+                                                                                        name="RecInterestKang2"
+                                                                                        value={values.RecInterestKang2}
+                                                                                        error={errors.RecInterestKang2}
+                                                                                        helperText={errors.RecInterestKang2}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">เปลี่ยนอัตราดอกเบี้ย</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment 
+                                                                                        name="InterestChange"
+                                                                                        value={values.InterestChange}
+                                                                                        error={errors.InterestChange}
+                                                                                        helperText={errors.InterestChange}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">งวดชำระคงเหลือ</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment 
+                                                                                        name="PaymentPeriodRemain"
+                                                                                        value={values.PaymentPeriodRemain}
+                                                                                        error={errors.PaymentPeriodRemain}
+                                                                                        helperText={errors.PaymentPeriodRemain}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินขอขยายในงวดบัญชีนี้</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldEndAdornment 
+                                                                                        name="ExtendCost"
+                                                                                        value={values.ExtendCost}
+                                                                                        error={errors.ExtendCost}
+                                                                                        helperText={errors.ExtendCost}
+                                                                                        onChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+
+                                                    </Paper>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={6}>
-                                                <MuiTextfield label="เลขบัตรประชาชน" id="" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiSelect label="คำนำหน้า"  lists={['นาย','นาง','นางสาว']} />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="ชื่อ" defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="นามสกุล" defaultValue="" />
-                                            </Grid>
-                                        </Grid>
-                                    </form>
-                                </Paper>
+                                        </Container>
 
-                                
-                                {/* Paper 2 - -------------------------------------------------- */}
-                                <Paper className="paper line-top-green paper mg-t-35">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2} className="paper-container">
-                                            <Grid item xs={12} md={12} >
-                                                <Grid container spacing={2} >
-                                                    <Grid item xs={12} md={6}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่ประมวล" defaultValue="2017-05-15" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={12}>
-                                                                    <MuiTextfieldMultiLine label="หมายเหตุ" row="3" defaultValue="" />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
 
-                                                    <Grid item xs={12} md={6}>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">เปลี่ยนอัตราดอกเบี้ย</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">งวดชำระคงเหลือ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={12}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนเงินขอขยายในงวดบัญชีนี้</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                <MuiTextfieldEndAdornment label="" defaultValue="" endAdornment="บาท"/>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
+                                        <Container maxWidth="md">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={12}>
+                                                    <div className="table">
+                                                        <h1 className="txt-center">งวดชำระเงินตามจริง</h1>
+                                                        <TableContainer className="table-box table-loanrequestprint2 table-summary">
+                                                            <Table aria-label="normal table">
+                                                                <TableHead>
+                                                                    <TableRow>
+                                                                        <TableCell align="left">ลำดับ</TableCell>
+                                                                        <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                                        <TableCell align="left">วันที่ชำระ</TableCell>
+                                                                        <TableCell align="left">จำนวนเงิน</TableCell>
+                                                                    </TableRow>
+                                                                </TableHead>
+                                                                <TableBody>
+                                                                    {
+                                                                        selectedExtendData.RealPay && selectedExtendData.RealPay.map((row, i) => (
+                                                                            <TableRow key={i}>
+                                                                                <TableCell align="left">{row.ITEM}</TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiTextfield label="" value={row.RENTNO} onChange={(e) =>{
+                                                                                        onChangeRealPay("RENTNO",e.target.value,i)
+                                                                                    }} />
+                                                                                </TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} onChange={(event) => {
+                        
+                                                                                        onChangeRealPay("DUEDATE", moment(event).format("YYYY-MM-DD"), i)
 
-                                                    </Grid>
+                                                                                    }}/>
+                                                                                </TableCell>
+                                                                                <TableCell align="left">
+                                                                                    {
+                                                                                        i === 0 ?
+                                                                                            <MuiTextfield label="" value={row.PAYREC} onChange={(e) => {
+                                                                                                onChangeRealPay("PAYREC", e.target.value, i)
+                                                                                            }}/>
+                                                                                            :
+                                                                                            <MuiTextfieldEndAdornment label="" value={row.PAYREC} onChange={(e) => {
+                                                                                                onChangeRealPay("PAYREC", e.target.value, i)
+                                                                                            }} endAdornment={<IconButton onClick={() => {
+
+                                                                                                const realPay = selectedExtendData.RealPay
+                                                                                                if (realPay) {
+                                                                                                    realPay.splice(i, 1)
+                                                                                                }
+
+                                                                                                setSelectedData({
+                                                                                                    ...selectedExtendData,
+                                                                                                    RealPay: realPay
+                                                                                                })
+
+                                                                                            }} > <CloseIcon className="table-item-del" /></IconButton>} />
+                                                                                    }
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        ))
+                                                                    }
+                                                                </TableBody>
+                                                            </Table>
+                                                        </TableContainer>
+                                                    </div>
                                                 </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </form>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </Container>
+                                                <Grid item xs={12} md={12}>
+                                                    <div className="box-button txt-center">
+                                                        <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() =>{
 
-
-                    <Container maxWidth="md">
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={12}>
-                                <div className="table">
-                                    <h1 className="txt-center">งวดชำระเงินตามจริง</h1>
-                                    <TableContainer className="table-box table-loanrequestprint2 table-summary">
-                                        <Table aria-label="normal table">
-                                            <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">ลำดับ</TableCell>
-                                                <TableCell align="left">เลขที่สัญญา</TableCell>
-                                                <TableCell align="left">วันที่ชำระ</TableCell>
-                                                <TableCell align="left">จำนวนเงิน</TableCell>
-                                            </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                            {
-                                                [1,2,3,4,5].map((row,i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell align="left">{i+1}</TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiTextfield label=""  defaultValue=""/>
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiDatePicker label=""  defaultValue="2017-05-24" />
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            { 
-                                                                i === 0 ? 
-                                                                    <MuiTextfield label=""  defaultValue=""/>
-                                                                    :
-                                                                    <MuiTextfieldEndAdornment label=""  defaultValue="" endAdornment={<CloseIcon  className="table-item-del"/>}/>
+                                                            const realPay = selectedExtendData.RealPay
+                                                            if (realPay){
+                                                                realPay.push({
+                                                                    RENTNO:"",
+                                                                    DUEDATE:"",
+                                                                    PAYREC:""
+                                                                })
                                                             }
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))
-                                            }
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                </div>
-                            </Grid>
-                            <Grid item xs={12} md={12}>
-                                <div className="box-button txt-center">
-                                    <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" />
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Container>
-                
-                    <Container maxWidth="md">
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={12}>
-                                <div className="table">
-                                    <h1 className="txt-center">งวดชำระเงิน และ งวดบัญชี</h1>
-                                    <TableContainer className="table-box table-loanrequestprint2 table-summary">
-                                        <Table aria-label="normal table">
-                                            <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">ลำดับ</TableCell>
-                                                <TableCell align="left">เลขที่สัญญา</TableCell>
-                                                <TableCell align="left">สถานะ</TableCell>
-                                                <TableCell align="left">รายการ</TableCell>
-                                                <TableCell align="left">วันที่</TableCell>
-                                                <TableCell align="left">จำนวนเงิน</TableCell>
-                                            </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                            {
-                                                [1,2,3,4,5].map((row,i) => (
-                                                    <TableRow key={i}>
-                                                        <TableCell align="left">{i+1}</TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiTextfield label=""  defaultValue=""/>
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiTextfield label=""  defaultValue=""/>
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiTextfield label=""  defaultValue=""/>
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiDatePicker label=""  defaultValue="2017-05-24" />
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <MuiTextfield label=""  defaultValue=""/>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))
-                                            }
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Container>
-                
+
+                                                            setSelectedData({
+                                                                ...selectedExtendData,
+                                                                RealPay: realPay
+                                                            })
+
+                                                        }}/>
+                                                    </div>
+                                                </Grid>
+                                            </Grid>
+                                        </Container>
+
+                                        <Container maxWidth="md">
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12} md={12}>
+                                                    <div className="table">
+                                                        <h1 className="txt-center">งวดชำระเงิน และ งวดบัญชี</h1>
+                                                        <TableContainer className="table-box table-loanrequestprint2 table-summary">
+                                                            <Table aria-label="normal table">
+                                                                <TableHead>
+                                                                    <TableRow>
+                                                                        <TableCell align="left">ลำดับ</TableCell>
+                                                                        <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                                        <TableCell align="left">สถานะ</TableCell>
+                                                                        <TableCell align="left">รายการ</TableCell>
+                                                                        <TableCell align="left">วันที่</TableCell>
+                                                                        <TableCell align="left">จำนวนเงิน</TableCell>
+                                                                    </TableRow>
+                                                                </TableHead>
+                                                                <TableBody>
+                                                                    {
+                                                                        selectedExtendData.AccountPay && selectedExtendData.AccountPay.map((row, i) => (
+                                                                            <TableRow key={i}>
+                                                                                <TableCell align="left">{i + 1}</TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiTextfield label="" value={row.RENTNO} />
+                                                                                </TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiTextfield label="" value={row.STAT} />
+                                                                                </TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiTextfield label="" value={row.List} />
+                                                                                </TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} />
+                                                                                </TableCell>
+                                                                                <TableCell align="left">
+                                                                                    <MuiTextfield label="" value={row.PAYREC} />
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        ))
+                                                                    }
+                                                                </TableBody>
+                                                            </Table>
+                                                        </TableContainer>
+                                                    </div>
+                                                </Grid>
+                                            </Grid>
+                                        </Container>
 
 
-                    <Container maxWidth="md">
-                        <Grid container spacing={2} className="btn-row txt-center">
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="ยืนยันการเพิ่ม" />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <ButtonFluidPrimary label="บันทึกแก้ไข" />
-                            </Grid>
-                        </Grid>
-                    </Container>
-                
+
+                                        <Container maxWidth="md">
+                                            <Grid container spacing={2} className="btn-row txt-center">
+                                                <Grid item xs={12} md={12}>
+                                                    <div className="box-button txt-center">
+                                                        <ButtonFluidPrimary maxWidth="500px" label="บันทึก" onClick={() =>{
+                                                            saveRecord()
+                                                        }}/>
+                                                    </div>
+                                                </Grid>
+
+                                            </Grid>
+                                        </Container>
+
+                                    </div>
+                                </Form>
+                            )
+                        }} />
+
+
                 </div>
             </Fade>
-            
+
         </div>
     )
 }

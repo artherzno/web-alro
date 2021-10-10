@@ -278,19 +278,18 @@ class RequestLoanTab extends React.Component {
                                     <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
                                     <StyledTableCell align="center">สถานะคำขอ</StyledTableCell>
-                                    <StyledTableCell align="center">อายุ</StyledTableCell>
+                                    <StyledTableCell align="center">อายุปัจจุบัน</StyledTableCell>
                                     <StyledTableCell align="center">ที่อยู่ตามบัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center">ที่อยู่ที่ติดต่อได้</StyledTableCell>
                                     <StyledTableCell align="center">โทรศัพท์</StyledTableCell>
                                     <StyledTableCell align="center">ประเภทเอกสารสิทธิ</StyledTableCell>
                                     <StyledTableCell align="center">เลขที่เอกสารสิทธิ์</StyledTableCell>
                                     <StyledTableCell align="center">ที่ตั้งที่ดิน</StyledTableCell>
-                                    <StyledTableCell align="center">ขนาดที่ดินตามเอกสารสิทธิ์</StyledTableCell>
-                                    <StyledTableCell align="center">ภาระหนี้สิน</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวน (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">ขนาดที่ดินตามเอกสารสิทธิ์ (ไร - งาน - วา)</StyledTableCell>
+                                    <StyledTableCell align="center">ภาระหนี้สิน (บาท)</StyledTableCell>
                                     <StyledTableCell align="center">จุดประสงค์การกู้ยืม</StyledTableCell>
                                     <StyledTableCell align="center">ประเภทเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center">เงินกู้ยืม</StyledTableCell>
+                                    <StyledTableCell align="center">วงเงินกู้ที่ยื่นคำขอ</StyledTableCell>
                                     <StyledTableCell align="center">ผลการพิจารณา</StyledTableCell>
 
                                 </TableRow>
@@ -325,7 +324,6 @@ class RequestLoanTab extends React.Component {
                                             <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.landSize}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.liabilities}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanPurpose}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanType}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loan)}</StyledTableCellLine>
@@ -341,7 +339,6 @@ class RequestLoanTab extends React.Component {
                                     <StyledTableCellLine colSpan={16} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loan)}</StyledTableCellLine>
                                     <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>

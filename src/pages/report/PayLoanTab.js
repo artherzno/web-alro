@@ -264,16 +264,14 @@ class PayLoanTab extends React.Component {
                                     <StyledTableCell align="center">ชื่อ-นามสกุล</StyledTableCell>
                                     <StyledTableCell align="center">ธนาคาร</StyledTableCell>
                                     <StyledTableCell align="center">เลขบัญชีธนาคาร</StyledTableCell>
-                                    <StyledTableCell align="center">เลขที่ใบเสร็จรับเงิน</StyledTableCell>
                                     <StyledTableCell align="center">ว/ด/ป รับเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">ว/ด/ป เริ่มชำระ</StyledTableCell>
                                     <StyledTableCell align="center">ว/ด/ป ครบกำหนด</StyledTableCell>
                                     <StyledTableCell align="center">การจ่ายเงิน (งวด)</StyledTableCell>
                                     <StyledTableCell align="center">จ่ายเงินงวดแรก</StyledTableCell>
-                                    <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
                                     <StyledTableCell align="center">สถานะสมาชิก</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนวันทำการ</StyledTableCell>
+                                  
 
                                 </TableRow>
                             </TableHead>
@@ -290,16 +288,14 @@ class PayLoanTab extends React.Component {
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.bank}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.bankNumber}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.receiptNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.payDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.dueDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payout)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payFirstInstallment)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.interestRate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.memStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.workingDay}</StyledTableCellLine>
+                                            
 
                                         </TableRow>
                                     )

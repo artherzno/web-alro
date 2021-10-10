@@ -35,6 +35,8 @@ import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
 
 import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
+import { getAccount } from '../../utils/Auth'
+import { dialog, OverlayLoading } from '../../components';
 
 function RecordInstallmentPayment() {
     const history = useHistory();
@@ -49,7 +51,8 @@ function RecordInstallmentPayment() {
     const [count, setCount] = useState(10)
     const [selectedData, setSelectedData] = useState({})
     const [selectedItemData, setSelectedItemData] = useState({})
-
+    const [isLoading, setIsLoading] = useState(false);
+    
     useEffect(() => {
         setLoaded(true);
 
@@ -69,12 +72,13 @@ function RecordInstallmentPayment() {
 
         try {
 
+            setIsLoading(true)
             const res = await Promise.all([api.getDataByLoan(parameter), api.getDataByRelentNumber(parameter1)])
             const resultList = res[0].data.concat(res[1].data)
             setResultList(resultList)
-
+            setIsLoading(false)
         } catch (error) {
-
+            setIsLoading(false)
             console.log("error", error)
         }
 
@@ -85,30 +89,83 @@ function RecordInstallmentPayment() {
     function selectDataByLoan(LoanNumber) {
 
         const parameter = {
-            LoanNumber: '00639/2556'
+            LoanNumber: LoanNumber
         }
+
+        setIsLoading(true)
         api.selectDataByLoan(parameter).then(response => {
 
             if (response.data.length > 0) {
                 setSelectedData(response.data[0])
             }
+            setIsLoading(false)
+
+        }).catch(() =>{
+            setIsLoading(false)
         })
     }
 
     function saveRelent(values) {
 
-   
-        console.log("values", values)
+        dialog.showLoading()
         api.saveRelent(values).then(response => {
-
+            dialog.close()
+            setTimeout(() => {
+                dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
+            }, 500);
         
+        }).catch(() => {
+            dialog.close()
         })
     }
 
+    function getProcessBeforePay(date) {
+
+        const account = getAccount()
+
+        const parameter = {
+            LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
+            Fullname: '',//values.Fullname,
+            Username: account.username,
+            Rentno: selectedData.LoanNumber,
+            Date: date
+        }
+        setIsLoading(true)
+        api.getProcessBeforePay(parameter).then(response => {
+
+
+            const beforeProcess = response.data
+            if (beforeProcess.length > 0) {
+
+                const recData = beforeProcess[beforeProcess.length - 1]
+                const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
+
+                formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
+                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2 : 0)
+                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
+                formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
+                formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
+                formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
+
+            }
+
+            setIsLoading(false)
+
+        }).catch(error => {
+            setIsLoading(false)
+        })
+
+
+    }
 
 
     return (
         <div className="recordinstallmentpayment-page">
+
+            <OverlayLoading isLoading={isLoading} />
+
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -523,6 +580,7 @@ function RecordInstallmentPayment() {
                                                                                         helperText={errors.RelentDate}
                                                                                         onChange={(event) => {
                                                                                             setFieldValue("RelentDate", moment(event).format("YYYY-MM-DD"))
+                                                                                            getProcessBeforePay(moment(event).format("YYYY-MM-DD"))
                                                                                         }}
                                                                                         onChangeDate={handleChange}
                                                                                         onBlur={handleBlur}
@@ -552,10 +610,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="RemainingPrinciple"
-                                                                                        value={values.RemainingPrinciple}
-                                                                                        error={errors.RemainingPrinciple}
-                                                                                        helperText={errors.RemainingPrinciple}
+                                                                                        name="RecPrincipleBalance"
+                                                                                        value={values.RecPrincipleBalance}
+                                                                                        error={errors.RecPrincipleBalance}
+                                                                                        helperText={errors.RecPrincipleBalance}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เงินต้นคงเหลือ"
@@ -570,10 +628,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="PrintciplePay"
-                                                                                        value={values.PrintciplePay}
-                                                                                        error={errors.PrintciplePay}
-                                                                                        helperText={errors.PrintciplePay}
+                                                                                        name="RecPrinciple"
+                                                                                        value={values.RecPrinciple}
+                                                                                        error={errors.RecPrinciple}
+                                                                                        helperText={errors.RecPrinciple}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เงินต้นครบกำหนดชำระ"
@@ -588,10 +646,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="InterestOverdue"
-                                                                                        value={values.InterestOverdue}
-                                                                                        error={errors.InterestOverdue}
-                                                                                        helperText={errors.InterestOverdue}
+                                                                                        name="RecInterestKang2"
+                                                                                        value={values.RecInterestKang2}
+                                                                                        error={errors.RecInterestKang2}
+                                                                                        helperText={errors.RecInterestKang2}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="ดอกเบี้ยค้างรับ"
@@ -607,10 +665,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="ChangeInterest"
-                                                                                        value={values.ChangeInterest}
-                                                                                        error={errors.ChangeInterest}
-                                                                                        helperText={errors.ChangeInterest}
+                                                                                        name="InterestChange"
+                                                                                        value={values.InterestChange}
+                                                                                        error={errors.InterestChange}
+                                                                                        helperText={errors.InterestChange}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="อัตราดอกเบี้ย"
