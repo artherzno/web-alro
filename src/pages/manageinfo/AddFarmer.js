@@ -115,9 +115,9 @@ function AddFarmer(props) {
         FrontName: 'นาย', // 'นาย',
         Name: '', // 'จิมมี่',
         Sirname: '', // 'แซ่ฉ่วย',
-        BirthDate: '', // '2022-12-11',
+        BirthDate: null, // '2022-12-11',
         Tel: '', // '087-712-8888',
-        IDCardEXP_Date: '', // '2022-12-13',
+        IDCardEXP_Date: null, // '2022-12-13',
         IDCardMade: '',
         IDCARD_AddNo: '', // '123',
         IDCARD_AddMoo: '', // 'หมู่ 4',
@@ -862,10 +862,10 @@ function AddFarmer(props) {
 
         let addFarmerForm = document.getElementById('addFarmerForm');
         let formData = new FormData(addFarmerForm);
-        // formData.append('BirthDate', moment(inputData.BirthDate).format('YYYY-MM-DD'))
-        formData.append('BirthDate', Number(inputSelectBirthDate.yyyy) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
-        // formData.append('IDCardEXP_Date', moment(inputData.IDCardEXP_Date).format('YYYY-MM-DD'))
-        formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
+        formData.append('BirthDate', inputData.BirthDate)
+        // formData.append('BirthDate', Number(inputSelectBirthDate.yyyy) - 543+'-'+inputSelectBirthDate.mm+'-'+inputSelectBirthDate.dd)
+        formData.append('IDCardEXP_Date', inputData.IDCardEXP_Date)
+        // formData.append('IDCardEXP_Date', Number(inputSelectExpireDate.yyyy2) - 543+'-'+inputSelectExpireDate.mm2+'-'+inputSelectExpireDate.dd2)
         
         formData.delete('dd')
         formData.delete('mm')
@@ -1043,24 +1043,24 @@ function AddFarmer(props) {
                                                     />
                                                 </Grid> */}
                                                 <Grid item xs={12} md={12}>
-                                                    <p>วัน เดือน ปี เกิด</p>
+                                                    {/* <p>วัน เดือน ปี เกิด</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd" value={inputSelectBirthDate.dd} onChange={handleSelectBirthDate} />
                                                         <MuiSelectMonth label="" name="mm" value={inputSelectBirthDate.mm} onChange={handleSelectBirthDate} />
                                                         <MuiSelectYear label="" limit={0} name="yyyy" value={inputSelectBirthDate.yyyy} onChange={handleSelectBirthDate} />
-                                                    </div>
-                                                    {/* 
+                                                    </div> */}
+                                                    
                                                     <MuiDatePicker label="วัน เดือน ปี เกิด" id="addmember-birthday-input" name="BirthDate" value={inputData.BirthDate} onChange={(newValue)=>{ setInputData({ ...inputData, BirthDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
-                                                    */}
+                                                   
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                    <p>วันหมดอายุบัตรประจำตัวประชาชน</p>
+                                                    {/* <p>วันหมดอายุบัตรประจำตัวประชาชน</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd2" value={inputSelectExpireDate.dd2} onChange={handleSelectExpireDate} />
                                                         <MuiSelectMonth label="" name="mm2" value={inputSelectExpireDate.mm2} onChange={handleSelectExpireDate} />
                                                         <MuiSelectYear label="" limit={10} name="yyyy2" value={inputSelectExpireDate.yyyy2} onChange={handleSelectExpireDate} />
-                                                    </div>
-                                                    {/* <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
+                                                    </div> */}
+                                                    <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     {/* Field Text ---------------------------------------------------*/}

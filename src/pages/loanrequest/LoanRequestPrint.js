@@ -1592,7 +1592,7 @@ console.log('FreeDebtTime',event.target.value)
             url = `${server_hostname}/admin/api/edit_loanrec`
         } else {
             url =`${server_hostname}/admin/api/add_loanrec`
-            action = 'edit'
+            // action = 'edit'
         } 
         console.log(action,'|', action_loanstatus,'|', url.toString())
         console.log('ApplicantID',inputDataSubmit.ApplicantID,'| FarmerID',inputDataSubmit.FarmerID)

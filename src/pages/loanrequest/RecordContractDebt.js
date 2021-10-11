@@ -215,7 +215,7 @@ function EditContractDebt() {
         FirstDatePaid: moment(),
         principle: 0,
         Interest: 0,
-        ChargeRate: '',
+        ChargeRate: 0,
         LastDatePaid: moment(),
         OfficeProvince: '',
         WitnessName: '',
@@ -288,6 +288,11 @@ function EditContractDebt() {
         ProjectSubName: '',
         DebtEditDate: moment(),
         LoanChangeDate: moment(),
+        objective1: '',
+        LoanPeriod: '',
+        LoanobjName: '',
+        LoanFarmerTypeName: '',
+        notation: '',
     })
 
     const [summaryTable, setSummaryTable] = useState(0)
@@ -347,8 +352,8 @@ function EditContractDebt() {
         { id: 'Tel', numeric: false, disablePadding: false, widthCol: '150px', label: 'โทรศัพท์' },
     ]
 
-    function createData(LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel) {
-        return {LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel }
+    function createData(LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel, LoanRecType) {
+        return {LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel, LoanRecType }
     }
 
     // New order date 2021-08-23 to 23/08/2564
@@ -401,7 +406,7 @@ function EditContractDebt() {
         setRows([])
 
         axios.post(
-            `${server_hostname}/admin/api/search_close_loanrec`, {
+            `${server_hostname}/admin/api/search_close_loanrec_for_debt`, {
                 Name: inputDataSearch.Name,
                 Sirname: inputDataSearch.Sirname,
                 IDCard: inputDataSearch.IDCard,
@@ -445,7 +450,8 @@ function EditContractDebt() {
                                     item.FrontName === null ? '' : item.FrontName,
                                     item.Name === null ? '' : item.Name,
                                     item.Sirname === null ? '' : item.Sirname,
-                                    item.Tel === undefined ? '' : item.Tel 
+                                    item.Tel === undefined ? '' : item.Tel ,
+                                    item.LoanRecType === undefined ? '' : item.LoanRecType,
                                 )
                             )
                         )
@@ -578,6 +584,194 @@ function EditContractDebt() {
                         IDCARD_AddrDistrictID: data.farmer_data.IDCARD_AddrDistrictID === null ? '' : data.farmer_data.IDCARD_AddrDistrictID,
                         IDCARD_AddrProvinceID: data.farmer_data.IDCARD_AddrProvinceID === null ? '' : data.farmer_data.IDCARD_AddrProvinceID,
                     })
+
+                    getIndividualcard(data.loanrec_data[0].LoanNumber)
+                    
+                }
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const getLoanDetail = (loanID) => {
+        setIsLoading(true)
+        setFormField(false)
+        setInputDataFarmer({
+            BirthDate: moment(),
+            Contact_AddMoo: null,
+            Contact_AddNo: null,
+            Contact_AddrDistrictID: null,
+            Contact_AddrProvinceID: null,
+            Contact_AddrSoiRoad: null,
+            Contact_AddrSubdistrictID: null,
+            Contact_Addrzone: null,
+            Contact_PicPatch: null,
+            Contact_Postcode: null,
+            FarmerGrade: null,
+            FarmerID: null,
+            FrontName: null,
+            IDCARD_AddMoo: null,
+            IDCARD_AddNo: null,
+            IDCARD_AddrDistrictID: null,
+            IDCARD_AddrProvinceID: null,
+            IDCARD_AddrSoiRoad: null,
+            IDCARD_AddrSubdistrictID: null,
+            IDCARD_Postcode: null,
+            IDCard: null,
+            IDCardEXP_Date: moment(),
+            IDCard_Addrzone: null,
+            IDCard_PicPatch: null,
+            LoanFarmerTypeID: null,
+            Name: null,
+            Request: null,
+            Sirname: null,
+            Tel: null,
+            admin_nMEMID: null,
+            dCreated: null,
+    
+        })
+        setInputDataNewFarmer({
+            FarmerGrade: null,
+            FarmerID: 0,
+            FrontName: null,
+            IDCard: null,
+            Name: null,
+            OldName1: null,
+            OldName2: null,
+            OldSirname1: null,
+            OldSirname2: null,
+            Sirname: null,
+            Contact_AddMoo: '',
+            Contact_AddNo: '',
+            Contact_AddrSoiRoad: '',
+            Contact_AddrSubdistrictID: 0,
+            Contact_AddrDistrictID: 0,
+            Contact_AddrProvinceID: 0,
+    
+        })
+        setInputDataLandData([])
+        setInputDataLoanDuc([])
+        setInputDataLoanDus([])
+        setInputDataLoanDue([])
+        setInputDataLoanRec([])
+
+        axios.post(
+            `${server_hostname}/admin/api/get_loandetail`, {
+                LoanID: loanID,
+            }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    setFormField(true)
+                    console.log('get_closeloandetail',data.farmer_data)
+                    setInputDataFarmer(data.farmer_data)
+                    setInputDataLandData(data.farmer_data.land_data === undefined ? [] : data.farmer_data.land_data[0] )
+                    setInputDataLoanDuc(data.loanduc_data)
+                    setInputDataLoanDus(data.loandus_data)
+                    setInputDataLoanDue(data.loandue_data)
+                    setInputDataLoanRec(data.loanrec_data[0])
+                    setInputDataClosecontact(data.closecontact_data[0])
+                    
+                    if(data.spkinfo_data[0] === undefined) {
+                        setInputDataSpkInfo({
+                            Road: '',
+                            Subdistrict: '',
+                            District: '',
+                            Province: '',
+                        })
+                    } else {
+                        setInputDataSpkInfo(data.spkinfo_data[0])
+                    }
+
+                    setLoanNumber(data.loanrec_data[0].LoanNumber)
+                    setLoanID(data.loanrec_data[0].LoanID)
+                    // setTableResult(data.data)
+                    // setRows(data.data)
+
+                    console.warn('action',action)
+
+                    setInputDataFarmer({
+                        ...inputDataFarmer,
+                        IDCARD_AddrSubdistrictID: data.farmer_data.IDCARD_AddrSubdistrictID === null ? '' : data.farmer_data.IDCARD_AddrSubdistrictID,
+                        IDCARD_AddrDistrictID: data.farmer_data.IDCARD_AddrDistrictID === null ? '' : data.farmer_data.IDCARD_AddrDistrictID,
+                        IDCARD_AddrProvinceID: data.farmer_data.IDCARD_AddrProvinceID === null ? '' : data.farmer_data.IDCARD_AddrProvinceID,
+                    })
+
+                    setInputDataSubmit({
+                        ...inputDataSubmit,
+                        objective1: data.loanrec_data[0].objective1 === null ? '' : data.loanrec_data[0].objective1,
+                        LoanobjName: data.loanrec_data[0].LoanobjName === null ? '' : data.loanrec_data[0].LoanobjName,
+                        LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName === null ? '' : data.loanrec_data[0].LoanFarmerTypeName,
+                        LoanPeriod: data.loanrec_data[0].LoanPeriod === null ? '' : data.loanrec_data[0].LoanPeriod,
+                        notation: data.loanrec_data[0].notation === null ? '' : data.loanrec_data[0].notation,
+                        Guarantee_Person: data.loanrec_data[0].Guarantee_Person === null ? '' : data.loanrec_data[0].Guarantee_Person,
+                        Guarantee_Property: data.loanrec_data[0].Guarantee_Property === null ? '' : data.loanrec_data[0].Guarantee_Property,
+                        Guarantee_PropertyDate: data.loanrec_data[0].Guarantee_PropertyDate === null ? null : data.loanrec_data[0].Guarantee_PropertyDate,
+                        LoanContactBook: data.loanrec_data[0].LoanContactBook === null ? '' : data.loanrec_data[0].LoanContactBook,
+                        LoanDate: data.loanrec_data[0].LoanDate === null ? '' : data.loanrec_data[0].LoanDate,
+                        LoanGuaranteeBook: data.loanrec_data[0].LoanGuaranteeBook === null ? '' : data.loanrec_data[0].LoanGuaranteeBook,
+                        LoanNumber: data.loanrec_data[0].LoanNumber === null ? '' : data.loanrec_data[0].LoanNumber,
+                        LoanGuaranteeBookDate: data.loanrec_data[0].LoanGuaranteeBookDate === null ? '' : data.loanrec_data[0].LoanGuaranteeBookDate,
+                        OfficeProvince: data.loanrec_data[0].OfficeProvince === null ? '' : data.loanrec_data[0].OfficeProvince,
+                        Officer: data.loanrec_data[0].Officer === null ? '' : data.loanrec_data[0].Officer,
+                        OfficerRank: data.loanrec_data[0].OfficerRank === null ? '' : data.loanrec_data[0].OfficerRank,
+                        RecDate: data.loanrec_data[0].RecDate === null ? '' : data.loanrec_data[0].RecDate,
+                        RecYear: data.loanrec_data[0].RecYear === null ? '' : data.loanrec_data[0].RecYear,
+                        SPK_Order: data.loanrec_data[0].SPK_Order === null ? '' : data.loanrec_data[0].SPK_Order,
+                        SPK_OrderDate: data.loanrec_data[0].SPK_OrderDate === null ? '' : data.loanrec_data[0].SPK_OrderDate,
+                        WarrantBook1: data.loanrec_data[0].WarrantBook1 === null ? '' : data.loanrec_data[0].WarrantBook1,
+                        WarrantBook2: data.loanrec_data[0].WarrantBook2 === null ? '' : data.loanrec_data[0].WarrantBook2,
+                        WarrantBookDate1: data.loanrec_data[0].WarrantBookDate1 === null ? '' : data.loanrec_data[0].WarrantBookDate1,
+                        WarrantBookDate2: data.loanrec_data[0].WarrantBookDate2 === null ? '' : data.loanrec_data[0].WarrantBookDate2,
+                        WarrantBookOwner1: data.loanrec_data[0].WarrantBookOwner1 === null ? '' : data.loanrec_data[0].WarrantBookOwner1,
+                        WarrantBookOwner2: data.loanrec_data[0].WarrantBookOwner2 === null ? '' : data.loanrec_data[0].WarrantBookOwner2,
+                        IDCard: data.loanrec_data[0].IDCard === null ? '' : data.loanrec_data[0].IDCard,
+                    })
+
+                    setInputDataSubmitIndividual({
+                        // ...inputDataSubmitIndividual,
+                        principle: data.loanrec_data[0].principle === null ? '' : data.loanrec_data[0].principle,
+                        OldInterest: data.loanrec_data[0].OldInterest === null ? '' : data.loanrec_data[0].OldInterest,
+                        OldFine: data.loanrec_data[0].OldFine === null ? '' : data.loanrec_data[0].OldFine,
+                        Interest: data.loanrec_data[0].Interest === null ? '' : data.loanrec_data[0].Interest,
+                        ChargeRate: data.loanrec_data[0].ChargeRate === null ? '' : data.loanrec_data[0].ChargeRate,
+                    })
+
+                    // Set amout due
+                    setDueAmount((data.loandue_data.length -1) > 0 ? data.loandue_data.length -1 : 0)
+
+                    // Set value Array due
+                    for(let i=0; i<data.loandue_data.length; i++) {
+                        let loanDUEArr = [...inputDataSubmitLoanDUE]
+                        loanDUEArr[i].ITEM = data.loandue_data[i].ITEM
+                        loanDUEArr[i].DUEDATE = data.loandue_data[i].DUEDATE
+                        loanDUEArr[i].PAYREC = data.loandue_data[i].PAYREC
+                        setInputDataSubmitLoanDUE(loanDUEArr)
+                    }
+                    
+                    // Set value new farmer id
+                    if(data.loanrec_data[0].IDCard !== null) {
+                        setInputDataNewFarmerID(data.loanrec_data[0].IDCard)
+                        getNewFarmerDetail()
+                    }
 
                     getIndividualcard(data.loanrec_data[0].LoanNumber)
                     
@@ -877,6 +1071,7 @@ function EditContractDebt() {
         formData.append('LoanGuaranteeBookDate', moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate1', moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate2', moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
+        formData.append('IDCard', inputDataNewFarmerID)
 
         formData.set('principle', inputDataSubmitIndividual.principle)
         formData.set('OldInterest', inputDataSubmitIndividual.OldInterest)
@@ -965,7 +1160,7 @@ function EditContractDebt() {
         setSuccess(false);
         setConfirm(false);
         setIsLoading(false)
-        
+        // window.location.reload()
         // history.push('/manageinfo/searchmember');
 
     };
@@ -989,7 +1184,7 @@ function EditContractDebt() {
     }
 
     const rowTable = (val) => {
-        // console.log('dueAmount',dueAmount)
+        // console.log('loanduc_data',val)
         let rowArr = []
         for(let i=0; i<val; i++) {
             rowArr.push(
@@ -1084,7 +1279,7 @@ function EditContractDebt() {
                                         recordcontractdebtAction={getAction}
                                         recordcontractdebtEvent={getCloseLoanDetail}
                                         createParam={'LoanID'}
-                                        editEvent={getCloseLoanDetail}
+                                        editEvent={getLoanDetail}
                                         eventParam={'LoanID'}
                                     />
                                 </div>
@@ -1223,7 +1418,7 @@ function EditContractDebt() {
                                                             <MuiTextfield label="PV_NAME" inputdisabled="input-disabled"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเดิม" inputdisabled="input-disabled" name="Old_LoanID" value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="สัญญาเดิม" inputdisabled="input-disabled" /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
@@ -1497,11 +1692,11 @@ function EditContractDebt() {
                                                                                 <MuiDatePicker label="วันที่รับแปลงหนี้" name="DebtEditDate" value={inputDataSubmit.DebtEditDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, DebtEditDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
-                                                                                <MuiTextfieldMultiLine label="หมายเหตุ" row="3" defaultValue='' />
+                                                                                <MuiTextfieldMultiLine label="หมายเหตุ" row="3"  name="notation" value={inputDataLoanRec.notation} onChange={handleInputDataSubmit}  />
                                                                             </Grid>
-                                                                            <Grid item xs={12} md={6}>
+                                                                            {/* <Grid item xs={12} md={6}>
                                                                                 <MuiTextfield label="&nbsp;" defaultValue='เงินกู้' />
-                                                                            </Grid>
+                                                                            </Grid> */}
                                                                             {/* <Grid item xs={12} md={6}>
                                                                                 <p>&nbsp;</p>
                                                                                 <div className="select-date-option">
@@ -1628,8 +1823,13 @@ function EditContractDebt() {
                                                         <Grid item xs={12} md={4}> 
                                                             <MuiDatePicker label="ลงวันที่" name="Guarantee_PropertyDate" value={inputDataSubmit.Guarantee_PropertyDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, Guarantee_PropertyDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
-                                                        <Grid item xs={12} md={8}>
-                                                            <MuiTextfieldEndAdornment label="ข. หนังสือสัญญารับรองผูกพันตนรับผิดชอบอย่างลูกหนี้ร่วมกันต่อ ส.ป.ก. ของเกษตรกรรวม" endAdornment="ราย" name="Guarantee_Person" value={inputDataSubmit.Guarantee_Person} onChange={handleInputDataSubmit} />
+                                                        <Grid item xs={12} md={7}>
+                                                            <p>ข. หนังสือสัญญารับรองผูกพันตนรับผิดชอบอย่างลูกหนี้ร่วมกันต่อ ส.ป.ก. ของเกษตรกรรวม</p>
+                                                            <MuiTextfieldCurrency label="" name="Guarantee_Person" value={inputDataSubmit.Guarantee_Person} onChange={handleInputDataSubmit} />
+                                                        </Grid> 
+                                                        <Grid item xs={1} md={1}>
+                                                            <p>&nbsp;</p>
+                                                            <p className="paper-p">บาท</p>
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={8}>
                                                             <Grid container spacing={2}>

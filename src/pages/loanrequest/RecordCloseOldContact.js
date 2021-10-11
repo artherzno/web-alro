@@ -63,6 +63,7 @@ function RecordCloseOldContact() {
     const [insertDateData, setInsertDateData] = useState(false);
     const [searched, setSearched] = useState(false);
     const [formField, setFormField] = useState(false)
+    const [loanNumber, setLoanNumber] = useState(null)
 
     const [inputDataReceipt, setInputDataReceipt] = useState({
         ReceiptID: null,// 1,
@@ -418,6 +419,7 @@ function RecordCloseOldContact() {
             setIsLoading(false)
             console.log('GetSelectData',res.data)
             let data = res.data;
+            setLoanNumber(loanNumber)
             // setInputData(data)
             // console.log('inputData',inputData)
             if(data.code === 0 || res === null || res === undefined) {
@@ -761,6 +763,18 @@ function RecordCloseOldContact() {
 
     };
 
+    const handleClosePopupSuccess = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        setIsLoading(false)
+
+        window.location.reload()
+        
+        // history.push('/manageinfo/searchmember');
+
+    };
+
 
 
     return (
@@ -833,6 +847,10 @@ function RecordCloseOldContact() {
                         {
                             formField ? 
                                 <Grid item xs={12} md={12}>
+                                    <Grid item xs={12} md={12} className="title-page"> 
+                                        <h1 className="txt-green">ปิดสัญญาเดิม (เลขที่สัญญา {loanNumber})</h1>
+                                    </Grid>
+
 
                                     {/* Paper 1 - -------------------------------------------------- */}
                                     <Paper className="paper line-top-green paper mg-t-20">
@@ -842,12 +860,13 @@ function RecordCloseOldContact() {
                                                     <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled" defaultValue="RIET2343525/00003" />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <p>วันที่บันทึก</p>
+                                                    {/* <p>วันที่บันทึก</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" inputdisabled="input-disabled"  name="dd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
                                                         <MuiSelectMonth label="" inputdisabled="input-disabled"  name="mm" value={inputSelectDate.recdatemm} onChange={handleSelectDate} />
                                                         <MuiSelectYear label="" inputdisabled="input-disabled"  name="yyyy" value={inputSelectDate.recdateyyyy} onChange={handleSelectDate} />
-                                                    </div>
+                                                    </div> */}
+                                                    <MuiDatePicker label="วันที่บันทึก" inputdisabled="input-disabled" value={getSelectData.RecDate} onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <MuiTextfield label="" inputdisabled="input-disabled" value={getSelectData.ProvinceID} onChange={handleInputData} />
@@ -871,12 +890,13 @@ function RecordCloseOldContact() {
                                                     <MuiTextfield label="สัญญาเลขที่" inputdisabled="input-disabled"   value={getSelectData.LoanNumber} onChange={handleInputData}   />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <p>วันที่สัญญา</p>
+                                                    {/* <p>วันที่สัญญา</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd" value={inputSelectDate.loandatedd} inputdisabled="input-disabled" onChange={handleSelectDate} />
                                                         <MuiSelectMonth label="" name="mm" value={inputSelectDate.loandatemm} inputdisabled="input-disabled" onChange={handleSelectDate} />
                                                         <MuiSelectYear label="" name="yyyy" value={inputSelectDate.loandateyyyy} inputdisabled="input-disabled" onChange={handleSelectDate} />
-                                                    </div>
+                                                    </div> */}
+                                                    <MuiDatePicker label="วันที่สัญญา" inputdisabled="input-disabled" value={getSelectData.LoanDate} onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <MuiTextfield label="เลขบัตรประชาชน" inputdisabled="input-disabled"   value={getSelectData.IDCard} onChange={handleInputData}   />
@@ -894,12 +914,13 @@ function RecordCloseOldContact() {
                                                     <MuiTextfield label="นามสกุล"  inputdisabled="input-disabled" value={getSelectData.Sirname} onChange={handleInputData}   />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <p>วันที่รับเงินกู้</p>
+                                                    {/* <p>วันที่รับเงินกู้</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd" value={inputSelectDate.loanreceiptdatedd} inputdisabled="input-disabled" onChange={handleSelectDate} />
                                                         <MuiSelectMonth label="" name="mm" value={inputSelectDate.loanreceiptdatemm} inputdisabled="input-disabled" onChange={handleSelectDate} />
                                                         <MuiSelectYear label="" name="yyyy" value={inputSelectDate.loanreceiptdateyyyy} inputdisabled="input-disabled" onChange={handleSelectDate} />
-                                                    </div>
+                                                    </div> */}
+                                                    <MuiDatePicker label="วันที่รับเงินกู้" inputdisabled="input-disabled" value={getSelectData.LoanReceiptDate} onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="จำนวนเงินให้กู้" inputdisabled="input-disabled" value={getSelectData.principle} onChange={handleInputData}   />
@@ -911,12 +932,14 @@ function RecordCloseOldContact() {
                                                     <MuiTextfield label="อัตราค่าปรับ" inputdisabled="input-disabled" value={getSelectData.ChargeRate} onChange={handleInputData}   />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <p>วันที่จัดทำ</p>
+                                                    {/* <p>วันที่จัดทำ</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" name="dd" inputdisabled="input-disabled" value={inputSelectDate.createdatedd} onChange={handleSelectDate} />
                                                         <MuiSelectMonth label="" name="mm" inputdisabled="input-disabled" value={inputSelectDate.createdatemm} onChange={handleSelectDate} />
                                                         <MuiSelectYear label="" name="yyyy" inputdisabled="input-disabled" value={inputSelectDate.createdateyyyy} onChange={handleSelectDate} />
-                                                    </div>
+                                                    </div> */}
+                                                    <MuiDatePicker label="วันที่จัดทำ" inputdisabled="input-disabled" value={getSelectData.CreateDate} onChange={handleInputData}  />
+                                                
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiTextfieldMultiLine label="หมายเหตุ" disabled inputdisabled="input-disabled"  defaultValue="" row="3" />
@@ -1177,7 +1200,7 @@ function RecordCloseOldContact() {
 
             <Dialog
                 open={success}
-                onClose={handleClosePopup}
+                onClose={handleClosePopupSuccess}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
@@ -1190,7 +1213,7 @@ function RecordCloseOldContact() {
                         <p className="txt-center txt-black">{successMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopupSuccess} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     
