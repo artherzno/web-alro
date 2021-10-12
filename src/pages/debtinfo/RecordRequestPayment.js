@@ -118,7 +118,7 @@ function RecordRequestPayment() {
     function selectDataExtendNumber(extendNumber){
 
         const parameter = {
-            ExtendNumber:'163/00003'//extendNumber
+            ExtendNumber:extendNumber
         }
         setIsLoading(true)
         api.selectDataExtendNumber(parameter).then(response =>{
