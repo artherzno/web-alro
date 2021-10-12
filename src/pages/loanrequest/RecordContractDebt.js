@@ -1293,7 +1293,7 @@ function EditContractDebt() {
                                     <Container maxWidth="lg">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
-                                                <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ RIET2343525/00003</p>
+                                                <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ {loanNumber}</p>
                                                 {/* Paper 1 - -------------------------------------------------- */}
                                                 <Paper className="paper line-top-green paper mg-t-10">
                                                     <Grid container spacing={2}>

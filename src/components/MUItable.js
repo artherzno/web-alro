@@ -334,6 +334,14 @@ const MUItable = (props) => {
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
                 }
                 {
+                  tableName === 'addRecordCourtContract' && (row['LoanRecType'] !== 'loan')  ? 
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{recordcontractdebtAction('edit'); editEvent(row['LoanID'])}} />
+                  : tableName === 'addRecordCourtContract' && (row['LoanRecType'] === '' || row['LoanRecType'] === null || row['LoanRecType'] === undefined  || row['LoanRecType'] === 'loan' ) ?  
+                    <ButtonFluidPrimary label="สร้างสัญญาฟ้องศาล" maxWidth="auto"  onClick={()=>{recordcontractdebtAction('add'); recordcontractdebtEvent(row['LoanID'])}} />
+                  : null
+                    // (applicantID, farmerID, applicantNo, loanID, loanNumber)
+                }
+                {
                   actionRequest ? 
                     <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="100px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
                   : null
