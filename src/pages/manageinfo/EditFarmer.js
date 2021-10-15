@@ -1573,10 +1573,9 @@ console.log(BirthDateValue)
                                                     <MuiDatePicker label="วันหมดอายุบัตรประจำตัวประชาชน" id="addmember-expire-id-card-input"  name="IDCardEXP_Date" value={inputData.IDCardEXP_Date}  onChange={(newValue)=>{ setInputData({ ...inputData, IDCardEXP_Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
+                                            {/* <Grid item xs={12} md={12}>
                                                 <MuiTextfield label="สถานที่ออกบัตร" defaultValue="" value={inputData.IDCardMade} name="IDCardMade" onChange={handleInputData} />
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Number ---------------------------------------------------*/}
                                                 <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel" defaultValue="" placeholder="ตัวอย่าง 0812345678" name="Tel"  value={inputData.Tel} onInput={handleInputData} />

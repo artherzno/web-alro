@@ -126,7 +126,7 @@ function AddRecordCourtContract() {
     const [inputDataClosecontact, setInputDataClosecontact] = useState([])
     const [inputDataSpkInfo, setInputDataSpkInfo] = useState([])
 
-    const [inputDataNewFarmerID, setInputDataNewFarmerID] = useState(null)
+    const [inputDataNewFarmerIDCard, setInputDataNewFarmerIDCard] = useState(null)
     const [inputDataNewFarmer, setInputDataNewFarmer] = useState({
         FarmerGrade: null,
         FarmerID: 0,
@@ -297,6 +297,8 @@ function AddRecordCourtContract() {
         OrderInterest: true,
     })
 
+    const [inputDataOrderInterest, setInputDataOrderInterest] = useState(false)
+
     const [summaryTable, setSummaryTable] = useState(0)
     const [inputDataSubmitLoanDUE, setInputDataSubmitLoanDUE] = useState([
         { ITEM: null, DUEDATE: null, PAYREC: null },
@@ -445,7 +447,7 @@ function AddRecordCourtContract() {
                                     item.LoanID,
                                     item.FarmerGrade,
                                     item.ApplicantID,
-                                    item.Statue === null ? '' : !item.Statue ? 'ปิด' : 'เปิด',
+                                    item.Status === null ? 'เปิด' : item.Status ? 'ปิด' : 'เปิด',
                                     item.LoanNumber === null ? '' : item.LoanNumber,
                                     item.dCreated ? newOrderDate(item.dCreated) : null,
                                     item.IDCard === null ? '' : item.IDCard,
@@ -530,6 +532,39 @@ function AddRecordCourtContract() {
         setInputDataLoanDus([])
         setInputDataLoanDue([])
         setInputDataLoanRec([])
+        setInputDataSubmit([])
+        setInputDataClosecontact([])
+        setInputDataSubmitIndividual([])
+        setDueAmount(2)
+        setSummaryTable('')
+        setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+        ])
+        setInputDataNewFarmerIDCard([])
 
         axios.post(
             `${server_hostname}/admin/api/get_closeloandetail`, {
@@ -586,6 +621,11 @@ function AddRecordCourtContract() {
                         IDCARD_AddrDistrictID: data.farmer_data.IDCARD_AddrDistrictID === null ? '' : data.farmer_data.IDCARD_AddrDistrictID,
                         IDCARD_AddrProvinceID: data.farmer_data.IDCARD_AddrProvinceID === null ? '' : data.farmer_data.IDCARD_AddrProvinceID,
                     })
+                    
+                    // Set value new farmer id
+                    console.log(data.farmer_data)
+                    setInputDataNewFarmer(data.farmer_data)
+                    setInputDataNewFarmerIDCard(data.farmer_data.IDCard)
 
                     getIndividualcard(data.loanrec_data[0].LoanNumber)
                     
@@ -660,6 +700,39 @@ function AddRecordCourtContract() {
         setInputDataLoanDus([])
         setInputDataLoanDue([])
         setInputDataLoanRec([])
+        setInputDataSubmit([])
+        setInputDataClosecontact([])
+        setInputDataSubmitIndividual([])
+        setDueAmount(2)
+        setSummaryTable('')
+        setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: null, PAYREC: null },
+        ])
+        setInputDataNewFarmerIDCard([])
 
         axios.post(
             `${server_hostname}/admin/api/get_loandetail`, {
@@ -770,11 +843,11 @@ function AddRecordCourtContract() {
                         setInputDataSubmitLoanDUE(loanDUEArr)
                     }
                     
+                    
                     // Set value new farmer id
-                    if(data.loanrec_data[0].IDCard !== null) {
-                        setInputDataNewFarmerID(data.loanrec_data[0].IDCard)
-                        getNewFarmerDetail()
-                    }
+                    console.log(data.farmer_data)
+                    setInputDataNewFarmer(data.farmer_data)
+                    setInputDataNewFarmerIDCard(data.farmer_data.IDCard)
 
                     getIndividualcard(data.loanrec_data[0].LoanNumber)
                     
@@ -791,16 +864,16 @@ function AddRecordCourtContract() {
     const getNewFarmerDetail = () => {
         setIsLoading(true)
 
-        if((inputDataNewFarmerID === null || inputDataNewFarmerID === '')) {
+        if((inputDataNewFarmerIDCard === null || inputDataNewFarmerIDCard === '')) {
             setErr(true)
             setErrMsg('กรุณาใส่เลขบัตรประชาชน')
         } else {
-            if(inputDataNewFarmerID.length === 13) {
+            if(inputDataNewFarmerIDCard.length === 13) {
                 axios.post(
                     `${server_hostname}/admin/api/search_farmer`, {
                         Name: null,
                         Sirname: null,
-                        IDCard: inputDataNewFarmerID,
+                        IDCard: inputDataNewFarmerIDCard,
                         FarmerGrade: null,
                         LoanNumber: null,
                         order_by: "IDCard",
@@ -938,17 +1011,18 @@ function AddRecordCourtContract() {
     }
 
     const handleChangeCheckbox = (event) => {
-        setInputDataSubmit({
-            ...inputDataSubmit,
-            OrderInterest: event.target.checked
-        });
+        // setInputDataSubmit({
+        //     ...inputDataSubmit,
+        //     OrderInterest: event.target.checked
+        // });
+        setInputDataOrderInterest(event.target.checked)
         console.log(event.target.checked)
     };
 
     const handleNewFarmer = (event) => {
         event.target.value = event.target.value.toString().slice(0, 13)  
         // console.log(event.target.value)
-        setInputDataNewFarmerID(event.target.value)
+        setInputDataNewFarmerIDCard(event.target.value)
     }
 
     const handleDUEAmount = (event) => {
@@ -1068,8 +1142,8 @@ function AddRecordCourtContract() {
         action_loanstatus = loanstatus;
         event.preventDefault();
     
-        let recordcontractdebt = document.getElementById('recordcontractdebt');
-        let formData = new FormData(recordcontractdebt);
+        let addrecordcourtcontract = document.getElementById('addrecordcourtcontract');
+        let formData = new FormData(addrecordcourtcontract);
         formData.append('LoanStatus', action_loanstatus)
         formData.append('Old_LoanID', loanID)
 
@@ -1082,14 +1156,14 @@ function AddRecordCourtContract() {
         formData.append('LoanGuaranteeBookDate', moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate1', moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate2', moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
-        formData.append('IDCard', inputDataNewFarmerID)
+        formData.append('FarmerID', inputDataNewFarmer.FarmerID)    
 
         formData.set('principle', inputDataSubmitIndividual.principle)
         formData.set('OldInterest', inputDataSubmitIndividual.OldInterest)
         formData.set('OldFine', inputDataSubmitIndividual.OldFine)
         formData.set('Interest', inputDataSubmitIndividual.Interest)
         formData.set('ChargeRate', inputDataSubmitIndividual.ChargeRate)
-        formData.set('OrderInterest', inputDataSubmit.OrderInterest ? 1 : 0)
+        formData.set('OrderInterest', inputDataOrderInterest ? 1 : 0)
 
 
         // formData.append('loandue_data', inputDataSubmitLoanDUE)
@@ -1172,8 +1246,16 @@ function AddRecordCourtContract() {
         setSuccess(false);
         setConfirm(false);
         setIsLoading(false)
-        // window.location.reload()
+        window.location.reload()
         // history.push('/manageinfo/searchmember');
+
+    };
+
+    const handleClosePopupErr = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        setIsLoading(false)
 
     };
 
@@ -1205,7 +1287,7 @@ function AddRecordCourtContract() {
                         <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
                     </Grid>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
-                        <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE} onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
+                        <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE || moment().format()} onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
                         {/* <div className="select-date-option">
                             <MuiSelectDay label=''  />
                             <MuiSelectMonth label=''  />
@@ -1274,7 +1356,7 @@ function AddRecordCourtContract() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div className="table-box table-recordcontractdebt mg-t-10">
+                                <div className="table-box table-addrecordcourtcontract mg-t-10">
                                     <MUItable 
                                         headCells={headCells} 
                                         rows={rows} 
@@ -1288,8 +1370,8 @@ function AddRecordCourtContract() {
                                         actionDelete={false} 
                                         printParam1={'LoanNumber'}
                                         tableName={'addRecordCourtContract'}
-                                        recordcontractdebtAction={getAction}
-                                        recordcontractdebtEvent={getCloseLoanDetail}
+                                        addrecordcourtcontractAction={getAction}
+                                        addrecordcourtcontractEvent={getCloseLoanDetail}
                                         createParam={'LoanID'}
                                         editEvent={getLoanDetail}
                                         eventParam={'LoanID'}
@@ -1301,7 +1383,7 @@ function AddRecordCourtContract() {
                     {
                         formField ? 
                             <React.Fragment>  
-                                <form className="root" id="recordcontractdebt" noValidate autoComplete="off" onSubmit={handleSubmit}>     
+                                <form className={`root ${action === 'view'? '_view': null}`} id="addrecordcourtcontract" noValidate autoComplete="off" onSubmit={handleSubmit}>     
                                     <Container maxWidth="lg">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
@@ -1444,13 +1526,13 @@ function AddRecordCourtContract() {
                                                             <p>ฝ่ายหนึ่งกับ</p>
                                                         </Grid> */}
 
-                                                        <Grid item xs={12} md={8}>
-                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataNewFarmerID} onInput={handleNewFarmer} />
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" inputdisabled="input-disabled" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataNewFarmerIDCard} onInput={handleNewFarmer} />
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <p>&nbsp;</p>
                                                             <ButtonFluidPrimary label="ค้นหา" onClick={getNewFarmerDetail} />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={2}>
                                                             <MuiTextfield label="คำนำหน้า" inputdisabled="input-disabled" value={inputDataNewFarmer.FrontName} onChange={handleInputDataFarmer}  />
                                                         </Grid>
@@ -1663,7 +1745,7 @@ function AddRecordCourtContract() {
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
                                                                             <Checkbox
-                                                                                checked={inputDataSubmit.OrderInterest}
+                                                                                checked={inputDataOrderInterest}
                                                                                 onChange={handleChangeCheckbox}
                                                                                 inputProps={{ 'aria-label': 'controlled' }}
                                                                                 />
@@ -2021,7 +2103,7 @@ function AddRecordCourtContract() {
 
             <Dialog
                 open={err}
-                onClose={handleClosePopup}
+                onClose={handleClosePopupErr}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
@@ -2035,7 +2117,7 @@ function AddRecordCourtContract() {
                         <br/>
                         <Box textAlign='center'>
                             
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopupErr} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     
