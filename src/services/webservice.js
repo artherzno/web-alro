@@ -205,7 +205,7 @@ const api = {
     getSignLoan(params) {
 
         return post({
-            path: "api/api/ReportServices/GetSignLoan",
+           path: "api/api/ReportServices/GetSignLoan",
             params
         })
 
@@ -224,8 +224,8 @@ const api = {
     getSignProjLoan(params) {
 
         return post({
-            path: "api/api/ReportServices/GetSignProjLoan",
-            params
+           path: "api/api/ReportServices/GetSignProjLoan",
+           params
         })
 
     },

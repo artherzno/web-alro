@@ -221,16 +221,14 @@ class CheckBill extends React.Component {
                                         <Table className={classes.table} aria-label="customized table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">รหัสจังหวัด</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่คำนวณ</StyledTableCell>
                                                     <StyledTableCell align="center">เลขที่ใบแจ้งหนี้</StyledTableCell>
-                                                    <StyledTableCell align="center">เดือน</StyledTableCell>
-                                                    <StyledTableCell align="center">รายการ</StyledTableCell>
+                                                    <StyledTableCell align="center">จำนวนรายการ</StyledTableCell>
                                                     <StyledTableCell align="center">ครั้งที่</StyledTableCell>
                                                     <StyledTableCell align="center">จำนวนเงินรวม</StyledTableCell>
-                                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                                   
                                                 </TableRow>
 
                                             </TableHead>
@@ -241,16 +239,13 @@ class CheckBill extends React.Component {
                                                         <TableRow key={index} hover={true} onClick={() => {
                                                             this.getInvoiceById(element.invoiceNo)
                                                         }}>
-                                                            <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.calDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.invoiceNo}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.month}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.list}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.times}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.amount)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{formatNumber(element.numCase)}</StyledTableCellLine>
 
 
                                                         </TableRow>
@@ -313,8 +308,6 @@ class CheckBill extends React.Component {
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">จำนวนเงินรับ</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่รับเงิน</StyledTableCell>
-                                                    <StyledTableCell align="center">สถานะรับสภาพ</StyledTableCell>
-                                                    <StyledTableCell align="center">วันที่รับสภาพ</StyledTableCell>
                                                     <StyledTableCell align="center">Pindex</StyledTableCell>
                                                     <StyledTableCell align="center">Stu</StyledTableCell>
                                                     <StyledTableCell align="center">P_stu</StyledTableCell>
@@ -337,7 +330,7 @@ class CheckBill extends React.Component {
                                                             
                                                             <StyledTableCellLine align="left">{element.fullName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.idCard}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Project}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.borrDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.invoice}</StyledTableCellLine>
@@ -351,8 +344,6 @@ class CheckBill extends React.Component {
                                                             <StyledTableCellLine align="right">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.number}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.paymentDate}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.acquiringStatus}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right">{element.acquiringDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.pindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.stu}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{element.pStu}</StyledTableCellLine>

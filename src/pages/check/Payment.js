@@ -252,31 +252,11 @@ class Payment extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={this.onChange("ContractNo")} />
                                         </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ที่ตั้งที่ดิน หมู่" onChange={this.onChange("Address")} />
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid item xs={12} md={12} className="mg-t-0">
-                                    <Grid container spacing={2}>
-
                                        
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ตำบล" onChange={this.onChange("SubDistrict")} />
-                                        </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="อำเภอ" onChange={this.onChange("District")} />
-                                        </Grid>
-
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="ประเภทที่ดิน" onChange={this.onChange("LandType")} />
-                                        </Grid>
-                                        <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="เลขที่" onChange={this.onChange("Num")} />
-                                        </Grid>
                                     </Grid>
                                 </Grid>
+
+                               
 
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
@@ -315,6 +295,11 @@ class Payment extends React.Component {
                                                     <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
                                                     <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
+                                                    <StyledTableCell align="center">ที่ตั้งที่ดิน หมู่</StyledTableCell>
+                                                    <StyledTableCell align="center">ตำบล</StyledTableCell>
+                                                    <StyledTableCell align="center">อำเภอ</StyledTableCell>
+                                                    <StyledTableCell align="center">ประเภทที่ดิน</StyledTableCell>
+                                                    <StyledTableCell align="center">เลขที่</StyledTableCell>
                                                 </TableRow>
 
                                             </TableHead>
@@ -335,7 +320,11 @@ class Payment extends React.Component {
                                                             <StyledTableCellLine align="left">{element.idCard}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projName}</StyledTableCellLine>
-
+                                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                                            <StyledTableCellLine align="left"></StyledTableCellLine>
 
                                                         </TableRow>
                                                     )
