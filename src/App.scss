@@ -1301,6 +1301,40 @@ input {
   }
 }
 
+.recordcontractdebt-page {
+  #recordcontractdebt {
+    &._view {
+      input,
+      .MuiTextField-root,
+      .MuiSelect-select,
+      .MuiCheckbox-root {
+        pointer-events: none;
+        background-color: $gray-border;
+        border-color: $gray-border;
+      }
+    }
+  }
+}
+
+.addrecordcourtcontract-page {
+  #addrecordcourtcontract {
+    &._view {
+      input,
+      .MuiTextField-root,
+      .MuiSelect-select {
+        pointer-events: none;
+        background-color: $gray-border;
+        border-color: $gray-border;
+      }
+      .MuiCheckbox-root {
+        pointer-events: none;
+        background-color: transparent;
+        border-color: $gray-border;
+      }
+    }
+  }
+}
+
 .recordcourtcontract-page {
   .custom-stepper {
     .custom-stepper-item {

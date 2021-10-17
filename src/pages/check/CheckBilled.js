@@ -45,12 +45,13 @@ class CheckBilled extends React.Component {
             ContractNo: "",
             ProjName: "",
             RetrieveYear: "",
-            Order: "",
+            Order: 0,
             Display: "",
             data: [],
             page: 0,
             count: 10,
-            dataSummary:{}
+            dataSummary: {},
+            checkDocument: false
         }
     }
 
@@ -70,6 +71,7 @@ class CheckBilled extends React.Component {
         parameter.append('RetrieveYear', RetrieveYear);
         parameter.append('Order', Order);
         parameter.append('Display', Display);
+
 
         this.setState({ isLoading: true })
         api.getReceipt(parameter).then(response => {
@@ -139,11 +141,11 @@ class CheckBilled extends React.Component {
 
     }
 
-    
+
     render() {
 
         const { classes } = this.props;
-        const { data, page, count, dataSummary} = this.state
+        const { data, page, count, dataSummary } = this.state
 
         return (
             <div>
@@ -166,7 +168,7 @@ class CheckBilled extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <MuiDatePicker label="วันที่" value={this.state.dateSelect} onChange={(event) => {
                                                 this.setState({ Date: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
-                                                   
+
                                                 })
                                             }} />
                                         </Grid>
@@ -191,8 +193,11 @@ class CheckBilled extends React.Component {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={3}>
                                             <FormControlLabel
-                                                control={<Checkbox  onChange={(e) =>{
-                                                    
+                                                control={<Checkbox checked={this.state.checkDocument} onChange={(e) => {
+                                                    this.setState({
+                                                        checkDocument: e.target.checked,
+                                                        Order: e.target.checked ? 1 : 0
+                                                    })
                                                 }} name="billed" />}
                                                 label="ดูใบเสร็จฟ้องศาล"
                                             />
@@ -310,7 +315,7 @@ class CheckBilled extends React.Component {
                                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.payInterest)}</StyledTableCellLine>
                                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.fine)}</StyledTableCellLine>
                                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rate)}</StyledTableCellLine>
-                                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.payment)}</StyledTableCellLine>
                                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.rcapital)}</StyledTableCellLine>
                                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.pcap1)}</StyledTableCellLine>

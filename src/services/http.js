@@ -33,11 +33,11 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
     let parameters = parameter
 
     if (parameter instanceof FormData) {
-        parameters.append("Username", 'admin67') //provinceid)
+        parameters.append("Username", provinceid) //provinceid)
     } else if (parameter) {
         parameters = {
             ...parameter,
-            Username: 'admin67'//provinceid
+            Username: provinceid
         }
     }
 

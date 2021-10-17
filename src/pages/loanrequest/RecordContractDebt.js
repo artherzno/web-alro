@@ -125,7 +125,7 @@ function EditContractDebt() {
     const [inputDataClosecontact, setInputDataClosecontact] = useState([])
     const [inputDataSpkInfo, setInputDataSpkInfo] = useState([])
 
-    const [inputDataNewFarmerID, setInputDataNewFarmerID] = useState(null)
+    const [inputDataNewFarmerIDCard, setInputDataNewFarmerIDCard] = useState(null)
     const [inputDataNewFarmer, setInputDataNewFarmer] = useState({
         FarmerGrade: null,
         FarmerID: 0,
@@ -143,6 +143,7 @@ function EditContractDebt() {
         Contact_AddrSubdistrictID: 0,
         Contact_AddrDistrictID: 0,
         Contact_AddrProvinceID: 0,
+        Contact_Postcode: '',
     })
 
     const [inputDataIndividualcard, setInputDataIndividualcard] = useState([])
@@ -443,7 +444,7 @@ function EditContractDebt() {
                                     item.LoanID,
                                     item.FarmerGrade,
                                     item.ApplicantID,
-                                    item.Statue === null ? '' : !item.Statue ? 'ปิด' : 'เปิด',
+                                    item.Status === null ? 'บันทึกชั่วคราว' : item.Status ? 'แปลงหนี้' : 'ปิด',
                                     item.LoanNumber === null ? '' : item.LoanNumber,
                                     item.dCreated ? newOrderDate(item.dCreated) : null,
                                     item.IDCard === null ? '' : item.IDCard,
@@ -521,6 +522,7 @@ function EditContractDebt() {
             Contact_AddrSubdistrictID: 0,
             Contact_AddrDistrictID: 0,
             Contact_AddrProvinceID: 0,
+            Contact_Postcode: '',
     
         })
         setInputDataLandData([])
@@ -528,6 +530,39 @@ function EditContractDebt() {
         setInputDataLoanDus([])
         setInputDataLoanDue([])
         setInputDataLoanRec([])
+        setInputDataSubmit([])
+        setInputDataClosecontact([])
+        setInputDataSubmitIndividual([])
+        setDueAmount(2)
+        setSummaryTable('')
+        setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+        ])
+        setInputDataNewFarmerIDCard([])
 
         axios.post(
             `${server_hostname}/admin/api/get_closeloandetail`, {
@@ -651,6 +686,7 @@ function EditContractDebt() {
             Contact_AddrSubdistrictID: 0,
             Contact_AddrDistrictID: 0,
             Contact_AddrProvinceID: 0,
+            Contact_Postcode: '',
     
         })
         setInputDataLandData([])
@@ -658,6 +694,39 @@ function EditContractDebt() {
         setInputDataLoanDus([])
         setInputDataLoanDue([])
         setInputDataLoanRec([])
+        setInputDataSubmit([])
+        setInputDataClosecontact([])
+        setInputDataSubmitIndividual([])
+        setDueAmount(2)
+        setSummaryTable('')
+        setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+        ])
+        setInputDataNewFarmerIDCard([])
 
         axios.post(
             `${server_hostname}/admin/api/get_loandetail`, {
@@ -733,7 +802,7 @@ function EditContractDebt() {
                         OfficeProvince: data.loanrec_data[0].OfficeProvince === null ? '' : data.loanrec_data[0].OfficeProvince,
                         Officer: data.loanrec_data[0].Officer === null ? '' : data.loanrec_data[0].Officer,
                         OfficerRank: data.loanrec_data[0].OfficerRank === null ? '' : data.loanrec_data[0].OfficerRank,
-                        RecDate: data.loanrec_data[0].RecDate === null ? '' : data.loanrec_data[0].RecDate,
+                        RecDate: data.loanrec_data[0].RecDate === null ? moment().format() : data.loanrec_data[0].RecDate,
                         RecYear: data.loanrec_data[0].RecYear === null ? '' : data.loanrec_data[0].RecYear,
                         SPK_Order: data.loanrec_data[0].SPK_Order === null ? '' : data.loanrec_data[0].SPK_Order,
                         SPK_OrderDate: data.loanrec_data[0].SPK_OrderDate === null ? '' : data.loanrec_data[0].SPK_OrderDate,
@@ -744,6 +813,8 @@ function EditContractDebt() {
                         WarrantBookOwner1: data.loanrec_data[0].WarrantBookOwner1 === null ? '' : data.loanrec_data[0].WarrantBookOwner1,
                         WarrantBookOwner2: data.loanrec_data[0].WarrantBookOwner2 === null ? '' : data.loanrec_data[0].WarrantBookOwner2,
                         IDCard: data.loanrec_data[0].IDCard === null ? '' : data.loanrec_data[0].IDCard,
+                        LoanChangeDate: data.loanrec_data[0].LoanChangeDate === null ? '' : data.loanrec_data[0].LoanChangeDate,
+                        DebtEditDate: data.loanrec_data[0].DebtEditDate === null ? '' : data.loanrec_data[0].DebtEditDate,
                     })
 
                     setInputDataSubmitIndividual({
@@ -768,10 +839,9 @@ function EditContractDebt() {
                     }
                     
                     // Set value new farmer id
-                    if(data.loanrec_data[0].IDCard !== null) {
-                        setInputDataNewFarmerID(data.loanrec_data[0].IDCard)
-                        getNewFarmerDetail()
-                    }
+                    console.log(data.farmer_data)
+                    setInputDataNewFarmer(data.farmer_data)
+                    setInputDataNewFarmerIDCard(data.farmer_data.IDCard)
 
                     getIndividualcard(data.loanrec_data[0].LoanNumber)
                     
@@ -787,17 +857,37 @@ function EditContractDebt() {
 
     const getNewFarmerDetail = () => {
         setIsLoading(true)
+        setInputDataNewFarmer({
+            FarmerGrade: null,
+            FarmerID: 0,
+            FrontName: null,
+            IDCard: null,
+            Name: null,
+            OldName1: null,
+            OldName2: null,
+            OldSirname1: null,
+            OldSirname2: null,
+            Sirname: null,
+            Contact_AddMoo: '',
+            Contact_AddNo: '',
+            Contact_AddrSoiRoad: '',
+            Contact_AddrSubdistrictID: 0,
+            Contact_AddrDistrictID: 0,
+            Contact_AddrProvinceID: 0,
+            Contact_Postcode: '',
+        })
 
-        if((inputDataNewFarmerID === null || inputDataNewFarmerID === '')) {
+
+        if((inputDataNewFarmerIDCard === null || inputDataNewFarmerIDCard === '')) {
             setErr(true)
             setErrMsg('กรุณาใส่เลขบัตรประชาชน')
         } else {
-            if(inputDataNewFarmerID.length === 13) {
+            if(inputDataNewFarmerIDCard.length === 13) {
                 axios.post(
                     `${server_hostname}/admin/api/search_farmer`, {
                         Name: null,
                         Sirname: null,
-                        IDCard: inputDataNewFarmerID,
+                        IDCard: inputDataNewFarmerIDCard,
                         FarmerGrade: null,
                         LoanNumber: null,
                         order_by: "IDCard",
@@ -822,11 +912,11 @@ function EditContractDebt() {
                                 setErrMsg(['ไม่สามารถทำรายการได้'])
                             }
                         }else {
-                            console.log(data.data[0])
+                            console.log(data.data[0].FarmerID)
                             setInputDataNewFarmer(data.data[0])
                         }
                     }
-                ).catch(err => { console.log(err); history.push('/') })
+                ).catch(err => { console.log(err); })
                 .finally(() => {
                     if (isMounted.current) {
                     setIsLoading(false)
@@ -937,38 +1027,38 @@ function EditContractDebt() {
     const handleNewFarmer = (event) => {
         event.target.value = event.target.value.toString().slice(0, 13)  
         // console.log(event.target.value)
-        setInputDataNewFarmerID(event.target.value)
+        setInputDataNewFarmerIDCard(event.target.value)
     }
 
     const handleDUEAmount = (event) => {
         setDueAmount(event.target.value)
         console.log(event.target.value)
         setInputDataSubmitLoanDUE([
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
-            { ITEM: null, DUEDATE: null, PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
         ])
     }
 
@@ -1071,7 +1161,7 @@ function EditContractDebt() {
         formData.append('LoanGuaranteeBookDate', moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate1', moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
         formData.append('WarrantBookDate2', moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
-        formData.append('IDCard', inputDataNewFarmerID)
+        formData.append('FarmerID', inputDataNewFarmer.FarmerID)
 
         formData.set('principle', inputDataSubmitIndividual.principle)
         formData.set('OldInterest', inputDataSubmitIndividual.OldInterest)
@@ -1160,8 +1250,16 @@ function EditContractDebt() {
         setSuccess(false);
         setConfirm(false);
         setIsLoading(false)
-        // window.location.reload()
+        window.location.reload()
         // history.push('/manageinfo/searchmember');
+
+    };
+
+    const handleClosePopupErr = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        setIsLoading(false)
 
     };
 
@@ -1190,10 +1288,10 @@ function EditContractDebt() {
             rowArr.push(
                 <div style={{flex: '1', width: '100%', display: 'flex'}}>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
-                        <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
+                        <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM === null ? '' : inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
                     </Grid>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
-                        <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE} onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
+                        <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE === null ? moment().format() : inputDataSubmitLoanDUE[i].DUEDATE } onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
                         {/* <div className="select-date-option">
                             <MuiSelectDay label=''  />
                             <MuiSelectMonth label=''  />
@@ -1211,7 +1309,7 @@ function EditContractDebt() {
     }
 
     return (
-        <div className="loanrequestprint-page">
+        <div className="recordcontractdebt-page">
         {
             isLoading ? 
                 <div className="overlay">
@@ -1289,11 +1387,11 @@ function EditContractDebt() {
                     {
                         formField ? 
                             <React.Fragment>  
-                                <form className="root" id="recordcontractdebt" noValidate autoComplete="off" onSubmit={handleSubmit}>     
+                                <form className={`root ${action === 'view'? '_view': null}`} id="recordcontractdebt" noValidate autoComplete="off" onSubmit={handleSubmit}>     
                                     <Container maxWidth="lg">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
-                                                <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ RIET2343525/00003</p>
+                                                <p className="mg-t-20">สัญญาแปลงหนี้ใหม่จากสัญญากู้ยืมเงินเลขที่ {loanNumber}</p>
                                                 {/* Paper 1 - -------------------------------------------------- */}
                                                 <Paper className="paper line-top-green paper mg-t-10">
                                                     <Grid container spacing={2}>
@@ -1344,17 +1442,23 @@ function EditContractDebt() {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={12} md={2} className="txt-center-v txt-center">
-                                                            <p>ฝ่ายหนึ่งกับ</p>
+                                                        <Grid item xs={12} md={2} className="txt-center">
+                                                            <p>&nbsp;</p>
+                                                            <p className="paper-p">ฝ่ายหนึ่งกับ</p>
                                                         </Grid>
 
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataNewFarmerID} onInput={handleNewFarmer} />
+                                                            <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataNewFarmerIDCard} onInput={handleNewFarmer} />
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <p>&nbsp;</p>
-                                                            <ButtonFluidPrimary label="ค้นหา" onClick={getNewFarmerDetail} />
-                                                        </Grid>
+                                                        {
+                                                            action === 'view' ? <Grid item xs={12} md={3}></Grid> 
+                                                            :
+                                                            <Grid item xs={12} md={3}>
+                                                                <p>&nbsp;</p>
+                                                                <ButtonFluidPrimary label="ค้นหา" onClick={getNewFarmerDetail} />
+                                                            </Grid>
+                                                        }
+                                                        
                                                         <Grid item xs={12} md={2}>
                                                             <MuiTextfield label="คำนำหน้า" inputdisabled="input-disabled" value={inputDataNewFarmer.FrontName} onChange={handleInputDataFarmer}  />
                                                         </Grid>
@@ -1489,7 +1593,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* objective1 */}
-                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataLoanRec.objective1} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataSubmit.objective1} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1499,7 +1603,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanPeriod */}
-                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataLoanRec.LoanPeriod} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataSubmit.LoanPeriod} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1509,7 +1613,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanobjName */}
-                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataLoanRec.LoanobjName} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1519,7 +1623,7 @@ function EditContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanFarmerTypeName */}
-                                                            <MuiTextfield label="ประเภทผู้กู้" name="LoanFarmerTypeName" value={inputDataLoanRec.LoanFarmerTypeName} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ประเภทผู้กู้" name="LoanFarmerTypeName" value={inputDataSubmit.LoanFarmerTypeName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1692,7 +1796,7 @@ function EditContractDebt() {
                                                                                 <MuiDatePicker label="วันที่รับแปลงหนี้" name="DebtEditDate" value={inputDataSubmit.DebtEditDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, DebtEditDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
-                                                                                <MuiTextfieldMultiLine label="หมายเหตุ" row="3"  name="notation" value={inputDataLoanRec.notation} onChange={handleInputDataSubmit}  />
+                                                                                <MuiTextfieldMultiLine label="หมายเหตุ" row="3"  name="notation" value={inputDataSubmit.notation} onChange={handleInputDataSubmit}  />
                                                                             </Grid>
                                                                             {/* <Grid item xs={12} md={6}>
                                                                                 <MuiTextfield label="&nbsp;" defaultValue='เงินกู้' />
@@ -1960,15 +2064,25 @@ function EditContractDebt() {
                                         {
                                             (Number(inputDataSubmitIndividual.principle) === summaryTable) && Number(inputDataSubmitIndividual.principle) > 0 && summaryTable > 0 ?
                                             <Grid container spacing={2} className="btn-row txt-center">
-                                                <Grid item xs={12} md={4}>
-                                                    <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
-                                                </Grid>
-                                                <Grid item xs={12} md={4} >
-                                                    <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
-                                                </Grid>
+                                                {
+                                                    action === 'view' ?  
+                                                    <Grid item xs={12} md={12}>
+                                                        <ButtonFluidIconStartPrimary maxWidth="240px" label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                                    </Grid> 
+                                                    :
+                                                    <React.Fragment>
+                                                        <Grid item xs={12} md={4}>
+                                                            <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4} >
+                                                            <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                                        </Grid>
+                                                    </React.Fragment>
+                                                }
+                                                
                                             </Grid>
                                             :
                                             <Grid container spacing={2} className="btn-row txt-center">
@@ -2045,7 +2159,7 @@ function EditContractDebt() {
 
             <Dialog
                 open={err}
-                onClose={handleClosePopup}
+                onClose={handleClosePopupErr}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
@@ -2059,7 +2173,7 @@ function EditContractDebt() {
                         <br/>
                         <Box textAlign='center'>
                             
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopupErr} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     
