@@ -124,6 +124,8 @@ const MUItable = (props) => {
       loanrequestprintAction,
       recordcontractdebtEvent,
       recordcontractdebtAction,
+      addrecordcourtcontractEvent,
+      addrecordcourtcontractAction,
     } = props;
 
   useEffect(() => {
@@ -319,25 +321,29 @@ const MUItable = (props) => {
               <TableCell align="center"  className="sticky">
                 {
                   tableName === 'loanrequestprint' && row['LoanNumber'] ? 
-                    <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{loanrequestprintAction('edit'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{loanrequestprintAction('edit'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
                   : tableName === 'loanrequestprint' && row['LoanNumber'] === '' ?  
                     <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{loanrequestprintAction('add'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
                   : null
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
                 }
                 {
-                  tableName === 'recordcontractdebt' && (row['LoanRecType'] !== 'loan')  ? 
-                    <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{recordcontractdebtAction('edit'); editEvent(row['LoanID'])}} />
+                  tableName === 'recordcontractdebt' && (row['LoanRecType'] !== 'loan') && (row['Status']==='เปิด')  ? 
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{recordcontractdebtAction('edit'); editEvent(row['LoanID'])}} />
+                  : tableName === 'recordcontractdebt' && (row['LoanRecType'] !== 'loan') && (row['Status']==='ปิด') ? 
+                    <ButtonFluidPrimary label="ดูรายละเอียด" maxWidth="130px" onClick={()=>{recordcontractdebtAction('view'); editEvent(row['LoanID'])}} />
                   : tableName === 'recordcontractdebt' && (row['LoanRecType'] === '' || row['LoanRecType'] === null || row['LoanRecType'] === undefined  || row['LoanRecType'] === 'loan' ) ?  
                     <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{recordcontractdebtAction('add'); recordcontractdebtEvent(row['LoanID'])}} />
                   : null
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
                 }
                 {
-                  tableName === 'addRecordCourtContract' && (row['LoanRecType'] !== 'loan')  ? 
-                    <ButtonFluidPrimary label="แก้ไข" maxWidth="120px" onClick={()=>{recordcontractdebtAction('edit'); editEvent(row['LoanID'])}} />
-                  : tableName === 'addRecordCourtContract' && (row['LoanRecType'] === '' || row['LoanRecType'] === null || row['LoanRecType'] === undefined  || row['LoanRecType'] === 'loan' ) ?  
-                    <ButtonFluidPrimary label="สร้างสัญญาฟ้องศาล" maxWidth="auto"  onClick={()=>{recordcontractdebtAction('add'); recordcontractdebtEvent(row['LoanID'])}} />
+                  tableName === 'addRecordCourtContract' && (row['LoanRecType'] === 'court') && (row['Status']==='เปิด')  ? 
+                  <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{addrecordcourtcontractAction('edit'); editEvent(row['LoanID'])}} />
+                  : tableName === 'addRecordCourtContract' && (row['LoanRecType'] === 'court') && (row['Status']==='ปิด')   ? 
+                    <ButtonFluidPrimary label="ดูรายละเอียด" maxWidth="130px" onClick={()=>{addrecordcourtcontractAction('view'); editEvent(row['LoanID'])}} />
+                  : tableName === 'addRecordCourtContract' && (row['LoanRecType'] === '' || row['LoanRecType'] === null || row['LoanRecType'] === undefined  || row['LoanRecType'] !== 'court' ) ?  
+                    <ButtonFluidPrimary label="สร้างสัญญาฟ้องศาล" maxWidth="auto"  onClick={()=>{addrecordcourtcontractAction('add'); addrecordcourtcontractEvent(row['LoanID'])}} />
                   : null
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
                 }

@@ -460,10 +460,10 @@ const MuiTextfieldEndAdornment = (props) => {
 
 const MuiTextNumber = (props) => {
     const classes = useStyles();
-    const { topic, label, id, placeholder, value, onInput, name, onBlur, error } = props;
+    const { topic, label, id, placeholder, value, onInput, name, onBlur, error, inputdisabled } = props;
 
     return (
-        <FormControl className={classes.textbox}>
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
             {
                 (label) === '' ? '' :
                     <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
