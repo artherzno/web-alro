@@ -2025,7 +2025,7 @@ function AddRecordCourtContract() {
                                                 {
                                                     action === 'view' ?  
                                                     <Grid item xs={12} md={12}>
-                                                        <ButtonFluidIconStartPrimary maxWidth="240px" label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                                        {/* <ButtonFluidIconStartPrimary maxWidth="240px" label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  /> */}
                                                     </Grid> 
                                                     :
                                                     <React.Fragment>
@@ -2035,9 +2035,9 @@ function AddRecordCourtContract() {
                                                         <Grid item xs={12} md={4} >
                                                             <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                                         </Grid>
-                                                        <Grid item xs={12} md={4}>
+                                                        {/* <Grid item xs={12} md={4}>
                                                             <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
-                                                        </Grid>
+                                                        </Grid> */}
                                                     </React.Fragment>
                                                 }
                                                 
