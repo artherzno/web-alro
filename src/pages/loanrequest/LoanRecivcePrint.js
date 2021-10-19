@@ -105,7 +105,7 @@ function LoanRecivcePrint() {
     const [inputData, setInputData] = useState({
         LoanID: 0, // Int = 10,
         Time: 0, // Int = 2,
-        LoanReceiptDate: null, // Date = "2021-05-09",
+        LoanReceiptDate: moment().format('YYYY-MM-DD'), // Date = "2021-05-09",
         LoanReceiptfrom: '', // String = "xxx",
         LoanReceiptfrom2:'' , // String = "yyy",
         LoanReceiptList: '', // String = "zzz",
@@ -515,7 +515,7 @@ function LoanRecivcePrint() {
         setInputData({
             LoanID: 0, // Int = 10,
             Time: 0, // Int = 2,
-            LoanReceiptDate: null, // Date = "2021-05-09",
+            LoanReceiptDate: moment().format('YYYY-MM-DD'), // Date = "2021-05-09",
             LoanReceiptfrom: '', // String = "xxx",
             LoanReceiptfrom2:'' , // String = "yyy",
             LoanReceiptList: '', // String = "zzz",
