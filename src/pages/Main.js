@@ -88,6 +88,8 @@ import AddRepaymentContract from './repaymentcontract/AddRepaymentContract';
 import TestValidate from './TestValidate';
 import PrintBillOtherBank from './loanserviceinfo/PrintBillOtherBank';
 import PayFromOtherBank from './loanserviceinfo/PayFromOtherBank';
+import UploadFile from './upload/UploadFile';
+import PrintForm from './printform/PrintForm';
 
 
 
@@ -195,6 +197,10 @@ function Main() {
                     {/* Repayment Contract */}
                     <Route path="/repaymentcontract/closerepaymentcontract" component={CloseRepaymentContract} />
                     <Route path="/repaymentcontract/addrepaymentcontract" component={AddRepaymentContract} />
+                    {/* Upload File */}
+                    <Route path="/upload/uploadfile" component={UploadFile} />
+                    {/* Print Form */}
+                    <Route path="/printform/printform" component={PrintForm} />
                     
                 </Switch>
             </Router>

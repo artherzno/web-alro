@@ -1306,7 +1306,8 @@ input {
     &._view {
       input,
       .MuiTextField-root,
-      .MuiSelect-select {
+      .MuiSelect-select,
+      .MuiCheckbox-root {
         pointer-events: none;
         background-color: $gray-border;
         border-color: $gray-border;
@@ -1323,6 +1324,11 @@ input {
       .MuiSelect-select {
         pointer-events: none;
         background-color: $gray-border;
+        border-color: $gray-border;
+      }
+      .MuiCheckbox-root {
+        pointer-events: none;
+        background-color: transparent;
         border-color: $gray-border;
       }
     }

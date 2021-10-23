@@ -67,7 +67,7 @@ class SignProjectTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest,resultMainProj } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -77,7 +77,9 @@ class SignProjectTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result",resultRequest)
+        parameter.append("Result",resultRequest);
+        parameter.append("ProjMain",resultMainProj);
+        
 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
@@ -100,7 +102,7 @@ class SignProjectTab extends React.Component {
 
     exportExcel() {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
+        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest ,resultMainProj} = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -110,7 +112,8 @@ class SignProjectTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result",resultRequest)
+        parameter.append("Result",resultRequest);
+        parameter.append("ProjMain",resultMainProj)
 
         this.setState({
             isExporting: true

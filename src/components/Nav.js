@@ -309,20 +309,17 @@ const listmenu = [
     },{
         title: 'UpLoadFile',
         component: 'UpLoadFile',
-        path: '/home',
+        path: '/upload/uploadfile',
         // submenu: [
         //     {
-        //         subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
-        //         subpath: '/repaymentcontract/closerepaymentcontract'
-        //     },{
-        //         subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
-        //         subpath: '/repaymentcontract/addrepaymentcontract'
-        //     }
+        //         subtitle: 'อัพโหลดไฟล์',
+        //         subpath: '/upload/uploadfile'
+        //     },
         // ]
     },{
         title: 'พิมพ์แบบฟอร์ม',
         component: 'PrintForm',
-        path: '/home',
+        path: '/printform/printform',
         // submenu: [
         //     {
         //         subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
@@ -339,7 +336,7 @@ export default function Nav() {
   const classes = useStyles();
   const history = useHistory();
 
-  function navItem(title, subtitle, key) {
+  function navItem(title, subtitle, key, path) {
 
         const [open, setOpen] = useState(false);
         const anchorRef = useRef(null);
@@ -383,31 +380,44 @@ export default function Nav() {
 
         return (
             <div className="nav-item" key={key}>
-                <Button
-                    ref={anchorRef}
-                    aria-controls={open ? 'menu-list-grow' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}
-                    endIcon={<ExpandMoreIcon/>}
-                >
-                { title }
-                </Button>
-                <Popper ref={popper} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                {({ TransitionProps, placement }) => (
-                    <Grow
-                    {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                { subtitle === undefined ? 
+                    <Button
+                        ref={anchorRef}
+                        aria-controls={open ? 'menu-list-grow' : undefined}
+                        aria-haspopup="true"
+                        onClick={()=>{goto(path)}}
                     >
-                    <Paper style={{maxHeight:400,overflowY:'scroll'}}>
-                        <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList  autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                            { subtitle.map((item,i)=><MenuItem key={i} onClick={(event)=>{handleClose(event); goto(item.subpath)}}>{item.subtitle}</MenuItem>)}
-                        </MenuList>
-                        </ClickAwayListener>
-                    </Paper>
-                    </Grow>
-                )}
-                </Popper>
+                    { title } 
+                    </Button>
+                    :
+                    <React.Fragment>
+                        <Button
+                            ref={anchorRef}
+                            aria-controls={open ? 'menu-list-grow' : undefined}
+                            aria-haspopup="true"
+                            onClick={handleToggle}
+                            endIcon={<ExpandMoreIcon/>}
+                        >
+                        { title } 
+                        </Button>
+                        <Popper ref={popper} open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                        {({ TransitionProps, placement }) => (
+                            <Grow
+                            {...TransitionProps}
+                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                            >
+                            <Paper style={{maxHeight:400,overflowY:'scroll'}}>
+                                <ClickAwayListener onClickAway={handleClose}>
+                                            <MenuList  autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                    { subtitle.map((item,i)=><MenuItem key={i} onClick={(event)=>{handleClose(event); goto(item.subpath)}}>{item.subtitle}</MenuItem>)}
+                                </MenuList>
+                                </ClickAwayListener>
+                            </Paper>
+                            </Grow>
+                        )}
+                        </Popper>
+                    </React.Fragment>
+                }
             </div>
         );
   }
@@ -415,7 +425,7 @@ export default function Nav() {
   return (
         <div className={classes.root}>
             <div className="nav">
-                {  listmenu.map((item,key)=> navItem(item.title, item.submenu, key)) }
+                {  listmenu.map((item,key)=> navItem(item.title, item.submenu, key, item.path)) }
             </div>
         </div>
   );
