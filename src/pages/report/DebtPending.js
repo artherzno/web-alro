@@ -50,7 +50,8 @@ class DebtPending extends React.Component {
             IDPayer:"",
             dateSelect: null,
             page: 0,
-            count: 10
+            count: 10,
+            totalResult: 0,
 
         }
     }
@@ -73,13 +74,14 @@ class DebtPending extends React.Component {
         parameter.append('PayerName', PayerName);
         parameter.append('IDPayer', IDPayer);
 
+
         this.setState({ isLoading: true })
         api.getDebtPending(parameter).then(response => {
 
             this.setState({
                 dataList: response.data.data,
                 dataSummary: response.data.dataSummary,
-                isLoading: false
+                isLoading: false,
             })
 
         }).catch(error => {

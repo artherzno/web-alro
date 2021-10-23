@@ -48,18 +48,18 @@ class Compensate extends React.Component {
             PayerName: "",
             IDPayer: "",
             page: 0,
-            count: 10
+            count: 10,
+            totalResult: 0,
 
         }
     }
 
     componentDidMount() {
 
-
-        this.loadData()
+        this.loadData(this.state.page, this.state.count)
     }
 
-    loadData() {
+    loadData(page, count) {
 
         const { OrderNo, ContratNo, DateOrder, FarmerName, PayerName, IDPayer,  } = this.state
 
@@ -71,12 +71,17 @@ class Compensate extends React.Component {
         parameter.append('PayerName', PayerName);
         parameter.append('IDPayer', IDPayer);
 
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         this.setState({ isLoading: true })
         api.getCompensate(parameter).then(response => {
 
             this.setState({
                 dataList: response.data.data,
-                isLoading: false
+                isLoading: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
@@ -155,7 +160,7 @@ class Compensate extends React.Component {
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
                                         <ButtonFluidPrimary label="ค้นหา" onClick={() => {
-                                            this.loadData()
+                                            this.loadData(0, this.state.count)
                                         }} />
                                     </Grid>
 
@@ -193,7 +198,7 @@ class Compensate extends React.Component {
                                         </TableHead>
                                         <TableBody>
                                             { 
-                                                this.state.dataList.slice(page * count, page * count + count).map((data, index) => {
+                                                this.state.dataList.map((data, index) => {
 
                                                 return (
                                                     <TableRow key={index}>
@@ -230,20 +235,22 @@ class Compensate extends React.Component {
                                 <TablePagination
                                     rowsPerPageOptions={[5, 10, 25]}
                                     component="div"
-                                    count={this.state.dataList.length}
+                                    count={this.state.totalResult}
                                     rowsPerPage={this.state.count}
                                     page={this.state.page}
                                     onPageChange={(e, newPage) => {
 
-                                        this.setState({
-                                            page: newPage
-                                        })
+                                        this.loadData(newPage, this.state.count)
                                     }}
                                     onRowsPerPageChange={(event) => {
 
                                         this.setState({
                                             count: +event.target.value,
                                             page: 0
+                                        }, () => {
+
+                                            this.loadData(0, this.state.count)
+
                                         })
                                     }}
                                 />

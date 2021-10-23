@@ -52,7 +52,8 @@ class ListFarmPayLoanTab extends React.Component {
             receiptTypeLabel:"",
             provinceReiptLabel:"",
             page: 0,
-            count: 10
+            count: 10,
+            totalResult: 0,
 
         }
     }
@@ -60,10 +61,10 @@ class ListFarmPayLoanTab extends React.Component {
     componentDidMount() {
 
 
-        this.loadPayLoan()
+        this.loadPayLoan(this.state.page, this.state.count)
     }
 
-    loadPayLoan() {
+    loadPayLoan(page, count) {
 
         const { displaySection, sectionProvince, month, year, display2, startDate, endDate, receiptType, receiptProvince } = this.state
 
@@ -78,13 +79,18 @@ class ListFarmPayLoanTab extends React.Component {
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
 
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         this.setState({ isLoading: true })
         api.getPayLoan(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
-                isLoading: false
+                isLoading: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
@@ -267,7 +273,7 @@ class ListFarmPayLoanTab extends React.Component {
 
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
-                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
                 </Grid>
 
             </Grid>
@@ -315,7 +321,7 @@ class ListFarmPayLoanTab extends React.Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.farmerPayLoanList.slice(page * count, page * count + count).map((farmer, index) => {
+                                {this.state.farmerPayLoanList.map((farmer, index) => {
 
                                     return (
                                         <TableRow key={index}>
@@ -357,20 +363,22 @@ class ListFarmPayLoanTab extends React.Component {
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={this.state.farmerPayLoanList.length}
+                        count={this.state.totalResult}
                         rowsPerPage={this.state.count}
                         page={this.state.page}
                         onPageChange={(e, newPage) => {
 
-                            this.setState({
-                                page: newPage
-                            })
+                            this.loadPayLoan(newPage, this.state.count)
                         }}
                         onRowsPerPageChange={(event) => {
 
                             this.setState({
                                 count: +event.target.value,
                                 page: 0
+                            }, () => {
+
+                                this.loadPayLoan(0, this.state.count)
+
                             })
                         }}
                     />
