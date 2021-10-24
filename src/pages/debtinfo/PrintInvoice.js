@@ -31,7 +31,7 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 import { dateFormatTensiveMenu, formatNumber, formatNumberInt } from '../../utils/Utilities';
-import { OverlayLoading } from '../../components';
+import { ButtonExport, OverlayLoading } from '../../components';
 
 
 
@@ -51,6 +51,7 @@ function PrintInvoice() {
     const [start_date, setStartDate] = useState(null)
     const [startDateSelect, setStartDateSelect] = useState(null)
     const [printList, setPrintList] = useState([])
+    const [isExporting, setIsExporting] = useState(false)
 
     const [page, setPage] = useState(0)
     const [pageCount,setPageCount] = useState(10)
@@ -112,6 +113,117 @@ function PrintInvoice() {
         }).catch(error => {
             setIsLoading(false)
         })
+    }
+
+    function getInvoicePayPdf() {
+
+   
+        const parameter = new FormData()
+        parameter.append('InvoiceNo', start_date || '');
+
+
+        setIsExporting(true)
+
+        api.getInvoicePayPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'พิมพ์สรุปใบแจ้งหนี้ + ชำระ.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
+    function getInvoiceByContactPdf(){
+
+        const parameter = new FormData()
+        parameter.append('InvoiceNo', start_date || '');
+
+
+        setIsExporting(true)
+
+        api.getInvoicePayPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'พิมพ์สรุปใบแจ้งหนี้รายสัญญา.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+
+    }
+
+    function getInvoiceByProjectPdf() {
+
+        const parameter = new FormData()
+        parameter.append('InvoiceNo', start_date || '');
+
+
+        setIsExporting(true)
+
+        api.getInvoiceByProjectPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'พิมพ์สรุปใบแจ้งหนี้รายโครงการ.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+
+    }
+
+    function exportPrintInvoiceAll(){
+       
+        const parameter = new FormData()
+        parameter.append('startDate', start_date || '');
+
+
+        setIsExporting(true)
+
+        api.exportPrintInvoiceAll(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ใบแจ้งหนี้ > XLS.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
     }
 
     return (
@@ -222,17 +334,18 @@ function PrintInvoice() {
                                     <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
                                 </div> */}
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10">
-                                <ButtonFluidPrimary label="พิมพ์สรุปใบแจ้งหนี้ + ชำระ" />
+                            <Grid item xs={12} md={3} >
+                                <ButtonExport label="พิมพ์สรุปใบแจ้งหนี้ + ชำระ" handleButtonClick={() => { getInvoicePayPdf() }} loading={isExporting} />
+
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10">
-                                <ButtonFluidPrimary label="พิมพ์สรุปใบแจ้งหนี้รายสัญญา" />
+                            <Grid item xs={12} md={3} >
+                                <ButtonExport label="พิมพ์สรุปใบแจ้งหนี้รายสัญญา" handleButtonClick={() => { getInvoiceByContactPdf() }} loading={isExporting} />
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10">
-                                <ButtonFluidPrimary label="พิมพ์สรุปใบแจ้งหนี้รายโครงการ" />
+                            <Grid item xs={12} md={3} >
+                                <ButtonExport label="พิมพ์สรุปใบแจ้งหนี้รายโครงการ" handleButtonClick={() => { getInvoiceByProjectPdf() }} loading={isExporting} />
                             </Grid>
-                            <Grid item xs={12} md={2} className="mg-t-10">
-                                <ButtonFluidPrimary label="ใบแจ้งหนี้ > XLS" onClick={handlePrintExcel} />
+                            <Grid item xs={12} md={3} >
+                                <ButtonExport label="ใบแจ้งหนี้ > XLS" handleButtonClick={() => { exportPrintInvoiceAll() }} loading={isExporting} />
                             </Grid>
                       
                         </Grid>

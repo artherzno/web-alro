@@ -43,7 +43,7 @@ import {
 
 import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
-import { OverlayLoading } from '../../components';
+import { ButtonExport, OverlayLoading } from '../../components';
 
 
 function AdvanceInvoice(props) {
@@ -70,6 +70,7 @@ function AdvanceInvoice(props) {
     const [printActive, setPrintActive] = useState(false)
     const [selectedData,setSelectedData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    const [isExporting, setIsExporting] = useState(false)
 
 
     useEffect(() => {
@@ -146,6 +147,37 @@ function AdvanceInvoice(props) {
         })
     }
 
+    function exportDebtSettlement() {
+
+        const parameter = new FormData()
+        parameter.append('FarmerName', '');
+        parameter.append('Date', startDate);
+        parameter.append('LoanNumber', '');
+        parameter.append('StartYear', '');
+        parameter.append('ProjectName', '');
+
+
+        setIsExporting(true)
+
+        api.exportDebtSettlement(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ใบแจ้งหนี้.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
     return (
         <div className="advanceinvoice-page">
             <OverlayLoading isLoading={isLoading} />
@@ -193,11 +225,12 @@ function AdvanceInvoice(props) {
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={2} className={`mg-t-10  ${printActive ? '' : 'btn-disabled'}`}>
-                                        <ButtonFluidPrimary label="พิมพ์ใบแจ้งหนี้" />
+                                    {/* <Grid item xs={12} md={2} className={`mg-t-10  ${printActive ? '' : 'btn-disabled'}`}> */}
+                                    <Grid item xs={12} md={2}>
+                                        <ButtonExport label="พิมพ์ใบแจ้งหนี้" handleButtonClick={() => { exportDebtSettlement() }} loading={isExporting} />
                                     </Grid>
-                                    <Grid item xs={12} md={2} className="mg-t-10 btn-disabled">
-                                        <ButtonFluidPrimary label="พิมพ์ Lable" />
+                                    <Grid item xs={12} md={2} >
+                                        <ButtonExport label="พิมพ์ Lable" handleButtonClick={() => { exportDebtSettlement() }} loading={isExporting} />
                                     </Grid>
                                 </Grid>
                             </Grid>
