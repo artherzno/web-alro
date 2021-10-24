@@ -209,6 +209,12 @@ function LoanRequestPrint(props) {
         WarrantBookOwner2: '', // "",
         WarrantBook2: '', // "",
         WarrantBookDate2: moment().format(), // "null",
+        WarrantBookOwner3: '', // "",
+        WarrantBook3: '', // "",
+        WarrantBookDate3: moment().format(), // "null",
+        WarrantBookOwner4: '', // "",
+        WarrantBook4: '', // "",
+        WarrantBookDate4: moment().format(), // "null",
         Free_of_debt_Month: '', // "",
         Free_of_debt_Year: '', // "",
         Free_of_debt_Time: 0, // "",
@@ -308,7 +314,7 @@ function LoanRequestPrint(props) {
         PAYREC: ''
     });
 
-    const [Free_of_debt, setFree_of_debt] = useState('0')
+    const [Free_of_debt, setFree_of_debt] = useState('1')
 
     const [summaryTable, setSummaryTable] = useState(0)
     let summaryLoanObj = 
@@ -343,6 +349,7 @@ function LoanRequestPrint(props) {
         // 'ApplicantID',
         'RecordCode',
         'RecDate', 
+        'ApplicantDate', 
         'ApplicantNo',
         'ApplicantStatus',
         'ProjectID',
@@ -360,12 +367,13 @@ function LoanRequestPrint(props) {
         // { id: 'ApplicantID', numeric: false, disablePadding: true, widthCol: '0px', label: 'รหัสบันทึก' },
         { id: 'RecordCode', numeric: false, disablePadding: true, widthCol: '140px', label: 'รหัสบันทึก' },
         { id: 'RecDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่บันทึก' },
+        { id: 'ApplicantDate', numeric: false, disablePadding: false, widthCol: '180px', label: 'วันที่ยื่นคำขอ' },
         { id: 'ApplicantNo', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขคำขอ' },
         { id: 'ApplicantStatus', numeric: false, disablePadding: false, widthCol: '150px', label: 'สถานะคำขอ' },
         { id: 'ProjectID', numeric: false, disablePadding: false, widthCol: '150px', label: 'รหัสโครงการ' },
         { id: 'ProjectName', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อโครงการ' },
         { id: 'LoanNumber', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขที่สัญญา' },
-        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '180px', label: 'วันที่บันทึกสัญญา' },
         { id: 'IDCard', numeric: false, disablePadding: false, widthCol: '180px', label: 'เลขบัตรประชาชน' },
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
@@ -410,8 +418,8 @@ function LoanRequestPrint(props) {
         checkLogin();
     }, [])
 
-    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
-        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
+    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
+        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
     }
 
     // New order date 2021-08-23 to 23/08/2564
@@ -519,6 +527,7 @@ function LoanRequestPrint(props) {
                                 item.LoanID,
                                 item.RecordCode === null ? '' : item.RecordCode,
                                 item.RecDate === null ? '' : newOrderDate(item.RecDate),
+                                !!item.ApplicantDate ? newOrderDate(item.ApplicantDate) : null,
                                 item.ApplicantNo === null ? '' : item.ApplicantNo,
                                 item.ApplicantStatus === null || !item.ApplicantStatus ? 'P' : item.ApplicantStatus,
                                 item.ProjectID === null ? '' : item.ProjectID,
@@ -739,6 +748,12 @@ function LoanRequestPrint(props) {
                             WarrantBookOwner2: '', // "",
                             WarrantBook2: '', // "",
                             WarrantBookDate2: moment().format(), // "null",
+                            WarrantBookOwner3: '', // "",
+                            WarrantBook3: '', // "",
+                            WarrantBookDate3: moment().format(), // "null",
+                            WarrantBookOwner4: '', // "",
+                            WarrantBook4: '', // "",
+                            WarrantBookDate4: moment().format(), // "null",
                             Free_of_debt_Month: '', // "",
                             Free_of_debt_Year: '', // "",
                             Free_of_debt_Time: 0, // "",
@@ -1630,9 +1645,11 @@ console.log('FreeDebtTime',event.target.value)
 
     const handlePrintPDF = () => {
         console.log('PDF - ContractNo:', loanNumber)
+        console.log('PDF - Username:',localStorage.getItem('provinceid'))
 
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
+        formData.append('UserName', localStorage.getItem('provinceid'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractPdf`, //your url
@@ -1885,12 +1902,12 @@ console.log('FreeDebtTime',event.target.value)
                                                         <Grid item xs={12} md={4}>
                                                             <MuiTextfield label="หมายเลขประจำตัว 13 หลัก" inputdisabled="input-disabled" id="no1-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputDataFarmer.IDCard} onInput = {handleInputDataFarmer}  />
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="สถานที่ออกบัตร อำเภอ/เขต" name="IDCardMadeDistrict" value={inputDataSubmit.IDCardMadeDistrict} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiSelectProvince label="จังหวัด" lists={provinceList} name="IDCardMadeProvince" value={inputDataSubmit.IDCardMadeProvince} onChange={handleInputDataSubmit}/>
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="สัญชาติ" name="Nationality" value={inputDataSubmit.Nationality} onChange={handleInputDataSubmit} />
                                                         </Grid>
@@ -2301,6 +2318,62 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
                                                                 <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(3)" name="WarrantBookOwner3" value={inputDataSubmit.WarrantBookOwner3}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label=""  name="WarrantBook2" value={inputDataSubmit.WarrantBook2}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                                {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
+                                                                    <span>/</span>
+                                                                </Grid>
+                                                                <Grid item xs={12} md={5}>
+                                                                    <MuiTextfield label=""  defaultValue="" />
+                                                                </Grid> */}
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* <p>ลงวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="warrantbookdate2dd" value={inputSelectDate.warrantbookdate2dd} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
+                                                                </div> */}
+                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate3" value={inputDataSubmit.WarrantBookDate3} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(4)" name="WarrantBookOwner4" value={inputDataSubmit.WarrantBookOwner4}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label=""  name="WarrantBook4" value={inputDataSubmit.WarrantBook4}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                                {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
+                                                                    <span>/</span>
+                                                                </Grid>
+                                                                <Grid item xs={12} md={5}>
+                                                                    <MuiTextfield label=""  defaultValue="" />
+                                                                </Grid> */}
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* <p>ลงวันที่</p>
+                                                                <div className="select-date-option">
+                                                                    <MuiSelectDay label="" name="warrantbookdate2dd" value={inputSelectDate.warrantbookdate2dd} onChange={handleSelectDate} />
+                                                                    <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
+                                                                    <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
+                                                                </div> */}
+                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate4" value={inputDataSubmit.WarrantBookDate4} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

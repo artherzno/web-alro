@@ -154,6 +154,9 @@ function LoanRequestContactStep1(props) {
         Debt_Owner: '', // "",
         Debt_Amount: 0, // 0
         dCreated: null,
+
+        ApplicantDate: moment().format(),
+        RecDate: moment().format()
     })
 
     const [approvalData, setApprovalData] = useState([])
@@ -911,6 +914,12 @@ function LoanRequestContactStep1(props) {
                                                     </React.Fragment>
                                                     : ''
                                                 }
+                                                 <Grid item xs={12} md={6}>
+                                                    <MuiDatePicker label="วันที่ยื่นคำขอ" name="ApplicantDate" value={inputData.ApplicantDate} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputData.RecDate} onChange={handleInputData} />
+                                                </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="เขียนที่" name="AppLocation" value={inputData.AppLocation} onChange={handleInputData} />
                                                 </Grid>
@@ -1190,14 +1199,14 @@ function LoanRequestContactStep1(props) {
                                                             </Grid>
 
 
-                                                            <Grid item xs={12} md={5}>
+                                                            {/* <Grid item xs={12} md={5}>
                                                                 <p className="">ดอกเบี้ย</p>
                                                                 <MuiTextfieldCurrency label="" name="Interest_YearNoPay" value={inputData.Interest_YearNoPay} onChange={handleInputData} /> 
                                                             </Grid>
                                                             <Grid item xs={1} md={1}>
                                                                 <p>&nbsp;</p>
                                                                 <p className="paper-p">ปี</p>
-                                                            </Grid>
+                                                            </Grid> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

@@ -36,6 +36,8 @@ import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 
+import { MUItable } from '../../components/MUItable'
+
 function LoanRequestContactSearch() {
     const history = useHistory();
     const auth = useContext(AuthContext);
@@ -70,7 +72,25 @@ function LoanRequestContactSearch() {
         order_desc: 'DESC', // "DESC",
         page_number: 1, // 1,
         page_length: 200, // 200
+        ApplicantNo: '',
     })
+
+    const headCells = [
+        { id: 'ApplicantNo', numeric: false, disablePadding: true,  widthCol: '140px',label: 'เลขที่คำขอ' },
+        { id: 'Approve_result', numeric: true, disablePadding: false, widthCol: '140px', label: 'สถานะคำขอ' },
+        { id: 'dCreated', numeric: true, disablePadding: false,  widthCol: '140px',label: 'วันที่ยื่นคำขอ' },
+        { id: 'IDCard', numeric: true, disablePadding: false,  widthCol: '160px', label: 'เลขบัตรประชาชน' },
+        { id: 'fullname', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อเกษตรกร' },
+    ];
+
+    const rowsLabel = [
+        'ApplicantNo', 'Approve_result', 'dCreated', 'IDCard', 'fullname'
+    ]
+
+    function createData( ApplicantID, ApplicantNo, Approve_result, dCreated, IDCard, fullname) {
+        return { ApplicantID, ApplicantNo, Approve_result, dCreated, IDCard, fullname
+         };
+    }
 
     const columns = [
         // { 
@@ -78,6 +98,18 @@ function LoanRequestContactSearch() {
         //     headerName: 'ApplicantID', 
         //     width: 120 
         // },
+        {
+            field: 'applicantno',
+            headerName: 'เลขที่คำขอ',
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'approve_result',
+            headerName: 'สถานะคำขอ',
+            flex: 1,
+            editable: false,
+        },
         {
           field: 'dcreated',
           headerName: 'วันที่ยื่นคำขอ',
@@ -197,6 +229,7 @@ function LoanRequestContactSearch() {
                 order_desc: 'DESC', // "DESC",
                 page_number: 1, // 1,
                 page_length: 200,
+                ApplicantNo: inputData.ApplicantNo,
             }, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
@@ -221,19 +254,30 @@ function LoanRequestContactSearch() {
                         setErrMsg('ไม่พบข้อมูล')
                     }else {
                         setTableResult(data.data);
-                        let dataArr = [];
-                        for(let i=0; i<data.data.length; i++) {
-                            // console.log(data.data[i].ApplicantID)
-                            dataArr.push({
-                                id: data.data[i].ApplicantID,
-                                farmerid: data.data[i].FarmerID,
-                                fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
-                                idcard: data.data[i].IDCard,
-                                dcreated: data.data[i].dCreated === null ? null : newOrderDate(data.data[i].dCreated),
-                                applicantno: data.data[i].ApplicantNo,
-                            })
-                        }
-                        setRows(dataArr)
+                        // let dataArr = [];
+                        // for(let i=0; i<data.data.length; i++) {
+                        //     // console.log(data.data[i].ApplicantID)
+                        //     dataArr.push({
+                        //         id: data.data[i].ApplicantID,
+                        //         farmerid: data.data[i].FarmerID,
+                        //         fullname: data.data[i].FrontName+' '+data.data[i].Name+' '+data.data[i].Sirname,
+                        //         idcard: data.data[i].IDCard,
+                        //         dcreated: data.data[i].dCreated === null ? null : newOrderDate(data.data[i].dCreated),
+                        //         applicantno: data.data[i].ApplicantNo,
+                        //         approve_result: data.data[i].Approve_result,
+                        //     })
+                        // }
+                        // setRows(dataArr)
+                        setRows(data.data.map((item,i)=>
+                        createData(
+                            item.ApplicantID,
+                            item.ApplicantNo,
+                            item.Approve_result,
+                            item.dCreated === null ? null : moment(item.dCreated).format('DD/MMM/YYYY'),
+                            item.IDCard,
+                            item.FrontName+' '+(!!item.Name) ? item.Name : '' ,' '+(!!item.Sirname) ? item.Sirname : '',  
+                        )
+                    ))
                     }
                 }
             }
@@ -324,13 +368,14 @@ function LoanRequestContactSearch() {
                                     </Grid>
 
                                     <Grid item xs={12} md={3}>
+                                        <MuiTextfield label="เลขที่คำขอ" name="Name" value={inputData.ApplicantNo} onChange={handleInputData}  />
                                         {/* <p>วันที่ครบกำหนดชำระหนี้</p>
                                         <div className="select-date-option">
                                             <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
                                             <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
                                             <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
                                         </div> */}
-                                        <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="dCreated" value={inputData.dCreated === 'Invalid date' ? null : inputData.dCreated} onChange={(newValue)=>{ setInputData({ ...inputData, dCreated: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        {/* <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" name="dCreated" value={inputData.dCreated === 'Invalid date' ? null : inputData.dCreated} onChange={(newValue)=>{ setInputData({ ...inputData, dCreated: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                     
                                     </Grid>
                                     {/* <Grid item xs={12} md={3}>
@@ -349,8 +394,28 @@ function LoanRequestContactSearch() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div style={{ width: '100%' }}>
-                                    <DataGrid
+                                <div style={{ width: '100%' }} className="table-box table-allcontractsearch1 mg-t-10">
+                                <MUItable 
+                                    headCells={headCells} 
+                                    rows={rows} 
+                                    rowsLabel={rowsLabel} 
+                                    colSpan={36} 
+                                    hasCheckbox={false} 
+                                    hasAction={true} 
+                                    actionEditRequest={true}
+                                    editRequestEvent={gotoLoanRequestContact}
+                                    editRequestParam={'FarmerID'}
+                                    editRequestParam2={'ApplicantID'}
+                                    editRequestParam3={'ApplicantNo'}
+                                    editRequestParam4={'edit'}
+                                    actionViewRequest={true} 
+                                    viewRequestEvent={gotoLoanRequestContact}
+                                    viewRequestParam1={'FarmerID'}
+                                    viewRequestParam2={'ApplicantID'}
+                                    viewRequestParam3={'ApplicantNo'}
+                                    viewRequestParam4={'view'}
+                                />
+                                    {/* <DataGrid
                                         rows={rows}
                                         columns={columns}
                                         pageSize={10}
@@ -358,7 +423,7 @@ function LoanRequestContactSearch() {
                                         disableColumnMenu={true}
                                         // checkboxSelection
                                         disableSelectionOnClick
-                                    />
+                                    /> */}
                                 </div>
                                 {/* <div className="table">
                                     <TableContainer className="table-box mg-t-10">

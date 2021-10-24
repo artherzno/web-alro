@@ -1221,9 +1221,11 @@ function AddRecordCourtContract() {
 
     const handlePrintPDF = () => {
         console.log('PDF - ContractNo:', loanNumber)
+        console.log('PDF - UserName:',localStorage.getItem('provinceid'))
 
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
+        formData.append('UserName', localStorage.getItem('provinceid'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractDebtPdf`, //your url

@@ -93,9 +93,24 @@ const MUItable = (props) => {
       viewEvent, 
       viewParam, 
       viewParam2,
+      actionViewRequest, 
+      viewRequestEvent, 
+      viewRequestParam, 
+      viewRequestParam2,
+      viewRequestParam3,
+      viewRequestParam4,
+      actionEditFarmer, 
+      editFarmerEvent,
+      editFarmerParam,
       actionEdit, 
       editEvent,
       editParam,
+      actionEditRequest, 
+      editRequestEvent,
+      editRequestParam,
+      editRequestParam2,
+      editRequestParam3,
+      editRequestParam4,
       actionDelete, 
       deleteEvent,
       deleteParam,
@@ -370,6 +385,21 @@ const MUItable = (props) => {
                 {
                   actionEdit ? 
                     <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>editEvent(row[editParam])} />
+                  : null
+                }
+                {
+                  actionEditFarmer ? 
+                    <ButtonFluidPrimary label="แก้ไขข้อมูลเกษตรกร" maxWidth="180px" onClick={()=>editFarmerEvent(row[editFarmerParam])} />
+                  : null
+                }
+                {
+                  actionViewRequest ? 
+                    <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>viewRequestEvent(row[viewRequestParam], row[viewRequestParam2], row[viewRequestParam3], viewRequestParam4)} />
+                  : null
+                }
+                {
+                  actionEditRequest ? 
+                    <ButtonFluidPrimary label="แก้ไข" maxWidth="80px" onClick={()=>editRequestEvent(row[editRequestParam],row[editRequestParam2],row[editRequestParam3],editRequestParam4)} />
                   : null
                 }
                 {

@@ -138,6 +138,10 @@ function AddFarmer(props) {
         FarmerGrade: '',
         Request: '',
         imgUpload: [],
+        OldName1: '',
+        OldSirname1: '',
+        OldName2: '',
+        OldSirname2: '',
     })
 
     const [inputDataLand1, setInputDataLand1] = useState(
@@ -1018,7 +1022,7 @@ function AddFarmer(props) {
                                                     : ''
                                                 }
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                    <MuiRadioButton label="ประเภทสมาชิก" lists={['เกษตรกร', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}
@@ -1031,6 +1035,22 @@ function AddFarmer(props) {
                                                 <Grid item xs={12} md={5}>
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="นามสกุล" defaultValue="" value={inputData.Sirname} name="Sirname" onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="ชื่อ (เก่า)" defaultValue="" value={inputData.OldName1} name="OldName1" onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="นามสกุล (เก่า)" defaultValue="" value={inputData.OldSirname1} name="OldSirname1" onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="ชื่อ (เก่า)" defaultValue="" value={inputData.OldName2} name="OldName2" onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    {/* Field Text ---------------------------------------------------*/}
+                                                    <MuiTextfield label="นามสกุล (เก่า)" defaultValue="" value={inputData.OldSirname2} name="OldSirname2" onChange={handleInputData} />
                                                 </Grid>
 
                                                 {/* <Grid item xs={12} md={12}>
