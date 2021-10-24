@@ -9,10 +9,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
+        width:'100%'
     },
     wrapper: {
         margin: theme.spacing(1),
         position: 'relative',
+        width: '100%'
     },
     buttonProgress: {
         position: 'absolute',
@@ -34,8 +36,10 @@ export const ButtonExportExcel = (props) =>{
                 <Button
                     variant="contained"
                     color="primary"
+                    size="large"
                     disabled={props.loading}
                     onClick={props.handleButtonClick}
+                    style={{width:'100%'}}
                 >
                     <Box mr={1}><i className="far fa-file-excel"></i> </Box>{props.label || "Export to Excel"}
         </Button>
@@ -46,6 +50,28 @@ export const ButtonExportExcel = (props) =>{
     )
 }
 
+export const ButtonExport = (props) => {
+
+    const classes = useStyles();
+
+    return (
+        <div className={classes.root}>
+            <div className={classes.wrapper}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={props.loading}
+                    onClick={props.handleButtonClick}
+                    style={{ width: '100%' }}
+                >
+                    <Box mr={1}></Box>{props.label || "Export to Excel"}
+                </Button>
+                {props.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+            </div>
+        </div>
+
+    )
+}
 
 export const ButtonApp = (props) => {
 

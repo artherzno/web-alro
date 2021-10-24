@@ -163,7 +163,7 @@ function DebtCondition() {
                                                             <StyledTableCellLine align="left">{element.FrontName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Name}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.SirName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{"ไม่รู้จัก Field"}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Address}</StyledTableCellLine>
                                                         </TableRow>
                                                     )
                                                 })}

@@ -54,6 +54,7 @@ class CheckSign extends React.Component {
             loanAmount:0,
             remainAmount:0,
             totalContract:0,
+            totalResult: 0,
             data: [],
             page: 0,
             count: 10
@@ -62,10 +63,10 @@ class CheckSign extends React.Component {
 
     componentDidMount() {
 
-        this.loadData()
+        this.loadData(this.state.page, this.state.count)
     }
 
-    loadData() {
+    loadData(page, count) {
 
         const { Date, ContractNo, ProjName, FullName, Order, Display, ProjMain, ProjSec, LoanType, BorrowerType, LoanPlan, LoanPurpose, LoanType2,} = this.state
 
@@ -84,6 +85,9 @@ class CheckSign extends React.Component {
         parameter.append('LoanPurpose', LoanPurpose);
         parameter.append('LoanType2', LoanType2);
 
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         this.setState({ isLoading: true })
         api.getContract(parameter).then(response => {
 
@@ -94,7 +98,9 @@ class CheckSign extends React.Component {
                 loanAmount: dataSummary.loanAmount,
                 remainAmount: dataSummary.remainAmount,
                 totalContract: dataSummary.totalContract,
-                isLoading: false
+                isLoading: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
@@ -256,7 +262,7 @@ class CheckSign extends React.Component {
                             <Box mt={2}>
                                 <Grid container spacing={2} justifyContent="center">
                                     <Grid item xs={2} >
-                                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData(0, this.state.count) }} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <div style={{marginTop:-8}}>
@@ -342,7 +348,7 @@ class CheckSign extends React.Component {
 
                                             </TableHead>
                                             <TableBody>
-                                                {data.slice(page * count, page * count + count).map((element, index) => {
+                                                {data.map((element, index) => {
 
                                                     return (
                                                         <TableRow key={index}>
@@ -412,20 +418,22 @@ class CheckSign extends React.Component {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={this.state.data.length}
+                                        count={this.state.totalResult}
                                         rowsPerPage={this.state.count}
                                         page={this.state.page}
                                         onPageChange={(e, newPage) => {
 
-                                            this.setState({
-                                                page: newPage
-                                            })
+                                            this.loadData(newPage, this.state.count)
                                         }}
                                         onRowsPerPageChange={(event) => {
 
                                             this.setState({
                                                 count: +event.target.value,
                                                 page: 0
+                                            }, () => {
+
+                                                this.loadData(0, this.state.count)
+
                                             })
                                         }}
                                     />

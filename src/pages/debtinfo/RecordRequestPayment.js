@@ -250,7 +250,7 @@ function RecordRequestPayment() {
                                                             <StyledTableCellLine align="left">{element.FrontName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Name}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.SirName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{"ไม่รู้จัก Field"}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.Address}</StyledTableCellLine>
                                                         </TableRow>
                                                     )
                                                 })}
@@ -437,15 +437,15 @@ function RecordRequestPayment() {
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
                                                                 <MuiDatePicker
-                                                                    // name="ExtendDate"
-                                                                    // value={values.ExtendDate}
-                                                                    // error={errors.ExtendDate}
-                                                                    // helperText={errors.ExtendDate}
-                                                                    // onChange={(event) => {
-                                                                    //     setFieldValue("ExtendDate", moment(event).format("YYYY-MM-DD"))
-                                                                    // }}
-                                                                    // onChangeDate={handleChange}
-                                                                    // onBlur={handleBlur}
+                                                                    name="CommandDate"
+                                                                    value={values.CommandDate}
+                                                                    error={errors.CommandDate}
+                                                                    helperText={errors.CommandDate}
+                                                                    onChange={(event) => {
+                                                                        setFieldValue("CommandDate", moment(event).format("YYYY-MM-DD"))
+                                                                    }}
+                                                                    onChangeDate={handleChange}
+                                                                    onBlur={handleBlur}
                                                                     placeholder="วันที่คำสั่ง"
                                                                     label="วันที่คำสั่ง"
                                                                     defaultValue="" />

@@ -58,6 +58,124 @@ const api = {
         })
 
     },
+
+    getInvoicePayPdf(params){
+        return get({
+            path: "api/report/pdf/GetInvoicePayPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getInvoiceByContactPdf(params) {
+        return get({
+            path: "api/report/pdf/GetInvoiceByContactPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getInvoiceByProjectPdf(params) {
+        return get({
+            path: "api/report/pdf/GetInvoiceByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportPrintInvoiceAll(params) {
+        return post({
+            path: "api/api/ExportServices/ExportPrintInvoiceAll",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportDebtSettlement(params) {
+        return post({
+            path: "api/api/ExportServices/ExportDebtSettlement",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtReminder_O1pdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtReminder_O1pdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtReminder_O2pdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtReminder_O2pdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtReminder_ByContractpdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtReminderฺฺByContractpdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtReminder_ByProjectpdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtReminderฺฺByProjectpdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtConditionByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtConditionByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getFaultConditionByUserNamePdf(params) {
+        return get({
+            path: "api/report/pdf/GetFaultConditionByUserNamePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getFaultConditionByContractPdf(params) {
+        return get({
+            path: "api/report/pdf/GetFaultConditionByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtConditionByUserNamePdf(params) {
+        return get({
+            path: "api/report/pdf/GetDebtConditionByUserNamePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     exportSummayPayloanExcel(params) {
 
         return post({

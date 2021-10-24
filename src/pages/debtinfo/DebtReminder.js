@@ -22,7 +22,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 
-
+import api from '../../services/webservice'
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import {
@@ -35,7 +35,8 @@ import {
     MuiCheckbox,
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
-import { OverlayLoading } from '../../components';
+import { ButtonExport, OverlayLoading } from '../../components';
+import { getAccount } from '../../utils/Auth';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -133,6 +134,8 @@ function DebtReminder() {
 
     const [startDateSelect, setStartDateSelect] = useState(null)
     const [startDateSearch,setStartDateSearch] = useState('')
+    const [isExporting, setIsExporting] = useState(false)
+
 
     useEffect(() => {
         setLoaded(true);
@@ -360,6 +363,126 @@ function DebtReminder() {
         // }
     };
 
+    function getDebtReminder_O1pdf() {
+
+        const parameter = new FormData()
+        parameter.append('BookNo', '');
+        parameter.append('BookDate', startDateSearch);
+        const account = getAccount()
+        parameter.append('UserName', account.username);
+
+        setIsExporting(true)
+
+        api.getDebtReminder_O1pdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ใบเตือนครั้งที่ 1.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
+    function getDebtReminder_O2pdf() {
+
+        const parameter = new FormData()
+        parameter.append('BookNo', '');
+        parameter.append('BookDate', startDateSearch);
+        const account = getAccount()
+        parameter.append('UserName', account.username);
+
+        setIsExporting(true)
+
+        api.getDebtReminder_O2pdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'ใบเตือนครั้งที่ 2.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
+    function getDebtReminder_ByContractpdf(){
+
+        const parameter = new FormData()
+        parameter.append('ProDate', amountProcess);
+        parameter.append('ProTime', startDateSearch);
+        const account = getAccount()
+        parameter.append('UserName', account.username);
+
+        setIsExporting(true)
+
+        api.getDebtReminder_ByContractpdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'สรุปใบเตือนรายสัญญา.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
+    function getDebtReminder_ByProjectpdf(){
+
+        
+
+        const parameter = new FormData()
+        parameter.append('ProDate', amountProcess);
+        parameter.append('ProTime', startDateSearch);
+
+        const account = getAccount()
+        parameter.append('UserName', account.username);
+
+
+        setIsExporting(true)
+
+        api.getDebtReminder_ByProjectpdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'สรุปใบเตือนรายโครงการ.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
     return (
         <div className="debtreminder-page">
             <OverlayLoading isLoading={isLoading} />
@@ -399,17 +522,17 @@ function DebtReminder() {
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={2} className="mg-t-10">
-                                        <ButtonFluidPrimary label="พิมพ์ใบเตือนครั้งที่ 1" />
+                                    <Grid item xs={12} md={2} >
+                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 1" handleButtonClick={() => { getDebtReminder_O1pdf() }} loading={isExporting} />
                                     </Grid>
-                                    <Grid item xs={12} md={2} className="mg-t-10">
-                                        <ButtonFluidPrimary label="พิมพ์ใบเตือนครั้งที่ 2" />
+                                    <Grid item xs={12} md={2} >
+                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 2" handleButtonClick={() => { getDebtReminder_O2pdf() }} loading={isExporting} />
                                     </Grid>
-                                    <Grid item xs={12} md={3} className="mg-t-10">
-                                        <ButtonFluidPrimary label="พิมพ์สรุปใบเตือนรายสัญญา" />
+                                    <Grid item xs={12} md={3} >
+                                        <ButtonExport label="พิมพ์สรุปใบเตือนรายสัญญา" handleButtonClick={() => { getDebtReminder_ByContractpdf() }} loading={isExporting} />
                                     </Grid>
-                                    <Grid item xs={12} md={3} className="mg-t-10">
-                                        <ButtonFluidPrimary label="พิมพ์สรุปใบเตือนรายโครงการ" />
+                                    <Grid item xs={12} md={3}>
+                                        <ButtonExport label="พิมพ์สรุปใบเตือนรายโครงการ" handleButtonClick={() => { getDebtReminder_ByProjectpdf() }} loading={isExporting} />
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -47,16 +47,17 @@ class RealPay extends React.Component {
             data: [],
             page: 0,
             count: 10,
+            totalResult: 0,
             dataSummary: {},
         }
     }
 
     componentDidMount() {
 
-        this.loadData()
+        this.loadData(this.state.page, this.state.count)
     }
 
-    loadData() {
+    loadData(page, count) {
 
         const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
 
@@ -68,13 +69,18 @@ class RealPay extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         this.setState({ isLoading: true })
         api.getActualPayment(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
                 dataSummary: response.data.dataSummary,
-                isLoading: false
+                isLoading: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
@@ -181,7 +187,7 @@ class RealPay extends React.Component {
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
+                                            <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData(0, this.state.count)  }} />
                                         </Grid>
 
                                     </Grid>
@@ -238,7 +244,7 @@ class RealPay extends React.Component {
 
                                             </TableHead>
                                             <TableBody>
-                                                {data.slice(page * count, page * count + count).map((element, index) => {
+                                                {data.map((element, index) => {
 
                                                     return (
                                                         <TableRow key={index}>
@@ -292,20 +298,22 @@ class RealPay extends React.Component {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={this.state.data.length}
+                                        count={this.state.totalResult}
                                         rowsPerPage={this.state.count}
                                         page={this.state.page}
                                         onPageChange={(e, newPage) => {
 
-                                            this.setState({
-                                                page: newPage
-                                            })
+                                            this.loadData(newPage, this.state.count)
                                         }}
                                         onRowsPerPageChange={(event) => {
 
                                             this.setState({
                                                 count: +event.target.value,
                                                 page: 0
+                                            }, () => {
+
+                                                this.loadData(0, this.state.count)
+
                                             })
                                         }}
                                     />

@@ -47,18 +47,21 @@ class CheckBill extends React.Component {
             data: [],
             page: 0,
             count: 10,
+            totalResult: 0,
             resultList: [],
             pageSub: 0,
-            countSub: 10
+            countSub: 10,
+            totalResultSub: 0,
+            invoiceNo:''
         }
     }
 
     componentDidMount() {
 
-        this.loadData()
+        this.loadData(this.state.page, this.state.count)
     }
 
-    loadData() {
+    loadData(page, count) {
 
         const { PaymentDate, BookNo, ProjName, InvoiceNo, Order, Display, } = this.state
 
@@ -70,12 +73,16 @@ class CheckBill extends React.Component {
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         this.setState({ isLoading: true })
         api.getInvoice(parameter).then(response => {
 
             this.setState({
                 data: response.data.data,
-                isLoading: false
+                isLoading: false,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
@@ -137,13 +144,19 @@ class CheckBill extends React.Component {
 
     }
 
-    getInvoiceById(invoiceNo) {
+    getInvoiceById(invoiceNo, page, count) {
         const parameter = new FormData()
         parameter.append("InvoiceNo", invoiceNo)
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         api.getInvoiceById(parameter).then(response => {
 
             this.setState({
-                resultList: response.data.data
+                resultList: response.data.data,
+                pageSub:page,
+                totalResultSub: response.data.totalResult,
+                invoiceNo: invoiceNo
             })
 
         }).catch(error => {
@@ -233,11 +246,11 @@ class CheckBill extends React.Component {
 
                                             </TableHead>
                                             <TableBody>
-                                                {data.slice(page * count, page * count + count).map((element, index) => {
+                                                {data.map((element, index) => {
 
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
-                                                            this.getInvoiceById(element.invoiceNo)
+                                                            this.getInvoiceById(element.invoiceNo,0,this.state.countSub)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.pvCode}</StyledTableCellLine>
@@ -261,20 +274,22 @@ class CheckBill extends React.Component {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={this.state.data.length}
+                                        count={this.state.totalResult}
                                         rowsPerPage={this.state.count}
                                         page={this.state.page}
                                         onPageChange={(e, newPage) => {
 
-                                            this.setState({
-                                                page: newPage
-                                            })
+                                            this.loadData(newPage, this.state.count)
                                         }}
                                         onRowsPerPageChange={(event) => {
 
                                             this.setState({
                                                 count: +event.target.value,
                                                 page: 0
+                                            }, () => {
+
+                                                this.loadData(0, this.state.count)
+
                                             })
                                         }}
                                     />
@@ -320,9 +335,7 @@ class CheckBill extends React.Component {
                                                 {resultList.slice(pageSub * countSub, pageSub * countSub + countSub).map((element, index) => {
 
                                                     return (
-                                                        <TableRow key={index} hover={true} onClick={() => {
-                                                            this.getInvoiceById(element.invoiceNo)
-                                                        }}>
+                                                        <TableRow key={index} hover={true} >
                                                             <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.calDate}</StyledTableCellLine>
@@ -364,20 +377,21 @@ class CheckBill extends React.Component {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25]}
                                         component="div"
-                                        count={this.state.resultList.length}
+                                        count={this.state.totalResultSub}
                                         rowsPerPage={this.state.countSub}
                                         page={this.state.pageSub}
                                         onPageChange={(e, newPage) => {
 
-                                            this.setState({
-                                                pageSub: newPage
-                                            })
+                                            this.getInvoiceById(this.state.invoiceNo, newPage, this.state.countSub)
                                         }}
                                         onRowsPerPageChange={(event) => {
 
                                             this.setState({
                                                 countSub: +event.target.value,
                                                 pageSub: 0
+                                            }, () => {
+
+                                                this.getInvoiceById(this.state.invoiceNo, 0, this.state.countSub)
                                             })
                                         }}
                                     />
