@@ -176,6 +176,15 @@ const api = {
             }
         })
     },
+    getCardPdf(params) {
+        return get({
+            path: "api/report/pdf/GetCardPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     exportSummayPayloanExcel(params) {
 
         return post({

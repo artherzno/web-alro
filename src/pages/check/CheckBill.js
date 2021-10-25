@@ -210,7 +210,7 @@ class CheckBill extends React.Component {
 
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData() }} />
+                                            <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData(0, this.state.count) }} />
                                         </Grid>
 
                                     </Grid>

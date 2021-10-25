@@ -165,6 +165,8 @@ function RecordRequestPayment() {
             }).catch(error => {
                 dialog.close()
             })
+        }else{
+            dialog.showDialogFail({ message:"ไม่พบงวดชำระเงินตามจริง"})
         }
     }
  
@@ -284,6 +286,9 @@ function RecordRequestPayment() {
                         innerRef={formikRef}
                         initialValues={{
                             ...selectedData,
+                            ExtendDate: selectedData.ExtendDate || '',
+                            CommandDate: selectedData.CommandDate || '',
+                            PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}` : '',
                             YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
                         }}
                         validate={values => {
@@ -464,13 +469,13 @@ function RecordRequestPayment() {
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
                                                                 <MuiTextfield
-                                                                    // name="LoanNumber"
-                                                                    // value={values.LoanNumber}
-                                                                    // error={errors.LoanNumber}
-                                                                    // helperText={errors.LoanNumber}
-                                                                    // onChange={handleChange}
-                                                                    // onBlur={handleBlur}
-                                                                    // placeholder="สัญญาเลขที่"
+                                                                    name="PVCODE_LoanNumber"
+                                                                    value={values.PVCODE_LoanNumber}
+                                                                    error={errors.PVCODE_LoanNumber}
+                                                                    helperText={errors.PVCODE_LoanNumber}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    placeholder=""
                                                                     label="&nbsp;" defaultValue="" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
@@ -808,19 +813,23 @@ function RecordRequestPayment() {
                                                     <div className="box-button txt-center">
                                                         <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() =>{
 
-                                                            const realPay = selectedExtendData.RealPay
-                                                            if (realPay){
-                                                                realPay.push({
-                                                                    RENTNO:"",
-                                                                    DUEDATE:"",
-                                                                    PAYREC:""
-                                                                })
-                                                            }
+                                                            let realPay = selectedExtendData.RealPay
 
-                                                            setSelectedData({
+                                                            if (!realPay){
+                                                                realPay = []
+                                                            }
+                                                            realPay.push({
+                                                                RENTNO: "",
+                                                                DUEDATE: "",
+                                                                PAYREC: ""
+                                                            })
+
+                                                            const dataSave = {
                                                                 ...selectedExtendData,
                                                                 RealPay: realPay
-                                                            })
+                                                            }
+                                                            setSelectedExtendData(dataSave)
+
 
                                                         }}/>
                                                     </div>

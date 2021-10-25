@@ -30,15 +30,18 @@ const setHeader = (isMultipart, token) => {
 const post = (path, parameter, token, isMultipart, config = {}) => {
 
     const provinceid = localStorage.getItem('provinceid')
+    const cUsername = localStorage.getItem('cUsername')
     let parameters = parameter
 
     if (parameter instanceof FormData) {
         parameters.append("Username", provinceid) //provinceid)
     } else if (parameter) {
+
         parameters = {
             ...parameter,
-            Username: provinceid
+            Username: cUsername
         }
+        
     }
 
 
