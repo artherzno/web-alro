@@ -153,6 +153,10 @@ function EditFarmer(props) {
         FarmerGrade: '',
         Request: '',
         imgUpload: [],
+        OldName1: '',
+        OldSirname1: '',
+        OldName2: '',
+        OldSirname2: '',
     })
 
     const [pathIDCard_Image, setPathIDCard_Image] = useState(null);
@@ -478,6 +482,11 @@ function EditFarmer(props) {
                             Contact_Addrzone: resEditData.Contact_Addrzone || '',
                             FarmerGrade: resEditData.FarmerGrade || '',
                             Request: resEditData.Request || '',
+
+                            OldName1: resEditData.OldName1 || '',
+                            OldSirname1: resEditData.OldSirname1 || '',
+                            OldName2: resEditData.OldName2 || '',
+                            OldSirname2: resEditData.OldSirname2 || '',
     
                         })
 
@@ -1525,7 +1534,7 @@ console.log(BirthDateValue)
                                                 <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" name="IDCard" value={inputData.IDCard} onInput={handleInputData} onBlur={handleValidateNumberOnBlur} />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiRadioButton label="ประเภทสมาชิก" lists={['รายบุคคล', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                <MuiRadioButton label="ประเภทสมาชิก" lists={['เกษตรกร', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 {/* Field Select ---------------------------------------------------*/}
@@ -1538,6 +1547,22 @@ console.log(BirthDateValue)
                                             <Grid item xs={12} md={5}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="นามสกุล" defaultValue="" value={inputData.Sirname} name="Sirname" onChange={handleInputData} />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                {/* Field Text ---------------------------------------------------*/}
+                                                <MuiTextfield label="ชื่อ (เก่า)" defaultValue="" value={inputData.OldName1} name="OldName1" onChange={handleInputData} />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                {/* Field Text ---------------------------------------------------*/}
+                                                <MuiTextfield label="นามสกุล (เก่า)" defaultValue="" value={inputData.OldSirname1} name="OldSirname1" onChange={handleInputData} />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                {/* Field Text ---------------------------------------------------*/}
+                                                <MuiTextfield label="ชื่อ (เก่า)" defaultValue="" value={inputData.OldName2} name="OldName2" onChange={handleInputData} />
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                {/* Field Text ---------------------------------------------------*/}
+                                                <MuiTextfield label="นามสกุล (เก่า)" defaultValue="" value={inputData.OldSirname2} name="OldSirname2" onChange={handleInputData} />
                                             </Grid>
 
                                             {/* <Grid item xs={12} md={12}>

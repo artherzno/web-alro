@@ -301,10 +301,12 @@ function LoanRecivcePrint() {
 
 
     const handlePrintPDF = (val) => {
-        console.log('PDF - ContractNo(val):', val)
+        console.log('PDF - ContractNo(val):', inputDataShow.LoanID)
+        console.log('PDF - UserName:',localStorage.getItem('provinceid'))
         let loanNumber = inputDataShow.LoanID;
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
+        formData.append('UserName', localStorage.getItem('provinceid'))
 
         axios({
         url: `${siteprint}/report/pdf/GetLoanRecivcePrintPdf`, //your url

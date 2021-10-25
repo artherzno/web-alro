@@ -111,6 +111,8 @@ function LoanRequestContactStep3(props) {
         ApprovalNo: '', // "",
         ApproveDate: moment().format(), // "",
         ApproveDetail: '', // ""
+
+        NameAgent: '',
     })
 
     const [applicantProjectYear, setApplicantProjectYear] = useState(localStorage.getItem('applicantProjectYear'))
@@ -535,9 +537,11 @@ const handleInputData = (event) => {
 
     const handlePrintPDF = () => {
 console.log('PDF - LoanReqNo:', props.ApplicantNo)
+console.log('PDF - UserName:',localStorage.getItem('provinceid'))
 
         let formData = new FormData();
         formData.append('LoanReqNo', props.ApplicantNo)
+        formData.append('UserName', localStorage.getItem('provinceid'))
 
         axios({
         url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
@@ -798,6 +802,10 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
                                                             <Grid item xs={12} md={12}>
                                                                 {/* Field Text ---------------------------------------------------*/}
                                                                 <MuiTextfieldMultiLine label="รายละเอียดการอนุมัติ" name="ApproveDetail" value={inputData.ApproveDetail} onChange={handleInputData} row="3" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12}>
+                                                                {/* Field Text ---------------------------------------------------*/}
+                                                                <MuiTextfield label="ชื่อ ปทจ หรือผู้แทนที่อนุมัติคำขอ" name="NameAgent" value={inputData.NameAgent} onChange={handleInputData}/>        
                                                             </Grid>
 
                                                         </Grid>

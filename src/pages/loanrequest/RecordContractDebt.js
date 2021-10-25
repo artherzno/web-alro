@@ -46,7 +46,7 @@ import { MUItable } from '../../components/MUItable'
 let action = 'add';
 let action_loanstatus = 'draft';
 
-function EditContractDebt() {
+function RecordContractDebt() {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
@@ -287,8 +287,8 @@ function EditContractDebt() {
         PV_NAME: '',
         ProjectSubCode: '',
         ProjectSubName: '',
-        DebtEditDate: moment(),
-        LoanChangeDate: moment(),
+        DebtEditDate: moment().format('YYYY-MM-DD'),
+        LoanChangeDate: moment().format('YYYY-MM-DD'),
         objective1: '',
         LoanPeriod: '',
         LoanobjName: '',
@@ -795,26 +795,26 @@ function EditContractDebt() {
                         Guarantee_Property: data.loanrec_data[0].Guarantee_Property === null ? '' : data.loanrec_data[0].Guarantee_Property,
                         Guarantee_PropertyDate: data.loanrec_data[0].Guarantee_PropertyDate === null ? null : data.loanrec_data[0].Guarantee_PropertyDate,
                         LoanContactBook: data.loanrec_data[0].LoanContactBook === null ? '' : data.loanrec_data[0].LoanContactBook,
-                        LoanDate: data.loanrec_data[0].LoanDate === null ? '' : data.loanrec_data[0].LoanDate,
+                        LoanDate: data.loanrec_data[0].LoanDate === null ? null : data.loanrec_data[0].LoanDate,
                         LoanGuaranteeBook: data.loanrec_data[0].LoanGuaranteeBook === null ? '' : data.loanrec_data[0].LoanGuaranteeBook,
                         LoanNumber: data.loanrec_data[0].LoanNumber === null ? '' : data.loanrec_data[0].LoanNumber,
-                        LoanGuaranteeBookDate: data.loanrec_data[0].LoanGuaranteeBookDate === null ? '' : data.loanrec_data[0].LoanGuaranteeBookDate,
+                        LoanGuaranteeBookDate: data.loanrec_data[0].LoanGuaranteeBookDate === null ? null : data.loanrec_data[0].LoanGuaranteeBookDate,
                         OfficeProvince: data.loanrec_data[0].OfficeProvince === null ? '' : data.loanrec_data[0].OfficeProvince,
                         Officer: data.loanrec_data[0].Officer === null ? '' : data.loanrec_data[0].Officer,
                         OfficerRank: data.loanrec_data[0].OfficerRank === null ? '' : data.loanrec_data[0].OfficerRank,
-                        RecDate: data.loanrec_data[0].RecDate === null ? moment().format() : data.loanrec_data[0].RecDate,
+                        RecDate: data.loanrec_data[0].RecDate === null ? moment().format('YYYY-MM-DD') : data.loanrec_data[0].RecDate,
                         RecYear: data.loanrec_data[0].RecYear === null ? '' : data.loanrec_data[0].RecYear,
                         SPK_Order: data.loanrec_data[0].SPK_Order === null ? '' : data.loanrec_data[0].SPK_Order,
-                        SPK_OrderDate: data.loanrec_data[0].SPK_OrderDate === null ? '' : data.loanrec_data[0].SPK_OrderDate,
+                        SPK_OrderDate: data.loanrec_data[0].SPK_OrderDate === null ? null : data.loanrec_data[0].SPK_OrderDate,
                         WarrantBook1: data.loanrec_data[0].WarrantBook1 === null ? '' : data.loanrec_data[0].WarrantBook1,
                         WarrantBook2: data.loanrec_data[0].WarrantBook2 === null ? '' : data.loanrec_data[0].WarrantBook2,
-                        WarrantBookDate1: data.loanrec_data[0].WarrantBookDate1 === null ? '' : data.loanrec_data[0].WarrantBookDate1,
-                        WarrantBookDate2: data.loanrec_data[0].WarrantBookDate2 === null ? '' : data.loanrec_data[0].WarrantBookDate2,
+                        WarrantBookDate1: data.loanrec_data[0].WarrantBookDate1 === null ? null : data.loanrec_data[0].WarrantBookDate1,
+                        WarrantBookDate2: data.loanrec_data[0].WarrantBookDate2 === null ? null : data.loanrec_data[0].WarrantBookDate2,
                         WarrantBookOwner1: data.loanrec_data[0].WarrantBookOwner1 === null ? '' : data.loanrec_data[0].WarrantBookOwner1,
                         WarrantBookOwner2: data.loanrec_data[0].WarrantBookOwner2 === null ? '' : data.loanrec_data[0].WarrantBookOwner2,
                         IDCard: data.loanrec_data[0].IDCard === null ? '' : data.loanrec_data[0].IDCard,
-                        LoanChangeDate: data.loanrec_data[0].LoanChangeDate === null ? '' : data.loanrec_data[0].LoanChangeDate,
-                        DebtEditDate: data.loanrec_data[0].DebtEditDate === null ? '' : data.loanrec_data[0].DebtEditDate,
+                        LoanChangeDate: data.loanrec_data[0].LoanChangeDate === null ? null : data.loanrec_data[0].LoanChangeDate,
+                        DebtEditDate: data.loanrec_data[0].DebtEditDate === null ? null : data.loanrec_data[0].DebtEditDate,
                     })
 
                     setInputDataSubmitIndividual({
@@ -1152,15 +1152,15 @@ function EditContractDebt() {
         formData.append('LoanStatus', action_loanstatus)
         formData.append('Old_LoanID', loanID)
 
-        formData.append('SPK_OrderDate', moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
-        formData.append('RecDate', moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
-        formData.append('LoanDate', moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
-        formData.append('LoanChangeDate', moment(inputDataSubmit.LoanChangeDate).format('YYYY-MM-DD'))
-        formData.append('Guarantee_PropertyDate', moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
-        formData.append('DebtEditDate', moment(inputDataSubmit.DebtEditDate).format('YYYY-MM-DD'))
-        formData.append('LoanGuaranteeBookDate', moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
-        formData.append('WarrantBookDate1', moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
-        formData.append('WarrantBookDate2', moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
+        formData.append('SPK_OrderDate', inputDataSubmit.SPK_OrderDate === null ? null : moment(inputDataSubmit.SPK_OrderDate).format('YYYY-MM-DD'))
+        formData.append('RecDate', inputDataSubmit.RecDate === null ? null : moment(inputDataSubmit.RecDate).format('YYYY-MM-DD'))
+        formData.append('LoanDate', inputDataSubmit.LoanDate === null ? null : moment(inputDataSubmit.LoanDate).format('YYYY-MM-DD'))
+        formData.append('LoanChangeDate', inputDataSubmit.LoanChangeDate === null ? null : moment(inputDataSubmit.LoanChangeDate).format('YYYY-MM-DD'))
+        formData.append('Guarantee_PropertyDate', inputDataSubmit.Guarantee_PropertyDate === null ? null : moment(inputDataSubmit.Guarantee_PropertyDate).format('YYYY-MM-DD'))
+        formData.append('DebtEditDate', inputDataSubmit.DebtEditDate === null ? null : moment(inputDataSubmit.DebtEditDate).format('YYYY-MM-DD'))
+        formData.append('LoanGuaranteeBookDate', inputDataSubmit.LoanGuaranteeBookDate === null ? null : moment(inputDataSubmit.LoanGuaranteeBookDate).format('YYYY-MM-DD'))
+        formData.append('WarrantBookDate1', inputDataSubmit.WarrantBookDate1 === null ? null : moment(inputDataSubmit.WarrantBookDate1).format('YYYY-MM-DD'))
+        formData.append('WarrantBookDate2', inputDataSubmit.WarrantBookDate2 === null ? null : moment(inputDataSubmit.WarrantBookDate2).format('YYYY-MM-DD'))
         formData.append('FarmerID', inputDataNewFarmer.FarmerID)
 
         formData.set('principle', inputDataSubmitIndividual.principle)
@@ -1221,9 +1221,11 @@ function EditContractDebt() {
 
     const handlePrintPDF = () => {
         console.log('PDF - ContractNo:', loanNumber)
+        console.log('PDF - UserName:',localStorage.getItem('provinceid'))
 
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
+        formData.append('UserName', localStorage.getItem('provinceid'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractDebtPdf`, //your url
@@ -1568,7 +1570,7 @@ function EditContractDebt() {
                                                             <MuiTextfield label="&nbsp;" id='' inputdisabled="input-disabled" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" inputdisabled="input-disabled" id='' name="RecYear" value={inputDataLoanRec.DebtEditDate} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" inputdisabled="input-disabled" id='' name="RecYear" value={inputDataLoanRec.RecYear} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             {/* principle */}
@@ -2185,4 +2187,4 @@ function EditContractDebt() {
     )
 }
 
-export default EditContractDebt
+export default RecordContractDebt

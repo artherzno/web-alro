@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import moment from 'moment';
+
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -46,6 +48,8 @@ function SearchMemberPage(props) {
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
 
+    let dataProvinceList = JSON.parse(localStorage.getItem('provincelist'))
+
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
@@ -78,16 +82,17 @@ function SearchMemberPage(props) {
         { id: 'Name', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ นามสกุล' },
         { id: 'FarmerGrade', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เกรด' },
         { id: 'IDCard', numeric: true, disablePadding: false,  widthCol: '160px', label: 'เลขบัตรประชาชน' },
+        { id: 'dCreated', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่สร้าง' },
         { id: 'LoanNumber', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เลขที่สัญญา' },
         { id: 'LandNumber', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เลขที่ดิน' },
-        { id: 'Province', numeric: true, disablePadding: false, widthCol: '140px', label: 'จังหวัด' },
+        { id: 'Land_AddrProvinceID', numeric: true, disablePadding: false, widthCol: '140px', label: 'จังหวัด' },
     ];
 
     const rowsLabel = [
-        'FarmerID', 'Name', 'FarmerGrade', 'IDCard', 'LoanNumber', 'LandNumber', 'Province'
+        'FarmerID', 'Name', 'FarmerGrade', 'IDCard', 'dCreated', 'LoanNumber', 'LandNumber', 'Land_AddrProvinceID'
     ]
 
-    function createData( FarmerID, Name, FarmerGrade, IDCard, LoanNumber, LandNumber, Province) {
+    function createData( FarmerID, Name, FarmerGrade, IDCard, LoanNumber, LandNumber, Land_AddrProvinceID, dCreated) {
         return { 
             FarmerID,
             Name,
@@ -95,8 +100,20 @@ function SearchMemberPage(props) {
             IDCard,
             LoanNumber,
             LandNumber,
-            Province,
+            Land_AddrProvinceID,
+            dCreated,
          };
+    }
+
+    function getProvinceText (provinceVal) {
+        let text = '';
+        for (let i = 0; i < dataProvinceList.length; i++) {
+            if (dataProvinceList[i].ProvinceID === provinceVal) {
+                text = dataProvinceList[i].PV_NAME
+                // setProviceName(provinceList[0][i].PV_NAME);
+            }
+        }
+        return text;
     }
 
     useEffect(() => {
@@ -175,12 +192,13 @@ function SearchMemberPage(props) {
                     setRows(res.data.map((item,i)=>
                         createData(
                             item.FarmerID,
-                            item.FrontName+' '+item.Name+' '+item.Sirname,
+                            item.FrontName+' '+(!!item.Name) ? item.Name : '' ,' '+(!!item.Sirname) ? item.Sirname : '',
                             item.FarmerGrade === 'Y' ? 'Y (ไม่มีหนี้ค้าง)' : item.FarmerGrade === 'N' ? 'N (มีหนี้ค้าง)' : '-',
                             item.IDCard,
                             item.LoanNumber,
                             item.LandNumber,
-                            item.Province
+                            !!item.Land_AddrProvinceID ? getProvinceText(item.Land_AddrProvinceID) : '',
+                            item.dCreated === null ? null : moment(item.dCreated).format('DD/MMM/YYYY'),
                         )
                     ))
                 }
@@ -326,10 +344,9 @@ function SearchMemberPage(props) {
                                                 {/* Field Number ---------------------------------------------------*/}
                                                 <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="id-number-input" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData.idNum} onInput = {handleIDCard}  />
                                             </Grid>
-                                            <Grid item xs={12} md={12}>
-                                                {/* Field Text ---------------------------------------------------*/}
+                                            {/* <Grid item xs={12} md={12}>
                                                 <MuiTextfield label="เลขที่สัญญา" id="contact-number-input" defaultValue="" onChange={handleChangeLoanNumber} />
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item xs={12} md={12}>
                                                 {/* Field Text ---------------------------------------------------*/}
                                                 <MuiTextfield label="เลขที่ดิน" id="contact2-number-input" defaultValue="" onChange={handleChangeLandNumber} />
@@ -350,7 +367,7 @@ function SearchMemberPage(props) {
                             <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
                         </Grid>
                         
-                        <div className="table-box table-allcontractsearch1 mg-t-10">
+                        <div className="table-box table-searchfamer mg-t-10">
                             <MUItable 
                                 headCells={headCells} 
                                 rows={rows} 
@@ -358,9 +375,9 @@ function SearchMemberPage(props) {
                                 colSpan={36} 
                                 hasCheckbox={false} 
                                 hasAction={true} 
-                                actionEdit={true}
-                                editEvent={gotoEditMember}
-                                editParam={'FarmerID'}
+                                actionEditFarmer={true}
+                                editFarmerEvent={gotoEditMember}
+                                editFarmerParam={'FarmerID'}
                                 actionRequest={true} 
                                 requestEvent={gotoLoanRequestContact}
                                 requestParam1={'FarmerID'}
