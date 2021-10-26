@@ -31,15 +31,18 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
 
     const provinceid = localStorage.getItem('provinceid')
     const cUsername = localStorage.getItem('cUsername')
+    const roleID = localStorage.getItem('nROLEID')
     let parameters = parameter
 
     if (parameter instanceof FormData) {
         parameters.append("Username", provinceid) //provinceid)
+        parameters.append("RoleID", roleID) //provinceid)
     } else if (parameter) {
 
         parameters = {
             ...parameter,
-            Username: cUsername
+            Username: cUsername,
+            RoleID: roleID
         }
         
     }

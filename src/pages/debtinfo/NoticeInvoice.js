@@ -277,9 +277,9 @@ function NoticeInvoice() {
                                                             <TableCell align="left">{element['ดอกเบี้ย']}</TableCell>
                                                             <TableCell align="left">{element['ดอกเบี้ยค้งชำระ']}</TableCell>
                                                             <TableCell align="left">{element['ดอกเบี้ยชำระ']}</TableCell>
-                                                            <TableCell align="left">{'ไม่รู้จัก Field'}</TableCell>
-                                                            <TableCell align="left">{'ไม่รู้จัก Field'}</TableCell>
-                                                            <TableCell align="left">{'ไม่รู้จัก Field'}</TableCell>
+                                                            <TableCell align="left">{element.mindex}</TableCell>
+                                                            <TableCell align="left">{formatNumber(element['เงินต้น'])}</TableCell>
+                                                            <TableCell align="left">{dateFormatTensiveMenu(element.date_e)}</TableCell>
                                                             <TableCell align="left">{element.ref_id1}</TableCell>
                                                             <TableCell align="left">{dateFormatTensiveMenu(element.ref_date1)}</TableCell>
                                                         </TableRow>
