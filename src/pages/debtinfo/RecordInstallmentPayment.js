@@ -284,6 +284,7 @@ function RecordInstallmentPayment() {
                                     initialValues={{
                                         ...selectedItemData,
                                         ...selectedData,
+                                        PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}`:'',
                                         RelentDateBefore: selectedData.RelentDate
                                     }}
                                     validate={values => {
@@ -397,14 +398,13 @@ function RecordInstallmentPayment() {
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
                                                             <MuiTextfield
-                                                                // name="Ref2"
-                                                                // value={values.Ref2}
-                                                                // error={errors.Ref2}
-                                                                // helperText={errors.Ref2}
-                                                                // onChange={handleChange}
-                                                                // onBlur={handleBlur}
-                                                                // placeholder="อ้างถึง"
-                                                                value="ไม่รู้จัก Field"
+                                                                name="LoanID"
+                                                                value={values.LoanID}
+                                                                error={errors.LoanID}
+                                                                helperText={errors.LoanID}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                placeholder="อ้างถึง"
                                                                 label="&nbsp;" defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
@@ -449,14 +449,13 @@ function RecordInstallmentPayment() {
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield
-                                                                // name="LoanNumber"
-                                                                // value={values.LoanNumber}
-                                                                // error={errors.LoanNumber}
-                                                                // helperText={errors.LoanNumber}
-                                                                // onChange={handleChange}
-                                                                // onBlur={handleBlur}
-                                                                // placeholder="สัญญาเลขที่"
-                                                                value="ไม่รู้จัก Field"
+                                                                name="PVCODE_LoanNumber"
+                                                                value={values.PVCODE_LoanNumber}
+                                                                error={errors.PVCODE_LoanNumber}
+                                                                helperText={errors.PVCODE_LoanNumber}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                placeholder=""
                                                                 label="&nbsp;" defaultValue="" />
                                                         </Grid>
 

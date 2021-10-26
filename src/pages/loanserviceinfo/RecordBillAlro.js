@@ -34,7 +34,7 @@ import moment from 'moment';
 import { getAccount } from '../../utils/Auth'
 import api from '../../services/webservice'
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
-import { dialog } from '../../components';
+import { ButtonExport, dialog, OverlayLoading } from '../../components';
 
 function RecordBillAlro() {
     const history = useHistory();
@@ -48,6 +48,8 @@ function RecordBillAlro() {
         typeLoan: '1',
         typeBill: '1',
     })
+    const[isLoading, setIsLoading] = useState(false);
+    const [isExporting, setIsExporting] = useState(false)
 
     useEffect(() => {
         setLoaded(true);
@@ -89,11 +91,11 @@ function RecordBillAlro() {
         // parameter.append('Username', account.username);
         // parameter.append('Rentno', "");
         // parameter.append('Date', "");
-
+        setIsLoading(true)
         const parameter = {
             LoanNumber: values.LoanNumber,
             Fullname: values.Fullname,
-            Username: account.username,
+            Username: account.cUsername,
             Rentno: '',
             Date: ''
         }
@@ -101,9 +103,10 @@ function RecordBillAlro() {
         api.getReceiptSelectData(parameter).then(response => {
 
             setResultList(response.data)
+            setIsLoading(false)
             console.log("response", response.data)
         }).catch(error => {
-
+            setIsLoading(false)
         })
 
 
@@ -116,11 +119,11 @@ function RecordBillAlro() {
         const parameter = {
             LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
             Fullname: '',//values.Fullname,
-            Username: account.username,
+            Username: account.cUsername,
             Rentno: selectedData.LoanNumber,
-            Date: moment(new Date()).format('YYYY-MM-DD')
+            Date: values.CalculateDate
         }
-
+        setIsLoading(true)
         api.getProcessBeforePay(parameter).then(response => {
 
             setDataBeforeProcess(response.data)
@@ -142,10 +145,10 @@ function RecordBillAlro() {
                 
             }
 
-            
+            setIsLoading(false)
 
         }).catch(error => {
-
+            setIsLoading(false)
         })
 
 
@@ -153,14 +156,15 @@ function RecordBillAlro() {
 
     function calculatePaid(totalPaid){
 
-        const PrinciplePaid = (parseFloat(totalPaid) - parseFloat(selectedData.Interest) - parseFloat(selectedData.ChargeRate))
+        const PrinciplePaid = (parseFloat(totalPaid) - (parseFloat(selectedData.Interest) + parseFloat(selectedData.ChargeRate)))
         formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0 )
+
         if(dataBeforeProcess.length > 0){
 
             const beforeProcess = dataBeforeProcess[dataBeforeProcess.length - 1]
             const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
-            const interest = parseFloat(totalPaid) >= beforeProcess.InterestKang2 ? beforeProcess.InterestKang2 : totalPaid
+            const interest = parseFloat(beforeProcess.FineKang) + (beforRectData ? beforRectData.InterestKang2 - beforeProcess.InterestKang2 : beforRectData.InterestKang2) //parseFloat(totalPaid) >= beforeProcess.InterestKang2 ? beforeProcess.InterestKang2 : totalPaid
             formikRef.current.setFieldValue("InterestPaid", interest  )
             
             const kange = beforRectData ? beforRectData.InterestKang2 : 0
@@ -174,9 +178,9 @@ function RecordBillAlro() {
             formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : overdue)  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
             
-            formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid)  )
+            formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
 
-            const principalBalance = beforeProcess.principalBalance - parseFloat(totalPaid) <= 0 ? 0 : beforeProcess.principalBalance - parseFloat(totalPaid)
+            const principalBalance = beforeProcess.principalBalance - parseFloat(PrinciplePaid) <= 0 ? 0 : beforeProcess.principalBalance - parseFloat(PrinciplePaid)
 
             formikRef.current.setFieldValue("PrincipleBalance2", principalBalance )
         }else{
@@ -188,8 +192,38 @@ function RecordBillAlro() {
 
     }
 
+    function getCardPdf() {
+
+
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', selectedData.LoanNumber);
+
+
+        setIsExporting(true)
+
+        api.getCardPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'การ์ดก่อนชำระเงิน.pdf');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
     return (
         <div className="recordbillalro-page">
+            <OverlayLoading isLoading={isLoading} />
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -740,13 +774,10 @@ function RecordBillAlro() {
                                                 <Paper className="paper line-top-green paper">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={6}>
-                                                            <ButtonFluidPrimary label="พิมพ์ดูการ์ดก่อนชำระเงิน" />
+                                                            <ButtonExport label="พิมพ์ดูการ์ดก่อนชำระเงิน" handleButtonClick={() => { getCardPdf() }} loading={isExporting} />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <ButtonFluidPrimary label="ประมวลผลก่อนชำระเงิน" onClick={() => {
-
-                                                                getProcessBeforePay()
-                                                            }} />
+                                                            <ButtonExport label="ประมวลผลก่อนชำระเงิน" handleButtonClick={() => { getProcessBeforePay(values) }} />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
