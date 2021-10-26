@@ -328,7 +328,7 @@ function SearchMemberPage(props) {
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
                                 {/* <h1>ค้นหาเกษตกร</h1> */}
-                                <h1>ข้อมูลเกษตรกร / บันทึกคำกู้ยืมยืม</h1>
+                                <h1>ข้อมูลเกษตรกร / บันทึกคำกู้ยืม</h1>
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <Box  display="flex" justifyContent="flex-end">

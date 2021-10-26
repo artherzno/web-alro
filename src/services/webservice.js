@@ -177,7 +177,7 @@ const api = {
         })
     },
     getCardPdf(params) {
-        return get({
+        return post({
             path: "api/report/pdf/GetCardPdf",
             params,
             config: {

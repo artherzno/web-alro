@@ -145,9 +145,11 @@ function LoanRecivcePrint() {
         'RecordCode',
         'RecDate', 
         'ApplicantNo',
+        'Status',
         'ProjectID',
         'ProjectName', 
         'LoanNumber',
+        'ApplicantDate',
         'dCreated',
         'IDCard', 
         'FrontName',
@@ -162,10 +164,12 @@ function LoanRecivcePrint() {
         { id: 'RecordCode', numeric: false, disablePadding: true, widthCol: '140px', label: 'รหัสบันทึก' },
         { id: 'RecDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่บันทึก' },
         { id: 'ApplicantNo', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขคำขอ' },
+        { id: 'Status', numeric: false, disablePadding: false, widthCol: '150px', label: 'สถานะคำขอ' },
         { id: 'ProjectID', numeric: false, disablePadding: false, widthCol: '150px', label: 'รหัสโครงการ' },
         { id: 'ProjectName', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อโครงการ' },
         { id: 'LoanNumber', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขที่สัญญา' },
-        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        { id: 'ApplicantDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่ทำสัญญา' },
         { id: 'IDCard', numeric: false, disablePadding: false, widthCol: '180px', label: 'เลขบัตรประชาชน' },
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
@@ -179,12 +183,16 @@ function LoanRecivcePrint() {
         // { id: 'IDCARD_AddrProvinceID', numeric: false, disablePadding: false, widthCol: '250px', label: 'จังหวัด' },
     ]
 
-    function createData(LoanID,RecordCode,
+    function createData(
+        LoanID,
+        RecordCode,
         RecDate, 
         ApplicantNo,
+        Status,
         ProjectID,
         ProjectName, 
         LoanNumber,
+        ApplicantDate,
         dCreated,
         IDCard, 
         FrontName,
@@ -202,9 +210,11 @@ function LoanRecivcePrint() {
             RecordCode,
             RecDate, 
             ApplicantNo,
+            Status,
             ProjectID,
             ProjectName, 
             LoanNumber,
+            ApplicantDate,
             dCreated,
             IDCard, 
             FrontName,
@@ -365,16 +375,18 @@ function LoanRecivcePrint() {
                                 item.RecordCode === null ? '' : item.RecordCode,
                                 item.RecDate === null ? '' : item.RecDate,
                                 item.ApplicantNo === null ? '' : item.ApplicantNo,
+                                item.Status === null ? '' : item.Status,
                                 item.ProjectID === null ? '' : item.ProjectID,
                                 item.ProjectName === null ? '' : item.ProjectName,
                                 item.LoanNumber === null ? '' : item.LoanNumber,
+                                item.ApplicantDate === null ? newOrderDate(item.ApplicantDate) : null,
                                 item.dCreated === null ? newOrderDate(item.dCreated) : null,
                                 item.IDCard === null ? '' : item.IDCard,
                                 item.FrontName === null ? '' : item.FrontName,
                                 item.Name === null ? '' : item.Name,
                                 item.Sirname === null ? '' : item.Sirname,
                                 item.IDCARD_AddMoo === null ? '' : item.IDCARD_AddMoo,
-                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo,
+                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo+(item.IDCARD_AddMoo === null ? '' : ' ม.'+item.IDCARD_AddMoo)+(item.IDCARD_AddrSoiRoad === null ? '' : ' '+item.IDCARD_AddrSoiRoad)+(item.IDCARD_AddrSubdistrictID === null ? '' : ' ต.'+item.IDCARD_AddrSubdistrictID)+(item.IDCARD_AddMoo === null ? '' : ' อ.'+item.IDCARD_AddMoo)+(item.IDCARD_AddMoo === null ? '' : ' จ.'+item.IDCARD_AddMoo),
                                 item.IDCARD_AddrSubdistrictID === null ? '' : item.IDCARD_AddrSubdistrictID,
                                 item.IDCARD_AddrDistrictID === null ? '' : item.IDCARD_AddrDistrictID,
                                 item.IDCARD_AddrProvinceID === null ? '' : item.IDCARD_AddrProvinceID,
@@ -734,7 +746,7 @@ function LoanRecivcePrint() {
                                         headCells={headCells} 
                                         rows={rows} 
                                         rowsLabel={rowsLabel} 
-                                        colSpan={12} 
+                                        colSpan={15} 
                                         hasCheckbox={false} 
                                         hasAction={true} // show action
                                         actionView={false} 

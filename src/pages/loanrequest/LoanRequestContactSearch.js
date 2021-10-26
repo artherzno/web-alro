@@ -80,15 +80,17 @@ function LoanRequestContactSearch() {
         { id: 'Approve_result', numeric: true, disablePadding: false, widthCol: '140px', label: 'สถานะคำขอ' },
         { id: 'dCreated', numeric: true, disablePadding: false,  widthCol: '140px',label: 'วันที่ยื่นคำขอ' },
         { id: 'IDCard', numeric: true, disablePadding: false,  widthCol: '160px', label: 'เลขบัตรประชาชน' },
-        { id: 'fullname', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อเกษตรกร' },
+        { id: 'FrontName', numeric: true, disablePadding: false, widthCol: '140px', label: 'คำนำหน้า' },
+        { id: 'Name', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ' },
+        { id: 'Sirname', numeric: true, disablePadding: false, widthCol: '140px', label: 'นามสกุล' },
     ];
 
     const rowsLabel = [
-        'ApplicantNo', 'Approve_result', 'dCreated', 'IDCard', 'fullname'
+        'ApplicantNo', 'Approve_result', 'dCreated', 'IDCard', 'FrontName','Name','Sirname'
     ]
 
-    function createData( ApplicantID, ApplicantNo, Approve_result, dCreated, IDCard, fullname) {
-        return { ApplicantID, ApplicantNo, Approve_result, dCreated, IDCard, fullname
+    function createData( ApplicantID, ApplicantNo, Approve_result, dCreated, IDCard, FrontName, Name, Sirname) {
+        return { ApplicantID, ApplicantNo, Approve_result, dCreated, IDCard, FrontName, Name, Sirname
          };
     }
 
@@ -273,9 +275,12 @@ function LoanRequestContactSearch() {
                             item.ApplicantID,
                             item.ApplicantNo,
                             item.Approve_result,
-                            item.dCreated === null ? null : moment(item.dCreated).format('DD/MMM/YYYY'),
+                            item.dCreated === null ? null : moment(item.dCreated).format('DD')+'/'+moment(item.dCreated).format('MM')+'/'+(Number(moment(item.dCreated).format('YYYY'))+543),
                             item.IDCard,
-                            item.FrontName+' '+(!!item.Name) ? item.Name : '' ,' '+(!!item.Sirname) ? item.Sirname : '',  
+                            item.FrontName === null ? null : item.FrontName,
+                            item.Name === null ? null : item.Name,
+                            item.Sirname === null ? null : item.Sirname,  
+                            // item.FrontName+' '+(!!item.Name) ? item.Name : '' ,' '+(!!item.Sirname) ? item.Sirname : '',  
                         )
                     ))
                     }
