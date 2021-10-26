@@ -63,10 +63,10 @@ const listmenu = [
                 subtitle: 'แก้ไขสัญญาฟ้องศาล',
                 subpath: '/loanrequest/editcontract'
             },*/
-            /*{
+            {
                 subtitle: 'ค้นหาสัญญาทั้งหมด',
                 subpath: '/loanrequest/allcontractsearch'
-            }*/
+            }
         ]
     },{
         title: 'ข้อมูลการให้บริการสินเชื่อ',

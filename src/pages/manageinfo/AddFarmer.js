@@ -1178,27 +1178,50 @@ function AddFarmer(props) {
                                                     :
                                                         <React.Fragment>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield disabled label="บ้านเลขที่"  value={''}  />
+                                                                <MuiTextfield disabled label="บ้านเลขที่" value={inputData.IDCARD_AddNo} name="Contact_AddNo" onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield disabled label="หมู่ที่"  value={''}   />
+                                                                <MuiTextfield disabled label="หมู่ที่" value={inputData.IDCARD_AddMoo} name="Contact_AddMoo" onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  value={''}  />
+                                                                <MuiTextfield disabled label="หมู่ซอย / ถนนที่" value={inputData.IDCARD_AddrSoiRoad} name="Contact_AddrSoiRoad" onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield disabled label="จังหวัด"  />
+                                                                <MuiSelectProvince disabled inputdisabled="input-disabled" label="จังหวัด" lists={provinceIDCardList}  value={inputData.IDCARD_AddrProvinceID} name="Contact_AddrProvinceID" onChange={handleInputDataProvince} />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield disabled label="เขต / อำเภอ"   />
+                                                                <MuiSelectDistrict disabled inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtIDCardList} value={inputData.IDCARD_AddrDistrictID}  name="Contact_AddrDistrictID" onChange={handleInputDataDistrict}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield disabled label="แขวง / ตำบล" />
+                                                                <MuiSelectSubDistrict disabled inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subDistrictIDCardList} value={inputData.IDCARD_AddrSubdistrictID} name="Contact_AddrSubdistrictID" onChange={handleInputDataSubDistrict}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield disabled label="รหัสไปรษณีย์" id="addmembe2-zip" defaultValue="" placeholder="ตัวอย่าง 10230" />
+                                                                <MuiTextNumber disabled inputdisabled="input-disabled" label="รหัสไปรษณีย์" id="addmember1-zip" placeholder="ตัวอย่าง 10230" value={inputData.IDCARD_Postcode} name="Contact_Postcode" onInput={handleInputData} />
                                                             </Grid>
                                                         </React.Fragment>
+                                                        // <React.Fragment>
+                                                        //     <Grid item xs={12} md={6}>
+                                                        //         <MuiTextfield disabled label="บ้านเลขที่"  value={''}  />
+                                                        //     </Grid>
+                                                        //     <Grid item xs={12} md={6}>
+                                                        //         <MuiTextfield disabled label="หมู่ที่"  value={''}   />
+                                                        //     </Grid>
+                                                        //     <Grid item xs={12} md={12}>
+                                                        //         <MuiTextfield disabled label="หมู่ซอย / ถนนที่"  value={''}  />
+                                                        //     </Grid>
+                                                        //     <Grid item xs={12} md={6}>
+                                                        //         <MuiTextfield disabled label="จังหวัด"  />
+                                                        //     </Grid>
+                                                        //     <Grid item xs={12} md={6}>
+                                                        //         <MuiTextfield disabled label="เขต / อำเภอ"   />
+                                                        //     </Grid>
+                                                        //     <Grid item xs={12} md={6}>
+                                                        //         <MuiTextfield disabled label="แขวง / ตำบล" />
+                                                        //     </Grid>
+                                                        //     <Grid item xs={12} md={6}>
+                                                        //         <MuiTextfield disabled label="รหัสไปรษณีย์" id="addmembe2-zip" defaultValue="" placeholder="ตัวอย่าง 10230" />
+                                                        //     </Grid>
+                                                        // </React.Fragment>
                                                 }
                                             
                                             </Grid>

@@ -74,7 +74,7 @@ function RecordContractDebt() {
     const [loanID, setLoanID] = useState(null)
     const [loanNumber, setLoanNumber] = useState('')
     const [dueAmount, setDueAmount] = useState(2)
-    const dueAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+    const dueAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
 
     // const [provinceList, setprovinceList] = useState(['กรุณาเลือกจังหวัด']);
     let provinceList = JSON.parse(localStorage.getItem('provincelist'))
@@ -298,6 +298,11 @@ function RecordContractDebt() {
 
     const [summaryTable, setSummaryTable] = useState(0)
     const [inputDataSubmitLoanDUE, setInputDataSubmitLoanDUE] = useState([
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
+        { ITEM: null, DUEDATE: null, PAYREC: null },
         { ITEM: null, DUEDATE: null, PAYREC: null },
         { ITEM: null, DUEDATE: null, PAYREC: null },
         { ITEM: null, DUEDATE: null, PAYREC: null },
@@ -561,6 +566,11 @@ function RecordContractDebt() {
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
         ])
         setInputDataNewFarmerIDCard([])
 
@@ -700,6 +710,11 @@ function RecordContractDebt() {
         setDueAmount(2)
         setSummaryTable('')
         setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
@@ -1034,6 +1049,11 @@ function RecordContractDebt() {
         setDueAmount(event.target.value)
         console.log(event.target.value)
         setInputDataSubmitLoanDUE([
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
             { ITEM: null, DUEDATE: moment().format('YYYY-MM-DD'), PAYREC: null },
@@ -2079,9 +2099,18 @@ function RecordContractDebt() {
                                                         <Grid item xs={12} md={4} >
                                                             <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                                         </Grid>
-                                                        <Grid item xs={12} md={4}>
-                                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
-                                                        </Grid>
+                                                        {
+                                                            inputDataLoanRec.LoanStatus === null ? 
+                                                            <Grid item xs={12} md={4}  style={{opacity: '0.5', pointerEvents: 'none'}} >
+                                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} />
+                                                            </Grid>
+                                                            :
+                                                            <Grid item xs={12} md={4}>
+                                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                                            </Grid>
+                                                        }
+                                                
+                                                        
                                                     </React.Fragment>
                                                 }
                                                 
@@ -2089,7 +2118,7 @@ function RecordContractDebt() {
                                             :
                                             <Grid container spacing={2} className="btn-row txt-center">
                                                  <Grid item xs={12} md={12}>
-                                                    <p className="txt-red">ผลรวมเงินต้น , ผลรวมงวดชำระ จำนวนไม่เท่ากัน</p>
+                                                    <p className="txt-red">*หมายเหตุ: ช่องผลรวมเงินต้น กับ ช่องผลงวดชำระ ต้องมีจำนวนเท่ากัน จึงสามารถบันทึกได้</p>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}  style={{opacity: '0.5', pointerEvents: 'none'}} >
                                                     <ButtonFluidPrimary label="บันทึกชั่วคราว" id=""/>
