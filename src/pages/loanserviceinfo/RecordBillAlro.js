@@ -207,10 +207,11 @@ function RecordBillAlro() {
 
         api.getCardPdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'การ์ดก่อนชำระเงิน.pdf');
+            link.target = '_blank'
+            // link.setAttribute('download', 'การ์ดก่อนชำระเงิน.pdf');
             document.body.appendChild(link);
             link.click();
 
@@ -223,7 +224,7 @@ function RecordBillAlro() {
         })
 
     }
-    console.log("selectedData", selectedData)
+    
     return (
         <div className="recordbillalro-page">
             <OverlayLoading isLoading={isLoading} />
