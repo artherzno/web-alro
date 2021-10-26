@@ -295,7 +295,18 @@ function LoginPage() {
                     localStorage.setItem('username', ((res.recordset[0].Name === null) ? '' : res.recordset[0].Name) + ' ' + ((res.recordset[0].Sirname === null) ? '' : res.recordset[0].Sirname))
                     localStorage.setItem('provinceid', res.recordset[0].ProvinceID)
                     localStorage.setItem('nROLEID', res.recordset[0].nROLEID)
+                    localStorage.setItem('nRolename', res.recordset[0].cUsername)
+                    localStorage.setItem('nMEMID', res.recordset[0].nMEMID)
+                    localStorage.setItem('bActive', res.recordset[0].bActive)
                     localStorage.setItem('cUsername', res.recordset[0].cUsername)
+
+                    // localStorage.getItem('username')
+                    // localStorage.getItem('provinceid')
+                    // localStorage.getItem('nROLEID')
+                    // localStorage.getItem('nRolename')
+                    // localStorage.getItem('nMEMID')
+                    // localStorage.getItem('bActive')
+                    // localStorage.getItem('cUsername')
 
                     fetchDataDocLandType(res.token);
                     fetchDataProvince(res.token, res.recordset[0].ProvinceID)
