@@ -223,7 +223,7 @@ function RecordBillAlro() {
         })
 
     }
-
+    console.log("selectedData", selectedData)
     return (
         <div className="recordbillalro-page">
             <OverlayLoading isLoading={isLoading} />
@@ -252,6 +252,7 @@ function RecordBillAlro() {
                                     initialValues={{
                                         ReceiptID: "",
                                         LoanID: selectedData.LoanNumber,
+                                        LoanNumber: selectedData.LoanNumber,
                                         ReceiptNumber: "",
                                         ref_id1: "",
                                         Reccode: "",
@@ -498,10 +499,10 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield
-                                                                name="LandNumber"
-                                                                value={values.LandNumber}
-                                                                error={errors.LandNumber}
-                                                                helperText={errors.LandNumber}
+                                                                name="LoanNumber"
+                                                                value={values.LoanNumber}
+                                                                error={errors.LoanNumber}
+                                                                helperText={errors.LoanNumber}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="สัญญาเลขที่"
