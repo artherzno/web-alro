@@ -35,6 +35,7 @@ import { getAccount } from '../../utils/Auth'
 import api from '../../services/webservice'
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import { ButtonExport, dialog, OverlayLoading } from '../../components';
+import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
 
 function RecordBillAlro() {
     const history = useHistory();
@@ -50,6 +51,8 @@ function RecordBillAlro() {
     })
     const[isLoading, setIsLoading] = useState(false);
     const [isExporting, setIsExporting] = useState(false)
+    const [checkClose, setCheckClose] = useState(false)
+    const [isShowClose, setIsShowClose] = useState(false)
 
     useEffect(() => {
         setLoaded(true);
@@ -204,10 +207,11 @@ function RecordBillAlro() {
 
         api.getCardPdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'การ์ดก่อนชำระเงิน.pdf');
+            link.target = '_blank'
+            // link.setAttribute('download', 'การ์ดก่อนชำระเงิน.pdf');
             document.body.appendChild(link);
             link.click();
 
@@ -220,7 +224,7 @@ function RecordBillAlro() {
         })
 
     }
-
+    
     return (
         <div className="recordbillalro-page">
             <OverlayLoading isLoading={isLoading} />
@@ -249,6 +253,7 @@ function RecordBillAlro() {
                                     initialValues={{
                                         ReceiptID: "",
                                         LoanID: selectedData.LoanNumber,
+                                        LoanNumber: selectedData.LoanNumber,
                                         ReceiptNumber: "",
                                         ref_id1: "",
                                         Reccode: "",
@@ -317,7 +322,8 @@ function RecordBillAlro() {
                                         RecDueInterest: '',
                                         RecSumInterest: '',
                                         RecOverdueInterest: '',
-                                        RecSumPaid: ''
+                                        RecSumPaid: '',
+                                        Status:1
                                     }}
                                     validate={values => {
                                         const requires = []
@@ -494,10 +500,10 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield
-                                                                name="LandNumber"
-                                                                value={values.LandNumber}
-                                                                error={errors.LandNumber}
-                                                                helperText={errors.LandNumber}
+                                                                name="LoanNumber"
+                                                                value={values.LoanNumber}
+                                                                error={errors.LoanNumber}
+                                                                helperText={errors.LoanNumber}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="สัญญาเลขที่"
@@ -1039,7 +1045,23 @@ function RecordBillAlro() {
                                                                         value={values.TotalPaid}
                                                                         error={errors.TotalPaid}
                                                                         helperText={errors.TotalPaid}
-                                                                        onChange={handleChange}
+                                                                        onChange={(e) =>{
+                                                                            handleChange(e)
+                                                                            const check = (parseFloat(values.RecSumInterest) + parseFloat(values.RecOverdueInterest) + parseFloat(values.RecPrincipleBalance))
+
+                                                                            console.log("values.RecSumInterest", values.RecSumInterest)
+                                                                            console.log("values.RecOverdueInterest", values.RecOverdueInterest)
+                                                                            console.log("values.PrincipleBalance2", values.RecPrincipleBalance)
+
+                                                                            console.log("check", check)
+                                                                            console.log("parseFloat(e.target.value)", parseFloat(e.target.value))
+
+                                                                            if (parseFloat(e.target.value) === check){
+                                                                                setIsShowClose(true)
+                                                                            }else{
+                                                                                setIsShowClose(false)
+                                                                            }
+                                                                        }}
                                                                         onBlur={handleBlur}
                                                                         placeholder="จำนวนเงินที่ชำระ"
                                                                         label="" />
@@ -1200,7 +1222,22 @@ function RecordBillAlro() {
 
                                                 </Paper>
 
-                                                <Grid container spacing={2} className="btn-row">
+                                                <Grid container spacing={2} alignItems="center" justifyContent="center" className="btn-row">
+                                                    {isShowClose && <Grid item >
+                                                        <div className="box-button txt-center">
+                                                            <FormGroup>
+                                                                <FormControlLabel control={<Checkbox label="ปิดสัญญา" checked={checkClose} onChange={(e) => {
+                                                                    setCheckClose(e.target.checked)
+                                                                    if(e.target.checked){
+                                                                        setFieldValue("Status",0)
+                                                                    }else{
+                                                                        setFieldValue("Status", 1)
+                                                                    }
+                                                                }} />} label="ปิดสัญญา" /></FormGroup>
+
+                                                        </div>
+
+                                                    </Grid>}
                                                     <Grid item xs={12} md={12}>
                                                         <ButtonFluidPrimary label="บันทึกการเพิ่ม" onClick={handleSubmit}/>
                                                     </Grid>

@@ -52,6 +52,7 @@ function RecordInstallmentPayment() {
     const [selectedData, setSelectedData] = useState({})
     const [selectedItemData, setSelectedItemData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    const [checkClose,setCheckClose] = useState(false)
     
     useEffect(() => {
         setLoaded(true);
@@ -718,6 +719,7 @@ function RecordInstallmentPayment() {
                                                         </Grid>
                                                     </form>
                                                 </Paper>
+                                              
 
                                                 <Grid container spacing={2} className="btn-row txt-center">
                                                     <Grid item xs={12} md={12}>

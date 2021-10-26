@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Select } from './select'
 import Grid from '@material-ui/core/Grid';
 import {ProvinceSelect,SectionSelect} from './index'
 
-const displayList = [{ value: 0, label: "ทั้งประเทศ" },
+const displayListMaster = [{ value: 0, label: "ทั้งประเทศ" },
 { value: 1, label: "รายภาค" },
 { value: 2, label: "รายจังหวัด" }]
 
@@ -14,7 +14,18 @@ export const DisplaySelect = ({
 }) => {
 
     const [display,setDisplay] = useState(0)
+    const [displayList, setDisplayList] = useState(displayListMaster)
 
+    useEffect(() =>{
+
+        const roleID = localStorage.getItem('nROLEID')
+        if (roleID != 8 && roleID != 9 ){
+            
+            displayListMaster.splice(2,1)
+            setDisplayList(displayListMaster)
+        }
+
+    },[])
     
 
     return (
