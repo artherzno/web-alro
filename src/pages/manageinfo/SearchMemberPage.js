@@ -79,7 +79,9 @@ function SearchMemberPage(props) {
 
     const headCells = [
         { id: 'FarmerID', numeric: false, disablePadding: true,  widthCol: '140px',label: 'ลำดับ' },
-        { id: 'Name', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ นามสกุล' },
+        { id: 'FrontName', numeric: true, disablePadding: false, widthCol: '120px', label: 'คำนำหน้า' },
+        { id: 'Name', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อ' },
+        { id: 'Sirname', numeric: true, disablePadding: false, widthCol: '160px', label: 'นามสกุล' },
         { id: 'FarmerGrade', numeric: true, disablePadding: false,  widthCol: '140px',label: 'เกรด' },
         { id: 'IDCard', numeric: true, disablePadding: false,  widthCol: '160px', label: 'เลขบัตรประชาชน' },
         { id: 'dCreated', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่สร้าง' },
@@ -89,13 +91,15 @@ function SearchMemberPage(props) {
     ];
 
     const rowsLabel = [
-        'FarmerID', 'Name', 'FarmerGrade', 'IDCard', 'dCreated', 'LoanNumber', 'LandNumber', 'Land_AddrProvinceID'
+        'FarmerID', 'FrontName', 'Name', 'Sirname', 'FarmerGrade', 'IDCard', 'dCreated', 'LoanNumber', 'LandNumber', 'Land_AddrProvinceID'
     ]
 
-    function createData( FarmerID, Name, FarmerGrade, IDCard, LoanNumber, LandNumber, Land_AddrProvinceID, dCreated) {
+    function createData( FarmerID, FrontName, Name, Sirname, FarmerGrade, IDCard, LoanNumber, LandNumber, Land_AddrProvinceID, dCreated) {
         return { 
             FarmerID,
+            FrontName,
             Name,
+            Sirname,
             FarmerGrade,
             IDCard,
             LoanNumber,
@@ -192,7 +196,10 @@ function SearchMemberPage(props) {
                     setRows(res.data.map((item,i)=>
                         createData(
                             item.FarmerID,
-                            item.FrontName+' '+(!!item.Name) ? item.Name : '' ,' '+(!!item.Sirname) ? item.Sirname : '',
+                            item.FrontName === null ? '': item.FrontName,
+                            item.Name === null ? '': item.Name,
+                            item.Sirname === null ? '': item.Sirname,
+                            // item.FrontName+' '+(!!item.Name) ? item.Name : '' ,' '+(!!item.Sirname) ? item.Sirname : '',
                             item.FarmerGrade === 'Y' ? 'Y (ไม่มีหนี้ค้าง)' : item.FarmerGrade === 'N' ? 'N (มีหนี้ค้าง)' : '-',
                             item.IDCard,
                             item.LoanNumber,

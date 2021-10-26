@@ -1100,6 +1100,10 @@ body {
   }
 }
 
+.MuiSelect-select.MuiSelect-outlined.MuiInputBase-input {
+  background-color: transparent;
+}
+
 // Input Sytle ---------------------//
 input {
   &[disabled] {

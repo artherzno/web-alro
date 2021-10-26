@@ -762,6 +762,8 @@ function LoanRequestContactStep1(props) {
         formData.set('Debt_Amount', parseFloat(Debt_Amount_value.split(',').join('')))
         formData.set('Farming_LandRai', parseFloat(Farming_LandRai_value.split(',').join('')))
         formData.set('LandID',parseInt(inputData.LandID))
+        formData.set('ApplicantDate',moment(inputData.ApplicantDate).format('YYYY-MM-DD'))
+        formData.set('RecDate',moment(inputData.RecDate).format('YYYY-MM-DD'))
 
         let url = '';
         if(props.action === 'edit') {
@@ -915,10 +917,10 @@ function LoanRequestContactStep1(props) {
                                                     : ''
                                                 }
                                                  <Grid item xs={12} md={6}>
-                                                    <MuiDatePicker label="วันที่ยื่นคำขอ" name="ApplicantDate" value={inputData.ApplicantDate} onChange={handleInputData} />
+                                                    <MuiDatePicker label="วันที่ยื่นคำขอ" name="ApplicantDate"  value={inputData.ApplicantDate} onChange={(newValue)=>{ setInputData({ ...inputData, ApplicantDate: moment(newValue).format()}) }}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputData.RecDate} onChange={handleInputData} />
+                                                    <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputData.RecDate} onChange={(newValue)=>{ setInputData({ ...inputData, RecDate: moment(newValue).format()}) }}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="เขียนที่" name="AppLocation" value={inputData.AppLocation} onChange={handleInputData} />
@@ -1038,7 +1040,9 @@ function LoanRequestContactStep1(props) {
                                                                 <MuiTextfield label="1. กิจกรรม / โครงการ" name="FarmerProjectName1" value={inputData.FarmerProjectName1}  onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective1" value={inputData.objective1}  onChange={handleInputData}  />
+                                                                <MuiSelect label="วัตถุประสงค์" listsValue={['ประกอบเกษตรกรรม','ค่าชดเชย']} lists={['ประกอบเกษตรกรรม','ค่าชดเชย']} name="objective1" value={inputData.objective1} onChange={handleInputData}  />
+                                                
+                                                                {/* <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective1" value={inputData.objective1}  onChange={handleInputData}  /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={11}>
                                                                 <p className="paper-p">จำนวนเงิน</p>
@@ -1056,8 +1060,9 @@ function LoanRequestContactStep1(props) {
                                                                 <MuiTextfield label="2. กิจกรรม / โครงการ" name="FarmerProjectName2" value={inputData.FarmerProjectName2}   onChange={handleInputData} />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                {/* Field Text ---------------------------------------------------*/}
-                                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective2" value={inputData.objective2}  onChange={handleInputData}  />
+                                                                <MuiSelect label="วัตถุประสงค์" listsValue={['ประกอบเกษตรกรรม','ค่าชดเชย']} lists={['ประกอบเกษตรกรรม','ค่าชดเชย']} name="objective2" value={inputData.objective2} onChange={handleInputData}  />
+                                                
+                                                                {/* <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective2" value={inputData.objective2}  onChange={handleInputData}  /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={11}>
                                                                 <p className="paper-p">จำนวนเงิน</p>
@@ -1075,8 +1080,9 @@ function LoanRequestContactStep1(props) {
                                                                 <MuiTextfield label="3. กิจกรรม / โครงการ" name="FarmerProjectName3" value={inputData.FarmerProjectName3} onChange={handleInputData} />
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
-                                                                {/* Field Text ---------------------------------------------------*/}
-                                                                <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective3" value={inputData.objective3} onChange={handleInputData} />
+                                                                <MuiSelect label="วัตถุประสงค์" listsValue={['ประกอบเกษตรกรรม','ค่าชดเชย']} lists={['ประกอบเกษตรกรรม','ค่าชดเชย']} name="objective3" value={inputData.objective3} onChange={handleInputData}  />
+                                                
+                                                                {/* <MuiTextfieldMultiLine label="วัตถุประสงค์" defaultValue="" row="3" name="objective3" value={inputData.objective3} onChange={handleInputData} /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={11}>
                                                                 <p className="paper-p">จำนวนเงิน</p>

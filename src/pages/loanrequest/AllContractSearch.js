@@ -415,7 +415,7 @@ function AllContractSearch() {
             data: {
                 Username: inputDataSearch.Username,
                 FarmerName: inputDataSearch.FarmerName,
-                Date: contractDate === '0000-00-00' ? '' : contractDate,
+                Date: !!inputDataSearch.Date ? moment(inputDataSearch.Date).format('YYYY-MM-DD') : "",
                 LoanNumber: inputDataSearch.LoanNumber,
                 ProjectName: inputDataSearch.ProjectName,
                 StartYear: Number(contractStartYear),
@@ -425,6 +425,7 @@ function AllContractSearch() {
                 // console.log(res)
                 let data = res.data;
                 if(data.length === 0) {
+                    setIsLoading(false)
                     setErr(true);
                     setErrMsg('ไม่พบข้อมูล')
                 }else {
@@ -477,7 +478,7 @@ function AllContractSearch() {
                     
                 }
             }
-        ).catch(err => { console.log(err) })
+        ).catch(err => { console.log(err); setErr(true); setIsLoading(false) })
         .finally(() => {
             if (isMounted.current) {
               setIsLoading(false)
@@ -626,13 +627,13 @@ function AllContractSearch() {
                                         <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="FarmerName" value={inputDataSearch.FarmerName} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <p>ค้นหาตามวันที่สร้างสัญญา</p>
-                                        <div className="select-date-option">
+                                        {/* <p>ค้นหาตามวันที่สร้างสัญญา</p> */}
+                                        {/* <div className="select-date-option">
                                             <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
                                             <MuiSelectMonth label="" name="mm" value={inputSelectDate.mm} onChange={handleSelectDate} />
                                             <MuiSelectYear label="" name="yyyy" value={inputSelectDate.yyyy} onChange={handleSelectDate} />
-                                        </div>
-                                        {/* <MuiDatePicker label="ค้นหาตามวันที่สร้างสัญญา"  name="Date" value={inputDataSearch.Date}   /> */}
+                                        </div> */}
+                                        <MuiDatePicker label="ค้นหาตามวันที่สร้างสัญญา"  name="Date" value={inputDataSearch.Date} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, Date: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" name="LoanNumber" value={inputDataSearch.LoanNumber}  onChange={handleInputDataSearch}  />
@@ -640,14 +641,18 @@ function AllContractSearch() {
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ค้นหาชื่อโครงการ" name="ProjectName" value={inputDataSearch.ProjectName}  onChange={handleInputDataSearch}  />
                                     </Grid>
-                                    <Grid item xs={12} md={3} className="dropdown-projectplanyear">
+                                    <Grid item xs={12} md={2}>
+                                        <MuiSelect label="แสดง" listsValue={['2','1','0']} lists={['ทั้งหมด', 'ค้างชำระ', 'จ่ายเงินครบ']} name="Type" value={inputDataSearch.Type}  onChange={handleInputDataSearch}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={2} className="dropdown-projectplanyear">
                                         <MuiSelectObjYearStart label="ค้นหาตามปีงบประมาณ" valueStartYaer={2500}  name="StartYear" value={inputDataSearch.StartYear}  onChange={handleInputDataSearchYear} />
                                     </Grid>
                                     {/* <Grid item xs={12} md={3}>
                                         <MuiSelect label="จัดเรียงตาม" listsValue={['โครงการ','สัญญา','mindex มากไปน้อย','mindex น้อยไปมาก','วันที่บันทึกข้อมูล']} lists={['โครงการ', 'สัญญา', 'mindex มากไปน้อย','mindex น้อยไปมาก','วันที่บันทึกข้อมูล']} />
                                     </Grid> */}
                                     <Grid item xs={12} md={2}>
-                                        <MuiSelect label="แสดง" listsValue={['2','1','0']} lists={['ทั้งหมด', 'ค้างชำระ', 'จ่ายเงินครบ']} name="Type" value={inputDataSearch.Type}  onChange={handleInputDataSearch}  />
+                                        <p>&nbsp;</p>
+                                        <p className="txt-red">*หมายเหตุ: กรุณาเลือกปีงบประมาณเพื่อค้นหา</p>
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>

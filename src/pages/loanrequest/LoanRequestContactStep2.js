@@ -12,6 +12,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Divider } from '@material-ui/core';
 
+import PrintIcon from '@material-ui/icons/Print';
+
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import { 
@@ -19,6 +21,7 @@ import {
     MuiUpload,
     ButtonFluidPrimary,
     ButtonFluidOutlineSecondary,
+    ButtonFluidIconStartPrimary,
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
@@ -32,6 +35,7 @@ function LoanRequestContactStep2(props) {
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
     let server_production = localStorage.getItem('siteimage');
+    let siteprint = localStorage.getItem('siteprint')
 
     const [loaded, setLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -245,6 +249,34 @@ function LoanRequestContactStep2(props) {
          });
     };
 
+    const handlePrintPDF = () => {
+        console.log('PDF - LoanReqNo:', props.ApplicantNo)
+        console.log('PDF - UserName:',localStorage.getItem('provinceid'))
+        
+        let formData = new FormData();
+        formData.append('LoanReqNo', props.ApplicantNo)
+        formData.append('UserName', localStorage.getItem('provinceid'))
+
+        axios({
+        url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
+        method: 'POST',
+        data: formData,
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantNo.toString()}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
+
     const handleClosePopup = () => {
         setErr(false);
         setSuccess(false);
@@ -393,22 +425,30 @@ function LoanRequestContactStep2(props) {
                                     {/* // Action: view */}
                                     {
                                         props.action === 'view' ? 
-                                        <Grid item xs={12} md={12}>
-                                            <ButtonFluidPrimary label="ย้อนกลับ" maxWidth="180px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
-                                        </Grid>
+                                        <React.Fragment>
+                                            <Grid item xs={12} md={12} className="txt-center">
+                                                <ButtonFluidPrimary label="ย้อนกลับ" maxWidth="180px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                            </Grid>
+                                        </React.Fragment>
                                         : props.action === 'edit' ? 
                                         <React.Fragment>
                                             <Grid item xs={12} md={8}>
                                                 <ButtonFluidPrimary label={'บันทึกแก้ไขข้อมูล ขั้นตอนที่2'} onClick={handleSubmit} />
                                             </Grid>
-                                            <Grid item xs={12} md={4}>                          
-                                                <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
+
+                                            <Grid item xs={12} md={4}>
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                            </Grid>
+                                            <Grid item xs={12} md={12}>                          
+                                                <ButtonFluidOutlinePrimary label="ถัดไป" maxWidth="180px" onClick={ props.handleComplete} />
                                             </Grid>
                                         </React.Fragment>
                                         
                                         :   
                                         <Grid item xs={12} md={12}>
-                                            <ButtonFluidPrimary label={'บันทึกข้อมูล ขั้นตอนที่2'} onClick={handleSubmit} />                             
+                                            <ButtonFluidPrimary label={'บันทึกข้อมูล ขั้นตอนที่2'} maxWidth="240px" onClick={handleSubmit} />            
+                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/>                  
                                             {/* <ButtonFluidOutlineSecondary label="test ถัดไป" maxWidth="100px"  onClick={ props.handleComplete} /> */}
                                         </Grid>
                                     }

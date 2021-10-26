@@ -820,17 +820,17 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                     {
                                         props.action === 'view' ? 
                                         <Grid container spacing={2} className="btn-row">
-                                            <Grid item xs={12} md={6}>
-                                                <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />
+                                            <Grid item xs={12} md={12} className="txt-center">
+                                                <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} maxWidth="180px" color="primary" style={{justifyContent: 'center'}} />
                                             </Grid>
-                                            <Grid item xs={12} md={6}>
+                                            {/* <Grid item xs={12} md={6}>
                                                 <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
-                                            </Grid>
+                                            </Grid> */}
                                         </Grid>
                                         : 
                                         <Grid container spacing={2} className="btn-row">
                                             
-                                            <Grid item xs={12} md={6}>
+                                            <Grid item xs={12} md={8}>
                                                 {
                                                     props.action === 'edit' ? 
                                                     <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3"  onClick={handleSubmit} />
@@ -839,7 +839,7 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                 }
                                             </Grid>
 
-                                            <Grid item xs={12} md={6}>
+                                            {/* <Grid item xs={12} md={6}>
                                                 {
                                                     btnPrint || props.action === 'edit' ?  
                                                         <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
@@ -850,9 +850,9 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                         </div>
                                                 }
                                                 
-                                            </Grid>
+                                            </Grid> */}
 
-                                            <Grid item xs={12} md={12}>
+                                            <Grid item xs={12} md={4}>
                                                 <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
                                                 {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} /> */}
                                             </Grid>

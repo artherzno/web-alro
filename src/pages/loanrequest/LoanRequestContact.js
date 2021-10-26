@@ -133,7 +133,7 @@ console.log('getStepMain ApplicantID:',localStorage.getItem('applicantID'))
             case 0:
             return <LoanRequestContactStep1 action={propsAction} ApplicantID={propsApplicantID} FarmerID={propsFarmerID} handleComplete={handleComplete} />;
             case 1:
-            return <LoanRequestContactStep2 action={propsAction} ApplicantID={propsApplicantID} handleComplete={handleComplete} />;
+            return <LoanRequestContactStep2 action={propsAction} ApplicantID={propsApplicantID} ApplicantNo={propsApplicantNo} handleComplete={handleComplete} />;
             case 2:
             return <LoanRequestContactStep3 action={propsAction} ApplicantID={propsApplicantID} ApplicantNo={propsApplicantNo} handleComplete={handleComplete} />;
             case 3:
