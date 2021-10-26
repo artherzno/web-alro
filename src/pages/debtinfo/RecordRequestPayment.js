@@ -51,6 +51,7 @@ function RecordRequestPayment() {
     const [loanNumber, setLoanNumber] = useState("")
     const [selectedExtendData, setSelectedExtendData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+   
 
     useEffect(() => {
         setLoaded(true);
@@ -888,7 +889,9 @@ function RecordRequestPayment() {
 
 
                                         <Container maxWidth="md">
+
                                             <Grid container spacing={2} className="btn-row txt-center">
+                                               
                                                 <Grid item xs={12} md={12}>
                                                     <div className="box-button txt-center">
                                                         <ButtonFluidPrimary maxWidth="500px" label="บันทึก" onClick={() =>{
