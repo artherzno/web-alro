@@ -35,7 +35,7 @@ import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
 import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
-import { OverlayLoading,dialog } from '../../components';
+import { OverlayLoading, dialog } from '../../components';
 
 
 function DebtCondition() {
@@ -48,10 +48,13 @@ function DebtCondition() {
     const [count, setCount] = useState(10)
     const [selectedData, setSelectedData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    const [masterCondition, setMasterCondition] = useState([])
 
     useEffect(() => {
         setLoaded(true);
         getChagestructureDataByLoan()
+        getMasterSPKCondition()
+
     }, [])
 
     function getChagestructureDataByLoan() {
@@ -68,19 +71,29 @@ function DebtCondition() {
         })
     }
 
-    function changeDeptStructuresSave(values){
-      
+    function changeDeptStructuresSave(values) {
+
         dialog.showLoading()
-        api.changeDeptStructuresSave(values).then(response =>{
-           
+        api.changeDeptStructuresSave(values).then(response => {
+
             dialog.close()
             setTimeout(() => {
                 dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
             }, 500);
-            
-        }).catch(error =>{
+
+        }).catch(error => {
             dialog.close()
-            
+
+        })
+    }
+
+    function getMasterSPKCondition() {
+
+        api.getMasterSPKCondition().then(response => {
+
+            setMasterCondition(response.data)
+        }).catch(error => {
+
         })
     }
 
@@ -110,9 +123,9 @@ function DebtCondition() {
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" onClick={() =>{
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={() => {
                                             getChagestructureDataByLoan()
-                                        }}/>
+                                        }} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -147,7 +160,7 @@ function DebtCondition() {
 
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
-                                                           setSelectedData(element)
+                                                            setSelectedData(element)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
@@ -197,7 +210,7 @@ function DebtCondition() {
                         innerRef={formikRef}
                         initialValues={{
                             ...selectedData,
-                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543,'years').format("YYYY") : ''
+                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
                         }}
                         validate={values => {
                             const requires = []
@@ -584,7 +597,22 @@ function DebtCondition() {
                                                                                         label="วันที่สิ้นสุด" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <MuiSelect name="ConditionCode" label="ประเภท" lists={['นาย', 'นาง', 'นางสาว']} />
+                                                                                    <MuiSelect
+                                                                                        name="ConditionCode"
+                                                                                        label="ประเภท"
+                                                                                        listsValue={masterCondition.map(master => master.ConditionCode)}
+                                                                                        lists={masterCondition.map(master => master.ConditionCode)}
+                                                                                        onChange={(e) =>{
+                                                                                            
+                                                                                            const master = masterCondition.find(element => element.ConditionCode === e.target.value)
+                                                                                            if(master){
+                                                                                                setFieldValue('ConditionName', master.ConditionName)
+                                                                                                setFieldValue('ConditionDetail', master.ConditionDetail)
+                                                                                                setFieldValue('Tps', master.Tps)
+                                                                                                setFieldValue('Tps_', master.Tps_)
+                                                                                            }
+
+                                                                                        }} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3}>
                                                                                     <MuiTextfield
@@ -756,7 +784,7 @@ function DebtCondition() {
                                     <Container maxWidth="md">
                                         <Grid container spacing={2} className="btn-row txt-center">
                                             <Grid item xs={12} md={12}>
-                                                <ButtonFluidPrimary label="บันทึก" maxWidth="320px" onClick={handleSubmit}/>
+                                                <ButtonFluidPrimary label="บันทึก" maxWidth="320px" onClick={handleSubmit} />
                                             </Grid>
                                         </Grid>
                                     </Container>

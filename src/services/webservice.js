@@ -886,6 +886,15 @@ const api = {
         })
 
     },
+    getMasterSPKCondition(params) {
+
+        return post({
+            path: "Chagestructure/GetMasterSPKCondition",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
     changeDeptStructuresSave(params) {
 
         return post({

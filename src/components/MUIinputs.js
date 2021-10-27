@@ -1109,7 +1109,9 @@ const MuiSelect = (props) => {
                         labelId={id}
                         id={id}
                         input={<BootstrapInput />}
-                        onChange={onChange}
+                        onChange={(e) =>{
+                            onChange(e)
+                        }}
                     >
                         {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
                         {lists.map((item, i) =>
@@ -1124,7 +1126,9 @@ const MuiSelect = (props) => {
                         labelId={id}
                         id={id}
                         input={<BootstrapInput />}
-                        onChange={onChange}
+                        onChange={(e) => {
+                            onChange(e)
+                        }}
                     >
                         {/* <MenuItem value={listsValue[0]}>{lists[0]}</MenuItem> */}
                         {lists.map((item, i) =>
