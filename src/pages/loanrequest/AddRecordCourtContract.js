@@ -1764,7 +1764,7 @@ function AddRecordCourtContract() {
                                                                                 <MuiDatePicker label="วันที่เปลี่ยนสัญญา" name="LoanChangeDate" value={inputDataSubmit.LoanChangeDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanChangeDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={6}>
-                                                                                <MuiDatePicker label="วันที่รับแปลงหนี้" name="DebtEditDate" value={inputDataSubmit.DebtEditDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, DebtEditDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                                <MuiDatePicker label="วันที่รับคำพิพากษาศาล" name="DebtEditDate" value={inputDataSubmit.DebtEditDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, DebtEditDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
                                                                                 <MuiTextfieldMultiLine label="หมายเหตุ" row="3"  name="notation" value={inputDataSubmit.notation} onChange={handleInputDataSubmit}  />
