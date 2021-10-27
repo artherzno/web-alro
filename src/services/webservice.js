@@ -177,7 +177,7 @@ const api = {
         })
     },
     getCardPdf(params) {
-        return get({
+        return post({
             path: "api/report/pdf/GetCardPdf",
             params,
             config: {
@@ -881,6 +881,15 @@ const api = {
 
         return post({
             path: "AdvanceInvoice/GetTotal",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
+    getMasterSPKCondition(params) {
+
+        return post({
+            path: "Chagestructure/GetMasterSPKCondition",
             params,
             config: { baseURL: REACT_APP_API_HOST_1 },
         })

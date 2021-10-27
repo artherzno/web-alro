@@ -55,6 +55,7 @@ class ListFarmPayLoanTab extends React.Component {
             count: 10,
             totalResult: 0,
 
+
         }
     }
 
@@ -97,6 +98,8 @@ class ListFarmPayLoanTab extends React.Component {
             this.setState({ isLoading: false })
         })
     }
+
+   
 
     exportExcel(){
 
