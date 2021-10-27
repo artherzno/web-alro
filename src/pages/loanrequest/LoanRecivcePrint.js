@@ -230,6 +230,48 @@ function LoanRecivcePrint() {
         }
     }
 
+    const getProvince = (pvid) => {
+        // console.log('province',pvid)
+        // console.log(provinceList)
+        let pvname ='';
+        for (let i = 0; i < provinceList.length; i++) {
+            if (provinceList[i].ProvinceID === parseInt(pvid)) {
+                console.log(provinceList[i])
+                pvname = provinceList[i].PV_NAME
+                // setProviceName(provinceList[0][i].PV_NAME);
+            }
+        }
+        return pvname;
+    }
+
+    const getDistrict = (dsid) => {
+        // console.log('district',dsid)
+        // console.log(districtList)
+        let pvname ='';
+        for (let i = 0; i < districtList.length; i++) {
+            if (districtList[i].DistrictID === parseInt(dsid)) {
+                console.log(districtList[i])
+                pvname = districtList[i].AM_NAME
+                // setProviceName(provinceList[0][i].PV_NAME);
+            }
+        }
+        return pvname;
+    }
+
+    const getSubDistrict = (sdsid) => {
+        console.log('subdistrict',sdsid)
+        console.log(subdistrictList)
+        let pvname ='';
+        for (let i = 0; i < subdistrictList.length; i++) {
+            if (subdistrictList[i].SubdistrictID === parseInt(sdsid)) {
+                console.log(subdistrictList[i])
+                pvname = subdistrictList[i].TB_NAME
+                // setProviceName(provinceList[0][i].PV_NAME);
+            }
+        }
+        return pvname;
+    }
+
     useEffect(() => {
         setLoaded(true);
 
@@ -386,7 +428,7 @@ function LoanRecivcePrint() {
                                 item.Name === null ? '' : item.Name,
                                 item.Sirname === null ? '' : item.Sirname,
                                 item.IDCARD_AddMoo === null ? '' : item.IDCARD_AddMoo,
-                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo+(item.IDCARD_AddMoo === null ? '' : ' ม.'+item.IDCARD_AddMoo)+(item.IDCARD_AddrSoiRoad === null ? '' : ' '+item.IDCARD_AddrSoiRoad)+(item.IDCARD_AddrSubdistrictID === null ? '' : ' ต.'+item.IDCARD_AddrSubdistrictID)+(item.IDCARD_AddMoo === null ? '' : ' อ.'+item.IDCARD_AddMoo)+(item.IDCARD_AddMoo === null ? '' : ' จ.'+item.IDCARD_AddMoo),
+                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo+(item.IDCARD_AddMoo === null ? '' : ' ม.'+item.IDCARD_AddMoo)+(item.IDCARD_AddrSoiRoad === null ? '' : ' '+item.IDCARD_AddrSoiRoad)+(item.IDCARD_AddrSubdistrictID === null ? '' : ' ต.'+getSubDistrict(item.IDCARD_AddrSubdistrictID))+(item.IDCARD_AddrDistrictID === null ? '' : ' อ.'+getDistrict(item.IDCARD_AddrDistrictID))+(item.IDCARD_AddrProvinceID === null ? '' : ' จ.'+getProvince(item.IDCARD_AddrProvinceID)),
                                 item.IDCARD_AddrSubdistrictID === null ? '' : item.IDCARD_AddrSubdistrictID,
                                 item.IDCARD_AddrDistrictID === null ? '' : item.IDCARD_AddrDistrictID,
                                 item.IDCARD_AddrProvinceID === null ? '' : item.IDCARD_AddrProvinceID,
@@ -871,11 +913,11 @@ function LoanRecivcePrint() {
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfield label="ได้รับเงินจากกรม" name="LoanReceiptfrom" value={inputData.LoanReceiptfrom} onChange={handleInputData}  />
+                                                        <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.จังหวัด${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfield label="กระทรวง"  name="LoanReceiptfrom2" value={inputData.LoanReceiptfrom2} onChange={handleInputData}   />
+                                                        <MuiTextfield label="กระทรวง" inputdisabled="input-disabled" value={'กระทรวงเกษตรและสหกรณ์'} onChange={handleInputData}   />
                                                     </Grid>
                                                 </Grid>
                                             </form>
