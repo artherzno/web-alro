@@ -1207,17 +1207,17 @@ console.log(BirthDateValue)
         formData.delete('mm2')
         formData.delete('yyyy2')
 
-        if(duplicateAddr) {
-            formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
-            formData.append('Contact_AddMoo', inputData.IDCARD_AddMoo)
-            formData.append('Contact_AddrSoiRoad', inputData.IDCARD_AddrSoiRoad)
-            formData.append('Contact_AddrSubdistrictID', inputData.IDCARD_AddrSubdistrictID)
-            formData.append('Contact_AddrDistrictID', inputData.IDCARD_AddrDistrictID)
-            formData.append('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID)
-            formData.append('Contact_Postcode', inputData.IDCARD_Postcode)
-            // formData.append('Contact_Addrzone', inputData.IDCARD_Addrzone)
-            // formData.append('file', inputData.imgUpload)
-        }
+        // if(duplicateAddr) {
+        //     formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
+        //     formData.append('Contact_AddMoo', inputData.IDCARD_AddMoo)
+        //     formData.append('Contact_AddrSoiRoad', inputData.IDCARD_AddrSoiRoad)
+        //     formData.append('Contact_AddrSubdistrictID', inputData.IDCARD_AddrSubdistrictID)
+        //     formData.append('Contact_AddrDistrictID', inputData.IDCARD_AddrDistrictID)
+        //     formData.append('Contact_AddrProvinceID', inputData.IDCARD_AddrProvinceID)
+        //     formData.append('Contact_Postcode', inputData.IDCARD_Postcode)
+        //     // formData.append('Contact_Addrzone', inputData.IDCARD_Addrzone)
+        //     // formData.append('file', inputData.imgUpload)
+        // }
     
 
         axios.post(

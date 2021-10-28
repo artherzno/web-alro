@@ -1617,9 +1617,9 @@ console.log('FreeDebtTime',event.target.value)
         console.log('action_loanstatus:',action_loanstatus)
         if(action==='edit') {
             formData.append('LoanID', loanID)
-            url = `${server_hostname}/admin/api/edit_loanrecc`
+            url = `${server_hostname}/admin/api/edit_loanrec`
         } else {
-            url =`${server_hostname}/admin/api/add_loanrecc`
+            url =`${server_hostname}/admin/api/add_loanrec`
             // action = 'edit'
         } 
         console.log(action,'|', action_loanstatus,'|', url.toString())
@@ -1677,6 +1677,7 @@ console.log('FreeDebtTime',event.target.value)
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
         formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractPdf`, //your url
@@ -1687,7 +1688,8 @@ console.log('FreeDebtTime',event.target.value)
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -2438,7 +2440,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={11} md={2}>
-                                                            <p>รวม</p>
+                                                            <p>กำหนดชำระคืนเงินกู้รวม</p>
                                                             <MuiTextfieldCurrency  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>

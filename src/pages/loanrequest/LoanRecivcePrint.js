@@ -3,14 +3,14 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import { AuthContext } from '../../App';
-import { useForm, Controller } from 'react-hook-form';
+// import { useForm, Controller } from 'react-hook-form';
 
-import { makeStyles } from '@material-ui/styles';
+// import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,7 +21,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import CloseIcon from '@material-ui/icons/Close';
+// import CloseIcon from '@material-ui/icons/Close';
 import PrintIcon from '@material-ui/icons/Print';
 
 import Header from '../../components/Header';
@@ -30,15 +30,15 @@ import Nav from '../../components/Nav';
 import {
     MuiTextfield,
     MuiDatePicker,
-    MuiSelectDay,
-    MuiSelectMonth,
-    MuiSelectYear,
+    // MuiSelectDay,
+    // MuiSelectMonth,
+    // MuiSelectYear,
     MuiSelectSubDistrict,
     MuiSelectDistrict,
     MuiSelectProvince,
-    MuiTextfieldEndAdornment,
-    MuiTextfieldStartAdornment,
-    MuiLabelHeaderCheckbox,
+    // MuiTextfieldEndAdornment,
+    // MuiTextfieldStartAdornment,
+    // MuiLabelHeaderCheckbox,
     MuiSelect,
     ButtonFluidPrimary,
     ButtonFluidIconStartPrimary,
@@ -58,6 +58,7 @@ function LoanRecivcePrint() {
     let server_spkapi = localStorage.getItem('spkapi');
     let token = localStorage.getItem('token');
     let siteprint = localStorage.getItem('siteprint')
+    let nROLEID = localStorage.getItem('nROLEID')
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
@@ -107,7 +108,7 @@ function LoanRecivcePrint() {
         Time: 0, // Int = 2,
         LoanReceiptDate: moment().format('YYYY-MM-DD'), // Date = "2021-05-09",
         LoanReceiptfrom: '', // String = "xxx",
-        LoanReceiptfrom2:'' , // String = "yyy",
+        LoanReceiptfrom2:'กระทรวงเกษตรและสหกรณ์' , // String = "yyy",
         LoanReceiptList: '', // String = "zzz",
         LoanReceiptAmount: 0, // float =  123.12,
         LoanReceiptList1: '', // String = "zzz",
@@ -118,6 +119,46 @@ function LoanRecivcePrint() {
         LoanReceiptAmount3: 0, // float = 123.12,
         LoanReceiptTotal: 0,
         LoanReceiptNumber: '',
+        BankID: '',
+    })
+
+    const [inputDataLoanFarmerGetMonehy, setInputDataLoanFarmerGetMonehy] = useState({
+        LoanReceiptID: null,
+        AutoNumber: null,
+        LoanID: null,
+        FarmerID: null,
+        LoanReceiptNumber: null,
+        LoanReceiptDate: null,
+        LoanReceiptfrom: null,
+        LoanReceiptfrom2: null,
+        Time: null,
+        LoanReceiptList: null,
+        LoanReceiptAmount: null,
+        LoanReceiptList1: null,
+        LoanReceiptAmount1: null,
+        LoanReceiptList2: null,
+        LoanReceiptAmount2: null,
+        LoanReceiptList3: null,
+        LoanReceiptAmount3: null,
+        LoanReceiptList4: null,
+        LoanReceiptAmount4: null,
+        LoanReceiptList5: null,
+        LoanReceiptAmount5: null,
+        LoanReceiptList6: null,
+        LoanReceiptAmount6: null,
+        LoanReceiptList7: null,
+        LoanReceiptAmount7: null,
+        LoanReceiptList8: null,
+        LoanReceiptAmount8: null,
+        LoanReceiptList9: null,
+        LoanReceiptAmount9: null,
+        LoanReceiptList10: null,
+        LoanReceiptAmount10: null,
+        LoanReceiptTotal: null,
+        ProvinceID: null,
+        dCreated: null,
+        dUpdated: null,
+        admin_nMEMID: null,
     })
 
     let sumTable = 
@@ -131,6 +172,8 @@ function LoanRecivcePrint() {
         mm: '00',
         yyyy: '0000',
     })
+
+    const [loanNumber, setLoanNumber] = useState(null)
 
 
     // Get Province
@@ -155,8 +198,12 @@ function LoanRecivcePrint() {
         'FrontName',
         'Name',
         'Sirname', 
-        // 'IDCARD_AddNo',
         'IDCARD_AddNo',
+        'IDCARD_AddMoo',
+        'IDCARD_AddrSoiRoad',
+        'IDCARD_AddrSubdistrictID',
+        'IDCARD_AddrDistrictID',
+        'IDCARD_AddrProvinceID',
     ]
 
     const headCells = [
@@ -174,13 +221,13 @@ function LoanRecivcePrint() {
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
         { id: 'Sirname', numeric: false, disablePadding: false, widthCol: '150px', label: 'นามสกุล' },
-        { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
-        // { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'เลขที่' },
-        // { id: 'IDCARD_AddMoo', numeric: false, disablePadding: false, widthCol: '250px', label: 'หมู่' },
-        // { id: 'IDCARD_AddrSoiRoad', numeric: false, disablePadding: false, widthCol: '250px', label: 'ซอย / ถนน' },
-        // { id: 'IDCARD_AddrSubdistrictID', numeric: false, disablePadding: false, widthCol: '250px', label: 'แขวง / ตำบล' },
-        // { id: 'IDCARD_AddrDistrictID', numeric: false, disablePadding: false, widthCol: '250px', label: 'เขต / อำเภอ' },
-        // { id: 'IDCARD_AddrProvinceID', numeric: false, disablePadding: false, widthCol: '250px', label: 'จังหวัด' },
+        // { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
+        { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '120px', label: 'เลขที่' },
+        { id: 'IDCARD_AddMoo', numeric: false, disablePadding: false, widthCol: '120px', label: 'หมู่' },
+        { id: 'IDCARD_AddrSoiRoad', numeric: false, disablePadding: false, widthCol: '180px', label: 'ซอย / ถนน' },
+        { id: 'IDCARD_AddrSubdistrictID', numeric: false, disablePadding: false, widthCol: '200px', label: 'แขวง / ตำบล' },
+        { id: 'IDCARD_AddrDistrictID', numeric: false, disablePadding: false, widthCol: '200px', label: 'เขต / อำเภอ' },
+        { id: 'IDCARD_AddrProvinceID', numeric: false, disablePadding: false, widthCol: '200px', label: 'จังหวัด' },
     ]
 
     function createData(
@@ -198,8 +245,9 @@ function LoanRecivcePrint() {
         FrontName,
         Name,
         Sirname,
-        IDCARD_AddMoo,
         IDCARD_AddNo,
+        IDCARD_AddMoo,
+        IDCARD_AddrSoiRoad,
         IDCARD_AddrSubdistrictID,
         IDCARD_AddrDistrictID,
         IDCARD_AddrProvinceID,
@@ -220,8 +268,9 @@ function LoanRecivcePrint() {
             FrontName,
             Name,
             Sirname,
-            IDCARD_AddMoo,
             IDCARD_AddNo,
+            IDCARD_AddMoo,
+            IDCARD_AddrSoiRoad,
             IDCARD_AddrSubdistrictID,
             IDCARD_AddrDistrictID,
             IDCARD_AddrProvinceID,
@@ -236,7 +285,7 @@ function LoanRecivcePrint() {
         let pvname ='';
         for (let i = 0; i < provinceList.length; i++) {
             if (provinceList[i].ProvinceID === parseInt(pvid)) {
-                console.log(provinceList[i])
+                // console.log(provinceList[i])
                 pvname = provinceList[i].PV_NAME
                 // setProviceName(provinceList[0][i].PV_NAME);
             }
@@ -250,7 +299,7 @@ function LoanRecivcePrint() {
         let pvname ='';
         for (let i = 0; i < districtList.length; i++) {
             if (districtList[i].DistrictID === parseInt(dsid)) {
-                console.log(districtList[i])
+                // console.log(districtList[i])
                 pvname = districtList[i].AM_NAME
                 // setProviceName(provinceList[0][i].PV_NAME);
             }
@@ -259,12 +308,12 @@ function LoanRecivcePrint() {
     }
 
     const getSubDistrict = (sdsid) => {
-        console.log('subdistrict',sdsid)
-        console.log(subdistrictList)
+        // console.log('subdistrict',sdsid)
+        // console.log(subdistrictList)
         let pvname ='';
         for (let i = 0; i < subdistrictList.length; i++) {
             if (subdistrictList[i].SubdistrictID === parseInt(sdsid)) {
-                console.log(subdistrictList[i])
+                // console.log(subdistrictList[i])
                 pvname = subdistrictList[i].TB_NAME
                 // setProviceName(provinceList[0][i].PV_NAME);
             }
@@ -309,6 +358,7 @@ function LoanRecivcePrint() {
 
     // New order date 2021-08-23 to 23/08/2564
     const newOrderDate = (val) => {
+        console.log(val)
         let yyyy = Number(val.substring(0,4)) + 543
         let mm = val.substring(5,7)
         let dd = val.substring(8,10)
@@ -332,10 +382,17 @@ function LoanRecivcePrint() {
     }
 
     const handleInputData = (event) => {
-        setInputData({
-            ...inputData,
-            [event.target.name]: event.target.value
-        })
+        event.target.name !== 'BankID'?
+            setInputData({
+                ...inputData,
+                BankID:'',
+                [event.target.name]: event.target.value
+            })
+        :
+            setInputData({
+                ...inputData,
+                [event.target.name]: event.target.value
+            })
     }
 
     // Re order date 23-08-2564 to 2021-08-23
@@ -353,12 +410,16 @@ function LoanRecivcePrint() {
 
 
     const handlePrintPDF = (val) => {
-        console.log('PDF - ContractNo(val):', inputDataShow.LoanID)
+        console.log('PDF - ContractNo(val):', loanNumber)
         console.log('PDF - UserName:',localStorage.getItem('provinceid'))
-        let loanNumber = inputDataShow.LoanID;
+        console.log('PDF - RoleID:',localStorage.getItem('nROLEID'))
+        console.log('PDF - LoanRecivceDate:',moment(inputData.LoanReceiptDate).format('YYYY-MM-DD'))
+        // let loanNumber = loanNumber;
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
         formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
+        formData.append('LoanRecivceDate', moment(inputData.LoanReceiptDate).format('YYYY-MM-DD'))
 
         axios({
         url: `${siteprint}/report/pdf/GetLoanRecivcePrintPdf`, //your url
@@ -369,7 +430,8 @@ function LoanRecivcePrint() {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download', `ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -382,6 +444,7 @@ function LoanRecivcePrint() {
 
     const searchLoanRecivcePrint = () => {
         setRows([])
+        setFormField(false)
         setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_loanfarmergetmoney`, {
@@ -410,6 +473,8 @@ function LoanRecivcePrint() {
                     setErrMsg('ไม่พบข้อมูล')
                 }else {
                     // setRows(data.data)
+                    // console.log(data.data.LoanNumber)
+                    // setLoanNumber(data.data.LoanNumber)
                     setRows(
                         data.data.map((item,i)=>
                             createData(
@@ -421,17 +486,19 @@ function LoanRecivcePrint() {
                                 item.ProjectID === null ? '' : item.ProjectID,
                                 item.ProjectName === null ? '' : item.ProjectName,
                                 item.LoanNumber === null ? '' : item.LoanNumber,
-                                item.ApplicantDate === null ? newOrderDate(item.ApplicantDate) : null,
-                                item.dCreated === null ? newOrderDate(item.dCreated) : null,
+                                item.ApplicantDate === null || item.ApplicantDate === undefined ? '' : newOrderDate(item.ApplicantDate),
+                                item.dCreated === null || item.dCreated === undefined ? '' : newOrderDate(item.dCreated[item.dCreated.length-1]),
                                 item.IDCard === null ? '' : item.IDCard,
                                 item.FrontName === null ? '' : item.FrontName,
                                 item.Name === null ? '' : item.Name,
                                 item.Sirname === null ? '' : item.Sirname,
+                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo,
                                 item.IDCARD_AddMoo === null ? '' : item.IDCARD_AddMoo,
-                                item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo+(item.IDCARD_AddMoo === null ? '' : ' ม.'+item.IDCARD_AddMoo)+(item.IDCARD_AddrSoiRoad === null ? '' : ' '+item.IDCARD_AddrSoiRoad)+(item.IDCARD_AddrSubdistrictID === null ? '' : ' ต.'+getSubDistrict(item.IDCARD_AddrSubdistrictID))+(item.IDCARD_AddrDistrictID === null ? '' : ' อ.'+getDistrict(item.IDCARD_AddrDistrictID))+(item.IDCARD_AddrProvinceID === null ? '' : ' จ.'+getProvince(item.IDCARD_AddrProvinceID)),
-                                item.IDCARD_AddrSubdistrictID === null ? '' : item.IDCARD_AddrSubdistrictID,
-                                item.IDCARD_AddrDistrictID === null ? '' : item.IDCARD_AddrDistrictID,
-                                item.IDCARD_AddrProvinceID === null ? '' : item.IDCARD_AddrProvinceID,
+                                item.IDCARD_AddrSoiRoad === null ? '' : item.IDCARD_AddrSoiRoad,
+                                // item.IDCARD_AddNo === null ? '' : item.IDCARD_AddNo+(item.IDCARD_AddMoo === null ? '' : ' ม.'+item.IDCARD_AddMoo)+(item.IDCARD_AddrSoiRoad === null ? '' : ' '+item.IDCARD_AddrSoiRoad)+(item.IDCARD_AddrSubdistrictID === null ? '' : ' ต.'+getSubDistrict(item.IDCARD_AddrSubdistrictID))+(item.IDCARD_AddrDistrictID === null ? '' : ' อ.'+getDistrict(item.IDCARD_AddrDistrictID))+(item.IDCARD_AddrProvinceID === null ? '' : ' จ.'+getProvince(item.IDCARD_AddrProvinceID)),
+                                item.IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(item.IDCARD_AddrSubdistrictID),
+                                item.IDCARD_AddrDistrictID === null ? '' : getDistrict(item.IDCARD_AddrDistrictID),
+                                item.IDCARD_AddrProvinceID === null ? '' : getProvince(item.IDCARD_AddrProvinceID),
                                 // item.IDCARD_AddrSoiRoad === null ? '' : item.IDCARD_AddrSoiRoad,
                                 //item.IDCARD_AddNo 
                                 // item.FarmerID,
@@ -465,7 +532,6 @@ function LoanRecivcePrint() {
 
 
     const openInfoDialog = (loanID) => {
-        setInfo(true)
         setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/view_loanfarmergetmoney`, {
@@ -492,9 +558,11 @@ function LoanRecivcePrint() {
                     setErr(true);
                     setErrMsg('ไม่พบข้อมูล')
                 }else {
-                    console.log('data.data',data)
+                    setInfo(true)
+                    // console.log('data',data)
                     setRowsInfo(data.data)
                     setDataInfo(data)
+                    
                 }
             }
         }).catch(err => { console.log(err); })
@@ -524,6 +592,7 @@ function LoanRecivcePrint() {
                 LoanReceiptAmount3: (inputData.LoanReceiptAmount3 === 0 || inputData.LoanReceiptAmount3 === '' ? null : parseFloat((inputData.LoanReceiptAmount3.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))),
                 LoanReceiptTotal: (sumTable === 0 || sumTable === '' ? null : parseFloat((sumTable.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))),
                 LoanID: inputDataShow.LoanID,
+                BankID: inputData.BankID,
             }, { headers: { "token": token } } 
         ).then(res => {
             console.log(res)
@@ -566,14 +635,14 @@ function LoanRecivcePrint() {
     };
 
 
-    const openFormField = (loanid, frontname, name, sirname, no, moo, subdistrict, district, province) => {
+    const openFormField = (loanid, loannumber, frontname, name, sirname, no, moo, subdistrict, district, province) => {
         setFormField(true)
         setInputData({
             LoanID: 0, // Int = 10,
             Time: 0, // Int = 2,
             LoanReceiptDate: moment().format('YYYY-MM-DD'), // Date = "2021-05-09",
             LoanReceiptfrom: '', // String = "xxx",
-            LoanReceiptfrom2:'' , // String = "yyy",
+            LoanReceiptfrom2:'กระทรวงเกษตรและสหกรณ์' , // String = "yyy",
             LoanReceiptList: '', // String = "zzz",
             LoanReceiptAmount: 0, // float =  123.12,
             LoanReceiptList1: '', // String = "zzz",
@@ -591,11 +660,14 @@ function LoanRecivcePrint() {
             mm: '00',
             yyyy: '0000',
         })
-        console.warn(loanid, frontname, name, sirname, no, moo, subdistrict, district, province)
+        console.warn(loanid, loannumber, frontname, name, sirname, no, moo, subdistrict, district, province)
+
+        setLoanNumber(loannumber)
 
         setInputDataShow({
             ...inputDataShow,
             LoanID: loanid,
+            LoanNumber: loannumber,
             FrontName: frontname,
             Name: name,
             Sirname: sirname,
@@ -608,131 +680,149 @@ function LoanRecivcePrint() {
     }
 
     const dialogInfo = (len) => {
-        let infoArr = []
 
-        for(let i=0; i<len; i++) {
-            infoArr.push(
-                <React.Fragment key={i}>
-                    <Grid item xs={12} md={12}>
-                        <p className="font-18 txt-blue txt-bold">รายการที่ {i+1}</p>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" value={dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber}/>
-                        
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiTextfield label="ลงวันที่" inputdisabled="input-disabled"  value={newOrderDate(dataInfo.LoanFarmerGetMoney[i].LoanReceiptDate)} />
-                    </Grid>
-                    <Grid item xs={12} md={1}>
-                        <MuiTextfield label="คำนำหน้า"  inputdisabled="input-disabled" value={dataInfo.data[i].FrontName} />
-                    </Grid>
-                    <Grid item xs={12} md={2}>
-                        <MuiTextfield label="ชื่อ"  inputdisabled="input-disabled" value={dataInfo.data[i].Name} />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiTextfield label="นามสกุล"  inputdisabled="input-disabled" value={dataInfo.data[i].Sirname} />
-                    </Grid>
-                    <Grid item xs={12} md={1}>
-                        <MuiTextfield label="บ้านเลขที่"  inputdisabled="input-disabled"  value={dataInfo.data[i].IDCARD_AddNo} />
-                    </Grid>
-                    <Grid item xs={12} md={2}>
-                        <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  value={dataInfo.data[i].IDCARD_AddMoo} />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={dataInfo.data[i].IDCARD_AddrSubdistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrSubdistrictID} />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={dataInfo.data[i].IDCARD_AddrDistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrDistrictID} />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[i].IDCARD_AddrProvinceID === null ? '' : dataInfo.data[i].IDCARD_AddrProvinceID}/>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiTextfield label="ได้รับเงินจากกรม"  inputdisabled="input-disabled"  value={dataInfo.data[i].LoanReceiptfrom} />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                        <MuiTextfield label="กระทรวง"  inputdisabled="input-disabled"  value={dataInfo.data[i].LoanReceiptfrom2} />
-                    </Grid>
+         if(dataInfo.LoanFarmerGetMoney===undefined){
 
-                    <Grid item xs={12} md={12}>
-                        <div className="table">
-                            <TableContainer className="table-box table-loanrecivecprint1 table-summary">
-                                <Table aria-label="normal table">
-                                    <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center">รายการ</TableCell>
-                                        <TableCell align="center">จำนวนเงิน</TableCell>
-                                    </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell align="left">
-                                                <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList === null ? '-' : '1.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList}</p>  
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
-                                            </TableCell>
-                                        </TableRow>
+         } else if(dataInfo.LoanFarmerGetMoney.length === 0) {
+             
+             console.log('undefined',dataInfo.LoanFarmerGetMoney)
+            return (
+                <React.Fragment>
+                    <p className="font-18" style={{marginTop: '40px'}}>ประวัติออกใบสำคัญ &nbsp;&nbsp;&nbsp;&nbsp; <span className="txt-blue">ทั้งหมด {0} รายการ</span></p>
+                    <hr style={{width: '100%', margin: '20px 0 10px', borderTop: '2px solid #2284d0'}} />
+                    <Grid item xs={12} md={12} className="txt-center mg-b-40">
+                        <p>ไม่พบข้อมูล</p>
+                    </Grid>
+                </React.Fragment>   
+            );
+        }else{
+            console.log('not undefined',dataInfo.LoanFarmerGetMoney)
 
-                                        <TableRow>
-                                            <TableCell align="left">
-                                                <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList1 === null ? '-' : '2.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList1}</p>  
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount1 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount1.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
-                                            </TableCell>
-                                        </TableRow>
-
-                                        <TableRow>
-                                            <TableCell align="left">
-                                                <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList2 === null ? '-' : '3.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList2}</p>  
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount2 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount2.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
-                                            </TableCell>
-                                        </TableRow>
-
-                                        <TableRow>
-                                            <TableCell align="left">
-                                                <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3 === null ? '-' : '3.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3}</p>  
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
-                                            </TableCell>
-                                        </TableRow>
-                                    {/* {
-                                        [1,2,3].map((row,i) => (
-                                            <TableRow key={i}>
-                                                <TableCell align="center">
-                                                    <p className="font-16">{i+1}. เพื่อส่งเสริมการปลูก</p>  
-                                                </TableCell>
-                                                <TableCell align="center">
-                                                    <p>10,000.00</p>
-                                                </TableCell>
+            const infoArrFn = (len) => {
+                let infoArr = []
+                for(let i=0; i<len; i++) {
+                    infoArr.push(
+                        <React.Fragment key={i}>
+                            <Grid item xs={12} md={12}>
+                                <p className="font-18 txt-blue txt-bold">รายการที่ {i+1}</p>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" value={dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === undefined || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === null || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === '' ? '' : 0}/>
+                                
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiTextfield label="ลงวันที่" inputdisabled="input-disabled"  value={newOrderDate(dataInfo.LoanFarmerGetMoney[i].LoanReceiptDate)} />
+                            </Grid>
+                            <Grid item xs={12} md={1}>
+                                <MuiTextfield label="คำนำหน้า"  inputdisabled="input-disabled" value={(dataInfo.data[0].FrontName)} />
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <MuiTextfield label="ชื่อ"  inputdisabled="input-disabled" value={dataInfo.data[0].Name} />
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiTextfield label="นามสกุล"  inputdisabled="input-disabled" value={dataInfo.data[0].Sirname} />
+                            </Grid>
+                            <Grid item xs={12} md={1}>
+                                <MuiTextfield label="บ้านเลขที่"  inputdisabled="input-disabled"  value={dataInfo.data[0].IDCARD_AddNo} />
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  value={dataInfo.data[0].IDCARD_AddMoo} />
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={dataInfo.data[0].IDCARD_AddrSubdistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrSubdistrictID} />
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={dataInfo.data[0].IDCARD_AddrDistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrDistrictID} />
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[0].IDCARD_AddrProvinceID === null ? '' : dataInfo.data[i].IDCARD_AddrProvinceID}/>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiTextfield label="ได้รับเงินจากกรม"  inputdisabled="input-disabled"  value={dataInfo.data[0].LoanReceiptfrom} />
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <MuiTextfield label="กระทรวง"  inputdisabled="input-disabled"  value={dataInfo.data[0].LoanReceiptfrom2} />
+                            </Grid>
+        
+                            <Grid item xs={12} md={12}>
+                                <div className="table">
+                                    <TableContainer className="table-box table-loanrecivecprint1 table-summary">
+                                        <Table aria-label="normal table">
+                                            <TableHead>
+                                            <TableRow>
+                                                <TableCell align="center">รายการ</TableCell>
+                                                <TableCell align="center">จำนวนเงิน</TableCell>
                                             </TableRow>
-                                        ))
-                                    } */}
-                                        <TableRow>
-                                            <TableCell align="center">
-                                                &nbsp;
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <p>รวม {dataInfo.LoanFarmerGetMoney[i].LoanReceiptTotal === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptTotal.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        </div>
-                    </Grid>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell align="left">
+                                                        <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList === null ? '-' : '1.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList}</p>  
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                                    </TableCell>
+                                                </TableRow>
+        
+                                                <TableRow>
+                                                    <TableCell align="left">
+                                                        <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList1 === null ? '-' : '2.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList1}</p>  
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount1 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount1.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                                    </TableCell>
+                                                </TableRow>
+        
+                                                <TableRow>
+                                                    <TableCell align="left">
+                                                        <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList2 === null ? '-' : '3.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList2}</p>  
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount2 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount2.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                                    </TableCell>
+                                                </TableRow>
+        
+                                                <TableRow>
+                                                    <TableCell align="left">
+                                                        <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3 === null ? '-' : '3.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3}</p>  
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                                    </TableCell>
+                                                </TableRow>
+                                                <TableRow>
+                                                    <TableCell align="center">
+                                                        &nbsp;
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <p>รวม {dataInfo.LoanFarmerGetMoney[i].LoanReceiptTotal === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptTotal.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </div>
+                            </Grid>
+        
+                            
+                            <hr style={{width: '100%', margin: '40px 0 10px', borderTop: '2px solid #2284d0'}} />
+                        </React.Fragment>
+                    )
+                }
+                return infoArr
+            }
 
-                    
-                    <hr style={{width: '100%', margin: '40px 0 10px', borderTop: '2px solid #2284d0'}} />
-                </React.Fragment>
+            return (
+                <React.Fragment>
+                    <p className="font-18" style={{marginTop: '40px'}}>ประวัติออกใบสำคัญ &nbsp;&nbsp;&nbsp;&nbsp; <span className="txt-blue">ทั้งหมด {dataInfo.LoanFarmerGetMoney.length} รายการ</span></p>
+                    <hr style={{width: '100%', margin: '20px 0 10px', borderTop: '2px solid #2284d0'}} />
+                    {
+                        infoArrFn(dataInfo.LoanFarmerGetMoney.length)
+                    }
+                </React.Fragment>  
             )
         }
 
-        return infoArr
     }
 
     return (
@@ -788,28 +878,31 @@ function LoanRecivcePrint() {
                                         headCells={headCells} 
                                         rows={rows} 
                                         rowsLabel={rowsLabel} 
-                                        colSpan={15} 
+                                        colSpan={20} 
                                         hasCheckbox={false} 
                                         hasAction={true} // show action
-                                        actionView={false} 
+                                        actionView={true} 
+                                        viewEvent={openInfoDialog}
+                                        viewParam={'LoanID'}
                                         actionCreate={false}
                                         createEvent={openFormField}
                                         createParam={'LoanID'}
                                         actionEdit={false} 
                                         actionDelete={false} 
-                                        viewEvent={openInfoDialog}
-                                        viewParam={'LoanID'}
                                         actionCreateArr={true}
                                         createArrEvent={openFormField}
-                                        createArrParam={['LoanID',
-                                        'FrontName',
-                                        'Name',
-                                        'Sirname',
-                                        'IDCARD_AddNo',
-                                        'IDCARD_AddMoo',
-                                        'IDCARD_AddrSubdistrictID',
-                                        'IDCARD_AddrDistrictID',
-                                        'IDCARD_AddrProvinceID']}
+                                        createArrParam={[
+                                            'LoanID',
+                                            'LoanNumber',
+                                            'FrontName',
+                                            'Name',
+                                            'Sirname',
+                                            'IDCARD_AddNo',
+                                            'IDCARD_AddMoo',
+                                            'IDCARD_AddrSubdistrictID',
+                                            'IDCARD_AddrDistrictID',
+                                            'IDCARD_AddrProvinceID'
+                                        ]}
                                         tableName={'loanrecivceprint'}
                                     />
                                 </div>
@@ -903,21 +996,34 @@ function LoanRecivcePrint() {
                                                     </Grid>
 
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataShow.IDCARD_AddrSubdistrictID === null ? '' : inputDataShow.IDCARD_AddrSubdistrictID} />
+                                                        <MuiTextfield label="แขวง / ตำบล"  inputdisabled="input-disabled" value={inputDataShow.IDCARD_AddrSubdistrictID} />
+                                                        {/* <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={inputDataShow.IDCARD_AddrSubdistrictID === null ? '' : inputDataShow.IDCARD_AddrSubdistrictID} /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataShow.IDCARD_AddrDistrictID === null ? '' : inputDataShow.IDCARD_AddrDistrictID} />
+                                                        <MuiTextfield label="เขต / อำเภอ"  inputdisabled="input-disabled" value={inputDataShow.IDCARD_AddrDistrictID} />
+                                                        {/* <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={inputDataShow.IDCARD_AddrDistrictID === null ? '' : inputDataShow.IDCARD_AddrDistrictID} /> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={inputDataShow.IDCARD_AddrProvinceID === null ? '' : inputDataShow.IDCARD_AddrProvinceID}/>
+                                                        <MuiTextfield label="จังหวัด"  inputdisabled="input-disabled" value={inputDataShow.IDCARD_AddrProvinceID} />
+                                                        {/* <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={inputDataShow.IDCARD_AddrProvinceID === null ? '' : inputDataShow.IDCARD_AddrProvinceID}/> */}
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.จังหวัด${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                                        {
+                                                            nROLEID==='8'||nROLEID==='9'?
+                                                            <MuiSelect label="ได้รับเงินจากกรม" lists={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']} listsValue={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']}  name="LoanReceiptfrom" value={inputData.LoanReceiptfrom}  onChange={handleInputData}  />
+                                                            :
+                                                            <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.จังหวัด${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                                        }
                                                     </Grid>
+                                                    {
+                                                        (nROLEID==='8'||nROLEID==='9')&&inputData.LoanReceiptfrom==="การโอนเงินผ่านธนาคาร"?
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiTextfield label="เลขบัญชี" name="BankID" value={inputData.BankID}  onChange={handleInputData} /> 
+                                                        </Grid>
+                                                        : null
+                                                    }
                                                     <Grid item xs={12} md={3}>
-                                                        {/* Field Text ---------------------------------------------------*/}
-                                                        <MuiTextfield label="กระทรวง" inputdisabled="input-disabled" value={'กระทรวงเกษตรและสหกรณ์'} onChange={handleInputData}   />
+                                                        <MuiTextfield label="กระทรวง" inputdisabled="input-disabled" value={inputData.LoanReceiptfrom2} onChange={handleInputData}   />
                                                     </Grid>
                                                 </Grid>
                                             </form>
@@ -1048,10 +1154,8 @@ function LoanRecivcePrint() {
                             
                             <Grid item xs={12} md={12}>
                                 <Grid container spacing={2}>
-                                    <p className="font-18" style={{marginTop: '40px'}}>ประวัติออกใบสำคัญ &nbsp;&nbsp;&nbsp;&nbsp; <span className="txt-blue">ทั้งหมด {dataInfo.length} รายการ</span></p>
-                                    <hr style={{width: '100%', margin: '20px 0 10px', borderTop: '2px solid #2284d0'}} />
                                     {
-                                       dialogInfo(dataInfo.length)
+                                       dialogInfo()
                                     }
                                             
                                     {/* {
