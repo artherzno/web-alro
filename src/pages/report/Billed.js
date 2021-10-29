@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { OverlayLoading} from '../../components'
+import { OverlayLoading } from '../../components'
 import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
@@ -33,7 +33,7 @@ class Billed extends React.Component {
         super(props)
 
         this.state = {
-            isLoading:false,
+            isLoading: false,
             isExporting: false,
             farmerPayLoanList: [],
             dataSummary: {},
@@ -41,6 +41,8 @@ class Billed extends React.Component {
             sectionProvince: "",
             month: "",
             year: "",
+            YearTovalue: "",
+            YearToLabel: "",
             display2: "",
             startDate: "",
             endDate: "",
@@ -68,11 +70,12 @@ class Billed extends React.Component {
 
     loadPayLoan() {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, receiptType, receiptProvince } = this.state
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, receiptType, receiptProvince } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -81,29 +84,30 @@ class Billed extends React.Component {
         parameter.append('ReceiptType', receiptType);
         parameter.append('ALROProvince', receiptProvince);
 
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
 
         api.getBilled(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
-                isLoading:false
+                isLoading: false
             })
 
         }).catch(error => {
 
-            this.setState({isLoading:false})
+            this.setState({ isLoading: false })
         })
     }
 
     exportExcel() {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, receiptType, receiptProvince  } = this.state
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, receiptType, receiptProvince } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -145,7 +149,7 @@ class Billed extends React.Component {
         const { dataSummary, page, count } = this.state
 
         return (<div>
-            <OverlayLoading isLoading={this.state.isLoading}/>
+            <OverlayLoading isLoading={this.state.isLoading} />
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
             <Box mt={5} ml={2} mr={2}>
@@ -180,7 +184,7 @@ class Billed extends React.Component {
                                     }}
                                 />
                             </Grid>
-                          
+
                         </Grid>
                     </Grid>
 
@@ -196,6 +200,8 @@ class Billed extends React.Component {
                                             display2: event.target.value,
                                             month: "",
                                             year: "",
+                                            YearTovalue: "",
+                                            YearToLabel: "",
                                             startDate: "",
                                             endDate: "",
                                             yearLabel: "",
@@ -217,7 +223,7 @@ class Billed extends React.Component {
                                             this.setState({
                                                 startDate: startDate,
                                                 endDate: endDate,
-                                                dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY"):''}`
+                                                dateRangLabel: `${moment(event[0]).add(543, 'years').format("DD MMMM YYYY")} - ${event[1] ? moment(event[1]).add(543, 'years').format("DD MMMM YYYY") : ''}`
                                             }, () => {
                                             })
                                         }
@@ -238,9 +244,16 @@ class Billed extends React.Component {
                                         }, () => {
                                         })
                                     }}
+                                    onChangeYearEnd={(event) => {
+                                        this.setState({
+                                            YearTovalue: event.target.value,
+                                            YearToLabel: event.target.value
+                                        }, () => {
+                                        })
+                                    }}
                                 />
                             </Grid>
-                           
+
                         </Grid>
                     </Grid>
 
@@ -269,7 +282,7 @@ class Billed extends React.Component {
                                     }}
                                 />
                             </Grid>
-                           
+
                         </Grid>
                     </Grid>
 
@@ -389,7 +402,7 @@ class Billed extends React.Component {
                 </Box>
 
             </Box>
-     
+
         </div>)
     }
 }

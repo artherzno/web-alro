@@ -15,6 +15,7 @@ export const DisplaySelect = ({
 
     const [display,setDisplay] = useState(0)
     const [displayList, setDisplayList] = useState(displayListMaster)
+    const [isShow,setIsShow] = useState(true)
 
     useEffect(() =>{
 
@@ -23,6 +24,7 @@ export const DisplaySelect = ({
             
             displayListMaster.splice(2,1)
             setDisplayList(displayListMaster)
+            setIsShow(false)
         }
 
     },[])
@@ -30,22 +32,23 @@ export const DisplaySelect = ({
 
     return (
         <div>
-            <Grid container spacing={2}>
+            {isShow && <Grid container spacing={2}>
 
                 <Grid item >
-                    <Select options={displayList} isNotEmpty defaultValue={0} onChange={(event) =>{
-                        
+                    <Select options={displayList} isNotEmpty defaultValue={0} onChange={(event) => {
+
                         const found = displayList.find(element => element.value.toString() === event.target.value)
                         onChange({ ...event, label: found ? found.label : "" })
                         setDisplay(event.target.value)
 
-                    }}  label="แสดง" />
+                    }} label="แสดง" />
                 </Grid>
 
-                {parseInt(display) === 1 && <Grid item><SectionSelect onChange={onChangeSection}/></Grid>}
-                {parseInt(display) === 2 && <Grid item><ProvinceSelect onChange={onChangeProvince}/></Grid>}
+                {parseInt(display) === 1 && <Grid item><SectionSelect onChange={onChangeSection} /></Grid>}
+                {parseInt(display) === 2 && <Grid item><ProvinceSelect onChange={onChangeProvince} /></Grid>}
 
-            </Grid>
+            </Grid>}
+           
 
         </div>
     )

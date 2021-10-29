@@ -39,6 +39,8 @@ class ConvertLoanTab extends React.Component {
             sectionProvince: "",
             month: "",
             year: "",
+            YearTovalue: "",
+            YearToLabel: "",
             display2: "",
             startDate: "",
             endDate: "",
@@ -63,11 +65,12 @@ class ConvertLoanTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate, resultRequest } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
+parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -95,11 +98,12 @@ class ConvertLoanTab extends React.Component {
 
     exportExcel() {
 
-        const { displaySection, sectionProvince, month, year, display2, startDate, endDate, resultRequest } = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate, resultRequest } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
+parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -190,6 +194,8 @@ class ConvertLoanTab extends React.Component {
                                         display2: event.target.value,
                                         month: "",
                                         year: "",
+            YearTovalue: "",
+            YearToLabel: "",
                                         startDate: "",
                                         endDate: "",
                                         yearLabel: "",
@@ -226,12 +232,19 @@ class ConvertLoanTab extends React.Component {
 
                                 }}
                                 onChangeYear={(event) => {
-                                    this.setState({
-                                        year: event.target.value,
-                                        yearLabel: event.target.value
-                                    }, () => {
-                                    })
-                                }}
+                                        this.setState({
+                                            year: event.target.value,
+                                            yearLabel: event.target.value
+                                        }, () => {
+                                        })
+                                    }}
+                                    onChangeYearEnd={(event) => {
+                                        this.setState({
+                                            YearTovalue: event.target.value,
+                                            YearToLabel: event.target.value
+                                        }, () => {
+                                        })
+                                    }}
                             />
                         </Grid>
                         

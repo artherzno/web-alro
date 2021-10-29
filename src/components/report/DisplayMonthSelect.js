@@ -11,6 +11,7 @@ const displayList = [{ value: 0, label: "รายปี" },
 export const DisplayMonthSelect = ({
     onChange = () => { },
     onChangeYear = () => { },
+    onChangeYearEnd = () => { },
     onChangeMonth = () => { },
     onChangeDate = () => { }
 }) => {
@@ -31,7 +32,8 @@ export const DisplayMonthSelect = ({
                     }} emptyLabel="เลือก" label="แสดง" />
                 </Grid>
 
-                {parseInt(display) === 0 && <Grid item><YearSelect onChange={onChangeYear} /></Grid>}
+                {parseInt(display) === 0 && <Grid item><YearSelect label="ปีเริ่มต้น" onChange={onChangeYear} /></Grid>}
+                {parseInt(display) === 0 && <Grid item><YearSelect label="ปีสิ้นสุด" onChange={onChangeYearEnd} /></Grid>}
                 {parseInt(display) === 1 && <Grid item><MonthSelect onChange={onChangeMonth} /></Grid>}
                 {parseInt(display) === 1 && <Grid item><YearSelect onChange={onChangeYear} /></Grid>}
                 {parseInt(display) === 2 && <Grid item><DateRange onChange={onChangeDate} label="ช่วงเวลา" /></Grid>}

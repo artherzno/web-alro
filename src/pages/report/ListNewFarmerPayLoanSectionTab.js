@@ -36,6 +36,8 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
             dataSummary: {},
             month: "",
             year: "",
+            YearTovalue: "",
+            YearToLabel: "",
             display2: "",
             startDate: "",
             endDate: "",
@@ -56,11 +58,12 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { month, year, display2, startDate, endDate, } = this.state
+        const { month, year,  YearTovalue, display2, startDate, endDate, } = this.state
 
         const parameter = new FormData()
 
         parameter.append('Month', month);
+parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('LevelDisplay', display2);
         parameter.append('StartDate', startDate);
@@ -87,11 +90,12 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
 
     exportExcel() {
 
-        const { month, year, display2, startDate, endDate, } = this.state
+        const { month, year,  YearTovalue, display2, startDate, endDate, } = this.state
 
         const parameter = new FormData()
 
         parameter.append('Month', month);
+parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('LevelDisplay', display2);
         parameter.append('StartDate', startDate);
@@ -140,6 +144,8 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
                                 display2: event.target.value,
                                 month: "",
                                 year: "",
+            YearTovalue: "",
+            YearToLabel: "",
                                 startDate: "",
                                 endDate: "",
                                 yearLabel: "",
