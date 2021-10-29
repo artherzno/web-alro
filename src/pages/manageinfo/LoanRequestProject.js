@@ -345,13 +345,15 @@ console.log('submit')
         data: {
             ProjectPlanYear: ProjectPlanYearValue.toString() ,
             ProvinceID: ProvinceIDValue.toString(),
+            RoleID:localStorage.getItem('nROLEID'),
         },
         responseType: 'blob', // important
         }).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `โครงการขอกู้เงินปี25${ProjectPlanYearValue.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download', `โครงการขอกู้เงินปี25${ProjectPlanYearValue.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -382,6 +384,7 @@ console.log('submit')
         const formdata = new FormData()
         formdata.append('ProjectPlanYear', ProjectPlanYearValue.toString());
         formdata.append('ProvinceID', ProvinceIDValue.toString());
+        formdata.append('RoleID', localStorage.getItem('nROLEID'));
         let url = `${siteprint}/api/ExportServices/ExportLoanProject`; //your url
 
         axios.post(url, formdata,

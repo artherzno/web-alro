@@ -88,6 +88,8 @@ function LoanRequestPrint(props) {
     const [errNoticeProject, setErrNoticeProject] = useState(false);
     const [errNoticeProjectMsg, setErrNoticeProjectMsg] = useState('ไม่พบข้อมูล');
 
+    const [showConfirmButton, setShowConfirmButton] = useState(true)
+
     const [inputDataSearch, setInputDataSearch] = useState({
         SearchByApplicantNo: '',
         SearchByLoanNumber: '',
@@ -742,16 +744,16 @@ function LoanRequestPrint(props) {
                             Guarantee_Person: '', // "",
                             LoanGuaranteeBook: '', // "",
                             LoanGuaranteeBookDate: moment().format(), // "null",
-                            WarrantBookOwner1: '', // "",
+                            WarrantBookOwner1: (!!data.data[0].Supporter_Fname1?data.data[0].Supporter_Fname1:'')+' '+(!!data.data[0].Supporter_Lname1?data.data[0].Supporter_Lname1:''), // "",
                             WarrantBook1: '', // "",
                             WarrantBookDate1: moment().format(), // "null",
-                            WarrantBookOwner2: '', // "",
+                            WarrantBookOwner2: (!!data.data[0].Supporter_Fname2?data.data[0].Supporter_Fname2:'')+' '+(!!data.data[0].Supporter_Lname2?data.data[0].Supporter_Lname2:''), // "",
                             WarrantBook2: '', // "",
                             WarrantBookDate2: moment().format(), // "null",
-                            WarrantBookOwner3: '', // "",
+                            WarrantBookOwner3: (!!data.data[0].Supporter_Fname3?data.data[0].Supporter_Fname3:'')+' '+(!!data.data[0].Supporter_Lname3?data.data[0].Supporter_Lname3:''), // "",
                             WarrantBook3: '', // "",
                             WarrantBookDate3: moment().format(), // "null",
-                            WarrantBookOwner4: '', // "",
+                            WarrantBookOwner4: (!!data.data[0].Supporter_Fname4?data.data[0].Supporter_Fname4:'')+' '+(!!data.data[0].Supporter_Lname4?data.data[0].Supporter_Lname4:''), // "",
                             WarrantBook4: '', // "",
                             WarrantBookDate4: moment().format(), // "null",
                             Free_of_debt_Month: '', // "",
@@ -1199,10 +1201,12 @@ console.log('data.loandue_data.length',data.loandue_data.length)
         // let payrecArr = [];
         // let payrecID = event.target.id//.toString().slice(-3)
         // console.log(payrecID, payrecValue)
+        // console.log('DUEDATE-index',index)
 
         if(type === 'date') {
-            console.log('DUEDATE',event)
-            let payrecValue = event
+            // console.log('DUEDATE',moment(event).format('YYYY-MM-DD'))
+            let payrecValue = moment(event)
+            // let payrecValue = moment(event).add(index, 'Y')
             let payrecArr = [...loandueDataArr]
             // if(action === 'add') {}
             payrecArr[index].DUEDATE = payrecValue
@@ -1340,6 +1344,15 @@ console.log('data.loandue_data.length',data.loandue_data.length)
             FirstDatePaid: moment(newValue).format(),
             LastDatePaid: moment(newValue).add(Number(inputDataSubmit.Free_of_debt_Time), 'Y')
         })
+
+        for(let i=0; i<Number(inputDataSubmit.Free_of_debt_Time); i++) {
+
+            let payrecArr = [...loandueDataArr]
+            // if(action === 'add') {}
+            payrecArr[i].DUEDATE = moment(newValue).add(i,'Y').format()
+            setLoandueDataArr(payrecArr)
+
+        }
 
         console.warn(loandueDataArr)
     }
@@ -1612,6 +1625,20 @@ console.log('FreeDebtTime',event.target.value)
         console.log(action,'|', action_loanstatus,'|', url.toString())
         console.log('ApplicantID',inputDataSubmit.ApplicantID,'| FarmerID',inputDataSubmit.FarmerID)
         console.log(JSON.stringify(loandueDataArr))
+
+        // formData.forEach(file => {
+        //     if(file==='') {
+        //         console.log("File: no data:", typeof file)
+        //         setShowConfirmButton(false);
+        //         return false;
+        //     } else {
+        //         console.log("File has data: ", file)
+        //         setShowConfirmButton(true);
+        //     }
+        // })
+
+        
+
         axios.post(
             url, formData, { headers: { "token": token } } 
         ).then(res => {
@@ -1650,6 +1677,7 @@ console.log('FreeDebtTime',event.target.value)
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
         formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractPdf`, //your url
@@ -1660,7 +1688,8 @@ console.log('FreeDebtTime',event.target.value)
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -1730,7 +1759,8 @@ console.log('FreeDebtTime',event.target.value)
                                     <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata[i].mm} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
                                     <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                 </div>   */}
-                                <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
+                                {/* <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  /> */}
+                                <MuiDatePicker label=""  value={loandueDataArr[i].DUEDATE} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
                                                                 
                             </TableCell>
                             <TableCell align="left">
@@ -1750,7 +1780,8 @@ console.log('FreeDebtTime',event.target.value)
                                         <MuiSelectMonth label="" name="mm" value={'00'} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
                                         <MuiSelectYear label="" name="yyyy" value={'0000'} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                     </div>   */}
-                                    <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }   />
+                                    {/* <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }   />   */}
+                                    <MuiDatePicker label=""  value={loandueDataArr[i].DUEDATE} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
                                 </TableCell>
                                 <TableCell align="left">
                                         <MuiTextfieldCurrency  label="" value={loandueDataArr[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
@@ -1770,7 +1801,8 @@ console.log('FreeDebtTime',event.target.value)
                                         <MuiSelectMonth label="" name="mm" value={inputSelectDateLoandata[i].mm} onChange={(event)=>handleSelectDateLoandata(event,i,'mm')} />
                                         <MuiSelectYear last={25} label="" name="yyyy" value={inputSelectDateLoandata[i].yyyy} onChange={(event)=>handleSelectDateLoandata(event,i,'yyyy')} />
                                     </div>   */}
-                                    <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
+                                    {/* <MuiDatePicker label=""  value={moment(inputDataSubmit.FirstDatePaid).add(i, 'Y')} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  /> */}
+                                    <MuiDatePicker label=""  value={loandueDataArr[i].DUEDATE} onChange={(newValue)=> handleInputLoanDueDataPay(newValue,i,'date') }  />
                                 </TableCell>
                                 <TableCell align="left">
                                         <MuiTextfieldCurrency  label="" value={loandueDataArr[i].PAYREC} onChange={(event)=>handleInputLoanDueDataPay(event,i,'value')} /> 
@@ -2165,7 +2197,8 @@ console.log('FreeDebtTime',event.target.value)
                                                         <Grid item xs={12} md={3}>
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield inputdisabled="input-disabled" label="ตามคำสั่ง ส.ป.ก. ที่" value={inputDataSubmit.SPK_Order}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfield inputdisabled="input-disabled" label="ตามคำสั่ง ส.ป.ก. ที่" value={`706/2555`}  />
+                                                                    {/* <MuiTextfield inputdisabled="input-disabled" label="ตามคำสั่ง ส.ป.ก. ที่" value={inputDataSubmit.SPK_Order}  onChange={handleInputDataSubmit} /> */}
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <MuiLabelHeader label="&nbsp;" />
@@ -2177,13 +2210,14 @@ console.log('FreeDebtTime',event.target.value)
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
+                                                            <MuiTextfield inputdisabled="input-disabled" label="ลงวันที่" value={`3 กรกฎาคม 2555`}  />
                                                             {/* <p>ลงวันที่</p>
                                                             <div className="select-date-option">
                                                                 <MuiSelectDay label="" name="spkorderdatedd" value={inputSelectDate.spkorderdatedd} onChange={handleSelectDate} />
                                                                 <MuiSelectMonth label="" name="spkorderdatemm" value={inputSelectDate.spkorderdatemm} onChange={handleSelectDate} />
                                                                 <MuiSelectYear label="" name="spkorderdateyyyy" value={inputSelectDate.spkorderdateyyyy} onChange={handleSelectDate} />
                                                             </div> */}
-                                                            <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            {/* <MuiDatePicker label="ลงวันที่" name="SPK_OrderDate" value={inputDataSubmit.SPK_OrderDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, SPK_OrderDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>
@@ -2345,7 +2379,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate3" value={inputDataSubmit.WarrantBookDate3} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate3" value={inputDataSubmit.WarrantBookDate3} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate3: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
@@ -2373,7 +2407,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate4" value={inputDataSubmit.WarrantBookDate4} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate4" value={inputDataSubmit.WarrantBookDate4} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate4: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -2406,7 +2440,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             </div>
                                                         </Grid>
                                                         <Grid item xs={11} md={2}>
-                                                            <p>รวม</p>
+                                                            <p>กำหนดชำระคืนเงินกู้รวม</p>
                                                             <MuiTextfieldCurrency  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
@@ -2773,12 +2807,15 @@ console.log('FreeDebtTime',event.target.value)
                                     {/* Btn Row */}
                                     <Container  maxWidth="md">
                                         <Grid container spacing={2} className="btn-row">
+                                            {
+                                                !!showConfirmButton?null:<p className="txt-red txt-center" style={{width: '100%'}}>กรุณากรอกข้อมูลให้ครบทุกครั้งก่อนกดปุ่ม "ยืนยันสร้างสัญญา"</p>
+                                            }
                                             {/* <p className="txt-red txt-center" style={{width: '100%'}}>กรุณากดปุ่ม "บันทึกชั่วคราว" ทุกครั้งก่อนกดปุ่ม "ยืนยันสร้างสัญญา"</p> */}
                                             {/* Button Row -------------------------------------------------- */}
                                             <Grid item xs={12} md={4}>
                                                 <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
                                             </Grid>
-                                            <Grid item xs={12} md={4} >
+                                            <Grid item xs={12} md={4} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
                                             <Grid item xs={12} md={4} className={loanNumber ? '' : 'btn-disabled'} >

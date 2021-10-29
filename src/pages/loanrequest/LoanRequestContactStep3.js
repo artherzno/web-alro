@@ -542,6 +542,7 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
         let formData = new FormData();
         formData.append('LoanReqNo', props.ApplicantNo)
         formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
 
         axios({
         url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
@@ -552,7 +553,8 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantNo.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantNo.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })

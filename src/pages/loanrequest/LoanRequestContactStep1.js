@@ -146,6 +146,42 @@ function LoanRequestContactStep1(props) {
         Supporter_Fname4: '', // "xxx",
         Supporter_Lname4: '', // "yyy",
         Supporter_IDCard4: '', // "1234567891014",
+        Supporter_Fname5: '', // "aaa",
+        Supporter_Lname5: '', // "bbb",
+        Supporter_IDCard5: '', // "1234567891014",
+        Supporter_Fname6: '', // "aaa",
+        Supporter_Lname6: '', // "bbb",
+        Supporter_IDCard6: '', // "1234567891014",
+        Supporter_Fname7: '', // "aaa",
+        Supporter_Lname7: '', // "bbb",
+        Supporter_IDCard7: '', // "1234567891014",
+        Supporter_Fname8: '', // "aaa",
+        Supporter_Lname8: '', // "bbb",
+        Supporter_IDCard8: '', // "1234567891014",
+        Supporter_Fname9: '', // "aaa",
+        Supporter_Lname9: '', // "bbb",
+        Supporter_IDCard9: '', // "1234567891014",
+        Supporter_Fname10: '', // "aaa",
+        Supporter_Lname10: '', // "bbb",
+        Supporter_IDCard10: '', // "1234567891014",
+        Supporter_Fname11: '', // "aaa",
+        Supporter_Lname11: '', // "bbb",
+        Supporter_IDCard11: '', // "1234567891014",
+        Supporter_Fname12: '', // "aaa",
+        Supporter_Lname12: '', // "bbb",
+        Supporter_IDCard12: '', // "1234567891014",
+        Supporter_Fname13: '', // "aaa",
+        Supporter_Lname13: '', // "bbb",
+        Supporter_IDCard13: '', // "1234567891014",
+        Supporter_Fname14: '', // "aaa",
+        Supporter_Lname14: '', // "bbb",
+        Supporter_IDCard14: '', // "1234567891014",
+        Supporter_Fname15: '', // "aaa",
+        Supporter_Lname15: '', // "bbb",
+        Supporter_IDCard15: '', // "1234567891014",
+        Supporter_Fname16: '', // "aaa",
+        Supporter_Lname16: '', // "bbb",
+        Supporter_IDCard16: '', // "1234567891014",
         Property: '', // "",
         Hire_purchase_contract_Number: '', // "",
         LandValue: 0, // 0,
@@ -158,6 +194,9 @@ function LoanRequestContactStep1(props) {
         ApplicantDate: moment().format(),
         RecDate: moment().format()
     })
+
+    const [supporterAmount,setSupporterAmount] = useState(4)
+    const supporterAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
 
     const [approvalData, setApprovalData] = useState([])
     const [approvalStatus, setApprovalStatus] = useState('')
@@ -319,6 +358,42 @@ function LoanRequestContactStep1(props) {
                             Supporter_Fname4: dataDetail.Supporter_Fname4 || '', // "xxx",
                             Supporter_Lname4: dataDetail.Supporter_Lname4 || '', // "yyy",
                             Supporter_IDCard4: dataDetail.Supporter_IDCard4 || '', // "1234567891014",
+                            Supporter_Fname5: dataDetail.Supporter_Fname5 || '', // "aaa",
+                            Supporter_Lname5: dataDetail.Supporter_Lname5 || '', // "bbb",
+                            Supporter_IDCard5: dataDetail.Supporter_IDCard5 || '', // "1234567891014",
+                            Supporter_Fname6: dataDetail.Supporter_Fname6 || '', // "aaa",
+                            Supporter_Lname6: dataDetail.Supporter_Lname6 || '', // "bbb",
+                            Supporter_IDCard6: dataDetail.Supporter_IDCard6 || '', // "1234567891014",
+                            Supporter_Fname7: dataDetail.Supporter_Fname7 || '', // "aaa",
+                            Supporter_Lname7: dataDetail.Supporter_Lname7 || '', // "bbb",
+                            Supporter_IDCard7: dataDetail.Supporter_IDCard7 || '', // "1234567891014",
+                            Supporter_Fname8: dataDetail.Supporter_Fname8 || '', // "aaa",
+                            Supporter_Lname8: dataDetail.Supporter_Lname8 || '', // "bbb",
+                            Supporter_IDCard8: dataDetail.Supporter_IDCard8 || '', // "1234567891014",
+                            Supporter_Fname9: dataDetail.Supporter_Fname9 || '', // "aaa",
+                            Supporter_Lname9: dataDetail.Supporter_Lname9 || '', // "bbb",
+                            Supporter_IDCard9: dataDetail.Supporter_IDCard9 || '', // "1234567891014",
+                            Supporter_Fname10: dataDetail.Supporter_Fname10 || '', // "aaa",
+                            Supporter_Lname10: dataDetail.Supporter_Lname10 || '', // "bbb",
+                            Supporter_IDCard10: dataDetail.Supporter_IDCard10 || '', // "1234567891014",
+                            Supporter_Fname11: dataDetail.Supporter_Fname11 || '', // "aaa",
+                            Supporter_Lname11: dataDetail.Supporter_Lname11 || '', // "bbb",
+                            Supporter_IDCard11: dataDetail.Supporter_IDCard11 || '', // "1234567891014",
+                            Supporter_Fname12: dataDetail.Supporter_Fname12 || '', // "aaa",
+                            Supporter_Lname12: dataDetail.Supporter_Lname12 || '', // "bbb",
+                            Supporter_IDCard12: dataDetail.Supporter_IDCard12 || '', // "1234567891014",
+                            Supporter_Fname13: dataDetail.Supporter_Fname13 || '', // "aaa",
+                            Supporter_Lname13: dataDetail.Supporter_Lname13 || '', // "bbb",
+                            Supporter_IDCard13: dataDetail.Supporter_IDCard13 || '', // "1234567891014",
+                            Supporter_Fname14: dataDetail.Supporter_Fname14 || '', // "aaa",
+                            Supporter_Lname14: dataDetail.Supporter_Lname14 || '', // "bbb",
+                            Supporter_IDCard14: dataDetail.Supporter_IDCard14 || '', // "1234567891014",
+                            Supporter_Fname15: dataDetail.Supporter_Fname15 || '', // "aaa",
+                            Supporter_Lname15: dataDetail.Supporter_Lname15 || '', // "bbb",
+                            Supporter_IDCard15: dataDetail.Supporter_IDCard15 || '', // "1234567891014",
+                            Supporter_Fname16: dataDetail.Supporter_Fname16 || '', // "aaa",
+                            Supporter_Lname16: dataDetail.Supporter_Lname16 || '', // "bbb",
+                            Supporter_IDCard16: dataDetail.Supporter_IDCard16 || '', // "1234567891014",
                             Property: dataDetail.Property || '', // "",
                             Hire_purchase_contract_Number: dataDetail.Hire_purchase_contract_Number || '', // "",
                             LandValue: dataDetail.LandValue || 0, // 0,
@@ -328,6 +403,8 @@ function LoanRequestContactStep1(props) {
                             Debt_Amount: dataDetail.Debt_Amount || 0, // 0
                             dCreated: dataDetail.dCreated === null ? '-' : newOrderDate(dataDetail.dCreated),
                         })
+
+                        setSupporterAmount(!!dataDetail.supporterAmount?dataDetail.supporterAmount: 4)
                         // let resApplicant = res.data.data[0];
                         setIsLoading(false)
                     }
@@ -498,6 +575,8 @@ function LoanRequestContactStep1(props) {
     }
 
     const handleInputSupporterData = (event) => {
+        // console.log(event.target.name)
+        // console.log(event.target.value)
         let typeNumber = event.target.id.toString().slice(-3);
         if (typeNumber === 'idc') {
             event.target.value = event.target.value.toString().slice(0, 13)
@@ -536,6 +615,90 @@ function LoanRequestContactStep1(props) {
                     Supporter_Fname4: '', // "aaa",
                     Supporter_Lname4: '', // "bbb",
                     Supporter_IDCard4: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard5') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname5: '', // "aaa",
+                    Supporter_Lname5: '', // "bbb",
+                    Supporter_IDCard5: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard6') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname6: '', // "aaa",
+                    Supporter_Lname6: '', // "bbb",
+                    Supporter_IDCard6: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard7') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname7: '', // "aaa",
+                    Supporter_Lname7: '', // "bbb",
+                    Supporter_IDCard7: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard8') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname8: '', // "aaa",
+                    Supporter_Lname8: '', // "bbb",
+                    Supporter_IDCard8: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard9') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname9: '', // "aaa",
+                    Supporter_Lname9: '', // "bbb",
+                    Supporter_IDCard9: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard10') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname10: '', // "aaa",
+                    Supporter_Lname10: '', // "bbb",
+                    Supporter_IDCard10: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard11') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname11: '', // "aaa",
+                    Supporter_Lname11: '', // "bbb",
+                    Supporter_IDCard11: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard12') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname12: '', // "aaa",
+                    Supporter_Lname12: '', // "bbb",
+                    Supporter_IDCard12: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard13') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname13: '', // "aaa",
+                    Supporter_Lname13: '', // "bbb",
+                    Supporter_IDCard13: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard14') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname14: '', // "aaa",
+                    Supporter_Lname14: '', // "bbb",
+                    Supporter_IDCard14: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard15') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname15: '', // "aaa",
+                    Supporter_Lname15: '', // "bbb",
+                    Supporter_IDCard15: event.target.value,
+                })
+            } else if(event.target.name === 'Supporter_IDCard16') {
+                setInputData({
+                    ...inputData,
+                    Supporter_Fname16: '', // "aaa",
+                    Supporter_Lname16: '', // "bbb",
+                    Supporter_IDCard16: event.target.value,
                 })
             }
 
@@ -588,6 +751,90 @@ function LoanRequestContactStep1(props) {
                                 Supporter_Lname4: data.data[0].Sirname || '', // "bbb",
                                 Supporter_IDCard4: data.data[0].IDCard || '',
                             })
+                        } else if(event.target.name === 'Supporter_IDCard5') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname5: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname5: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard5: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard6') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname6: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname6: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard6: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard7') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname7: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname7: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard7: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard8') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname8: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname8: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard8: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard9') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname9: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname9: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard9: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard10') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname10: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname10: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard10: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard11') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname11: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname11: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard11: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard12') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname12: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname12: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard12: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard13') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname13: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname13: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard13: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard14') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname14: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname14: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard14: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard15') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname15: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname15: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard15: data.data[0].IDCard || '',
+                            })
+                        } else if(event.target.name === 'Supporter_IDCard16') {
+                            setInputData({
+                                ...inputData,
+                                Supporter_Fname16: data.data[0].Name || '', // "aaa",
+                                Supporter_Lname16: data.data[0].Sirname || '', // "bbb",
+                                Supporter_IDCard16: data.data[0].IDCard || '',
+                            })
                         }
                     }
                 }
@@ -636,6 +883,42 @@ function LoanRequestContactStep1(props) {
                 Supporter_Fname4: '',
                 Supporter_Lname4: '',
                 Supporter_IDCard4: '',
+                Supporter_Fname5: '',
+                Supporter_Lname5: '',
+                Supporter_IDCard5: '',
+                Supporter_Fname6: '',
+                Supporter_Lname6: '',
+                Supporter_IDCard6: '',
+                Supporter_Fname7: '',
+                Supporter_Lname7: '',
+                Supporter_IDCard7: '',
+                Supporter_Fname8: '',
+                Supporter_Lname8: '',
+                Supporter_IDCard8: '',
+                Supporter_Fname9: '',
+                Supporter_Lname9: '',
+                Supporter_IDCard9: '',
+                Supporter_Fname10: '',
+                Supporter_Lname10: '',
+                Supporter_IDCard10: '',
+                Supporter_Fname11: '',
+                Supporter_Lname11: '',
+                Supporter_IDCard11: '',
+                Supporter_Fname12: '',
+                Supporter_Lname12: '',
+                Supporter_IDCard12: '',
+                Supporter_Fname13: '',
+                Supporter_Lname13: '',
+                Supporter_IDCard13: '',
+                Supporter_Fname14: '',
+                Supporter_Lname14: '',
+                Supporter_IDCard14: '',
+                Supporter_Fname15: '',
+                Supporter_Lname15: '',
+                Supporter_IDCard15: '',
+                Supporter_Fname16: '',
+                Supporter_Lname16: '',
+                Supporter_IDCard16: '',
             })
         } else {
             setInputData({...inputData,
@@ -764,6 +1047,7 @@ function LoanRequestContactStep1(props) {
         formData.set('LandID',parseInt(inputData.LandID))
         formData.set('ApplicantDate',moment(inputData.ApplicantDate).format('YYYY-MM-DD'))
         formData.set('RecDate',moment(inputData.RecDate).format('YYYY-MM-DD'))
+        formData.set('supporterAmount',supporterAmount)
 
         let url = '';
         if(props.action === 'edit') {
@@ -854,6 +1138,37 @@ function LoanRequestContactStep1(props) {
                 </Grid>
             </Box>
         );
+    }
+
+    const supporterBox = (val) => {
+        let boxArr = []
+        for(let i=0; i<val; i++) {
+            boxArr.push(
+                <Box component="div" className="box box-grey result-list">
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={12}>
+                        <span style={{display: 'block'}}>รายที่ {i+1}.</span>
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id={`no${i+1}-idc`} placeholder="ตัวอย่าง 3 8517 13368 44 4" value={inputData["Supporter_IDCard" + (i+1)]} name={`Supporter_IDCard${i+1}`} onInput = {handleInputSupporterData}  />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <MuiTextfield inputdisabled="input-disabled" label="ชื่อ" value={inputData["Supporter_Fname"+(i+1)]} name={`Supporter_Fname${i+1}`} />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData["Supporter_Lname"+(i+1)]} name={`Supporter_Lname${i+1}`} />
+                    </Grid>
+                </Grid>
+            </Box>
+            )
+        }
+
+        return boxArr
+    }
+
+    const handleSupporterAmount = (e) => {
+        console.log('handleSupporterAmount',e.target.value)
+        setSupporterAmount(e.target.value)
     }
 
     const handleClosePopup = () => {
@@ -1231,11 +1546,23 @@ function LoanRequestContactStep1(props) {
                                                     <Grid item xs={12} md={12}>
                                                         <MuiLabelHeaderCheckbox label="หลักประกันการกู้ยืมเงิน" />
                                                         <RadioGroup name="typeRadio" value={inputData.typeGuarantee} onChange={handleChangeTypeGuarantee}>
-                                                            <FormControlLabel value="1" control={<Radio color="primary" />} label="แบบรายบุคคล" />
-                                                            
+                                                            <Grid container spacing={2} className="paper-container">
+                                                                <Grid item xs={12} md={8}>
+                                                                    <p>&nbsp;</p>
+                                                                        <FormControlLabel value="1" control={<Radio color="primary" />} label="แบบรายบุคคล" />
+                                                                </Grid>
+                                                                <Grid item xs={12} md={4}>
+                                                                        <MuiSelect label="จำนวนผู้ค้ำประกัน" listsValue={supporterAmountList} lists={supporterAmountList} value={supporterAmount} onChange={handleSupporterAmount}  />
+                                                                </Grid>
+                                                            </Grid>
                                                             <div style={ inputData.typeGuarantee === '1' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
-                                                                <div className="radio-group-content">
-                                                                    <Box component="div" className="box box-grey result-list">
+                                                                <div className="radio-group-content" style={{height: '480px', overflow: 'auto'}}>
+                                                                    {
+                                                                        
+                                                                        supporterBox(supporterAmount)
+                                                                    
+                                                                    }
+                                                                    {/* <Box component="div" className="box box-grey result-list">
                                                                         <Grid container spacing={2}>
                                                                             <Grid item xs={12} md={12}>
                                                                                 <span style={{display: 'block'}}>รายที่ 1.</span>
@@ -1298,7 +1625,7 @@ function LoanRequestContactStep1(props) {
                                                                                 <MuiTextfield inputdisabled="input-disabled" label="นามสกุล" value={inputData.Supporter_Lname4} name="Supporter_Lname4" />
                                                                             </Grid>
                                                                         </Grid>
-                                                                    </Box>
+                                                                    </Box> */}
                                                                 </div>
                                                             </div>
                                                             

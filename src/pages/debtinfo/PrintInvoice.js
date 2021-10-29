@@ -73,6 +73,7 @@ function PrintInvoice() {
         console.log('printDAte', printDate.toString())
         const startDateValue = new FormData()
         startDateValue.append('startDate', printDate.toString());
+        startDateValue.append('RoleID', localStorage.getItem('nROLEID'));
         let url = `${siteprint}/api/ExportServices/ExportPrintInvoiceAll`; //your url
 
         axios.post(url, startDateValue,
@@ -88,7 +89,8 @@ function PrintInvoice() {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'template.xlsx');
+            link.target = '_blank';
+            // link.setAttribute('download', 'template.xlsx');
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })

@@ -337,6 +337,7 @@ function AllContractSearch() {
         let loanNumber = val;
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractPdf`, //your url
@@ -347,7 +348,8 @@ function AllContractSearch() {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
@@ -374,6 +376,7 @@ function AllContractSearch() {
         formdata.append('Type', Number(contractType));
         formdata.append('Date', contractDate === '0000-00-00' ? '' : contractDate);
         formdata.append('Username', localStorage.getItem('provinceid').toString());
+        formdata.append('RoleID', localStorage.getItem('nROLEID'));
         
         let url = `${siteprint}/api/ExportServices/ExportDebtSettlement`; //your url
 

@@ -374,7 +374,7 @@ const MUItable = (props) => {
                 }
                 {
                   actionCreateArr ? 
-                    <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createArrEvent(row[createArrParam[0]],row[createArrParam[1]],row[createArrParam[2]],row[createArrParam[3]],row[createArrParam[4]],row[createArrParam[5]],row[createArrParam[6]],row[createArrParam[7]],row[createArrParam[8]])} />
+                    <ButtonFluidPrimary label="สร้าง" maxWidth="80px" onClick={()=>createArrEvent(row[createArrParam[0]],row[createArrParam[1]],row[createArrParam[2]],row[createArrParam[3]],row[createArrParam[4]],row[createArrParam[5]],row[createArrParam[6]],row[createArrParam[7]],row[createArrParam[8]],row[createArrParam[9]])} />
                   : null
                 }
                 {

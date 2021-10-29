@@ -133,6 +133,7 @@ function PrintForm() {
 
         let formData = new FormData(); 
         formData.append('ContractNo', loanNumber)
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
 
         axios({
         url: `${siteprint}/report/pdf/GetContractDebtPdf`, //your url
@@ -143,7 +144,8 @@ function PrintForm() {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `พิมพ์สัญญา_${loanNumber.toString()}.pdf`); //or any other extension
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญา_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
