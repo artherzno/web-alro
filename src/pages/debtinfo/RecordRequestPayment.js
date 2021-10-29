@@ -151,9 +151,12 @@ function RecordRequestPayment() {
 
             dialog.showLoading()
 
+            const provinceid = localStorage.getItem('provinceid')
+
             const parameter  = {
                 ExtendTime: realPay,
-                LoanDus:realPay
+                LoanDus:realPay,
+                Username: provinceid
             }
            
             api.extendTimeInsert(parameter).then(response => {
