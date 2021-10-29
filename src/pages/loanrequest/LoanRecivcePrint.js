@@ -427,7 +427,7 @@ function LoanRecivcePrint() {
         data: formData,
         responseType: 'blob', // important
         }).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
             link.target = '_blank';
@@ -737,12 +737,28 @@ function LoanRecivcePrint() {
                             <Grid item xs={12} md={3}>
                                 <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[0].IDCARD_AddrProvinceID === null ? '' : dataInfo.data[i].IDCARD_AddrProvinceID}/>
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            {/* <Grid item xs={12} md={3}>
                                 <MuiTextfield label="ได้รับเงินจากกรม"  inputdisabled="input-disabled"  value={dataInfo.data[0].LoanReceiptfrom} />
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={12} md={3}>
-                                <MuiTextfield label="กระทรวง"  inputdisabled="input-disabled"  value={dataInfo.data[0].LoanReceiptfrom2} />
+                                {
+                                    nROLEID==='8'||nROLEID==='9'?
+                                    <MuiSelect label="ได้รับเงินจากกรม" inputdisabled="input-disabled" lists={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']} listsValue={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']}  name="LoanReceiptfrom" value={dataInfo.data[i].LoanReceiptfrom}  onChange={handleInputData}  />
+                                    :
+                                    <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.จังหวัด${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                }
                             </Grid>
+                            {
+                                (nROLEID==='8'||nROLEID==='9')&&inputData.LoanReceiptfrom==="การโอนเงินผ่านธนาคาร"?
+                                <Grid item xs={12} md={3}>
+                                    <MuiTextfield label="เลขบัญชี" name="BankID" value={dataInfo.data[i].BankID}  onChange={handleInputData} /> 
+                                </Grid>
+                                : null
+                            }
+                            <Grid item xs={12} md={3}>
+                                <MuiTextfield label="กระทรวง"  inputdisabled="input-disabled"  value={`กระทรวงเกษตรและสหกรณ์`} />
+                            </Grid>
+                            
         
                             <Grid item xs={12} md={12}>
                                 <div className="table">
@@ -784,7 +800,7 @@ function LoanRecivcePrint() {
         
                                                 <TableRow>
                                                     <TableCell align="left">
-                                                        <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3 === null ? '-' : '3.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3}</p>  
+                                                        <p className="font-16">{dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3 === null ? '-' : '4.'+ dataInfo.LoanFarmerGetMoney[i].LoanReceiptList3}</p>  
                                                     </TableCell>
                                                     <TableCell align="right">
                                                         <p>{dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3 === null ? '-' : dataInfo.LoanFarmerGetMoney[i].LoanReceiptAmount3.toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
