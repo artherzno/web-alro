@@ -250,8 +250,8 @@ function LoanRequestContactStep2(props) {
     };
 
     const handlePrintPDF = () => {
-        console.log('PDF - LoanReqNo:', props.ApplicantNo)
-        console.log('PDF - UserName:',localStorage.getItem('provinceid'))
+        console.log('AppStep2 PDF - LoanReqNo:', props.ApplicantNo)
+        console.log('AppStep2 PDF - UserName:',localStorage.getItem('provinceid'))
         
         let formData = new FormData();
         formData.append('LoanReqNo', props.ApplicantNo)
@@ -262,12 +262,13 @@ function LoanRequestContactStep2(props) {
         url: `${siteprint}/report/pdf/GetApplicationPdf`, //your url
         method: 'POST',
         data: formData,
-        responseType: 'blob', // important
+        responseType: 'arraybuffer',
+        // responseType: 'blob', // important
         }).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.target = '_blank';
+            link.target = '_blank'
             // link.setAttribute('download',  `คำขอกู้ยืมเงิน_${props.ApplicantNo.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
