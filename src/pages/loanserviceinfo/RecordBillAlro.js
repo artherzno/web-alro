@@ -211,7 +211,6 @@ function RecordBillAlro() {
             const link = document.createElement('a');
             link.href = url;
             link.target = '_blank'
-            // link.setAttribute('download', 'การ์ดก่อนชำระเงิน.pdf');
             document.body.appendChild(link);
             link.click();
 
@@ -350,53 +349,19 @@ function RecordBillAlro() {
 
                                         return (
                                             <Form>
-                                                {/* <MuiTextfield
-                                                    name="guaranteeAmount"
-                                                    value={values.guaranteeAmount}
-                                                    error={errors.guaranteeAmount}
-                                                    helperText={errors.guaranteeAmount}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    placeholder="เลขที่บันทึก"
-                                                    label="เลขที่บันทึก"
-                                                    defaultValue="PNGA0001600005/00001" />
-
-                                                <MuiDatePicker
-                                                    name="date"
-                                                    value={values.date}
-                                                    error={errors.date}
-                                                    helperText={errors.date}
-                                                    onChange={(event) => {
-                                                        setFieldValue("date", moment(event).format("YYYY-MM-DD"))
-                                                    }}
-                                                    onChangeDate={handleChange}
-                                                    onBlur={handleBlur}
-                                                    label="วันที่บันทึก"
-                                                    defaultValue="2017-05-15" />
-
-                                                <MuiSelect
-                                                    name="select"
-                                                    value={values.select}
-                                                    error={errors.select}
-                                                    helperText={errors.select}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    placeholder={"โครงการ"}
-                                                    label="โครงการ"
-                                                    lists={['', '00001', '00002', '00003']} /> */}
-
+                                            
                                                 {/* Paper 1 - -------------------------------------------------- */}
                                                 <Paper className="paper line-top-green paper mg-t-20">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={6}>
                                                             <MuiTextfield
-                                                                // name="ReceiptID"
-                                                                // value={values.ReceiptID}
-                                                                // error={errors.ReceiptID}
-                                                                // helperText={errors.ReceiptID}
-                                                                // onChange={handleChange}
-                                                                // onBlur={handleBlur}
-                                                                // placeholder="เลขที่บันทึก"
+                                                                name="RecNum"
+                                                                value={values.RecNum}
+                                                                error={errors.RecNum}
+                                                                helperText={errors.RecNum}
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                placeholder="เลขที่บันทึก"
                                                                 label="เลขที่บันทึก"
                                                                 disabled
                                                             />

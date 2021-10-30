@@ -38,6 +38,7 @@ import { formatNumber } from '../../utils/Utilities';
 import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
 import { ButtonExport, OverlayLoading } from '../../components';
+import { getAccount } from '../../utils/Auth';
 
 function FaultCondition() {
     const history = useHistory();
@@ -52,6 +53,9 @@ function FaultCondition() {
     const [selectedData, setSelectedData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
     const [isExporting, setIsExporting] = useState(false)
+    const [isExporting1, setIsExporting1] = useState(false)
+    const [isExporting2, setIsExporting2] = useState(false)
+    const [isExporting3, setIsExporting3] = useState(false)
 
     useEffect(() => {
         setLoaded(true);
@@ -89,16 +93,17 @@ function FaultCondition() {
 
         const parameter = new FormData()
         parameter.append('ContractNo', paramLoanID);
-
+        const account = getAccount()
+        parameter.append('UserName', account.username);
 
         setIsExporting(true)
 
         api.getDebtConditionByContractPdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ใบรับสภาพหนี้ รายตัว.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
@@ -115,25 +120,26 @@ function FaultCondition() {
     function getFaultConditionByUserNamePdf(){
 
         const parameter = new FormData()
-        // parameter.append('ContractNo', paramLoanID);
+        const account = getAccount()
+        parameter.append('UserName', account.username);
 
 
-        setIsExporting(true)
+        setIsExporting1(true)
 
         api.getFaultConditionByUserNamePdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ใบรับสภาพความผิด รวม.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
-            setIsExporting(false)
+            setIsExporting1(false)
 
         }).catch(error => {
 
-            setIsExporting(false)
+            setIsExporting1(false)
 
         })
 
@@ -142,25 +148,26 @@ function FaultCondition() {
     function getDebtConditionByUserNamePdf(){
 
         const parameter = new FormData()
-        // parameter.append('ContractNo', paramLoanID);
+        const account = getAccount()
+        parameter.append('UserName', account.username);
 
 
-        setIsExporting(true)
+        setIsExporting2(true)
 
         api.getDebtConditionByUserNamePdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ใบรับสภาพหนี้ รวม.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
-            setIsExporting(false)
+            setIsExporting2(false)
 
         }).catch(error => {
 
-            setIsExporting(false)
+            setIsExporting2(false)
 
         })
 
@@ -170,24 +177,25 @@ function FaultCondition() {
      
         const parameter = new FormData()
         parameter.append('ContractNo', paramLoanID);
+        const account = getAccount()
+        parameter.append('UserName', account.username);
 
-
-        setIsExporting(true)
+        setIsExporting3(true)
 
         api.getFaultConditionByContractPdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ใบรับสภาพความผิด รายตัว.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
-            setIsExporting(false)
+            setIsExporting3(false)
 
         }).catch(error => {
 
-            setIsExporting(false)
+            setIsExporting3(false)
 
         })
 
@@ -531,13 +539,13 @@ function FaultCondition() {
                                                         <ButtonExport label="พิมพ์ใบรับสภาพหนี้ รายตัว" handleButtonClick={() => { getDebtConditionByContractPdf() }} loading={isExporting} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <ButtonExport label="พิมพ์ใบรับสภาพหนี้ รวม" handleButtonClick={() => { getDebtConditionByUserNamePdf() }} loading={isExporting} />
+                                                        <ButtonExport label="พิมพ์ใบรับสภาพหนี้ รวม" handleButtonClick={() => { getDebtConditionByUserNamePdf() }} loading={isExporting2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <ButtonExport label="พิมพ์ใบรับสภาพความผิด รายตัว" handleButtonClick={() => { getFaultConditionByContractPdf() }} loading={isExporting} />
+                                                        <ButtonExport label="พิมพ์ใบรับสภาพความผิด รายตัว" handleButtonClick={() => { getFaultConditionByContractPdf() }} loading={isExporting3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <ButtonExport label="พิมพ์ใบรับสภาพความผิด รวม" handleButtonClick={() => { getFaultConditionByUserNamePdf() }} loading={isExporting} />
+                                                        <ButtonExport label="พิมพ์ใบรับสภาพความผิด รวม" handleButtonClick={() => { getFaultConditionByUserNamePdf() }} loading={isExporting1} />
                                                     </Grid>
                                                 </Grid>
 

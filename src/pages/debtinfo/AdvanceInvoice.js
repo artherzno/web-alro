@@ -44,6 +44,7 @@ import {
 import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
 import { ButtonExport, OverlayLoading } from '../../components';
+import { getAccount } from '../../utils/Auth';
 
 
 function AdvanceInvoice(props) {
@@ -71,6 +72,7 @@ function AdvanceInvoice(props) {
     const [selectedData,setSelectedData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
     const [isExporting, setIsExporting] = useState(false)
+    const [isExporting1, setIsExporting1] = useState(false)
 
 
     useEffect(() => {
@@ -78,24 +80,30 @@ function AdvanceInvoice(props) {
 
         // Check Login
         async function fetchCheckLogin() {
-            const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                    "token": token
-                }
-            })
-            res
-                .json()
-                .then(res => {
-                    if (res.code === 0 || res === '' || res === undefined) {
-                        history.push('/');
+            
+            try {
+                const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        "token": token
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                    history.push('/');
-                });
+                res
+                    .json()
+                    .then(res => {
+                        if (res.code === 0 || res === '' || res === undefined) {
+                            history.push('/');
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        history.push('/');
+                    });
+
+            } catch (error) {
+                
+            }
         }
 
         setLoaded(true);
@@ -150,12 +158,11 @@ function AdvanceInvoice(props) {
     function exportDebtSettlement() {
 
         const parameter = new FormData()
-        parameter.append('FarmerName', '');
+        parameter.append('FarmerName', farmer);
         parameter.append('Date', startDate);
-        parameter.append('LoanNumber', '');
-        parameter.append('StartYear', '');
-        parameter.append('ProjectName', '');
-
+        parameter.append('LoanNumber', rentno);
+        parameter.append('StartYear', startDate);
+        parameter.append('ProjectName', projName);
 
         setIsExporting(true)
 
@@ -173,6 +180,36 @@ function AdvanceInvoice(props) {
         }).catch(error => {
 
             setIsExporting(false)
+
+        })
+
+    }
+
+    function getAdvanceInvoiceLabelPdf() {
+
+        const parameter = new FormData()
+        parameter.append('FarmerName', farmer);
+        parameter.append('Date', startDate);
+        parameter.append('LoanNumber', rentno);
+        parameter.append('StartYear', startDate);
+        parameter.append('ProjectName', projName);
+
+        setIsExporting1(true)
+
+        api.getAdvanceInvoiceLabelPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting1(false)
+
+        }).catch(error => {
+
+            setIsExporting1(false)
 
         })
 
@@ -230,7 +267,7 @@ function AdvanceInvoice(props) {
                                         <ButtonExport label="พิมพ์ใบแจ้งหนี้" handleButtonClick={() => { exportDebtSettlement() }} loading={isExporting} />
                                     </Grid>
                                     <Grid item xs={12} md={2} >
-                                        <ButtonExport label="พิมพ์ Lable" handleButtonClick={() => { exportDebtSettlement() }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์ Lable" handleButtonClick={() => { getAdvanceInvoiceLabelPdf() }} loading={isExporting1} />
                                     </Grid>
                                 </Grid>
                             </Grid>

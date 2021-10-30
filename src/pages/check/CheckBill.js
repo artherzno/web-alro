@@ -82,7 +82,11 @@ class CheckBill extends React.Component {
             this.setState({
                 data: response.data.data,
                 isLoading: false,
-                totalResult: response.data.totalResult
+                totalResult: response.data.totalResult,
+                resultList:[],
+                pageSub: 0,
+                countSub: 10,
+                totalResultSub: 0,
             })
 
         }).catch(error => {
@@ -332,7 +336,7 @@ class CheckBill extends React.Component {
 
                                             </TableHead>
                                             <TableBody>
-                                                {resultList.slice(pageSub * countSub, pageSub * countSub + countSub).map((element, index) => {
+                                                {resultList.map((element, index) => {
 
                                                     return (
                                                         <TableRow key={index} hover={true} >

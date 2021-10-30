@@ -27,7 +27,8 @@ import {
 } from '../../components/MUIinputs';
 import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
-import { OverlayLoading } from '../../components';
+import { ButtonExport, ButtonExportExcel, OverlayLoading } from '../../components';
+import { getAccount } from '../../utils/Auth';
 
 // All Data for DataGrid & Table ---------------------------------------------//
 
@@ -119,6 +120,7 @@ function NoticeInvoice() {
         StartDate: "",
         orderBy: ''
     })
+    const [isExporting, setIsExporting] = useState(false)
 
     useEffect(() => {
         setLoaded(true);
@@ -146,6 +148,44 @@ function NoticeInvoice() {
         const paramFechtDataNew = paramFechtData
         paramFechtDataNew[key] = value
         setParamFechtData(paramFechtDataNew)
+
+    }
+
+    function exportNoticeInvoice(){
+
+        const parameter = new FormData()
+        parameter.append('mDate', paramFechtData.mDate);
+        parameter.append('voucher', paramFechtData.voucher);
+        parameter.append('ref_id1', paramFechtData.ref_id1);
+        parameter.append('ref_id', paramFechtData.ref_id);
+        parameter.append('farmer', paramFechtData.farmer);
+        parameter.append('rentno', paramFechtData.rentno);
+        parameter.append('paidstatus', paramFechtData.paidstatus);
+        parameter.append('item', paramFechtData.item);
+        parameter.append('StartDate', paramFechtData.StartDate);
+        parameter.append('orderBy', paramFechtData.orderBy);
+        
+       
+
+
+        setIsExporting(true)
+
+        api.exportNoticeInvoice(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'รายงานใบเตือนหนี้ค้างชำระ.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
 
     }
 
@@ -212,9 +252,10 @@ function NoticeInvoice() {
                                     <Grid item xs={12} md={2}>
                                         <MuiSelect label="จัดเรียงตาม" listsValue={['', 'ref_id', 'mdate', 'paiddate']} lists={['เลือก', 'เลขที่ใบเตือน', 'วันที่ออกหนังสือเตือน', 'วันที่รับเงิน']} onChange={e => setDataParams('orderBy', e.target.value)} />
                                     </Grid>
-                                    <Grid item xs={12} md={6} className="txt-right">
-                                        <p>&nbsp;</p>
-                                        <ButtonNormalIconStartPrimary label="Export to Excel" startIcon={<i className="far fa-file-excel"></i>} />
+                                    <Grid item xs={12} md={2}></Grid>
+                                    <Grid item xs={12} md={4} className="txt-right">
+                                        <label>&nbsp;</label>
+                                        <ButtonExportExcel label="Export to Excel" handleButtonClick={() => { exportNoticeInvoice() }} loading={isExporting} />
 
                                     </Grid>
 

@@ -95,6 +95,15 @@ const api = {
             }
         })
     },
+    exportNoticeInvoice(params) {
+        return post({
+            path: "api/api/ExportServices/ExportNoticeInvoice",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     exportDebtSettlement(params) {
         return post({
             path: "api/api/ExportServices/ExportDebtSettlement",
@@ -152,6 +161,15 @@ const api = {
     getFaultConditionByUserNamePdf(params) {
         return get({
             path: "api/report/pdf/GetFaultConditionByUserNamePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getAdvanceInvoiceLabelPdf(params) {
+        return post({
+            path: "api/report/pdf/GetAdvanceInvoiceLabelPdf",
             params,
             config: {
                 responseType: 'arraybuffer',
