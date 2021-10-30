@@ -431,7 +431,7 @@ function LoanRequestContactStep2(props) {
                                         <React.Fragment>
                                             <Grid item xs={12} md={12} className="txt-center">
                                                 <ButtonFluidPrimary label="ย้อนกลับ" maxWidth="180px" onClick={handleGotoSearch} color="primary" style={{justifyContent: 'center'}} />&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                                {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/>  */}
                                             </Grid>
                                         </React.Fragment>
                                         : props.action === 'edit' ? 
@@ -441,17 +441,18 @@ function LoanRequestContactStep2(props) {
                                             </Grid>
 
                                             <Grid item xs={12} md={4}>
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
-                                            </Grid>
-                                            <Grid item xs={12} md={12}>                          
                                                 <ButtonFluidOutlinePrimary label="ถัดไป" maxWidth="180px" onClick={ props.handleComplete} />
+                                                {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/>  */}
                                             </Grid>
+                                            {/* <Grid item xs={12} md={12}>                          
+                                                <ButtonFluidOutlinePrimary label="ถัดไป" maxWidth="180px" onClick={ props.handleComplete} />
+                                            </Grid> */}
                                         </React.Fragment>
                                         
                                         :   
                                         <Grid item xs={12} md={12}>
                                             <ButtonFluidPrimary label={'บันทึกข้อมูล ขั้นตอนที่2'} maxWidth="240px" onClick={handleSubmit} />            
-                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/>                  
+                                            {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="180px"  startIcon={<PrintIcon />} onClick={handlePrintPDF}/>                   */}
                                             {/* <ButtonFluidOutlineSecondary label="test ถัดไป" maxWidth="100px"  onClick={ props.handleComplete} /> */}
                                         </Grid>
                                     }
