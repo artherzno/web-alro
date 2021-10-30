@@ -35,8 +35,15 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
     let parameters = parameter
 
     if (parameter instanceof FormData) {
-        parameters.append("Username", provinceid) //provinceid)
+
+        if (!parameter.get("Username")){
+            parameters.append("Username", provinceid) //provinceid)
+        }
+        parameters.append("UserName", provinceid)
+        
         parameters.append("RoleID", roleID) //provinceid)
+
+       
     } else if (parameter) {
 
         if (parameter.Username){

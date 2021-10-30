@@ -28,7 +28,7 @@ import Nav from '../../components/Nav';
 import {
     MuiSelectDay,
     MuiSelectMonth,
-    MuiSelectYear, 
+    MuiSelectYear,
     MuiTextfield,
     MuiDatePicker,
     MuiSelect,
@@ -37,22 +37,24 @@ import {
 } from '../../components/MUIinputs';
 import { ButtonExport, OverlayLoading } from '../../components';
 import { getAccount } from '../../utils/Auth';
+import { Button, Modal, Typography } from '@material-ui/core';
+import { Form, Formik } from 'formik';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      width: '100%',
+        width: '100%',
     },
     button: {
-      marginRight: theme.spacing(1),
+        marginRight: theme.spacing(1),
     },
     completed: {
-      display: 'inline-block',
-      color: 'red',
+        display: 'inline-block',
+        color: 'red',
     },
     instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
 }));
 
@@ -62,25 +64,25 @@ const useStyles = makeStyles((theme) => ({
 const columns = [
     { field: 'ROWID', headerName: 'ลำดับ', width: 90, },
     { field: 'pv_code', headerName: 'รหัสจังหวัด', width: 130, },
-    { field: 'nrec', headerName: 'ลำดับข้อมูล',  width: 90, },
-    { field: 'projcode', headerName: 'รหัสโครงการ',  width: 130, },
-    { field: 'projname', headerName: 'ชื่อโครงการ',  width: 150, },
+    { field: 'nrec', headerName: 'ลำดับข้อมูล', width: 90, },
+    { field: 'projcode', headerName: 'รหัสโครงการ', width: 130, },
+    { field: 'projname', headerName: 'ชื่อโครงการ', width: 150, },
     { field: 'sex', headerName: 'คำนำหน้า', width: 110, },
     { field: 'firstname', headerName: 'ชื่อ', width: 130, },
     { field: 'lastname', headerName: 'นามสกุล', width: 130, },
-    { field: 'start_date', headerName: 'วันที่ประมวล', width: 125,},
-    { field: 'rentno', headerName: 'เลขที่สัญญา', width: 130,},
-    { field: 'loandate', headerName: 'วันที่กู้', width: 100,},
-    { field: 'principle', headerName: 'เงินกู้', width: 130,},
-    { field: 'payrec', headerName: 'เงินงวดชำระ', width: 130,},
-    { field: 'credit', headerName: 'เงินค้างชำระ', width: 130,},
-    { field: 'unpaid', headerName: 'เงินค้างงวด', width: 130,},
-    { field: 'bcapital1', headerName: 'เงินต้นคงเหลือ', width: 140,},
-    { field: 'binterest1', headerName: 'ดอกเบี้ย', width: 130,},
-    { field: 'binterest', headerName: 'ดอกเบี้ย', width: 130,},
-    { field: 'sinterest', headerName: 'ดอกเบี้ยสะสม', width: 140,},
-    
-  ];
+    { field: 'start_date', headerName: 'วันที่ประมวล', width: 125, },
+    { field: 'rentno', headerName: 'เลขที่สัญญา', width: 130, },
+    { field: 'loandate', headerName: 'วันที่กู้', width: 100, },
+    { field: 'principle', headerName: 'เงินกู้', width: 130, },
+    { field: 'payrec', headerName: 'เงินงวดชำระ', width: 130, },
+    { field: 'credit', headerName: 'เงินค้างชำระ', width: 130, },
+    { field: 'unpaid', headerName: 'เงินค้างงวด', width: 130, },
+    { field: 'bcapital1', headerName: 'เงินต้นคงเหลือ', width: 140, },
+    { field: 'binterest1', headerName: 'ดอกเบี้ย', width: 130, },
+    { field: 'binterest', headerName: 'ดอกเบี้ย', width: 130, },
+    { field: 'sinterest', headerName: 'ดอกเบี้ยสะสม', width: 140, },
+
+];
 
 // End All Data for DataGrid ---------------------------------------------//
 
@@ -90,7 +92,7 @@ function DebtReminder() {
     const classes = useStyles();
     const auth = useContext(AuthContext);
     const isMounted = useRef(null);
-
+    const formikRef = useRef();
     let server_hostname = auth.hostname;
     let server_spkapi = localStorage.getItem('spkapi');
     let token = localStorage.getItem('token');
@@ -105,7 +107,7 @@ function DebtReminder() {
     const [loaded, setLoaded] = useState(false);
     const [inputDataSearch, setInputDataSearch] = useState({
         start_date: null, // "2561-08-11",
-        item : '', // "",
+        item: '', // "",
     })
     const [amountProcess, setAmountProcess] = useState(1)
 
@@ -133,8 +135,14 @@ function DebtReminder() {
     })
 
     const [startDateSelect, setStartDateSelect] = useState(null)
-    const [startDateSearch,setStartDateSearch] = useState('')
+    const [startDateSearch, setStartDateSearch] = useState('')
     const [isExporting, setIsExporting] = useState(false)
+    const [isExporting1, setIsExporting1] = useState(false)
+    const [isExporting2, setIsExporting2] = useState(false)
+    const [isExporting3, setIsExporting3] = useState(false)
+    const [isExporting4, setIsExporting4] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [numPrint, setNumPrint] = useState(1)
 
 
     useEffect(() => {
@@ -142,51 +150,57 @@ function DebtReminder() {
 
         // Check Login
         async function fetchCheckLogin() {
-            const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                    "token": token
-                }
-            })
-            res
-                .json()
-                .then(res => {
-                    if (res.code === 0 || res === '' || res === undefined) {
-                        history.push('/');
-                        setErr(true);
+            try {
+
+                const res = await fetch(`${server_hostname}/admin/api/checklogin`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        "token": token
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                    setIsLoaded(true);
-                    setErr(true);
-                    history.push('/');
-                });
+                res
+                    .json()
+                    .then(res => {
+                        if (res.code === 0 || res === '' || res === undefined) {
+                            history.push('/');
+                            setErr(true);
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setIsLoaded(true);
+                        setErr(true);
+                        history.push('/');
+                    });
+
+            } catch (error) {
+
+            }
         }
 
         setLoaded(true);
         fetchCheckLogin();
 
         // executed when component mounted
-      isMounted.current = true;
-      return () => {
-        // executed when unmount
-        isMounted.current = false;
-      }
+        isMounted.current = true;
+        return () => {
+            // executed when unmount
+            isMounted.current = false;
+        }
     }, [])
 
     const getInvoiceGetTotal = () => {
         // let dateSearch = (parseInt(inputDataSearch.start_date.substring(0,4)) + 543)+(inputDataSearch.start_date.substring(4,10));
         // setDateSearch(inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
-        console.log('dateSearch',inputSelectDate.yyyy+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd)
+        console.log('dateSearch', inputSelectDate.yyyy + '-' + inputSelectDate.mm + '-' + inputSelectDate.dd)
         let searchDate;
-        if(inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {
+        if (inputSelectDate.yyyy === '0000' || inputSelectDate.mm === '00' || inputSelectDate.dd === '00') {
             searchDate = '';
         } else {
-            searchDate = (inputSelectDate.yyyy-543)+'-'+inputSelectDate.mm+'-'+inputSelectDate.dd
+            searchDate = (inputSelectDate.yyyy - 543) + '-' + inputSelectDate.mm + '-' + inputSelectDate.dd
         }
-        
+
         setIsLoading(true);
 
         axios({
@@ -197,35 +211,35 @@ function DebtReminder() {
                 item: amountProcess,
             }
         }).then(res => {
-                console.log(res)
-                let data = res.data;
-                if(data.code === 0) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
-                        } else {
-                            setErrMsg([data.message])
-                        }
+            console.log(res)
+            let data = res.data;
+            if (data.code === 0) {
+                setErr(true);
+                if (Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if (typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setErrMsg([data.message])
                     }
-                }else {
-                    console.log('Get AdvanceInvoice Total:',data[0])
-                    setTableTotalResult(data[0])
-                    
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
                 }
+            } else {
+                console.log('Get AdvanceInvoice Total:', data[0])
+                setTableTotalResult(data[0])
 
-            setIsLoading(false);
             }
-            
-        ).catch(err => { console.log(err) })
-        .finally(() => {
-           
 
             setIsLoading(false);
-        })
+        }
+
+        ).catch(err => { console.log(err) })
+            .finally(() => {
+
+
+                setIsLoading(false);
+            })
     }
 
 
@@ -318,30 +332,30 @@ function DebtReminder() {
     // Select CheckBox in Table
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-          const newSelecteds = rows.map((n) => n.id);
-          setSelected(newSelecteds);
-          return;
+            const newSelecteds = rows.map((n) => n.id);
+            setSelected(newSelecteds);
+            return;
         }
         setSelected([]);
-      };
+    };
 
     const handleClickSelect = (event, name) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected = [];
-    
+
         if (selectedIndex === -1) {
-          newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, name);
         } else if (selectedIndex === 0) {
-          newSelected = newSelected.concat(selected.slice(1));
+            newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
-          newSelected = newSelected.concat(selected.slice(0, -1));
+            newSelected = newSelected.concat(selected.slice(0, -1));
         } else if (selectedIndex > 0) {
-          newSelected = newSelected.concat(
-            selected.slice(0, selectedIndex),
-            selected.slice(selectedIndex + 1),
-          );
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
         }
-    
+
         setSelected(newSelected);
     };
 
@@ -350,7 +364,7 @@ function DebtReminder() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-    
+
         // if (value === 'best') {
         //   setHelperText('You got it!');
         //   setError(false);
@@ -363,22 +377,22 @@ function DebtReminder() {
         // }
     };
 
-    function getDebtReminder_O1pdf() {
+    function getDebtReminder_O1pdf(values) {
 
         const parameter = new FormData()
-        parameter.append('BookNo', '');
-        parameter.append('BookDate', startDateSearch);
-        const account = getAccount()
-        parameter.append('UserName', account.username);
+        parameter.append('BookNo', values.BookNo);
+        parameter.append('BookDate', values.BookDate);
+        // const account = getAccount()
+        // parameter.append('UserName', account.username);
 
         setIsExporting(true)
 
         api.getDebtReminder_O1pdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ใบเตือนครั้งที่ 1.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
@@ -392,36 +406,36 @@ function DebtReminder() {
 
     }
 
-    function getDebtReminder_O2pdf() {
+    function getDebtReminder_O2pdf(values) {
 
         const parameter = new FormData()
-        parameter.append('BookNo', '');
-        parameter.append('BookDate', startDateSearch);
-        const account = getAccount()
-        parameter.append('UserName', account.username);
+        parameter.append('BookNo', values.BookNo);
+        parameter.append('BookDate', values.BookDate);
+        // const account = getAccount()
+        // parameter.append('UserName', account.username);
 
-        setIsExporting(true)
+        setIsExporting1(true)
 
         api.getDebtReminder_O2pdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'ใบเตือนครั้งที่ 2.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
-            setIsExporting(false)
+            setIsExporting1(false)
 
         }).catch(error => {
 
-            setIsExporting(false)
+            setIsExporting1(false)
 
         })
 
     }
 
-    function getDebtReminder_ByContractpdf(){
+    function getDebtReminder_ByContractpdf() {
 
         const parameter = new FormData()
         parameter.append('ProDate', amountProcess);
@@ -429,30 +443,30 @@ function DebtReminder() {
         const account = getAccount()
         parameter.append('UserName', account.username);
 
-        setIsExporting(true)
+        setIsExporting2(true)
 
         api.getDebtReminder_ByContractpdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'สรุปใบเตือนรายสัญญา.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
-            setIsExporting(false)
+            setIsExporting2(false)
 
         }).catch(error => {
 
-            setIsExporting(false)
+            setIsExporting2(false)
 
         })
 
     }
 
-    function getDebtReminder_ByProjectpdf(){
+    function getDebtReminder_ByProjectpdf() {
 
-        
+
 
         const parameter = new FormData()
         parameter.append('ProDate', amountProcess);
@@ -462,22 +476,22 @@ function DebtReminder() {
         parameter.append('UserName', account.username);
 
 
-        setIsExporting(true)
+        setIsExporting3(true)
 
         api.getDebtReminder_ByProjectpdf(parameter).then(response => {
 
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'สรุปใบเตือนรายโครงการ.pdf');
+            link.target = '_blank'
             document.body.appendChild(link);
             link.click();
 
-            setIsExporting(false)
+            setIsExporting3(false)
 
         }).catch(error => {
 
-            setIsExporting(false)
+            setIsExporting3(false)
 
         })
 
@@ -495,13 +509,13 @@ function DebtReminder() {
                 <div className="fade">
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={12} className="title-page"> 
+                            <Grid item xs={12} md={12} className="title-page">
                                 <h1>ใบเตือนหนี้ครั้งที่ 1, 2</h1>
                             </Grid>
                             <Grid item xs={12} md={12} className="mg-t-0">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                   
+
                                         <MuiDatePicker label="ตรวจสอบวันที่ประมวล" value={startDateSelect} onChange={(event) => {
 
                                             setStartDateSearch(moment(event).format("YYYY-MM-DD"))
@@ -511,7 +525,7 @@ function DebtReminder() {
 
                                     </Grid>
                                     <Grid item xs={12} md={4}>
-                                        <MuiSelect label="ประมวลผลเกษตรกรครบกำหนดออกใบเตือน" listsValue={[1,2,]} lists={['ครั้งที่ 1','ครั้งที่ 2']} value={amountProcess} onChange={(e)=>{setAmountProcess(e.target.value)}} />
+                                        <MuiSelect label="ประมวลผลเกษตรกรครบกำหนดออกใบเตือน" listsValue={[1, 2,]} lists={['ครั้งที่ 1', 'ครั้งที่ 2']} value={amountProcess} onChange={(e) => { setAmountProcess(e.target.value) }} />
                                     </Grid>
                                     <Grid item xs={12} md={1}>
                                         <p>&nbsp;</p>
@@ -523,16 +537,26 @@ function DebtReminder() {
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={2} >
-                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 1" handleButtonClick={() => { getDebtReminder_O1pdf() }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 1" handleButtonClick={() => {
+                                            // getDebtReminder_O1pdf() 
+                                            setShowModal(true)
+                                            setNumPrint(1)
+
+                                        }} loading={isExporting} />
                                     </Grid>
                                     <Grid item xs={12} md={2} >
-                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 2" handleButtonClick={() => { getDebtReminder_O2pdf() }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 2" handleButtonClick={() => { 
+                                            // getDebtReminder_O2pdf() 
+                                            setShowModal(true)
+                                            setNumPrint(2)
+
+                                            }} loading={isExporting1} />
                                     </Grid>
                                     <Grid item xs={12} md={3} >
-                                        <ButtonExport label="พิมพ์สรุปใบเตือนรายสัญญา" handleButtonClick={() => { getDebtReminder_ByContractpdf() }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์สรุปใบเตือนรายสัญญา" handleButtonClick={() => { getDebtReminder_ByContractpdf() }} loading={isExporting2} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <ButtonExport label="พิมพ์สรุปใบเตือนรายโครงการ" handleButtonClick={() => { getDebtReminder_ByProjectpdf() }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์สรุปใบเตือนรายโครงการ" handleButtonClick={() => { getDebtReminder_ByProjectpdf() }} loading={isExporting3} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -547,31 +571,31 @@ function DebtReminder() {
                                 <Box className="box-blue">
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินครบชำระ</p>
-                                        <p className="box-blue-body">{!tableTotalResult.unpaid ? '0' : parseFloat(tableTotalResult.unpaid).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.unpaid ? '0' : parseFloat(tableTotalResult.unpaid).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินต้นคงค้าง</p>
-                                        <p className="box-blue-body">{!tableTotalResult.credit ? '0' : parseFloat(tableTotalResult.credit).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.credit ? '0' : parseFloat(tableTotalResult.credit).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">ดอกเบี้ยค้างชำระ</p>
-                                        <p className="box-blue-body">{!tableTotalResult.pint_1 ? '0' : parseFloat(tableTotalResult.pint_1).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.pint_1 ? '0' : parseFloat(tableTotalResult.pint_1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินต้นคงเหลือ</p>
-                                        <p className="box-blue-body">{!tableTotalResult.bcapital1 ? '0' : parseFloat(tableTotalResult.bcapital1).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.bcapital1 ? '0' : parseFloat(tableTotalResult.bcapital1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">ดอกเบี้ยที่ต้องชำระ</p>
-                                        <p className="box-blue-body">{!tableTotalResult.binterest ? '0' : parseFloat(tableTotalResult.binterest).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.binterest ? '0' : parseFloat(tableTotalResult.binterest).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">ดอกเบี้ยครบกำหนดชำระ</p>
-                                        <p className="box-blue-body">{!tableTotalResult.pint_2 ? '0' : parseFloat(tableTotalResult.pint_2).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.pint_2 ? '0' : parseFloat(tableTotalResult.pint_2).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">จำนวนเกษตรกร</p>
-                                        <p className="box-blue-body">{!tableTotalResult.Total ? '0' : parseFloat(tableTotalResult.Total).toLocaleString('en-US', {minimumFractionDigits: 2})}</p>
+                                        <p className="box-blue-body">{!tableTotalResult.Total ? '0' : parseFloat(tableTotalResult.Total).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -581,173 +605,148 @@ function DebtReminder() {
                         <Grid container spacing={2} className="mg-t-20">
                             <Grid item xs={12} md={12}>
                                 {/* Data Grid --------------------------------*/}
-                                    <div style={{ }}>
-                                        <DataGrid
-                                            rows={rows}
-                                            columns={columns}
-                                            pageSize={10}
-                                            autoHeight={true}
-                                            disableColumnMenu={true}
-                                            checkboxSelection
-                                            disableSelectionOnClick
-                                            onRowSelected={(e) => console.log(e.api.current.getSelectedRows())}
-                                        />
-                                    </div>
+                                <div style={{}}>
+                                    <DataGrid
+                                        rows={rows}
+                                        columns={columns}
+                                        pageSize={10}
+                                        autoHeight={true}
+                                        disableColumnMenu={true}
+                                        // checkboxSelection
+                                        disableSelectionOnClick
+                                        onRowSelected={(e) => console.log(e.api.current.getSelectedRows())}
+                                    />
+                                </div>
                             </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
-                                <ButtonFluidPrimary label="พิมพ์ Label" />
-                            </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
-                                <ButtonFluidPrimary label="พิมพ์หนังสือใบเตือน Bar" />
-                            </Grid>
-                            <Grid item xs={12} md={3} className="mg-t-10" style={{display: 'none'}}>
-                                <ButtonFluidPrimary label="พิมพ์หนังสือใบเตือน Bar .ใหม่" />
-                            </Grid>
-                            {/* Paper 1 - ประเภทเงินกู้ -------------------------------------------------- */}
-                            <Grid item xs={12} md={12} style={{display: 'none'}}>
-                                <Paper className="paper line-top-green paper mg-t-20">
-                                    <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่บันทึก" disabled defaultValue="RIET2343525/00003" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่บันทึก"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เลขที่ใบเตือนหนี้"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="คำนวณสิ้นปีงบประมาณ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่ประมวลผล"  defaultValue="2017-05-24" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เงินครบชำระ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เงินต้นค้างชำระ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={2}>
-                                                <MuiTextfield label="ลำดับที่ใบเตือนหนี้"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={1}>
-                                                <MuiTextfield label="&nbsp;"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="จำนวนราย"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="เงินต้นคงเหลือ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ดอกเบี้ยที่ต้องชำระ"  defaultValue="" />
-                                            </Grid>
-                                            <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ดอกเบี้ยค้างชำระ"  defaultValue="" />
-                                            </Grid>
-                                        </Grid>
-                                    </form>
-                                </Paper>
-                            </Grid>
+
 
                         </Grid>
                     </Container>
-                    
-                    <Container maxWidth={false} style={{display: 'none'}}>
-                    {/* Data Grid --------------------------------*/}
-                        {/* <div style={{ height: 400, width: '100%' }}>
-                            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                        </div> */}
-                        <Grid item xs={12} md={12}>
-                                <div className="table-box max-h-300 mg-t-35">
-                                    <TableContainer >
-                                    <Table aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">
-                                                <Checkbox
-                                                    color="primary"
-                                                    indeterminate={numSelected > 0 && numSelected < rowCount}
-                                                    checked={rowCount > 0 && numSelected === rowCount}
-                                                    onChange={handleSelectAllClick}
-                                                    inputProps={{ 'aria-label': 'select all desserts' }}
-                                                />
-                                                </TableCell>
-                                                <TableCell align="left">ลำดับ</TableCell>
-                                                <TableCell align="left">รหัสจังหวัด</TableCell>
-                                                <TableCell align="left">ลำดับข้อมูล</TableCell>
-                                                <TableCell align="left">รหัสโครงการ</TableCell>
-                                                <TableCell align="left">ชื่อโครงการ</TableCell>
-                                                <TableCell align="left">คำนำหน้า</TableCell>
-                                                <TableCell align="left">ชื่อ</TableCell>
-                                                <TableCell align="left">นามสกุล</TableCell>
-                                                <TableCell align="left">วันที่ประมวล</TableCell>
-                                                <TableCell align="left">เลขที่สัญญา</TableCell>
-                                                <TableCell align="left">วันที่กู้</TableCell>
-                                                <TableCell align="left">เงินกู้</TableCell>
-                                                <TableCell align="left">เงินงวดชำระ</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>{/* // clear mockup */}
-                                            <TableRow>
-                                                <TableCell colSpan={14} align="left">ไม่พบข้อมูล</TableCell>
-                                            </TableRow>
-                                            
-                                            {/* {
-                                                rows.map((row,i) => { 
-                                                    const isItemSelected = isSelected(row.id);
-                                                    const labelId = `enhanced-table-checkbox-${i}`;
-                                                
-                                                    return(
-                                                        <TableRow hover
-                                                        onClick={(event) => handleClickSelect(event, row.id)}
-                                                        role="checkbox"
-                                                        aria-checked={isItemSelected}
-                                                        tabIndex={-1}
-                                                        key={row.id}
-                                                        selected={isItemSelected}>
-                                                            <TableCell padding="checkbox" align="left">
-                                                                <Checkbox
-                                                                color="primary"
-                                                                checked={isItemSelected}
-                                                                inputProps={{ 'aria-labelledby': labelId }}
-                                                            />
-                                                            </TableCell>
-                                                            <TableCell align="left" id={labelId}>{row.id}</TableCell>
-                                                            <TableCell align="left">{row.a}</TableCell>
-                                                            <TableCell align="left">{row.b}</TableCell>
-                                                            <TableCell align="left">{row.c}</TableCell>
-                                                            <TableCell align="left">{row.d}</TableCell>
-                                                            <TableCell align="left">{row.e}</TableCell>
-                                                            <TableCell align="left">{row.f}</TableCell>
-                                                            <TableCell align="left">{row.g}</TableCell>
-                                                            <TableCell align="left">{row.h}</TableCell>
-                                                            <TableCell align="left">{row.i}</TableCell>
-                                                            <TableCell align="left">{row.j}</TableCell>
-                                                            <TableCell align="left">{row.k}</TableCell>
-                                                            <TableCell align="left">{row.l}</TableCell>
-                                                        </TableRow>
-                                                    )
-                                                })
-                                            } */}
-                                        </TableBody>
-                                    </Table>
-                                    </TableContainer>
-                                </div>
-                                {/* Data Grid --------------------------------*/}
-                                    {/* <div style={{ height: 400, width: '100%' }}>
-                                    <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                                </div> */}
-                            </Grid>
-                    </Container>
-                    
+
+
                 </div>
             </Fade>
-            
+
+            <Modal
+                open={showModal}
+                onClose={() => {
+                    setShowModal(false)
+                }}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div>พิมพ์ใบเตือนครั้งที่ {numPrint}</div>
+                    <Box mt={1}>
+                        <hr />
+                    </Box>
+                    
+                    <Box mt={3}>
+                        <Formik
+                            enableReinitialize={true}
+                            innerRef={formikRef}
+                            initialValues={{
+                                BookNo: '',
+                                BookDate: '',
+
+                            }}
+                            validate={values => {
+                                const requires = ['BookNo','BookDate']
+                                let errors = {};
+                                requires.forEach(field => {
+                                    if (!values[field]) {
+                                        errors[field] = 'Required';
+                                    }
+                                });
+
+
+                                return errors;
+                            }}
+                            onSubmit={(values, actions) => {
+
+                                setShowModal(false)
+                                if(numPrint === 1){
+                                    getDebtReminder_O1pdf(values)
+                                }else{
+                                    getDebtReminder_O2pdf(values)
+                                }
+
+                            }}
+                            render={(formik) => {
+
+                                const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
+                                return (
+                                    <Form>
+                                        <MuiTextfield
+                                            name="BookNo"
+                                            value={values.BookNo}
+                                            error={errors.BookNo}
+                                            helperText={errors.BookNo}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="เลขที่หนังสือ"
+                                            label="เลขที่หนังสือ"
+                                            requires
+                                        />
+
+                                        <MuiDatePicker
+                                            name="BookDate"
+                                            value={values.BookDate}
+                                            error={errors.BookDate}
+                                            helperText={errors.BookDate}
+                                            onChange={(event) => {
+                                                setFieldValue("BookDate", moment(event).format("YYYY-MM-DD"))
+                                            }}
+                                            onChangeDate={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="วันที่ออกหนังสือ"
+                                            label="วันที่ออกหนังสือ"
+                                        />
+
+                                    </Form>
+                                )
+                            }}
+                        />
+                    </Box>
+
+                    <Box mt={2} mb={2}>
+                        <hr />
+                    </Box>
+                    
+                    <Grid container spacing={2} justifyContent="flex-end">
+                        <Grid item>
+                            <Button variant="outlined" onClick={() =>{
+                                
+                                setShowModal(false)
+
+                            }}>ยกเลิก</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" onClick={() =>{
+                                formikRef.current.handleSubmit()
+                               
+                            }}>ยืนยัน</Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Modal>
+
         </div>
     )
 }
+
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    borderRadius: 2,
+    boxShadow: 24,
+    p: 4,
+};
+
 
 export default DebtReminder
