@@ -54,7 +54,7 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
         }else{
             parameters = {
                 ...parameter,
-                Username: cUsername,
+                Username: provinceid,
                 RoleID: roleID
             }
         }
