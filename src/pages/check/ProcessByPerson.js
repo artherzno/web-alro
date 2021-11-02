@@ -391,7 +391,7 @@ class ProcessByPerson extends React.Component {
                                                             <StyledTableCellLine align="left">{element.remarks}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kCapital)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kInterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right"> <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf("00", index) }} loading={this.state[index]} /></StyledTableCellLine>
+                                                            <StyledTableCellLine align="right"> <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf(element.rentno, index) }} loading={this.state[index]} /></StyledTableCellLine>
 
 
 
