@@ -197,7 +197,7 @@ class ProcessByPerson extends React.Component {
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonExportExcel label="พิมพ์ลูกหนี้รายตัว" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
+                                            <ButtonExportExcel label="Export Excel" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
                                         </Grid>
 
                                     </Grid>

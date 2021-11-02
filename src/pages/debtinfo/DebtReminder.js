@@ -543,6 +543,12 @@ function DebtReminder() {
                                             setNumPrint(1)
 
                                         }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 1 (ผู้ค้ำประกัน)" handleButtonClick={() => {
+                                            // getDebtReminder_O1pdf() 
+                                            setShowModal(true)
+                                            setNumPrint(1)
+
+                                        }} loading={isExporting} />
                                     </Grid>
                                     <Grid item xs={12} md={2} >
                                         <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 2" handleButtonClick={() => { 
@@ -551,6 +557,12 @@ function DebtReminder() {
                                             setNumPrint(2)
 
                                             }} loading={isExporting1} />
+                                        <ButtonExport label="พิมพ์ใบเตือนครั้งที่ 2 (ผู้ค้ำประกัน)" handleButtonClick={() => {
+                                            // getDebtReminder_O2pdf() 
+                                            setShowModal(true)
+                                            setNumPrint(2)
+
+                                        }} loading={isExporting1} />
                                     </Grid>
                                     <Grid item xs={12} md={3} >
                                         <ButtonExport label="พิมพ์สรุปใบเตือนรายสัญญา" handleButtonClick={() => { getDebtReminder_ByContractpdf() }} loading={isExporting2} />
