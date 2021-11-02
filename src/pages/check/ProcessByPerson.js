@@ -25,7 +25,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TablePagination from '@material-ui/core/TablePagination';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
-import { ButtonExportExcel } from '../../components'
+import { ButtonExport, ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import { format } from 'date-fns';
 import { OverlayLoading } from '../../components'
@@ -136,17 +136,44 @@ class ProcessByPerson extends React.Component {
             [state]: event.target.value
         }, () => {
 
-  
+
 
         })
 
 
     }
 
+    getCardPdf(contractNo,index) {
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', contractNo);
+
+
+        this.setState({ [index]:true})
+
+        api.getCardPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({ [index]: false })
+
+        }).catch(error => {
+
+            this.setState({ [index]: false })
+
+        })
+
+    }
+
     render() {
 
         const { classes } = this.props;
-        const { data, page, count, dataSummary} = this.state
+        const { data, page, count, dataSummary } = this.state
         return (
             <div>
 
@@ -170,7 +197,7 @@ class ProcessByPerson extends React.Component {
                                             <MuiTextfield label="เลขที่สัญญา" onChange={this.onChange("ContractNo")} />
                                         </Grid>
 
-                                       
+
                                         <Grid item xs={12} md={2}>
                                             <YearSelect label="ปี" onChange={this.onChange("Year")} />
                                         </Grid>
@@ -190,14 +217,14 @@ class ProcessByPerson extends React.Component {
                                     </Grid>
                                 </Grid>
 
-                                 <Grid item xs={12} md={12} className="mg-t-0">
+                                <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
-                                        
+
                                         <Grid item xs={12} md={10}>
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonExportExcel label="Export Excel" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
+                                            <ButtonExportExcel label="Export Excel" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                                         </Grid>
 
                                     </Grid>
@@ -283,6 +310,7 @@ class ProcessByPerson extends React.Component {
                                                     <StyledTableCell align="center">Remarks</StyledTableCell>
                                                     <StyledTableCell align="center">K_capital</StyledTableCell>
                                                     <StyledTableCell align="center">K_interest</StyledTableCell>
+                                                    <StyledTableCell align="center">ดูการ์ด</StyledTableCell>
                                                 </TableRow>
 
                                             </TableHead>
@@ -363,6 +391,7 @@ class ProcessByPerson extends React.Component {
                                                             <StyledTableCellLine align="left">{element.remarks}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kCapital)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kInterest)}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="right"> <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf("00", index) }} loading={this.state[index]} /></StyledTableCellLine>
 
 
 
