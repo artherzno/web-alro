@@ -78,7 +78,8 @@ function SearchMemberPage(props) {
     })
 
     const headCells = [
-        { id: 'FarmerID', numeric: false, disablePadding: true,  widthCol: '140px',label: 'ลำดับ' },
+        { id: 'idx', numeric: true, disablePadding: false, widthCol: '110px', label: 'ลำดับ' },
+        // { id: 'FarmerID', numeric: false, disablePadding: true,  widthCol: '140px',label: 'ลำดับ' },
         { id: 'FrontName', numeric: true, disablePadding: false, widthCol: '120px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อ' },
         { id: 'Sirname', numeric: true, disablePadding: false, widthCol: '160px', label: 'นามสกุล' },
@@ -91,11 +92,12 @@ function SearchMemberPage(props) {
     ];
 
     const rowsLabel = [
-        'FarmerID', 'FrontName', 'Name', 'Sirname', 'FarmerGrade', 'IDCard', 'dCreated', 'LoanNumber', 'LandNumber', 'Land_AddrProvinceID'
+        'idx',/*'FarmerID', */'FrontName', 'Name', 'Sirname', 'FarmerGrade', 'IDCard', 'dCreated', 'LoanNumber', 'LandNumber', 'Land_AddrProvinceID'
     ]
 
-    function createData( FarmerID, FrontName, Name, Sirname, FarmerGrade, IDCard, LoanNumber, LandNumber, Land_AddrProvinceID, dCreated) {
+    function createData( idx,FarmerID, FrontName, Name, Sirname, FarmerGrade, IDCard, LoanNumber, LandNumber, Land_AddrProvinceID, dCreated) {
         return { 
+            idx,
             FarmerID,
             FrontName,
             Name,
@@ -195,6 +197,7 @@ function SearchMemberPage(props) {
                     console.log(res.data);
                     setRows(res.data.map((item,i)=>
                         createData(
+                            i+1,
                             item.FarmerID,
                             item.FrontName === null ? '': item.FrontName,
                             item.Name === null ? '': item.Name,

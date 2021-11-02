@@ -463,7 +463,7 @@ function ManageProjectBudget() {
         formData.set('ProjectResultPlan',parseFloat(inputData.ProjectResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
 
         axios.post(
-            `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 
+            `${server_hostname}/admin/api/update_spkinfoo`, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
                 let data = res.data;
@@ -578,10 +578,10 @@ function ManageProjectBudget() {
                                                 <MuiTextfield inputdisabled="input-disabled" label="CompCode" name="CompCode" value={inputData.CompCode} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ปฏิรูปที่ดินจังหวัด" name="Officer" value={inputData.Officer} onChange={handleInputData}  />
+                                                <MuiTextfield label="ปฏิรูปที่ดินจังหวัด" name="Officer" value={inputData.Officer} onChange={handleInputData}  />
                                             </Grid>
                                             <Grid item xs={12} md={12}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ตำแหน่ง" name="Rank" value={inputData.Rank} onChange={handleInputData}  />
+                                                <MuiTextfield label="ตำแหน่ง" name="Rank" value={inputData.Rank} onChange={handleInputData}  />
                                             </Grid>
                                         </Grid>
                                     </Paper>

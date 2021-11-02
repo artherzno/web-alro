@@ -88,8 +88,8 @@ function LoanRequestContactStep1(props) {
         activityProject: [],
 
         ApplicantNo: '',
-        AppLocation: '',
-        AppTo: '',
+        AppLocation: 'สำนักการปฏิรูปที่ดินจังหวัด'+localStorage.getItem('provincename'),
+        AppTo: 'ปฏิรูปที่ดินจังหวัด'+localStorage.getItem('provincename'),
 
         IDCard: '', // 1234567891017,
         LoanFarmerTypeID: '', // 1,
@@ -1237,11 +1237,11 @@ function LoanRequestContactStep1(props) {
                                                 <Grid item xs={12} md={6}>
                                                     <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputData.RecDate} onChange={(newValue)=>{ setInputData({ ...inputData, RecDate: moment(newValue).format()}) }}  />
                                                 </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiTextfield label="เขียนที่" name="AppLocation" value={inputData.AppLocation} onChange={handleInputData} />
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield label="เขียนที่" inputdisabled="input-disabled" name="AppLocation" value={inputData.AppLocation} onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiTextfield label="เรียน" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield label="เรียน" inputdisabled="input-disabled" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <MuiSelectObjYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />

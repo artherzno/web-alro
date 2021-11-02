@@ -664,6 +664,46 @@ const MuiRadioButton = (props) => {
     );
 }
 
+const MuiRadioButtonStart1 = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, lists, value, onChange, type, color, name, } = props;
+
+    let radioValue = value;
+    if (value === null) {
+        radioValue = ''
+    }
+
+    return (
+        <FormControl className={classes.textbox}>
+            {
+                (label) === '' ? '' :
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            {/* { (label) === '' ? '' : <span>&nbsp;</span> }   */}
+
+            {/* Check row or column */}
+            {
+                (type === 'row') ?
+                    <RadioGroup row aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
+                        {lists.map((item, i) =>
+                            (
+                                <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
+                            )
+                        )}
+                    </RadioGroup>
+                    :
+                    <RadioGroup aria-label={id} name={name} value={radioValue.toString()} onChange={onChange}>
+                        {lists.map((item, i) =>
+                            (
+                            <FormControlLabel key={i} value={(i+1).toString()} control={<BlueRadio />} label={item} />
+                            )
+                        )}
+                    </RadioGroup>
+            }
+        </FormControl>
+    );
+}
+
 const MuiSelectDay = (props) => {
     const classes = useStyles();
     const { topic, label, id, lists, name, value, onChange, inputdisabled, startText } = props;
@@ -1328,6 +1368,7 @@ export {
     MuiDatePicker,
     MuiDatePickerValidate,
     MuiRadioButton,
+    MuiRadioButtonStart1,
     MuiSelect,
     MuiSelectObj,
     MuiSelectProvince,

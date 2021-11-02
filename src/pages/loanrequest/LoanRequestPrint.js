@@ -2180,6 +2180,9 @@ console.log('FreeDebtTime',event.target.value)
                                                             {/* Field Text ---------------------------------------------------*/}
                                                             <MuiTextfield label="" name="Farmer_Accept" value={inputDataSubmit.Farmer_Accept}  onChange={handleInputDataSubmit}/>
                                                         </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiLabelHeader label="ตามใบสำคัญรับเงินที่ผู้กู้ได้ทำให้ไว้แก่ผู้ให้กู้ครบถ้วนแล้ว" />
+                                                        </Grid>
                                                     </Grid>
                                                 </Paper>
                                             </Grid>

@@ -870,7 +870,7 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
                                                                 {/* Field Text ---------------------------------------------------*/}
-                                                                <MuiTextfield label="ชื่อ ปทจ หรือผู้แทนที่อนุมัติคำขอ" name="NameAgent" value={inputData.NameAgent} onChange={handleInputData}/>        
+                                                                <MuiTextfield label="ชื่อ ปทจ หรือผู้แทนที่อนุมัติคำขอ" inputdisabled="input-disabled" input name="NameAgent" value={inputData.NameAgent} onChange={handleInputData}/>        
                                                             </Grid>
 
                                                         </Grid>

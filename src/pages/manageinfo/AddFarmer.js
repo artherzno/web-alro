@@ -28,6 +28,7 @@ import {
     MuiSelectDistrict,
     MuiSelectSubDistrict,
     MuiRadioButton,
+    MuiRadioButtonStart1,
     MuiTextNumber,
     MuiDatePicker,
     MuiSelectDay,
@@ -877,6 +878,12 @@ function AddFarmer(props) {
         formData.delete('dd2')
         formData.delete('mm2')
         formData.delete('yyyy2')
+
+        if(duplicateAddr) {
+            formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
+            formData.append('Contact_AddMoo', inputData.IDCARD_AddMoo)
+            formData.append('Contact_AddrSoiRoad', inputData.IDCARD_AddrSoiRoad)
+        }
         
         // if(duplicateAddr) {
         //     formData.append('Contact_AddNo', inputData.IDCARD_AddNo)
@@ -1022,7 +1029,7 @@ function AddFarmer(props) {
                                                     : ''
                                                 }
                                                 <Grid item xs={12} md={12}>
-                                                    <MuiRadioButton label="ประเภทสมาชิก" lists={['เกษตรกร', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
+                                                    <MuiRadioButtonStart1 label="ประเภทสมาชิก" lists={['เกษตรกร', 'สถาบัน', 'บุคคลภายนอก','ผู้ชดใช้']} value={inputData.LoanFarmerTypeID} name="LoanFarmerTypeID" onChange={handleInputData} type="row" />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     {/* Field Select ---------------------------------------------------*/}
@@ -1036,22 +1043,18 @@ function AddFarmer(props) {
                                                     {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="นามสกุล" defaultValue="" value={inputData.Sirname} name="Sirname" onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    {/* Field Text ---------------------------------------------------*/}
+                                                {/* <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="ชื่อ (เก่า)" defaultValue="" value={inputData.OldName1} name="OldName1" onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="นามสกุล (เก่า)" defaultValue="" value={inputData.OldSirname1} name="OldSirname1" onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="ชื่อ (เก่า)" defaultValue="" value={inputData.OldName2} name="OldName2" onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    {/* Field Text ---------------------------------------------------*/}
                                                     <MuiTextfield label="นามสกุล (เก่า)" defaultValue="" value={inputData.OldSirname2} name="OldSirname2" onChange={handleInputData} />
-                                                </Grid>
+                                                </Grid> */}
 
                                                 {/* <Grid item xs={12} md={12}>
                                                     <Flatpickr
@@ -1231,7 +1234,7 @@ function AddFarmer(props) {
                                 </form>
 
                                 {
-                                    inputData.LoanFarmerTypeID === '2' ? '' :
+                                    inputData.LoanFarmerTypeID === '3' || inputData.LoanFarmerTypeID === '4' ? '' :
                                     <React.Fragment>
                                         {/* Paper 4 -------------------------------------------------- */}
                                         <Paper className="paper line-top-green paper">
