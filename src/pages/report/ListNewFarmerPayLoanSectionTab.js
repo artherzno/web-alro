@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles} from '@material-ui/styles';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
-import { ButtonExportExcel } from '../../components'
+import { ButtonExport, ButtonExportExcel } from '../../components'
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
@@ -47,6 +47,7 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
             page: 0,
             count: 10,
             totalResult: 0,
+            isPrinting: false
         }
     }
 
@@ -121,6 +122,46 @@ parameter.append('YearTo', YearTovalue);
 
             this.setState({
                 isExporting: false
+            })
+
+        })
+
+    }
+
+    printPDF() {
+
+        const { month, year, YearTovalue, display2, startDate, endDate, } = this.state
+
+        const parameter = new FormData()
+
+        parameter.append('Month', month);
+        parameter.append('YearTo', YearTovalue);
+        parameter.append('Year', year);
+        parameter.append('LevelDisplay', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+
+        this.setState({
+            isPrinting: true
+        })
+
+        api.getNewSummaryFarmerPayLoanPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isPrinting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isPrinting: false
             })
 
         })
@@ -207,7 +248,9 @@ parameter.append('YearTo', YearTovalue);
                 <Grid item xs>
 
                 </Grid>
-
+                <Grid item>
+                    <ButtonExport label="PRINT TO PDF" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
+                </Grid>
                 <Grid item>
                     <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                 </Grid>

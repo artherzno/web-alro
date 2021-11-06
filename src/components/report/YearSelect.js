@@ -8,7 +8,7 @@ export const YearSelect = ({ onChange = () => { },label="ปี" }) => {
     useEffect(() =>{
 
         let max = new Date().getFullYear()
-        let min = max - 14
+        let min = max - 43
         let years = []
 
         for (let i = max; i >= min; i--) {

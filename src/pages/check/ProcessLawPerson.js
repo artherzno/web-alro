@@ -26,7 +26,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TablePagination from '@material-ui/core/TablePagination';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
-import { ButtonExportExcel } from '../../components'
+import { ButtonExport, ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import { format } from 'date-fns';
 import { OverlayLoading } from '../../components'
@@ -140,6 +140,32 @@ class ProcessLawPerson extends React.Component {
 
     }
 
+    getCardLawPdf(contractNo, index) {
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', contractNo);
+
+
+        this.setState({ [index]: true })
+
+        api.getCardLawPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({ [index]: false })
+
+        }).catch(error => {
+
+            this.setState({ [index]: false })
+
+        })
+
+    }
 
     render() {
 
@@ -195,7 +221,7 @@ class ProcessLawPerson extends React.Component {
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
-                                            <ButtonExportExcel label="พิมพ์ลูกหนี้รายตัว" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
+                                            <ButtonExportExcel label="EXPORT TO EXCEL" handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting}/>
                                         </Grid>
 
                                     </Grid>
@@ -210,6 +236,7 @@ class ProcessLawPerson extends React.Component {
                                             <TableHead>
                                                 <TableRow>
                                                     <StyledTableCell align="center" minWidth={50}><Checkbox /></StyledTableCell>
+                                                    <StyledTableCell align="center" padding="checkbox" minWidth={50}><Checkbox /></StyledTableCell>
                                                     <StyledTableCell align="center">mid</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">Projcode</StyledTableCell>
@@ -292,6 +319,7 @@ class ProcessLawPerson extends React.Component {
                                                     return (
                                                         <TableRow key={index}>
                                                             <StyledTableCellLine align="left"><Checkbox /></StyledTableCellLine>
+                                                            <StyledTableCellLine align="right" > <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardLawPdf(element.rentno, index) }} loading={this.state[index]} /></StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mid}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projcode}</StyledTableCellLine>
