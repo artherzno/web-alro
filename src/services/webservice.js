@@ -203,6 +203,125 @@ const api = {
             }
         })
     },
+    getCardLawPdf(params) {
+        return post({
+            path: "api/report/pdf/GetCardLawPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getRequestLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetRequestLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummaryRequestLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryRequestLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSignPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSignPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getFarmerPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetFarmerPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummaryFarmerPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryFarmerPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getNewFarmerPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetNewFarmerPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getNewSummaryFarmerPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetNewSummaryFarmerPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummaryPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    
+    getSummaryProjPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryProjPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummarySignPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummarySignPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSignByProjPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSignByProjPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    
     exportSummayPayloanExcel(params) {
 
         return post({

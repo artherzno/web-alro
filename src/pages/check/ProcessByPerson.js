@@ -239,6 +239,7 @@ class ProcessByPerson extends React.Component {
                                             <TableHead>
                                                 <TableRow>
                                                     <StyledTableCell align="center" padding="checkbox" minWidth={50}><Checkbox /></StyledTableCell>
+                                                    <StyledTableCell align="center" >ดูการ์ด</StyledTableCell>
                                                     <StyledTableCell align="center">mid</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
                                                     <StyledTableCell align="center">Projcode</StyledTableCell>
@@ -310,7 +311,7 @@ class ProcessByPerson extends React.Component {
                                                     <StyledTableCell align="center">Remarks</StyledTableCell>
                                                     <StyledTableCell align="center">K_capital</StyledTableCell>
                                                     <StyledTableCell align="center">K_interest</StyledTableCell>
-                                                    <StyledTableCell align="center">ดูการ์ด</StyledTableCell>
+                                                    
                                                 </TableRow>
 
                                             </TableHead>
@@ -320,6 +321,7 @@ class ProcessByPerson extends React.Component {
                                                     return (
                                                         <TableRow key={index}>
                                                             <StyledTableCellLine align="left"><Checkbox /></StyledTableCellLine>
+                                                            <StyledTableCellLine align="right" > <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf(element.rentno, index) }} loading={this.state[index]} /></StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mid}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projcode}</StyledTableCellLine>
@@ -391,7 +393,7 @@ class ProcessByPerson extends React.Component {
                                                             <StyledTableCellLine align="left">{element.remarks}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kCapital)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kInterest)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="right"> <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf(element.rentno, index) }} loading={this.state[index]} /></StyledTableCellLine>
+                                                            
 
 
 

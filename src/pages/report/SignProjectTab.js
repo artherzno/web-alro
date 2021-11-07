@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect,TypeContractSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect, TypeContractSelect } from '../../components/report'
 import { DatePicker, SortCheck, DisplayCheck, MainProjectSelect, SecondProjectSelect, LoanTypeSelect, LoanderTypeSelect, ObjectiveLoanSelect, LoanPlanSelect, BorrowTypeSelect } from '../../components/check'
 
 import Typography from '@material-ui/core/Typography';
@@ -14,14 +14,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles, withStyles} from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
-import { ButtonExportExcel } from '../../components'
+import { ButtonExport, ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
 import { OverlayLoading } from '../../components'
@@ -57,7 +57,7 @@ class SignProjectTab extends React.Component {
             page: 0,
             count: 10,
             totalResult: 0,
-
+            isPrinting: false
         }
     }
 
@@ -69,20 +69,20 @@ class SignProjectTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate, resultRequest,resultMainProj } = this.state
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, resultRequest, resultMainProj } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result",resultRequest);
-        parameter.append("ProjMain",resultMainProj);
-        
+        parameter.append("Result", resultRequest);
+        parameter.append("ProjMain", resultMainProj);
+
 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
@@ -105,19 +105,19 @@ parameter.append('YearTo', YearTovalue);
 
     exportExcel() {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate, resultRequest ,resultMainProj} = this.state
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, resultRequest, resultMainProj } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result",resultRequest);
-        parameter.append("ProjMain",resultMainProj)
+        parameter.append("Result", resultRequest);
+        parameter.append("ProjMain", resultMainProj)
 
         this.setState({
             isExporting: true
@@ -140,6 +140,50 @@ parameter.append('YearTo', YearTovalue);
 
             this.setState({
                 isExporting: false
+            })
+
+        })
+
+    }
+
+    printPDF() {
+
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, resultRequest, resultMainProj } = this.state
+
+        const parameter = new FormData()
+        parameter.append('LevelDisplay1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('YearTo', YearTovalue);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('LevelDisplay2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+        parameter.append("Result", resultRequest);
+        parameter.append("ProjMain", resultMainProj)
+
+
+        this.setState({
+            isPrinting: true
+        })
+
+        api.getSignByProjPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isPrinting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isPrinting: false
             })
 
         })
@@ -200,8 +244,8 @@ parameter.append('YearTo', YearTovalue);
                                         display2: event.target.value,
                                         month: "",
                                         year: "",
-            YearTovalue: "",
-            YearToLabel: "",
+                                        YearTovalue: "",
+                                        YearToLabel: "",
                                         startDate: "",
                                         endDate: "",
                                         yearLabel: "",
@@ -238,54 +282,54 @@ parameter.append('YearTo', YearTovalue);
 
                                 }}
                                 onChangeYear={(event) => {
-                                        this.setState({
-                                            year: event.target.value,
-                                            yearLabel: event.target.value
-                                        }, () => {
-                                        })
-                                    }}
-                                    onChangeYearEnd={(event) => {
-                                        this.setState({
-                                            YearTovalue: event.target.value,
-                                            YearToLabel: event.target.value
-                                        }, () => {
-                                        })
-                                    }}
+                                    this.setState({
+                                        year: event.target.value,
+                                        yearLabel: event.target.value
+                                    }, () => {
+                                    })
+                                }}
+                                onChangeYearEnd={(event) => {
+                                    this.setState({
+                                        YearTovalue: event.target.value,
+                                        YearToLabel: event.target.value
+                                    }, () => {
+                                    })
+                                }}
                             />
                         </Grid>
-                        
+
                     </Grid>
                 </Grid>
                 <Grid item>
-                            <MainProjectSelect onChange={(event) =>{
+                    <MainProjectSelect onChange={(event) => {
 
-                                this.setState({
-                                    resultMainProj: event.target.value,
-                                    resultMainProjLabel: event.target.label
-                                }, () => {
-                                })
+                        this.setState({
+                            resultMainProj: event.target.value,
+                            resultMainProjLabel: event.target.label
+                        }, () => {
+                        })
 
-                            }}/>
+                    }} />
                 </Grid>
                 <Grid item>
-                            <TypeContractSelect onChange={(event) =>{
+                    <TypeContractSelect onChange={(event) => {
 
-                                this.setState({
-                                    resultRequest: event.target.value,
-                                    resultLabel: event.target.label
-                                }, () => {
-                                })
+                        this.setState({
+                            resultRequest: event.target.value,
+                            resultLabel: event.target.label
+                        }, () => {
+                        })
 
-                            }}/>
+                    }} />
                 </Grid>
-                
+
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
                 </Grid>
 
             </Grid>
-           
+
             <div>
                 <Box mt={5} mb={5}>
                     <Typography variant="h6" align="center">รายงานการทำสัญญารายโครงการ {`${this.state.provinceZoneLabel}`}</Typography>
@@ -296,7 +340,9 @@ parameter.append('YearTo', YearTovalue);
                 <Grid item xs>
 
                 </Grid>
-
+                <Grid item>
+                    <ButtonExport label="PRINT TO PDF" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
+                </Grid>
                 <Grid item>
                     <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                 </Grid>

@@ -67,7 +67,7 @@ class RealPay extends React.Component {
         parameter.append('Date', Date);
         parameter.append('ContractNo', ContractNo);
         parameter.append('ProjName', ProjName);
-        parameter.append('RetrieveYear', RetrieveYear);
+        parameter.append('RetrieveYear', RetrieveYear || "");
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
@@ -99,7 +99,7 @@ class RealPay extends React.Component {
         parameter.append('Date', Date);
         parameter.append('ContractNo', ContractNo);
         parameter.append('ProjName', ProjName);
-        parameter.append('RetrieveYear', RetrieveYear);
+        parameter.append('RetrieveYear', RetrieveYear || "");
         parameter.append('Order', Order);
         parameter.append('Display', Display);
 
