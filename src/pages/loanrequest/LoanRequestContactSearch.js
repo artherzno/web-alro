@@ -373,7 +373,7 @@ function LoanRequestContactSearch() {
                                     </Grid>
 
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่คำขอ" name="Name" value={inputData.ApplicantNo} onChange={handleInputData}  />
+                                        <MuiTextfield label="เลขที่คำขอ" name="ApplicantNo" value={inputData.ApplicantNo} onChange={handleInputData}  />
                                         {/* <p>วันที่ครบกำหนดชำระหนี้</p>
                                         <div className="select-date-option">
                                             <MuiSelectDay label="" name="dd" value={inputSelectDate.dd} onChange={handleSelectDate} />
