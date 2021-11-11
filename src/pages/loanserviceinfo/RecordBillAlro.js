@@ -167,8 +167,7 @@ function RecordBillAlro() {
             const beforeProcess = dataBeforeProcess[dataBeforeProcess.length - 1]
             const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
-            const interest = parseFloat(beforeProcess.FineKang) + (beforRectData ? beforRectData.InterestKang2 - beforeProcess.InterestKang2 : beforRectData.InterestKang2) //parseFloat(totalPaid) >= beforeProcess.InterestKang2 ? beforeProcess.InterestKang2 : totalPaid
-            formikRef.current.setFieldValue("InterestPaid", interest  )
+            
             
             const kange = beforRectData ? beforRectData.InterestKang2 : 0
             const overdue = parseFloat(totalPaid) >= kange ? kange : totalPaid
@@ -176,7 +175,13 @@ function RecordBillAlro() {
 
             const dueInterest = parseFloat(totalPaid) - kange 
             const recDueInterest = beforRectData ? beforeProcess.InterestKang2 - beforRectData.InterestKang2 : beforeProcess.InterestKang2
-            formikRef.current.setFieldValue("DueInterest", dueInterest > 0 ? (dueInterest >= recDueInterest ? recDueInterest : dueInterest ) : 0)
+            const dueInterestValue = dueInterest > 0 ? (dueInterest >= recDueInterest ? recDueInterest : dueInterest) : 0
+
+            formikRef.current.setFieldValue("DueInterest", dueInterestValue )
+
+
+            const interest = overdue + dueInterestValue
+            formikRef.current.setFieldValue("InterestPaid", interest)
 
             formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : overdue)  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
