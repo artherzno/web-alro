@@ -1251,6 +1251,55 @@ const MuiUpload = (props) => {
     );
 }
 
+const MuiUploadDat = (props) => {
+    const classes = useStyles();
+    const { label, fileUpload, id, onChange, name, onClick } = props;
+
+    return (
+        <FormControl className={classes.boxDashed}>
+            {
+                (label) === '' ? '' : <label>{label}</label>
+            }
+            {
+                fileUpload ?
+                    <List className={classes.lists}>
+                        {fileUpload.map((item, i) =>
+                            <ListItem key={i}>
+                                <ListItemIcon>
+                                    <AttachFileIcon className={classes.iconGreen} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={item}
+                                />
+                                <ListItemSecondaryAction>
+                                    <IconButton edge="end" aria-label="delete" onClick={onClick} >
+                                        <RemoveCircleOutlineIcon color="secondary" style={{ color: '#da2828' }} />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        )}
+
+                    </List>
+                    : ''
+            }
+            <input
+                accept="DAT/*"
+                className={classes.inputfile}
+                id={id}
+                multiple
+                type="file"
+                onChange={onChange}
+                name={name}
+            />
+            <label htmlFor={id} className="btn-upload">
+                <Button variant="contained" className={classes.buttonOutlinePrimary} color="primary" component="span">
+                    เลือกไฟล์
+                </Button>
+            </label>
+        </FormControl>
+    );
+}
+
 const ButtonNormalIconStartPrimary = (props) => {
     const classes = useStyles();
     const { label, maxWidth, startIcon, onClick } = props;
@@ -1325,7 +1374,7 @@ const ButtonFluidColor = (props) => {
     const classes = useStyles();
     const { label, maxWidth, onClick, color } = props;
 
-    console.warn(color)
+    // console.warn(color)
     let bgColor =  (color === 'yellow') ? classes.buttonYellow : (color === 'red') ? classes.buttonRed : (color === 'bluesky') ? classes.buttonBluesky : (color === 'grey') ? classes.buttonGrey : (color === 'greylight') ? classes.buttonGrey :'';
     return (
         <Button className={classes.buttonFluid + ' ' + bgColor} variant="contained" color="primary" size="large" onClick={onClick} style={{ maxWidth: maxWidth }}>{label}</Button>
@@ -1381,6 +1430,7 @@ export {
     MuiSelectMonth,
     MuiSelectYear,
     MuiUpload,
+    MuiUploadDat,
     ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,
     ButtonNormalIconStartSecondary,
