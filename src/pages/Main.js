@@ -90,6 +90,8 @@ import PrintBillOtherBank from './loanserviceinfo/PrintBillOtherBank';
 import PayFromOtherBank from './loanserviceinfo/PayFromOtherBank';
 import UploadFile from './upload/UploadFile';
 import PrintForm from './printform/PrintForm';
+import GuaranteeBookA from './loanrequest/GuaranteeBookA';
+import GuaranteeBookB from './loanrequest/GuaranteeBookB';
 
 
 
@@ -126,6 +128,8 @@ function Main() {
                     <Route path="/loanrequest/recorddebtcontract" component={RecordDebtContract} />
                     <Route path="/loanrequest/recorddebtpayment" component={RecordDebtPayment} />
                     <Route path="/loanrequest/printcontractdebt" component={PrintContractDebt} />
+                    <Route path="/loanrequest/guaranteebooka" component={GuaranteeBookA} />
+                    <Route path="/loanrequest/guaranteebookb" component={GuaranteeBookB} />
                     {/* Loan Service Info Page */}
                     <Route path="/loanserviceinfo/recordbillalro" component={RecordBillAlro} />
                     <Route path="/loanserviceinfo/recordbillclose" component={RecordBillClose} />

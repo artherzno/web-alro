@@ -33,7 +33,17 @@ const listmenu = [
             {
                 subtitle: 'ตรวจสอบคำขอกู้ยืมเงิน / แก้ไข',
                 subpath: '/loanrequest/loanrequestcontactsearch'
+            },{
+                subtitle: 'สร้าง / พิมพ์ หนังสือสัญญาค้ำประกัน ก',
+                subpath: '/loanrequest/guaranteebooka'
+            },{
+                subtitle: 'สร้าง / พิมพ์ หนังสือสัญญาค้ำประกัน ข',
+                subpath: '/loanrequest/guaranteebookb'
             },
+            // {
+            //     subtitle: 'หนังสือให้ความยินยอมของคู่สมรส',
+            //     subpath: '/loanrequest/guaranteebookspouse'
+            // },
             // {
             //     subtitle: 'ยื่นคำขอกู้ยืมเงิน',
             //     subpath: '/loanrequest/loanrequestcontact'
