@@ -1011,7 +1011,7 @@ function AddFarmer(props) {
                     <Container maxWidth="sm">
                         <Grid container spacing={2}>
                                 <Grid item xs={12} md={12} className="title-page">
-                                    <h1>เพิ่มเกษตรกร</h1>
+                                    <h1>เพิ่มข้อมูลสมาชิก</h1>
                                 </Grid>
 
                                 <form id="addFarmerForm" className="root" noValidate autoComplete="off">

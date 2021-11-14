@@ -48,6 +48,7 @@ function UploadInfoBaac() {
 
     const [confirmDatCode1, setConfirmDatCode1] = useState(false)
     const [confirmDatCode9, setConfirmDatCode9] = useState(false)
+    const [msgCode9, setMsgCode9] = useState('')
 
     const [loaded, setLoaded] = useState(false);
     const [inputData, setInputData] = useState({
@@ -64,7 +65,7 @@ function UploadInfoBaac() {
         'time', 
         'ref1', 
         'ref2',
-        'ref3',
+        // 'ref3',
         'customer',
         'br', 
         'channel',
@@ -80,7 +81,7 @@ function UploadInfoBaac() {
         { id: 'time', numeric: false, disablePadding: true, widthCol: '140px', label: 'TIME' },
         { id: 'ref1', numeric: false, disablePadding: false, widthCol: '150px', label: 'REF 1' },
         { id: 'ref2', numeric: false, disablePadding: false, widthCol: '180px', label: 'REF 2' },
-        { id: 'ref3', numeric: false, disablePadding: false, widthCol: '150px', label: 'REF 3' },
+        // { id: 'ref3', numeric: false, disablePadding: false, widthCol: '150px', label: 'REF 3' },
         { id: 'customer', numeric: false, disablePadding: false, widthCol: '150px', label: 'CUSTOMER' },
         { id: 'br', numeric: false, disablePadding: false, widthCol: '150px', label: 'BR' },
         { id: 'channel', numeric: false, disablePadding: false, widthCol: '150px', label: 'CHANNEL' },
@@ -92,8 +93,8 @@ function UploadInfoBaac() {
         { id: 'comm', numeric: false, disablePadding: false, widthCol: '150px', label: 'COMM.' },
     ]
 
-    function createData(time,ref1,ref2,ref3,customer,br,channel,term,sof,amount,fee,rev,comm) {
-        return {time,ref1,ref2,ref3,customer,br,channel,term,sof,amount,fee,rev,comm}
+    function createData(time,ref1,ref2,/*ref3,*/customer,br,channel,term,sof,amount,fee,rev,comm) {
+        return {time,ref1,ref2,/*ref3,*/customer,br,channel,term,sof,amount,fee,rev,comm}
     }
 
     useEffect(() => {
@@ -187,6 +188,7 @@ function UploadInfoBaac() {
                         setConfirmDatCode1(true)
                         setConfirmDatCode9(false)
                     } else if(data.code === 9) {
+                        setMsgCode9(data.message)
                         setConfirmDatCode9(true)
                         setConfirmDatCode1(false)
                     } else {
@@ -303,7 +305,7 @@ function UploadInfoBaac() {
                         {
                         isLoading ? 
                             <div className="overlay">
-                                <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                                <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังอัพโหลดข้อมูล...</p>
                             </div> 
                             : 
                             <React.Fragment>
@@ -316,13 +318,13 @@ function UploadInfoBaac() {
                                                     {/* <h2>ผลการค้นหา {(tableResult.length).toLocaleString('en-US') || 0} รายการ</h2> */}
                                                     <h2 className="mg-b-15">ผลการ upload file&nbsp;
                                                     {
-                                                        confirmDatCode9? <span className="txt-red">( ข้อมูลไม่ถูกต้อง )</span> : confirmDatCode1? <span className="txt-green">( ข้อมูลถูกต้อง )</span> : null
+                                                        confirmDatCode9? <span className="txt-red">{msgCode9}</span> : confirmDatCode1? <span className="txt-green">( ข้อมูลถูกต้อง )</span> : null
                                                     }
                                                     </h2> 
                                                     <Divider/>
                                                 </Grid>
         
-                                                <Grid item xs={12} md={1}>
+                                                {/* <Grid item xs={12} md={1}>
                                                     <p>REPORT</p>
                                                 </Grid>
                                                 <Grid item xs={12} md={8}>
@@ -330,20 +332,20 @@ function UploadInfoBaac() {
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <p>PAGE {!!header.PAGE?header.PAGE:''}</p>
-                                                </Grid>
+                                                </Grid> */}
         
                                                 <Grid item xs={12} md={1}>
                                                     <p>DATE</p>
                                                 </Grid>
-                                                <Grid item xs={12} md={5}>
-                                                    <p>{!!header.DATE?header.DATE:''}</p>
+                                                <Grid item xs={12} md={11}>
+                                                    <p>{!!header.Payment_Date?header.Payment_Date.substring(0,2)+'/'+header.Payment_Date.substring(2,4)+'/'+header.Payment_Date.substring(4,8):''}</p>
                                                 </Grid>
-                                                <Grid item xs={12} md={3}>
+                                                {/* <Grid item xs={12} md={3}>
                                                     <p>PRINT DATE {!!header.PRINT_DATE?header.PRINT_DATE:''}</p>
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <p>PRINT TIME {!!header.PRINT_TIME?header.PRINT_TIME:''}</p>
-                                                </Grid>
+                                                </Grid> */}
         
                                                 <Grid item xs={12} md={1}>
                                                     <p>COMANY</p>
@@ -380,16 +382,16 @@ function UploadInfoBaac() {
                                                                     <TableCell align="center">TIME</TableCell>
                                                                     <TableCell align="center" style={{minWidth: '100px'}}>REF 1</TableCell>
                                                                     <TableCell align="center" style={{minWidth: '100px'}}>REF 2</TableCell>
-                                                                    <TableCell align="center" style={{minWidth: '100px'}}>REF 3</TableCell>
+                                                                    {/* <TableCell align="center" style={{minWidth: '100px'}}>REF 3</TableCell> */}
                                                                     <TableCell align="center" style={{minWidth: '200px'}}>CUSTOMER</TableCell>
                                                                     <TableCell align="center">BR</TableCell>
-                                                                    <TableCell align="center">CHANNEL</TableCell>
-                                                                    <TableCell align="center">TERM</TableCell>
+                                                                    {/* <TableCell align="center">CHANNEL</TableCell> */}
+                                                                    {/* <TableCell align="center">TERM</TableCell> */}
                                                                     <TableCell align="center">SOF</TableCell>
                                                                     <TableCell align="center">AMOUNT</TableCell>
-                                                                    <TableCell align="center">FEE</TableCell>
-                                                                    <TableCell align="center">REV.</TableCell>
-                                                                    <TableCell align="center">COMM.</TableCell>
+                                                                    {/* <TableCell align="center">FEE</TableCell> */}
+                                                                    {/* <TableCell align="center">REV.</TableCell>
+                                                                    <TableCell align="center">COMM.</TableCell> */}
                                                                 </TableRow>
                                                                 </TableHead>
                                                                 <TableBody>
@@ -417,28 +419,28 @@ function UploadInfoBaac() {
                                                                         key={i}
                                                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                                     >
-                                                                        <TableCell align="center">{!!row.Payment_Time?row.Payment_Time :''}</TableCell>
+                                                                        <TableCell align="center">{!!row.Payment_Time?row.Payment_Time.substring(0,2)+':'+row.Payment_Time.substring(2,4)+':'+row.Payment_Time.substring(4,6):''}</TableCell>
                                                                         <TableCell align="center">{!!row.Reference_Number1?row.Reference_Number1 :''}</TableCell>
                                                                         <TableCell align="center">{!!row.Reference_Number2?row.Reference_Number2 :''}</TableCell>
-                                                                        <TableCell align="center">{!!row.Reference_Number3?row.Reference_Number3 :''}</TableCell>
+                                                                        {/* <TableCell align="center">{!!row.Reference_Number3?row.Reference_Number3 :''}</TableCell> */}
                                                                         <TableCell align="center">{!!row.Customer_Name?row.Customer_Name :''}</TableCell>
                                                                         <TableCell align="center">{!!row.Branch_Code?row.Branch_Code :''}</TableCell>
-                                                                        <TableCell align="center">{!!row.CHANNEL?row.CHANNEL :''}</TableCell>
-                                                                        <TableCell align="center">{!!row.TERM?row.TERM :''}</TableCell>
+                                                                        {/* <TableCell align="center">{!!row.CHANNEL?row.CHANNEL :''}</TableCell> */}
+                                                                        {/* <TableCell align="center">{!!row.TERM?row.TERM :''}</TableCell> */}
                                                                         <TableCell align="center">{!!row.Kind_of_Transaction?row.Kind_of_Transaction:''}</TableCell>
-                                                                        <TableCell align="center">{!!row.AMOUNT?row.AMOUNT :''}</TableCell>
-                                                                        <TableCell align="center">{!!row.FEE?row.FEE :''}</TableCell>
-                                                                        <TableCell align="center">{!!row.REV?row.REV :''}</TableCell>
-                                                                        <TableCell align="center">{!!row.COMM?row.COMM :''}</TableCell>
+                                                                        <TableCell align="center">{!!row.Amount?(Number(row.Amount)/100).toLocaleString() :''}</TableCell>
+                                                                        {/* <TableCell align="center">{!!row.FEE?row.FEE :''}</TableCell> */}
+                                                                        {/* <TableCell align="center">{!!row.REV?row.REV :''}</TableCell>
+                                                                        <TableCell align="center">{!!row.COMM?row.COMM :''}</TableCell> */}
                                                                     </TableRow>
                                                                 ))}
                                                                 <TableRow>
-                                                                    <TableCell align="left" colspan="4">GRAND TOTAL</TableCell>
-                                                                    <TableCell align="center" colspan="5">&nbsp;</TableCell>
-                                                                    <TableCell align="center">AMOUNT</TableCell>
+                                                                    <TableCell align="left" colSpan="3">GRAND TOTAL</TableCell>
+                                                                    <TableCell align="center" colSpan="2">&nbsp;</TableCell>
+                                                                    <TableCell align="center">{!!total.Total_crebit_Amount?(Number(total.Total_crebit_Amount)/100).toLocaleString():''}</TableCell>
                                                                     <TableCell align="center">FEE</TableCell>
-                                                                    <TableCell align="center">REV.</TableCell>
-                                                                    <TableCell align="center">COMM.</TableCell>
+                                                                    {/* <TableCell align="center">REV.</TableCell>
+                                                                    <TableCell align="center">COMM.</TableCell> */}
                                                                 </TableRow>
                                                                 </TableBody>
                                                             </Table>

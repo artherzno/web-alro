@@ -335,7 +335,7 @@ function SearchMemberPage(props) {
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <Box  display="flex" justifyContent="flex-end">
-                                    <ButtonNormalIconStartPrimary label="เพิ่มเกษตรกร" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
+                                    <ButtonNormalIconStartPrimary label="เพิ่มข้อมูลสมาชิก" startIcon={<PersonAddIcon />} onClick={()=>gotoAddMember()} />
                                 </Box>
                             </Grid>
                             <Grid item xs={12} md={12}>
