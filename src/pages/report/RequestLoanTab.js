@@ -341,7 +341,6 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCell align="center">วันที่ยื่นคำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center">สถานะคำขอ</StyledTableCell>
                                     <StyledTableCell align="center">อายุปัจจุบัน</StyledTableCell>
                                     <StyledTableCell align="center">ที่อยู่ตามบัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center">ที่อยู่ที่ติดต่อได้</StyledTableCell>
@@ -378,7 +377,6 @@ parameter.append('YearTo', YearTovalue);
                                             <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqStatus}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.age}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.address2}</StyledTableCellLine>
