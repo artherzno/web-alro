@@ -257,15 +257,7 @@ const api = {
             }
         })
     },
-    getNewFarmerPayLoanPdf(params) {
-        return post({
-            path: "api/report/pdf/GetNewFarmerPayLoanPdf",
-            params,
-            config: {
-                responseType: 'arraybuffer',
-            }
-        })
-    },
+
     getNewSummaryFarmerPayLoanPdf(params) {
         return post({
             path: "api/report/pdf/GetNewSummaryFarmerPayLoanPdf",
@@ -321,7 +313,78 @@ const api = {
             }
         })
     },
-    
+    getBilledPdf(params) {
+        return post({
+            path: "api/report/pdf/GetBilledPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getConvertLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetConvertLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummaryConvertLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryConvertLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getLawSuitPdf(params) {
+        return post({
+            path: "api/report/pdf/GetLawSuitPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummaryLawSuitPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryLawSuitPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSummaryModifyPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSummaryModifyPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getModifyPdf(params) {
+        return post({
+            path: "api/report/pdf/GetModifyPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getNewFarmerPayLoanPdf(params) {
+        return post({
+            path: "api/report/pdf/GetNewFarmerPayLoanPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     exportSummayPayloanExcel(params) {
 
         return post({

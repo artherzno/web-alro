@@ -47,7 +47,8 @@ class ListNewFarmerPayLoanTab extends React.Component {
             page: 0,
             count: 10,
             totalResult: 0,
-            isPrinting:false
+            isPrinting:false,
+            
         }
     }
 

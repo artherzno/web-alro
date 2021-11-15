@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { OverlayLoading } from '../../components'
+import { ButtonExport, OverlayLoading } from '../../components'
 import {
     ButtonFluidPrimary,
 } from '../../components/MUIinputs';
@@ -57,7 +57,8 @@ class Billed extends React.Component {
             receiptTypeLabel: "",
             provinceReiptLabel: "",
             page: 0,
-            count: 10
+            count: 10,
+            isPrinting:false
 
         }
     }
@@ -137,6 +138,51 @@ class Billed extends React.Component {
 
             this.setState({
                 isExporting: false
+            })
+
+        })
+
+    }
+
+    printPDF() {
+
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, receiptType, receiptProvince } = this.state
+
+        const parameter = new FormData()
+        parameter.append('LevelDisplay1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('YearTo', YearTovalue);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('LevelDisplay2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+        parameter.append('ReceiptType', receiptType);
+        parameter.append('ALROProvince', receiptProvince);
+
+
+
+        this.setState({
+            isPrinting: true
+        })
+
+        api.getBilledPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isPrinting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isPrinting: false
             })
 
         })
@@ -304,7 +350,9 @@ class Billed extends React.Component {
                     <Grid item xs>
 
                     </Grid>
-
+                    <Grid item>
+                        <ButtonExport label="PRINT TO PDF" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
+                    </Grid>
                     <Grid item>
                         <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                     </Grid>
