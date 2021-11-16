@@ -40,10 +40,10 @@ const listmenu = [
                 subtitle: 'สร้าง / พิมพ์ หนังสือสัญญาค้ำประกัน ข',
                 subpath: '/loanrequest/guaranteebookb'
             },
-            // {
-            //     subtitle: 'หนังสือให้ความยินยอมของคู่สมรส',
-            //     subpath: '/loanrequest/guaranteebookspouse'
-            // },
+            {
+                subtitle: 'สร้าง / พิมพ์ หนังสือให้ความยินยอมของคู่สมรส',
+                subpath: '/loanrequest/spouseconsentbook'
+            },
             // {
             //     subtitle: 'ยื่นคำขอกู้ยืมเงิน',
             //     subpath: '/loanrequest/loanrequestcontact'

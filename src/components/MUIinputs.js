@@ -1040,6 +1040,91 @@ const MuiSelectObjYearValue = (props) => {
 }
 
 
+const MuiSelectObjProjectYearValue = (props) => {
+    const classes = useStyles();
+    const { topic, label, id, name, value, start, end, onChange, valueYaer } = props;
+
+    let d = new Date();
+    let buddhaYear = 543;
+
+    let curentDate = moment(d).format('YYYY-MM-DD');
+    let Sep30CurrentYear = moment().format('YYYY');
+
+    // console.log(curentDate,'=>',Sep30CurrentYear+'-11-16')
+    // console.log(moment(curentDate).isBefore(Sep30CurrentYear+'-10-16'))
+    // Check FiscalYear if month >= October will increase 1 year
+
+    // let monthNow = d.getMonth();
+    // if(monthNow >= 9) {
+    //     buddhaYear = 544;
+    // }
+    let fullyear = d.getFullYear() + buddhaYear;
+    let yearList = [];
+
+    if(moment(curentDate).isBefore(Sep30CurrentYear+'-10-01')) {
+        yearList.push(
+            // {
+            //     yearname: fullyear + 1,
+            //     yearvalue: (fullyear + 1)-2500
+            // },
+            {
+                yearname: fullyear,
+                yearvalue: (fullyear) - 2500
+            }, 
+            {
+                yearname: fullyear - 1,
+                yearvalue: (fullyear - 1) - 2500
+            }, 
+            {
+                yearname: fullyear - 2,
+                yearvalue: (fullyear - 2) - 2500
+            }
+        );
+    } else {
+        yearList.push(
+            {
+                yearname: fullyear + 1,
+                yearvalue: (fullyear + 1) - 2500
+            },
+            {
+                yearname: fullyear,
+                yearvalue: (fullyear) - 2500
+            }, 
+            {
+                yearname: fullyear - 1,
+                yearvalue: (fullyear - 1) - 2500
+            }
+        );
+
+    }
+
+
+
+    return (
+        <FormControl className={classes.textbox}>
+            {
+                (label) === '' ? '' :
+
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <Select
+                value={value}
+                name={name}
+                labelId={id}
+                id={id}
+                input={<BootstrapInput />}
+                onChange={onChange}
+            >
+                <MenuItem value={0}>กรุณาเลือก</MenuItem>
+                {yearList.map((item, i) =>
+                    <MenuItem key={i} value={item.yearvalue}>{item.yearname}</MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    );
+}
+
+
 const MuiSelectObjYearStart = (props) => {
     const classes = useStyles();
     const { topic, label, id, name, value, onChange, valueStartYaer } = props;
@@ -1425,6 +1510,7 @@ export {
     MuiSelectSubDistrict,
     MuiSelectObjYear,
     MuiSelectObjYearValue,
+    MuiSelectObjProjectYearValue,
     MuiSelectObjYearStart,
     MuiSelectDay,
     MuiSelectMonth,

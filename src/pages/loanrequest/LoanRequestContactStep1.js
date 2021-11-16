@@ -37,6 +37,7 @@ import {
     MuiSelectObj, 
     MuiSelectObjYear,
     MuiSelectObjYearValue,
+    MuiSelectObjProjectYearValue,
     MuiSelectSubDistrict,
     MuiSelectDistrict,
     MuiSelectProvince,
@@ -1244,7 +1245,7 @@ function LoanRequestContactStep1(props) {
                                                     <MuiTextfield label="เรียน" inputdisabled="input-disabled" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                    <MuiSelectObjProjectYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
                                                         {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}

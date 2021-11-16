@@ -265,7 +265,7 @@ function UploadInfoBaac() {
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={12} className="title-page"> 
                                     <h1>โอนข้อมูลจาก ธ.ก.ส. จาก upload</h1>
-                                    <h2 className="txt-red mg-t-20 txt-regular">ต้องประมวล ณ วันที่ ก่อน upload file จากธนาคาร</h2>
+                                    {/* <h2 className="txt-red mg-t-20 txt-regular">ต้องประมวล ณ วันที่ ก่อน upload file จากธนาคาร</h2> */}
                                 </Grid>
                                 <Grid item xs={12} md={12} className="mg-t-10">
                                     <Grid container spacing={2}>

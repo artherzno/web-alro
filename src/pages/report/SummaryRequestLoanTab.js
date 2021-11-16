@@ -356,16 +356,16 @@ parameter.append('YearTo', YearTovalue);
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="left">{farmer.months}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalLoanReq}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalLoanReq)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalLoanReq2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalLoanReq3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalLoanReq4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalLoanReq5}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount5)}</StyledTableCellLine>
                                         </TableRow>
                                     )
                                 })}
@@ -374,16 +374,16 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine colSpan={1} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalLoanReq)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalLoanReq}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalLoanReq2}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalLoanReq3}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount3)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalLoanReq4}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount4)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalLoanReq5}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount5)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>
