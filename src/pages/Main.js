@@ -92,6 +92,7 @@ import UploadFile from './upload/UploadFile';
 import PrintForm from './printform/PrintForm';
 import GuaranteeBookA from './loanrequest/GuaranteeBookA';
 import GuaranteeBookB from './loanrequest/GuaranteeBookB';
+import SpouseConsentBook from './loanrequest/SpouseConsentBook';
 
 
 
@@ -130,6 +131,7 @@ function Main() {
                     <Route path="/loanrequest/printcontractdebt" component={PrintContractDebt} />
                     <Route path="/loanrequest/guaranteebooka" component={GuaranteeBookA} />
                     <Route path="/loanrequest/guaranteebookb" component={GuaranteeBookB} />
+                    <Route path="/loanrequest/spouseconsentbook" component={SpouseConsentBook} />
                     {/* Loan Service Info Page */}
                     <Route path="/loanserviceinfo/recordbillalro" component={RecordBillAlro} />
                     <Route path="/loanserviceinfo/recordbillclose" component={RecordBillClose} />
