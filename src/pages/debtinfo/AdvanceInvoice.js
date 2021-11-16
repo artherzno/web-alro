@@ -45,6 +45,8 @@ import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
 import { ButtonExport, OverlayLoading } from '../../components';
 import { getAccount } from '../../utils/Auth';
+import { Button, Modal } from '@material-ui/core';
+import { Form, Formik } from 'formik';
 
 
 function AdvanceInvoice(props) {
@@ -73,7 +75,9 @@ function AdvanceInvoice(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [isExporting, setIsExporting] = useState(false)
     const [isExporting1, setIsExporting1] = useState(false)
+    const [showModal, setShowModal] = useState(false)
 
+    const formikRef = useRef();
 
     useEffect(() => {
         setLoaded(true);
@@ -185,6 +189,34 @@ function AdvanceInvoice(props) {
 
     }
 
+    function getAdvanceInvoicePdf(values) {
+
+        const parameter = new FormData()
+        parameter.append('invoiceno', values.invoiceno);
+        parameter.append('save_date', values.save_date);
+        parameter.append('invoice_date', values.invoice_date);
+
+        setIsExporting(true)
+
+        api.getAdvanceInvoicePdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            setIsExporting(false)
+
+        }).catch(error => {
+
+            setIsExporting(false)
+
+        })
+
+    }
+
     function getAdvanceInvoiceLabelPdf() {
 
         const parameter = new FormData()
@@ -264,7 +296,11 @@ function AdvanceInvoice(props) {
                                 <Grid container spacing={2}>
                                     {/* <Grid item xs={12} md={2} className={`mg-t-10  ${printActive ? '' : 'btn-disabled'}`}> */}
                                     <Grid item xs={12} md={2}>
-                                        <ButtonExport label="พิมพ์ใบแจ้งหนี้" handleButtonClick={() => { exportDebtSettlement() }} loading={isExporting} />
+                                        <ButtonExport label="พิมพ์ใบแจ้งหนี้" handleButtonClick={() => { 
+                                            // exportDebtSettlement() 
+                                            setShowModal(true)
+
+                                            }} loading={isExporting} />
                                     </Grid>
                                     <Grid item xs={12} md={2} >
                                         <ButtonExport label="พิมพ์ Lable" handleButtonClick={() => { getAdvanceInvoiceLabelPdf() }} loading={isExporting1} />
@@ -421,11 +457,135 @@ function AdvanceInvoice(props) {
                 </div>
             </Fade>
 
+            <Modal
+                open={showModal}
+                onClose={() => {
+                    setShowModal(false)
+                }}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div>พิมพ์ใบแจ้งหนี้</div>
+                    <Box mt={1}>
+                        <hr />
+                    </Box>
+
+                    <Box mt={3}>
+                        <Formik
+                            enableReinitialize={true}
+                            innerRef={formikRef}
+                            initialValues={{
+                                invoiceno: '',
+                                save_date: '',
+                                invoice_date:''
+                            }}
+                            validate={values => {
+                                const requires = ['invoiceno', 'save_date','invoice_date']
+                                let errors = {};
+                                requires.forEach(field => {
+                                    if (!values[field]) {
+                                        errors[field] = 'Required';
+                                    }
+                                });
+
+
+                                return errors;
+                            }}
+                            onSubmit={(values, actions) => {
+
+                                setShowModal(false)
+                                getAdvanceInvoicePdf(values)
+
+                            }}
+                            render={(formik) => {
+
+                                const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
+                                return (
+                                    <Form>
+                                        <MuiDatePicker
+                                            name="save_date"
+                                            value={values.save_date}
+                                            error={errors.save_date}
+                                            helperText={errors.save_date}
+                                            onChange={(event) => {
+                                                setFieldValue("save_date", moment(event).format("YYYY-MM-DD"))
+                                            }}
+                                            onChangeDate={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="วันที่บันทึก"
+                                            label="วันที่บันทึก"
+                                        />
+                                        <MuiTextfield
+                                            name="invoiceno"
+                                            value={values.invoiceno}
+                                            error={errors.invoiceno}
+                                            helperText={errors.invoiceno}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="เลขที่ใบแจ้งหนี้"
+                                            label="เลขที่ใบแจ้งหนี้"
+                                            requires
+                                        />
+
+                                        <MuiDatePicker
+                                            name="invoice_date"
+                                            value={values.invoice_date}
+                                            error={errors.invoice_date}
+                                            helperText={errors.invoice_date}
+                                            onChange={(event) => {
+                                                setFieldValue("invoice_date", moment(event).format("YYYY-MM-DD"))
+                                            }}
+                                            onChangeDate={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="วันที่ออกใบแจ้งหนี้"
+                                            label="วันที่ออกใบแจ้งหนี้"
+                                        />
+
+                                    </Form>
+                                )
+                            }}
+                        />
+                    </Box>
+
+                    <Box mt={2} mb={2}>
+                        <hr />
+                    </Box>
+
+                    <Grid container spacing={2} justifyContent="flex-end">
+                        <Grid item>
+                            <Button variant="outlined" onClick={() => {
+
+                                setShowModal(false)
+
+                            }}>ยกเลิก</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" onClick={() => {
+                                formikRef.current.handleSubmit()
+
+                            }}>ยืนยัน</Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Modal>
 
 
 
         </div>
     )
 }
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    borderRadius: 2,
+    boxShadow: 24,
+    p: 4,
+};
 
 export default AdvanceInvoice

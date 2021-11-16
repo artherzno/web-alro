@@ -85,7 +85,7 @@ function RecordBillAlro() {
 
     }
 
-    function getReceiptSelectData(values) {
+    function getReceiptData(values) {
 
         const account = getAccount()
         // const parameter = new FormData()
@@ -99,13 +99,41 @@ function RecordBillAlro() {
             LoanNumber: values.LoanNumber,
             Fullname: values.Fullname,
             Username: account.cUsername,
-            Rentno: '',
-            Date: ''
+        }
+
+        api.getReceiptlectData(parameter).then(response => {
+
+            setResultList(response.data)
+            setIsLoading(false)
+            console.log("response", response.data)
+        }).catch(error => {
+            setIsLoading(false)
+        })
+
+
+    }
+
+    function getReceiptSelectData(loanNumber) {
+
+        const account = getAccount()
+        // const parameter = new FormData()
+        // parameter.append('LoanNumber', values.LoanNumber);
+        // parameter.append('Fullname', values.Fullname);
+        // parameter.append('Username', account.username);
+        // parameter.append('Rentno', "");
+        // parameter.append('Date', "");
+        setIsLoading(true)
+        const parameter = {
+            LoanNumber: loanNumber,
+            Username: account.cUsername,
         }
 
         api.getReceiptSelectData(parameter).then(response => {
 
-            setResultList(response.data)
+            if (response.data.length > 0){
+                setSelectedData(response.data[0])
+            }
+           
             setIsLoading(false)
             console.log("response", response.data)
         }).catch(error => {
@@ -159,26 +187,32 @@ function RecordBillAlro() {
 
     function calculatePaid(totalPaid){
 
-        const PrinciplePaid = (parseFloat(totalPaid) - (parseFloat(selectedData.Interest) + parseFloat(selectedData.ChargeRate)))
-        formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0 )
+        
+        
 
         if(dataBeforeProcess.length > 0){
 
             const beforeProcess = dataBeforeProcess[dataBeforeProcess.length - 1]
-            const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
+            console.log("beforeProcess", beforeProcess)
+            const beforRectData = dataBeforeProcess.length >= 2 ? dataBeforeProcess[dataBeforeProcess.length - 2] : null
 
-            
+            console.log("beforRectData", beforRectData)
             
             const kange = beforRectData ? beforRectData.InterestKang2 : 0
-            const overdue = parseFloat(totalPaid) >= kange ? kange : totalPaid
-            formikRef.current.setFieldValue("OverdueInterest", overdue)
+            // const overdue = parseFloat(totalPaid) >= kange ? kange : totalPaid
+            const overdue = beforRectData ? beforRectData.InterestKang2 : 0
+            console.log("overdue", overdue)
+            formikRef.current.setFieldValue("OverdueInterest", kange)
 
             const dueInterest = parseFloat(totalPaid) - kange 
             const recDueInterest = beforRectData ? beforeProcess.InterestKang2 - beforRectData.InterestKang2 : beforeProcess.InterestKang2
             const dueInterestValue = dueInterest > 0 ? (dueInterest >= recDueInterest ? recDueInterest : dueInterest) : 0
 
-            formikRef.current.setFieldValue("DueInterest", dueInterestValue )
+            formikRef.current.setFieldValue("DueInterest", beforeProcess.InterestKang2 )
 
+
+            const PrinciplePaid = parseFloat(totalPaid) - parseFloat(beforeProcess.InterestKang2)
+            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0)
 
             const interest = overdue + dueInterestValue
             formikRef.current.setFieldValue("InterestPaid", interest)
@@ -1019,12 +1053,6 @@ function RecordBillAlro() {
                                                                             handleChange(e)
                                                                             const check = (parseFloat(values.RecSumInterest) + parseFloat(values.RecOverdueInterest) + parseFloat(values.RecPrincipleBalance))
 
-                                                                            console.log("values.RecSumInterest", values.RecSumInterest)
-                                                                            console.log("values.RecOverdueInterest", values.RecOverdueInterest)
-                                                                            console.log("values.PrincipleBalance2", values.RecPrincipleBalance)
-
-                                                                            console.log("check", check)
-                                                                            console.log("parseFloat(e.target.value)", parseFloat(e.target.value))
 
                                                                             if (parseFloat(e.target.value) === check){
                                                                                 setIsShowClose(true)
@@ -1082,7 +1110,7 @@ function RecordBillAlro() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
+                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างปรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfield
@@ -1092,7 +1120,7 @@ function RecordBillAlro() {
                                                                         helperText={errors.OverdueInterest}
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
-                                                                        placeholder="ดอกเบี้ยค้างรับ"
+                                                                        placeholder="ดอกเบี้ยค้างปรับ"
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1172,7 +1200,7 @@ function RecordBillAlro() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยคงเหลือ</p>
+                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfield
@@ -1242,7 +1270,7 @@ function RecordBillAlro() {
                                                     return errors;
                                                 }}
                                                 onSubmit={(value, actions) => {
-                                                    getReceiptSelectData(value)
+                                                    getReceiptData(value)
                                                 }}
                                                 render={(formik) => {
 
@@ -1305,12 +1333,12 @@ function RecordBillAlro() {
                                                                 <TableCell colSpan={4} align="center">ไม่พบข้อมูล</TableCell>
                                                             </TableRow> : resultList.map((row, i) => (
                                                                 <TableRow key={i} hover={true} role="checkbox" tabIndex={-1} onClick={() => {
-                                                                    setSelectedData(row)
+                                                                    getReceiptSelectData(row.LoanNumber) 
                                                                 }}>
                                                                     <StyledTableCellLine align="left">{row.LoanNumber}</StyledTableCellLine>
                                                                     <StyledTableCellLine align="left">{row.ProjectName}</StyledTableCellLine>
                                                                     <StyledTableCellLine align="left">{row.ProjectPlanYear}</StyledTableCellLine>
-                                                                    <StyledTableCellLine align="left">{moment(row.LoanDate, "YYYY-MM-DD").add(543, 'year').format("DD-MM-YYYY")}</StyledTableCellLine>
+                                                                    <StyledTableCellLine align="left">{moment(row.LoanReceiptDate, "YYYY-MM-DD").add(543, 'year').format("DD-MM-YYYY")}</StyledTableCellLine>
                                                                 </TableRow>
                                                             ))}
 

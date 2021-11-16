@@ -176,6 +176,15 @@ const api = {
             }
         })
     },
+    getAdvanceInvoicePdf(params) {
+        return post({
+            path: "api/report/pdf/GetAdvanceInvoicePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     getFaultConditionByContractPdf(params) {
         return get({
             path: "api/report/pdf/GetFaultConditionByContractPdf",
@@ -954,6 +963,15 @@ const api = {
 
         return post({
             path: "Receipt/GetSelectData",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
+    getReceiptlectData(params) {
+
+        return post({
+            path: "Receipt/GetData",
             params,
             config: { baseURL: REACT_APP_API_HOST_1 },
         })
