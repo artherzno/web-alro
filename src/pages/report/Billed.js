@@ -66,10 +66,10 @@ class Billed extends React.Component {
     componentDidMount() {
 
 
-        this.loadPayLoan()
+        this.loadPayLoan(this.state.page, this.state.count)
     }
 
-    loadPayLoan() {
+    loadPayLoan(page, count) {
 
         const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, receiptType, receiptProvince } = this.state
 
@@ -85,6 +85,9 @@ class Billed extends React.Component {
         parameter.append('ReceiptType', receiptType);
         parameter.append('ALROProvince', receiptProvince);
 
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
+
         this.setState({ isLoading: true })
 
         api.getBilled(parameter).then(response => {
@@ -92,7 +95,9 @@ class Billed extends React.Component {
             this.setState({
                 farmerPayLoanList: response.data.data,
                 dataSummary: response.data.dataSummary,
-                isLoading: false
+                isLoading: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
