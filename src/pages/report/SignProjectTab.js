@@ -354,8 +354,8 @@ class SignProjectTab extends React.Component {
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
@@ -369,8 +369,8 @@ class SignProjectTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="left"> {farmer.province} </StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
+                                            <StyledTableCellLine align="left"> {farmer.province} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.projName} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalContract} </StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.installment} </StyledTableCellLine>
