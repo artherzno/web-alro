@@ -67,7 +67,7 @@ function RecordBillAlro() {
             SPKReceipt:{
                 ...values
             },
-            CloseContact:values.status,
+            CloseContact: values.Status,
             dCreated:null,
             dUpdated:null,
             admin_nMEMID:null
