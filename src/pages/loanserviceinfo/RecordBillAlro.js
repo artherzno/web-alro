@@ -64,7 +64,10 @@ function RecordBillAlro() {
         const account = getAccount()
 
         const parameter = {
-            ...values,
+            SPKReceipt:{
+                ...values
+            },
+            CloseContact:values.status,
             dCreated:null,
             dUpdated:null,
             admin_nMEMID:null
@@ -290,7 +293,7 @@ function RecordBillAlro() {
                                     innerRef={formikRef}
                                     initialValues={{
                                         ReceiptID: "",
-                                        LoanID: selectedData.LoanID,
+                                        LoanID: selectedData.LoaniD,
                                         LoanNumber: selectedData.LoanNumber,
                                         ReceiptNumber: "",
                                         ref_id1: "",
