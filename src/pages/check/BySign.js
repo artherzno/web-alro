@@ -44,6 +44,8 @@ class BySign extends React.Component {
             RetrieveYear:"",
             Order:"",
             Display:"",
+            Name:"",
+            SirName:"",
             data:[],
             page:0,
             count:10,
@@ -59,7 +61,7 @@ class BySign extends React.Component {
 
     loadData(page, count) {
 
-        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
+        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, Name, SirName} = this.state
 
         const parameter = new FormData()
         parameter.append('Date', Date);
@@ -67,6 +69,8 @@ class BySign extends React.Component {
         parameter.append('ProjName', ProjName);
         parameter.append('RetrieveYear', RetrieveYear||"");
         parameter.append('Order', Order);
+        parameter.append('Name', Name);
+        parameter.append('SirName', SirName);
         parameter.append('Display', Display);
 
         parameter.append('Page', page + 1);
@@ -93,7 +97,7 @@ class BySign extends React.Component {
     exportExcel(){
 
         
-        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, } = this.state
+        const { Date, ContractNo, ProjName, RetrieveYear, Order, Display, Name, SirName } = this.state
 
         const parameter = new FormData()
         parameter.append('Date', Date);
@@ -102,7 +106,8 @@ class BySign extends React.Component {
         parameter.append('RetrieveYear', RetrieveYear||'');
         parameter.append('Order', Order);
         parameter.append('Display', Display);
-
+        parameter.append('Name', Name);
+        parameter.append('SirName', SirName);
         
         this.setState({
             isExporting: true
@@ -200,7 +205,13 @@ class BySign extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <DisplayCheck onChange={this.onChange("Display")}/>
                                         </Grid>
-                                        <Grid item xs={12} md={4}></Grid>
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="ชื่อ" onChange={this.onChange("Name")} />
+                                        </Grid>
+                                        <Grid item xs={12} md={3}>
+                                            <MuiTextfield label="นามสกุล" onChange={this.onChange("SirName")} />
+                                        </Grid>
+
                                         <Grid item xs={12} md={2}>
                                             <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                                         </Grid>
