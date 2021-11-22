@@ -232,14 +232,14 @@ function RecordInstallmentPayment() {
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecordCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.LoanNumber}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.RelentNumber}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Ref1}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Ref2}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Order}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Projectcode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.ProjectName}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="left">{element.RelentNumber}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="left">{element.LoanNumber}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.LoanDate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.IDCard}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.FrontName}</StyledTableCellLine>
