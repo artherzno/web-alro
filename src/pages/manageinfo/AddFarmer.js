@@ -983,7 +983,7 @@ function AddFarmer(props) {
                     <MuiTextfieldEndAdornment label="&nbsp;"  defaultValue="" endAdornment="งาน" name="Ngan" />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <MuiTextfieldEndAdornment label="&nbsp;" defaultValue="" endAdornment="วา" name="Wa" />
+                    <MuiTextfieldEndAdornment label="&nbsp;" defaultValue="" unit="wa" endAdornment="วา" name="Wa" />
                 </Grid>
             </Grid>
         );
@@ -1283,7 +1283,7 @@ function AddFarmer(props) {
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Wa}  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Wa} unit="wa"  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1339,7 +1339,7 @@ function AddFarmer(props) {
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand2.Ngan}  endAdornment="งาน" name="Ngan_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand2.Wa}  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand2.Wa} unit="wa"  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1396,7 +1396,7 @@ function AddFarmer(props) {
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand3.Ngan}  endAdornment="งาน" name="Ngan_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand3.Wa}  endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand3.Wa} unit="wa" endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1453,7 +1453,7 @@ function AddFarmer(props) {
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand4.Ngan}  endAdornment="งาน" name="Ngan_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand4.Wa}  endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand4.Wa} unit="wa" endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1510,7 +1510,7 @@ function AddFarmer(props) {
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand5.Ngan}  endAdornment="งาน" name="Ngan_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand5.Wa}  endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand5.Wa} unit="wa" endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 

@@ -89,6 +89,7 @@ const MUItable = (props) => {
       colSpan, 
       hasCheckbox, 
       hasAction, 
+      actionAlign,
       actionView, 
       viewEvent, 
       viewParam, 
@@ -325,19 +326,20 @@ const MUItable = (props) => {
         }
 
         {
-          rowsLabel.map((item,i)=> 
-            <TableCell key={i} align="left">{row[item]} </TableCell>
+          rowsLabel.map((item,i)=> {
             // <TableCell align="left"><div dangerouslySetInnerHTML={createMarkup()} /></TableCell>
+              return (<TableCell key={i} align="left">{row[item]} </TableCell>)
+            }
           )
         }
 
         {
             hasAction ? 
-              <TableCell align="center"  className="sticky">
+              <TableCell align={actionAlign==='right'? 'right': actionAlign==='left'? 'left': 'center'}  className="sticky">
                 {
-                  tableName === 'loanrequestprint' && row['LoanNumber'] ? 
+                  tableName === 'loanrequestprint' && row['LoanID'] ? 
                     <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{loanrequestprintAction('edit'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
-                  : tableName === 'loanrequestprint' && row['LoanNumber'] === '' ?  
+                  : tableName === 'loanrequestprint' && row['LoanID'] === '' ?  
                     <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{loanrequestprintAction('add'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
                   : null
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
@@ -364,7 +366,13 @@ const MUItable = (props) => {
                 }
                 {
                   actionRequest ? 
-                    <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="100px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
+                  <>
+                    {
+                      row['FarmerGrade'] === 'N (มีหนี้ค้าง)' ? null :
+                      <ButtonFluidPrimary label="ยื่นคำขอ" maxWidth="100px" onClick={()=>requestEvent(row[requestParam1], requestParam2)} />
+                      
+                    }
+                  </>
                   : null
                 }
                 {

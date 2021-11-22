@@ -457,7 +457,7 @@ const handleInputData = (event) => {
 }
 
 // Handle Submit ************************************
-    const handleSubmit = (event) => {
+    const handleSubmit = (event,stepNum) => {
         event.preventDefault();
         console.log('submit')
         let Allasset_value = inputData.Allasset.toLocaleString('en-US', {minimumFractionDigits: 2})
@@ -494,7 +494,7 @@ const handleInputData = (event) => {
         formData.delete('mm2')
         formData.delete('yyyy2')
 
-        let url = `${server_hostname}/admin/api/update_applicant_step3`;
+        let url = `${server_hostname}/admin/api/update_applicant_step3${stepNum}`;
         // if(props.action === 'edit') {
         //     url = `${server_hostname}/admin/api/edit_applicant_step3`;
         //     console.log('edit step3 !!!')
@@ -685,13 +685,16 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                         : 
                                         <Grid container spacing={2} className="btn-row mg-t-15">
                                             
-                                            <Grid item xs={12} md={12}>
+                                            <Grid item xs={12} md={6}>
                                                 {
                                                     props.action === 'edit' ? 
-                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3 (ข้อ1)"  onClick={handleSubmit} />
+                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3 (ข้อ1)"  onClick={(e)=>handleSubmit(e,'_1')} />
                                                     :
-                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3 (ข้อ1)"  onClick={handleSubmit} />
+                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3 (ข้อ1)"  onClick={(e)=>handleSubmit(e,'_1')} />
                                                 }
+                                            </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>
                                     } 
@@ -741,18 +744,18 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                         : 
                                         <Grid container spacing={2} className="btn-row mg-t-15">
                                             
-                                            <Grid item xs={12} md={12}>
+                                            <Grid item xs={12} md={8}>
                                                 {
                                                     props.action === 'edit' ? 
-                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3 (ข้อ2)"  onClick={handleSubmit} />
+                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3 (ข้อ2)"  onClick={(e)=>handleSubmit(e,'_2')} />
                                                     :
-                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3 (ข้อ2)"  onClick={handleSubmit} />
+                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3 (ข้อ2)"  onClick={(e)=>handleSubmit(e,'_2')} />
                                                 }
                                             </Grid>
-                                            <Grid item xs={12} md={6}>
+                                            {/* <Grid item xs={12} md={6}> */}
                                                 {/* <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} /> */}
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
-                                            </Grid>
+                                                {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} /> */}
+                                            {/* </Grid> */}
 
                                             {/* <Grid item xs={12} md={6}>
                                                 {
@@ -767,7 +770,7 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                 
                                             </Grid> */}
 
-                                            <Grid item xs={12} md={6}>
+                                            <Grid item xs={12} md={4}>
                                                 <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
                                                 {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} /> */}
                                             </Grid>
@@ -776,9 +779,9 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
 
                                     {/* Check Result from 2.1 */}
                                     {
-                                        inputData.Result === '0' ? 
-                                        '' 
-                                        :
+                                        // inputData.Result === '0' ? 
+                                        // '' 
+                                        // :
                                         <React.Fragment>
                                             {/* Paper 3 - -------------------------------------------------- */}
                                             <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
@@ -883,45 +886,48 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
 
                                     {/* // Action: view */}
                                     {
+                                        // inputData.Result === '0' ? 
+                                        // '' 
+                                        // :
                                         props.action === 'view' ? 
-                                        <Grid container spacing={2} className="btn-row">
-                                            <Grid item xs={12} md={12} className="txt-center">
-                                                <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} maxWidth="180px" color="primary" style={{justifyContent: 'center'}} />
+                                            <Grid container spacing={2} className="btn-row">
+                                                <Grid item xs={12} md={12} className="txt-center">
+                                                    <ButtonFluidPrimary label="ย้อนกลับ" onClick={handleGotoSearch} maxWidth="180px" color="primary" style={{justifyContent: 'center'}} />
+                                                </Grid>
+                                                {/* <Grid item xs={12} md={6}>
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                                </Grid> */}
                                             </Grid>
-                                            {/* <Grid item xs={12} md={6}>
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
-                                            </Grid> */}
-                                        </Grid>
                                         : 
-                                        <Grid container spacing={2} className="btn-row mg-t-15">
-                                            
-                                            <Grid item xs={12} md={8}>
-                                                {
-                                                    props.action === 'edit' ? 
-                                                    <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3 (ข้อ3, 4)"  onClick={handleSubmit} />
-                                                    :
-                                                    <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3 (ข้อ3, 4)"  onClick={handleSubmit} />
-                                                }
-                                            </Grid>
-
-                                            {/* <Grid item xs={12} md={6}>
-                                                {
-                                                    btnPrint || props.action === 'edit' ?  
-                                                        <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
-                                                    : 
-
-                                                        <div style={{opacity: '0.5', pointerEvents: 'none'}}>
-                                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />}  /> 
-                                                        </div>
-                                                }
+                                            <Grid container spacing={2} className="btn-row mg-t-15">
                                                 
-                                            </Grid> */}
+                                                <Grid item xs={12} md={8}>
+                                                    {
+                                                        props.action === 'edit' ? 
+                                                        <ButtonFluidPrimary label="บันทึกแก้ไขข้อมูล ขั้นตอนที่3 (ข้อ3, 4)"  onClick={(e)=>handleSubmit(e,'_3')} />
+                                                        :
+                                                        <ButtonFluidPrimary label="บันทึกข้อมูล ขั้นตอนที่3 (ข้อ3, 4)"  onClick={(e)=>handleSubmit(e,'_3')} />
+                                                    }
+                                                </Grid>
 
-                                            <Grid item xs={12} md={4}>
-                                                <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
-                                                {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} /> */}
+                                                {/* <Grid item xs={12} md={6}>
+                                                    {
+                                                        btnPrint || props.action === 'edit' ?  
+                                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}/> 
+                                                        : 
+
+                                                            <div style={{opacity: '0.5', pointerEvents: 'none'}}>
+                                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />}  /> 
+                                                            </div>
+                                                    }
+                                                    
+                                                </Grid> */}
+
+                                                <Grid item xs={12} md={4}>
+                                                    <ButtonFluidOutlinePrimary label="ถัดไป" onClick={ props.handleComplete} />
+                                                    {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} /> */}
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
                                     } 
 
                                     
