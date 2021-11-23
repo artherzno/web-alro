@@ -823,7 +823,7 @@ function RecordRequestPayment() {
                                                                 realPay = []
                                                             }
                                                             realPay.push({
-                                                                RENTNO: "",
+                                                                RENTNO: selectedData.LoanNumber,
                                                                 DUEDATE: "",
                                                                 PAYREC: ""
                                                             })

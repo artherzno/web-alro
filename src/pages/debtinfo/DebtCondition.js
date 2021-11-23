@@ -601,7 +601,7 @@ function DebtCondition() {
                                                                                         name="ConditionCode"
                                                                                         label="ประเภท"
                                                                                         listsValue={masterCondition.map(master => master.ConditionCode)}
-                                                                                        lists={masterCondition.map(master => master.ConditionCode)}
+                                                                                        lists={masterCondition.map(master => master.ConditionName)}
                                                                                         onChange={(e) =>{
                                                                                             
                                                                                             const master = masterCondition.find(element => element.ConditionCode === e.target.value)
