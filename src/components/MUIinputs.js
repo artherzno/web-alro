@@ -445,7 +445,12 @@ const MuiTextfieldStartAdornment = (props) => {
 
 const MuiTextfieldEndAdornment = (props) => {
     const classes = useStyles();
-    const { topic, label, id, value, type, endAdornment, textAlign, name, onChange, inputdisabled } = props;
+    const { topic, label, unit, id, value, type, endAdornment, textAlign, name, onChange, inputdisabled } = props;
+
+    // let valueUnit = 0;
+    // if(unit === 'wa') {
+    //     valueUnit = Number(unit);
+    // }
 
     return (
         <FormControl className={`${classes.textbox} ${inputdisabled}`}>
@@ -453,7 +458,13 @@ const MuiTextfieldEndAdornment = (props) => {
                 (label) === '' ? '' :
                     <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
             }
-            <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{ style: { textAlign: textAlign } }} />
+            {
+                // unit === 'wa' ? 
+                // <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{ style: { textAlign: textAlign } }} />
+                // :
+                <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{ style: { textAlign: textAlign } }} />
+        
+            }
         </FormControl>
     );
 }

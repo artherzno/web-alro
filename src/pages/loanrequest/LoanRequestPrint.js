@@ -184,7 +184,7 @@ function LoanRequestPrint(props) {
         FarmerInDistrict: '', // "",
         FarmerInProvince: '0', // "",
         Officer: '', // "",
-        OfficerRank: '', // "",
+        OfficerRank: localStorage.getItem('provincename'), // "",
         SPK_Order: '', // "",
         SPK_OrderDate: moment().format(), // "",
         Loan_Obj1: '', // "",
@@ -729,7 +729,7 @@ function LoanRequestPrint(props) {
                             FarmerInDistrict: '', // "",
                             FarmerInProvince: '0', // "",
                             Officer: '', // "",
-                            OfficerRank: '', // "",
+                            OfficerRank: localStorage.getItem('provincename'), // "",
                             SPK_Order: '', // "",
                             SPK_OrderDate: moment().format(), // "",
                             Loan_Installment1: 0, // "",
@@ -2821,7 +2821,7 @@ console.log('FreeDebtTime',event.target.value)
                                             <Grid item xs={12} md={4} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
-                                            <Grid item xs={12} md={4} className={loanNumber ? '' : 'btn-disabled'} >
+                                            <Grid item xs={12} md={4} className={inputDataSubmit.LoanStatus === 'confirm' ? '' : 'btn-disabled'} >
                                                 <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>

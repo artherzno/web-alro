@@ -208,7 +208,7 @@ function SearchMemberPage(props) {
                             item.LoanNumber,
                             item.LandNumber,
                             !!item.Land_AddrProvinceID ? getProvinceText(item.Land_AddrProvinceID) : '',
-                            item.dCreated === null ? null : moment(item.dCreated).format('DD/MMM/YYYY'),
+                            item.dCreated === null ? null : moment(item.dCreated).format('DD/MM/YYYY'),
                         )
                     ))
                 }
@@ -385,6 +385,7 @@ function SearchMemberPage(props) {
                                 colSpan={36} 
                                 hasCheckbox={false} 
                                 hasAction={true} 
+                                actionAlign={'right'}
                                 actionEditFarmer={true}
                                 editFarmerEvent={gotoEditMember}
                                 editFarmerParam={'FarmerID'}
