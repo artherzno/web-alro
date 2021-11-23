@@ -339,7 +339,7 @@ const MUItable = (props) => {
                 {
                   tableName === 'loanrequestprint' && row['LoanID'] ? 
                     <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{loanrequestprintAction('edit'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
-                  : tableName === 'loanrequestprint' && row['LoanID'] === '' ?  
+                  : (tableName === 'loanrequestprint' && row['LoanID'] === '') || (tableName === 'loanrequestprint' && row['LoanID'] === null) ?  
                     <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{loanrequestprintAction('add'); loanrequestprintEvent(row['ApplicantID'], row['FarmerID'], row['ApplicantNo'], row['LoanID'], row['LoanNumber'])}} />
                   : null
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
