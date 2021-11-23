@@ -293,7 +293,7 @@ function RecordBillAlro() {
                                     innerRef={formikRef}
                                     initialValues={{
                                         ReceiptID: "",
-                                        LoanID: selectedData.LoaniD,
+                                        LoanID: selectedData.LoanID,
                                         LoanNumber: selectedData.LoanNumber,
                                         ReceiptNumber: "",
                                         ref_id1: "",
