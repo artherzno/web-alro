@@ -205,19 +205,21 @@ function RecordBillAlro() {
             // const overdue = parseFloat(totalPaid) >= kange ? kange : totalPaid
             const overdue = beforRectData ? beforRectData.InterestKang2 : 0
             console.log("overdue", overdue)
-            formikRef.current.setFieldValue("OverdueInterest", kange)
+
+            const overdueInterest = parseFloat(totalPaid) >= kange ? kange : parseFloat(totalPaid)
+            formikRef.current.setFieldValue("OverdueInterest", overdueInterest)
 
             const dueInterest = parseFloat(totalPaid) - kange 
             const recDueInterest = beforRectData ? beforeProcess.InterestKang2 - beforRectData.InterestKang2 : beforeProcess.InterestKang2
-            const dueInterestValue = dueInterest > 0 ? (dueInterest >= recDueInterest ? recDueInterest : dueInterest) : 0
+            const dueInterestValue = dueInterest >= recDueInterest ? ((dueInterest != 0 && dueInterest < recDueInterest) ? dueInterest : 0) :0
 
-            formikRef.current.setFieldValue("DueInterest", beforeProcess.InterestKang2 )
+            formikRef.current.setFieldValue("DueInterest", dueInterestValue )
 
 
-            const PrinciplePaid = parseFloat(totalPaid) - parseFloat(beforeProcess.InterestKang2)
+            const PrinciplePaid = parseFloat(totalPaid) - (parseFloat(beforeProcess.InterestKang2) + parseFloat(recDueInterest))
             formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0)
 
-            const interest = overdue + dueInterestValue
+            const interest = overdueInterest + dueInterestValue
             formikRef.current.setFieldValue("InterestPaid", interest)
 
             formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : overdue)  : 0)
@@ -225,7 +227,7 @@ function RecordBillAlro() {
             
             formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
 
-            const principalBalance = beforeProcess.principalBalance - parseFloat(PrinciplePaid) <= 0 ? 0 : beforeProcess.principalBalance - parseFloat(PrinciplePaid)
+            const principalBalance = parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid) <= 0 ? 0 : parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid)
 
             formikRef.current.setFieldValue("PrincipleBalance2", principalBalance )
         }else{
@@ -1213,7 +1215,7 @@ function RecordBillAlro() {
                                                                         helperText={errors.InterestBalance}
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
-                                                                        placeholder="ดอกเบี้ยคงเหลือ"
+                                                                        placeholder="ดอกเบี้ยค้างชำระ"
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
