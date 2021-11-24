@@ -46,6 +46,9 @@ import AddUser from './manageinfo/AddUser';
 import EditUser from './manageinfo/EditUser';
 import AddMenu from './manageinfo/AddMenu';
 import AddRole from './manageinfo/AddRole';
+import InfoProvince from './manageinfo/InfoProvince';
+import InfoDistrict from './manageinfo/InfoDistrict';
+import InfoSubDistrict from './manageinfo/InfoSubDistrict';
 import LoanRequestContactSearch from './loanrequest/LoanRequestContactSearch';
 import LoanRequestContact from './loanrequest/LoanRequestContact';
 import LoanRequestPrint from './loanrequest/LoanRequestPrint';
@@ -189,6 +192,9 @@ function Main() {
                     <Route path="/manageinfo/addmenu" component={AddMenu} />
                     <Route path="/manageinfo/addrole" component={AddRole} />
                     <Route path="/manageinfo/managepermission" component={ManagePermission} />
+                    <Route path="/manageinfo/infoprovince" component={InfoProvince} />
+                    <Route path="/manageinfo/infodistrict" component={InfoDistrict} />
+                    <Route path="/manageinfo/infosubdistrict" component={InfoSubDistrict} />
                     {/* Manage Check Page */}
                     <Route path="/check/bysign" component={BySign} />
                     <Route path="/check/realpay" component={RealPay} />

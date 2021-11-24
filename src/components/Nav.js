@@ -301,6 +301,15 @@ const listmenu = [
             },{
                 subtitle: 'จัดการผู้ใช้งาน',
                 subpath: '/manageinfo/manageuser'
+            },{
+                subtitle: 'ข้อมูลจังหวัด',
+                subpath: '/manageinfo/infoprovince'
+            },{
+                subtitle: 'ข้อมูลอำเภอ',
+                subpath: '/manageinfo/infodistrict'
+            },{
+                subtitle: 'ข้อมูลตำบล',
+                subpath: '/manageinfo/infosubdistrict'
             }
         ]
     },{

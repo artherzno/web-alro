@@ -205,7 +205,7 @@ function RecordCloseOldContact() {
     })
 
     const [inputDataSearch, setInputDataSearch] = useState({
-        Username: localStorage.getItem('cUsername'),
+        Username: Number(localStorage.getItem('provinceid')),
         LoanNumber:"",
         Rentno: "",
         Fullname: "",
