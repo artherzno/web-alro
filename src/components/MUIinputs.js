@@ -398,6 +398,43 @@ const MuiTextfieldMultiLine = (props) => {
     );
 }
 
+const MuiTextfieldNumber = (props) => {
+    const classes = useStyles();
+    const { topic, label, value, name, onChange, inputdisabled, unit } = props;
+
+    let unitValue = null;
+    if(unit==='wa') {
+        if(value>99.99) {unitValue = 99.99}
+    } else if(unit==='ngan') {
+        if(value > 3) { unitValue = 3 }
+    }
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            {
+                (label) === '' ? '' :
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <NumberFormat
+                className="input-currency"
+                {...props}
+                value={unit==='wa' || unit==='ngan'?unitValue : value}
+                name={name}
+                // mask={mask}
+                customInput={TextField}
+                // prefix={'$'}
+                // format={format || null}
+                type="text"
+                thousandSeparator={true}
+                decimalScale={2}
+                onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+            />
+
+            {/* <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} /> */}
+        </FormControl>
+    );
+}
+
 const MuiTextfieldCurrency = (props) => {
     const classes = useStyles();
     const { topic, label, value, name, onChange, inputdisabled } = props;
@@ -420,6 +457,7 @@ const MuiTextfieldCurrency = (props) => {
                 type="text"
                 thousandSeparator={true}
                 decimalScale={2} 
+                fixedDecimalScale={true}
                 onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
             />
 
@@ -944,6 +982,7 @@ const MuiSelectSubDistrict = (props) => {
 const MuiSelectObjYear = (props) => {
     const classes = useStyles();
     const { topic, label, id, name, value, onChange, valueYaer } = props;
+    console.log('MuiSelectObj',value)
 
     // e.g. <MuiSelectObjYear label="แผนปี" valueYaer={30} name="ProjectPlanYear" value={inputData.ProjectPlanYear} onChange={handleInputData} />
 
@@ -1506,6 +1545,7 @@ export {
     MuiTextfieldValidate,
     MuiTextfieldMultiLine,
     MuiTextfieldCurrency,
+    MuiTextfieldNumber,
     MuiTextfieldStartAdornment,
     MuiTextfieldEndAdornment,
     MuiTextNumber,

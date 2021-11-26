@@ -23,6 +23,7 @@ import MUIdropdownDistrict from '../../components/MUIdropdownDistrict';
 import {
     MuiLabelHeader,
     MuiTextfield,
+    MuiTextfieldNumber,
     MuiTextfieldEndAdornment,
     MuiCheckbox,
     MuiSelect,
@@ -1464,7 +1465,7 @@ console.log(BirthDateValue)
                                         <Grid item xs={12} md={4}>
                                             <MuiTextfield label="แปลง" id={`Plang_${i+1}`}  value={Plang} name={`Plang`} onChange={handleInputDataLand} />
                                         </Grid>
-                                        <Grid item xs={12} md={4}>
+                                        {/* <Grid item xs={12} md={4}>
                                             <MuiTextfieldEndAdornment label="เนื้อที่"  id={`Rai_${i+1}`} value={Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
@@ -1472,6 +1473,32 @@ console.log(BirthDateValue)
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             <MuiTextfieldEndAdornment label="&nbsp;" id={`Wa_${i+1}`} value={Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLand} />
+                                        </Grid> */}
+                                        <Grid item xs={11} md={3}>
+                                            <p>เนื้อที่</p>
+                                            <MuiTextfieldNumber  label="" name="Rai" value={inputDataLandAdd.Rai}  onChange={handleInputDataLandAdd} />
+                                        </Grid>
+                                        <Grid item xs={1} md={1}>
+                                            <p>&nbsp;</p>
+                                            <p className="paper-p">ไร่</p>
+                                        </Grid>
+
+                                        <Grid item xs={11} md={3}>
+                                            <p>&nbsp;</p>
+                                            <MuiTextfieldNumber  label="" name="Ngan" unit="ngan"  value={inputDataLandAdd.Ngan}  onChange={handleInputDataLandAdd} />
+                                        </Grid>
+                                        <Grid item xs={1} md={1}>
+                                            <p>&nbsp;</p>
+                                            <p className="paper-p">งาน</p>
+                                        </Grid>
+
+                                        <Grid item xs={11} md={3}>
+                                            <p>&nbsp;</p>
+                                            <MuiTextfieldNumber  label="" name="Wa" unit="wa"  value={inputDataLandAdd.Wa}  onChange={handleInputDataLandAdd} />
+                                        </Grid>
+                                        <Grid item xs={1} md={1}>
+                                            <p>&nbsp;</p>
+                                            <p className="paper-p">วา</p>
                                         </Grid>
                                         
                                         <Grid item xs={12} md={6}>
@@ -1837,7 +1864,7 @@ console.log(BirthDateValue)
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfield label="แปลง" id={`Plang_0`}  value={inputDataLandAdd.Plang} name={`Plang`} onChange={handleInputDataLandAdd} />
                                                                 </Grid>
-                                                                <Grid item xs={12} md={4}>
+                                                                {/* <Grid item xs={12} md={4}>
                                                                     <MuiTextfieldEndAdornment label="เนื้อที่"  id={`Rai_0`} value={inputDataLandAdd.Rai}  endAdornment="ไร่" name={`Rai`} onChange={handleInputDataLandAdd} />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
@@ -1845,6 +1872,33 @@ console.log(BirthDateValue)
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfieldEndAdornment label="&nbsp;" id={`Wa_0`} value={inputDataLandAdd.Wa}  endAdornment="วา" name={`Wa`} onChange={handleInputDataLandAdd} />
+                                                                </Grid> */}
+
+                                                                <Grid item xs={11} md={3}>
+                                                                    <p>เนื้อที่</p>
+                                                                    <MuiTextfieldNumber  label="" name="Rai" value={inputDataLandAdd.Rai}  onChange={handleInputDataLandAdd} />
+                                                                </Grid>
+                                                                <Grid item xs={1} md={1}>
+                                                                    <p>&nbsp;</p>
+                                                                    <p className="paper-p">ไร่</p>
+                                                                </Grid>
+
+                                                                <Grid item xs={11} md={3}>
+                                                                    <p>&nbsp;</p>
+                                                                    <MuiTextfieldNumber  label="" name="Ngan" unit="ngan"  value={inputDataLandAdd.Ngan}  onChange={handleInputDataLandAdd} />
+                                                                </Grid>
+                                                                <Grid item xs={1} md={1}>
+                                                                    <p>&nbsp;</p>
+                                                                    <p className="paper-p">งาน</p>
+                                                                </Grid>
+
+                                                                <Grid item xs={11} md={3}>
+                                                                    <p>&nbsp;</p>
+                                                                    <MuiTextfieldNumber  label="" name="Wa" unit="wa"  value={inputDataLandAdd.Wa}  onChange={handleInputDataLandAdd} />
+                                                                </Grid>
+                                                                <Grid item xs={1} md={1}>
+                                                                    <p>&nbsp;</p>
+                                                                    <p className="paper-p">วา</p>
                                                                 </Grid>
                                                                 
                                                                 <Grid item xs={12} md={12}>

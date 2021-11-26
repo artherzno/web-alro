@@ -295,7 +295,7 @@ function LoanRequestContactStep1(props) {
 
                         console.log(data.approval_data.length)
                         setApprovalData(dataApproval)
-                        setApprovalStatus(data.approval_data.length === undefined ? '' : data.approval_data[0].Approval === 1 ? 'P' : data.approval_data[0].Approval === 0 ? 'C' : data.approval_data[0].Approval === null || data.approval_data[0].Approval === '' ? '' : 'F')
+                        setApprovalStatus(data.approval_data.length === undefined ? '' : data.approval_data[0].Approval === 1 ? 'P' : data.approval_data[0].Approval === 0 ? 'F' : data.approval_data[0].Approval === null || data.approval_data[0].Approval === '' ? '' : 'C')
 
                         setInputData({
                             ...inputData,
@@ -1031,7 +1031,7 @@ function LoanRequestContactStep1(props) {
         formData.append('FarmerID', inputData.FarmerID)
         // formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
         // formData.append('Debt',parseInt(inputData.Debt))
-        formData.set('ProjectYear',(inputData.ProjectYear === 0 ? '' : inputData.ProjectYear + 2500))
+        // formData.set('ProjectYear',(inputData.ProjectYear === 0 ? '' : inputData.ProjectYear + 2500))
         formData.set('Loan_amount1', parseFloat(Loan_amount1_value.split(',').join('')))
         formData.set('Loan_amount2', parseFloat(Loan_amount2_value.split(',').join('')))
         formData.set('Loan_amount3', parseFloat(Loan_amount3_value.split(',').join('')))
@@ -1245,7 +1245,8 @@ function LoanRequestContactStep1(props) {
                                                     <MuiTextfield label="เรียน" inputdisabled="input-disabled" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjProjectYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                    <MuiTextfield label="ปีงบประมาณ" name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                    {/* <MuiSelectObjProjectYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} /> */}
                                                 </Grid>
                                                 <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
                                                         {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}

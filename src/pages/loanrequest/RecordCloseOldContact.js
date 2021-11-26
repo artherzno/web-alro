@@ -349,6 +349,8 @@ function RecordCloseOldContact() {
     const getCloseContactSearch = (loanID) => {
         setIsLoading(true);
         setRows([])
+        setFormField(false)
+        setGetSelectData([])
 
         axios.post(
             `${server_spkapi}/CloseContact/GetData`, {
@@ -532,6 +534,10 @@ function RecordCloseOldContact() {
                         finekang: Number(dataBeforepay[0].FineKang),
                         allpay: Number(dataBeforepay[0].StuckMoney + dataBeforepay[0].InterestKang2 + dataBeforepay[dataBeforepay.length - 1].FineKang),
                     })
+                    setInputDataReceipt({
+                        ...inputDataReceipt,
+                        TotalPaid: Number(dataBeforepay[0].StuckMoney + dataBeforepay[0].InterestKang2 + dataBeforepay[dataBeforepay.length - 1].FineKang)
+                    })
                 } else {
                     let interestKang2result = Number((dataBeforepay[dataBeforepay.length - 1].InterestKang2) - (dataBeforepay[dataBeforepay.length - 2].InterestKang2) <= 0? 0 : (dataBeforepay[dataBeforepay.length - 1].InterestKang2) - (dataBeforepay[dataBeforepay.length - 2].InterestKang2))
 
@@ -544,6 +550,10 @@ function RecordCloseOldContact() {
                         interestKang2_result: interestKang2result,
                         finekang: Number(dataBeforepay[dataBeforepay.length - 1].FineKang),
                         allpay: Number(dataBeforepay[dataBeforepay.length - 1].StuckMoney + dataBeforepay[dataBeforepay.length - 1].InterestKang2 + dataBeforepay[dataBeforepay.length - 1].FineKang),
+                    })
+                    setInputDataReceipt({
+                        ...inputDataReceipt,
+                        TotalPaid: Number(dataBeforepay[dataBeforepay.length - 1].StuckMoney + dataBeforepay[dataBeforepay.length - 1].InterestKang2 + dataBeforepay[dataBeforepay.length - 1].FineKang),
                     })
                 }
 
@@ -1000,7 +1010,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">ดอกเบี้ยในงวด</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  name="interestKang2_last" value={inputDataCloseContactSelect.interestKang2_last}  onChange={handleInputDataCloseContactSelect} />
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="interestKang2_result" value={inputDataCloseContactSelect.interestKang2_result}  onChange={handleInputDataCloseContactSelect} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p">บาท</p>
@@ -1013,7 +1023,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">รวมดอกเบี้ย</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  name="interestKang2_result" value={inputDataCloseContactSelect.interestKang2_result}  onChange={handleInputDataCloseContactSelect} />
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label=""  name="interestKang2_last" value={inputDataCloseContactSelect.interestKang2_last}    onChange={handleInputDataCloseContactSelect} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p">บาท</p>
@@ -1092,7 +1102,7 @@ function RecordCloseOldContact() {
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} md={12}>
+                                                {/* <Grid item xs={12} md={12}>
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={4}>
                                                             <p className="paper-p txt-right txt-purple">จำนวนเงินต้นที่ชำระ</p>
@@ -1104,7 +1114,7 @@ function RecordCloseOldContact() {
                                                             <ButtonFluidPrimary label="คำนวณเงินชำระ" onClick={calcPrinciplePaid} />
                                                         </Grid>
                                                     </Grid>
-                                                </Grid>
+                                                </Grid> */}
                                                 <Grid item xs={12} md={12}>
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={4}>
