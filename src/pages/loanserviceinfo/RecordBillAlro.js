@@ -36,6 +36,7 @@ import api from '../../services/webservice'
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import { ButtonExport, dialog, OverlayLoading } from '../../components';
 import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
+import { formatNumber} from '../../utils/Utilities'
 
 function RecordBillAlro() {
     const history = useHistory();
@@ -207,29 +208,42 @@ function RecordBillAlro() {
             console.log("overdue", overdue)
 
             const overdueInterest = parseFloat(totalPaid) >= kange ? kange : parseFloat(totalPaid)
-            formikRef.current.setFieldValue("OverdueInterest", overdueInterest)
+            formikRef.current.setFieldValue("OverdueInterest", overdueInterest > 0 ? formatNumber(overdueInterest,2) : 0)
 
             const dueInterest = parseFloat(totalPaid) - kange 
             const recDueInterest = beforRectData ? beforeProcess.InterestKang2 - beforRectData.InterestKang2 : beforeProcess.InterestKang2
-            const dueInterestValue = dueInterest >= recDueInterest ? ((dueInterest != 0 && dueInterest < recDueInterest) ? dueInterest : 0) :0
+            const dueInterestCal = dueInterest >= recDueInterest ? recDueInterest : ((dueInterest != 0 && dueInterest < recDueInterest) ? dueInterest : 0)
+            const dueInterestValue = dueInterestCal > 0 ? dueInterestCal : 0
 
-            formikRef.current.setFieldValue("DueInterest", dueInterestValue )
+            formikRef.current.setFieldValue("DueInterest", dueInterestValue <= 0 ? 0 : formatNumber(dueInterestValue, 2) )
 
 
-            const PrinciplePaid = parseFloat(totalPaid) - (parseFloat(beforeProcess.InterestKang2) + parseFloat(recDueInterest))
-            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0)
+           
 
             const interest = overdueInterest + dueInterestValue
+            
+            const PrinciplePaid = parseFloat(totalPaid) - interest
+            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? formatNumber(PrinciplePaid, 2) : 0)
+
             formikRef.current.setFieldValue("InterestPaid", interest)
 
-            formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : overdue)  : 0)
+            formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : formatNumber(overdue, 2))  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
             
-            formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
+            const x = parseFloat(totalPaid)
+            const i1 = recDueInterest
+            const i2 = overdue
+
+            const interestBalance = (x - (i1 + i2)) >= 0 ? 0 : 
+            (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2-(x-i1) : 
+            x-i1 < 0 ? i2 : 
+            0 
+            // formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
+            formikRef.current.setFieldValue("InterestBalance", formatNumber(interestBalance, 2) )
 
             const principalBalance = parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid) <= 0 ? 0 : parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid)
 
-            formikRef.current.setFieldValue("PrincipleBalance2", principalBalance )
+            formikRef.current.setFieldValue("PrincipleBalance2", formatNumber(principalBalance, 2) )
         }else{
             formikRef.current.setFieldValue("InterestPaid", 0)
         }
@@ -807,6 +821,7 @@ function RecordBillAlro() {
                                                                         helperText={errors.RecPrincipleBalance}
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
+                                                                        textAlign='right'
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         label=""
                                                                         endAdornment="บาท" />
@@ -828,6 +843,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นครบกำหนดชำระ"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -847,6 +863,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างปรับ"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -866,6 +883,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยครบชำระ"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -885,6 +903,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="รวมดอกเบี้ย"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -904,6 +923,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับค้างรับ"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -923,6 +943,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="รวมต้องชำระทั้งสิ้น"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -942,6 +963,7 @@ function RecordBillAlro() {
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         label=""
+                                                                        textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
                                                             </Grid>
@@ -1038,6 +1060,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="จำนวนเงินต้นคงเหลือ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1067,6 +1090,7 @@ function RecordBillAlro() {
                                                                         }}
                                                                         onBlur={handleBlur}
                                                                         placeholder="จำนวนเงินที่ชำระ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
@@ -1090,6 +1114,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้น"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1108,6 +1133,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ย"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1126,6 +1152,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างปรับ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1144,6 +1171,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยครบชำระ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1162,6 +1190,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1180,6 +1209,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="อื่นๆ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1198,6 +1228,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นคงเหลือ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
@@ -1216,6 +1247,7 @@ function RecordBillAlro() {
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างชำระ"
+                                                                        textAlign='right'
                                                                         label="" />
                                                                 </Grid>
                                                             </Grid>
