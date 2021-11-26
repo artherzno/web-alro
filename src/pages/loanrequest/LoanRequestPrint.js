@@ -78,6 +78,7 @@ function LoanRequestPrint(props) {
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [confirm, setConfirm] = useState(false);
     const [confirmMsg, setConfirmMsg] = useState('เมื่อยืนยันสร้างสัญญาเรียบร้อย ไม่สามารถแก้ไขสัญญาได้')
+    const [confirmed, setConfirmed] = useState(false)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -1715,6 +1716,16 @@ console.log('FreeDebtTime',event.target.value)
         // history.push('/manageinfo/searchmember');
         window.location.reload();
     };
+
+    const handleClosePopupSuccess = () => {
+        setConfirmed(true)
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        setIsLoading(false)
+        // history.push('/manageinfo/searchmember');
+        // window.location.reload();
+    };
     
     const handleClosePopupErr = () => {
         setErr(false);
@@ -2821,7 +2832,7 @@ console.log('FreeDebtTime',event.target.value)
                                             <Grid item xs={12} md={4} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
-                                            <Grid item xs={12} md={4} className={inputDataSubmit.LoanStatus === 'confirm' ? '' : 'btn-disabled'} >
+                                            <Grid item xs={12} md={4} className={confirmed ? '' : 'btn-disabled'} >
                                                 <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>
@@ -2849,7 +2860,7 @@ console.log('FreeDebtTime',event.target.value)
                         <p className="txt-center txt-black">{successMsg}</p>
                         <br/>
                         <Box textAlign='center'>
-                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopupSuccess} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     

@@ -218,12 +218,12 @@ function LoanRequestContactStep3(props) {
                             EstimateImcome: dataViewStep3.EstimateImcome || 0, // 0,
                             Cost: dataViewStep3.Cost || 0, // 0,
                             PayAbility: dataViewStep3.PayAbility || '', // "",
-                            Result: dataViewStep3.Result ? '1' : '0' || '', // 0,
+                            Result: dataViewStep3.Result===1 ? '1' : dataViewStep3.Result===0 ? '0':'', // 0,
                             Explain: dataViewStep3.Explain || '', // "",
-                            Guarantee1: dataViewStep3.Guarantee1 || '0', // "",
-                            Guarantee2: dataViewStep3.Guarantee2 || '0',
+                            Guarantee1: dataViewStep3.Guarantee1==='1' ? true: false || false, // "",
+                            Guarantee2: dataViewStep3.Guarantee2==='1' ? true: false || false,
                             ProjectRespond_nMEMID: dataViewStep3.ProjectRespond_nMEMID || '0', // 1,
-                            Approval: dataViewStep3.Approval ? '1' : '0' || '', // 1,
+                            Approval: dataViewStep3.Approval===1 ? '1' : dataViewStep3.Approval===0 ? '0':'', // 1,
                             ProjectID: dataViewStep3.ProjectID || '', // 1,
                             ProjectValue: dataViewStep3.ProjectValue || 0, // 0,
                             Condition: dataViewStep3.Condition || '', // "",
@@ -396,7 +396,8 @@ function LoanRequestContactStep3(props) {
     }
 
     const handleChangeGuarantee = (event) => {
-        let value = event.target.checked ? '1' : '0'
+        console.log('',event.target.checked)
+        let value = event.target.checked
         setInputData({...inputData,
             [event.target.name]: value
         })
@@ -471,8 +472,8 @@ const handleInputData = (event) => {
         formData.append('ApplicantID', props.ApplicantID || localStorage.getItem('applicantID'))
         // formData.append('ApplicantDate', moment(inputData.ApplicantDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApplicantDate)
         // formData.append('ApproveDate', moment(inputData.ApproveDate).format('YYYY-MM-DD') === 'Invalid date' ? null : inputData.ApproveDate)
-        formData.set('Guarantee1',inputData.Guarantee1);
-        formData.set('Guarantee2',inputData.Guarantee2);
+        formData.set('Guarantee1',inputData.Guarantee1 ? '1':'0');
+        formData.set('Guarantee2',inputData.Guarantee2 ? '1':'0');
         formData.set('Approval',inputData.Approval);
         formData.set('Allasset', parseFloat(Allasset_value.split(',').join('')))
         formData.set('EstimateImcome', parseFloat(EstimateImcome_value.split(',').join('')))
@@ -808,11 +809,11 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                                                     <MuiTextfield disabled label="ชื่อโครงการรอง" value={projectSubNameText} />
                                                                                 </Grid>
                                                                             */}
-                                                                                {
+                                                                                {/* {
                                                                                     errNoticeProject ? 
                                                                                             <p className="txt-red paper-p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{errNoticeProjectMsg}</p> 
                                                                                     : ''
-                                                                                }
+                                                                                } */}
                                                                                 
                                                                                 <Grid item xs={11} md={11}>
                                                                                     <p className="paper-p">จำนวน</p>
