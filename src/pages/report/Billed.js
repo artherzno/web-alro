@@ -339,7 +339,7 @@ class Billed extends React.Component {
 
                     <Grid item xs={12} md={2}>
                         <p>&nbsp;</p>
-                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
+                        <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0,this.state.count) }} />
                     </Grid>
 
                 </Grid>
@@ -439,16 +439,20 @@ class Billed extends React.Component {
                             page={this.state.page}
                             onPageChange={(e, newPage) => {
 
-                                this.setState({
-                                    page: newPage
-                                })
+                                this.loadPayLoan(newPage, this.state.count)
+
                             }}
                             onRowsPerPageChange={(event) => {
 
                                 this.setState({
                                     count: +event.target.value,
                                     page: 0
+                                }, () => {
+
+                                    this.loadPayLoan(0, this.state.count)
+
                                 })
+                                
                             }}
                         />
                     </Paper>
