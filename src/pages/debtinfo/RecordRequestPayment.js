@@ -648,6 +648,7 @@ function RecordRequestPayment() {
                                                                                         onBlur={handleBlur}
                                                                                         label=""
                                                                                         defaultValue=""
+                                                                                        textAlign='right'
                                                                                         endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -665,6 +666,7 @@ function RecordRequestPayment() {
                                                                                         helperText={errors.RecPrinciple}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
+                                                                                        textAlign='right'
                                                                                     label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -682,6 +684,7 @@ function RecordRequestPayment() {
                                                                                         helperText={errors.RecInterestKang2}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
+                                                                                        textAlign='right'
                                                                                     label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -699,6 +702,7 @@ function RecordRequestPayment() {
                                                                                         helperText={errors.InterestChange}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
+                                                                                        textAlign='right'
                                                                                     label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -716,6 +720,7 @@ function RecordRequestPayment() {
                                                                                         helperText={errors.PaymentPeriodRemain}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
+                                                                                        textAlign='right'
                                                                                     label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -733,6 +738,7 @@ function RecordRequestPayment() {
                                                                                         helperText={errors.ExtendCost}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
+                                                                                        textAlign='right'
                                                                                     label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
