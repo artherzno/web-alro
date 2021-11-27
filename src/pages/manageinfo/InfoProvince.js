@@ -181,6 +181,16 @@ function InfoProvince () {
         }
 
         checkLogin();
+
+        let data = require('../../datamockup/Province_JSON.json'); 
+        let dataArr = []
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            // console.log(`Name: ${obj.PV_NAME}, ${obj.PV_NAME}`);
+            dataArr.push(createData(obj.ProvinceID,obj.PV_NAME,obj.PVSCODE,obj.PV_REGION, obj.PVZIP))
+        }
+        setRows(dataArr)
+
     }, [])
 
     const getSearch = () => {

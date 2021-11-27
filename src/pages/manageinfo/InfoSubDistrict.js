@@ -179,6 +179,15 @@ function InfoSubDistrict () {
         }
 
         checkLogin();
+
+        let data = require('../../datamockup/Tambon_JSON.json'); 
+        let dataArr = []
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            // console.log(`Name: ${obj.SubdistrictID}, ${obj.TB_NAME}`);
+            dataArr.push(createData(obj.SubdistrictID, obj.TB_NAME, obj.TB_AMPHUR, obj.TB_PV_NAME))
+        }
+        setRows(dataArr)
     }, [])
 
     const getSearch = () => {

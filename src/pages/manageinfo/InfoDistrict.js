@@ -177,6 +177,16 @@ function InfoDistrict () {
         }
 
         checkLogin();
+
+        let data = require('../../datamockup/Amphur_JSON.json'); 
+        let dataArr = []
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            // console.log(`Name: ${obj.DistrictID}, ${obj.AM_NAME}`);
+            dataArr.push(createData(obj.DistrictID, obj.AM_NAME, obj.AM_PV_NAME))
+        }
+        setRows(dataArr)
+
     }, [])
 
     const getSearch = () => {

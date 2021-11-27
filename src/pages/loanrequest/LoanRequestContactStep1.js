@@ -114,7 +114,7 @@ function LoanRequestContactStep1(props) {
         Ngan: '', // 0,
         Wa: '', // 0,
 
-        ProjectYear: 0, // 2564,
+        ProjectYear: null, // 2564,
         LoanPeriodCode: '', // "ส",
         FarmerID: props.FarmerID, // 1,
         // LandID: '', // 1,
@@ -228,6 +228,30 @@ function LoanRequestContactStep1(props) {
     useEffect(() => {
         setLoaded(true);
 
+        const calcProjectYear = () => {
+            let d = new Date();
+            let buddhaYear = 543;
+
+            let curentDate = moment(d).format('YYYY-MM-DD');
+            let Sep30CurrentYear = moment().format('YYYY');
+
+            let fullyear = d.getFullYear() + buddhaYear;
+            // let yearList = [];
+
+            if(moment(curentDate).isBefore(Sep30CurrentYear+'-10-01')) {
+                setInputData({
+                    ...inputData,
+                    ProjectYear: (fullyear+0)
+                })
+            } else {
+                setInputData({
+                    ...inputData,
+                    ProjectYear: (fullyear + 1)
+                })
+            }
+        }
+        calcProjectYear();
+
         // New order date 2021-08-23 to 23/08/2564
         const newOrderDate = (val) => {
             let yyyy = Number(val.substring(0,4)) + 543
@@ -326,7 +350,7 @@ function LoanRequestContactStep1(props) {
                             ApplicantNo: dataDetail.ApplicantNo || '',
                             AppLocation: dataDetail.AppLocation || '',
                             AppTo: dataDetail.AppTo || '',
-                            ProjectYear: dataDetail.ProjectYear - 2500 || null, // 2564,
+                            ProjectYear: dataDetail.ProjectYear|| null, // 2564,
                             LoanPeriodCode: dataDetail.LoanPeriodCode || '', // "ส",
                             FarmerID: props.FarmerID, // 1,
                             // LandID: '', // 1,
