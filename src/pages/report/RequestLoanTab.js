@@ -59,8 +59,8 @@ class RequestLoanTab extends React.Component {
 
     componentDidMount() {
 
-
         this.loadPayLoan(this.state.page, this.state.count)
+       
     }
 
     loadPayLoan(page, count) {
@@ -70,13 +70,13 @@ class RequestLoanTab extends React.Component {
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result",resultRequest)
+        parameter.append("Result",resultRequest);
 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
@@ -97,20 +97,23 @@ parameter.append('YearTo', YearTovalue);
         })
     }
 
-    exportExcel() {
+    exportExcel(page, count) {
 
         const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate,resultRequest } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result", resultRequest)
+        parameter.append("Result", resultRequest);
+
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
 
         this.setState({
             isExporting: true
@@ -126,7 +129,10 @@ parameter.append('YearTo', YearTovalue);
             link.click();
 
             this.setState({
-                isExporting: false
+                isExporting: false,
+                page: page,
+                totalResult: response.data.totalResult
+               
             })
 
         }).catch(error => {
@@ -139,7 +145,7 @@ parameter.append('YearTo', YearTovalue);
 
     }
 
-    printPDF() {
+    printPDF(page, count) {
 
         const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, resultRequest } = this.state
 
@@ -152,7 +158,10 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result", resultRequest)
+        parameter.append("Result", resultRequest);
+
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
 
         this.setState({
             isPrinting: true
@@ -168,7 +177,9 @@ parameter.append('YearTo', YearTovalue);
             link.click();
 
             this.setState({
-                isPrinting: false
+                isPrinting: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
