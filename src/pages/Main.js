@@ -49,6 +49,12 @@ import AddRole from './manageinfo/AddRole';
 import InfoProvince from './manageinfo/InfoProvince';
 import InfoDistrict from './manageinfo/InfoDistrict';
 import InfoSubDistrict from './manageinfo/InfoSubDistrict';
+import LoanType from './manageinfo/LoanType';
+import LoanPeriod from './manageinfo/LoanPeriod';
+import LoanProject from './manageinfo/LoanProject'
+import CheckFarmer from './manageinfo/CheckFarmer'
+import InfoFarmer from './manageinfo/InfoFarmer'
+import DebtConditionAdjust from './manageinfo/DebtConditionAdjust'
 import LoanRequestContactSearch from './loanrequest/LoanRequestContactSearch';
 import LoanRequestContact from './loanrequest/LoanRequestContact';
 import LoanRequestPrint from './loanrequest/LoanRequestPrint';
@@ -195,6 +201,12 @@ function Main() {
                     <Route path="/manageinfo/infoprovince" component={InfoProvince} />
                     <Route path="/manageinfo/infodistrict" component={InfoDistrict} />
                     <Route path="/manageinfo/infosubdistrict" component={InfoSubDistrict} />
+                    <Route path="/manageinfo/loantype" component={LoanType} />
+                    <Route path="/manageinfo/loanperiod" component={LoanPeriod} />
+                    <Route path="/manageinfo/loanproject" component={LoanProject} />
+                    <Route path="/manageinfo/debtconditionadjust" component={DebtConditionAdjust} />
+                    <Route path="/manageinfo/checkfarmer" component={CheckFarmer} />
+                    <Route path="/manageinfo/infofarmer" component={InfoFarmer} />
                     {/* Manage Check Page */}
                     <Route path="/check/bysign" component={BySign} />
                     <Route path="/check/realpay" component={RealPay} />

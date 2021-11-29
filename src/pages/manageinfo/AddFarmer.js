@@ -21,6 +21,7 @@ import {
     MuiLabelHeader,
     MuiTextfield,
     MuiTextfieldEndAdornment,
+    MuiTextfieldNumber,
     MuiCheckbox,
     MuiSelect,
     MuiSelectObj,
@@ -1276,14 +1277,40 @@ function AddFarmer(props) {
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="แปลง"  value={inputDataLand1.Plang}  name="Plang_1" onChange={handleInputDataLand1} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand1.Rai}  endAdornment="ไร่" name="Rai_1" onChange={handleInputDataLand1} />
+                                                    </Grid> */}
+                                                    {/* <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Ngan} unit="Ngan"  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
+                                                    </Grid> */}
+                                                    {/* <Grid item xs={12} md={4}>
+                                                        <MuiTextfieldEndAdornment label="&nbsp;" value={inputDataLand1.Wa} unit="wa"  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
+                                                    </Grid> */}
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>เนื้อที่</p>
+                                                        <MuiTextfieldNumber  label="" name="Rai_1" value={inputDataLand1.Rai}  onChange={handleInputDataLand1} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Ngan}  endAdornment="งาน" name="Ngan_1" onChange={handleInputDataLand1} />
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ไร่</p>
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand1.Wa} unit="wa"  endAdornment="วา" name="Wa_1" onChange={handleInputDataLand1} />
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Ngan_1" unit="ngan"  value={inputDataLand1.Ngan}  onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">งาน</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Wa_1" unit="wa"  value={inputDataLand1.Wa}  onChange={handleInputDataLand1} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">วา</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1332,7 +1359,7 @@ function AddFarmer(props) {
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="แปลง"  value={inputDataLand2.Plang}  name="Plang_2" onChange={handleInputDataLand2} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand2.Rai}  endAdornment="ไร่" name="Rai_2" onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
@@ -1340,6 +1367,33 @@ function AddFarmer(props) {
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand2.Wa} unit="wa"  endAdornment="วา" name="Wa_2" onChange={handleInputDataLand2} />
+                                                    </Grid> */}
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>เนื้อที่</p>
+                                                        <MuiTextfieldNumber  label="" name="Rai_2" value={inputDataLand2.Rai}  onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ไร่</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Ngan_2" unit="ngan"  value={inputDataLand2.Ngan}  onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">งาน</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Wa_2" unit="wa"  value={inputDataLand2.Wa}  onChange={handleInputDataLand2} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">วา</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1389,7 +1443,7 @@ function AddFarmer(props) {
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="แปลง"  value={inputDataLand3.Plang}  name="Plang_3" onChange={handleInputDataLand3} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand3.Rai}  endAdornment="ไร่" name="Rai_3" onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
@@ -1397,6 +1451,34 @@ function AddFarmer(props) {
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand3.Wa} unit="wa" endAdornment="วา" name="Wa_3" onChange={handleInputDataLand3} />
+                                                    </Grid> */}
+
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>เนื้อที่</p>
+                                                        <MuiTextfieldNumber  label="" name="Rai_3" value={inputDataLand3.Rai}  onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ไร่</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Ngan_3" unit="ngan"  value={inputDataLand3.Ngan}  onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">งาน</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Wa_3" unit="wa"  value={inputDataLand3.Wa}  onChange={handleInputDataLand3} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">วา</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1446,7 +1528,7 @@ function AddFarmer(props) {
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="แปลง"  value={inputDataLand4.Plang}  name="Plang_4" onChange={handleInputDataLand4} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand4.Rai}  endAdornment="ไร่" name="Rai_4" onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
@@ -1454,6 +1536,33 @@ function AddFarmer(props) {
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand4.Wa} unit="wa" endAdornment="วา" name="Wa_4" onChange={handleInputDataLand4} />
+                                                    </Grid> */}
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>เนื้อที่</p>
+                                                        <MuiTextfieldNumber  label="" name="Rai_4" value={inputDataLand4.Rai}  onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ไร่</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Ngan_4" unit="ngan"  value={inputDataLand4.Ngan}  onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">งาน</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Wa_4" unit="wa"  value={inputDataLand4.Wa}  onChange={handleInputDataLand4} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">วา</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 
@@ -1503,7 +1612,7 @@ function AddFarmer(props) {
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="แปลง"  value={inputDataLand5.Plang}  name="Plang_5" onChange={handleInputDataLand5} />
                                                     </Grid>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="เนื้อที่"  value={inputDataLand5.Rai}  endAdornment="ไร่" name="Rai_5" onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
@@ -1511,6 +1620,34 @@ function AddFarmer(props) {
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <MuiTextfieldEndAdornment label="&nbsp;"  value={inputDataLand5.Wa} unit="wa" endAdornment="วา" name="Wa_5" onChange={handleInputDataLand5} />
+                                                    </Grid> */}
+
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>เนื้อที่</p>
+                                                        <MuiTextfieldNumber  label="" name="Rai_5" value={inputDataLand5.Rai}  onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">ไร่</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Ngan_5"  unit="ngan" value={inputDataLand5.Ngan}  onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">งาน</p>
+                                                    </Grid>
+
+                                                    <Grid item xs={11} md={3}>
+                                                        <p>&nbsp;</p>
+                                                        <MuiTextfieldNumber  label="" name="Wa_5"  unit="wa" value={inputDataLand5.Wa}  onChange={handleInputDataLand5} />
+                                                    </Grid>
+                                                    <Grid item xs={1} md={1}>
+                                                        <p>&nbsp;</p>
+                                                        <p className="paper-p">วา</p>
                                                     </Grid>
                                                     <Grid item xs={12} md={12}>
                                                         <Divider /> 

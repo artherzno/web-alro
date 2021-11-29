@@ -302,10 +302,16 @@ function ManageProjectBudget() {
     }
 
     const reOrderDate = (val) => {
-        let yyyy = Number(val.substring(6,10)) - 543
-        let mm = val.substring(3,5)
-        let dd = val.substring(0,2)
-        return yyyy+'-'+mm+'-'+dd
+        if(val===null) {
+            setErr(true)
+            setErrMsg('กรุณาเลือกปีงบประมาณ')
+        } else {
+            let yyyy = Number(val.substring(6,10)) - 543
+            let mm = val.substring(3,5)
+            let dd = val.substring(0,2)
+            return yyyy+'-'+mm+'-'+dd
+        }
+        
     }
 
     const getSpkStartEndYear = (year) => {
@@ -436,61 +442,67 @@ function ManageProjectBudget() {
     // Submit Data ---------------------------------------------------------------------------//
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(inputDataStartEndYear.StartDateFiscalYear)
+        if(inputDataStartEndYear.StartDateFiscalYear === null) {
+            setErr(true)
+            setErrMsg('กรุณาเลือกปีงบประมาณ')
+        } else {
         
-        let setProjectBudget = inputData.ProjectBudget === null ? '0' : inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
+            let setProjectBudget = inputData.ProjectBudget === null ? '0' : inputData.ProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2})
+            
+            let updateSpkInfo = document.getElementById('updateSpkInfo');
+            let formData = new FormData(updateSpkInfo);
+            formData.append('SPKInfoID', inputData.SPKInfoID)
+            formData.append('ProjectBudgetName', inputData.ProjectBudgetName)
+            formData.append('ProjectYear',null)
+            formData.append('ProjectPlanYear',null)
+            formData.append('ProjectBudgetID',inputData.ProjectBudgetID);
+            formData.set('StartDateFiscalYear',reOrderDate(inputDataStartEndYear.StartDateFiscalYear))
+            formData.set('EndDateFiscalYear',reOrderDate(inputDataStartEndYear.EndDateFiscalYear))
+            formData.set('FiscalYear',(inputData.FiscalYear + 2500)) // Convert year 2 digit to 4 digit
+            formData.set('PersonalPlan',parseFloat(inputData.PersonalPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+            formData.set('ProjectPlan',parseFloat(inputData.ProjectPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+            formData.set('PrincipalBalance',parseFloat(inputData.PrincipalBalance) || 0)
+            formData.set('Debt',parseFloat(inputData.Debt) || 0)
+            formData.set('Interest',parseFloat(inputData.Interest) || 0)
+            formData.set('Fine',parseFloat(inputData.Fine) || 0)
+            formData.set('PrincipleSue',parseFloat(inputData.PrincipleSue) || 0)
+            formData.set('InterestSue',parseFloat(inputData.InterestSue) || 0)
+            formData.set('InterestSueNoPay',parseFloat(inputData.InterestSueNoPay) || 0)
+            formData.set('ProjectBudget',parseFloat(setProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+            formData.set('PersonalResultPlan',parseFloat(inputData.PersonalResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
+            formData.set('ProjectResultPlan',parseFloat(inputData.ProjectResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
 
-        let updateSpkInfo = document.getElementById('updateSpkInfo');
-        let formData = new FormData(updateSpkInfo);
-        formData.append('SPKInfoID', inputData.SPKInfoID)
-        formData.append('ProjectBudgetName', inputData.ProjectBudgetName)
-        formData.append('ProjectYear',null)
-        formData.append('ProjectPlanYear',null)
-        formData.append('ProjectBudgetID',inputData.ProjectBudgetID);
-        formData.set('StartDateFiscalYear',reOrderDate(inputDataStartEndYear.StartDateFiscalYear))
-        formData.set('EndDateFiscalYear',reOrderDate(inputDataStartEndYear.EndDateFiscalYear))
-        formData.set('FiscalYear',(inputData.FiscalYear + 2500)) // Convert year 2 digit to 4 digit
-        formData.set('PersonalPlan',parseFloat(inputData.PersonalPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
-        formData.set('ProjectPlan',parseFloat(inputData.ProjectPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
-        formData.set('PrincipalBalance',parseFloat(inputData.PrincipalBalance) || 0)
-        formData.set('Debt',parseFloat(inputData.Debt) || 0)
-        formData.set('Interest',parseFloat(inputData.Interest) || 0)
-        formData.set('Fine',parseFloat(inputData.Fine) || 0)
-        formData.set('PrincipleSue',parseFloat(inputData.PrincipleSue) || 0)
-        formData.set('InterestSue',parseFloat(inputData.InterestSue) || 0)
-        formData.set('InterestSueNoPay',parseFloat(inputData.InterestSueNoPay) || 0)
-        formData.set('ProjectBudget',parseFloat(setProjectBudget.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
-        formData.set('PersonalResultPlan',parseFloat(inputData.PersonalResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
-        formData.set('ProjectResultPlan',parseFloat(inputData.ProjectResultPlan.toLocaleString('en-US', {minimumFractionDigits: 2}).split(',').join('')) || 0)
-
-        axios.post(
-            `${server_hostname}/admin/api/update_spkinfoo`, formData, { headers: { "token": token } } 
-        ).then(res => {
-                console.log(res)
-                let data = res.data;
-                if(data.code === 0 || res === null || res === undefined) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
+            axios.post(
+                `${server_hostname}/admin/api/update_spkinfo`, formData, { headers: { "token": token } } 
+            ).then(res => {
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0 || res === null || res === undefined) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
                         } else {
-                            setErrMsg([data.message])
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
-                    } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }else {
+                        console.log(data)
+                        setSuccess(true);
+                        setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                     }
-                }else {
-                    console.log(data)
-                    setSuccess(true);
-                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                 }
-            }
-        ).catch(err => { console.log(err); })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
+            ).catch(err => { console.log(err); })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        }
     };
 
     const gotoHome = () => {

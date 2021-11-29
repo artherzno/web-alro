@@ -39,6 +39,7 @@ import {
     MuiSelectDistrict,
     MuiSelectSubDistrict,
     MuiTextfieldCurrency,
+    MuiTextfieldNumber,
     MuiSelectObj,
     MuiLabelHeader,
     MuiTextfieldEndAdornment,
@@ -78,7 +79,7 @@ function LoanRequestPrint(props) {
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [confirm, setConfirm] = useState(false);
     const [confirmMsg, setConfirmMsg] = useState('เมื่อยืนยันสร้างสัญญาเรียบร้อย ไม่สามารถแก้ไขสัญญาได้')
-    const [confirmed, setConfirmed] = useState(false)
+    const [drafted, setDrafted] = useState(false)
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -179,11 +180,11 @@ function LoanRequestPrint(props) {
         RecDate: moment().format(), // "",
         FarmerID: '', // "",
         AGE: '', // "",
-        Nationality: '',
+        Nationality: 'ไทย',
         IDCardMadeDistrict: '', // "",
         IDCardMadeProvince: '0', // "",
         FarmerInDistrict: '', // "",
-        FarmerInProvince: '0', // "",
+        FarmerInProvince: '', // "",
         Officer: '', // "",
         OfficerRank: localStorage.getItem('provincename'), // "",
         SPK_Order: '', // "",
@@ -479,7 +480,7 @@ function LoanRequestPrint(props) {
                     // Set detail ProjectID
                     for(let i=0; i<data.data.length; i++) {
                         if(data.data[i].ProjectID === projectID) {
-                            setProjectSubCodeText(data.data[i].ProjectSubCode)
+                            setProjectSubCodeText(data.data[i].ProjectMainName)
                             setProjectSubNameText(data.data[i].ProjectSubName)
                         }
                     }
@@ -496,6 +497,10 @@ function LoanRequestPrint(props) {
     const getSearchApprovedApplicant = () => {
         setIsLoading(true)
         setOpenLoanRequestInfo(false)
+        setRows([])
+        setProjectSubCodeText('')
+        setProjectSubNameText('')
+        
         axios.post(
             `${server_hostname}/admin/api/search_approved_applicant`, {
                 ApplicantNo: inputDataSearch.SearchByApplicantNo || '',
@@ -520,31 +525,36 @@ function LoanRequestPrint(props) {
                     }
                 }else {
                     console.log(data)
-                    setTableResult(data.data)
-                    // setRows(data.data)
-                    setRows(
-                        data.data.map((item,i)=>
-                            createData(
-                                item.FarmerID,
-                                item.ApplicantID,
-                                item.LoanID,
-                                item.RecordCode === null ? '' : item.RecordCode,
-                                item.RecDate === null ? '' : newOrderDate(item.RecDate),
-                                !!item.ApplicantDate ? newOrderDate(item.ApplicantDate) : null,
-                                item.ApplicantNo === null ? '' : item.ApplicantNo,
-                                item.ApplicantStatus === null || !item.ApplicantStatus ? 'P' : item.ApplicantStatus,
-                                item.ProjectID === null ? '' : item.ProjectID,
-                                item.ProjectName === null ? '' : item.ProjectName,
-                                item.LoanNumber === null ? '' : item.LoanNumber,
-                                item.dCreated ? newOrderDate(item.dCreated) : null,
-                                item.IDCard === null ? '' : item.IDCard,
-                                item.FrontName === null ? '' : item.FrontName,
-                                item.Name === null ? '' : item.Name,
-                                item.Sirname === null ? '' : item.Sirname,
-                                item.IDCARD_AddNo === undefined ? '' : item.IDCARD_AddNo +' '+item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo+' '+item.IDCARD_AddrSoiRoad === undefined ? '' : item.IDCARD_AddrSoiRoad+' '+item.IDCARD_AddrSubdistrictName === undefined ? '' : item.IDCARD_AddrSubdistrictName+' '+item.IDCARD_AddrDistrictName === undefined ? '' : item.IDCARD_AddrDistrictName+' '+item.IDCARD_AddrProvinceName === undefined ? '' : item.IDCARD_AddrProvinceName+' '+item.IDCARD_Postcode  === undefined ? '' : item.IDCARD_Postcode
+                    if(data.length) {
+                        setTableResult(data.data)
+                        // setRows(data.data)
+                        setRows(
+                            data.data.map((item,i)=>
+                                createData(
+                                    item.FarmerID,
+                                    item.ApplicantID,
+                                    item.LoanID,
+                                    item.RecordCode === null ? '' : item.RecordCode,
+                                    item.RecDate === null ? '' : newOrderDate(item.RecDate),
+                                    !!item.ApplicantDate ? newOrderDate(item.ApplicantDate) : null,
+                                    item.ApplicantNo === null ? '' : item.ApplicantNo,
+                                    item.ApplicantStatus === null || !item.ApplicantStatus ? 'P' : item.ApplicantStatus,
+                                    item.ProjectID === null ? '' : item.ProjectID,
+                                    item.ProjectName === null ? '' : item.ProjectName,
+                                    item.LoanNumber === null ? '' : item.LoanNumber,
+                                    item.dCreated ? newOrderDate(item.dCreated) : null,
+                                    item.IDCard === null ? '' : item.IDCard,
+                                    item.FrontName === null ? '' : item.FrontName,
+                                    item.Name === null ? '' : item.Name,
+                                    item.Sirname === null ? '' : item.Sirname,
+                                    item.IDCARD_AddNo === undefined ? '' : item.IDCARD_AddNo +' '+item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo+' '+item.IDCARD_AddrSoiRoad === undefined ? '' : item.IDCARD_AddrSoiRoad+' '+item.IDCARD_AddrSubdistrictName === undefined ? '' : item.IDCARD_AddrSubdistrictName+' '+item.IDCARD_AddrDistrictName === undefined ? '' : item.IDCARD_AddrDistrictName+' '+item.IDCARD_AddrProvinceName === undefined ? '' : item.IDCARD_AddrProvinceName+' '+item.IDCARD_Postcode  === undefined ? '' : item.IDCARD_Postcode
+                                )
                             )
                         )
-                    )
+                    } else {
+                        setErr(true)
+                        setErrMsg('ไม่พบข้อมูล')
+                    }
                 }
             }
         ).catch(err => { console.log(err); history.push('/') })
@@ -556,7 +566,7 @@ function LoanRequestPrint(props) {
     }
 
     const getDataApprovedApplicant = (applicantID, farmerID, applicantNo, loanID, loanNumber) => {
-        
+        setSummaryTable(0)
         setIsLoading(true);
         setInputDataFarmer([])
         setInputDataLand([])
@@ -657,6 +667,9 @@ function LoanRequestPrint(props) {
             lastdatepaidmm: '00',
             lastdatepaidyyyy: '0000',
         })
+
+        setProjectSubCodeText('')
+        setProjectSubNameText('')
         
 
         axios.post(
@@ -686,12 +699,12 @@ function LoanRequestPrint(props) {
                     setOpenLoanRequestInfo(true);
                     console.log(applicantID, farmerID,data.Farmer[0])
                     console.log('action',action)
-
-                    getProject(data.data[0].ProjectPlanYear, data.data[0].ProjectID)
                     
 
                     if(action === 'add') {
                         console.log('data.data[0].LoanPeriodCode',data.data[0].LoanPeriodCode)
+
+                        getProject(data.data[0].ProjectPlanYear, data.data[0].ProjectID)
                         // Action : Add
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
@@ -724,11 +737,11 @@ function LoanRequestPrint(props) {
                             LoanDate: moment().format(), // "",
                             RecordCode: '', // "",
                             RecDate: moment().format(), // "",
-                            Nationality: '',
+                            Nationality: 'ไทย',
                             IDCardMadeDistrict: '', // "",
                             IDCardMadeProvince: '0', // "",
                             FarmerInDistrict: '', // "",
-                            FarmerInProvince: '0', // "",
+                            FarmerInProvince: '', // "",
                             Officer: '', // "",
                             OfficerRank: localStorage.getItem('provincename'), // "",
                             SPK_Order: '', // "",
@@ -857,13 +870,16 @@ function LoanRequestPrint(props) {
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode)
                         setApplicantNo(applicantNo);
                         setIsLoading(false);
                         // setApplicantProjectYear(data.data[0].ProjectPlanYear)
                         // console.warn(data.data[0].ProjectPlanYear)
 
-                        getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber)
+                        getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber, data.data[0].ProjectPlanYear, data.data[0].ProjectID)
+                        
                     }
+
                 }
             }
         ).catch(err => { console.log(err); })
@@ -875,7 +891,7 @@ function LoanRequestPrint(props) {
     }
 
 
-    const getViewDataApprovedApplicant = (applicantID, farmerID, applicantNo,loanID, loanNumber) => {
+    const getViewDataApprovedApplicant = (applicantID, farmerID, applicantNo,loanID, loanNumber, projectplanyear, projectid) => {
         setIsLoading(true);
 
         axios.post(
@@ -917,6 +933,22 @@ function LoanRequestPrint(props) {
                         step 1.loop get date from api insert to 'loandueDataArr'
                         step 2.
                     */
+                    setInputData({
+                        ...inputData,
+                        ProjectID: data.results[0].ProjectID
+                    })
+
+                    getProject(projectplanyear, data.results[0].ProjectID)
+
+                    // for(let i=0; i<projectList.length; i++) {
+                    //     console.log('ProjectList',projectList[i].ProjectID)
+                    //     if(projectList[i].ProjectID === data.results[0].ProjectID) {
+                    //         setProjectSubCodeText(projectList[i].ProjectMainName)
+                    //         setProjectSubNameText(projectList[i].ProjectSubName)
+                    //     }
+                    // }
+                    
+console.log('projectlist',projectList)
 console.log('data.loandue_data.length',data.loandue_data.length)
                     if(data.loandue_data.length > 0) {
                         for(let i=0; i<data.loandue_data.length; i++) {
@@ -940,6 +972,8 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                             
                             setInputSelectDateLoandata(selectLoanDateArr)
                         }
+                        
+                        sumTable()
 
                     }
 
@@ -1198,11 +1232,11 @@ console.log('data.loandue_data.length',data.loandue_data.length)
 
     // Handle Value on table
     const handleInputLoanDueDataPay= (event, index, type) => {
-        setSummaryTable('2')
         // let payrecArr = [];
         // let payrecID = event.target.id//.toString().slice(-3)
         // console.log(payrecID, payrecValue)
         // console.log('DUEDATE-index',index)
+        // console.log(event.target.value)
 
         if(type === 'date') {
             // console.log('DUEDATE',moment(event).format('YYYY-MM-DD'))
@@ -1219,6 +1253,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
             // if(action === 'add') {}
             payrecArr[index].PAYREC = parseFloat(payrecValue.split(',').join(''))
             setLoandueDataArr(payrecArr)
+            setSummaryTable(event.target.value)
             // loandueDataArray[index].PAYREC = parseFloat(payrecValue.split(',').join(''))
         }
         
@@ -1275,7 +1310,7 @@ console.log('data.loandue_data.length',data.loandue_data.length)
                 // console.log('event.target.ProjectCode',event.target.value)
                 for(let i=0; i<projectList.length; i++) {
                     if(projectList[i].ProjectID === event.target.value) {
-                        setProjectSubCodeText(projectList[i].ProjectSubCode)
+                        setProjectSubCodeText(projectList[i].ProjectMainName)
                         setProjectSubNameText(projectList[i].ProjectSubName)
                     }
                 }
@@ -1616,7 +1651,7 @@ console.log('FreeDebtTime',event.target.value)
         formData.append('loandue_data', JSON.stringify(loandueDataArrValue));
         let url = '';
         console.log('action_loanstatus:',action_loanstatus)
-        if(action==='edit') {
+        if(action==='edit' || drafted) {
             formData.append('LoanID', loanID)
             url = `${server_hostname}/admin/api/edit_loanrec`
         } else {
@@ -1661,6 +1696,9 @@ console.log('FreeDebtTime',event.target.value)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
                     setConfirmSuccessStep1(true)
+
+                    // Active button PrintPDF
+                    setDrafted(true)
                 }
             }
         ).catch(err => { console.log(err); })
@@ -1718,7 +1756,6 @@ console.log('FreeDebtTime',event.target.value)
     };
 
     const handleClosePopupSuccess = () => {
-        setConfirmed(true)
         setErr(false);
         setSuccess(false);
         setConfirm(false);
@@ -1736,14 +1773,16 @@ console.log('FreeDebtTime',event.target.value)
 
 
     const sumTable = () => {
+        // console.log('SumTable:',loandueDataArr)
         let sum = 0;
         for(let i=0; i<loandueDataArr.length; i++) {
-            sum += loandueDataArr[i].PAYREC
+            sum += !!loandueDataArr[i].PAYREC?loandueDataArr[i].PAYREC:0
         }
+        console.log('sum',sum)
         setSummaryTable(sum)
     }
 
-    const sumPrinciple = () => {}
+    // const sumPrinciple = () => {} 
 
     const rowTable = (amountRow, dataRow) => {
         let rowArr = []
@@ -1952,7 +1991,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiSelectProvince label="จังหวัด" lists={provinceList} name="IDCardMadeProvince" value={inputDataSubmit.IDCardMadeProvince} onChange={handleInputDataSubmit}/>
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญชาติ" name="Nationality" value={inputDataSubmit.Nationality} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="สัญชาติ" inputdisabled="input-disabled"  name="Nationality" value={inputDataSubmit.Nationality} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
                                                             <MuiTextfield inputdisabled="input-disabled"  label="อยู่บ้านเลขที่"value={inputDataFarmer.IDCARD_AddNo} onInput = {handleInputDataFarmer}  />
@@ -1973,11 +2012,13 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList}  value={parseInt(inputDataFarmer.IDCARD_AddrProvinceID)} onInput = {handleInputDataFarmer}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ประกอบอาชีพเกษตรกรรมอยู่ในเขตปฏิรูปที่ดินอำเภอ" name="FarmerInDistrict" value={inputDataSubmit.FarmerInDistrict} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ประกอบอาชีพเกษตรกรรมอยู่ในเขตปฏิรูปที่ดินอำเภอ" inputdisabled="input-disabled"  name="FarmerInDistrict" value={inputData.Land_AddrDistrict} onChange={handleInputDataSubmit} />
+                                                        
+                                                            {/* <MuiTextfield label="ประกอบอาชีพเกษตรกรรมอยู่ในเขตปฏิรูปที่ดินอำเภอ" inputdisabled="input-disabled"  name="FarmerInDistrict" value={inputDataSubmit.FarmerInDistrict} onChange={handleInputDataSubmit} /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiSelectProvince label="จังหวัด" lists={provinceList} name="FarmerInProvince" value={inputDataSubmit.FarmerInProvince} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="จังหวัด" inputdisabled="input-disabled"  name="FarmerInProvince" value={inputData.Land_AddrProvince} onChange={handleInputDataSubmit} />
+                                                        {/* <MuiSelectProvince label="จังหวัด" inputdisabled="input-disabled"  lists={provinceList} name="FarmerInProvince" value={inputDataSubmit.FarmerInProvince} onChange={handleInputDataSubmit}/> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
@@ -2000,11 +2041,11 @@ console.log('FreeDebtTime',event.target.value)
                                                             </div> */}
                                                             <MuiDatePicker label="ลงวันที่" name="LoanDate" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
-                                                        <Grid item xs={12} md={2}>
-                                                            <MuiSelectObj label="โครงการ" id={`ProjectCode`} itemName={'ProjectCode'} itemValue={'ProjectID'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiSelectObj label="กิจกรรม/โครงการ" id={`ProjectCode`} itemName={'ProjectName'} itemValue={'ProjectID'} lists={projectList} value={inputData.ProjectID} name={`ProjectID`} onChange={handleInputData} />
                                                         </Grid> 
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield disabled label="รหัสโครงการรอง" value={projectSubCodeText} />
+                                                            <MuiTextfield disabled label="ชื่อโครงการหลัก" value={projectSubCodeText} />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
                                                             <MuiTextfield disabled label="ชื่อโครงการรอง" value={projectSubNameText} />
@@ -2280,7 +2321,7 @@ console.log('FreeDebtTime',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={11} md={2}>
                                                             <p>รวม</p>
-                                                            <MuiTextfieldCurrency  label="" name="Guarantee_Person" value={inputDataSubmit.Guarantee_Person}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfieldNumber label="" name="Guarantee_Person" value={inputDataSubmit.Guarantee_Person}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -2375,7 +2416,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label=""  name="WarrantBook2" value={inputDataSubmit.WarrantBook2}  onChange={handleInputDataSubmit}/>
+                                                                    <MuiTextfield label=""  name="WarrantBook3" value={inputDataSubmit.WarrantBook3}  onChange={handleInputDataSubmit}/>
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <span>/</span>
@@ -2455,7 +2496,7 @@ console.log('FreeDebtTime',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={11} md={2}>
                                                             <p>กำหนดชำระคืนเงินกู้รวม</p>
-                                                            <MuiTextfieldCurrency  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
+                                                            <MuiTextfieldNumber  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -2832,7 +2873,7 @@ console.log('FreeDebtTime',event.target.value)
                                             <Grid item xs={12} md={4} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
-                                            <Grid item xs={12} md={4} className={confirmed ? '' : 'btn-disabled'} >
+                                            <Grid item xs={12} md={4} className={drafted || loanID ? '' : 'btn-disabled'} >
                                                 <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>

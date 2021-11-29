@@ -1,0 +1,173 @@
+[
+  {
+    "ConditionID": 1,
+    "ConditionCode": "1",
+    "ConditionName": "ลดต้น y บาท",
+    "ConditionDetail": "ลดต้นทั้งก้อน y บาท",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 2,
+    "ConditionCode": "2",
+    "ConditionName": "ลดเฉพาะดอกฯ y บาท",
+    "ConditionDetail": "ลดเฉพาะดอกเบี้ยทั้งก้อนเป็นเงิน y บาท",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 2
+  },
+  {
+    "ConditionID": 3,
+    "ConditionCode": "3",
+    "ConditionName": "ลดดอกฯ แล้วลดต้น y บาท",
+    "ConditionDetail": "ลดดอกเบี้ยแล้วลดต้นต่อให้ครบวงเงิน y บาท",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 3
+  },
+  {
+    "ConditionID": 4,
+    "ConditionCode": "4",
+    "ConditionName": "ลดดอกฯให้ครบ y บาท",
+    "ConditionDetail": "ลดดอกเบี้ยให้หมด y บาท ถ้าเหลือให้เก็บไว้ลดงวดหน้า",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 4
+  },
+  {
+    "ConditionID": 5,
+    "ConditionCode": "A",
+    "ConditionName": "ปรับค่าปรับเป็น x%",
+    "ConditionDetail": "ปรับอัตราค่าปรับเป็น x%",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 6,
+    "ConditionCode": "5",
+    "ConditionName": "ปรับดอกฯเป็น x%",
+    "ConditionDetail": "ปรับอัตราดอกเบี้ยเป็น x%",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 5
+  },
+  {
+    "ConditionID": 7,
+    "ConditionCode": "6",
+    "ConditionName": "คิดดอก x% จากต้น y บาท",
+    "ConditionDetail": "คิดดอก x% จากต้น y บาท ที่เหลือเดินดอกตามเดิม",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 6
+  },
+  {
+    "ConditionID": 8,
+    "ConditionCode": "7",
+    "ConditionName": "รวมแปลง",
+    "ConditionDetail": "รวมเงินจากการแยกแปลง",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 7
+  },
+  {
+    "ConditionID": 9,
+    "ConditionCode": "8",
+    "ConditionName": "รวมดอกเบี้ย-&gt;เงินต้น",
+    "ConditionDetail": "รวมดอกเบี้ยเข้าเงินต้น",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 8
+  },
+  {
+    "ConditionID": 10,
+    "ConditionCode": "M",
+    "ConditionName": "ลดต้น y บาท/a",
+    "ConditionDetail": "ลดต้นทั้งก้อน y บาท / หลังปิดบัญชี",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 11,
+    "ConditionCode": "N",
+    "ConditionName": "ลดเฉพาะดอกฯ y บาท/a",
+    "ConditionDetail": "ลดเฉพาะดอกเบี้ยทั้งก้อนเป็นเงิน y บาท / หลังปิดบ/ช",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 12,
+    "ConditionCode": "O",
+    "ConditionName": "ลดดอกฯ แล้วลดต้น y บาท/a",
+    "ConditionDetail": "ลดดอกเบี้ยแล้วลดต้นต่อให้ครบวงเงิน y บาท /a",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 13,
+    "ConditionCode": "P",
+    "ConditionName": "ลดดอกฯให้ครบ y บาท/a",
+    "ConditionDetail": "ลดดอกเบี้ยให้หมด y บาท เหลือให้เก็บไว้ลดงวดหน้า /a",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 14,
+    "ConditionCode": "Q",
+    "ConditionName": "ปรับดอกฯเป็น x%/a",
+    "ConditionDetail": "ปรับอัตราดอกเบี้ยเป็น x% / หลังปิดบัญชี",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 15,
+    "ConditionCode": "R",
+    "ConditionName": "คิดดอก x% จากต้น y บาท/a",
+    "ConditionDetail": "คิดดอก x% จากต้น y บาท ที่เหลือเดินดอกตามเดิม /a",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 16,
+    "ConditionCode": "S",
+    "ConditionName": "รวมแปลง/a",
+    "ConditionDetail": "รวมเงินจากการแยกแปลง / หลังปิดบัญชี",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 17,
+    "ConditionCode": "T",
+    "ConditionName": "รวมดอกเบี้ย-&gt;เงินต้น/a",
+    "ConditionDetail": "รวมดอกเบี้ยเข้าเงินต้น / หลังปิดบัญชี",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 18,
+    "ConditionCode": "U",
+    "ConditionName": "ปรับค่าปรับเป็น x%/a",
+    "ConditionDetail": "ปรับอัตราค่าปรับเป็น x% / หลังปิดบัญชี",
+    "Status": 1,
+    "Tps": 5,
+    "Tps_": 1
+  },
+  {
+    "ConditionID": 19,
+    "ConditionCode": "9",
+    "ConditionName": "ลดเฉพาะค่าปรับ y บาท",
+    "ConditionDetail": "ลดค่าปรับทั้งก้อน y บาท เหลือตัดทิ้ง",
+    "Status": 1,
+    "Tps": 1,
+    "Tps_": 9
+  }
+]

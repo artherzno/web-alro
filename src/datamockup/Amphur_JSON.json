@@ -1,0 +1,5582 @@
+[
+  {
+    "DistrictID": 1001,
+    "AM_NAME": "เขตพระนคร",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1002,
+    "AM_NAME": "เขตดุสิต",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1003,
+    "AM_NAME": "เขตหนองจอก",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1004,
+    "AM_NAME": "เขตบางรัก",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1005,
+    "AM_NAME": "เขตบางเขน",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1006,
+    "AM_NAME": "เขตบางกะปิ",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1007,
+    "AM_NAME": "เขตปทุมวัน",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1008,
+    "AM_NAME": "เขตป้อมปราบศัตรูพ่าย",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1009,
+    "AM_NAME": "เขตพระโขนง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1010,
+    "AM_NAME": "เขตมีนบุรี",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1011,
+    "AM_NAME": "เขตลาดกระบัง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1012,
+    "AM_NAME": "เขตยานนาวา",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1013,
+    "AM_NAME": "เขตสัมพันธวงศ์",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1014,
+    "AM_NAME": "เขตพญาไท",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1015,
+    "AM_NAME": "เขตธนบุรี",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1016,
+    "AM_NAME": "เขตบางกอกใหญ่",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1017,
+    "AM_NAME": "เขตห้วยขวาง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1018,
+    "AM_NAME": "เขตคลองสาน",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1019,
+    "AM_NAME": "เขตตลิ่งชัน",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1020,
+    "AM_NAME": "เขตบางกอกน้อย",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1021,
+    "AM_NAME": "เขตบางขุนเทียน",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1022,
+    "AM_NAME": "เขตภาษีเจริญ",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1023,
+    "AM_NAME": "เขตหนองแขม",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1024,
+    "AM_NAME": "เขตราษฎร์บูรณะ",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1025,
+    "AM_NAME": "เขตบางพลัด",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1026,
+    "AM_NAME": "เขตดินแดง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1027,
+    "AM_NAME": "เขตบึงกุ่ม",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1028,
+    "AM_NAME": "เขตสาทร",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1029,
+    "AM_NAME": "เขตบางซื่อ",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1030,
+    "AM_NAME": "เขตจตุจักร",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1031,
+    "AM_NAME": "เขตบางคอแหลม",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1032,
+    "AM_NAME": "เขตประเวศ",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1033,
+    "AM_NAME": "เขตคลองเตย",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1034,
+    "AM_NAME": "เขตสวนหลวง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1035,
+    "AM_NAME": "เขตจอมทอง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1036,
+    "AM_NAME": "เขตดอนเมือง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1037,
+    "AM_NAME": "เขตราชเทวี",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1038,
+    "AM_NAME": "เขตลาดพร้าว",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1039,
+    "AM_NAME": "เขตวัฒนา",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1040,
+    "AM_NAME": "เขตบางแค",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1041,
+    "AM_NAME": "เขตหลักสี่",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1042,
+    "AM_NAME": "เขตสายไหม",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1043,
+    "AM_NAME": "เขตคันนายาว",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1044,
+    "AM_NAME": "เขตสะพานสูง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1045,
+    "AM_NAME": "เขตวังทองหลาง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1046,
+    "AM_NAME": "เขตคลองสามวา",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1047,
+    "AM_NAME": "เขตบางนา",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1048,
+    "AM_NAME": "เขตทวีวัฒนา",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1049,
+    "AM_NAME": "เขตทุ่งครุ",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1050,
+    "AM_NAME": "เขตบางบอน",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1099,
+    "AM_NAME": "สำนักทะเบียนกลาง",
+    "AM_PV_NAME": "กรุงเทพมหานคร",
+    "ProvinceID": 10
+  },
+  {
+    "DistrictID": 1101,
+    "AM_NAME": "เมืองสมุทรปราการ",
+    "AM_PV_NAME": "สมุทรปราการ",
+    "ProvinceID": 11
+  },
+  {
+    "DistrictID": 1102,
+    "AM_NAME": "บางบ่อ",
+    "AM_PV_NAME": "สมุทรปราการ",
+    "ProvinceID": 11
+  },
+  {
+    "DistrictID": 1103,
+    "AM_NAME": "บางพลี",
+    "AM_PV_NAME": "สมุทรปราการ",
+    "ProvinceID": 11
+  },
+  {
+    "DistrictID": 1104,
+    "AM_NAME": "พระประแดง",
+    "AM_PV_NAME": "สมุทรปราการ",
+    "ProvinceID": 11
+  },
+  {
+    "DistrictID": 1105,
+    "AM_NAME": "พระสมุทรเจดีย์",
+    "AM_PV_NAME": "สมุทรปราการ",
+    "ProvinceID": 11
+  },
+  {
+    "DistrictID": 1106,
+    "AM_NAME": "บางเสาธง",
+    "AM_PV_NAME": "สมุทรปราการ",
+    "ProvinceID": 11
+  },
+  {
+    "DistrictID": 1201,
+    "AM_NAME": "เมืองนนทบุรี",
+    "AM_PV_NAME": "นนทบุรี",
+    "ProvinceID": 12
+  },
+  {
+    "DistrictID": 1202,
+    "AM_NAME": "บางกรวย",
+    "AM_PV_NAME": "นนทบุรี",
+    "ProvinceID": 12
+  },
+  {
+    "DistrictID": 1203,
+    "AM_NAME": "บางใหญ่",
+    "AM_PV_NAME": "นนทบุรี",
+    "ProvinceID": 12
+  },
+  {
+    "DistrictID": 1204,
+    "AM_NAME": "บางบัวทอง",
+    "AM_PV_NAME": "นนทบุรี",
+    "ProvinceID": 12
+  },
+  {
+    "DistrictID": 1205,
+    "AM_NAME": "ไทรน้อย",
+    "AM_PV_NAME": "นนทบุรี",
+    "ProvinceID": 12
+  },
+  {
+    "DistrictID": 1206,
+    "AM_NAME": "ปากเกร็ด",
+    "AM_PV_NAME": "นนทบุรี",
+    "ProvinceID": 12
+  },
+  {
+    "DistrictID": 1301,
+    "AM_NAME": "เมืองปทุมธานี",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1302,
+    "AM_NAME": "คลองหลวง",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1303,
+    "AM_NAME": "ธัญบุรี",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1304,
+    "AM_NAME": "หนองเสือ",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1305,
+    "AM_NAME": "ลาดหลุมแก้ว",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1306,
+    "AM_NAME": "ลำลูกกา",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1307,
+    "AM_NAME": "สามโคก",
+    "AM_PV_NAME": "ปทุมธานี",
+    "ProvinceID": 13
+  },
+  {
+    "DistrictID": 1401,
+    "AM_NAME": "พระนครศรีอยุธยา",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1402,
+    "AM_NAME": "ท่าเรือ",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1403,
+    "AM_NAME": "นครหลวง",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1404,
+    "AM_NAME": "บางไทร",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1405,
+    "AM_NAME": "บางบาล",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1406,
+    "AM_NAME": "บางปะอิน",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1407,
+    "AM_NAME": "บางปะหัน",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1408,
+    "AM_NAME": "ผักไห่",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1409,
+    "AM_NAME": "ภาชี",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1410,
+    "AM_NAME": "ลาดบัวหลวง",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1411,
+    "AM_NAME": "วังน้อย",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1412,
+    "AM_NAME": "เสนา",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1413,
+    "AM_NAME": "บางซ้าย",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1414,
+    "AM_NAME": "อุทัย",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1415,
+    "AM_NAME": "มหาราช",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1416,
+    "AM_NAME": "บ้านแพรก",
+    "AM_PV_NAME": "พระนครศรีอยุธยา",
+    "ProvinceID": 14
+  },
+  {
+    "DistrictID": 1501,
+    "AM_NAME": "เมืองอ่างทอง",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1502,
+    "AM_NAME": "ไชโย",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1503,
+    "AM_NAME": "ป่าโมก",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1504,
+    "AM_NAME": "โพธิ์ทอง",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1505,
+    "AM_NAME": "แสวงหา",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1506,
+    "AM_NAME": "วิเศษชัยชาญ",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1507,
+    "AM_NAME": "สามโก้",
+    "AM_PV_NAME": "อ่างทอง",
+    "ProvinceID": 15
+  },
+  {
+    "DistrictID": 1601,
+    "AM_NAME": "เมืองลพบุรี",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1602,
+    "AM_NAME": "พัฒนานิคม",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1603,
+    "AM_NAME": "โคกสำโรง",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1604,
+    "AM_NAME": "ชัยบาดาล",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1605,
+    "AM_NAME": "ท่าวุ้ง",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1606,
+    "AM_NAME": "บ้านหมี่",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1607,
+    "AM_NAME": "ท่าหลวง",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1608,
+    "AM_NAME": "สระโบสถ์",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1609,
+    "AM_NAME": "โคกเจริญ",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1610,
+    "AM_NAME": "ลำสนธิ",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1611,
+    "AM_NAME": "หนองม่วง",
+    "AM_PV_NAME": "ลพบุรี",
+    "ProvinceID": 16
+  },
+  {
+    "DistrictID": 1701,
+    "AM_NAME": "เมืองสิงห์บุรี",
+    "AM_PV_NAME": "สิงห์บุรี",
+    "ProvinceID": 17
+  },
+  {
+    "DistrictID": 1702,
+    "AM_NAME": "บางระจัน",
+    "AM_PV_NAME": "สิงห์บุรี",
+    "ProvinceID": 17
+  },
+  {
+    "DistrictID": 1703,
+    "AM_NAME": "ค่ายบางระจัน",
+    "AM_PV_NAME": "สิงห์บุรี",
+    "ProvinceID": 17
+  },
+  {
+    "DistrictID": 1704,
+    "AM_NAME": "พรหมบุรี",
+    "AM_PV_NAME": "สิงห์บุรี",
+    "ProvinceID": 17
+  },
+  {
+    "DistrictID": 1705,
+    "AM_NAME": "ท่าช้าง",
+    "AM_PV_NAME": "สิงห์บุรี",
+    "ProvinceID": 17
+  },
+  {
+    "DistrictID": 1706,
+    "AM_NAME": "อินทร์บุรี",
+    "AM_PV_NAME": "สิงห์บุรี",
+    "ProvinceID": 17
+  },
+  {
+    "DistrictID": 1801,
+    "AM_NAME": "เมืองชัยนาท",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1802,
+    "AM_NAME": "มโนรมย์",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1803,
+    "AM_NAME": "วัดสิงห์",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1804,
+    "AM_NAME": "สรรพยา",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1805,
+    "AM_NAME": "สรรคบุรี",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1806,
+    "AM_NAME": "หันคา",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1807,
+    "AM_NAME": "หนองมะโมง",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1808,
+    "AM_NAME": "เนินขาม",
+    "AM_PV_NAME": "ชัยนาท",
+    "ProvinceID": 18
+  },
+  {
+    "DistrictID": 1901,
+    "AM_NAME": "เมืองสระบุรี",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1902,
+    "AM_NAME": "แก่งคอย",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1903,
+    "AM_NAME": "หนองแค",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1904,
+    "AM_NAME": "วิหารแดง",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1905,
+    "AM_NAME": "หนองแซง",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1906,
+    "AM_NAME": "บ้านหมอ",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1907,
+    "AM_NAME": "ดอนพุด",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1908,
+    "AM_NAME": "หนองโดน",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1909,
+    "AM_NAME": "พระพุทธบาท",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1910,
+    "AM_NAME": "เสาไห้",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1911,
+    "AM_NAME": "มวกเหล็ก",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1912,
+    "AM_NAME": "วังม่วง",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 1913,
+    "AM_NAME": "เฉลิมพระเกียรติ",
+    "AM_PV_NAME": "สระบุรี",
+    "ProvinceID": 19
+  },
+  {
+    "DistrictID": 2001,
+    "AM_NAME": "เมืองชลบุรี",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2002,
+    "AM_NAME": "บ้านบึง",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2003,
+    "AM_NAME": "หนองใหญ่",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2004,
+    "AM_NAME": "บางละมุง",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2005,
+    "AM_NAME": "พานทอง",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2006,
+    "AM_NAME": "พนัสนิคม",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2007,
+    "AM_NAME": "ศรีราชา",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2008,
+    "AM_NAME": "เกาะสีชัง",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2009,
+    "AM_NAME": "สัตหีบ",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2010,
+    "AM_NAME": "บ่อทอง",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2011,
+    "AM_NAME": "เกาะจันทร์",
+    "AM_PV_NAME": "ชลบุรี",
+    "ProvinceID": 20
+  },
+  {
+    "DistrictID": 2101,
+    "AM_NAME": "เมืองระยอง",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2102,
+    "AM_NAME": "บ้านฉาง",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2103,
+    "AM_NAME": "แกลง",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2104,
+    "AM_NAME": "วังจันทร์",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2105,
+    "AM_NAME": "บ้านค่าย",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2106,
+    "AM_NAME": "ปลวกแดง",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2107,
+    "AM_NAME": "เขาชะเมา",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2108,
+    "AM_NAME": "นิคมพัฒนา",
+    "AM_PV_NAME": "ระยอง",
+    "ProvinceID": 21
+  },
+  {
+    "DistrictID": 2201,
+    "AM_NAME": "เมืองจันทบุรี",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2202,
+    "AM_NAME": "ขลุง",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2203,
+    "AM_NAME": "ท่าใหม่",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2204,
+    "AM_NAME": "โป่งน้ำร้อน",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2205,
+    "AM_NAME": "มะขาม",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2206,
+    "AM_NAME": "แหลมสิงห์",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2207,
+    "AM_NAME": "สอยดาว",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2208,
+    "AM_NAME": "แก่งหางแมว",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2209,
+    "AM_NAME": "นายายอาม",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2210,
+    "AM_NAME": "เขาคิชฌกูฏ",
+    "AM_PV_NAME": "จันทบุรี",
+    "ProvinceID": 22
+  },
+  {
+    "DistrictID": 2301,
+    "AM_NAME": "เมืองตราด",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2302,
+    "AM_NAME": "คลองใหญ่",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2303,
+    "AM_NAME": "เขาสมิง",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2304,
+    "AM_NAME": "บ่อไร่",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2305,
+    "AM_NAME": "แหลมงอบ",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2306,
+    "AM_NAME": "เกาะกูด",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2307,
+    "AM_NAME": "เกาะช้าง",
+    "AM_PV_NAME": "ตราด",
+    "ProvinceID": 23
+  },
+  {
+    "DistrictID": 2401,
+    "AM_NAME": "เมืองฉะเชิงเทรา",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2402,
+    "AM_NAME": "บางคล้า",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2403,
+    "AM_NAME": "บางน้ำเปรี้ยว",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2404,
+    "AM_NAME": "บางปะกง",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2405,
+    "AM_NAME": "บ้านโพธิ์",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2406,
+    "AM_NAME": "พนมสารคาม",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2407,
+    "AM_NAME": "ราชสาส์น",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2408,
+    "AM_NAME": "สนามชัยเขต",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2409,
+    "AM_NAME": "แปลงยาว",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2410,
+    "AM_NAME": "ท่าตะเกียบ",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2411,
+    "AM_NAME": "คลองเขื่อน",
+    "AM_PV_NAME": "ฉะเชิงเทรา",
+    "ProvinceID": 24
+  },
+  {
+    "DistrictID": 2501,
+    "AM_NAME": "เมืองปราจีนบุรี",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2502,
+    "AM_NAME": "กบินทร์บุรี",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2503,
+    "AM_NAME": "นาดี",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2506,
+    "AM_NAME": "บ้านสร้าง",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2507,
+    "AM_NAME": "ประจันตคาม",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2508,
+    "AM_NAME": "ศรีมหาโพธิ",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2509,
+    "AM_NAME": "ศรีมโหสถ",
+    "AM_PV_NAME": "ปราจีนบุรี",
+    "ProvinceID": 25
+  },
+  {
+    "DistrictID": 2601,
+    "AM_NAME": "เมืองนครนายก",
+    "AM_PV_NAME": "นครนายก",
+    "ProvinceID": 26
+  },
+  {
+    "DistrictID": 2602,
+    "AM_NAME": "ปากพลี",
+    "AM_PV_NAME": "นครนายก",
+    "ProvinceID": 26
+  },
+  {
+    "DistrictID": 2603,
+    "AM_NAME": "บ้านนา",
+    "AM_PV_NAME": "นครนายก",
+    "ProvinceID": 26
+  },
+  {
+    "DistrictID": 2604,
+    "AM_NAME": "องครักษ์",
+    "AM_PV_NAME": "นครนายก",
+    "ProvinceID": 26
+  },
+  {
+    "DistrictID": 2701,
+    "AM_NAME": "เมืองสระแก้ว",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2702,
+    "AM_NAME": "คลองหาด",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2703,
+    "AM_NAME": "ตาพระยา",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2704,
+    "AM_NAME": "วังน้ำเย็น",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2705,
+    "AM_NAME": "วัฒนานคร",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2706,
+    "AM_NAME": "อรัญประเทศ",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2707,
+    "AM_NAME": "เขาฉกรรจ์",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2708,
+    "AM_NAME": "โคกสูง",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 2709,
+    "AM_NAME": "วังสมบูรณ์",
+    "AM_PV_NAME": "สระแก้ว",
+    "ProvinceID": 27
+  },
+  {
+    "DistrictID": 3001,
+    "AM_NAME": "เมืองนครราชสีมา",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3002,
+    "AM_NAME": "ครบุรี",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3003,
+    "AM_NAME": "เสิงสาง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3004,
+    "AM_NAME": "คง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3005,
+    "AM_NAME": "บ้านเหลื่อม",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3006,
+    "AM_NAME": "จักราช",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3007,
+    "AM_NAME": "โชคชัย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3008,
+    "AM_NAME": "ด่านขุนทด",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3009,
+    "AM_NAME": "โนนไทย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3010,
+    "AM_NAME": "โนนสูง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3011,
+    "AM_NAME": "ขามสะแกแสง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3012,
+    "AM_NAME": "บัวใหญ่",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3013,
+    "AM_NAME": "ประทาย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3014,
+    "AM_NAME": "ปักธงชัย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3015,
+    "AM_NAME": "พิมาย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3016,
+    "AM_NAME": "ห้วยแถลง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3017,
+    "AM_NAME": "ชุมพวง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3018,
+    "AM_NAME": "สูงเนิน",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3019,
+    "AM_NAME": "ขามทะเลสอ",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3020,
+    "AM_NAME": "สีคิ้ว",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3021,
+    "AM_NAME": "ปากช่อง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3022,
+    "AM_NAME": "หนองบุญมาก",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3023,
+    "AM_NAME": "แก้งสนามนาง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3024,
+    "AM_NAME": "โนนแดง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3025,
+    "AM_NAME": "วังน้ำเขียว",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3026,
+    "AM_NAME": "เทพารักษ์",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3027,
+    "AM_NAME": "เมืองยาง",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3028,
+    "AM_NAME": "พระทองคำ",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3029,
+    "AM_NAME": "ลำทะเมนชัย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3030,
+    "AM_NAME": "บัวลาย",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3031,
+    "AM_NAME": "สีดา",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3032,
+    "AM_NAME": "เฉลิมพระเกียรติ",
+    "AM_PV_NAME": "นครราชสีมา",
+    "ProvinceID": 30
+  },
+  {
+    "DistrictID": 3101,
+    "AM_NAME": "เมืองบุรีรัมย์",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3102,
+    "AM_NAME": "คูเมือง",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3103,
+    "AM_NAME": "กระสัง",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3104,
+    "AM_NAME": "นางรอง",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3105,
+    "AM_NAME": "หนองกี่",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3106,
+    "AM_NAME": "ละหานทราย",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3107,
+    "AM_NAME": "ประโคนชัย",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3108,
+    "AM_NAME": "บ้านกรวด",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3109,
+    "AM_NAME": "พุทไธสง",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3110,
+    "AM_NAME": "ลำปลายมาศ",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3111,
+    "AM_NAME": "สตึก",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3112,
+    "AM_NAME": "ปะคำ",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3113,
+    "AM_NAME": "นาโพธิ์",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3114,
+    "AM_NAME": "หนองหงส์",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3115,
+    "AM_NAME": "พลับพลาชัย",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3116,
+    "AM_NAME": "ห้วยราช",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3117,
+    "AM_NAME": "โนนสุวรรณ",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3118,
+    "AM_NAME": "ชำนิ",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3119,
+    "AM_NAME": "บ้านใหม่ไชยพจน์",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3120,
+    "AM_NAME": "โนนดินแดง",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3121,
+    "AM_NAME": "บ้านด่าน",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3122,
+    "AM_NAME": "แคนดง",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3123,
+    "AM_NAME": "เฉลิมพระเกียรติ",
+    "AM_PV_NAME": "บุรีรัมย์",
+    "ProvinceID": 31
+  },
+  {
+    "DistrictID": 3201,
+    "AM_NAME": "เมืองสุรินทร์",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3202,
+    "AM_NAME": "ชุมพลบุรี",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3203,
+    "AM_NAME": "ท่าตูม",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3204,
+    "AM_NAME": "จอมพระ",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3205,
+    "AM_NAME": "ปราสาท",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3206,
+    "AM_NAME": "กาบเชิง",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3207,
+    "AM_NAME": "รัตนบุรี",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3208,
+    "AM_NAME": "สนม",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3209,
+    "AM_NAME": "ศีขรภูมิ",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3210,
+    "AM_NAME": "สังขะ",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3211,
+    "AM_NAME": "ลำดวน",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3212,
+    "AM_NAME": "สำโรงทาบ",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3213,
+    "AM_NAME": "บัวเชด",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3214,
+    "AM_NAME": "พนมดงรัก",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3215,
+    "AM_NAME": "ศรีณรงค์",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3216,
+    "AM_NAME": "เขวาสินรินทร์",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3217,
+    "AM_NAME": "โนนนารายณ์",
+    "AM_PV_NAME": "สุรินทร์",
+    "ProvinceID": 32
+  },
+  {
+    "DistrictID": 3301,
+    "AM_NAME": "เมืองศรีสะเกษ",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3302,
+    "AM_NAME": "ยางชุมน้อย",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3303,
+    "AM_NAME": "กันทรารมย์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3304,
+    "AM_NAME": "กันทรลักษ์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3305,
+    "AM_NAME": "ขุขันธ์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3306,
+    "AM_NAME": "ไพรบึง",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3307,
+    "AM_NAME": "ปรางค์กู่",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3308,
+    "AM_NAME": "ขุนหาญ",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3309,
+    "AM_NAME": "ราษีไศล",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3310,
+    "AM_NAME": "อุทุมพรพิสัย",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3311,
+    "AM_NAME": "บึงบูรพ์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3312,
+    "AM_NAME": "ห้วยทับทัน",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3313,
+    "AM_NAME": "โนนคูณ",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3314,
+    "AM_NAME": "ศรีรัตนะ",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3315,
+    "AM_NAME": "น้ำเกลี้ยง",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3316,
+    "AM_NAME": "วังหิน",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3317,
+    "AM_NAME": "ภูสิงห์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3318,
+    "AM_NAME": "เมืองจันทร์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3319,
+    "AM_NAME": "เบญจลักษ์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3320,
+    "AM_NAME": "พยุห์",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3321,
+    "AM_NAME": "โพธิ์ศรีสุวรรณ",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3322,
+    "AM_NAME": "ศิลาลาด",
+    "AM_PV_NAME": "ศรีสะเกษ",
+    "ProvinceID": 33
+  },
+  {
+    "DistrictID": 3401,
+    "AM_NAME": "เมืองอุบลราชธานี",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3402,
+    "AM_NAME": "ศรีเมืองใหม่",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3403,
+    "AM_NAME": "โขงเจียม",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3404,
+    "AM_NAME": "เขื่องใน",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3405,
+    "AM_NAME": "เขมราฐ",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3407,
+    "AM_NAME": "เดชอุดม",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3408,
+    "AM_NAME": "นาจะหลวย",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3409,
+    "AM_NAME": "น้ำยืน",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3410,
+    "AM_NAME": "บุณฑริก",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3411,
+    "AM_NAME": "ตระการพืชผล",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3412,
+    "AM_NAME": "กุดข้าวปุ้น",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3414,
+    "AM_NAME": "ม่วงสามสิบ",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3415,
+    "AM_NAME": "วารินชำราบ",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3419,
+    "AM_NAME": "พิบูลมังสาหาร",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3420,
+    "AM_NAME": "ตาลสุม",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3421,
+    "AM_NAME": "โพธิ์ไทร",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3422,
+    "AM_NAME": "สำโรง",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3424,
+    "AM_NAME": "ดอนมดแดง",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3425,
+    "AM_NAME": "สิรินธร",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3426,
+    "AM_NAME": "ทุ่งศรีอุดม",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3429,
+    "AM_NAME": "นาเยีย",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3430,
+    "AM_NAME": "นาตาล",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3431,
+    "AM_NAME": "เหล่าเสือโก้ก",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3432,
+    "AM_NAME": "สว่างวีระวงศ์",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3433,
+    "AM_NAME": "น้ำขุ่น",
+    "AM_PV_NAME": "อุบลราชธานี",
+    "ProvinceID": 34
+  },
+  {
+    "DistrictID": 3501,
+    "AM_NAME": "เมืองยโสธร",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3502,
+    "AM_NAME": "ทรายมูล",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3503,
+    "AM_NAME": "กุดชุม",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3504,
+    "AM_NAME": "คำเขื่อนแก้ว",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3505,
+    "AM_NAME": "ป่าติ้ว",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3506,
+    "AM_NAME": "มหาชนะชัย",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3507,
+    "AM_NAME": "ค้อวัง",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3508,
+    "AM_NAME": "เลิงนกทา",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3509,
+    "AM_NAME": "ไทยเจริญ",
+    "AM_PV_NAME": "ยโสธร",
+    "ProvinceID": 35
+  },
+  {
+    "DistrictID": 3601,
+    "AM_NAME": "เมืองชัยภูมิ",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3602,
+    "AM_NAME": "บ้านเขว้า",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3603,
+    "AM_NAME": "คอนสวรรค์",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3604,
+    "AM_NAME": "เกษตรสมบูรณ์",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3605,
+    "AM_NAME": "หนองบัวแดง",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3606,
+    "AM_NAME": "จัตุรัส",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3607,
+    "AM_NAME": "บำเหน็จณรงค์",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3608,
+    "AM_NAME": "หนองบัวระเหว",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3609,
+    "AM_NAME": "เทพสถิต",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3610,
+    "AM_NAME": "ภูเขียว",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3611,
+    "AM_NAME": "บ้านแท่น",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3612,
+    "AM_NAME": "แก้งคร้อ",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3613,
+    "AM_NAME": "คอนสาร",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3614,
+    "AM_NAME": "ภักดีชุมพล",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3615,
+    "AM_NAME": "เนินสง่า",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3616,
+    "AM_NAME": "ซับใหญ่",
+    "AM_PV_NAME": "ชัยภูมิ",
+    "ProvinceID": 36
+  },
+  {
+    "DistrictID": 3701,
+    "AM_NAME": "เมืองอำนาจเจริญ",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3702,
+    "AM_NAME": "ชานุมาน",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3703,
+    "AM_NAME": "ปทุมราชวงศา",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3704,
+    "AM_NAME": "พนา",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3705,
+    "AM_NAME": "เสนางคนิคม",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3706,
+    "AM_NAME": "หัวตะพาน",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3707,
+    "AM_NAME": "ลืออำนาจ",
+    "AM_PV_NAME": "อำนาจเจริญ",
+    "ProvinceID": 37
+  },
+  {
+    "DistrictID": 3803,
+    "AM_NAME": "บึงกาฬ",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3804,
+    "AM_NAME": "พรเจริญ",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3806,
+    "AM_NAME": "โซ่พิสัย",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3809,
+    "AM_NAME": "เซกา",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3810,
+    "AM_NAME": "ปากคาด",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3811,
+    "AM_NAME": "บึงโขงหลง",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3812,
+    "AM_NAME": "ศรีวิไล",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3813,
+    "AM_NAME": "บุ่งคล้า",
+    "AM_PV_NAME": "บึงกาฬ",
+    "ProvinceID": 38
+  },
+  {
+    "DistrictID": 3901,
+    "AM_NAME": "เมืองหนองบัวลำภู",
+    "AM_PV_NAME": "หนองบัวลำภู",
+    "ProvinceID": 39
+  },
+  {
+    "DistrictID": 3902,
+    "AM_NAME": "นากลาง",
+    "AM_PV_NAME": "หนองบัวลำภู",
+    "ProvinceID": 39
+  },
+  {
+    "DistrictID": 3903,
+    "AM_NAME": "โนนสัง",
+    "AM_PV_NAME": "หนองบัวลำภู",
+    "ProvinceID": 39
+  },
+  {
+    "DistrictID": 3904,
+    "AM_NAME": "ศรีบุญเรือง",
+    "AM_PV_NAME": "หนองบัวลำภู",
+    "ProvinceID": 39
+  },
+  {
+    "DistrictID": 3905,
+    "AM_NAME": "สุวรรณคูหา",
+    "AM_PV_NAME": "หนองบัวลำภู",
+    "ProvinceID": 39
+  },
+  {
+    "DistrictID": 3906,
+    "AM_NAME": "นาวัง",
+    "AM_PV_NAME": "หนองบัวลำภู",
+    "ProvinceID": 39
+  },
+  {
+    "DistrictID": 4001,
+    "AM_NAME": "เมืองขอนแก่น",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4002,
+    "AM_NAME": "บ้านฝาง",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4003,
+    "AM_NAME": "พระยืน",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4004,
+    "AM_NAME": "หนองเรือ",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4005,
+    "AM_NAME": "ชุมแพ",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4006,
+    "AM_NAME": "สีชมพู",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4007,
+    "AM_NAME": "น้ำพอง",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4008,
+    "AM_NAME": "อุบลรัตน์",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4009,
+    "AM_NAME": "กระนวน",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4010,
+    "AM_NAME": "บ้านไผ่",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4011,
+    "AM_NAME": "เปือยน้อย",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4012,
+    "AM_NAME": "พล",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4013,
+    "AM_NAME": "แวงใหญ่",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4014,
+    "AM_NAME": "แวงน้อย",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4015,
+    "AM_NAME": "หนองสองห้อง",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4016,
+    "AM_NAME": "ภูเวียง",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4017,
+    "AM_NAME": "มัญจาคีรี",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4018,
+    "AM_NAME": "ชนบท",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4019,
+    "AM_NAME": "เขาสวนกวาง",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4020,
+    "AM_NAME": "ภูผาม่าน",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4021,
+    "AM_NAME": "ซำสูง",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4022,
+    "AM_NAME": "โคกโพธิ์ไชย",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4023,
+    "AM_NAME": "หนองนาคำ",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4024,
+    "AM_NAME": "บ้านแฮด",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4025,
+    "AM_NAME": "โนนศิลา",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4029,
+    "AM_NAME": "เวียงเก่า",
+    "AM_PV_NAME": "ขอนแก่น",
+    "ProvinceID": 40
+  },
+  {
+    "DistrictID": 4101,
+    "AM_NAME": "เมืองอุดรธานี",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4102,
+    "AM_NAME": "กุดจับ",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4103,
+    "AM_NAME": "หนองวัวซอ",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4104,
+    "AM_NAME": "กุมภวาปี",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4105,
+    "AM_NAME": "โนนสะอาด",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4106,
+    "AM_NAME": "หนองหาน",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4107,
+    "AM_NAME": "ทุ่งฝน",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4108,
+    "AM_NAME": "ไชยวาน",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4109,
+    "AM_NAME": "ศรีธาตุ",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4110,
+    "AM_NAME": "วังสามหมอ",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4111,
+    "AM_NAME": "บ้านดุง",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4117,
+    "AM_NAME": "บ้านผือ",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4118,
+    "AM_NAME": "น้ำโสม",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4119,
+    "AM_NAME": "เพ็ญ",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4120,
+    "AM_NAME": "สร้างคอม",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4121,
+    "AM_NAME": "หนองแสง",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4122,
+    "AM_NAME": "นายูง",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4123,
+    "AM_NAME": "พิบูลย์รักษ์",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4124,
+    "AM_NAME": "กู่แก้ว",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4125,
+    "AM_NAME": "ประจักษ์ศิลปาคม",
+    "AM_PV_NAME": "อุดรธานี",
+    "ProvinceID": 41
+  },
+  {
+    "DistrictID": 4201,
+    "AM_NAME": "เมืองเลย",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4202,
+    "AM_NAME": "นาด้วง",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4203,
+    "AM_NAME": "เชียงคาน",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4204,
+    "AM_NAME": "ปากชม",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4205,
+    "AM_NAME": "ด่านซ้าย",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4206,
+    "AM_NAME": "นาแห้ว",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4207,
+    "AM_NAME": "ภูเรือ",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4208,
+    "AM_NAME": "ท่าลี่",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4209,
+    "AM_NAME": "วังสะพุง",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4210,
+    "AM_NAME": "ภูกระดึง",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4211,
+    "AM_NAME": "ภูหลวง",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4212,
+    "AM_NAME": "ผาขาว",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4213,
+    "AM_NAME": "เอราวัณ",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4214,
+    "AM_NAME": "หนองหิน",
+    "AM_PV_NAME": "เลย",
+    "ProvinceID": 42
+  },
+  {
+    "DistrictID": 4301,
+    "AM_NAME": "เมืองหนองคาย",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4302,
+    "AM_NAME": "ท่าบ่อ",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4305,
+    "AM_NAME": "โพนพิสัย",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4307,
+    "AM_NAME": "ศรีเชียงใหม่",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4308,
+    "AM_NAME": "สังคม",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4314,
+    "AM_NAME": "สระใคร",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4315,
+    "AM_NAME": "เฝ้าไร่",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4316,
+    "AM_NAME": "รัตนวาปี",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4317,
+    "AM_NAME": "โพธิ์ตาก",
+    "AM_PV_NAME": "หนองคาย",
+    "ProvinceID": 43
+  },
+  {
+    "DistrictID": 4401,
+    "AM_NAME": "เมืองมหาสารคาม",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4402,
+    "AM_NAME": "แกดำ",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4403,
+    "AM_NAME": "โกสุมพิสัย",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4404,
+    "AM_NAME": "กันทรวิชัย",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4405,
+    "AM_NAME": "เชียงยืน",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4406,
+    "AM_NAME": "บรบือ",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4407,
+    "AM_NAME": "นาเชือก",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4408,
+    "AM_NAME": "พยัคฆภูมิพิสัย",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4409,
+    "AM_NAME": "วาปีปทุม",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4410,
+    "AM_NAME": "นาดูน",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4411,
+    "AM_NAME": "ยางสีสุราช",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4412,
+    "AM_NAME": "กุดรัง",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4413,
+    "AM_NAME": "ชื่นชม",
+    "AM_PV_NAME": "มหาสารคาม",
+    "ProvinceID": 44
+  },
+  {
+    "DistrictID": 4501,
+    "AM_NAME": "เมืองร้อยเอ็ด",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4502,
+    "AM_NAME": "เกษตรวิสัย",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4503,
+    "AM_NAME": "ปทุมรัตต์",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4504,
+    "AM_NAME": "จตุรพักตรพิมาน",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4505,
+    "AM_NAME": "ธวัชบุรี",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4506,
+    "AM_NAME": "พนมไพร",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4507,
+    "AM_NAME": "โพนทอง",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4508,
+    "AM_NAME": "โพธิ์ชัย",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4509,
+    "AM_NAME": "หนองพอก",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4510,
+    "AM_NAME": "เสลภูมิ",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4511,
+    "AM_NAME": "สุวรรณภูมิ",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4512,
+    "AM_NAME": "เมืองสรวง",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4513,
+    "AM_NAME": "โพนทราย",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4514,
+    "AM_NAME": "อาจสามารถ",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4515,
+    "AM_NAME": "เมยวดี",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4516,
+    "AM_NAME": "ศรีสมเด็จ",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4517,
+    "AM_NAME": "จังหาร",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4518,
+    "AM_NAME": "เชียงขวัญ",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4519,
+    "AM_NAME": "หนองฮี",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4520,
+    "AM_NAME": "ทุ่งเขาหลวง",
+    "AM_PV_NAME": "ร้อยเอ็ด",
+    "ProvinceID": 45
+  },
+  {
+    "DistrictID": 4601,
+    "AM_NAME": "เมืองกาฬสินธุ์",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4602,
+    "AM_NAME": "นามน",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4603,
+    "AM_NAME": "กมลาไสย",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4604,
+    "AM_NAME": "ร่องคำ",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4605,
+    "AM_NAME": "กุฉินารายณ์",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4606,
+    "AM_NAME": "เขาวง",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4607,
+    "AM_NAME": "ยางตลาด",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4608,
+    "AM_NAME": "ห้วยเม็ก",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4609,
+    "AM_NAME": "สหัสขันธ์",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4610,
+    "AM_NAME": "คำม่วง",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4611,
+    "AM_NAME": "ท่าคันโท",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4612,
+    "AM_NAME": "หนองกุงศรี",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4613,
+    "AM_NAME": "สมเด็จ",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4614,
+    "AM_NAME": "ห้วยผึ้ง",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4615,
+    "AM_NAME": "สามชัย",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4616,
+    "AM_NAME": "นาคู",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4617,
+    "AM_NAME": "ดอนจาน",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4618,
+    "AM_NAME": "ฆ้องชัย",
+    "AM_PV_NAME": "กาฬสินธุ์",
+    "ProvinceID": 46
+  },
+  {
+    "DistrictID": 4701,
+    "AM_NAME": "เมืองสกลนคร",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4702,
+    "AM_NAME": "กุสุมาลย์",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4703,
+    "AM_NAME": "กุดบาก",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4704,
+    "AM_NAME": "พรรณานิคม",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4705,
+    "AM_NAME": "พังโคน",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4706,
+    "AM_NAME": "วาริชภูมิ",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4707,
+    "AM_NAME": "นิคมน้ำอูน",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4708,
+    "AM_NAME": "วานรนิวาส",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4709,
+    "AM_NAME": "คำตากล้า",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4710,
+    "AM_NAME": "บ้านม่วง",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4711,
+    "AM_NAME": "อากาศอำนวย",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4712,
+    "AM_NAME": "สว่างแดนดิน",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4713,
+    "AM_NAME": "ส่องดาว",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4714,
+    "AM_NAME": "เต่างอย",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4715,
+    "AM_NAME": "โคกศรีสุพรรณ",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4716,
+    "AM_NAME": "เจริญศิลป์",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4717,
+    "AM_NAME": "โพนนาแก้ว",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4718,
+    "AM_NAME": "ภูพาน",
+    "AM_PV_NAME": "สกลนคร",
+    "ProvinceID": 47
+  },
+  {
+    "DistrictID": 4801,
+    "AM_NAME": "เมืองนครพนม",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4802,
+    "AM_NAME": "ปลาปาก",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4803,
+    "AM_NAME": "ท่าอุเทน",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4804,
+    "AM_NAME": "บ้านแพง",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4805,
+    "AM_NAME": "ธาตุพนม",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4806,
+    "AM_NAME": "เรณูนคร",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4807,
+    "AM_NAME": "นาแก",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4808,
+    "AM_NAME": "ศรีสงคราม",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4809,
+    "AM_NAME": "นาหว้า",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4810,
+    "AM_NAME": "โพนสวรรค์",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4811,
+    "AM_NAME": "นาทม",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4812,
+    "AM_NAME": "วังยาง",
+    "AM_PV_NAME": "นครพนม",
+    "ProvinceID": 48
+  },
+  {
+    "DistrictID": 4901,
+    "AM_NAME": "เมืองมุกดาหาร",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 4902,
+    "AM_NAME": "นิคมคำสร้อย",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 4903,
+    "AM_NAME": "ดอนตาล",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 4904,
+    "AM_NAME": "ดงหลวง",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 4905,
+    "AM_NAME": "คำชะอี",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 4906,
+    "AM_NAME": "หว้านใหญ่",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 4907,
+    "AM_NAME": "หนองสูง",
+    "AM_PV_NAME": "มุกดาหาร",
+    "ProvinceID": 49
+  },
+  {
+    "DistrictID": 5001,
+    "AM_NAME": "เมืองเชียงใหม่",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5002,
+    "AM_NAME": "จอมทอง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5003,
+    "AM_NAME": "แม่แจ่ม",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5004,
+    "AM_NAME": "เชียงดาว",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5005,
+    "AM_NAME": "ดอยสะเก็ด",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5006,
+    "AM_NAME": "แม่แตง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5007,
+    "AM_NAME": "แม่ริม",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5008,
+    "AM_NAME": "สะเมิง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5009,
+    "AM_NAME": "ฝาง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5010,
+    "AM_NAME": "แม่อาย",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5011,
+    "AM_NAME": "พร้าว",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5012,
+    "AM_NAME": "สันป่าตอง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5013,
+    "AM_NAME": "สันกำแพง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5014,
+    "AM_NAME": "สันทราย",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5015,
+    "AM_NAME": "หางดง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5016,
+    "AM_NAME": "ฮอด",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5017,
+    "AM_NAME": "ดอยเต่า",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5018,
+    "AM_NAME": "อมก๋อย",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5019,
+    "AM_NAME": "สารภี",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5020,
+    "AM_NAME": "เวียงแหง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5021,
+    "AM_NAME": "ไชยปราการ",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5022,
+    "AM_NAME": "แม่วาง",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5023,
+    "AM_NAME": "แม่ออน",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5024,
+    "AM_NAME": "ดอยหล่อ",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5025,
+    "AM_NAME": "กัลยาณิวัฒนา",
+    "AM_PV_NAME": "เชียงใหม่",
+    "ProvinceID": 50
+  },
+  {
+    "DistrictID": 5101,
+    "AM_NAME": "เมืองลำพูน",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5102,
+    "AM_NAME": "แม่ทา",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5103,
+    "AM_NAME": "บ้านโฮ่ง",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5104,
+    "AM_NAME": "ลี้",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5105,
+    "AM_NAME": "ทุ่งหัวช้าง",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5106,
+    "AM_NAME": "ป่าซาง",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5107,
+    "AM_NAME": "บ้านธิ",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5108,
+    "AM_NAME": "เวียงหนองล่อง",
+    "AM_PV_NAME": "ลำพูน",
+    "ProvinceID": 51
+  },
+  {
+    "DistrictID": 5201,
+    "AM_NAME": "เมืองลำปาง",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5202,
+    "AM_NAME": "แม่เมาะ",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5203,
+    "AM_NAME": "เกาะคา",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5204,
+    "AM_NAME": "เสริมงาม",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5205,
+    "AM_NAME": "งาว",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5206,
+    "AM_NAME": "แจ้ห่ม",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5207,
+    "AM_NAME": "วังเหนือ",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5208,
+    "AM_NAME": "เถิน",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5209,
+    "AM_NAME": "แม่พริก",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5210,
+    "AM_NAME": "แม่ทะ",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5211,
+    "AM_NAME": "สบปราบ",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5212,
+    "AM_NAME": "ห้างฉัตร",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5213,
+    "AM_NAME": "เมืองปาน",
+    "AM_PV_NAME": "ลำปาง",
+    "ProvinceID": 52
+  },
+  {
+    "DistrictID": 5301,
+    "AM_NAME": "เมืองอุตรดิตถ์",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5302,
+    "AM_NAME": "ตรอน",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5303,
+    "AM_NAME": "ท่าปลา",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5304,
+    "AM_NAME": "น้ำปาด",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5305,
+    "AM_NAME": "ฟากท่า",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5306,
+    "AM_NAME": "บ้านโคก",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5307,
+    "AM_NAME": "พิชัย",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5308,
+    "AM_NAME": "ลับแล",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5309,
+    "AM_NAME": "ทองแสนขัน",
+    "AM_PV_NAME": "อุตรดิตถ์",
+    "ProvinceID": 53
+  },
+  {
+    "DistrictID": 5401,
+    "AM_NAME": "เมืองแพร่",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5402,
+    "AM_NAME": "ร้องกวาง",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5403,
+    "AM_NAME": "ลอง",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5404,
+    "AM_NAME": "สูงเม่น",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5405,
+    "AM_NAME": "เด่นชัย",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5406,
+    "AM_NAME": "สอง",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5407,
+    "AM_NAME": "วังชิ้น",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5408,
+    "AM_NAME": "หนองม่วงไข่",
+    "AM_PV_NAME": "แพร่",
+    "ProvinceID": 54
+  },
+  {
+    "DistrictID": 5501,
+    "AM_NAME": "เมืองน่าน",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5502,
+    "AM_NAME": "แม่จริม",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5503,
+    "AM_NAME": "บ้านหลวง",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5504,
+    "AM_NAME": "นาน้อย",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5505,
+    "AM_NAME": "ปัว",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5506,
+    "AM_NAME": "ท่าวังผา",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5507,
+    "AM_NAME": "เวียงสา",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5508,
+    "AM_NAME": "ทุ่งช้าง",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5509,
+    "AM_NAME": "เชียงกลาง",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5510,
+    "AM_NAME": "นาหมื่น",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5511,
+    "AM_NAME": "สันติสุข",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5512,
+    "AM_NAME": "บ่อเกลือ",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5513,
+    "AM_NAME": "สองแคว",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5514,
+    "AM_NAME": "ภูเพียง",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5515,
+    "AM_NAME": "เฉลิมพระเกียรติ",
+    "AM_PV_NAME": "น่าน",
+    "ProvinceID": 55
+  },
+  {
+    "DistrictID": 5601,
+    "AM_NAME": "เมืองพะเยา",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5602,
+    "AM_NAME": "จุน",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5603,
+    "AM_NAME": "เชียงคำ",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5604,
+    "AM_NAME": "เชียงม่วน",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5605,
+    "AM_NAME": "ดอกคำใต้",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5606,
+    "AM_NAME": "ปง",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5607,
+    "AM_NAME": "แม่ใจ",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5608,
+    "AM_NAME": "ภูซาง",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5609,
+    "AM_NAME": "ภูกามยาว",
+    "AM_PV_NAME": "พะเยา",
+    "ProvinceID": 56
+  },
+  {
+    "DistrictID": 5701,
+    "AM_NAME": "เมืองเชียงราย",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5702,
+    "AM_NAME": "เวียงชัย",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5703,
+    "AM_NAME": "เชียงของ",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5704,
+    "AM_NAME": "เทิง",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5705,
+    "AM_NAME": "พาน",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5706,
+    "AM_NAME": "ป่าแดด",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5707,
+    "AM_NAME": "แม่จัน",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5708,
+    "AM_NAME": "เชียงแสน",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5709,
+    "AM_NAME": "แม่สาย",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5710,
+    "AM_NAME": "แม่สรวย",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5711,
+    "AM_NAME": "เวียงป่าเป้า",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5712,
+    "AM_NAME": "พญาเม็งราย",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5713,
+    "AM_NAME": "เวียงแก่น",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5714,
+    "AM_NAME": "ขุนตาล",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5715,
+    "AM_NAME": "แม่ฟ้าหลวง",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5716,
+    "AM_NAME": "แม่ลาว",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5717,
+    "AM_NAME": "เวียงเชียงรุ้ง",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5718,
+    "AM_NAME": "ดอยหลวง",
+    "AM_PV_NAME": "เชียงราย",
+    "ProvinceID": 57
+  },
+  {
+    "DistrictID": 5801,
+    "AM_NAME": "เมืองแม่ฮ่องสอน",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 5802,
+    "AM_NAME": "ขุนยวม",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 5803,
+    "AM_NAME": "ปาย",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 5804,
+    "AM_NAME": "แม่สะเรียง",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 5805,
+    "AM_NAME": "แม่ลาน้อย",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 5806,
+    "AM_NAME": "สบเมย",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 5807,
+    "AM_NAME": "ปางมะผ้า",
+    "AM_PV_NAME": "แม่ฮ่องสอน",
+    "ProvinceID": 58
+  },
+  {
+    "DistrictID": 6001,
+    "AM_NAME": "เมืองนครสวรรค์",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6002,
+    "AM_NAME": "โกรกพระ",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6003,
+    "AM_NAME": "ชุมแสง",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6004,
+    "AM_NAME": "หนองบัว",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6005,
+    "AM_NAME": "บรรพตพิสัย",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6006,
+    "AM_NAME": "เก้าเลี้ยว",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6007,
+    "AM_NAME": "ตาคลี",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6008,
+    "AM_NAME": "ท่าตะโก",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6009,
+    "AM_NAME": "ไพศาลี",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6010,
+    "AM_NAME": "พยุหะคีรี",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6011,
+    "AM_NAME": "ลาดยาว",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6012,
+    "AM_NAME": "ตากฟ้า",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6013,
+    "AM_NAME": "แม่วงก์",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6014,
+    "AM_NAME": "แม่เปิน",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6015,
+    "AM_NAME": "ชุมตาบง",
+    "AM_PV_NAME": "นครสวรรค์",
+    "ProvinceID": 60
+  },
+  {
+    "DistrictID": 6101,
+    "AM_NAME": "เมืองอุทัยธานี",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6102,
+    "AM_NAME": "ทัพทัน",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6103,
+    "AM_NAME": "สว่างอารมณ์",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6104,
+    "AM_NAME": "หนองฉาง",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6105,
+    "AM_NAME": "หนองขาหย่าง",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6106,
+    "AM_NAME": "บ้านไร่",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6107,
+    "AM_NAME": "ลานสัก",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6108,
+    "AM_NAME": "ห้วยคต",
+    "AM_PV_NAME": "อุทัยธานี",
+    "ProvinceID": 61
+  },
+  {
+    "DistrictID": 6201,
+    "AM_NAME": "เมืองกำแพงเพชร",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6202,
+    "AM_NAME": "ไทรงาม",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6203,
+    "AM_NAME": "คลองลาน",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6204,
+    "AM_NAME": "ขาณุวรลักษบุรี",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6205,
+    "AM_NAME": "คลองขลุง",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6206,
+    "AM_NAME": "พรานกระต่าย",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6207,
+    "AM_NAME": "ลานกระบือ",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6208,
+    "AM_NAME": "ทรายทองวัฒนา",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6209,
+    "AM_NAME": "ปางศิลาทอง",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6210,
+    "AM_NAME": "บึงสามัคคี",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6211,
+    "AM_NAME": "โกสัมพีนคร",
+    "AM_PV_NAME": "กำแพงเพชร",
+    "ProvinceID": 62
+  },
+  {
+    "DistrictID": 6301,
+    "AM_NAME": "เมืองตาก",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6302,
+    "AM_NAME": "บ้านตาก",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6303,
+    "AM_NAME": "สามเงา",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6304,
+    "AM_NAME": "แม่ระมาด",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6305,
+    "AM_NAME": "ท่าสองยาง",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6306,
+    "AM_NAME": "แม่สอด",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6307,
+    "AM_NAME": "พบพระ",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6308,
+    "AM_NAME": "อุ้มผาง",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6309,
+    "AM_NAME": "วังเจ้า",
+    "AM_PV_NAME": "ตาก",
+    "ProvinceID": 63
+  },
+  {
+    "DistrictID": 6401,
+    "AM_NAME": "เมืองสุโขทัย",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6402,
+    "AM_NAME": "บ้านด่านลานหอย",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6403,
+    "AM_NAME": "คีรีมาศ",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6404,
+    "AM_NAME": "กงไกรลาศ",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6405,
+    "AM_NAME": "ศรีสัชนาลัย",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6406,
+    "AM_NAME": "ศรีสำโรง",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6407,
+    "AM_NAME": "สวรรคโลก",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6408,
+    "AM_NAME": "ศรีนคร",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6409,
+    "AM_NAME": "ทุ่งเสลี่ยม",
+    "AM_PV_NAME": "สุโขทัย",
+    "ProvinceID": 64
+  },
+  {
+    "DistrictID": 6501,
+    "AM_NAME": "เมืองพิษณุโลก",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6502,
+    "AM_NAME": "นครไทย",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6503,
+    "AM_NAME": "ชาติตระการ",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6504,
+    "AM_NAME": "บางระกำ",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6505,
+    "AM_NAME": "บางกระทุ่ม",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6506,
+    "AM_NAME": "พรหมพิราม",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6507,
+    "AM_NAME": "วัดโบสถ์",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6508,
+    "AM_NAME": "วังทอง",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6509,
+    "AM_NAME": "เนินมะปราง",
+    "AM_PV_NAME": "พิษณุโลก",
+    "ProvinceID": 65
+  },
+  {
+    "DistrictID": 6601,
+    "AM_NAME": "เมืองพิจิตร",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6602,
+    "AM_NAME": "วังทรายพูน",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6603,
+    "AM_NAME": "โพธิ์ประทับช้าง",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6604,
+    "AM_NAME": "ตะพานหิน",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6605,
+    "AM_NAME": "บางมูลนาก",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6606,
+    "AM_NAME": "โพทะเล",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6607,
+    "AM_NAME": "สามง่าม",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6608,
+    "AM_NAME": "ทับคล้อ",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6609,
+    "AM_NAME": "สากเหล็ก",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6610,
+    "AM_NAME": "บึงนาราง",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6611,
+    "AM_NAME": "ดงเจริญ",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6612,
+    "AM_NAME": "วชิรบารมี",
+    "AM_PV_NAME": "พิจิตร",
+    "ProvinceID": 66
+  },
+  {
+    "DistrictID": 6701,
+    "AM_NAME": "เมืองเพชรบูรณ์",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6702,
+    "AM_NAME": "ชนแดน",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6703,
+    "AM_NAME": "หล่มสัก",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6704,
+    "AM_NAME": "หล่มเก่า",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6705,
+    "AM_NAME": "วิเชียรบุรี",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6706,
+    "AM_NAME": "ศรีเทพ",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6707,
+    "AM_NAME": "หนองไผ่",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6708,
+    "AM_NAME": "บึงสามพัน",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6709,
+    "AM_NAME": "น้ำหนาว",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6710,
+    "AM_NAME": "วังโป่ง",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 6711,
+    "AM_NAME": "เขาค้อ",
+    "AM_PV_NAME": "เพชรบูรณ์",
+    "ProvinceID": 67
+  },
+  {
+    "DistrictID": 7001,
+    "AM_NAME": "เมืองราชบุรี",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7002,
+    "AM_NAME": "จอมบึง",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7003,
+    "AM_NAME": "สวนผึ้ง",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7004,
+    "AM_NAME": "ดำเนินสะดวก",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7005,
+    "AM_NAME": "บ้านโป่ง",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7006,
+    "AM_NAME": "บางแพ",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7007,
+    "AM_NAME": "โพธาราม",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7008,
+    "AM_NAME": "ปากท่อ",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7009,
+    "AM_NAME": "วัดเพลง",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7010,
+    "AM_NAME": "บ้านคา",
+    "AM_PV_NAME": "ราชบุรี",
+    "ProvinceID": 70
+  },
+  {
+    "DistrictID": 7101,
+    "AM_NAME": "เมืองกาญจนบุรี",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7102,
+    "AM_NAME": "ไทรโยค",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7103,
+    "AM_NAME": "บ่อพลอย",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7104,
+    "AM_NAME": "ศรีสวัสดิ์",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7105,
+    "AM_NAME": "ท่ามะกา",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7106,
+    "AM_NAME": "ท่าม่วง",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7107,
+    "AM_NAME": "ทองผาภูมิ",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7108,
+    "AM_NAME": "สังขละบุรี",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7109,
+    "AM_NAME": "พนมทวน",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7110,
+    "AM_NAME": "เลาขวัญ",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7111,
+    "AM_NAME": "ด่านมะขามเตี้ย",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7112,
+    "AM_NAME": "หนองปรือ",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7113,
+    "AM_NAME": "ห้วยกระเจา",
+    "AM_PV_NAME": "กาญจนบุรี",
+    "ProvinceID": 71
+  },
+  {
+    "DistrictID": 7201,
+    "AM_NAME": "เมืองสุพรรณบุรี",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7202,
+    "AM_NAME": "เดิมบางนางบวช",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7203,
+    "AM_NAME": "ด่านช้าง",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7204,
+    "AM_NAME": "บางปลาม้า",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7205,
+    "AM_NAME": "ศรีประจันต์",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7206,
+    "AM_NAME": "ดอนเจดีย์",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7207,
+    "AM_NAME": "สองพี่น้อง",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7208,
+    "AM_NAME": "สามชุก",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7209,
+    "AM_NAME": "อู่ทอง",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7210,
+    "AM_NAME": "หนองหญ้าไซ",
+    "AM_PV_NAME": "สุพรรณบุรี",
+    "ProvinceID": 72
+  },
+  {
+    "DistrictID": 7301,
+    "AM_NAME": "เมืองนครปฐม",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7302,
+    "AM_NAME": "กำแพงแสน",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7303,
+    "AM_NAME": "นครชัยศรี",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7304,
+    "AM_NAME": "ดอนตูม",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7305,
+    "AM_NAME": "บางเลน",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7306,
+    "AM_NAME": "สามพราน",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7307,
+    "AM_NAME": "พุทธมณฑล",
+    "AM_PV_NAME": "นครปฐม",
+    "ProvinceID": 73
+  },
+  {
+    "DistrictID": 7401,
+    "AM_NAME": "เมืองสมุทรสาคร",
+    "AM_PV_NAME": "สมุทรสาคร",
+    "ProvinceID": 74
+  },
+  {
+    "DistrictID": 7402,
+    "AM_NAME": "กระทุ่มแบน",
+    "AM_PV_NAME": "สมุทรสาคร",
+    "ProvinceID": 74
+  },
+  {
+    "DistrictID": 7403,
+    "AM_NAME": "บ้านแพ้ว",
+    "AM_PV_NAME": "สมุทรสาคร",
+    "ProvinceID": 74
+  },
+  {
+    "DistrictID": 7501,
+    "AM_NAME": "เมืองสมุทรสงคราม",
+    "AM_PV_NAME": "สมุทรสงคราม",
+    "ProvinceID": 75
+  },
+  {
+    "DistrictID": 7502,
+    "AM_NAME": "บางคนที",
+    "AM_PV_NAME": "สมุทรสงคราม",
+    "ProvinceID": 75
+  },
+  {
+    "DistrictID": 7503,
+    "AM_NAME": "อัมพวา",
+    "AM_PV_NAME": "สมุทรสงคราม",
+    "ProvinceID": 75
+  },
+  {
+    "DistrictID": 7601,
+    "AM_NAME": "เมืองเพชรบุรี",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7602,
+    "AM_NAME": "เขาย้อย",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7603,
+    "AM_NAME": "หนองหญ้าปล้อง",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7604,
+    "AM_NAME": "ชะอำ",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7605,
+    "AM_NAME": "ท่ายาง",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7606,
+    "AM_NAME": "บ้านลาด",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7607,
+    "AM_NAME": "บ้านแหลม",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7608,
+    "AM_NAME": "แก่งกระจาน",
+    "AM_PV_NAME": "เพชรบุรี",
+    "ProvinceID": 76
+  },
+  {
+    "DistrictID": 7701,
+    "AM_NAME": "เมืองประจวบคีรีขันธ์",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7702,
+    "AM_NAME": "กุยบุรี",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7703,
+    "AM_NAME": "ทับสะแก",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7704,
+    "AM_NAME": "บางสะพาน",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7705,
+    "AM_NAME": "บางสะพานน้อย",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7706,
+    "AM_NAME": "ปราณบุรี",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7707,
+    "AM_NAME": "หัวหิน",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 7708,
+    "AM_NAME": "สามร้อยยอด",
+    "AM_PV_NAME": "ประจวบคีรีขันธ์",
+    "ProvinceID": 77
+  },
+  {
+    "DistrictID": 8001,
+    "AM_NAME": "เมืองนครศรีธรรมราช",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8002,
+    "AM_NAME": "พรหมคีรี",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8003,
+    "AM_NAME": "ลานสกา",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8004,
+    "AM_NAME": "ฉวาง",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8005,
+    "AM_NAME": "พิปูน",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8006,
+    "AM_NAME": "เชียรใหญ่",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8007,
+    "AM_NAME": "ชะอวด",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8008,
+    "AM_NAME": "ท่าศาลา",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8009,
+    "AM_NAME": "ทุ่งสง",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8010,
+    "AM_NAME": "นาบอน",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8011,
+    "AM_NAME": "ทุ่งใหญ่",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8012,
+    "AM_NAME": "ปากพนัง",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8013,
+    "AM_NAME": "ร่อนพิบูลย์",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8014,
+    "AM_NAME": "สิชล",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8015,
+    "AM_NAME": "ขนอม",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8016,
+    "AM_NAME": "หัวไทร",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8017,
+    "AM_NAME": "บางขัน",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8018,
+    "AM_NAME": "ถ้ำพรรณรา",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8019,
+    "AM_NAME": "จุฬาภรณ์",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8020,
+    "AM_NAME": "พระพรหม",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8021,
+    "AM_NAME": "นบพิตำ",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8022,
+    "AM_NAME": "ช้างกลาง",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8023,
+    "AM_NAME": "เฉลิมพระเกียรติ",
+    "AM_PV_NAME": "นครศรีธรรมราช",
+    "ProvinceID": 80
+  },
+  {
+    "DistrictID": 8101,
+    "AM_NAME": "เมืองกระบี่",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8102,
+    "AM_NAME": "เขาพนม",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8103,
+    "AM_NAME": "เกาะลันตา",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8104,
+    "AM_NAME": "คลองท่อม",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8105,
+    "AM_NAME": "อ่าวลึก",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8106,
+    "AM_NAME": "ปลายพระยา",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8107,
+    "AM_NAME": "ลำทับ",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8108,
+    "AM_NAME": "เหนือคลอง",
+    "AM_PV_NAME": "กระบี่",
+    "ProvinceID": 81
+  },
+  {
+    "DistrictID": 8201,
+    "AM_NAME": "เมืองพังงา",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8202,
+    "AM_NAME": "เกาะยาว",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8203,
+    "AM_NAME": "กะปง",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8204,
+    "AM_NAME": "ตะกั่วทุ่ง",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8205,
+    "AM_NAME": "ตะกั่วป่า",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8206,
+    "AM_NAME": "คุระบุรี",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8207,
+    "AM_NAME": "ทับปุด",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8208,
+    "AM_NAME": "ท้ายเหมือง",
+    "AM_PV_NAME": "พังงา",
+    "ProvinceID": 82
+  },
+  {
+    "DistrictID": 8301,
+    "AM_NAME": "เมืองภูเก็ต",
+    "AM_PV_NAME": "ภูเก็ต",
+    "ProvinceID": 83
+  },
+  {
+    "DistrictID": 8302,
+    "AM_NAME": "กะทู้",
+    "AM_PV_NAME": "ภูเก็ต",
+    "ProvinceID": 83
+  },
+  {
+    "DistrictID": 8303,
+    "AM_NAME": "ถลาง",
+    "AM_PV_NAME": "ภูเก็ต",
+    "ProvinceID": 83
+  },
+  {
+    "DistrictID": 8401,
+    "AM_NAME": "เมืองสุราษฎร์ธานี",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8402,
+    "AM_NAME": "กาญจนดิษฐ์",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8403,
+    "AM_NAME": "ดอนสัก",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8404,
+    "AM_NAME": "เกาะสมุย",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8405,
+    "AM_NAME": "เกาะพะงัน",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8406,
+    "AM_NAME": "ไชยา",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8407,
+    "AM_NAME": "ท่าชนะ",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8408,
+    "AM_NAME": "คีรีรัฐนิคม",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8409,
+    "AM_NAME": "บ้านตาขุน",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8410,
+    "AM_NAME": "พนม",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8411,
+    "AM_NAME": "ท่าฉาง",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8412,
+    "AM_NAME": "บ้านนาสาร",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8413,
+    "AM_NAME": "บ้านนาเดิม",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8414,
+    "AM_NAME": "เคียนซา",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8415,
+    "AM_NAME": "เวียงสระ",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8416,
+    "AM_NAME": "พระแสง",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8417,
+    "AM_NAME": "พุนพิน",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8418,
+    "AM_NAME": "ชัยบุรี",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8419,
+    "AM_NAME": "วิภาวดี",
+    "AM_PV_NAME": "สุราษฎร์ธานี",
+    "ProvinceID": 84
+  },
+  {
+    "DistrictID": 8501,
+    "AM_NAME": "เมืองระนอง",
+    "AM_PV_NAME": "ระนอง",
+    "ProvinceID": 85
+  },
+  {
+    "DistrictID": 8502,
+    "AM_NAME": "ละอุ่น",
+    "AM_PV_NAME": "ระนอง",
+    "ProvinceID": 85
+  },
+  {
+    "DistrictID": 8503,
+    "AM_NAME": "กะเปอร์",
+    "AM_PV_NAME": "ระนอง",
+    "ProvinceID": 85
+  },
+  {
+    "DistrictID": 8504,
+    "AM_NAME": "กระบุรี",
+    "AM_PV_NAME": "ระนอง",
+    "ProvinceID": 85
+  },
+  {
+    "DistrictID": 8505,
+    "AM_NAME": "สุขสำราญ",
+    "AM_PV_NAME": "ระนอง",
+    "ProvinceID": 85
+  },
+  {
+    "DistrictID": 8601,
+    "AM_NAME": "เมืองชุมพร",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8602,
+    "AM_NAME": "ท่าแซะ",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8603,
+    "AM_NAME": "ปะทิว",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8604,
+    "AM_NAME": "หลังสวน",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8605,
+    "AM_NAME": "ละแม",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8606,
+    "AM_NAME": "พะโต๊ะ",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8607,
+    "AM_NAME": "สวี",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 8608,
+    "AM_NAME": "ทุ่งตะโก",
+    "AM_PV_NAME": "ชุมพร",
+    "ProvinceID": 86
+  },
+  {
+    "DistrictID": 9001,
+    "AM_NAME": "เมืองสงขลา",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9002,
+    "AM_NAME": "สทิงพระ",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9003,
+    "AM_NAME": "จะนะ",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9004,
+    "AM_NAME": "นาทวี",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9005,
+    "AM_NAME": "เทพา",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9006,
+    "AM_NAME": "สะบ้าย้อย",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9007,
+    "AM_NAME": "ระโนด",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9008,
+    "AM_NAME": "กระแสสินธุ์",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9009,
+    "AM_NAME": "รัตภูมิ",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9010,
+    "AM_NAME": "สะเดา",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9011,
+    "AM_NAME": "หาดใหญ่",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9012,
+    "AM_NAME": "นาหม่อม",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9013,
+    "AM_NAME": "ควนเนียง",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9014,
+    "AM_NAME": "บางกล่ำ",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9015,
+    "AM_NAME": "สิงหนคร",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9016,
+    "AM_NAME": "คลองหอยโข่ง",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9077,
+    "AM_NAME": "ท้องถิ่นเทศบาลตำบลสำนักขา",
+    "AM_PV_NAME": "สงขลา",
+    "ProvinceID": 90
+  },
+  {
+    "DistrictID": 9101,
+    "AM_NAME": "เมืองสตูล",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9102,
+    "AM_NAME": "ควนโดน",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9103,
+    "AM_NAME": "ควนกาหลง",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9104,
+    "AM_NAME": "ท่าแพ",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9105,
+    "AM_NAME": "ละงู",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9106,
+    "AM_NAME": "ทุ่งหว้า",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9107,
+    "AM_NAME": "มะนัง",
+    "AM_PV_NAME": "สตูล",
+    "ProvinceID": 91
+  },
+  {
+    "DistrictID": 9201,
+    "AM_NAME": "เมืองตรัง",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9202,
+    "AM_NAME": "กันตัง",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9203,
+    "AM_NAME": "ย่านตาขาว",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9204,
+    "AM_NAME": "ปะเหลียน",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9205,
+    "AM_NAME": "สิเกา",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9206,
+    "AM_NAME": "ห้วยยอด",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9207,
+    "AM_NAME": "วังวิเศษ",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9208,
+    "AM_NAME": "นาโยง",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9209,
+    "AM_NAME": "รัษฎา",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9210,
+    "AM_NAME": "หาดสำราญ",
+    "AM_PV_NAME": "ตรัง",
+    "ProvinceID": 92
+  },
+  {
+    "DistrictID": 9301,
+    "AM_NAME": "เมืองพัทลุง",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9302,
+    "AM_NAME": "กงหรา",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9303,
+    "AM_NAME": "เขาชัยสน",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9304,
+    "AM_NAME": "ตะโหมด",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9305,
+    "AM_NAME": "ควนขนุน",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9306,
+    "AM_NAME": "ปากพะยูน",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9307,
+    "AM_NAME": "ศรีบรรพต",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9308,
+    "AM_NAME": "ป่าบอน",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9309,
+    "AM_NAME": "บางแก้ว",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9310,
+    "AM_NAME": "ป่าพะยอม",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9311,
+    "AM_NAME": "ศรีนครินทร์",
+    "AM_PV_NAME": "พัทลุง",
+    "ProvinceID": 93
+  },
+  {
+    "DistrictID": 9401,
+    "AM_NAME": "เมืองปัตตานี",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9402,
+    "AM_NAME": "โคกโพธิ์",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9403,
+    "AM_NAME": "หนองจิก",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9404,
+    "AM_NAME": "ปะนาเระ",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9405,
+    "AM_NAME": "มายอ",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9406,
+    "AM_NAME": "ทุ่งยางแดง",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9407,
+    "AM_NAME": "สายบุรี",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9408,
+    "AM_NAME": "ไม้แก่น",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9409,
+    "AM_NAME": "ยะหริ่ง",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9410,
+    "AM_NAME": "ยะรัง",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9411,
+    "AM_NAME": "กะพ้อ",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9412,
+    "AM_NAME": "แม่ลาน",
+    "AM_PV_NAME": "ปัตตานี",
+    "ProvinceID": 94
+  },
+  {
+    "DistrictID": 9501,
+    "AM_NAME": "เมืองยะลา",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9502,
+    "AM_NAME": "เบตง",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9503,
+    "AM_NAME": "บันนังสตา",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9504,
+    "AM_NAME": "ธารโต",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9505,
+    "AM_NAME": "ยะหา",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9506,
+    "AM_NAME": "รามัน",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9507,
+    "AM_NAME": "กาบัง",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9508,
+    "AM_NAME": "กรงปินัง",
+    "AM_PV_NAME": "ยะลา",
+    "ProvinceID": 95
+  },
+  {
+    "DistrictID": 9601,
+    "AM_NAME": "เมืองนราธิวาส",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9602,
+    "AM_NAME": "ตากใบ",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9603,
+    "AM_NAME": "บาเจาะ",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9604,
+    "AM_NAME": "ยี่งอ",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9605,
+    "AM_NAME": "ระแงะ",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9606,
+    "AM_NAME": "รือเสาะ",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9607,
+    "AM_NAME": "ศรีสาคร",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9608,
+    "AM_NAME": "แว้ง",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9609,
+    "AM_NAME": "สุคิริน",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9610,
+    "AM_NAME": "สุไหงโก-ลก",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9611,
+    "AM_NAME": "สุไหงปาดี",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9612,
+    "AM_NAME": "จะแนะ",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  },
+  {
+    "DistrictID": 9613,
+    "AM_NAME": "เจาะไอร้อง",
+    "AM_PV_NAME": "นราธิวาส",
+    "ProvinceID": 96
+  }
+]

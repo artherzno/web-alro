@@ -114,7 +114,7 @@ function LoanRequestContactStep1(props) {
         Ngan: '', // 0,
         Wa: '', // 0,
 
-        ProjectYear: 0, // 2564,
+        ProjectYear: null, // 2564,
         LoanPeriodCode: '', // "ส",
         FarmerID: props.FarmerID, // 1,
         // LandID: '', // 1,
@@ -228,6 +228,30 @@ function LoanRequestContactStep1(props) {
     useEffect(() => {
         setLoaded(true);
 
+        const calcProjectYear = () => {
+            let d = new Date();
+            let buddhaYear = 543;
+
+            let curentDate = moment(d).format('YYYY-MM-DD');
+            let Sep30CurrentYear = moment().format('YYYY');
+
+            let fullyear = d.getFullYear() + buddhaYear;
+            // let yearList = [];
+
+            if(moment(curentDate).isBefore(Sep30CurrentYear+'-10-01')) {
+                setInputData({
+                    ...inputData,
+                    ProjectYear: (fullyear+0)
+                })
+            } else {
+                setInputData({
+                    ...inputData,
+                    ProjectYear: (fullyear + 1)
+                })
+            }
+        }
+        calcProjectYear();
+
         // New order date 2021-08-23 to 23/08/2564
         const newOrderDate = (val) => {
             let yyyy = Number(val.substring(0,4)) + 543
@@ -295,7 +319,7 @@ function LoanRequestContactStep1(props) {
 
                         console.log(data.approval_data.length)
                         setApprovalData(dataApproval)
-                        setApprovalStatus(data.approval_data.length === undefined ? '' : data.approval_data[0].Approval === 1 ? 'P' : data.approval_data[0].Approval === 0 ? 'C' : data.approval_data[0].Approval === null || data.approval_data[0].Approval === '' ? '' : 'F')
+                        setApprovalStatus(data.approval_data.length === undefined ? '' : data.approval_data[0].Approval === 1 ? 'P' : data.approval_data[0].Approval === 0 ? 'F' : data.approval_data[0].Approval === null || data.approval_data[0].Approval === '' ? '' : 'C')
 
                         setInputData({
                             ...inputData,
@@ -323,10 +347,11 @@ function LoanRequestContactStep1(props) {
                             NganNgan: dataLand.NganNgan, // 0,
                             Wa: dataLand.Wa, // 0,
                     
+                            ApplicantDate: dataDetail.ApplicantDate || null,
                             ApplicantNo: dataDetail.ApplicantNo || '',
                             AppLocation: dataDetail.AppLocation || '',
                             AppTo: dataDetail.AppTo || '',
-                            ProjectYear: dataDetail.ProjectYear - 2500 || null, // 2564,
+                            ProjectYear: dataDetail.ProjectYear|| null, // 2564,
                             LoanPeriodCode: dataDetail.LoanPeriodCode || '', // "ส",
                             FarmerID: props.FarmerID, // 1,
                             // LandID: '', // 1,
@@ -1031,7 +1056,7 @@ function LoanRequestContactStep1(props) {
         formData.append('FarmerID', inputData.FarmerID)
         // formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
         // formData.append('Debt',parseInt(inputData.Debt))
-        formData.set('ProjectYear',(inputData.ProjectYear === 0 ? '' : inputData.ProjectYear + 2500))
+        // formData.set('ProjectYear',(inputData.ProjectYear === 0 ? '' : inputData.ProjectYear + 2500))
         formData.set('Loan_amount1', parseFloat(Loan_amount1_value.split(',').join('')))
         formData.set('Loan_amount2', parseFloat(Loan_amount2_value.split(',').join('')))
         formData.set('Loan_amount3', parseFloat(Loan_amount3_value.split(',').join('')))
@@ -1245,7 +1270,8 @@ function LoanRequestContactStep1(props) {
                                                     <MuiTextfield label="เรียน" inputdisabled="input-disabled" name="AppTo" value={inputData.AppTo} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiSelectObjProjectYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                    <MuiTextfield label="ปีงบประมาณ" name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} />
+                                                    {/* <MuiSelectObjProjectYearValue label="ปีงบประมาณ" valueYaer={10} name="ProjectYear" value={inputData.ProjectYear} onChange={handleInputData} /> */}
                                                 </Grid>
                                                 <Grid item xs={12} md={9} className="loanrequestcontact-num-box">
                                                         {/* <p className="loanrequestcontact-num">P เลขที่คำขอ 10640037</p> */}
