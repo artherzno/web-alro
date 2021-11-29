@@ -310,7 +310,29 @@ const listmenu = [
             },{
                 subtitle: 'ข้อมูลตำบล',
                 subpath: '/manageinfo/infosubdistrict'
+            },{
+                subtitle: 'ประเภทกู้ยืม',
+                subpath: '/manageinfo/loantype'
+            },{
+                subtitle: 'ระยะเวลาเงินกู้',
+                subpath: '/manageinfo/loanperiod'
             }
+            // ,{
+            //     subtitle: 'โครงการกู้เงิน',
+            //     subpath: '/manageinfo/loanproject'
+            // }
+            ,{
+                subtitle: 'เงื่อนไขการปรับโครงสร้างหนี้',
+                subpath: '/manageinfo/debtconditionadjust'
+            }
+            // ,{
+            //     subtitle: 'ข้อมูลสมาชิก',
+            //     subpath: '/manageinfo/infofarmer'
+            // }
+            // ,{
+            //     subtitle: 'ตรวจสอบรายละเอียด(เกษตรกร)',
+            //     subpath: '/manageinfo/checkfarmer'
+            // }
         ]
     },{
         title: 'สัญญาชดใช้หนี้แทนเกษตรกร',

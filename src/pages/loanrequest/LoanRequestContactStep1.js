@@ -347,6 +347,7 @@ function LoanRequestContactStep1(props) {
                             NganNgan: dataLand.NganNgan, // 0,
                             Wa: dataLand.Wa, // 0,
                     
+                            ApplicantDate: dataDetail.ApplicantDate || null,
                             ApplicantNo: dataDetail.ApplicantNo || '',
                             AppLocation: dataDetail.AppLocation || '',
                             AppTo: dataDetail.AppTo || '',
