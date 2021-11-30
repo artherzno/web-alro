@@ -97,7 +97,7 @@ class RequestLoanTab extends React.Component {
         })
     }
 
-    exportExcel(page, count) {
+    exportExcel() {
 
         const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate,resultRequest } = this.state
 
@@ -112,8 +112,7 @@ class RequestLoanTab extends React.Component {
         parameter.append('EndDate', endDate);
         parameter.append("Result", resultRequest);
 
-        parameter.append('Page', page + 1);
-        parameter.append('PageCount', count);
+     
 
         this.setState({
             isExporting: true
@@ -129,9 +128,7 @@ class RequestLoanTab extends React.Component {
             link.click();
 
             this.setState({
-                isExporting: false,
-                page: page,
-                totalResult: response.data.totalResult
+                isExporting: false
                
             })
 
@@ -145,7 +142,7 @@ class RequestLoanTab extends React.Component {
 
     }
 
-    printPDF(page, count) {
+    printPDF() {
 
         const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, resultRequest } = this.state
 
@@ -160,8 +157,7 @@ class RequestLoanTab extends React.Component {
         parameter.append('EndDate', endDate);
         parameter.append("Result", resultRequest);
 
-        parameter.append('Page', page + 1);
-        parameter.append('PageCount', count);
+      
 
         this.setState({
             isPrinting: true
@@ -177,9 +173,7 @@ class RequestLoanTab extends React.Component {
             link.click();
 
             this.setState({
-                isPrinting: false,
-                page: page,
-                totalResult: response.data.totalResult
+                isPrinting: false
             })
 
         }).catch(error => {
