@@ -606,6 +606,8 @@ function DebtCondition() {
                                                                                             
                                                                                             const master = masterCondition.find(element => element.ConditionCode === e.target.value)
                                                                                             if(master){
+                                                                                                setFieldValue('ConditionCode', master.ConditionCode)
+                                                                                                setFieldValue('ConditionID', master.ConditionID)
                                                                                                 setFieldValue('ConditionName', master.ConditionName)
                                                                                                 setFieldValue('ConditionDetail', master.ConditionDetail)
                                                                                                 setFieldValue('Tps', master.Tps)
@@ -698,7 +700,7 @@ function DebtCondition() {
                                                                                         helperText={errors.ReducePrinciple}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
-                                                                                        defaultValue="" endAdornment="บาท" />
+                                                                                        defaultValue=""endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>

@@ -62,29 +62,49 @@ function RecordBillAlro() {
 
     function saveData(values) {
 
-        const account = getAccount()
+        try {
+            
+            const account = getAccount()
 
-        const parameter = {
-            SPKReceipt:{
-                ...values
-            },
-            CloseContact: values.Status,
-            dCreated:null,
-            dUpdated:null,
-            admin_nMEMID:null
+            const parameter = {
+                SPKReceipt: {
+                    ...values,
+                    OverdueInterest: `${values.OverdueInterest}`.replace(",", ''),
+                    DueInterest: `${values.DueInterest}`.replace(",", ''),
+                    PrinciplePaid: `${values.PrinciplePaid}`.replace(",", ''),
+                    InterestPaid: `${values.InterestPaid}`.replace(",", ''),
+                    Fines: `${values.Fines}`.replace(",", ''),
+                    PrincipleBalance1: `${values.PrincipleBalance1}`.replace(",", ''),
+                    RecPrincipleBalance: `${values.RecPrincipleBalance}`.replace(",", ''),
+                    RecPrinciple: `${values.RecPrinciple}`.replace(",", ''),
+                    RecInterestKang2: `${values.RecInterestKang2}`.replace(",", ''),
+                    RecDueInterest: `${values.RecDueInterest}`.replace(",", ''),
+                    RecSumInterest: `${values.RecSumInterest}`.replace(",", ''),
+                    RecOverdueInterest: `${values.RecOverdueInterest}`.replace(",", ''),
+                    RecSumPaid: `${values.RecSumPaid}`.replace(",", ''),
+                },
+                CloseContact: values.Status,
+                dCreated: null,
+                dUpdated: null,
+                admin_nMEMID: null
+            }
+
+            dialog.showLoading()
+            console.log("parameter", parameter)
+            api.saveReceipt(parameter).then(response => {
+
+                dialog.close()
+                setTimeout(() => {
+                    dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
+                }, 500);
+
+            }).catch(error => {
+                dialog.close()
+            })
+
+        } catch (error) {
+            console.log("error", error)
         }
-
-        dialog.showLoading()
-        api.saveReceipt(parameter).then(response => {
-
-            dialog.close()
-            setTimeout(() => {
-                dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
-            }, 500);
-
-        }).catch(error => {
-            dialog.close()
-        })
 
 
     }
@@ -169,14 +189,14 @@ function RecordBillAlro() {
                 const recData = beforeProcess[beforeProcess.length-1]
                 const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
-                formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
-                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
-                formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
-                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2 : 0)
-                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
-                formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
-                formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
-                formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
+                formikRef.current.setFieldValue("PrincipleBalance1", formatNumber(recData.principalBalance,2))
+                formikRef.current.setFieldValue("RecPrincipleBalance", formatNumber(recData.principalBalance,2))
+                formikRef.current.setFieldValue("RecPrinciple", formatNumber(recData.principle1,2))
+                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? formatNumber(beforRectData.InterestKang2,2) : 0)
+                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2 ,2): recData.InterestKang2)
+                formikRef.current.setFieldValue("RecSumInterest", formatNumber(recData.InterestKang2,2))
+                formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
+                formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
                 
             }
 

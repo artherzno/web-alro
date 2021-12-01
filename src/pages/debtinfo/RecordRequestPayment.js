@@ -82,7 +82,6 @@ function RecordRequestPayment() {
         const parameter = {
             LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
             Fullname: '',//values.Fullname,
-            Username: account.username,
             Rentno: selectedData.LoanNumber,
             Date: date
         }
@@ -99,11 +98,14 @@ function RecordRequestPayment() {
                 formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
                 formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
                 formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
-                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2 : 0)
+                formikRef.current.setFieldValue("RecInterestKang2", recData ? recData.InterestKang2 : 0)
                 formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
+
+                formikRef.current.setFieldValue("ChangeInterest", selectedData.Interest)//เช็ค
+                formikRef.current.setFieldValue("ChangeInterest", selectedData.PaymentPeriodRemain)
 
             }
 

@@ -64,7 +64,8 @@ function RecordInstallmentPayment() {
     async function getDataByLoan() {
 
         const parameter = {
-            LoanNumber: paramsSignNo
+            LoanNumber: paramsSignNo,
+            RelentNumber: paramsRequestNo
         }
 
         const parameter1 = {
@@ -74,8 +75,8 @@ function RecordInstallmentPayment() {
         try {
 
             setIsLoading(true)
-            const res = await Promise.all([api.getDataByLoan(parameter), api.getDataByRelentNumber(parameter1)])
-            const resultList = res[0].data.concat(res[1].data)
+            const res = await api.getDataByLoan(parameter)
+            const resultList = res.data
             setResultList(resultList)
             setIsLoading(false)
         } catch (error) {
@@ -127,7 +128,6 @@ function RecordInstallmentPayment() {
         const parameter = {
             LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
             Fullname: '',//values.Fullname,
-            Username: account.username,
             Rentno: selectedData.LoanNumber,
             Date: date
         }
@@ -144,11 +144,13 @@ function RecordInstallmentPayment() {
                 formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
                 formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
                 formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
-                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2 : 0)
+                formikRef.current.setFieldValue("RecInterestKang2", recData ? recData.InterestKang2 : 0)
                 formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
+                formikRef.current.setFieldValue("ChangeInterest", selectedData.Interest)//เช็ค
+                formikRef.current.setFieldValue("ChangeInterest", selectedData.PaymentPeriodRemain)
 
             }
 
@@ -665,10 +667,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="InterestChange"
-                                                                                        value={values.InterestChange}
-                                                                                        error={errors.InterestChange}
-                                                                                        helperText={errors.InterestChange}
+                                                                                        name="ChangeInterest"
+                                                                                        value={values.ChangeInterest}
+                                                                                        error={errors.ChangeInterest}
+                                                                                        helperText={errors.ChangeInterest}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="อัตราดอกเบี้ย"
@@ -690,7 +692,7 @@ function RecordInstallmentPayment() {
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="งวดชำระคงเหลือ"
-                                                                                        label="" defaultValue="" endAdornment="บาท" />
+                                                                                        label="" defaultValue="" endAdornment="งวด" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
