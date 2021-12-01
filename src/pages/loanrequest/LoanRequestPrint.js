@@ -351,7 +351,7 @@ function LoanRequestPrint(props) {
 
     const rowsLabel = [
         // 'ApplicantID',
-        'RecordCode',
+        // 'RecordCode',
         'RecDate', 
         'ApplicantDate', 
         'ApplicantNo',
@@ -369,7 +369,7 @@ function LoanRequestPrint(props) {
 
     const headCells = [
         // { id: 'ApplicantID', numeric: false, disablePadding: true, widthCol: '0px', label: 'รหัสบันทึก' },
-        { id: 'RecordCode', numeric: false, disablePadding: true, widthCol: '140px', label: 'รหัสบันทึก' },
+        // { id: 'RecordCode', numeric: false, disablePadding: true, widthCol: '140px', label: 'รหัสบันทึก' },
         { id: 'RecDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่บันทึก' },
         { id: 'ApplicantDate', numeric: false, disablePadding: false, widthCol: '180px', label: 'วันที่ยื่นคำขอ' },
         { id: 'ApplicantNo', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขคำขอ' },
@@ -716,7 +716,9 @@ function LoanRequestPrint(props) {
 
                         setInputData({
                             ...inputData,
-                            ProjectID: 0
+                            ProjectID: 0,
+                            Land_AddrDistrict: data.data[0].Land_AddrDistrict,
+                            Land_AddrProvince: data.data[0].Land_AddrProvince,
                         })
                         // setinputDataLoan({
                         //     ...inputDataLoan,
