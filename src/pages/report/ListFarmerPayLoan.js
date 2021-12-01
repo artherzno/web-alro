@@ -10,11 +10,13 @@ import SummaryListFarmPayLoanTab from './SummaryListFarmPayLoanTab'
 const tabs = [{
     title: 'บัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
     id: "list_farmer_pay"
-},
-{
-    title: 'สรุปบัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
-    id: "sum_list_farmer_pay"
-}]
+}
+//,somo comment
+//{
+//    title: 'สรุปบัญชีรายชื่อเกษตรกรที่ชำระเงินกู้',
+//    id: "sum_list_farmer_pay"
+//}
+]
 
 class ListFarmerPayLoan extends React.Component {
 

@@ -324,9 +324,7 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">รายเดิม</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนกู้ </StyledTableCell>
                                     <StyledTableCell align="center">รายใหม่</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนกู้ </StyledTableCell>
                                     <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
                                     
                                 </TableRow>
@@ -340,8 +338,6 @@ parameter.append('YearTo', YearTovalue);
                                             <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.interestRate)}</StyledTableCellLine>
                                             
@@ -355,8 +351,6 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.numCase)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.original)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.original)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.new)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.new)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
                                    
