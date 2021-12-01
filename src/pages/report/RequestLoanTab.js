@@ -59,8 +59,8 @@ class RequestLoanTab extends React.Component {
 
     componentDidMount() {
 
-
         this.loadPayLoan(this.state.page, this.state.count)
+       
     }
 
     loadPayLoan(page, count) {
@@ -70,13 +70,13 @@ class RequestLoanTab extends React.Component {
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result",resultRequest)
+        parameter.append("Result",resultRequest);
 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
@@ -104,13 +104,15 @@ parameter.append('YearTo', YearTovalue);
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result", resultRequest)
+        parameter.append("Result", resultRequest);
+
+     
 
         this.setState({
             isExporting: true
@@ -127,6 +129,7 @@ parameter.append('YearTo', YearTovalue);
 
             this.setState({
                 isExporting: false
+               
             })
 
         }).catch(error => {
@@ -152,7 +155,9 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        parameter.append("Result", resultRequest)
+        parameter.append("Result", resultRequest);
+
+      
 
         this.setState({
             isPrinting: true
