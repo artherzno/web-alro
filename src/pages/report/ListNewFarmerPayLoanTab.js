@@ -237,7 +237,7 @@ parameter.append('YearTo', YearTovalue);
               
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
-                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan() }} />
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
                 </Grid>
             </Grid>
 
