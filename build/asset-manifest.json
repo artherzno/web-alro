@@ -1,5 +1,6 @@
 {
   "files": {
+<<<<<<< HEAD
     "main.css": "/static/css/main.75486e2e.chunk.css",
     "main.js": "/static/js/main.26cbe782.chunk.js",
     "main.js.map": "/static/js/main.26cbe782.chunk.js.map",
@@ -12,13 +13,33 @@
     "index.html": "/index.html",
     "static/css/main.75486e2e.chunk.css.map": "/static/css/main.75486e2e.chunk.css.map",
     "static/js/2.21c97337.chunk.js.LICENSE.txt": "/static/js/2.21c97337.chunk.js.LICENSE.txt",
+=======
+    "main.css": "/static/css/main.33ee1074.chunk.css",
+    "main.js": "/static/js/main.978cb5e1.chunk.js",
+    "main.js.map": "/static/js/main.978cb5e1.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c48f3c2f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c48f3c2f.js.map",
+    "static/js/2.2169f368.chunk.js": "/static/js/2.2169f368.chunk.js",
+    "static/js/2.2169f368.chunk.js.map": "/static/js/2.2169f368.chunk.js.map",
+    "static/js/3.975d5181.chunk.js": "/static/js/3.975d5181.chunk.js",
+    "static/js/3.975d5181.chunk.js.map": "/static/js/3.975d5181.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.33ee1074.chunk.css.map": "/static/css/main.33ee1074.chunk.css.map",
+    "static/js/2.2169f368.chunk.js.LICENSE.txt": "/static/js/2.2169f368.chunk.js.LICENSE.txt",
+>>>>>>> 5488b4a693e43c9303364f683e2b28f10d57fd5b
     "static/media/App.scss": "/static/media/login-bg.f3d3bf69.png",
     "static/media/logo-alro.9306daf2.png": "/static/media/logo-alro.9306daf2.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c48f3c2f.js",
+<<<<<<< HEAD
     "static/js/2.21c97337.chunk.js",
     "static/css/main.75486e2e.chunk.css",
     "static/js/main.26cbe782.chunk.js"
+=======
+    "static/js/2.2169f368.chunk.js",
+    "static/css/main.33ee1074.chunk.css",
+    "static/js/main.978cb5e1.chunk.js"
+>>>>>>> 5488b4a693e43c9303364f683e2b28f10d57fd5b
   ]
 }
