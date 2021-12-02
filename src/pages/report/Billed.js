@@ -370,7 +370,7 @@ class Billed extends React.Component {
                                 <TableHead>
                                     <TableRow>
 
-                                        <StyledTableCell align="center" colSpan={2}>ใบเสร๋จรับเงิน</StyledTableCell>
+                                        <StyledTableCell align="center" colSpan={2}>ใบเสร็จรับเงิน</StyledTableCell>
                                         <StyledTableCell align="center" colSpan={4}>จำนวนเงินทั้งหมดที่จัดเก็บ</StyledTableCell>
                                         <StyledTableCell align="center" colSpan={2}>ใบเสร็จที่ยกเลิก</StyledTableCell>
 

@@ -326,8 +326,8 @@ parameter.append('YearTo', YearTovalue);
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell rowSpan={2} align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell rowSpan={2} align="center">ลำดับที่</StyledTableCell>
+                                    <StyledTableCell rowSpan={2} align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell rowSpan={2} align="center">บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell rowSpan={2} align="center">ชื่อโครงการ</StyledTableCell>
                                     <StyledTableCell colSpan={8} align="center">สัญญาเดิม</StyledTableCell>
@@ -362,8 +362,8 @@ parameter.append('YearTo', YearTovalue);
 
                                     return (
                                         <TableRow key={index}>
+                                             <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
                                             <StyledTableCellLine > {farmer.province} </StyledTableCellLine>
-                                            <StyledTableCellLine align="center">{farmer.no} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.idCard} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.projName} </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName} </StyledTableCellLine>

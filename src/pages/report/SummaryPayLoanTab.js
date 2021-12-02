@@ -321,13 +321,9 @@ parameter.append('YearTo', YearTovalue);
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center">ส.ป.ก.จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
-                                    <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">เริ่มชำระ</Typography></div></StyledTableCell>
-                                    <StyledTableCell align="center"><div><Typography align="center" variant="body2">ว/ด/ป</Typography><Typography align="center" variant="body2">ครบกำหนดชำระ</Typography></div></StyledTableCell>
-                                    <StyledTableCell align="center">วันที่ยื่นคำขอ</StyledTableCell>
-                                    <StyledTableCell align="center">วันจ่ายเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center">จ่ายเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
                                     <StyledTableCell align="center">รายเดิม</StyledTableCell>
                                     <StyledTableCell align="center">รายใหม่</StyledTableCell>
@@ -343,17 +339,13 @@ parameter.append('YearTo', YearTovalue);
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.alroProvince}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.numCase)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.numCase}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.payDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.dueDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanAppDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanPayDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.original)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.new)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.lessThan15)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.moreThan15)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.original}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.new}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.lessThan15}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.moreThan15}</StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -365,12 +357,11 @@ parameter.append('YearTo', YearTovalue);
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.numCase)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.firstInstallment}`}></StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.original)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.new)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.lessThan15)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.moreThan15)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.original}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.new}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.lessThan15}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.moreThan15}</StyledTableCellLine>
 
 
                                 </TableRow>

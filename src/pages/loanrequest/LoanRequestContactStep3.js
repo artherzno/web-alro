@@ -112,7 +112,7 @@ function LoanRequestContactStep3(props) {
         ApproveDate: moment().format(), // "",
         ApproveDetail: '', // ""
 
-        NameAgent: '',
+        Officer: '',
     })
 
     const [applicantProjectYear, setApplicantProjectYear] = useState(localStorage.getItem('applicantProjectYear'))
@@ -232,6 +232,8 @@ function LoanRequestContactStep3(props) {
                             // ApproveDate: newOrderDate(dataViewStep3.ApproveDate,'2'), // "",
                             ApproveDate: moment(dataViewStep3.ApproveDate).format(), // "",
                             ApproveDetail: dataViewStep3.ApproveDetail || '', // ""
+
+                            Officer: data.Officer || ''
                         })
                         // let resApplicant = res.data.data[0];
                         
@@ -874,7 +876,7 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                             </Grid>
                                                             <Grid item xs={12} md={12}>
                                                                 {/* Field Text ---------------------------------------------------*/}
-                                                                <MuiTextfield label="ชื่อ ปทจ หรือผู้แทนที่อนุมัติคำขอ" inputdisabled="input-disabled" input name="NameAgent" value={inputData.NameAgent} onChange={handleInputData}/>        
+                                                                <MuiTextfield label="ชื่อ ปทจ หรือผู้แทนที่อนุมัติคำขอ" inputdisabled="input-disabled" input name="Officer" value={inputData.Officer} onChange={handleInputData}/>        
                                                             </Grid>
 
                                                         </Grid>
