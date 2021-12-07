@@ -75,7 +75,7 @@ function RecordInstallmentPayment() {
         try {
 
             setIsLoading(true)
-            const res = await api.getDataByLoan(parameter)
+            const res = await api.getDataByLoanRelent(parameter)
             const resultList = res.data
             setResultList(resultList)
             setIsLoading(false)
@@ -142,7 +142,7 @@ function RecordInstallmentPayment() {
                 const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
                 formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
-                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
+                formikRef.current.setFieldValue("RemainingPrinciple", selectedData.RemainingPrinciple)
                 formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
                 formikRef.current.setFieldValue("RecInterestKang2", recData ? recData.InterestKang2 : 0)
                 formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
@@ -612,10 +612,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="RecPrincipleBalance"
-                                                                                        value={values.RecPrincipleBalance}
-                                                                                        error={errors.RecPrincipleBalance}
-                                                                                        helperText={errors.RecPrincipleBalance}
+                                                                                        name="RemainingPrinciple"
+                                                                                        value={values.RemainingPrinciple}
+                                                                                        error={errors.RemainingPrinciple}
+                                                                                        helperText={errors.RemainingPrinciple}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เงินต้นคงเหลือ"

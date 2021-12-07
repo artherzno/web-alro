@@ -24,7 +24,7 @@ import { makeStyles, withStyles } from '@material-ui/styles';
 import TablePagination from '@material-ui/core/TablePagination';
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
-import { ButtonExportExcel } from '../../components'
+import { ButtonApp, ButtonExport, ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import { OverlayLoading } from '../../components'
 
@@ -93,6 +93,7 @@ class CheckSign extends React.Component {
 
             const dataSummary = response.data.dataSummary.length > 0 ? response.data.dataSummary[0] : {}
 
+
             this.setState({
                 data: response.data.data,
                 loanAmount: dataSummary.loanAmount,
@@ -154,6 +155,33 @@ class CheckSign extends React.Component {
             })
 
         })
+    }
+
+    getContractPdf(contractNo, index) {
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', contractNo);
+
+
+        this.setState({ [index]: true })
+
+        api.getContractPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({ [index]: false })
+
+        }).catch(error => {
+
+            this.setState({ [index]: false })
+
+        })
+
     }
 
     onChange = (state) => (event) => {
@@ -294,6 +322,7 @@ class CheckSign extends React.Component {
                                         <Table className={classes.table} aria-label="customized table">
                                             <TableHead>
                                                 <TableRow>
+                                                    <StyledTableCell align="center">Action</StyledTableCell>
                                                     <StyledTableCell align="center">รหัสบันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">วันที่บันทึก</StyledTableCell>
                                                     <StyledTableCell align="center">Mindex</StyledTableCell>
@@ -352,6 +381,9 @@ class CheckSign extends React.Component {
 
                                                     return (
                                                         <TableRow key={index}>
+                                                            <StyledTableCellLine align="center">
+                                                                <ButtonExport label="View" handleButtonClick={() => { this.getContractPdf(element.contractNo,index) }} loading={this.state[index]} />
+                                                            </StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.saveCode}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.recordingDate}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>

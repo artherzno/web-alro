@@ -67,7 +67,7 @@ function AdvanceInvoice(props) {
 
     const [startDate, setStartDate] = useState("")
     const [rentno, setRentNo] = useState("")
-    const [projName, setProjName] = useState("")
+    const [invoiceno, setInvoiceno] = useState("")
     const [farmer, setFarmer] = useState("")
     const [startDateSelect, setStartDateSelect] = useState(null)
     const [printActive, setPrintActive] = useState(false)
@@ -129,7 +129,7 @@ function AdvanceInvoice(props) {
         const parameter = {
             start_date: startDate,
             rentno: rentno,
-            projname: projName,
+            invoiceno: invoiceno,
             farmer: farmer,
         }
         setIsLoading(true)
@@ -146,7 +146,7 @@ function AdvanceInvoice(props) {
         const parameter = {
             start_date: moment(values.duedate,"YYYY-MM-DD").add(543,'years').format("YYYY-MM-DD"),
             rentno: values.rentno,
-            projname: values.projname,
+            invoiceno: values.invoiceno,
             farmer: values.idCard,
         }
 
@@ -166,7 +166,7 @@ function AdvanceInvoice(props) {
         parameter.append('Date', startDate);
         parameter.append('LoanNumber', rentno);
         parameter.append('StartYear', startDate);
-        parameter.append('ProjectName', projName);
+        parameter.append('InvoiceNo', invoiceno);
 
         setIsExporting(true)
 
@@ -224,7 +224,7 @@ function AdvanceInvoice(props) {
         parameter.append('Date', startDate);
         parameter.append('LoanNumber', rentno);
         parameter.append('StartYear', startDate);
-        parameter.append('ProjectName', projName);
+        parameter.append('InvoiceNo', invoiceno);
 
         setIsExporting1(true)
 
@@ -279,11 +279,11 @@ function AdvanceInvoice(props) {
                                             <MuiTextfield label="เลขที่สัญญา" onChange={(e) => { setRentNo(e.target.value) }} />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <MuiTextfield label="โครงการที่กู้เงิน" name="projname" onChange={(e) => { setProjName(e.target.value) }} />
+                                            <MuiTextfield label="เลขที่ใบแจ้งหนี้" name="invoiceno" onChange={(e) => { setInvoiceno(e.target.value) }} />
                                         </Grid>
-                                        <Grid item xs={12} md={3}>
+                                        {/* <Grid item xs={12} md={3}>
                                             <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="no1-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4" name="farmer" onChange={(e) => { setFarmer(e.target.value) }} />
-                                        </Grid>
+                                        </Grid> */}
                                         <Grid item xs={12} md={1}>
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() => { getAdvanceInvoiceAll() }} />
@@ -478,10 +478,11 @@ function AdvanceInvoice(props) {
                             initialValues={{
                                 invoiceno: '',
                                 save_date: '',
-                                invoice_date:''
+                                invoice_date:'',
+                                rentno:''
                             }}
                             validate={values => {
-                                const requires = ['invoiceno', 'save_date','invoice_date']
+                                const requires = ['invoiceno', 'save_date', 'invoice_date','rentno']
                                 let errors = {};
                                 requires.forEach(field => {
                                     if (!values[field]) {
@@ -525,6 +526,18 @@ function AdvanceInvoice(props) {
                                             onBlur={handleBlur}
                                             placeholder="เลขที่ใบแจ้งหนี้"
                                             label="เลขที่ใบแจ้งหนี้"
+                                            requires
+                                        />
+
+                                        <MuiTextfield
+                                            name="rentno"
+                                            value={values.rentno}
+                                            error={errors.rentno}
+                                            helperText={errors.rentno}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            placeholder="เลขที่สัญญา"
+                                            label="เลขที่สัญญา"
                                             requires
                                         />
 
