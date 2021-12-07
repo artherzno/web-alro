@@ -652,7 +652,7 @@ function LoanRecivcePrint() {
             LoanReceiptList3: '', // String = "zzz",
             LoanReceiptAmount3: 0, // float = 123.12,
             LoanReceiptTotal: 0,
-            LoanReceiptNumber: '',
+            LoanReceiptNumber: loannumber,
         })
 
         setInputSelectDate({
@@ -707,8 +707,8 @@ function LoanRecivcePrint() {
                                 <p className="font-18 txt-blue txt-bold">รายการที่ {i+1}</p>
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" value={dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === undefined || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === null || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === '' ? '' : 0}/>
-                                
+                                <MuiTextfield label="ใบสำคัญรับเงินตามสัญญากู้ยืมเลขที่" inputdisabled="input-disabled" value={inputData.LoanReceiptNumber === undefined || inputData.LoanReceiptNumber === null || inputData.LoanReceiptNumber === '' ? '' : inputData.LoanReceiptNumber}/>
+                                {/* <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" value={dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === undefined || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === null || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === '' ? '' : 0}/> */} 
                             </Grid>
                             <Grid item xs={12} md={3}>
                                 <MuiTextfield label="ลงวันที่" inputdisabled="input-disabled"  value={newOrderDate(dataInfo.LoanFarmerGetMoney[i].LoanReceiptDate)} />
@@ -968,7 +968,7 @@ function LoanRecivcePrint() {
                                             <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={3}>
-                                                        <MuiTextfield label="ใบสำคัญรับเงิน" name="LoanReceiptNumber" value={inputData.LoanReceiptNumber} onChange={handleInputData} />
+                                                        <MuiTextfield label="ใบสำคัญรับเงินตามสัญญากู้ยืมเลขที่" name="LoanReceiptNumber" value={inputData.LoanReceiptNumber} onChange={handleInputData} />
                                                         {/* <div className="dsp-f">
                                                             <Grid item xs={12} md={5}>
                                                                 <MuiTextfield label=""  defaultValue="" />
@@ -1040,6 +1040,9 @@ function LoanRecivcePrint() {
                                                     }
                                                     <Grid item xs={12} md={3}>
                                                         <MuiTextfield label="กระทรวง" inputdisabled="input-disabled" value={inputData.LoanReceiptfrom2} onChange={handleInputData}   />
+                                                    </Grid>
+                                                    <Grid item xs={12} md={3}>
+                                                        <MuiTextfield label="เลขบัญชีธนาคาร"  inputdisabled="input-disabled" />
                                                     </Grid>
                                                 </Grid>
                                             </form>

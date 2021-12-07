@@ -2333,7 +2333,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญารับรองฯ ที่" />
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label="" name="LoanGuaranteeBook" value={inputDataSubmit.LoanGuaranteeBook}  onChange={handleInputDataSubmit} />
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="LoanGuaranteeBook" value={inputDataSubmit.LoanGuaranteeBook}  onChange={handleInputDataSubmit} />
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <span>/</span>
@@ -2350,7 +2350,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                 <MuiSelectMonth label="" name="loanguaranteebookmm" value={inputSelectDate.loanguaranteebookmm} onChange={handleSelectDate} />
                                                                 <MuiSelectYear label="" name="loanguaranteebookyyyy" value={inputSelectDate.loanguaranteebookyyyy} onChange={handleSelectDate} />
                                                             </div> */}
-                                                            <MuiDatePicker label="ลงวันที่" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="LoanGuaranteeBookDate" value={inputDataSubmit.LoanGuaranteeBookDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanGuaranteeBookDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <MuiLabelHeaderCheckbox topic="ค." label="หนังสือสัญญาค้ำประกันของ"/>
@@ -2362,7 +2362,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label=""  name="WarrantBook1" value={inputDataSubmit.WarrantBook1}  onChange={handleInputDataSubmit}/>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook1" value={inputDataSubmit.WarrantBook1}  onChange={handleInputDataSubmit}/>
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <span>/</span>
@@ -2380,7 +2380,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectMonth label="" name="warrantbookdate1mm" value={inputSelectDate.warrantbookdate1mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate1yyyy" value={inputSelectDate.warrantbookdate1yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate1" value={inputDataSubmit.WarrantBookDate1} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate1: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
@@ -2390,7 +2390,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label=""  name="WarrantBook2" value={inputDataSubmit.WarrantBook2}  onChange={handleInputDataSubmit}/>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook2" value={inputDataSubmit.WarrantBook2}  onChange={handleInputDataSubmit}/>
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <span>/</span>
@@ -2408,7 +2408,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate2" value={inputDataSubmit.WarrantBookDate2} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate2: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
@@ -2418,7 +2418,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label=""  name="WarrantBook3" value={inputDataSubmit.WarrantBook3}  onChange={handleInputDataSubmit}/>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled"  name="WarrantBook3" value={inputDataSubmit.WarrantBook3}  onChange={handleInputDataSubmit}/>
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <span>/</span>
@@ -2436,7 +2436,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate3" value={inputDataSubmit.WarrantBookDate3} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate3: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate3" value={inputDataSubmit.WarrantBookDate3} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate3: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
@@ -2446,7 +2446,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
                                                             <div className="dsp-f">
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label=""  name="WarrantBook4" value={inputDataSubmit.WarrantBook4}  onChange={handleInputDataSubmit}/>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook4" value={inputDataSubmit.WarrantBook4}  onChange={handleInputDataSubmit}/>
                                                                 </Grid>
                                                                 {/* <Grid item xs={12} md={2} className="txt-center txt-f-center">
                                                                     <span>/</span>
@@ -2464,7 +2464,7 @@ console.log('FreeDebtTime',event.target.value)
                                                                     <MuiSelectMonth label="" name="warrantbookdate2mm" value={inputSelectDate.warrantbookdate2mm} onChange={handleSelectDate} />
                                                                     <MuiSelectYear label="" name="warrantbookdate2yyyy" value={inputSelectDate.warrantbookdate2yyyy} onChange={handleSelectDate} />
                                                                 </div> */}
-                                                                <MuiDatePicker label="ลงวันที่" name="WarrantBookDate4" value={inputDataSubmit.WarrantBookDate4} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate4: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate4" value={inputDataSubmit.WarrantBookDate4} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate4: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
