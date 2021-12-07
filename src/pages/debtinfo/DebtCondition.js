@@ -64,6 +64,7 @@ function DebtCondition() {
         }
         setIsLoading(true)
         api.getChagestructureDataByLoan(parameter).then(response => {
+            console.log("response", response.data)
             setIsLoading(false)
             setResultList(response.data)
         }).catch(error => {
@@ -694,10 +695,10 @@ function DebtCondition() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="ReducePrinciple"
-                                                                                        value={values.ReducePrinciple}
-                                                                                        error={errors.ReducePrinciple}
-                                                                                        helperText={errors.ReducePrinciple}
+                                                                                        name="princippalbalance"
+                                                                                        value={values.princippalbalance}
+                                                                                        error={errors.princippalbalance}
+                                                                                        helperText={errors.princippalbalance}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         defaultValue=""endAdornment="บาท" />
