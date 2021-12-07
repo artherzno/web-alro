@@ -67,6 +67,7 @@ function RecordRequestPayment() {
         setIsLoading(true)
         api.extendTimeGetDataLoan(parameter).then(response => {
 
+            console.log("response", response.data)
             setResultList(response.data)
             setIsLoading(false)
         }).catch(error => {

@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 const columns = [
     { field: 'ROWID', headerName: 'ลำดับ', width: 90, },
     { field: 'pv_code', headerName: 'รหัสจังหวัด', width: 130, },
-    { field: 'nrec', headerName: 'ลำดับข้อมูล', width: 90, },
     { field: 'projcode', headerName: 'รหัสโครงการ', width: 130, },
     { field: 'projname', headerName: 'ชื่อโครงการ', width: 150, },
     { field: 'sex', headerName: 'คำนำหน้า', width: 110, },

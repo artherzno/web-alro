@@ -212,6 +212,15 @@ const api = {
             }
         })
     },
+    getContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     getCardLawPdf(params) {
         return post({
             path: "api/report/pdf/GetCardLawPdf",
@@ -1026,6 +1035,15 @@ const api = {
 
         return post({
             path: "GetDebt/GetDataByLoan",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
+    getDataByLoanRelent(params) {
+
+        return post({
+            path: "Relent/GetDataByLoan",
             params,
             config: { baseURL: REACT_APP_API_HOST_1 },
         })
