@@ -927,8 +927,14 @@ function RecordContractDebt() {
                                 setErrMsg(['ไม่สามารถทำรายการได้'])
                             }
                         }else {
-                            console.log(data.data[0].FarmerID)
-                            setInputDataNewFarmer(data.data[0])
+                            // console.log(data.data[0].FarmerID)
+                            console.log(data.data.length)
+                            if(data.data.length === 0) {
+                                setErr(true)
+                                setErrMsg(`ไม่พบข้อมูลจากเลขบัตรประชาชน ${inputDataNewFarmerIDCard} กรุณาเพิ่มในรายชื่อเกษตรกร`)
+                            } else {
+                                setInputDataNewFarmer(data.data[0])
+                            }
                         }
                     }
                 ).catch(err => { console.log(err); })
@@ -1254,7 +1260,7 @@ function RecordContractDebt() {
         data: formData,
         responseType: 'blob', // important
         }).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
             link.href = url;
             link.target = '_blank';
