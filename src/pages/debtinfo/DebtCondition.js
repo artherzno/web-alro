@@ -72,6 +72,24 @@ function DebtCondition() {
         })
     }
 
+    function selectDataByLoanChangeStructure(loanNumber) {
+
+        const parameter = {
+            LoanNumber: loanNumber//'00105/2564'//loanNumber
+        }
+        setIsLoading(true)
+        api.selectDataByLoanChangeStructure(parameter).then(response => {
+            console.log("response", response.data)
+            setIsLoading(false)
+            if (response.data.length > 0){
+                setSelectedData(response.data[0])
+            }
+            
+        }).catch(error => {
+            setIsLoading(false)
+        })
+    }
+
     function changeDeptStructuresSave(values) {
 
         dialog.showLoading()
@@ -161,7 +179,8 @@ function DebtCondition() {
 
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
-                                                            setSelectedData(element)
+                                                            // setSelectedData(element)
+                                                            selectDataByLoanChangeStructure(element.LoanNumber)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
@@ -510,10 +529,10 @@ function DebtCondition() {
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
                                                                 <MuiTextfield
-                                                                    name="SirName"
-                                                                    value={values.SirName}
-                                                                    error={errors.SirName}
-                                                                    helperText={errors.SirName}
+                                                                    name="Sirname"
+                                                                    value={values.Sirname}
+                                                                    error={errors.Sirname}
+                                                                    helperText={errors.Sirname}
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="นามสกุล"

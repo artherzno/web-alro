@@ -1068,6 +1068,15 @@ const api = {
         })
 
     },
+    selectDataByLoanChangeStructure(params) {
+
+        return post({
+            path: "Chagestructure/SelectDataByLoan",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+
+    },
     saveRelent(params) {
 
         return post({
