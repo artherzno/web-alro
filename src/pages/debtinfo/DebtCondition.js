@@ -39,7 +39,6 @@ import { OverlayLoading, dialog } from '../../components';
 
 
 function DebtCondition() {
-    const history = useHistory();
     const formikRef = useRef();
     const [loaded, setLoaded] = useState(false);
     const [loanNumber, setLoanNumber] = useState("")
@@ -67,7 +66,7 @@ function DebtCondition() {
             console.log("response", response.data)
             setIsLoading(false)
             setResultList(response.data)
-        }).catch(error => {
+        }).catch(() => {
             setIsLoading(false)
         })
     }
@@ -85,7 +84,7 @@ function DebtCondition() {
                 setSelectedData(response.data[0])
             }
             
-        }).catch(error => {
+        }).catch(() => {
             setIsLoading(false)
         })
     }
@@ -93,14 +92,14 @@ function DebtCondition() {
     function changeDeptStructuresSave(values) {
 
         dialog.showLoading()
-        api.changeDeptStructuresSave(values).then(response => {
+        api.changeDeptStructuresSave(values).then(() => {
 
             dialog.close()
             setTimeout(() => {
                 dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
             }, 500);
 
-        }).catch(error => {
+        }).catch(() => {
             dialog.close()
 
         })
@@ -111,7 +110,7 @@ function DebtCondition() {
         api.getMasterSPKCondition().then(response => {
 
             setMasterCondition(response.data)
-        }).catch(error => {
+        }).catch(() => {
 
         })
     }
@@ -229,7 +228,12 @@ function DebtCondition() {
                         enableReinitialize={true}
                         innerRef={formikRef}
                         initialValues={{
+                            
+                            ReducePrinciple: selectedData.principle,
                             ...selectedData,
+                            ChangeDeptCost: 0,
+                            ReduceFines:0,
+                            InterestReduce:0,
                             YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
                         }}
                         validate={values => {
@@ -244,12 +248,12 @@ function DebtCondition() {
 
                             return errors;
                         }}
-                        onSubmit={(values, actions) => {
+                        onSubmit={(values) => {
                             changeDeptStructuresSave(values)
                         }}
                         render={(formik) => {
 
-                            const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
+                            const { errors, values, setFieldValue, handleChange, handleBlur, handleSubmit } = formik
 
                             return (
                                 <Form>
@@ -710,15 +714,20 @@ function DebtCondition() {
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินลดต้น</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="princippalbalance"
-                                                                                        value={values.princippalbalance}
-                                                                                        error={errors.princippalbalance}
-                                                                                        helperText={errors.princippalbalance}
-                                                                                        onChange={handleChange}
+                                                                                        name="ReducePrinciple"
+                                                                                        value={values.ReducePrinciple}
+                                                                                        error={errors.ReducePrinciple}
+                                                                                        helperText={errors.ReducePrinciple}
+                                                                                        onChange={(e) =>{
+
+                                                                                            handleChange(e)
+                                                                                            const changeDeptCost = parseFloat(e.target.value) + parseFloat(values.InterestReduce) + parseFloat(values.ReduceFines)
+                                                                                            setFieldValue("ChangeDeptCost",changeDeptCost)
+                                                                                        }}
                                                                                         onBlur={handleBlur}
                                                                                         defaultValue=""endAdornment="บาท" />
                                                                                 </Grid>
@@ -735,7 +744,13 @@ function DebtCondition() {
                                                                                         value={values.InterestReduce}
                                                                                         error={errors.InterestReduce}
                                                                                         helperText={errors.InterestReduce}
-                                                                                        onChange={handleChange}
+                                                                                        onChange={(e) => {
+
+                                                                                            handleChange(e)
+                                                                                            const changeDeptCost = parseFloat(values.ReducePrinciple) + parseFloat(e.target.value) + parseFloat(values.ReduceFines)
+                                                                                            setFieldValue("ChangeDeptCost", changeDeptCost)
+
+                                                                                        }}
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
@@ -752,7 +767,13 @@ function DebtCondition() {
                                                                                         value={values.ReduceFines}
                                                                                         error={errors.ReduceFines}
                                                                                         helperText={errors.ReduceFines}
-                                                                                        onChange={handleChange}
+                                                                                        onChange={(e) => {
+
+                                                                                            handleChange(e)
+                                                                                            const changeDeptCost = parseFloat(values.ReducePrinciple) + parseFloat(values.InterestReduce) + parseFloat(e.target.value)
+                                                                                            setFieldValue("ChangeDeptCost", changeDeptCost)
+
+                                                                                        }}
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
