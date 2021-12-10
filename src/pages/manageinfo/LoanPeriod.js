@@ -345,7 +345,7 @@ function LoanPeriod () {
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ระยะเวลาเงินกู้</h1>
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            {/* <Grid item xs={12} md={3}>
                                 <MuiTextfield label="รหัสระยะเวลา" name="ProvinceID" value={inputDataSearch.ProvinceID} onChange={handleInputDataSearch} />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -361,7 +361,7 @@ function LoanPeriod () {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <MuiTextfieldMultiLine label="หมายเหตุ" defaultValue="" row="3" />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </Container>
 
@@ -371,7 +371,8 @@ function LoanPeriod () {
                                 <div className="positionFixed mg-t-20">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--20"> 
-                                            <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                                            <h2>มีข้อมูลทั้งหมด {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                                            {/* <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2> */}
                                         </Grid>
                                         <Grid item xs={12} md={12}>
                                             <div className="table-box table-loanrecivceprint mg-t-10">
