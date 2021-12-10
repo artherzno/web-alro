@@ -98,7 +98,14 @@ function RecordInstallmentPayment() {
         api.selectDataByLoan(parameter).then(response => {
 
             if (response.data.length > 0) {
-                setSelectedData(response.data[0])
+
+                const selectedData = response.data[0]
+                setSelectedData(selectedData)
+
+                
+                formikRef.current.setFieldValue("RecPrinciple", selectedData.PrintciplePay)
+                formikRef.current.setFieldValue("PaymentPeriodRemain", selectedData.PaymentPeriodRemain)
+
             }
             setIsLoading(false)
 
@@ -142,17 +149,14 @@ function RecordInstallmentPayment() {
                 const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
                 formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
-                formikRef.current.setFieldValue("RemainingPrinciple", selectedData.RemainingPrinciple)
-                formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
+                formikRef.current.setFieldValue("RemainingPrinciple", recData.principalBalance)
+               
                 formikRef.current.setFieldValue("RecInterestKang2", recData ? recData.InterestKang2 : 0)
                 formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
-                formikRef.current.setFieldValue("ChangeInterest", selectedData.Interest)//เช็ค
-                formikRef.current.setFieldValue("ChangeInterest", selectedData.PaymentPeriodRemain)
-
-                formikRef.current.setFieldValue("PaymentPeriodRemain", parseFloat(selectedData.RemainingPrinciple) - parseFloat(selectedData.principle1) )
+                formikRef.current.setFieldValue("ChangeInterest", recData.InterestRate)//เช็ค
                 
             }
 
@@ -290,7 +294,8 @@ function RecordInstallmentPayment() {
                                         ...selectedItemData,
                                         ...selectedData,
                                         PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}`:'',
-                                        RelentDateBefore: selectedData.RelentDate
+                                        RelentDateBefore: selectedData.RelentDate,
+                                        RelentDate:null,
                                     }}
                                     validate={values => {
                                         const requires = []
@@ -381,10 +386,11 @@ function RecordInstallmentPayment() {
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield
-                                                                name="Ref1"
-                                                                value={values.Ref1}
-                                                                error={errors.Ref1}
-                                                                helperText={errors.Ref1}
+                                                                // name="Ref1"
+                                                                value={'คำขอผ่อนผัน'}
+                                                                // error={errors.Ref1}
+                                                                // helperText={errors.Ref1}
+                                                                disabled
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="อ้างถึง"
@@ -403,10 +409,10 @@ function RecordInstallmentPayment() {
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
                                                             <MuiTextfield
-                                                                name="LoanID"
-                                                                value={values.LoanID}
-                                                                error={errors.LoanID}
-                                                                helperText={errors.LoanID}
+                                                                name="Item"
+                                                                value={values.Item}
+                                                                error={errors.Item}
+                                                                helperText={errors.Item}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="อ้างถึง"

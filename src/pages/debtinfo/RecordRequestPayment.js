@@ -243,7 +243,7 @@ function RecordRequestPayment() {
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
                                                             setSelectedData(element)
-                                                            selectDataExtendNumber(element.LoanNumber)
+                                                            selectDataExtendNumber(element.ExtendNumber)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
