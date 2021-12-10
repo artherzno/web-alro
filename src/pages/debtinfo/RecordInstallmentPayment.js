@@ -906,7 +906,22 @@ function RecordInstallmentPayment() {
                         </Grid>
                     </Container>
 
+                   
 
+                    <Container maxWidth="md">
+
+                        <Grid container spacing={2} className="btn-row txt-center">
+
+                            <Grid item xs={12} md={12}>
+                                <div className="box-button txt-center">
+                                    <ButtonFluidPrimary label="บันทึกแก้ไข" maxWidth="320px" onClick={() => {
+                                        // formikRef.current.handleSubmit()
+                                    }} />
+                                </div>
+                            </Grid>
+
+                        </Grid>
+                    </Container>
 
                 </div>
             </Fade>
