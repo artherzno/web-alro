@@ -17,6 +17,8 @@ import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton'
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -53,6 +55,7 @@ function RecordInstallmentPayment() {
     const [selectedItemData, setSelectedItemData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
     const [checkClose,setCheckClose] = useState(false)
+    const [selectedExtendData, setSelectedExtendData] = useState({})
     
     useEffect(() => {
         setLoaded(true);
@@ -87,6 +90,19 @@ function RecordInstallmentPayment() {
 
 
     }
+
+    function onChangeRealPay(key, value, index) {
+
+        const realPay = selectedExtendData.RealPay
+        if (realPay && realPay.length - 1 <= index) {
+            realPay[index][key] = value
+        }
+        setSelectedData({
+            ...selectedExtendData,
+            RealPay: realPay
+        })
+    }
+
 
     function selectDataByLoan(LoanNumber) {
 
@@ -747,6 +763,149 @@ function RecordInstallmentPayment() {
                             </Grid>
                         </Grid>
                     </Container>
+
+
+
+                    <Container maxWidth="md">
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <div className="table">
+                                    <h1 className="txt-center">งวดชำระเงินตามจริง</h1>
+                                    <TableContainer className="table-box table-loanrequestprint2 table-summary">
+                                        <Table aria-label="normal table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell align="left">ลำดับ</TableCell>
+                                                    <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                    <TableCell align="left">วันที่ชำระ</TableCell>
+                                                    <TableCell align="left">จำนวนเงิน</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {
+                                                    selectedExtendData.RealPay && selectedExtendData.RealPay.map((row, i) => (
+                                                        <TableRow key={i}>
+                                                            <TableCell align="left">{row.ITEM}</TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiTextfield label="" value={row.RENTNO} onChange={(e) => {
+                                                                    onChangeRealPay("RENTNO", e.target.value, i)
+                                                                }} />
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} onChange={(event) => {
+
+                                                                    onChangeRealPay("DUEDATE", moment(event).format("YYYY-MM-DD"), i)
+
+                                                                }} />
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                {
+                                                                    i === 0 ?
+                                                                        <MuiTextfield label="" value={row.PAYREC} onChange={(e) => {
+                                                                            onChangeRealPay("PAYREC", e.target.value, i)
+                                                                        }} />
+                                                                        :
+                                                                        <MuiTextfieldEndAdornment label="" value={row.PAYREC} onChange={(e) => {
+                                                                            onChangeRealPay("PAYREC", e.target.value, i)
+                                                                        }} endAdornment={<IconButton onClick={() => {
+
+                                                                            const realPay = selectedExtendData.RealPay
+                                                                            if (realPay) {
+                                                                                realPay.splice(i, 1)
+                                                                            }
+
+                                                                            setSelectedData({
+                                                                                ...selectedExtendData,
+                                                                                RealPay: realPay
+                                                                            })
+
+                                                                        }} > <CloseIcon className="table-item-del" /></IconButton>} />
+                                                                }
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))
+                                                }
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <div className="box-button txt-center">
+                                    <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() => {
+
+                                        let realPay = selectedExtendData.RealPay
+
+                                        if (!realPay) {
+                                            realPay = []
+                                        }
+                                        realPay.push({
+                                            RENTNO: selectedData.LoanNumber,
+                                            DUEDATE: "",
+                                            PAYREC: ""
+                                        })
+
+                                        const dataSave = {
+                                            ...selectedExtendData,
+                                            RealPay: realPay
+                                        }
+                                        setSelectedExtendData(dataSave)
+
+
+                                    }} />
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Container>
+
+                    <Container maxWidth="md">
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <div className="table">
+                                    <h1 className="txt-center">งวดชำระเงิน และ งวดบัญชี</h1>
+                                    <TableContainer className="table-box table-loanrequestprint2 table-summary">
+                                        <Table aria-label="normal table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell align="left">ลำดับ</TableCell>
+                                                    <TableCell align="left">เลขที่สัญญา</TableCell>
+                                                    <TableCell align="left">สถานะ</TableCell>
+                                                    <TableCell align="left">รายการ</TableCell>
+                                                    <TableCell align="left">วันที่</TableCell>
+                                                    <TableCell align="left">จำนวนเงิน</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {
+                                                    selectedExtendData.AccountPay && selectedExtendData.AccountPay.map((row, i) => (
+                                                        <TableRow key={i}>
+                                                            <TableCell align="left">{i + 1}</TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiTextfield label="" value={row.RENTNO} />
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiTextfield label="" value={row.STAT} />
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiTextfield label="" value={row.List} />
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} />
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiTextfield label="" value={row.PAYREC} />
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))
+                                                }
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Container>
+
 
 
                 </div>

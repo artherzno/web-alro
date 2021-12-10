@@ -576,7 +576,7 @@ function DebtCondition() {
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เลขที่คำสั่ง"
-                                                                                        label="เลขที่คำสั่ง" disabled />
+                                                                                        label="เลขที่คำสั่ง"  />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={6}>
                                                                                     <MuiDatePicker
