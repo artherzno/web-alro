@@ -1421,22 +1421,22 @@ function AddRecordCourtContract() {
                                                 <Paper className="paper line-top-green paper mg-t-35">
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled"  name="DebtEditNumber" value={inputDataLoanRec.DebtEditNumber} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="เลขที่บันทึก" name="DebtEditNumber" value={inputDataLoanRec.DebtEditNumber} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="วันที่บันทึก" inputdisabled="input-disabled" name="RecDate" value={inputDataLoanRec.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputDataLoanRec.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
-                                                            <MuiTextfield label="ปีปัจจุบัน" inputdisabled="input-disabled" name="CurrentYear" value={inputDataLoanRec.CurrentYear} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ปีปัจจุบัน" name="CurrentYear" value={inputDataLoanRec.CurrentYear} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="PV_CODE" inputdisabled="input-disabled"  name="PV_CODE" value={inputDataLoanRec.PV_CODE} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="PV_CODE"  name="PV_CODE" value={inputDataLoanRec.PV_CODE} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="PV_NAME" inputdisabled="input-disabled"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="PV_NAME"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเดิม" inputdisabled="input-disabled" /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="สัญญาเดิม" /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
@@ -1445,15 +1445,15 @@ function AddRecordCourtContract() {
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เงินต้นค้างเดิม" inputdisabled="input-disabled"  value={inputDataIndividualcard.principle} />
+                                                            <MuiTextfield label="เงินต้นค้างเดิม"  value={inputDataIndividualcard.principle} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม" inputdisabled="input-disabled"  value={inputDataIndividualcard.Interest} />
+                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.Interest} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ค่าปรับค้างเดิม" inputdisabled="input-disabled"  value={inputDataLoanRec.OldFine} />
+                                                            <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataLoanRec.OldFine} />
                                                         </Grid>
                                                             {/* </Grid>
                                                         </Grid> */}
@@ -1461,33 +1461,33 @@ function AddRecordCourtContract() {
                                                             <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการ" inputdisabled="input-disabled" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการ" inputdisabled="input-disabled" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการรอง" inputdisabled="input-disabled" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการรอง" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการรอง" inputdisabled="input-disabled" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการรอง" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเลขที่" inputdisabled="input-disabled" value={inputDataLoanRec.LoanNumber} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="สัญญาเลขที่" value={inputDataLoanRec.LoanNumber} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="วันที่สัญญา" inputdisabled="input-disabled" value={inputDataLoanRec.LoanDate} onChange={handleInputDataSubmit} />
+                                                            <MuiDatePicker label="วันที่สัญญา" value={inputDataLoanRec.LoanDate} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="&nbsp;" id='' inputdisabled="input-disabled" />
+                                                            <MuiTextfield label="&nbsp;" id='' />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="บันทึกคำสั่งศาลปี" inputdisabled="input-disabled" id='' name="RecYear" value={inputDataLoanRec.DebtEditDate} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="บันทึกคำสั่งศาลปี" id='' name="RecYear" value={inputDataLoanRec.DebtEditDate} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             {/* principle */}
                                                             <p>จำนวนเงินให้กู้</p>
-                                                            <MuiTextfieldCurrency label="" inputdisabled="input-disabled" value={inputDataLoanRec.principle} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfieldCurrency label="" value={inputDataLoanRec.principle} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -1497,10 +1497,10 @@ function AddRecordCourtContract() {
                                                             <MuiSelect label="โครงการหลัก"  lists={['โครงการหลัก1','โครงการหลัก2','โครงการหลัก3']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการหลัก" inputdisabled="input-disabled" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการหลัก" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการหลัก" inputdisabled="input-disabled" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="ชื่อโครงการหลัก" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="วัตถุประสงค์การกู้ยืม"  lists={['วัตถุประสงค์การกู้ยืม1','วัตถุประสงค์การกู้ยืม2','วัตถุประสงค์การกู้ยืม3']} />
@@ -1833,7 +1833,7 @@ function AddRecordCourtContract() {
                                                                                     <p className="paper-p txt-right">เงินต้น สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.principle} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    <MuiTextfieldCurrency  label="" value={inputDataIndividualcard.principle} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -1843,7 +1843,7 @@ function AddRecordCourtContract() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataIndividualcard.interest} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    <MuiTextfieldCurrency  label="" value={inputDataIndividualcard.interest} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -1873,7 +1873,7 @@ function AddRecordCourtContract() {
                                                                                     <p className="paper-p txt-right">ผลรวมเงินต้น</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={inputDataSubmitIndividual.principle === null ? 0 : inputDataSubmitIndividual.principle} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    <MuiTextfieldCurrency  label="" value={inputDataSubmitIndividual.principle === null ? 0 : inputDataSubmitIndividual.principle} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -1883,7 +1883,7 @@ function AddRecordCourtContract() {
                                                                                     <p className="paper-p txt-right">ผลรวมงวดชำระ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled" value={summaryTable} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    <MuiTextfieldCurrency  label="" value={summaryTable} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>

@@ -351,7 +351,7 @@ function InfoSubDistrict () {
                             <Grid item xs={12} md={12} className="title-page"> 
                                 <h1>ข้อมูลตำบล</h1>
                             </Grid>
-                            <Grid item xs={12} md={2}>
+                            {/* <Grid item xs={12} md={2}>
                                 <MuiTextfield label="รหัสตำบล" name="SubDistrictID" value={inputDataSearch.SubDistrictID} onChange={handleInputDataSearch} />
                             </Grid>
                             <Grid item xs={12} md={2}>
@@ -370,7 +370,7 @@ function InfoSubDistrict () {
                             <Grid item xs={12} md={2}>
                                 <p>&nbsp;</p>
                                     <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />}/>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </Container>
 
@@ -380,7 +380,8 @@ function InfoSubDistrict () {
                                 <div className="positionFixed mg-t-20">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--20"> 
-                                            <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                                            <h2>มีข้อมูลทั้งหมด {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
+                                            {/* <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2> */}
                                         </Grid>
                                         <Grid item xs={12} md={12}>
                                             <div className="table-box table-loanrecivceprint mg-t-10">
