@@ -152,6 +152,8 @@ function RecordInstallmentPayment() {
                 formikRef.current.setFieldValue("ChangeInterest", selectedData.Interest)//เช็ค
                 formikRef.current.setFieldValue("ChangeInterest", selectedData.PaymentPeriodRemain)
 
+                formikRef.current.setFieldValue("PaymentPeriodRemain", parseFloat(selectedData.RemainingPrinciple) - parseFloat(selectedData.principle1) )
+                
             }
 
             setIsLoading(false)
@@ -692,7 +694,7 @@ function RecordInstallmentPayment() {
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="งวดชำระคงเหลือ"
-                                                                                        label="" defaultValue="" endAdornment="งวด" />
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>

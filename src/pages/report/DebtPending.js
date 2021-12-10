@@ -59,10 +59,10 @@ class DebtPending extends React.Component {
     componentDidMount() {
 
 
-        this.loadData()
+        this.loadData(this.state.page, this.state.count)
     }
 
-    loadData() {
+    loadData(page, count) {
 
         const { OrderNo, ContratNo, DateOrder, FarmerName, PayerName, IDPayer, } = this.state
 
@@ -73,7 +73,8 @@ class DebtPending extends React.Component {
         parameter.append('FarmerName', FarmerName);
         parameter.append('PayerName', PayerName);
         parameter.append('IDPayer', IDPayer);
-
+        parameter.append('Page', page + 1);
+        parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
         api.getDebtPending(parameter).then(response => {
@@ -82,6 +83,8 @@ class DebtPending extends React.Component {
                 dataList: response.data.data,
                 dataSummary: response.data.dataSummary,
                 isLoading: false,
+                page: page,
+                totalResult: response.data.totalResult
             })
 
         }).catch(error => {
@@ -273,13 +276,13 @@ parameter.append('YearTo', YearTovalue);
                                                 <StyledTableCellLine align="left" colSpan={3} className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                                     รวม
                                                 </StyledTableCellLine>
-                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxx</StyledTableCellLine>
-                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxxx</StyledTableCellLine>
-                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxxx</StyledTableCellLine>
+                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                                 <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`} colSpan={2}></StyledTableCellLine>
-                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxxx</StyledTableCellLine>
-                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxxx</StyledTableCellLine>
-                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>xxxxx</StyledTableCellLine>
+                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                                <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
                                                 <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                             </TableRow>
