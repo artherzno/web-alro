@@ -4,6 +4,29 @@ import axios from 'axios';
 import { AuthContext } from '../../App';
 import moment from 'moment';
 
+import pdf0 from '../../forms/การขอขยายระยะเวลาการชำระหนี้.pdf'
+import pdf1 from '../../forms/การ์ดลูกหนี้รายตัว.pdf'
+import pdf2 from '../../forms/ข้อตกลงตอท้ายสัญญากู้ยืมเงิน.pdf'
+import pdf3 from '../../forms/คำขอกู้ยืมจากสปก.pdf'
+import pdf4 from '../../forms/คำร้องขอคืนเงิน.pdf'
+import pdf5 from '../../forms/บัตรสมาชิกผู้กู้.pdf'
+import pdf6 from '../../forms/แบบคําร้องขอผ่อนผันการชำระเงิน.pdf'
+import pdf7 from '../../forms/แบบคําร้องลดดอกเบี้ย.pdf'
+import pdf8 from '../../forms/ใบแจ้งหนี้ล่วงหน้า.pdf'
+import pdf9 from '../../forms/ใบเตือนหนี้.pdf'
+import pdf10 from '../../forms/ใบสำคัญรับเงิน.pdf'
+import pdf11 from '../../forms/ใบเสร็จรับชำระเงินกู้.pdf'
+import pdf12 from '../../forms/ใบโอนปรับปรุง.pdf'
+import pdf13 from '../../forms/สัญญาการดำเนินคดีศาล.pdf'
+import pdf14 from '../../forms/สัญญากู้ยืมเงินจากสปก.pdf'
+import pdf15 from '../../forms/สัญญาชดใช้บุคคลภายนอก.pdf'
+import pdf16 from '../../forms/สัญญาปรับโครงสร้างหนี้.pdf'
+import pdf17 from '../../forms/สัญญาแปลงหนี้ใหม่.pdf'
+import pdf18 from '../../forms/หนังสือรับสภาพความรับผิด.pdf'
+import pdf19 from '../../forms/หนังสือรับสภาพหนี้.pdf'
+import pdf20 from '../../forms/หนังสือสัญญาค้ำประกัน.pdf'
+import pdf21 from '../../forms/หนังสือให้ความยินยอมของคู่สมรส.pdf'
+
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -20,52 +43,35 @@ import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 
 import {
-    MuiTextfield,
-    MuiTextfieldCurrency,
-    MuiDatePicker,
-    MuiSelectDay,
-    MuiSelectMonth,
-    MuiSelectYear,
-    MuiLabelHeaderCheckbox,
-    MuiRadioButton,
-    MuiTextfieldEndAdornment,
-    MuiSelect,
-    MuiTextfieldMultiLine,
     ButtonFluidPrimary,
-    ButtonFluidIconStartPrimary,
     ButtonFluidOutlinePrimary,
-    MuiSelectDistrict,
-    MuiSelectProvince,
-    MuiSelectSubDistrict,
-    MuiTextNumber,
-    MuiSelectObj,
 } from '../../components/MUIinputs';
 
 import { MUItable } from '../../components/MUItable'
 
 const listForm = [
-    'บัตรสมาชิกผู้กู้',
+    'การขอขยายระยะเวลาการชำระหนี้',
     'การ์ดลูกหนี้รายตัว',
-    'คำขอกู้ยืม/คำขอปรับโครงสร้างหนี้',
-    'สัญญากู้ยืม',
-    'สัญญาแปลงหนี้',
-    'สัญญาการดำเนินคดีทางศาล',
-    'สัญญาปรับโครงสร้างหนี้',
-    'ข้อตกลงต่อท้ายสัญญากู้ยืม',
-    'สัญญาชดใช้หนี้บุคคลภายนอก',
+    'ข้อตกลงตอท้ายสัญญากู้ยืมเงิน',
+    'คำขอกู้ยืมจาก สปก',
+    'คำร้องขอคืนเงิน',
+    'บัตรสมาชิกผู้กู้',
+    'แบบคําร้องขอผ่อนผันการชำระเงิน',
+    'แบบคําร้องลดดอกเบี้ย',
+    'ใบแจ้งหนี้ล่วงหน้า',
+    'ใบเตือนหนี้',
     'ใบสำคัญรับเงิน',
     'ใบเสร็จรับชำระเงินกู้',
-    'แบบคำร้องขอผ่อนผันการชำระเงิน',
-    'การขยายเวลารับชำระหนี้',
-    'การขอลดเงินต้นและดอกเบี้ย',
-    'การขอคืนเงิน',
-    'แบบการรับสภาพหนี้',
-    'ผู้ค้ำประกัน',
+    'ใบโอนปรับปรุง',
+    'สัญญาการดำเนินคดีศาล',
+    'สัญญากู้ยืมเงินจาก สปก',
+    'สัญญาชดใช้บุคคลภายนอก',
+    'สัญญาปรับโครงสร้างหนี้',
+    'สัญญาแปลงหนี้ใหม่',
+    'หนังสือรับสภาพความรับผิด',
+    'หนังสือรับสภาพหนี้',
+    'หนังสือสัญญาค้ำประกัน',
     'หนังสือให้ความยินยอมของคู่สมรส',
-    'ใบแจ้งหนี้',
-    'ใบเตือนหนี้ (ผู้กู้และผู้ค้ำประกัน)',
-    'แบบใบโอนปรับปรุงทะเบียนระหว่างปี/สิ้นปี',
-    'การรับสภาพความรับผิด',
 ]						
 																
 function PrintForm() {
@@ -90,7 +96,8 @@ function PrintForm() {
     const [confirm, setConfirm] = useState(false);
     const [confirmMsg, setConfirmMsg] = useState('confirm msg')
 
-    const [loanNumber, setLoanNumber] = useState('')
+    const [headModal, setHeadModal] = useState('')
+    const [formIndex, setFormIndex] = useState(null)
 
     useEffect(() => {
         setLoaded(true);
@@ -127,38 +134,118 @@ function PrintForm() {
         checkLogin();
     },[])
 
-    const handlePrintPDF = () => {
-        console.log('PDF - ContractNo:', loanNumber)
-        setConfirm(false)
 
-        let formData = new FormData(); 
-        formData.append('ContractNo', loanNumber)
-        formData.append('RoleID', localStorage.getItem('nROLEID'))
 
-        axios({
-        url: `${siteprint}/report/pdf/GetContractDebtPdf`, //your url
-        method: 'POST',
-        data: formData,
-        responseType: 'blob', // important
-        }).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-            const link = document.createElement('a');
-            link.href = url;
-            link.target = '_blank';
-            // link.setAttribute('download', `พิมพ์สัญญา_${loanNumber.toString()}.pdf`); //or any other extension
-            document.body.appendChild(link);
-            link.click();
-        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
-        .finally(() => {
-            if (isMounted.current) {
-            setIsLoading(false)
-            }
-        });
-    }
+    // const handlePrintPDF = () => {
+    //     console.log('PDF - ContractNo:', loanNumber)
+    //     setConfirm(false)
+
+    //     let formData = new FormData(); 
+    //     formData.append('ContractNo', loanNumber)
+    //     formData.append('RoleID', localStorage.getItem('nROLEID'))
+
+    //     axios({
+    //     url: `${siteprint}/report/pdf/GetContractDebtPdf`, //your url
+    //     method: 'POST',
+    //     data: formData,
+    //     responseType: 'blob', // important
+    //     }).then((response) => {
+    //         const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+    //         const link = document.createElement('a');
+    //         link.href = url;
+    //         link.target = '_blank';
+    //         // link.setAttribute('download', `พิมพ์สัญญา_${loanNumber.toString()}.pdf`); //or any other extension
+    //         document.body.appendChild(link);
+    //         link.click();
+    //     }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+    //     .finally(() => {
+    //         if (isMounted.current) {
+    //         setIsLoading(false)
+    //         }
+    //     });
+    // }
 
     const getViewForm = (val) => {
         setConfirm(true)
-        setLoanNumber(listForm[val])
+        setHeadModal(listForm[val])
+        setFormIndex(val)
+    }
+
+    const getEmbed = (val) => {
+        let pdf = null;
+
+        switch(val) {
+            case 0:
+                pdf = pdf0
+                break;
+            case 1:
+                pdf = pdf1
+                break;
+            case 2:
+                pdf = pdf2
+                break;
+            case 3:
+                pdf = pdf3
+                break;
+            case 4:
+                pdf = pdf4
+                break;
+            case 5:
+                pdf = pdf5
+                break;
+            case 6:
+                pdf = pdf6
+                break;
+            case 7:
+                pdf = pdf7
+                break;
+            case 8:
+                pdf = pdf8
+                break;
+            case 9:
+                pdf = pdf9
+                break;
+            case 10:
+                pdf = pdf10
+                break;
+            case 11:
+                pdf = pdf11
+                break;
+            case 12:
+                pdf = pdf12
+                break;
+            case 13:
+                pdf = pdf13
+                break;
+            case 14:
+                pdf = pdf14
+                break;
+            case 15:
+                pdf = pdf15
+                break;
+            case 16:
+                pdf = pdf16
+                break;
+            case 17:
+                pdf = pdf17
+                break;
+            case 18:
+                pdf = pdf18
+                break;
+            case 19:
+                pdf = pdf19
+                break;
+            case 20:
+                pdf = pdf20
+                break;
+            case 21:
+                pdf = pdf21
+                break;
+            default:
+              pdf = 0
+          }
+
+        return (<embed src={pdf} width="100%" height={(window.innerHeight - 200)+'px'}/>)
     }
 
     const handleClosePopup = () => {
@@ -217,12 +304,14 @@ function PrintForm() {
                 <DialogContent>
 
                 <div className="dialog-confirm">
-                    <h3 className="txt-center">รายละเอียดฟอร์ม {loanNumber}</h3>
-                    <p className="txt-center txt-black">...View PDF File...</p>
+                    <h3 className="txt-center">รายละเอียดฟอร์ม {headModal}</h3>
+                    {
+                        getEmbed(formIndex)
+                    }
                     <br/>
                     <Box textAlign='center'>
                         <ButtonFluidOutlinePrimary label="ยกเลิก" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}}/> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="140px" startIcon={<PrintIcon />} onClick={handlePrintPDF} style={{justifyContent: 'center'}}   />
+                        {/* <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="140px" startIcon={<PrintIcon />} onClick={handlePrintPDF} style={{justifyContent: 'center'}}   /> */}
                     </Box>
                 </div>
                     
