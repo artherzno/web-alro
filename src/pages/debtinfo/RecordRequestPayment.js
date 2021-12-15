@@ -98,15 +98,24 @@ function RecordRequestPayment() {
 
                 formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
                 formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
-                formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
-                formikRef.current.setFieldValue("RecInterestKang2", recData ? recData.InterestKang2 : 0)
+
+                formikRef.current.setFieldValue("RemainingPrinciple", recData.principalBalance)
+
+                console.log("selectedExtendData", selectedExtendData)
+                if (selectedExtendData .Extend.length > 0) {
+                    formikRef.current.setFieldValue("PrintciplePay", selectedExtendData.Extend[0].PrintciplePay)
+                    formikRef.current.setFieldValue("InterestOverdue", selectedExtendData.Extend[0].InterestOverdue)
+                    formikRef.current.setFieldValue("PaymentPeriodRemain", parseFloat(recData.principalBalance) - parseFloat(selectedExtendData.Extend[0].PrintciplePay))
+
+                }
+                
+                
                 formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
 
-                formikRef.current.setFieldValue("ChangeInterest", selectedData.Interest)//เช็ค
-                formikRef.current.setFieldValue("ChangeInterest", selectedData.PaymentPeriodRemain)
+                // formikRef.current.setFieldValue("ChangeInterest", selectedData.Interest)//เช็ค
 
             }
 
@@ -122,13 +131,16 @@ function RecordRequestPayment() {
     function selectDataExtendNumber(extendNumber){
 
         const parameter = {
-            ExtendNumber:extendNumber
+            ExtendNumber: extendNumber//"163/00008"//extendNumber
         }
         setIsLoading(true)
         api.selectDataExtendNumber(parameter).then(response =>{
 
             setSelectedExtendData(response.data)
             setIsLoading(false)
+            
+            
+            
         }).catch(error =>{
             setIsLoading(false)
         })
@@ -643,10 +655,10 @@ function RecordRequestPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="RecPrincipleBalance"
-                                                                                        value={values.RecPrincipleBalance}
-                                                                                        error={errors.RecPrincipleBalance}
-                                                                                        helperText={errors.RecPrincipleBalance}
+                                                                                        name="RemainingPrinciple"
+                                                                                        value={values.RemainingPrinciple}
+                                                                                        error={errors.RemainingPrinciple}
+                                                                                        helperText={errors.RemainingPrinciple}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         label=""
@@ -663,10 +675,10 @@ function RecordRequestPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment 
-                                                                                        name="RecPrinciple"
-                                                                                        value={values.RecPrinciple}
-                                                                                        error={errors.RecPrinciple}
-                                                                                        helperText={errors.RecPrinciple}
+                                                                                        name="PrintciplePay"
+                                                                                        value={values.PrintciplePay}
+                                                                                        error={errors.PrintciplePay}
+                                                                                        helperText={errors.PrintciplePay}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
@@ -681,10 +693,10 @@ function RecordRequestPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment 
-                                                                                        name="RecInterestKang2"
-                                                                                        value={values.RecInterestKang2}
-                                                                                        error={errors.RecInterestKang2}
-                                                                                        helperText={errors.RecInterestKang2}
+                                                                                        name="InterestOverdue"
+                                                                                        value={values.InterestOverdue}
+                                                                                        error={errors.InterestOverdue}
+                                                                                        helperText={errors.InterestOverdue}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
