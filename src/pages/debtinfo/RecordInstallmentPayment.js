@@ -119,7 +119,7 @@ function RecordInstallmentPayment() {
                 setSelectedData(selectedData)
 
                 
-                formikRef.current.setFieldValue("RecPrinciple", selectedData.PrintciplePay)
+                formikRef.current.setFieldValue("PrintciplePay", selectedData.PrintciplePay)
                 formikRef.current.setFieldValue("PaymentPeriodRemain", selectedData.PaymentPeriodRemain)
 
             }
@@ -172,7 +172,7 @@ function RecordInstallmentPayment() {
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
-                formikRef.current.setFieldValue("ChangeInterest", recData.InterestRate)//เช็ค
+                formikRef.current.setFieldValue("ChangeInterest", recData.Interest)
                 
             }
 
@@ -311,7 +311,7 @@ function RecordInstallmentPayment() {
                                         ...selectedData,
                                         PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}`:'',
                                         RelentDateBefore: selectedData.RelentDate,
-                                        RelentDate:null,
+                                        RelentDate:'',
                                     }}
                                     validate={values => {
                                         const requires = []
@@ -654,10 +654,10 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <MuiTextfieldEndAdornment
-                                                                                        name="RecPrinciple"
-                                                                                        value={values.RecPrinciple}
-                                                                                        error={errors.RecPrinciple}
-                                                                                        helperText={errors.RecPrinciple}
+                                                                                        name="PrintciplePay"
+                                                                                        value={values.PrintciplePay}
+                                                                                        error={errors.PrintciplePay}
+                                                                                        helperText={errors.PrintciplePay}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เงินต้นครบกำหนดชำระ"
@@ -665,7 +665,7 @@ function RecordInstallmentPayment() {
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
-                                                                        <Grid item xs={12} md={12}>
+                                                                        {/* <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
@@ -682,7 +682,7 @@ function RecordInstallmentPayment() {
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
-                                                                        </Grid>
+                                                                        </Grid> */}
 
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
