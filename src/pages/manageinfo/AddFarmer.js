@@ -144,6 +144,9 @@ function AddFarmer(props) {
         OldSirname1: '',
         OldName2: '',
         OldSirname2: '',
+        BankAccount: '',
+        BankBranch: '',
+        BankName: '',
     })
 
     const [inputDataLand1, setInputDataLand1] = useState(
@@ -690,7 +693,7 @@ function AddFarmer(props) {
 
     // Input Text field 
     const handleInputData = (event) => {
-        // console.log('event.target.name',event.target.name)
+        console.log('event.target.id.toString().slice(-3)',event.target.id.toString().slice(-3))
         if(event.target.type === 'number') {
             let typeNumber = event.target.id.toString().slice(-3);
             if(typeNumber === 'tel') {
@@ -1089,6 +1092,16 @@ function AddFarmer(props) {
                                                 {/* <Grid item xs={12} md={12}>
                                                     <MuiTextfield label="สถานที่ออกบัตร" defaultValue="" value={inputData.IDCardMade} name="IDCardMade" onChange={handleInputData} />
                                                 </Grid> */}
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiTextfield label="ชื่อธนาคาร"  name="BankName"  value={inputData.BankName} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiTextfield label="สาขา" name="BankBranch"  value={inputData.BankBranch} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={4}>
+                                                    <MuiTextNumber label="เลขบัญขี" id="addmember-bnk" name="BankAccount"  value={inputData.BankAccount} onInput={handleInputData} />
+                                                </Grid>
+
                                                 <Grid item xs={12} md={12}>
                                                     {/* Field Number ---------------------------------------------------*/}
                                                     <MuiTextNumber label="เบอร์โทรศัพท์" id="addmember-tel" defaultValue="" placeholder="ตัวอย่าง 0812345678" name="Tel"  value={inputData.Tel} onInput={handleInputData} />
