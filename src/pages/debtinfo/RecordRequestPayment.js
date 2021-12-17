@@ -38,6 +38,9 @@ import { useFormikContext, Formik, Form, Field, } from 'formik';
 import moment from 'moment';
 import { getAccount } from '../../utils/Auth'
 import { dialog, OverlayLoading } from '../../components';
+import {
+    MuiTextfieldNumber,
+} from '../../components/MUIinputs';
 
 function RecordRequestPayment() {
     const history = useHistory();
@@ -168,12 +171,13 @@ function RecordRequestPayment() {
 
             const provinceid = localStorage.getItem('provinceid')
 
+            const extend = selectedExtendData.Extend.length > 0 ? selectedExtendData.Extend[0] : { }
             const parameter  = {
-                ExtendTime: realPay,
+                ExtendTime: [{ ...extend ,  ...formikRef.current.values}] ,
                 LoanDus:realPay,
                 Username: provinceid
             }
-           
+
             api.extendTimeInsert(parameter).then(response => {
 
                 dialog.close()
@@ -654,17 +658,34 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="RemainingPrinciple"
                                                                                         value={values.RemainingPrinciple}
                                                                                         error={errors.RemainingPrinciple}
                                                                                         helperText={errors.RemainingPrinciple}
-                                                                                        onChange={handleChange}
+                                                                                        // onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         label=""
                                                                                         defaultValue=""
                                                                                         textAlign='right'
+                                                                                        decimalScale={2}
                                                                                         endAdornment="บาท" />
+
+                                                                                    {/* <NumberFormat
+                                                                                        thousandsGroupStyle="thousand"
+                                                                                        value={2456981}
+                                                                                        prefix="$"
+                                                                                        decimalSeparator="."
+                                                                                        displayType="input"
+                                                                                        type="text"
+                                                                                        thousandSeparator={true}
+                                                                                        allowNegative={true}
+                                                                                        decimalScale={2}
+                                                                                        fixedDecimalScale={true} /> */}
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -674,15 +695,19 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment 
+                                                                                    <MuiTextfieldNumber 
                                                                                         name="PrintciplePay"
                                                                                         value={values.PrintciplePay}
                                                                                         error={errors.PrintciplePay}
                                                                                         helperText={errors.PrintciplePay}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
+                                                                                        decimalScale={2}
                                                                                     label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -692,15 +717,19 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment 
+                                                                                    <MuiTextfieldNumber 
                                                                                         name="InterestOverdue"
                                                                                         value={values.InterestOverdue}
                                                                                         error={errors.InterestOverdue}
                                                                                         helperText={errors.InterestOverdue}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
+                                                                                        decimalScale={2}
                                                                                     label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -710,15 +739,19 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">เปลี่ยนอัตราดอกเบี้ย</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment 
+                                                                                    <MuiTextfieldNumber 
                                                                                         name="InterestChange"
                                                                                         value={values.InterestChange}
                                                                                         error={errors.InterestChange}
                                                                                         helperText={errors.InterestChange}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
+                                                                                        decimalScale={2}
                                                                                     label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -728,15 +761,19 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">งวดชำระคงเหลือ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment 
+                                                                                    <MuiTextfieldNumber 
                                                                                         name="PaymentPeriodRemain"
                                                                                         value={values.PaymentPeriodRemain}
                                                                                         error={errors.PaymentPeriodRemain}
                                                                                         helperText={errors.PaymentPeriodRemain}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
+                                                                                        decimalScale={2}
                                                                                     label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -746,15 +783,19 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">จำนวนเงินขอขยายในงวดบัญชีนี้</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment 
+                                                                                    <MuiTextfieldNumber 
                                                                                         name="ExtendCost"
                                                                                         value={values.ExtendCost}
                                                                                         error={errors.ExtendCost}
                                                                                         helperText={errors.ExtendCost}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
+                                                                                        decimalScale={2}
                                                                                     label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -894,7 +935,7 @@ function RecordRequestPayment() {
                                                                                     <MuiTextfield label="" value={row.List} />
                                                                                 </TableCell>
                                                                                 <TableCell align="left">
-                                                                                    <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} />
+                                                                                    <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : ''} />
                                                                                 </TableCell>
                                                                                 <TableCell align="left">
                                                                                     <MuiTextfield label="" value={row.PAYREC} />

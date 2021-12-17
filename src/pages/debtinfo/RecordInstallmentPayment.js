@@ -31,6 +31,7 @@ import {
     MuiDatePicker,
     ButtonFluidPrimary,
     MuiTextfieldMultiLine,
+    MuiTextfieldNumber
 } from '../../components/MUIinputs';
 import api from '../../services/webservice'
 import { dateFormatTensiveMenu, formatNumber } from '../../utils/Utilities';
@@ -635,14 +636,15 @@ function RecordInstallmentPayment() {
                                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="RemainingPrinciple"
                                                                                         value={values.RemainingPrinciple}
                                                                                         error={errors.RemainingPrinciple}
                                                                                         helperText={errors.RemainingPrinciple}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เงินต้นคงเหลือ"
+                                                                                        textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -653,14 +655,15 @@ function RecordInstallmentPayment() {
                                                                                     <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="PrintciplePay"
                                                                                         value={values.PrintciplePay}
                                                                                         error={errors.PrintciplePay}
                                                                                         helperText={errors.PrintciplePay}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เงินต้นครบกำหนดชำระ"
+                                                                                        textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -690,14 +693,15 @@ function RecordInstallmentPayment() {
                                                                                     <p className="paper-p txt-right">อัตราดอกเบี้ย</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="ChangeInterest"
                                                                                         value={values.ChangeInterest}
                                                                                         error={errors.ChangeInterest}
                                                                                         helperText={errors.ChangeInterest}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="อัตราดอกเบี้ย"
+                                                                                        textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -708,14 +712,15 @@ function RecordInstallmentPayment() {
                                                                                     <p className="paper-p txt-right">งวดชำระคงเหลือ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="PaymentPeriodRemain"
                                                                                         value={values.PaymentPeriodRemain}
                                                                                         error={errors.PaymentPeriodRemain}
                                                                                         helperText={errors.PaymentPeriodRemain}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="งวดชำระคงเหลือ"
+                                                                                        textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -726,14 +731,15 @@ function RecordInstallmentPayment() {
                                                                                     <p className="paper-p txt-right">จำนวนเงินขอผ่อนผันในงวดบัญชีนี้</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="RelentCost"
                                                                                         value={values.RelentCost}
                                                                                         error={errors.RelentCost}
                                                                                         helperText={errors.RelentCost}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="จำนวนเงินขอผ่อนผันในงวดบัญชีนี้"
+                                                                                        textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
@@ -890,7 +896,7 @@ function RecordInstallmentPayment() {
                                                                 <MuiTextfield label="" value={row.List} />
                                                             </TableCell>
                                                             <TableCell align="left">
-                                                                <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} />
+                                                                <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : ''} />
                                                             </TableCell>
                                                             <TableCell align="left">
                                                                 <MuiTextfield label="" value={row.PAYREC} />

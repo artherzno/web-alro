@@ -41,6 +41,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import moment from 'moment';
+
 // import { yellow } from '@material-ui/core/colors';
 
 // const BootstrapInput = withStyles((theme) => ({
@@ -400,7 +401,7 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldNumber = (props) => {
     const classes = useStyles();
-    const { topic, label, value, name, onChange, inputdisabled, unit } = props;
+    const { topic, label, value, name, onChange, inputdisabled, unit, onValueChange} = props;
 
     let unitValue = null;
     if(unit==='wa') {
@@ -427,7 +428,20 @@ const MuiTextfieldNumber = (props) => {
                 type="text"
                 thousandSeparator={true}
                 decimalScale={2}
-                onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+                fixedDecimalScale={true}
+                // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+                onValueChange={(e) =>{
+
+                    if (onChange){
+                        onChange({ target: { name, value: e.floatValue } })
+                    }
+                    
+
+                    if (onValueChange){
+                        onValueChange({ target: { name, value: e.floatValue } })
+                    }
+                    
+                }}
             />
 
             {/* <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} /> */}
@@ -506,6 +520,7 @@ const MuiTextfieldEndAdornment = (props) => {
         </FormControl>
     );
 }
+
 
 const MuiTextNumber = (props) => {
     const classes = useStyles();
