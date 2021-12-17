@@ -650,6 +650,9 @@ function RecordInstallmentPayment() {
                                                                                         textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                         <Grid item xs={12} md={12}>
@@ -668,6 +671,9 @@ function RecordInstallmentPayment() {
                                                                                         placeholder="เงินต้นครบกำหนดชำระ"
                                                                                         textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -707,6 +713,9 @@ function RecordInstallmentPayment() {
                                                                                         textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                         <Grid item xs={12} md={12}>
@@ -726,6 +735,9 @@ function RecordInstallmentPayment() {
                                                                                         textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                         <Grid item xs={12} md={12}>
@@ -744,6 +756,9 @@ function RecordInstallmentPayment() {
                                                                                         placeholder="จำนวนเงินขอผ่อนผันในงวดบัญชีนี้"
                                                                                         textAlign='right'
                                                                                         label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
