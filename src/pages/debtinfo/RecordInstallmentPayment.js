@@ -120,8 +120,7 @@ function RecordInstallmentPayment() {
                 setSelectedData(selectedData)
 
                 
-                formikRef.current.setFieldValue("PrintciplePay", selectedData.PrintciplePay)
-                formikRef.current.setFieldValue("PaymentPeriodRemain", selectedData.PaymentPeriodRemain)
+               
 
             }
             setIsLoading(false)
@@ -173,8 +172,12 @@ function RecordInstallmentPayment() {
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
-                formikRef.current.setFieldValue("ChangeInterest", recData.Interest)
+                formikRef.current.setFieldValue("ChangeInterest", recData.InterestRate)
                 
+
+                formikRef.current.setFieldValue("PaymentPeriodRemain", parseFloat(recData.principalBalance) - parseFloat(selectedData.PrintciplePay))
+                formikRef.current.setFieldValue("PrintciplePay", selectedData.PrintciplePay)
+
             }
 
             setIsLoading(false)
@@ -368,10 +371,10 @@ function RecordInstallmentPayment() {
                                                         </Grid>
                                                         <Grid item xs={12} md={1}>
                                                             <MuiTextfield
-                                                                name="PVSCODE"
-                                                                value={values.PVSCODE}
-                                                                error={errors.PVSCODE}
-                                                                helperText={errors.PVSCODE}
+                                                                name="pvscode"
+                                                                value={values.pvscode}
+                                                                error={errors.pvscode}
+                                                                helperText={errors.pvscode}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="รหัสจังหวัด"
