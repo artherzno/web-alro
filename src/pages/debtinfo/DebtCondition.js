@@ -29,6 +29,7 @@ import {
     MuiDatePicker,
     ButtonFluidPrimary,
     MuiTextfieldMultiLine,
+    MuiTextfieldNumber
 } from '../../components/MUIinputs';
 
 import api from '../../services/webservice'
@@ -234,6 +235,7 @@ function DebtCondition() {
                             ChangeDeptCost: 0,
                             ReduceFines:0,
                             InterestReduce:0,
+                            PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}` : '',
                             YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
                         }}
                         validate={values => {
@@ -257,7 +259,7 @@ function DebtCondition() {
 
                             return (
                                 <Form>
-                                    <Container maxWidth="lg">
+                                    {!isLoading && <Container maxWidth="lg">
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={12}>
 
@@ -265,7 +267,7 @@ function DebtCondition() {
                                                 <Paper className="paper line-top-green paper mg-t-20">
                                                     <form className="root" noValidate autoComplete="off">
                                                         <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={3}>
+                                                            {/* <Grid item xs={12} md={3}>
                                                                 <MuiTextfield
                                                                     name="RecNum"
                                                                     value={values.RecNum}
@@ -276,7 +278,7 @@ function DebtCondition() {
                                                                     placeholder="เลขที่บันทึก"
                                                                     label="เลขที่บันทึก"
                                                                     disabled />
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid item xs={12} md={3}>
                                                                 <MuiDatePicker
                                                                     name="ChangeDeptDate"
@@ -362,10 +364,10 @@ function DebtCondition() {
                                                             </Grid>
                                                             <Grid item xs={12} md={1}>
                                                                 <MuiTextfield
-                                                                    name="Order"
-                                                                    value={values.Order}
-                                                                    error={errors.Order}
-                                                                    helperText={errors.Order}
+                                                                    name="Item"
+                                                                    value={values.Item}
+                                                                    error={errors.Item}
+                                                                    helperText={errors.Item}
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     label="&nbsp;"
@@ -385,13 +387,12 @@ function DebtCondition() {
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
                                                                 <MuiTextfield
-                                                                    // name="LoanNumber"
-                                                                    // value={values.LoanNumber}
-                                                                    // error={errors.LoanNumber}
-                                                                    // helperText={errors.LoanNumber}
-                                                                    // onChange={handleChange}
-                                                                    // onBlur={handleBlur}
-                                                                    // placeholder="สัญญาเลขที่"
+                                                                    name="PVCODE_LoanNumber"
+                                                                    value={values.PVCODE_LoanNumber}
+                                                                    error={errors.PVCODE_LoanNumber}
+                                                                    helperText={errors.PVCODE_LoanNumber}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
                                                                     label="&nbsp;" defaultValue="" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
@@ -558,10 +559,10 @@ function DebtCondition() {
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={12}>
                                                                                     <MuiTextfieldMultiLine
-                                                                                        name="Command"
-                                                                                        value={values.Command}
-                                                                                        error={errors.Command}
-                                                                                        helperText={errors.Command}
+                                                                                        name="Commend"
+                                                                                        value={values.Commend}
+                                                                                        error={errors.Commend}
+                                                                                        helperText={errors.Commend}
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="หมายเหตุ"
@@ -576,7 +577,7 @@ function DebtCondition() {
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="เลขที่คำสั่ง"
-                                                                                        label="เลขที่คำสั่ง"  />
+                                                                                        label="เลขที่คำสั่ง" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={6}>
                                                                                     <MuiDatePicker
@@ -626,10 +627,10 @@ function DebtCondition() {
                                                                                         label="ประเภท"
                                                                                         listsValue={masterCondition.map(master => master.ConditionCode)}
                                                                                         lists={masterCondition.map(master => master.ConditionName)}
-                                                                                        onChange={(e) =>{
-                                                                                            
+                                                                                        onChange={(e) => {
+
                                                                                             const master = masterCondition.find(element => element.ConditionCode === e.target.value)
-                                                                                            if(master){
+                                                                                            if (master) {
                                                                                                 setFieldValue('ConditionCode', master.ConditionCode)
                                                                                                 setFieldValue('ConditionID', master.ConditionID)
                                                                                                 setFieldValue('ConditionName', master.ConditionName)
@@ -711,7 +712,7 @@ function DebtCondition() {
                                                                     </Grid>
 
                                                                     <Grid item xs={12} md={6}>
-                                                                        <Grid item xs={12} md={12}>
+                                                                        {/* <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <p className="paper-p txt-right">จำนวนเงินลดต้น</p>
@@ -732,6 +733,54 @@ function DebtCondition() {
                                                                                         defaultValue=""endAdornment="บาท" />
                                                                                 </Grid>
                                                                             </Grid>
+                                                                        </Grid> */}
+                                                                        <Grid item xs={12} md={12}>
+                                                                            <Grid container spacing={2}>
+                                                                                {/* <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินลดต้น</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldNumber
+                                                                                        name="ChangeInterest"
+                                                                                        value={values.ChangeInterest}
+                                                                                        error={errors.ChangeInterest}
+                                                                                        helperText={errors.ChangeInterest}
+                                                                                        onValueChange={handleChange}
+                                                                                        onBlur={handleBlur}
+                                                                                        placeholder="อัตราดอกเบี้ย"
+                                                                                        textAlign='right'
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">%</p>
+                                                                                </Grid> */}
+
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <p className="paper-p txt-right">จำนวนเงินลดต้น</p>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldNumber
+                                                                                        name="ReducePrinciple"
+                                                                                        value={values.ReducePrinciple}
+                                                                                        error={errors.ReducePrinciple}
+                                                                                        helperText={errors.ReducePrinciple}
+                                                                                        onValueChange={(e) => {
+
+                                                                                            handleChange(e)
+                                                                                            const changeDeptCost = parseFloat(e.target.value) + parseFloat(values.InterestReduce) + parseFloat(values.ReduceFines)
+                                                                                            if (changeDeptCost) {
+                                                                                                setFieldValue("ChangeDeptCost", changeDeptCost)
+                                                                                            }
+
+
+                                                                                        }}
+                                                                                        onBlur={handleBlur}
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                </Grid>
+                                                                            </Grid>
                                                                         </Grid>
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
@@ -739,7 +788,7 @@ function DebtCondition() {
                                                                                     <p className="paper-p txt-right">จำนวนเงินลดดอก</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="InterestReduce"
                                                                                         value={values.InterestReduce}
                                                                                         error={errors.InterestReduce}
@@ -748,11 +797,17 @@ function DebtCondition() {
 
                                                                                             handleChange(e)
                                                                                             const changeDeptCost = parseFloat(values.ReducePrinciple) + parseFloat(e.target.value) + parseFloat(values.ReduceFines)
-                                                                                            setFieldValue("ChangeDeptCost", changeDeptCost)
+                                                                                            if (changeDeptCost) {
+                                                                                                setFieldValue("ChangeDeptCost", changeDeptCost)
+                                                                                            }
+
 
                                                                                         }}
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -762,7 +817,7 @@ function DebtCondition() {
                                                                                     <p className="paper-p txt-right">จำนวนเงินลดค่าปรับ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="ReduceFines"
                                                                                         value={values.ReduceFines}
                                                                                         error={errors.ReduceFines}
@@ -777,6 +832,9 @@ function DebtCondition() {
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                         <Grid item xs={12} md={12}>
@@ -785,7 +843,7 @@ function DebtCondition() {
                                                                                     <p className="paper-p txt-right">จำนวนเงินปรับโครงสร้าง</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldEndAdornment
+                                                                                    <MuiTextfieldNumber
                                                                                         name="ChangeDeptCost"
                                                                                         value={values.ChangeDeptCost}
                                                                                         error={errors.ChangeDeptCost}
@@ -793,6 +851,9 @@ function DebtCondition() {
                                                                                         onChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" endAdornment="บาท" />
+                                                                                </Grid>
+                                                                                <Grid item >
+                                                                                    <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -802,7 +863,7 @@ function DebtCondition() {
                                                                                     <p className="paper-p txt-right">อัตราดอกเบี้ยที่เปลี่ยน</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfield
+                                                                                    <MuiTextfieldNumber
                                                                                         name="ChangeInterest"
                                                                                         value={values.ChangeInterest}
                                                                                         error={errors.ChangeInterest}
@@ -811,6 +872,7 @@ function DebtCondition() {
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" />
                                                                                 </Grid>
+
                                                                             </Grid>
                                                                         </Grid>
 
@@ -822,7 +884,7 @@ function DebtCondition() {
                                                 </Paper>
                                             </Grid>
                                         </Grid>
-                                    </Container>
+                                    </Container>}
 
                                     <Container maxWidth="md">
                                         <Grid container spacing={2} className="btn-row txt-center">

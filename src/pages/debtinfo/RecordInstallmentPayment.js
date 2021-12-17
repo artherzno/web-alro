@@ -173,6 +173,9 @@ function RecordInstallmentPayment() {
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
                 formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
                 formikRef.current.setFieldValue("ChangeInterest", recData.InterestRate)
+
+                formikRef.current.setFieldValue("RelentCost", recData.RelentCost)
+                
                 
 
                 formikRef.current.setFieldValue("PaymentPeriodRemain", parseFloat(recData.principalBalance) - parseFloat(selectedData.PrintciplePay))
@@ -212,11 +215,11 @@ function RecordInstallmentPayment() {
                                     <MuiTextfield label="ค้นหาเลขที่สัญญา" onChange={(e) => { setParamsSignNo(e.target.value) }} />
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            {/* <Grid item xs={12} md={3}>
                                 <Box display="flex" justifyContent="flex-start">
                                     <MuiTextfield label="ค้นหาเลขที่คำขอ" onChange={(e) => { setParamRequestNo(e.target.value) }} />
                                 </Box>
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={12} md={2}>
                                 <p>&nbsp;</p>
                                 <ButtonFluidPrimary label="ค้นหา" onClick={() => {
@@ -313,7 +316,7 @@ function RecordInstallmentPayment() {
                                     initialValues={{
                                         ...selectedItemData,
                                         ...selectedData,
-                                        PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}`:'',
+                                        PVCODE_LoanNumber: selectedData.pvscode ? `${selectedData.pvscode}${selectedData.LoanNumber}`:'',
                                         RelentDateBefore: selectedData.RelentDate,
                                         RelentDate:'',
                                     }}
@@ -341,7 +344,7 @@ function RecordInstallmentPayment() {
                                             <Form>
                                                 <Paper className="paper line-top-green paper mg-t-20">
                                                     <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield
                                                                 name="RecNum"
                                                                 value={values.RecNum}
@@ -353,7 +356,7 @@ function RecordInstallmentPayment() {
                                                                 label="เลขที่บันทึก"
                                                                 disabled
                                                                 defaultValue="" />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             <MuiDatePicker
                                                                 name="RelentDateBefore"
@@ -714,7 +717,7 @@ function RecordInstallmentPayment() {
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                                 <Grid item >
-                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                    <p className="paper-p txt-right">%</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>

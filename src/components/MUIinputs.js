@@ -1308,7 +1308,7 @@ const MuiSelect = (props) => {
                             <MenuItem key={i} value={i}>{item}</MenuItem>
                         )}
                     </Select>
-                    :
+                    : 
                     <Select
                         value={value}
                         error={error}
