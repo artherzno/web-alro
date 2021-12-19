@@ -283,10 +283,10 @@ parameter.append('YearTo', YearTovalue);
                                             <StyledTableCellLine component="th" align="left" scope="row">
                                                 {farmer.zone}
                                             </StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalProj}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.total}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
 

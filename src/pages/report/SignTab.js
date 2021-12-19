@@ -384,7 +384,7 @@ parameter.append('YearTo', YearTovalue);
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={12} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={11} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>

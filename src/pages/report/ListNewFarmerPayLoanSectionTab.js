@@ -277,10 +277,10 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine colSpan={2} align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalProj)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.totalContract)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalProj}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalContract}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanPaymentResult)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.total}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.percentage)}</StyledTableCellLine>
 
@@ -346,10 +346,10 @@ parameter.append('YearTo', YearTovalue);
                                                 {farmer.no}
                                             </StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.zone}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalProj)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.totalContract)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalProj}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.total}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
                                         </TableRow>
