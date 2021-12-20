@@ -322,8 +322,8 @@ parameter.append('YearTo', YearTovalue);
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center" rowSpan={2}>จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>โครงการหลัก</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
@@ -361,8 +361,8 @@ parameter.append('YearTo', YearTovalue);
                                 {this.state.farmerPayLoanList.map((farmer, index) => {
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
                                             <StyledTableCellLine align="center">{farmer.no}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
