@@ -81,10 +81,13 @@ function GuaranteeBookA() {
 
     const [inputDataSearch, setInputDataSearch] = useState({
         Username: localStorage.getItem('cUsername'),
-        LoanNumber:"",
-        Rentno: "",
-        Fullname: "",
-        Date: ""
+        // LoanNumber:"",
+        // Rentno: "",
+        // Fullname: "",
+        // Date: ""
+        GuaranteeBookTypeID: "1",
+        Name: "ทดสอบ",
+        LoanNumber: ''
     })
 
     const [inputData, setInputData] = useState({
@@ -194,8 +197,8 @@ function GuaranteeBookA() {
         { id: 'LoanNumber', numeric: false, disablePadding: true, widthCol: '100px', label: 'เลขที่สัญญา' },
     ]
 
-    function createData(LoanNumber, LoanReceiptDate, ProjectName,ProjectplanYear ) {
-        return {LoanNumber, LoanReceiptDate, ProjectName,ProjectplanYear }
+    function createData(FrontName, Name, Sirname, LoanNumber ) {
+        return {FrontName, Name, Sirname, LoanNumber }
     }
 
     useEffect(() => {
@@ -234,7 +237,45 @@ function GuaranteeBookA() {
     }, [])
 
     const getSearch = () => {
-
+        axios.post(
+            `${server_hostname}/admin/api/search_GuaranteeBook`, 
+            inputDataSearch, 
+            { headers: { "token": token } } 
+        ).then(res => {
+                console.log('getSearch',res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                } else {
+                    console.log('search result',data.data)
+                    setRows(
+                        data.data.map((item,i)=>
+                            createData(
+                                item.FrontName,
+                                item.Name,
+                                item.Sirname,
+                                item.LoanNumber,
+                            ))
+                    )
+                }
+                // getSpkAllProject()
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
     }
 
     const getGuaranteeBookSelect = (loanNumber) => {
@@ -405,7 +446,7 @@ function GuaranteeBookA() {
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
-                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="Fullname" value={inputDataSearch.Fullname} onChange={handleInputDataSearch} />
+                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="name" value={inputDataSearch.name} onChange={handleInputDataSearch} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
