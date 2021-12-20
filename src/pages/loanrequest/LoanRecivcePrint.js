@@ -120,6 +120,9 @@ function LoanRecivcePrint() {
         LoanReceiptTotal: 0,
         LoanReceiptNumber: '',
         BankID: '',
+        BankAccount: '',
+        BankName: '',
+        BankBranch: '',
     })
 
     const [inputDataLoanFarmerGetMonehy, setInputDataLoanFarmerGetMonehy] = useState({
@@ -252,6 +255,9 @@ function LoanRecivcePrint() {
         IDCARD_AddrDistrictID,
         IDCARD_AddrProvinceID,
         // IDCARD_AddrSoiRoad,
+        BankAccount,
+        BankBranch,
+        BankName,
         ) {
         return {
             LoanID,
@@ -275,6 +281,9 @@ function LoanRecivcePrint() {
             IDCARD_AddrDistrictID,
             IDCARD_AddrProvinceID,
             // IDCARD_AddrSoiRoad,
+            BankAccount,
+            BankBranch,
+            BankName,
 
         }
     }
@@ -517,6 +526,9 @@ function LoanRecivcePrint() {
                                 // item.Name === null ? '' : item.Name,
                                 // item.Sirname === null ? '' : item.Sirname,
                                 // item.IDCARD_AddNo === undefined ? '' : item.IDCARD_AddNo +' '+item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo+' '+item.IDCARD_AddrSoiRoad === undefined ? '' : item.IDCARD_AddrSoiRoad+' '+item.IDCARD_AddrSubdistrictName === undefined ? '' : item.IDCARD_AddrSubdistrictName+' '+item.IDCARD_AddrDistrictName === undefined ? '' : item.IDCARD_AddrDistrictName+' '+item.IDCARD_AddrProvinceName === undefined ? '' : item.IDCARD_AddrProvinceName+' '+item.IDCARD_Postcode  === undefined ? '' : item.IDCARD_Postcode
+                                item.BankAccount === null ? '' : item.BankAccount,
+                                item.BankBranch === null ? '' : item.BankBranch,
+                                item.BankName === null ? '' : item.BankName,
                             )
                         )
                     )
@@ -593,6 +605,9 @@ function LoanRecivcePrint() {
                 LoanReceiptTotal: (sumTable === 0 || sumTable === '' ? null : parseFloat((sumTable.toLocaleString('en-US', {minimumFractionDigits: 2})).split(',').join(''))),
                 LoanID: inputDataShow.LoanID,
                 BankID: inputData.BankID,
+                // BankAccount: inputData.BankAccount,
+                // BankName: inputData.BankName,
+                // BankBranch: inputData.BankBranch,
             }, { headers: { "token": token } } 
         ).then(res => {
             console.log(res)
@@ -653,6 +668,10 @@ function LoanRecivcePrint() {
             LoanReceiptAmount3: 0, // float = 123.12,
             LoanReceiptTotal: 0,
             LoanReceiptNumber: loannumber,
+            BankAccount: '',
+            BankBranch: '',
+            BankName: '',
+            
         })
 
         setInputSelectDate({
@@ -757,6 +776,20 @@ function LoanRecivcePrint() {
                             }
                             <Grid item xs={12} md={3}>
                                 <MuiTextfield label="กระทรวง"  inputdisabled="input-disabled"  value={`กระทรวงเกษตรและสหกรณ์`} />
+                            </Grid>
+
+                            <Grid item xs={12} md={12}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} md={4}>
+                                        <MuiTextfield label="ชื่อธนาคาร" inputdisabled="input-disabled" value={inputData.BankName} onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={4}>
+                                        <MuiTextfield label="สาขา" inputdisabled="input-disabled" value={inputData.BankBranch} onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={4}>
+                                        <MuiTextfield label="เลขบัญขี" inputdisabled="input-disabled" value={inputData.BankAccount} onInput={handleInputData} />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             
         
@@ -1041,8 +1074,21 @@ function LoanRecivcePrint() {
                                                     <Grid item xs={12} md={3}>
                                                         <MuiTextfield label="กระทรวง" inputdisabled="input-disabled" value={inputData.LoanReceiptfrom2} onChange={handleInputData}   />
                                                     </Grid>
-                                                    <Grid item xs={12} md={3}>
+                                                    {/* <Grid item xs={12} md={3}>
                                                         <MuiTextfield label="เลขบัญชีธนาคาร"  inputdisabled="input-disabled" />
+                                                    </Grid> */}
+                                                    <Grid item xs={12} md={12}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label="ชื่อธนาคาร" inputdisabled="input-disabled" value={inputData.BankName} onChange={handleInputData} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label="สาขา" inputdisabled="input-disabled" value={inputData.BankBranch} onChange={handleInputData} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4}>
+                                                                <MuiTextfield label="เลขบัญขี" inputdisabled="input-disabled" value={inputData.BankAccount} onInput={handleInputData} />
+                                                            </Grid>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </form>

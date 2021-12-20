@@ -142,6 +142,7 @@ const MUItable = (props) => {
       recordcontractdebtAction,
       addrecordcourtcontractEvent,
       addrecordcourtcontractAction,
+      guaranteebookEvent,
     } = props;
 
   useEffect(() => {
@@ -363,6 +364,13 @@ const MUItable = (props) => {
                     <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="130px"  onClick={()=>{addrecordcourtcontractAction('add'); addrecordcourtcontractEvent(row['LoanID'])}} />
                   : null
                     // (applicantID, farmerID, applicantNo, loanID, loanNumber)
+                }
+                {
+                  tableName === 'guaranteebook' && row['GBookID'] === null  ? 
+                  <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="140px" onClick={()=>{guaranteebookEvent(row['GBookID'],row['LoanID'],row['ind']); }} />
+                  : tableName === 'guaranteebook' ?
+                  <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{guaranteebookEvent(row['GBookID'],row['LoanID'],row['ind']); }} />
+                  : null
                 }
                 {
                   actionRequest ? 
