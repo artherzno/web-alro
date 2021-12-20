@@ -105,10 +105,11 @@ function RecordInstallmentPayment() {
     }
 
 
-    function selectDataByLoan(LoanNumber) {
+    function selectDataByLoan(RelentNumber,LoanNumber) {
 
         const parameter = {
-            LoanNumber: LoanNumber
+            LoanNumber: LoanNumber,
+            RelentNumber: RelentNumber
         }
 
         setIsLoading(true)
@@ -258,7 +259,7 @@ function RecordInstallmentPayment() {
 
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
-                                                            selectDataByLoan(element.LoanNumber)
+                                                            selectDataByLoan(element.RelentNumber ,element.LoanNumber)
                                                             setSelectedItemData(element)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecordCode}</StyledTableCellLine>
@@ -316,7 +317,7 @@ function RecordInstallmentPayment() {
                                     initialValues={{
                                         ...selectedItemData,
                                         ...selectedData,
-                                        PVCODE_LoanNumber: selectedData.pvscode ? `${selectedData.pvscode}${selectedData.LoanNumber}`:'',
+                                        PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}`:'',
                                         RelentDateBefore: selectedData.RelentDate,
                                         RelentDate:'',
                                     }}

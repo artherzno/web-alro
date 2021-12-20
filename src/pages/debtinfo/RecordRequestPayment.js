@@ -132,10 +132,11 @@ function RecordRequestPayment() {
 
     }
 
-    function selectDataExtendNumber(extendNumber){
+    function selectDataExtendNumber(extendNumber, loanNumber){
 
         const parameter = {
-            ExtendNumber: extendNumber//"163/00008"//extendNumber
+            ExtendNumber: extendNumber,//"163/00008"//extendNumber
+            LoanNumber:loanNumber
         }
         setIsLoading(true)
         api.selectDataExtendNumber(parameter).then(response =>{
@@ -266,7 +267,7 @@ function RecordRequestPayment() {
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
                                                             // setSelectedData(element)
-                                                            selectDataExtendNumber(element.ExtendNumber)
+                                                            selectDataExtendNumber(element.ExtendNumber, element.LoanNumber)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
