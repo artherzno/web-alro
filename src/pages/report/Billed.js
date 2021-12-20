@@ -402,7 +402,7 @@ class Billed extends React.Component {
                                                 <StyledTableCellLine >
                                                     {farmer.receiptNo1}
                                                 </StyledTableCellLine>
-                                                <StyledTableCellLine align="left">{formatNumber(farmer.number)}</StyledTableCellLine>
+                                                <StyledTableCellLine align="left">{farmer.number}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.principle1)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.interest)}</StyledTableCellLine>
                                                 <StyledTableCellLine align="right">{formatNumber(farmer.other)}</StyledTableCellLine>
@@ -418,7 +418,7 @@ class Billed extends React.Component {
                                         <StyledTableCellLine align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                             รวมทั้งสิ้น
                                         </StyledTableCellLine>
-                                        <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.number)}</StyledTableCellLine>
+                                        <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.number}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle1)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interest)}</StyledTableCellLine>
                                         <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>

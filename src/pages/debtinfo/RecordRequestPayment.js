@@ -51,6 +51,7 @@ function RecordRequestPayment() {
     const [page, setPage] = useState(0)
     const [count, setCount] = useState(10)
     const [selectedData, setSelectedData] = useState({})
+    const [selectedDataClick, setSelectedDataClick] = useState({})
     const [loanNumber, setLoanNumber] = useState("")
     const [selectedExtendData, setSelectedExtendData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
@@ -140,6 +141,12 @@ function RecordRequestPayment() {
         api.selectDataExtendNumber(parameter).then(response =>{
 
             setSelectedExtendData(response.data)
+
+            if (response.data.Extend.length > 0){
+                setSelectedDataClick(response.data.Extend[0])
+
+            }
+            
             setIsLoading(false)
             
             
@@ -258,7 +265,7 @@ function RecordRequestPayment() {
 
                                                     return (
                                                         <TableRow key={index} hover={true} onClick={() => {
-                                                            setSelectedData(element)
+                                                            // setSelectedData(element)
                                                             selectDataExtendNumber(element.ExtendNumber)
                                                         }}>
                                                             <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
@@ -308,11 +315,11 @@ function RecordRequestPayment() {
                         enableReinitialize={true}
                         innerRef={formikRef}
                         initialValues={{
-                            ...selectedData,
-                            ExtendDate: selectedData.ExtendDate || '',
-                            CommandDate: selectedData.CommandDate || '',
-                            PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}` : '',
-                            YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
+                            ...selectedDataClick,
+                            ExtendDate: selectedDataClick.ExtendDate || '',
+                            CommandDate: selectedDataClick.CommandDate || '',
+                            PVCODE_LoanNumber: selectedDataClick.PVSCODE ? `${selectedDataClick.PVSCODE}${selectedDataClick.LoanNumber}` : '',
+                            YEAR: (selectedDataClick.LoanDate && selectedDataClick.LoanDate != "") ? moment(selectedDataClick.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
                         }}
                         validate={values => {
                             const requires = []
@@ -335,7 +342,7 @@ function RecordRequestPayment() {
 
                             return (
                                 <Form>
-                                    <div>
+                                    {!isLoading && <div>
                                         <Container maxWidth="lg">
                                             <Grid container spacing={2}>
                                                 <Grid item xs={12} md={12}>
@@ -344,7 +351,7 @@ function RecordRequestPayment() {
                                                     <Paper className="paper line-top-green paper mg-t-20">
                                                         <Grid container spacing={2}>
 
-                                                            <Grid item xs={12} md={3}>
+                                                            {/* <Grid item xs={12} md={3}>
                                                                 <MuiTextfield
                                                                     name="RecNum"
                                                                     value={values.RecNum}
@@ -355,7 +362,7 @@ function RecordRequestPayment() {
                                                                     placeholder="เลขที่บันทึก"
                                                                     label="เลขที่บันทึก"
                                                                     disabled />
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid item xs={12} md={3}>
                                                                 <MuiDatePicker
                                                                     name="ExtendDate"
@@ -395,10 +402,10 @@ function RecordRequestPayment() {
                                                             </Grid>
                                                             <Grid item xs={12} md={2}>
                                                                 <MuiTextfield
-                                                                    name="PV_NAME"
-                                                                    value={values.PV_NAME}
-                                                                    error={errors.PV_NAME}
-                                                                    helperText={errors.PV_NAME}
+                                                                    name="PV_Name"
+                                                                    value={values.PV_Name}
+                                                                    error={errors.PV_Name}
+                                                                    helperText={errors.PV_Name}
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="จังหวัด"
@@ -441,10 +448,10 @@ function RecordRequestPayment() {
                                                             </Grid>
                                                             <Grid item xs={12} md={1}>
                                                                 <MuiTextfield
-                                                                    name="Order"
-                                                                    value={values.Order}
-                                                                    error={errors.Order}
-                                                                    helperText={errors.Order}
+                                                                    name="Item"
+                                                                    value={values.Item}
+                                                                    error={errors.Item}
+                                                                    helperText={errors.Item}
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     label="&nbsp;"
@@ -695,7 +702,7 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldNumber 
+                                                                                    <MuiTextfieldNumber
                                                                                         name="PrintciplePay"
                                                                                         value={values.PrintciplePay}
                                                                                         error={errors.PrintciplePay}
@@ -704,7 +711,7 @@ function RecordRequestPayment() {
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
                                                                                         decimalScale={2}
-                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                                 <Grid item >
                                                                                     <p className="paper-p txt-right">บาท</p>
@@ -717,7 +724,7 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldNumber 
+                                                                                    <MuiTextfieldNumber
                                                                                         name="InterestOverdue"
                                                                                         value={values.InterestOverdue}
                                                                                         error={errors.InterestOverdue}
@@ -726,7 +733,7 @@ function RecordRequestPayment() {
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
                                                                                         decimalScale={2}
-                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                                 <Grid item >
                                                                                     <p className="paper-p txt-right">บาท</p>
@@ -736,10 +743,10 @@ function RecordRequestPayment() {
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <p className="paper-p txt-right">เปลี่ยนอัตราดอกเบี้ย</p>
+                                                                                    <p className="paper-p txt-right">อัตราดอกเบี้ย</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldNumber 
+                                                                                    <MuiTextfieldNumber
                                                                                         name="InterestChange"
                                                                                         value={values.InterestChange}
                                                                                         error={errors.InterestChange}
@@ -748,14 +755,14 @@ function RecordRequestPayment() {
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
                                                                                         decimalScale={2}
-                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                                 <Grid item >
-                                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                                    <p className="paper-p txt-right">%</p>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
-                                                                        <Grid item xs={12} md={12}>
+                                                                        {/* <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <p className="paper-p txt-right">งวดชำระคงเหลือ</p>
@@ -776,14 +783,14 @@ function RecordRequestPayment() {
                                                                                     <p className="paper-p txt-right">บาท</p>
                                                                                 </Grid>
                                                                             </Grid>
-                                                                        </Grid>
+                                                                        </Grid> */}
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     <p className="paper-p txt-right">จำนวนเงินขอขยายในงวดบัญชีนี้</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldNumber 
+                                                                                    <MuiTextfieldNumber
                                                                                         name="ExtendCost"
                                                                                         value={values.ExtendCost}
                                                                                         error={errors.ExtendCost}
@@ -792,7 +799,7 @@ function RecordRequestPayment() {
                                                                                         onBlur={handleBlur}
                                                                                         textAlign='right'
                                                                                         decimalScale={2}
-                                                                                    label="" defaultValue="" endAdornment="บาท" />
+                                                                                        label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
                                                                                 <Grid item >
                                                                                     <p className="paper-p txt-right">บาท</p>
@@ -832,39 +839,48 @@ function RecordRequestPayment() {
                                                                             <TableRow key={i}>
                                                                                 <TableCell align="left">{row.ITEM}</TableCell>
                                                                                 <TableCell align="left">
-                                                                                    <MuiTextfield label="" value={row.RENTNO} onChange={(e) =>{
-                                                                                        onChangeRealPay("RENTNO",e.target.value,i)
+                                                                                    <MuiTextfield label="" value={row.RENTNO} onChange={(e) => {
+                                                                                        onChangeRealPay("RENTNO", e.target.value, i)
                                                                                     }} />
                                                                                 </TableCell>
                                                                                 <TableCell align="left">
                                                                                     <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : null} onChange={(event) => {
-                        
+
                                                                                         onChangeRealPay("DUEDATE", moment(event).format("YYYY-MM-DD"), i)
 
-                                                                                    }}/>
+                                                                                    }} />
                                                                                 </TableCell>
                                                                                 <TableCell align="left">
                                                                                     {
                                                                                         i === 0 ?
                                                                                             <MuiTextfield label="" value={row.PAYREC} onChange={(e) => {
                                                                                                 onChangeRealPay("PAYREC", e.target.value, i)
-                                                                                            }}/>
+                                                                                            }} />
                                                                                             :
-                                                                                            <MuiTextfieldEndAdornment label="" value={row.PAYREC} onChange={(e) => {
-                                                                                                onChangeRealPay("PAYREC", e.target.value, i)
-                                                                                            }} endAdornment={<IconButton onClick={() => {
+                                                                                            <Grid container>
+                                                                                                <Grid item xs>
+                                                                                                    <MuiTextfieldNumber label="" value={row.PAYREC} onValueChange={(e) => {
+                                                                                                        onChangeRealPay("PAYREC", e.target.value, i)
+                                                                                                    }} />
+                                                                                                </Grid>
 
-                                                                                                const realPay = selectedExtendData.RealPay
-                                                                                                if (realPay) {
-                                                                                                    realPay.splice(i, 1)
-                                                                                                }
+                                                                                                <Grid item>
+                                                                                                    <IconButton onClick={() => {
 
-                                                                                                setSelectedData({
-                                                                                                    ...selectedExtendData,
-                                                                                                    RealPay: realPay
-                                                                                                })
+                                                                                                        const realPay = selectedExtendData.RealPay
+                                                                                                        if (realPay) {
+                                                                                                            realPay.splice(i, 1)
+                                                                                                        }
 
-                                                                                            }} > <CloseIcon className="table-item-del" /></IconButton>} />
+                                                                                                        setSelectedData({
+                                                                                                            ...selectedExtendData,
+                                                                                                            RealPay: realPay
+                                                                                                        })
+
+                                                                                                    }} > <CloseIcon className="table-item-del" /></IconButton>
+                                                                                                </Grid>
+                                                                                            </Grid>
+
                                                                                     }
                                                                                 </TableCell>
                                                                             </TableRow>
@@ -877,11 +893,11 @@ function RecordRequestPayment() {
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <div className="box-button txt-center">
-                                                        <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() =>{
+                                                        <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() => {
 
                                                             let realPay = selectedExtendData.RealPay
 
-                                                            if (!realPay){
+                                                            if (!realPay) {
                                                                 realPay = []
                                                             }
                                                             realPay.push({
@@ -897,7 +913,7 @@ function RecordRequestPayment() {
                                                             setSelectedExtendData(dataSave)
 
 
-                                                        }}/>
+                                                        }} />
                                                     </div>
                                                 </Grid>
                                             </Grid>
@@ -938,7 +954,7 @@ function RecordRequestPayment() {
                                                                                     <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : ''} />
                                                                                 </TableCell>
                                                                                 <TableCell align="left">
-                                                                                    <MuiTextfield label="" value={row.PAYREC} />
+                                                                                    <MuiTextfieldNumber label="" value={row.PAYREC} />
                                                                                 </TableCell>
                                                                             </TableRow>
                                                                         ))
@@ -956,19 +972,19 @@ function RecordRequestPayment() {
                                         <Container maxWidth="md">
 
                                             <Grid container spacing={2} className="btn-row txt-center">
-                                               
+
                                                 <Grid item xs={12} md={12}>
                                                     <div className="box-button txt-center">
-                                                        <ButtonFluidPrimary maxWidth="500px" label="บันทึก" onClick={() =>{
+                                                        <ButtonFluidPrimary maxWidth="500px" label="บันทึก" onClick={() => {
                                                             saveRecord()
-                                                        }}/>
+                                                        }} />
                                                     </div>
                                                 </Grid>
 
                                             </Grid>
                                         </Container>
 
-                                    </div>
+                                    </div>}
                                 </Form>
                             )
                         }} />
