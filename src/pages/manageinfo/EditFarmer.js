@@ -357,6 +357,7 @@ function EditFarmer(props) {
                         }
                     }else {
                         console.log('Get Farmer:',data.data)
+                        console.log('Get Farmer LandData:',data.data.land_data)
                     
                         let resEditData = data.data;
                         setPathIDCard_Image(resEditData.IDCard_PicPatch ? resEditData.IDCard_PicPatch.split('\\').join('/') : '')
@@ -1399,7 +1400,7 @@ console.log(BirthDateValue)
 
 
     const FormLandEdit = (i, LandID, Land_AddMoo, Land_AddrProvinceID, Land_AddrDistrictID, Land_AddrSubdistrictID, DocLand_code, LandNumber, LandGroup, Plang, Rai, Ngan, Wa, handleInputDataLand, districtLandList, subDistrictLandList) => {
-        
+        // console.log('R',Rai,'N', Ngan,'W', Wa)
         // Get District
         let dataDistrictList = JSON.parse(localStorage.getItem('districtlist'))
         let districtList = [];
@@ -1483,7 +1484,7 @@ console.log(BirthDateValue)
                                         </Grid> */}
                                         <Grid item xs={11} md={3}>
                                             <p>เนื้อที่</p>
-                                            <MuiTextfieldNumber  label="" name="Rai" value={inputDataLandAdd.Rai}  onChange={handleInputDataLandAdd} />
+                                            <MuiTextfieldNumber  label="" name="Rai" value={Rai}  onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={1} md={1}>
                                             <p>&nbsp;</p>
@@ -1492,7 +1493,7 @@ console.log(BirthDateValue)
 
                                         <Grid item xs={11} md={3}>
                                             <p>&nbsp;</p>
-                                            <MuiTextfieldNumber  label="" name="Ngan" unit="ngan"  value={inputDataLandAdd.Ngan}  onChange={handleInputDataLandAdd} />
+                                            <MuiTextfieldNumber  label="" name="Ngan" unit="ngan"  value={Ngan}  onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={1} md={1}>
                                             <p>&nbsp;</p>
@@ -1501,7 +1502,7 @@ console.log(BirthDateValue)
 
                                         <Grid item xs={11} md={3}>
                                             <p>&nbsp;</p>
-                                            <MuiTextfieldNumber  label="" name="Wa" unit="wa"  value={inputDataLandAdd.Wa}  onChange={handleInputDataLandAdd} />
+                                            <MuiTextfieldNumber  label="" name="Wa" unit="wa"  value={Wa}  onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={1} md={1}>
                                             <p>&nbsp;</p>
