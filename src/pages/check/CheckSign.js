@@ -303,10 +303,10 @@ class CheckSign extends React.Component {
                             <Box mt={6}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield disabled={true} value={this.state.loanAmount} label="จำนวนสัญญา" />
+                                        <MuiTextfield disabled={true} value={this.state.totalContract} label="จำนวนสัญญา" />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield disabled={true} value={this.state.totalContract} label="วงเงินกู้" />
+                                        <MuiTextfield disabled={true} value={this.state.loanAmount} label="วงเงินกู้" />
                                     </Grid>
                                     <Grid item xs={12}  md={3}>
                                         <MuiTextfield disabled={true} value={this.state.remainAmount} label="จำนวนเงินเหลือ" />
