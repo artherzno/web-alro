@@ -115,14 +115,12 @@ function RecordInstallmentPayment() {
         setIsLoading(true)
         api.selectDataByLoan(parameter).then(response => {
 
-            if (response.data.length > 0) {
+            if (response.data.Relent.length > 0) {
 
-                const selectedData = response.data[0]
+                const selectedData = response.data.Relent[response.data.Relent.length - 1]
                 setSelectedData(selectedData)
 
                 
-               
-
             }
             setIsLoading(false)
 
