@@ -53,6 +53,7 @@ function GuaranteeBookA() {
     let server_spkapi = localStorage.getItem('spkapi');
     let token = localStorage.getItem('token');
     let siteprint = localStorage.getItem('siteprint')
+    let provincename = localStorage.getItem('provincename');
 
     let provinceList = JSON.parse(localStorage.getItem('provincelist')) // [{ProvinceID: 81, PV_NAME: "", PVSCODE: "KABI", PV_REGION: "ใต้", ZoneID: 3}]
     // Get District
@@ -103,7 +104,7 @@ function GuaranteeBookA() {
         // Fullname: "",
         // Date: ""
         GuaranteeBookTypeID: "1",
-        Name: "ทดสอบ",
+        Name: '',
         LoanNumber: ''
     })
 
@@ -212,8 +213,8 @@ function GuaranteeBookA() {
         { id: 'LoanNumber', numeric: false, disablePadding: true, widthCol: '100px', label: 'เลขที่สัญญา' },
     ]
 
-    function createData(ind, FrontName, Name, Sirname, LoanNumber, GBookID, LoanID ) {
-        return {ind, FrontName, Name, Sirname, LoanNumber, GBookID, LoanID }
+    function createData(ind, FrontName, Name, Sirname, LoanNumber, GBookID, LoanID, WarrantBookOwner1, WarrantBookIDCard1,  WarrantBookOwner2, WarrantBookIDCard2, WarrantBookOwner3,  WarrantBookIDCard3, WarrantBookOwner4, WarrantBookIDCard4 ) {
+        return {ind, FrontName, Name, Sirname, LoanNumber, GBookID, LoanID, WarrantBookOwner1, WarrantBookIDCard1,  WarrantBookOwner2, WarrantBookIDCard2, WarrantBookOwner3,  WarrantBookIDCard3, WarrantBookOwner4, WarrantBookIDCard4  }
     }
 
     useEffect(() => {
@@ -290,6 +291,14 @@ function GuaranteeBookA() {
                                     item.LoanNumber,
                                     item.GBookID,
                                     item.LoanID,
+                                    item.WarrantBookOwner1,
+                                    item.WarrantBookIDCard1,
+                                    item.WarrantBookOwner2,
+                                    item.WarrantBookIDCard2,
+                                    item.WarrantBookOwner3,
+                                    item.WarrantBookIDCard3,
+                                    item.WarrantBookOwner4,
+                                    item.WarrantBookIDCard4,
                                 ))
                         )
                         setSearchResult(data.data)
@@ -323,7 +332,7 @@ function GuaranteeBookA() {
         setFormField(false)
         setInputData({
             ...inputData,
-            LoanID: loanID
+            LoanID: loanID,
         })
 
         if(gbookID === null) {
@@ -355,8 +364,108 @@ function GuaranteeBookA() {
                             setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
                     } else {
-                        console.log('view result',data.data)
+                        let result = data.data[0]
+                        console.log('view result',result)
                         setFormField(true)
+                        setInputData({
+                            ...inputData,
+                            LoanID: loanID,
+                            PlaceCreate: result.PlaceCreate || '',
+                            ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
+
+                            FrontName1: result.FrontName1 || '', // "นาย1",
+                            Name1: result.Name1 || '', // "ชื่อผู้ค้ำ 1",
+                            Sirname1: result.Sirname1 || '', // "นามสกุลผู้ค้ำ 1",
+                            AGE1: result.AGE1 || '', // "11",
+                            IDCard1: result.IDCard1 || '', // "3309900111111",
+                            HouseNumber1: result.HouseNumber1 || '', // "บ้านเลขที่1",
+                            Moo1: result.Moo1 || '', // "หมู่ 1",
+                            Road1: result.Road1 || '', // "ถนน 1",
+                            Province1: result.Province1 || 0, // "มหาสารคาม1",
+                            District1: result.District1 || 0, // "เมือง1",
+                            Subdistrict1: result.Subdistrict1 || 0, // "ในเมือง1",
+
+                            
+                            FrontName2: result.FrontName2 || '', // "นาย1",
+                            Name2: result.Name2 || '', // "ชื่อผู้ค้ำ 1",
+                            Sirname2: result.Sirname2 || '', // "นามสกุลผู้ค้ำ 1",
+                            AGE2: result.AGE2 || '', // "11",
+                            IDCard2: result.IDCard2 || '', // "3309900111111",
+                            HouseNumber2: result.HouseNumber2 || '', // "บ้านเลขที่1",
+                            Moo2: result.Moo2 || '', // "หมู่ 1",
+                            Road2: result.Road2 || '', // "ถนน 1",
+                            Province2: result.Province2 || 0, // "มหาสารคาม1",
+                            District2: result.District2 || 0, // "เมือง1",
+                            Subdistrict2: result.Subdistrict2 || 0, // "ในเมือง1",
+
+
+                            FrontName3: result.FrontName3 || '', // "นาย1",
+                            Name3: result.Name3 || '', // "ชื่อผู้ค้ำ 1",
+                            Sirname3: result.Sirname3 || '', // "นามสกุลผู้ค้ำ 1",
+                            AGE3: result.AGE3 || '', // "11",
+                            IDCard3: result.IDCard3 || '', // "3309900111111",
+                            HouseNumber3: result.HouseNumber3 || '', // "บ้านเลขที่1",
+                            Moo3: result.Moo3 || '', // "หมู่ 1",
+                            Road3: result.Road3 || '', // "ถนน 1",
+                            Province3: result.Province3 || 0, // "มหาสารคาม1",
+                            District3: result.District3 || 0, // "เมือง1",
+                            Subdistrict3: result.Subdistrict3 || 0, // "ในเมือง1",
+
+                            FrontName4: result.FrontName4 || '', // "นาย1",
+                            Name4: result.Name4 || '', // "ชื่อผู้ค้ำ 1",
+                            Sirname4: result.Sirname4 || '', // "นามสกุลผู้ค้ำ 1",
+                            AGE4: result.AGE4 || '', // "11",
+                            IDCard4: result.IDCard4 || '', // "3309900111111",
+                            HouseNumber4: result.HouseNumber4 || '', // "บ้านเลขที่1",
+                            Moo4: result.Moo4 || '', // "หมู่ 1",
+                            Road4: result.Road4 || '', // "ถนน 1",
+                            Province4: result.Province4 || 0, // "มหาสารคาม1",
+                            District4: result.District4 || 0, // "เมือง1",
+                            Subdistrict4: result.Subdistrict4 || 0, // "ในเมือง1",
+
+                            FrontName5: result.FrontName5 || '', // "นาย1",
+                            Name5: result.Name5 || '', // "ชื่อผู้ค้ำ 1",
+                            Sirname5: result.Sirname5 || '', // "นามสกุลผู้ค้ำ 1",
+                            AGE5: result.AGE5 || '', // "11",
+                            IDCard5: result.IDCard5 || '', // "3309900111111",
+                            HouseNumber5: result.HouseNumber5 || '', // "บ้านเลขที่1",
+                            Moo5: result.Moo5 || '', // "หมู่ 1",
+                            Road5: result.Road5 || '', // "ถนน 1",
+                            Province5: result.Province5 || 0, // "มหาสารคาม1",
+                            District5: result.District5 || 0, // "เมือง1",
+                            Subdistrict5: result.Subdistrict5 || 0, // "ในเมือง1",
+
+                            CoupleFrontName: result.CoupleFrontName || '',// "",
+                            CoupleName: result.CoupleName || '',// "",
+                            CoupleSirname: result.CoupleSirname || '',// "",
+                            CoupleAGE: result.CoupleAGE || '',// "",
+                            CoupleNationality: result.CoupleNationality || '',// "",
+                            CoupleHouseNumber: result.CoupleHouseNumber || '',// "",
+                            CoupleMoo: result.CoupleMoo || '',// "",
+                            CoupleRoad: result.CoupleRoad || '',// "",
+                            CoupleProvince: result.CoupleProvince || '',// "",
+                            CoupleDistrict: result.CoupleDistrict || '',// "",
+                            CoupleSubdistrict: result.CoupleSubdistrict || '',// "",
+                            CoupleOtherContact: result.CoupleOtherContact || '',// "",
+
+                            WitnessName1: result.WitnessName1 || '',// "พยาน1",
+                            WitnessAddr1: '',// "ที่อยู่พยาน1",
+                            WitnessIDCard1: result.WitnessIDCard1 || '',// "1234567891011",
+                            WitnessIDCardMake1: '',// "ออกพยาน1",
+                            WitnessName2: result.WitnessName2 || '',// "พยาน2",
+                            WitnessAddr2: '',// "ที่อยู่พยาน2",
+                            WitnessIDCard2: result.WitnessIDCard2 || '',// "1234567891022",
+                            WitnessIDCardMake2: '',// "ออกพยาน2",
+
+                            WitnessName3: result.WitnessName3 || '',// "พยาน1",
+                            WitnessAddr3: '',// "ที่อยู่พยาน1",
+                            WitnessIDCard3: result.WitnessIDCard3 || '',// "1234567891011",
+                            WitnessIDCardMake3: '',// "ออกพยาน1",
+                            WitnessName4: result.WitnessName4 || '',// "พยาน2",
+                            WitnessAddr4: '',// "ที่อยู่พยาน2",
+                            WitnessIDCard4: result.WitnessIDCard4 || '',// "1234567891022",
+                            WitnessIDCardMake4: '',// "ออกพยาน2",
+                        })
                     }
                     // getSpkAllProject()
                 }
@@ -591,6 +700,7 @@ function GuaranteeBookA() {
         
         formData.append('GuaranteeBookTypeID', '1')
         formData.append('LoanID', inputData.LoanID)
+        formData.append('ContactDate', inputData.ContactDate === 'Invalid date' || inputData.ContactDate === null ? null : moment(inputData.ContactDate).format('YYYY-MM-DD'))
     
         axios.post(
             `${server_hostname}/admin/api/update_GuaranteeBook`, 
@@ -974,30 +1084,30 @@ function GuaranteeBookA() {
                                                     {/* <MuiTextfield label="ข้อ ๑. ตามที่"  name="farmerName"  value={inputData.farmerName} onChange={handleInputData}  /> */}
                                                 </Grid>
                                                 <Grid item xs={12} md={2}>
-                                                    <MuiSelect label="คำนำหน้า" listsValue={['นาย','นาง','นางสาว']} lists={['นาย', 'นาง', 'นางสาว']} value={dataOwner.FrontName} onChange={handleInputDataOwner} />
+                                                    <MuiSelect label="คำนำหน้า" inputdisabled="input-disabled" listsValue={['นาย','นาง','นางสาว']} lists={['นาย', 'นาง', 'นางสาว']} value={dataOwner.FrontName} onChange={handleInputDataOwner} />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="ชื่อ" defaultValue="" value={dataOwner.Name} onChange={handleInputDataOwner}  />
+                                                    <MuiTextfield label="ชื่อ" inputdisabled="input-disabled" defaultValue="" value={dataOwner.Name} onChange={handleInputDataOwner}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiTextfield label="นามสกุล" defaultValue="" value={dataOwner.Sirname} onChange={handleInputDataOwner}  />
+                                                    <MuiTextfield label="นามสกุล" inputdisabled="input-disabled" defaultValue="" value={dataOwner.Sirname} onChange={handleInputDataOwner}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <MuiLabelHeader label="ซึ่งต่อไปในสัญญานี้เรียกว่า “ผู้กู้” ได้กู้เงินของ ส.ป.ก. ไปเป็น" />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <p>จำนวนเงิน</p>
-                                                    <MuiTextfieldCurrency label="" value={dataOwner.principle}  onChange={handleInputDataOwner} /> 
+                                                    <MuiTextfieldCurrency label="" inputdisabled="input-disabled" value={dataOwner.principle}  onChange={handleInputDataOwner} /> 
                                                 </Grid>
                                                 <Grid item xs={1} md={1}>
                                                     <p>&nbsp;</p>
                                                     <p className="paper-p">บาท</p>
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiTextfield label="ตามสัญญากู้ยืมเงิน" value={dataOwner.LoanNumber} onChange={handleInputDataOwner}  />
+                                                    <MuiTextfield label="ตามสัญญากู้ยืมเงิน" inputdisabled="input-disabled" value={dataOwner.LoanNumber} onChange={handleInputDataOwner}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
-                                                    <MuiDatePicker label="ลงวันที่" value={dataOwner.LoanDate} onChange={(newValue)=>{ setDataOwner({ ...dataOwner, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}   />
+                                                    <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" value={dataOwner.LoanDate} onChange={(newValue)=>{ setDataOwner({ ...dataOwner, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}   />
                                                 </Grid>
 
 
@@ -1032,28 +1142,55 @@ function GuaranteeBookA() {
                                                     <MuiLabelHeader label="หมายเหตุ" />
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputData.WitnessName} onChange={handleInputData} />
+                                                    <MuiTextfield label="1. ชื่อพยาน" name="WitnessName1" value={inputData.WitnessName1} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="ที่อยู่" name="WitnessAddr" value={inputData.WitnessAddr} onChange={handleInputData}/>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr1" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputData}/>
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard" value={inputData.WitnessIDCard} onChange={handleInputData} />
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard1" value={inputData.WitnessIDCard1} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={inputData.WitnessIDCardMade} onChange={handleInputData}/>
+                                                    <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake1" value={'กรมการปกครอง'} onChange={handleInputData}/>
                                                 </Grid>
+
                                                 <Grid item xs={12} md={5}>
                                                     <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputData.WitnessName2} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="ที่อยู่" name="WitnessAddr2" value={inputData.WitnessAddr2} onChange={handleInputData}/>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputData}/>
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
                                                     <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard2" value={inputData.WitnessIDCard2} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={inputData.WitnessIDCardMade2} onChange={handleInputData}/>
+                                                    <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake2" value={'กรมการปกครอง'} onChange={handleInputData}/>
+                                                </Grid>
+
+                                                <Grid item xs={12} md={5}>
+                                                    <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputData.WitnessName3} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={7}>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputData}/>
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard3" value={inputData.WitnessIDCard3} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={7}>
+                                                    <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake3" value={'กรมการปกครอง'} onChange={handleInputData}/>
+                                                </Grid>
+
+                                                <Grid item xs={12} md={5}>
+                                                    <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputData.WitnessName4} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={7}>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputData}/>
+                                                </Grid>
+                                                <Grid item xs={12} md={5}>
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard4" value={inputData.WitnessIDCard4} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={7}>
+                                                    <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake4" value={'กรมการปกครอง'} onChange={handleInputData}/>
                                                 </Grid>
                                             </Grid>
                                         </Paper>

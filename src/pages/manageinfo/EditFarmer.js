@@ -1650,7 +1650,7 @@ console.log(BirthDateValue)
                                                 <MuiTextfield label="สาขา" name="BankBranch"  value={inputData.BankBranch} onChange={handleInputData} />
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <MuiTextNumber label="เลขบัญขี" id="addmember-bnk" name="BankAccount"  value={inputData.BankAccount} onInput={handleInputData} />
+                                                <MuiTextNumber label="เลขบัญชี" id="addmember-bnk" name="BankAccount"  value={inputData.BankAccount} onInput={handleInputData} />
                                             </Grid>
 
                                             <Grid item xs={12} md={12}>
