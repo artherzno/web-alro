@@ -152,7 +152,7 @@ function RecordInstallmentPayment() {
         const parameter = {
             LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
             Fullname: '',//values.Fullname,
-            Rentno: selectedData.Rentno,
+            Rentno: selectedData.RelentNumber,
             Date: date
         }
         setIsLoading(true)
