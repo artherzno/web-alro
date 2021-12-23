@@ -115,14 +115,12 @@ function RecordInstallmentPayment() {
         setIsLoading(true)
         api.selectDataByLoan(parameter).then(response => {
 
-            if (response.data.length > 0) {
+            if (response.data.Relent.length > 0) {
 
-                const selectedData = response.data[0]
+                const selectedData = response.data.Relent[response.data.Relent.length - 1]
                 setSelectedData(selectedData)
 
                 
-               
-
             }
             setIsLoading(false)
 
@@ -152,7 +150,7 @@ function RecordInstallmentPayment() {
         const parameter = {
             LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
             Fullname: '',//values.Fullname,
-            Rentno: selectedData.LoanNumber,
+            Rentno: selectedData.RelentNumber,
             Date: date
         }
         setIsLoading(true)
