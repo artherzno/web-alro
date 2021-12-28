@@ -401,13 +401,15 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldNumber = (props) => {
     const classes = useStyles();
-    const { topic, label, value, name, onChange, inputdisabled, unit, onValueChange} = props;
+    let { topic, label, value, name, onChange, inputdisabled, unit, onValueChange} = props;
 
-    let unitValue = null;
+    // let unitValue = null;
     if(unit==='wa') {
-        if(value>99.99) {unitValue = 99.99}
+        // console.log('W',value)
+        if(value>99.99) {value = 99.99}
     } else if(unit==='ngan') {
-        if(value > 3) { unitValue = 3 }
+        // console.log('N',value)
+        if(value > 3) { value = 3 }
     }
 
     return (
@@ -419,7 +421,7 @@ const MuiTextfieldNumber = (props) => {
             <NumberFormat
                 className="input-currency"
                 {...props}
-                value={unit==='wa' || unit==='ngan'?unitValue : value}
+                value={value}
                 name={name}
                 // mask={mask}
                 customInput={TextField}

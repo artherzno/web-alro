@@ -33,6 +33,10 @@ const listmenu = [
             {
                 subtitle: 'ตรวจสอบคำขอกู้ยืมเงิน / แก้ไข',
                 subpath: '/loanrequest/loanrequestcontactsearch'
+            },
+            {
+                subtitle: 'สร้าง / พิมพ์สัญญากู้ยืมเงิน',
+                subpath: '/loanrequest/loanrequestprint'
             },{
                 subtitle: 'สร้าง / พิมพ์ หนังสือสัญญาค้ำประกัน ก',
                 subpath: '/loanrequest/guaranteebooka'
@@ -49,9 +53,6 @@ const listmenu = [
             //     subpath: '/loanrequest/loanrequestcontact'
             // },
             {
-                subtitle: 'สร้าง / พิมพ์สัญญากู้ยืมเงิน',
-                subpath: '/loanrequest/loanrequestprint'
-            },{
                 subtitle: 'สร้าง / พิมพ์ใบสำคัญรับเงินของผู้กู้ตามสัญญากู้ยืมเงิน',
                 subpath: '/loanrequest/loanrecivceprint'
             },{
