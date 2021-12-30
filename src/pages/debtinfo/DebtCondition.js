@@ -17,7 +17,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import AddIcon from '@material-ui/icons/Add';
-
+import Button from '@material-ui/core/Button';
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 import {
@@ -169,6 +169,7 @@ function DebtCondition() {
                                                     <TableCell align="left">ชื่อ</TableCell>
                                                     <TableCell align="left">นามสกุล</TableCell>
                                                     <TableCell align="left">ที่อยู่</TableCell>
+                                                    <TableCell align="left"></TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
@@ -197,6 +198,19 @@ function DebtCondition() {
                                                             <StyledTableCellLine align="left">{element.Name}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.SirName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Address}</StyledTableCellLine>
+                                                            <StyledTableCellLine align="center">
+                                                                <Button
+                                                                    variant="contained"
+                                                                    color="primary"
+                                                                    size="small"
+                                                                    onClick={() => {
+                                                                        
+                                                                    }}
+                                                                >
+                                                                    ลบ
+                                                                </Button>
+                                                            </StyledTableCellLine>
+
                                                         </TableRow>
                                                     )
                                                 })}

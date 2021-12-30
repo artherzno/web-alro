@@ -695,8 +695,8 @@ function DebtReminder() {
                                             helperText={errors.BookNo}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            placeholder="เลขที่หนังสือ"
-                                            label="เลขที่หนังสือ"
+                                            placeholder="เลขที่ใบเตือน"
+                                            label="เลขที่ใบเตือน"
                                             requires
                                         />
 
@@ -710,8 +710,8 @@ function DebtReminder() {
                                             }}
                                             onChangeDate={handleChange}
                                             onBlur={handleBlur}
-                                            placeholder="วันที่ออกหนังสือ"
-                                            label="วันที่ออกหนังสือ"
+                                            placeholder="วันที่ออกใบเตือน"
+                                            label="วันที่ออกใบเตือน"
                                         />
 
                                     </Form>
