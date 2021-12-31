@@ -115,6 +115,8 @@ function RecordInstallmentPayment() {
         setIsLoading(true)
         api.selectDataByLoan(parameter).then(response => {
 
+            setSelectedExtendData(response.data)
+
             if (response.data.Relent.length > 0) {
 
                 const selectedData = response.data.Relent[response.data.Relent.length - 1]
@@ -132,15 +134,29 @@ function RecordInstallmentPayment() {
     function saveRelent(values) {
 
         dialog.showLoading()
-        api.saveRelent(values).then(response => {
-            dialog.close()
-            setTimeout(() => {
-                dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
-            }, 500);
-        
-        }).catch(() => {
-            dialog.close()
-        })
+
+        const realPay = selectedExtendData.RealPay
+        if(realPay){
+            const relent = (selectedExtendData.Relent && selectedExtendData.Relent.length > 0) ? selectedExtendData.Relent[0] : {}
+
+            const parameter = {
+                Relent: [{ ...relent, ...values }],
+                LoanDus: realPay,
+            }
+
+            api.saveRelent(parameter).then(response => {
+                dialog.close()
+                setTimeout(() => {
+                    dialog.showDialogSuccess({ message: "บันทึกข้อมูลสำเร็จ" })
+                }, 500);
+
+            }).catch(() => {
+                dialog.close()
+            })
+        }else{
+            dialog.showDialogFail({ message: "ไม่พบงวดชำระเงินตามจริง" })
+        }
+       
     }
 
     function getProcessBeforePay(date) {
@@ -773,11 +789,11 @@ function RecordInstallmentPayment() {
                                                 </Paper>
                                               
 
-                                                <Grid container spacing={2} className="btn-row txt-center">
+                                                {/* <Grid container spacing={2} className="btn-row txt-center">
                                                     <Grid item xs={12} md={12}>
                                                         <ButtonFluidPrimary label="บันทึกแก้ไข" maxWidth="320px" onClick={handleSubmit}/>
                                                     </Grid>
-                                                </Grid>
+                                                </Grid> */}
 
                                             </Form>)
                                     }} />
@@ -940,9 +956,9 @@ function RecordInstallmentPayment() {
 
                             <Grid item xs={12} md={12}>
                                 <div className="box-button txt-center">
-                                    {/* <ButtonFluidPrimary label="บันทึกแก้ไข" maxWidth="320px" onClick={() => {
-                                        // formikRef.current.handleSubmit()
-                                    }} /> */}
+                                    <ButtonFluidPrimary label="บันทึกแก้ไข" maxWidth="320px" onClick={() => {
+                                        formikRef.current.handleSubmit()
+                                    }} />
                                 </div>
                             </Grid>
 
