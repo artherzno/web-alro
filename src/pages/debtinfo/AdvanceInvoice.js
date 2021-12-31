@@ -198,18 +198,31 @@ function AdvanceInvoice(props) {
         parameter.append('invoice_date', values.invoice_date);
 
         let ref2 = ''
+        let rentno = ''
+        let ref_id = ''
+
         selectedCheckbox.forEach((element,index) =>{
             if(selectedCheckbox.length === 1){
                 ref2 = `${element.rentno}`
+                rentno = `${element.rentno}`
+                ref_id = `${element.ref_id}`
+
             }else if(index === selectedCheckbox.length - 1){
                 ref2 += `${element.rentno}`
+                rentno += `${element.rentno}`
+                ref_id += `${element.ref_id}`
+
             }else{
                 ref2 += `${element.rentno},`
+                rentno += `${element.rentno},`
+                ref_id += `${element.ref_id},`
             } 
             
         })
 
         parameter.append('ref2', ref2);
+        parameter.append('rentno', rentno);
+        parameter.append('ref_id', ref_id);
 
         setIsExporting(true)
 
