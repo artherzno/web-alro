@@ -221,8 +221,8 @@ function AdvanceInvoice(props) {
         })
 
         parameter.append('ref2', ref2);
-        parameter.append('rentno', rentno);
-        parameter.append('ref_id', ref_id);
+        parameter.append('contractno', rentno);
+        parameter.append('invoiceno', ref_id);
 
         setIsExporting(true)
 
