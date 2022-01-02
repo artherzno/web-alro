@@ -76,6 +76,7 @@ function AdvanceInvoice(props) {
     const [isExporting, setIsExporting] = useState(false)
     const [isExporting1, setIsExporting1] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [selectedCheckbox, setSelectedCheckbox] = useState([])
 
     const formikRef = useRef();
 
@@ -196,6 +197,33 @@ function AdvanceInvoice(props) {
         parameter.append('save_date', values.save_date);
         parameter.append('invoice_date', values.invoice_date);
 
+        let ref2 = ''
+        let rentno = ''
+        let ref_id = ''
+
+        selectedCheckbox.forEach((element,index) =>{
+            if(selectedCheckbox.length === 1){
+                ref2 = `${element.rentno}`
+                rentno = `${element.rentno}`
+                ref_id = `${element.ref_id}`
+
+            }else if(index === selectedCheckbox.length - 1){
+                ref2 += `${element.rentno}`
+                rentno += `${element.rentno}`
+                ref_id += `${element.ref_id}`
+
+            }else{
+                ref2 += `${element.rentno},`
+                rentno += `${element.rentno},`
+                ref_id += `${element.ref_id},`
+            } 
+            
+        })
+
+        parameter.append('ref2', ref2);
+        parameter.append('contractno', rentno);
+        parameter.append('invoiceno', ref_id);
+
         setIsExporting(true)
 
         api.getAdvanceInvoicePdf(parameter).then(response => {
@@ -296,7 +324,7 @@ function AdvanceInvoice(props) {
                                 <Grid container spacing={2}>
                                     {/* <Grid item xs={12} md={2} className={`mg-t-10  ${printActive ? '' : 'btn-disabled'}`}> */}
                                     <Grid item xs={12} md={2}>
-                                        <ButtonExport label="พิมพ์ใบแจ้งหนี้" handleButtonClick={() => { 
+                                        <ButtonExport label="พิมพ์ใบแจ้งหนี้" disabled={selectedCheckbox.length <= 0} handleButtonClick={() => { 
                                             // exportDebtSettlement() 
                                             setShowModal(true)
 
@@ -359,8 +387,18 @@ function AdvanceInvoice(props) {
                                                 <TableCell align="left">
                                                     <Checkbox
                                                         indeterminate={false}
-                                                        checked={false}
-                                                        onChange={() => { }}
+                                                        checked={selectedCheckbox.length  === resultList.length}
+                                                        onChange={(e) => {
+                                                            if(e.target.checked){
+
+                                                                setSelectedCheckbox([...resultList])
+                                                            }else{
+                                                                setSelectedCheckbox([])
+                                                            }
+
+
+
+                                                         }}
                                                         inputProps={{ 'aria-label': 'select all desserts' }}
                                                     />
                                                 </TableCell>
@@ -377,6 +415,7 @@ function AdvanceInvoice(props) {
                                                 <TableCell align="left">วันที่กู้</TableCell>
                                                 <TableCell align="left">เงินกู้</TableCell>
                                                 <TableCell align="left">เงินงวดชำระ</TableCell>
+                                                <TableCell align="left">เลขที่ใบแจ้งหนี้</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -386,8 +425,9 @@ function AdvanceInvoice(props) {
                                             </TableRow>}
                                             {resultList.slice(page * pageCount, page * pageCount + pageCount).map((element, index) => {
 
-                                                const isItemSelected = false
+                                                const isItemSelected = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID) >= 0
 
+                                              
                                                 return (
                                                     <TableRow 
                                                         role="checkbox"
@@ -396,14 +436,36 @@ function AdvanceInvoice(props) {
                                                         key={index}
                                                         selected={isItemSelected}
                                                         hover={true} 
-                                                        onClick={() => {
+                                                        onClick={(e) => {
                                                             getAdvanceInvoiceGetTotal(element)
+
+                                                          
+                                                            
                                                         }}
                                                         >
                                                         <StyledTableCellLine padding="checkbox" align="left">
                                                             <Checkbox
                                                                 color="primary"
                                                                 checked={isItemSelected}
+                                                                onChange={(e) =>{
+
+                                                                    if (e.target.checked) {
+                                                                        const selectBefore = selectedCheckbox
+                                                                        selectBefore.push(element)
+                                                                        setSelectedCheckbox(selectBefore)
+
+                                                                    } else {
+
+                                                                        const selectBefore = selectedCheckbox
+                                                                        const indexRemove = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID)
+                                                                        console.log("indexRemove", indexRemove)
+                                                                        selectBefore.splice(indexRemove, 1)
+                                                                        setSelectedCheckbox(selectBefore)
+
+                                                                    }
+
+                                                                    console.log("selectedCheckbox",selectedCheckbox)
+                                                                }}
                                                                 inputProps={{ 'aria-labelledby': element.ROWID }}
                                                             />
                                                         </StyledTableCellLine>
@@ -420,6 +482,7 @@ function AdvanceInvoice(props) {
                                                         <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.rentdate)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{formatNumber(element.principle)}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{formatNumber(element.payrec)}</StyledTableCellLine>
+                                                        <StyledTableCellLine align="left">{element.ref_id}</StyledTableCellLine>
                                                     </TableRow>
                                                 )
                                             }
@@ -482,7 +545,7 @@ function AdvanceInvoice(props) {
                                 rentno:''
                             }}
                             validate={values => {
-                                const requires = ['invoiceno', 'save_date', 'invoice_date','rentno']
+                                const requires = ['invoiceno','rentno']
                                 let errors = {};
                                 requires.forEach(field => {
                                     if (!values[field]) {

@@ -22,7 +22,7 @@ const setHeader = (isMultipart, token) => {
         ...aut
     };
 
-    axios.defaults.timeout = 60 * 4 * 1000;
+    axios.defaults.timeout = 60 * 10 * 1000;
 
 }
 

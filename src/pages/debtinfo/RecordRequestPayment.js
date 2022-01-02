@@ -85,9 +85,9 @@ function RecordRequestPayment() {
         const account = getAccount()
 
         const parameter = {
-            LoanNumber: selectedData.LoanNumber,//values.LoanNumber,
+            LoanNumber: selectedDataClick.LoanNumber,//values.LoanNumber,
             Fullname: '',//values.Fullname,
-            Rentno: selectedData.LoanNumber,
+            Rentno: selectedDataClick.LoanNumber,
             Date: date
         }
         setIsLoading(true)

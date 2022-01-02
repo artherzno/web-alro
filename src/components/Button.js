@@ -60,7 +60,7 @@ export const ButtonExport = (props) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    disabled={props.loading}
+                    disabled={props.loading || props.disabled}
                     onClick={props.handleButtonClick}
                     style={{ width: '100%' }}
                 >
