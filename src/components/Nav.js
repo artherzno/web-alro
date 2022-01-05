@@ -281,7 +281,7 @@ const listmenu = [
                 subpath: '/report/debtclass'
             }, {
                 subtitle: 'รายงานสรุปงบกระแสเงินสดรับ-จ่าย',
-                subpath: '/report/debtclass'
+                subpath: '/report/cashflow'
             }, {
                 subtitle: 'รายงานการโอนปรับปรุงทะเบียนสิ้นปี/ระหว่างปี',
                 subpath: '/report/debtclass'
