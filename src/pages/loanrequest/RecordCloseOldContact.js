@@ -873,10 +873,10 @@ function RecordCloseOldContact() {
                                     <Paper className="paper line-top-green paper mg-t-20">
                                         <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                             <Grid container spacing={2}>
-                                                <Grid item xs={12} md={6}>
+                                                {/* <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="เลขที่บันทึก" inputdisabled="input-disabled" defaultValue="RIET2343525/00003" />
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
+                                                </Grid> */}
+                                                <Grid item xs={12} md={3}>
                                                     {/* <p>วันที่บันทึก</p>
                                                     <div className="select-date-option">
                                                         <MuiSelectDay label="" inputdisabled="input-disabled"  name="dd" value={inputSelectDate.recdatedd} onChange={handleSelectDate} />
@@ -886,13 +886,13 @@ function RecordCloseOldContact() {
                                                     <MuiDatePicker label="วันที่บันทึก" inputdisabled="input-disabled" value={getSelectData.RecDate} onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiTextfield label="" inputdisabled="input-disabled" value={getSelectData.ProvinceID} onChange={handleInputData} />
+                                                    <MuiTextfield label="&nbsp;" inputdisabled="input-disabled" value={getSelectData.ProvinceID} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
-                                                    <MuiTextfield label="" inputdisabled="input-disabled"  value={getSelectData.PVSCODE} onChange={handleInputData} />
+                                                    <MuiTextfield label="&nbsp;" inputdisabled="input-disabled"  value={getSelectData.PVSCODE} onChange={handleInputData} />
                                                 </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <MuiTextfield label="" inputdisabled="input-disabled" value={getSelectData.Mindex} onChange={handleInputData}  />
+                                                <Grid item xs={12} md={3}>
+                                                    <MuiTextfield label="&nbsp;" inputdisabled="input-disabled" value={getSelectData.Mindex} onChange={handleInputData}  />
                                                 </Grid>
                                                 <Grid item xs={12} md={3}>
                                                     <MuiTextfield label="โครงการ" inputdisabled="input-disabled"  value={getSelectData.Projectcode} onChange={handleInputData}  />
