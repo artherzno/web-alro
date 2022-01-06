@@ -1120,7 +1120,7 @@ function RecordContractDebt() {
                     }
                 }else {
                     // Check plan year
-                    let d = currentDate;
+                    let d = new Date();
                     let fullyear = d.getFullYear() + 543;
                     let month = d.getMonth();
                     let planYearFull = fullyear
