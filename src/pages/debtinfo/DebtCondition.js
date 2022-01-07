@@ -121,7 +121,7 @@ function DebtCondition() {
         dialog.showLoading()
 
         const parameter = {
-            ChengeDeptID: chengeDeptID
+            ChangeDeptID: chengeDeptID
         }
 
         api.chagestructureDelete(parameter).then(() => {
