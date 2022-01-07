@@ -1148,6 +1148,15 @@ const api = {
             config: { baseURL: REACT_APP_API_HOST_1 },
         })
     },
+    chagestructureDelete(params) {
+
+        return post({
+            path: "Chagestructure/Delete",
+            params,
+            config: { baseURL: REACT_APP_API_HOST_1 },
+        })
+    },
+
     extendTimeGetDataLoan(params) {
 
         return post({

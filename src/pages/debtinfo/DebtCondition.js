@@ -116,6 +116,33 @@ function DebtCondition() {
         })
     }
 
+    function removeDeptStructures(chengeDeptID){
+
+        dialog.showLoading()
+
+        const parameter = {
+            ChengeDeptID: chengeDeptID
+        }
+
+        api.chagestructureDelete(parameter).then(() => {
+
+            dialog.close()
+            setTimeout(() => {
+                dialog.showDialogSuccess({
+                    message: "ลบข้อมูลสำเร็จ", 
+                    didClose: () => {
+                        console.log("on close")
+                        getChagestructureDataByLoan()
+                    }})
+            }, 500);
+
+        }).catch(() => {
+            dialog.close()
+
+        })
+
+    }
+
     return (
         <div className="debtcondition-page">
 
@@ -169,7 +196,7 @@ function DebtCondition() {
                                                     <TableCell align="left">ชื่อ</TableCell>
                                                     <TableCell align="left">นามสกุล</TableCell>
                                                     <TableCell align="left">ที่อยู่</TableCell>
-                                                    <TableCell align="left"></TableCell>
+                                                    <TableCell align="left" className="sticky"></TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>{/* // clear mockup */}
@@ -198,13 +225,17 @@ function DebtCondition() {
                                                             <StyledTableCellLine align="left">{element.Name}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.SirName}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Address}</StyledTableCellLine>
-                                                            <StyledTableCellLine align="center">
+                                                            <StyledTableCellLine align="center" className="sticky">
                                                                 <Button
                                                                     variant="contained"
                                                                     color="primary"
                                                                     size="small"
                                                                     onClick={() => {
-                                                                        
+                                                                        dialog.showDialogConfirm({message:'ยืนยันการลบข้อมูล',onConfirm:() =>{
+
+                                                                            removeDeptStructures(element.ChangeDeptID)
+
+                                                                        },})
                                                                     }}
                                                                 >
                                                                     ลบ

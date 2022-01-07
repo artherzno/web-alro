@@ -42,8 +42,8 @@ const dialog = {
         },
         onConfirm = () => {
         },
-        cancelButtonText = "NO",
-        confirmButtonText = "YES",
+        cancelButtonText = "ไม่",
+        confirmButtonText = "ยืนยัน",
         title,
     }) {
         swal.fire({
@@ -122,7 +122,7 @@ const dialog = {
 
     showDialogSuccess({
         message = "",
-        onClose = () => {
+        didClose = () => {
         },
         showConfirmButton = true,
         confirmButtonText = "OK",
@@ -132,7 +132,7 @@ const dialog = {
             icon: 'success',
             title,
             text: message,
-            onClose,
+            didClose,
             confirmButtonText,
             showConfirmButton,
             timer: showConfirmButton ? undefined : 2000,

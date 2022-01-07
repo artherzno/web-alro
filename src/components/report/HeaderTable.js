@@ -36,3 +36,21 @@ export const styles = {
         backgroundColor: '#E8FFEF'
     }
 }
+
+
+export const StickyTableCell = withStyles((theme) => ({
+    head: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+        left: 0,
+        position: "sticky",
+        zIndex: theme.zIndex.appBar + 2
+    },
+    body: {
+        backgroundColor: "#ddd",
+        minWidth: "50px",
+        left: 0,
+        position: "sticky",
+        zIndex: theme.zIndex.appBar + 1
+    }
+}))(TableCell);

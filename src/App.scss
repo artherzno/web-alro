@@ -1746,6 +1746,14 @@ label + .MuiInputBase-root {
   }
 }
 
+.btn{
+  min-width: 120px;
+  width: fit-content;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
 @import "./styles/ListFarmerPayLoan.scss";
 @import "./styles/ReportStyle.scss";
 @import "./styles/check.scss";
+

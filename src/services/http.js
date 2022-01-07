@@ -40,6 +40,7 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
             parameters.append("Username", provinceid) //provinceid)
         }
         parameters.append("UserName", provinceid)
+        parameters.append("ProvinceID", provinceid)
         
         parameters.append("RoleID", roleID) //provinceid)
 
@@ -49,13 +50,15 @@ const post = (path, parameter, token, isMultipart, config = {}) => {
         if (parameter.Username){
             parameters = {
                 ...parameter,
-                RoleID: roleID
+                RoleID: roleID,
+                ProvinceID: provinceid
             }
         }else{
             parameters = {
                 ...parameter,
                 Username: provinceid,
-                RoleID: roleID
+                RoleID: roleID,
+                ProvinceID: provinceid
             }
         }
        
