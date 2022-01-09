@@ -4,29 +4,27 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LimitPerContractTab from './LimitPerContractTab'
-import LimitPerCodeTab from './LimitPerCodeTab'
-import LimitPerProjListTab from './LimitPerProjListTab'
-import LimitPerProvinceTab from './LimitPerProvinceTab'
+import PrincipalInterestPerContractTab from './PrincipalInterestPerContractTab'
+import PrincipalInterestPerCodeTab from './PrincipalInterestPerCodeTab'
+import PrincipalInterestPerProjListTab from './PrincipalInterestPerProjListTab'
+import PrincipalInterestPerProvinceTab from './PrincipalInterestPerProvinceTab'
 
 const tabs = [{
-    title: 'รายงานอายุบังคับคดี',
-    id: "limit_per_contract"
+    title: 'รายงานหนี้เงินต้นและดอกเบี้ยค้างชำระ ',
+    id: "principalinterest_per_contract"
 },
 {
-    title: 'อายุความทุกรายการ (วัน)',
-    id: "limit_per_code"
+    title: 'รายงานหนี้เงินต้นและดอกเบี้ยค้างชำระ  (รายประเภทโครงการหลัก)',
+    id: "principalinterest_per_code"
 },{
-    title: 'อายุความทุกรายการ (ปี)',
-    id: "limit_per_projlist"
-}
-/*,{
-    title: 'สรุปรายงานอายุความ',
-    id: "limit_per_province"
-}*/
-]
+    title: 'รายงานหนี้เงินต้นและดอกเบี้ยค้างชำระ  (รายโครงการ)',
+    id: "principalinterest_per_projlist"
+},{
+    title: 'รายงานหนี้เงินต้นและดอกเบี้ยค้างชำระ   (รายจังหวัด)',
+    id: "principalinterest_per_province"
+}]
 
-class Limitation extends React.Component {
+class PrincipalInterest extends React.Component {
 
     constructor(props) {
         super(props)
@@ -80,22 +78,22 @@ class Limitation extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LimitPerContractTab />
+                <PrincipalInterestPerContractTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <LimitPerCodeTab />
+                <PrincipalInterestPerCodeTab />
             )
         } else if (this.state.tabSelected === tabs[2].id) {
             return (
-                <LimitPerProjListTab />
+                <PrincipalInterestPerProjListTab />
             )
         } else if (this.state.tabSelected === tabs[3].id) {
             return (
-                <LimitPerProvinceTab />
+                <PrincipalInterestPerProvinceTab />
             )
         } 
     }
 }
 
-export default Limitation
+export default PrincipalInterest

@@ -246,7 +246,7 @@ const listmenu = [
             }, {
                 subtitle: 'รายงานอายุความ',
                 subpath: '/report/limitation'
-            }, {
+            }, /*{
                 subtitle: 'รายงานสภาพความรับผิด',
                 subpath: '/report/liability'
             }, {
@@ -258,34 +258,37 @@ const listmenu = [
             }, {
                 subtitle: 'รายงานการขยายเวลา',
                 subpath: '/report/extendtime'
-            }, {
+            }, 
+            {
                 subtitle: 'รายงานจัดชั้นหนี้',
                 subpath: '/report/debtclass'
-            }, {
+            },*/ 
+            {
                 subtitle: 'รายงานการออกจัดเก็บหนี้ในพื้นที่',
                 subpath: '/report/debtarea'
             }, {
                 subtitle: 'รายงานปฏิทินการจัดเก็บหนี้ประจำปี (ใบแจ้งหนี้/ใบเตือนหนี้)',
-                subpath: '/report/debtclass'
+                subpath: '/report/calendaryear'
             }, {
                 subtitle: 'รายงานผลจัดเก็บหนี้ค้างชำระ/หนี้คงเหลือ',
-                subpath: '/report/debtclass'
+                subpath: '/report/resultdebtsremaining '
             }, {
                 subtitle: 'รายงานหนี้เงินต้นและดอกเบี้ยค้างชำระ',
-                subpath: '/report/debtclass'
+                subpath: '/report/principalinterest'
             }, {
                 subtitle: 'รายงานประมาณการแผนการจ่ายเงินกู้',
-                subpath: '/report/debtclass'
+                subpath: '/report/planestimation'
             }, {
                 subtitle: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้',
-                subpath: '/report/debtclass'
+                subpath: '/report/compareplanresult'
             }, {
                 subtitle: 'รายงานสรุปงบกระแสเงินสดรับ-จ่าย',
                 subpath: '/report/cashflow'
-            }, {
+            }
+            /*, {
                 subtitle: 'รายงานการโอนปรับปรุงทะเบียนสิ้นปี/ระหว่างปี',
                 subpath: '/report/debtclass'
-            }
+            }*/
             
             
         ]

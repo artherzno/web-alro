@@ -33,6 +33,11 @@ import ExtendTime from './report/ExtendTime'
 import DebtClass from './report/DebtClass'
 import DebtArea from './report/DebtArea'
 import CashFlow from './report/CashFlow'
+import CalendarYear from './report/CalendarYear'
+import PrincipalInterest from './report/PrincipalInterest'
+import PlanEstimation from './report/PlanEstimation'
+import ComparePlanResult from './report/ComparePlanResult'
+import ResultDebtsRemaining from './report/ResultDebtsRemaining'
 import AddFarmer from './manageinfo/AddFarmer';
 import EditFarmer from './manageinfo/EditFarmer';
 import SearchMember from './manageinfo/SearchMemberPage';
@@ -185,6 +190,11 @@ function Main() {
                     <Route path="/report/debtclass" component={DebtClass } />
                     <Route path="/report/debtarea" component={DebtArea } />
                     <Route path="/report/cashflow" component={CashFlow } />
+                    <Route path="/report/calendaryear" component={CalendarYear } />
+                    <Route path="/report/principalinterest" component={PrincipalInterest } />
+                    <Route path="/report/planestimation" component={PlanEstimation } />
+                    <Route path="/report/compareplanresult" component={ComparePlanResult } />
+                    <Route path="/report/resultdebtsremaining " component={ResultDebtsRemaining  } />
                     {/* Manage Info Page */}
                     <Route path="/manageinfo/manageprojectbudget" component={ManageProjectBudget} />
                     <Route path="/manageinfo/searchmember" component={SearchMember} />

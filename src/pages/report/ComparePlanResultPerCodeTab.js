@@ -23,7 +23,7 @@ import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
 import { OverlayLoading } from '../../components'
 
-class SttPerContractTab extends React.Component {
+class ComparePlanResultPerCodeTab extends React.Component {
 
     constructor(props) {
 
@@ -73,7 +73,6 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-       
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
 
@@ -100,7 +99,7 @@ parameter.append('YearTo', YearTovalue);
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -117,7 +116,7 @@ parameter.append('YearTo', YearTovalue);
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'รายงานสถานสภาพหนี้สิ้น.xlsx');
+            link.setAttribute('download', 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายประเภทโครงการหลัก).xlsx');
             document.body.appendChild(link);
             link.click();
 
@@ -256,7 +255,7 @@ parameter.append('YearTo', YearTovalue);
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">รายงานสถานสภาพหนี้สิ้น {`${this.state.provinceZoneLabel}`}</Typography>
+                    <Typography variant="h6" align="center">รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายประเภทโครงการหลัก) {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
@@ -272,44 +271,59 @@ parameter.append('YearTo', YearTovalue);
 
             <Box mt={2}>
                <Paper>
-                    <TableContainer>
+               <TableContainer>
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center">รายการ ภาค/จังหวัด</StyledTableCell>
-                                    <StyledTableCell align="center">ประเภทโครงการ</StyledTableCell>
-                                    <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell>
-                                    <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center">วงเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center">ชำระหนี้แล้ว</StyledTableCell>
-                                    <StyledTableCell align="center">หนี้คงเหลือ</StyledTableCell>
-                                    <StyledTableCell align="center">ยังไม่ถึงกำหนดชำระ</StyledTableCell>
-                                    <StyledTableCell align="center">ถึงกำหนดแต่ยังไม่ฟ้องดำเนินคดี</StyledTableCell>
-                                    <StyledTableCell align="center">ถึงกำหนดและฟ้องดำเนินคดีแล้ว</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>รายการ ภาค/จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={4}>แผน/ผลการให้สินเชื่อ</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={10}>แผน/ผลการจัดเก็บหนี้เงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>รวม</StyledTableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <StyledTableCell align="center" >แผน</StyledTableCell>
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >ผล</StyledTableCell>
+                                    <StyledTableCell align="center" >ร้อยละ</StyledTableCell>
+
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >เป้าค้าง 100%</StyledTableCell>         
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >ผล</StyledTableCell>
+                                    <StyledTableCell align="center" >ร้อยละ</StyledTableCell>
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >เป้าค้าง 100%</StyledTableCell>  
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >ผล</StyledTableCell>
+                                    <StyledTableCell align="center" >ร้อยละ</StyledTableCell> 
+
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.farmerPayLoanList.map((farmer, index) => {
 
                                   
+
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loan}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullname}</StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            
-
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -317,13 +331,24 @@ parameter.append('YearTo', YearTovalue);
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={6} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
 
                                 </TableRow>
                             </TableBody>
@@ -357,4 +382,4 @@ parameter.append('YearTo', YearTovalue);
     }
 }
 
-export default withStyles(styles)(SttPerContractTab)
+export default withStyles(styles)(ComparePlanResultPerCodeTab)

@@ -4,29 +4,27 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LimitPerContractTab from './LimitPerContractTab'
-import LimitPerCodeTab from './LimitPerCodeTab'
-import LimitPerProjListTab from './LimitPerProjListTab'
-import LimitPerProvinceTab from './LimitPerProvinceTab'
+import ComparePlanResultPerContractTab from './ComparePlanResultPerContractTab'
+import ComparePlanResultPerCodeTab from './ComparePlanResultPerCodeTab'
+import ComparePlanResultPerProjListTab from './ComparePlanResultPerProjListTab'
+import ComparePlanResultPerProvinceTab from './ComparePlanResultPerProvinceTab'
 
 const tabs = [{
-    title: 'รายงานอายุบังคับคดี',
-    id: "limit_per_contract"
+    title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้',
+    id: "compareplanresult_per_contract"
 },
 {
-    title: 'อายุความทุกรายการ (วัน)',
-    id: "limit_per_code"
+    title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายประเภทโครงการหลัก)',
+    id: "compareplanresult_per_code"
 },{
-    title: 'อายุความทุกรายการ (ปี)',
-    id: "limit_per_projlist"
-}
-/*,{
-    title: 'สรุปรายงานอายุความ',
-    id: "limit_per_province"
-}*/
-]
+    title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายโครงการ)',
+    id: "compareplanresult_per_projlist"
+},{
+    title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายจังหวัด)',
+    id: "compareplanresult_per_province"
+}]
 
-class Limitation extends React.Component {
+class ComparePlanResult extends React.Component {
 
     constructor(props) {
         super(props)
@@ -80,22 +78,22 @@ class Limitation extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LimitPerContractTab />
+                <ComparePlanResultPerContractTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <LimitPerCodeTab />
+                <ComparePlanResultPerCodeTab />
             )
         } else if (this.state.tabSelected === tabs[2].id) {
             return (
-                <LimitPerProjListTab />
+                <ComparePlanResultPerProjListTab />
             )
         } else if (this.state.tabSelected === tabs[3].id) {
             return (
-                <LimitPerProvinceTab />
+                <ComparePlanResultPerProvinceTab />
             )
         } 
     }
 }
 
-export default Limitation
+export default ComparePlanResult
