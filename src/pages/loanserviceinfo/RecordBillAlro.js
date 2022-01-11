@@ -233,11 +233,12 @@ function RecordBillAlro() {
             const i1 = recDueInterest
             const i2 = overdue
 
-            const interestBalance = (x - (i1 + i2)) >= 0 ? 0 :
-                (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2 - (x - i1) :
-                    x - i1 < 0 ? i2 :
-                        0 
+            // const interestBalance = (x - (i1 + i2)) >= 0 ? 0 :
+            //     (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2 - (x - i1) :
+            //         x - i1 < 0 ? i2 :
+            //             0 
 
+            
             const overdueInterest = x >= i2 ? i2 : x//parseFloat(totalPaid) >= kange ? kange : parseFloat(totalPaid)
             // formikRef.current.setFieldValue("OverdueInterest", overdueInterest > 0 ? formatNumber(overdueInterest,2) : 0)
 
@@ -252,6 +253,8 @@ function RecordBillAlro() {
            
 
             const interest = overdueInterest + dueInterest
+
+            const interestBalance = interest - x <= 0 ? 0 : interest - x
             
             const PrinciplePaid = parseFloat(totalPaid) - (i1 + i2) <= 0 ? 0 : parseFloat(totalPaid) - (i1 + i2) //parseFloat(totalPaid) - interest
             formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? formatNumber(PrinciplePaid, 2) : 0)
