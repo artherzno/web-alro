@@ -73,7 +73,7 @@ function RecordBillAlro() {
                     DueInterest: `${values.DueInterest}`.replace(",", ''),
                     PrinciplePaid: `${values.PrinciplePaid}`.replace(",", ''),
                     InterestPaid: `${values.InterestPaid}`.replace(",", ''),
-                    Fines: `${values.Fines}`.replace(",", ''),
+                    FinesPaid: `${values.FinesPaid}`.replace(",", ''),
                     PrincipleBalance1: `${values.PrincipleBalance1}`.replace(",", ''),
                     RecPrincipleBalance: `${values.RecPrincipleBalance}`.replace(",", ''),
                     RecPrinciple: `${values.RecPrinciple}`.replace(",", ''),
@@ -261,7 +261,7 @@ function RecordBillAlro() {
 
             formikRef.current.setFieldValue("InterestPaid", interest)
 
-            formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : formatNumber(overdue, 2))  : 0)
+            formikRef.current.setFieldValue("FinesPaid", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : formatNumber(overdue, 2))  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
             
            
@@ -356,7 +356,7 @@ function RecordBillAlro() {
                                         InterestPaid: "",
                                         OverdueInterest: "",
                                         DueInterest: "",
-                                        Fines: "",
+                                        FinesPaid: "",
                                         Other: "",
                                         PrincipleBalance2: "",
                                         InterestBalance: "",
@@ -1212,10 +1212,10 @@ function RecordBillAlro() {
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfield
-                                                                        name="Fines"
-                                                                        value={values.Fines}
-                                                                        error={errors.Fines}
-                                                                        helperText={errors.Fines}
+                                                                        name="FinesPaid"
+                                                                        value={values.FinesPaid}
+                                                                        error={errors.FinesPaid}
+                                                                        helperText={errors.FinesPaid}
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับ"
