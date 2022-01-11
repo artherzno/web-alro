@@ -115,6 +115,9 @@ function LoanRequestContactStep3(props) {
         Officer: '',
     })
 
+    const [applicantNo, setApplicantNo] = useState(null)
+    const [printActive, setPrintActive] = useState(false)
+
     const [applicantProjectYear, setApplicantProjectYear] = useState(localStorage.getItem('applicantProjectYear'))
     
     const [directorList, setDirectorList] = useState([]);
@@ -510,6 +513,7 @@ const handleInputData = (event) => {
             url, formData, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
+                console.log('update ApplicantNo',res.data.ApplicantNo)
                 let data = res.data;
                 if(data.code === 0 || res === null || res === undefined) {
                     setErr(true);
@@ -527,6 +531,8 @@ const handleInputData = (event) => {
                     console.log(data)
                     setSuccess(true);
                     setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                    setApplicantNo(data.ApplicantNo)
+                    setPrintActive(true)
                     setBtnPrint(true);
                 }
             }
@@ -543,7 +549,11 @@ console.log('PDF - LoanReqNo:', props.ApplicantNo)
 console.log('PDF - UserName:',localStorage.getItem('provinceid'))
 
         let formData = new FormData();
-        formData.append('LoanReqNo', props.ApplicantNo)
+        if(applicantNo !== null) {
+            formData.append('LoanReqNo', applicantNo)
+        } else {
+            formData.append('LoanReqNo', props.ApplicantNo)
+        }
         formData.append('UserName', localStorage.getItem('provinceid'))
         formData.append('RoleID', localStorage.getItem('nROLEID'))
 
@@ -697,7 +707,17 @@ console.log('PDF - UserName:',localStorage.getItem('provinceid'))
                                                 }
                                             </Grid>
                                             <Grid item xs={12} md={6}>
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
+                                            {
+                                                props.action === 'edit' ? 
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
+                                                :
+                                                    printActive ?
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
+                                                    :
+                                                    <div style={{opacity: '0.5', pointerEvents: 'none'}}>
+                                                        <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />}  /> 
+                                                    </div>
+                                                }
                                             </Grid>
                                         </Grid>
                                     } 

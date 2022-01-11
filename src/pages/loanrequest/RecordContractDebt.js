@@ -1979,12 +1979,14 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="เงินต้นค้างเดิม"  value={inputDataIndividualcard.principalBalance} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} />
+                                                            {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} /> */}
+                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.interestKang} /> {/* P'Pong specify 11/01/22 */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataLoanRec.OldFine} />
+                                                            {/* <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataLoanRec.OldFine} /> */}
+                                                            <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataIndividualcard.FineKang} /> {/* P'Pong specify 11/01/22 */}
                                                         </Grid>
                                                             {/* </Grid>
                                                         </Grid> */}
@@ -2308,8 +2310,8 @@ function RecordContractDebt() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interest} onChange={handleInputDataSubmitIndividual}/>  */}
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.InterestKang2} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> {/* P'Pong specify 11/01/22 */}
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.InterestKang2} onChange={handleInputDataSubmitIndividual}/>  */}
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
