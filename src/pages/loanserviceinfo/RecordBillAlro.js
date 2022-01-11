@@ -227,22 +227,33 @@ function RecordBillAlro() {
             const overdue = beforRectData ? beforRectData.InterestKang2 : 0
             console.log("overdue", overdue)
 
-            const overdueInterest = parseFloat(totalPaid) >= kange ? kange : parseFloat(totalPaid)
-            formikRef.current.setFieldValue("OverdueInterest", overdueInterest > 0 ? formatNumber(overdueInterest,2) : 0)
-
-            const dueInterest = parseFloat(totalPaid) - kange 
             const recDueInterest = beforRectData ? beforeProcess.InterestKang2 - beforRectData.InterestKang2 : beforeProcess.InterestKang2
-            const dueInterestCal = dueInterest >= recDueInterest ? recDueInterest : ((dueInterest != 0 && dueInterest < recDueInterest) ? dueInterest : 0)
-            const dueInterestValue = dueInterestCal > 0 ? dueInterestCal : 0
+            
+            const x = parseFloat(totalPaid)
+            const i1 = recDueInterest
+            const i2 = overdue
 
-            formikRef.current.setFieldValue("DueInterest", dueInterestValue <= 0 ? 0 : formatNumber(dueInterestValue, 2) )
+            const interestBalance = (x - (i1 + i2)) >= 0 ? 0 :
+                (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2 - (x - i1) :
+                    x - i1 < 0 ? i2 :
+                        0 
+
+            const overdueInterest = x >= i2 ? i2 : x//parseFloat(totalPaid) >= kange ? kange : parseFloat(totalPaid)
+            // formikRef.current.setFieldValue("OverdueInterest", overdueInterest > 0 ? formatNumber(overdueInterest,2) : 0)
+
+            const dueInterest = parseFloat(totalPaid) - overdueInterest >= i1 ? i1 : ((parseFloat(totalPaid) - overdueInterest != 0 && parseFloat(totalPaid) - overdueInterest) < i1) ? parseFloat(totalPaid) - overdueInterest : 0
+            
+            // const dueInterestCal = dueInterest >= recDueInterest ? recDueInterest : ((dueInterest != 0 && dueInterest < recDueInterest) ? dueInterest : 0)
+            // const dueInterestValue = dueInterestCal > 0 ? dueInterestCal : 0
+
+            formikRef.current.setFieldValue("DueInterest", dueInterest )
 
 
            
 
-            const interest = overdueInterest + dueInterestValue
+            const interest = overdueInterest + dueInterest
             
-            const PrinciplePaid = parseFloat(totalPaid) - interest
+            const PrinciplePaid = parseFloat(totalPaid) - (i1 + i2) <= 0 ? 0 : parseFloat(totalPaid) - (i1 + i2) //parseFloat(totalPaid) - interest
             formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? formatNumber(PrinciplePaid, 2) : 0)
 
             formikRef.current.setFieldValue("InterestPaid", interest)
@@ -250,14 +261,9 @@ function RecordBillAlro() {
             formikRef.current.setFieldValue("Fines", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : formatNumber(overdue, 2))  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
             
-            const x = parseFloat(totalPaid)
-            const i1 = recDueInterest
-            const i2 = overdue
+           
 
-            const interestBalance = (x - (i1 + i2)) >= 0 ? 0 : 
-            (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2-(x-i1) : 
-            x-i1 < 0 ? i2 : 
-            0 
+            formikRef.current.setFieldValue("OverdueInterest", overdueInterest)
             // formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
             formikRef.current.setFieldValue("InterestBalance", formatNumber(interestBalance, 2) )
 
@@ -1161,7 +1167,7 @@ function RecordBillAlro() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างปรับ</p>
+                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfield
