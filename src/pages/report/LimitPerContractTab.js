@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect,TypeContractSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {
@@ -67,7 +67,7 @@ class LimitPerContractTab extends React.Component {
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -99,7 +99,7 @@ parameter.append('YearTo', YearTovalue);
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -116,7 +116,7 @@ parameter.append('YearTo', YearTovalue);
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'รายงานอายุความ.xlsx');
+            link.setAttribute('download', 'รายงานอายุบังคับคดี.xlsx');
             document.body.appendChild(link);
             link.click();
 
@@ -246,6 +246,18 @@ parameter.append('YearTo', YearTovalue);
                     </Grid>
                 </Grid>
 
+                <Grid item>
+                            <TypeContractSelect onChange={(event) =>{
+
+                                this.setState({
+                                    resultRequest: event.target.value,
+                                    resultLabel: event.target.label
+                                }, () => {
+                                })
+
+                            }}/>
+                </Grid>
+
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
@@ -255,7 +267,7 @@ parameter.append('YearTo', YearTovalue);
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">รายงานอายุความ {`${this.state.provinceZoneLabel}`}</Typography>
+                    <Typography variant="h6" align="center">รายงานอายุบังคับคดี {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
@@ -276,66 +288,64 @@ parameter.append('YearTo', YearTovalue);
                             <TableHead>
                                 <TableRow>
                                    
-                                    <StyledTableCell align="center">ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
-                                    <StyledTableCell align="center">เลขที่คำขอกู้</StyledTableCell>
-                                    <StyledTableCell align="center">วันที่ยื่นคำขอกู้</StyledTableCell>
-                                    <StyledTableCell align="center">บัตรประชาชน</StyledTableCell>
-                                    <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center">สถานะคำขอ</StyledTableCell>
-                                    <StyledTableCell align="center">อายุ</StyledTableCell>
-                                    <StyledTableCell align="center">ที่อยู่ตามบัตรประชาชน</StyledTableCell>
-                                    <StyledTableCell align="center">ที่อยู่ที่ติดต่อได้</StyledTableCell>
-                                    <StyledTableCell align="center">โทรศัพท์</StyledTableCell>
-                                    <StyledTableCell align="center">ประเภทเอกสารสิทธิ</StyledTableCell>
-                                    <StyledTableCell align="center">เลขที่เอกสารสิทธิ์</StyledTableCell>
-                                    <StyledTableCell align="center">ที่ตั้งที่ดิน</StyledTableCell>
-                                    <StyledTableCell align="center">ขนาดที่ดินตามเอกสารสิทธิ์</StyledTableCell>
-                                    <StyledTableCell align="center">ภาระหนี้สิน</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวน (บาท)</StyledTableCell>
-                                    <StyledTableCell align="center">จุดประสงค์การกู้ยืม</StyledTableCell>
-                                    <StyledTableCell align="center">ประเภทเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center">เงินกู้ยืม</StyledTableCell>
-                                    <StyledTableCell align="center">ผลการพิจารณา</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>จำนวนเงินกู้</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}> บังคับคดีไม่เกิน 1 ปี </StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}> บังคับคดี 1 ปี ไม่เกิน 2 ปี</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}> บังคับคดี 2 ปี ไม่เกิน 3 ปี </StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}> บังคับคดี 3 ปี ไม่เกิน 4 ปี </StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}> บังคับคดี 4 ปี ไม่เกิน 5 ปี  </StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}> บังคับคดีมากกว่า 5 ปี </StyledTableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนวัน</StyledTableCell>
+                              
+                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนวัน</StyledTableCell>
 
+                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนวัน</StyledTableCell>
+
+                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนวัน</StyledTableCell>
+
+                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนวัน</StyledTableCell>
+
+                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
+                                    <StyledTableCell align="center">จำนวนวัน</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.farmerPayLoanList.map((farmer, index) => {
 
-                                    let status = "approved"
-                                    if (farmer.result === "อนุมัติ") {
-                                        status = "approved"
-                                    } else if (farmer.result === "อยู่ระหว่างพิจารณา") {
-                                        status = "wating"
-                                    } else if (farmer.result === "ไม่อนุมัติ") {
-                                        status = "decline"
-                                    }
+                                   
 
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.age}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.address2}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.tel}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.docType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.docNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.landLocation}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.landSize}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.liabilities}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanPurpose}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.loan)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"><div className={`status-approve ${status}`}>{farmer.result}</div></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{formatNumber(farmer.amount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="right"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="right"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="right"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="right"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="right"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
 
+                                              
 
                                         </TableRow>
                                     )
@@ -343,14 +353,22 @@ parameter.append('YearTo', YearTovalue);
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={16} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={4} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loan)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect ,TypeContractSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {
@@ -23,7 +23,7 @@ import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
 import { OverlayLoading } from '../../components'
 
-class LimitPerCodeTab extends React.Component {
+class PlanEstimationPerProjListTab extends React.Component {
 
     constructor(props) {
 
@@ -100,7 +100,7 @@ parameter.append('YearTo', YearTovalue);
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-        parameter.append('YearTo', YearTovalue);
+parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -117,7 +117,7 @@ parameter.append('YearTo', YearTovalue);
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'อายุความทุกรายการ (วัน).xlsx');
+            link.setAttribute('download', 'รายงานประมาณการแผนการจ่ายเงินกู้ (รายโครงการ).xlsx');
             document.body.appendChild(link);
             link.click();
 
@@ -247,28 +247,16 @@ parameter.append('YearTo', YearTovalue);
                     </Grid>
                 </Grid>
 
-                <Grid item>
-                            <TypeContractSelect onChange={(event) =>{
-
-                                this.setState({
-                                    resultRequest: event.target.value,
-                                    resultLabel: event.target.label
-                                }, () => {
-                                })
-
-                            }}/>
-                </Grid>
-
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
-                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count)}} />
+                    <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
                 </Grid>
 
             </Grid>
 
             <div>
                 <Box mt={5} mb={5}>
-                    <Typography variant="h6" align="center">อายุความทุกรายการ (วัน) {`${this.state.provinceZoneLabel}`}</Typography>
+                    <Typography variant="h6" align="center">รายงานประมาณการแผนการจ่ายเงินกู้ (รายโครงการ) {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
             </div>
@@ -284,75 +272,75 @@ parameter.append('YearTo', YearTovalue);
 
             <Box mt={2}>
                <Paper>
-                    <TableContainer>
+               <TableContainer>
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                   
-                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>จำนวนเงินกู้</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 01 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 02</StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 03 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 04 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 05  </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 06 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 07 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 08 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 09 </StyledTableCell>
-                                    <StyledTableCell align="center" colSpan={2}> อายุความงวด 10 </StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={3}>ชื่อกิจกรรม</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2} colSpan={2}>เงินค้าง</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2} colSpan={2}>เงินค้าง + ครบ</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2} colSpan={2}>เงินครบชำระ</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2} colSpan={2}>เป้าจัดเก็บ</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={24}>เงินครบชำระ</StyledTableCell>
                                 </TableRow>
-
                                 <TableRow>
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-                              
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
-
-                                    <StyledTableCell align="center">เงินต้นค้าง</StyledTableCell>
-                                    <StyledTableCell align="center">วัน</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>ต.ค</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>พ.ย</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>ธ.ค</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>ม.ค</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>ก.พ</StyledTableCell>
+                                    <StyledTableCell align="center" colSpan={2}>มี.ค</StyledTableCell>      
+                                    <StyledTableCell align="center" colSpan={2}>เม.ษ</StyledTableCell>  
+                                    <StyledTableCell align="center" colSpan={2}>พ.ค</StyledTableCell>  
+                                    <StyledTableCell align="center" colSpan={2}>มิ.ย</StyledTableCell>  
+                                    <StyledTableCell align="center" colSpan={2}>ก.ค</StyledTableCell>  
+                                    <StyledTableCell align="center" colSpan={2}>ส.ค</StyledTableCell>  
+                                    <StyledTableCell align="center" colSpan={2}>ก.ย</StyledTableCell>    
                                 </TableRow>
-                        
-
+                                <TableRow>
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell>  
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell>  
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell>   
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell>   
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell>  
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell> 
+                                    <StyledTableCell align="center" >ราย</StyledTableCell>
+                                    <StyledTableCell align="center" >จำนวนเงิน</StyledTableCell>  
+                                </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.state.farmerPayLoanList.map((farmer, index) => {
 
-                                 
+                                  
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            
+                                             <StyledTableCellLine align="center" >{farmer.province}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.no}</StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
@@ -373,7 +361,18 @@ parameter.append('YearTo', YearTovalue);
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
                                             <StyledTableCellLine align="left"></StyledTableCellLine>
-                                    
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                           
 
                                         </TableRow>
                                     )
@@ -381,10 +380,9 @@ parameter.append('YearTo', YearTovalue);
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={4} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                <StyledTableCellLine colSpan={1} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
@@ -405,6 +403,19 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -412,20 +423,22 @@ parameter.append('YearTo', YearTovalue);
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
-                        count={this.state.farmerPayLoanList.length}
+                        count={this.state.totalResult}
                         rowsPerPage={this.state.count}
                         page={this.state.page}
                         onPageChange={(e, newPage) => {
 
-                            this.setState({
-                                page: newPage
-                            })
+                            this.loadPayLoan(newPage, this.state.count)
                         }}
                         onRowsPerPageChange={(event) => {
 
                             this.setState({
                                 count: +event.target.value,
                                 page: 0
+                            }, () => {
+
+                                this.loadPayLoan(0, this.state.count)
+
                             })
                         }}
                     />
@@ -435,4 +448,4 @@ parameter.append('YearTo', YearTovalue);
     }
 }
 
-export default withStyles(styles)(LimitPerCodeTab)
+export default withStyles(styles)(PlanEstimationPerProjListTab)

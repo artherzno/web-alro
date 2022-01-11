@@ -4,21 +4,21 @@ import Nav from '../../components/Nav';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
-import LimitPerContractTab from './LimitPerContractTab'
-import LimitPerCodeTab from './LimitPerCodeTab'
-import LimitPerProjListTab from './LimitPerProjListTab'
-import LimitPerProvinceTab from './LimitPerProvinceTab'
+import CalendarYearTab from './CalendarYearTab'
+import CalendarYear1Tab from './CalendarYear1Tab'
+import CalendarYear2Tab from './CalendarYear2Tab'
+
 
 const tabs = [{
-    title: 'รายงานอายุบังคับคดี',
-    id: "limit_per_contract"
+    title: 'ปฎิทินใบเตือนหนี้ต้น',
+    id: "calendar_year"
 },
 {
-    title: 'อายุความทุกรายการ (วัน)',
-    id: "limit_per_code"
+    title: 'ปฎิทินใบเตือนหนี้ต้นครั้งที่ 1',
+    id: "calendar_year1"
 },{
-    title: 'อายุความทุกรายการ (ปี)',
-    id: "limit_per_projlist"
+    title: 'ปฎิทินใบเตือนหนี้ต้นครั้งที 2',
+    id: "calendar_year2"
 }
 /*,{
     title: 'สรุปรายงานอายุความ',
@@ -26,7 +26,7 @@ const tabs = [{
 }*/
 ]
 
-class Limitation extends React.Component {
+class CalendarYear extends React.Component {
 
     constructor(props) {
         super(props)
@@ -80,22 +80,18 @@ class Limitation extends React.Component {
 
         if (this.state.tabSelected === tabs[0].id) {
             return (
-                <LimitPerContractTab />
+                <CalendarYearTab />
             )
         } else if (this.state.tabSelected === tabs[1].id) {
             return (
-                <LimitPerCodeTab />
+                <CalendarYear1Tab />
             )
         } else if (this.state.tabSelected === tabs[2].id) {
             return (
-                <LimitPerProjListTab />
-            )
-        } else if (this.state.tabSelected === tabs[3].id) {
-            return (
-                <LimitPerProvinceTab />
+                <CalendarYear2Tab />
             )
         } 
     }
 }
 
-export default Limitation
+export default CalendarYear
