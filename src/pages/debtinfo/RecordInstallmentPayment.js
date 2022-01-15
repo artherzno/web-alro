@@ -81,6 +81,7 @@ function RecordInstallmentPayment() {
             setIsLoading(true)
             const res = await api.getDataByLoanRelent(parameter)
             const resultList = res.data
+            console.log("resultList", resultList)
             setResultList(resultList)
             setIsLoading(false)
         } catch (error) {
@@ -319,7 +320,24 @@ function RecordInstallmentPayment() {
                     </Container>
 
                     <Container maxWidth="lg">
+                       
+
                         <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <div className="box-button txt-center">
+                                    <br/>
+                                    <ButtonFluidPrimary label="เพิ่มคำขอ" maxWidth="320px" onClick={() => {
+                                        formikRef.current.setFieldValue('RelentDateBefore',"")
+                                        formikRef.current.setFieldValue('RelentNumber', "")
+                                        formikRef.current.setFieldValue('Ref2', "")
+                                        formikRef.current.setFieldValue('Item', "")
+                                        formikRef.current.setFieldValue('Command', "")
+                                        formikRef.current.setFieldValue('CommandDate', "")
+
+                                    }} />
+                                </div>
+                            </Grid>
+
                             <Grid item xs={12} md={12}>
 
                                 {/* Paper 1 - -------------------------------------------------- */}
@@ -332,7 +350,8 @@ function RecordInstallmentPayment() {
                                         ...selectedItemData,
                                         ...selectedData,
                                         PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}`:'',
-                                        RelentDateBefore: selectedData.RelentDate,
+                                        RelentDateBefore: selectedData.RelentDate||'',
+                                        CommandDate: selectedData.CommandDate || "",
                                         RelentDate:'',
                                     }}
                                     validate={values => {
