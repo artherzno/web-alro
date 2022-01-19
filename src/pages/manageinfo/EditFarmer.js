@@ -460,7 +460,7 @@ function EditFarmer(props) {
                             ...inputData,
                             IDCard: resEditData.IDCard || '', // 1234567891017,
                             file: resEditData.file || '',
-                            LoanFarmerTypeID: resEditData.LoanFarmerTypeID.toString() || '', // 1,
+                            LoanFarmerTypeID: resEditData.LoanFarmerTypeID || '', // 1,
                             FrontName: resEditData.FrontName || '', // 'นาย',
                             Name: resEditData.Name || '', // 'จิมมี่',
                             Sirname: resEditData.Sirname || '', // 'แซ่ฉ่วย',

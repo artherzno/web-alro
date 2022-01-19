@@ -352,7 +352,7 @@ function LoanRequestContactStep1(props) {
                             AppLocation: dataDetail.AppLocation || '',
                             AppTo: dataDetail.AppTo || '',
                             ProjectYear: dataDetail.ProjectYear|| null, // 2564,
-                            LoanPeriodCode: dataDetail.LoanPeriodCode || '', // "ส",
+                            LoanPeriodCode: dataDetail.LoanPeriodCode === '2' ? 1 : dataDetail.LoanPeriodCode === '3' ? 2 : 0, // dataDetail.LoanPeriodCode || '', // "ส",
                             FarmerID: props.FarmerID, // 1,
                             // LandID: '', // 1,
                             FarmerProjectName1: dataDetail.FarmerProjectName1 || '', // "",
@@ -1054,7 +1054,8 @@ function LoanRequestContactStep1(props) {
         let formData = new FormData(addApplicantStep1);
         formData.delete('typeRadio')
         formData.append('FarmerID', inputData.FarmerID)
-        // formData.append('LoanPeriodCode', inputData.LoanPeriodCode)
+        
+        console.log('inputData.LoanPeriodCode',inputData.LoanPeriodCode)
         // formData.append('Debt',parseInt(inputData.Debt))
         // formData.set('ProjectYear',(inputData.ProjectYear === 0 ? '' : inputData.ProjectYear + 2500))
         formData.set('Loan_amount1', parseFloat(Loan_amount1_value.split(',').join('')))
@@ -1074,6 +1075,7 @@ function LoanRequestContactStep1(props) {
         formData.set('ApplicantDate',moment(inputData.ApplicantDate).format('YYYY-MM-DD'))
         formData.set('RecDate',moment(inputData.RecDate).format('YYYY-MM-DD'))
         formData.set('supporterAmount',supporterAmount)
+        formData.set('LoanPeriodCode', inputData.LoanPeriodCode === '0' ? 1 : inputData.LoanPeriodCode === '1' ? 2 : 3 )
 
         let url = '';
         if(props.action === 'edit') {

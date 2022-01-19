@@ -822,7 +822,8 @@ function RecordContractDebt() {
 
                     setInputDataLoanRec({
                         Old_LoanID: data.closecontact_data[0].LoanNumber, 
-                        OldFine: data.singlecard_data[0].FineKang
+                        // OldFine: data.singlecard_data[0].FineKang
+                        OldFine: data.singlecard_data[0].InterestKang2 // P'Pong specify 13/01/22
                     })
 
                     // setInputDataIndividualcard({
@@ -849,8 +850,10 @@ function RecordContractDebt() {
                     setInputDataSubmitIndividual({
                         // ...inputDataSubmitIndividual,
                         principle: data.loanrec_data[0].principle === null ? 0 : data.loanrec_data[0].principle,
-                        OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
-                        OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        // OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
+                        // OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        OldInterest: data.singlecard_data[0].InterestKang2 === null ? 0 : data.singlecard_data[0].InterestKang2,
+                        OldFine: data.singlecard_data[0].FineKang === null ? 0 : data.singlecard_data[0].FineKang, // P'Pong specify 13/01/22
                         Interest: data.loanrec_data[0].Interest === null ? 0 : data.loanrec_data[0].Interest,
                         ChargeRate: data.loanrec_data[0].ChargeRate === null ? 0 : data.loanrec_data[0].ChargeRate,
                     })
@@ -1181,7 +1184,8 @@ function RecordContractDebt() {
 
                     setInputDataLoanRec({
                         Old_LoanID: data.closecontact_data[0].LoanNumber, 
-                        OldFine: data.singlecard_data[0].FineKang
+                        // OldFine: data.singlecard_data[0].FineKang 
+                        OldFine: data.singlecard_data[0].InterestKang2, // P'Pong specify 13/01/22
                     })
 
                     // setInputDataIndividualcard({
@@ -1240,8 +1244,10 @@ function RecordContractDebt() {
                     setInputDataSubmitIndividual({
                         // ...inputDataSubmitIndividual,
                         principle: data.loanrec_data[0].principle === null ? 0 : data.loanrec_data[0].principle,
-                        OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
-                        OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        // OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
+                        // OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        OldInterest: data.singlecard_data[0].InterestKang2 === null ? 0 : data.singlecard_data[0].InterestKang2,
+                        OldFine: data.singlecard_data[0].FineKang === null ? 0 : data.singlecard_data[0].FineKang, // P'Pong specify 13/01/22
                         Interest: data.loanrec_data[0].Interest === null ? 0 : data.loanrec_data[0].Interest,
                         ChargeRate: data.loanrec_data[0].ChargeRate === null ? 0 : data.loanrec_data[0].ChargeRate,
                     })
@@ -1979,8 +1985,8 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="เงินต้นค้างเดิม"  value={inputDataIndividualcard.principalBalance} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} /> */}
-                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.interestKang} /> {/* P'Pong specify 11/01/22 */}
+                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} /> {/* P'Pong specify 13/01/22 */}
+                                                            {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.interestKang} /> P'Pong specify 11/01/22 */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}> */}
