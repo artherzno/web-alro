@@ -693,7 +693,7 @@ function AddFarmer(props) {
 
     // Input Text field 
     const handleInputData = (event) => {
-        console.log('event.target.id.toString().slice(-3)',event.target.id.toString().slice(-3))
+        // console.log('event.target.id.toString().slice(-3)',event.target.id.toString().slice(-3))
         if(event.target.type === 'number') {
             let typeNumber = event.target.id.toString().slice(-3);
             if(typeNumber === 'tel') {

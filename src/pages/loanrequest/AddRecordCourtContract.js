@@ -693,8 +693,10 @@ function AddRecordCourtContract() {
                     setInputDataSubmitIndividual({
                         // ...inputDataSubmitIndividual,
                         principle: data.loanrec_data[0].principle === null ? 0 : data.loanrec_data[0].principle,
-                        OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
-                        OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        // OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
+                        // OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        OldInterest: data.singlecard_data[0].InterestKang2 === null ? 0 : data.singlecard_data[0].InterestKang2,
+                        OldFine: data.singlecard_data[0].FineKang === null ? 0 : data.singlecard_data[0].FineKang, // P'Pong specify 13/01/22
                         Interest: data.loanrec_data[0].Interest === null ? 0 : data.loanrec_data[0].Interest,
                         ChargeRate: data.loanrec_data[0].ChargeRate === null ? 0 : data.loanrec_data[0].ChargeRate,
                     })
@@ -830,6 +832,17 @@ function AddRecordCourtContract() {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
                     }
                 }else {
+                    // Check plan year
+                    let d = new Date();
+                    let fullyear = d.getFullYear() + 543;
+                    let month = d.getMonth();
+                    let planYearFull = fullyear
+                    let planYear = fullyear - 2500
+                    if(month >= 9) {
+                        planYearFull = d.getFullYear() + 544;
+                        planYear = (d.getFullYear() + 544) - 2500
+                    } 
+
                     setFormField(true)
                     console.log('get_loandetail',data.farmer_data)
                     setInputDataFarmer(data.farmer_data)
@@ -850,6 +863,45 @@ function AddRecordCourtContract() {
                     } else {
                         setInputDataSpkInfo(data.spkinfo_data[0])
                     }
+
+                    if(data.spkinfo_budget[0] === undefined) {
+                        setInputDataSpkInfoBudget([])
+                    } else {
+                        setInputDataSpkInfoBudget(data.spkinfo_budget[0])
+
+                        setInputDataSubmit({
+                            ...inputDataSubmit,
+                            OfficeProvince: data.spkinfo_data[0].Province,
+                            Officer: data.spkinfo_budget[0].Officer,
+                            OfficerRank: data.spkinfo_budget[0].Rank,
+                            objective1: data.loanrec_data[0].objective1,
+                            LoanPeriod: data.loanrec_data[0].LoanPeriod,
+                            LoanobjName: data.loanrec_data[0].LoanObjName,
+                            LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
+                        })
+
+                        setInputDataLoanRec({
+                            CurrentYear: planYearFull,
+                            PV_CODE: data.spkinfo_data[0].ProvinceID,
+                            PV_NAME: data.spkinfo_data[0].Province,
+                            RecYear: planYear
+                        })
+
+                        setInputDataLandData({
+                            DocLand_name: data.closecontact_data[0].DocLand_name
+                        })
+                    }
+
+                    setInputDataLoanRec({
+                        Old_LoanID: data.closecontact_data[0].LoanNumber, 
+                        // OldFine: data.singlecard_data[0].FineKang 
+                        OldFine: data.singlecard_data[0].InterestKang2, // P'Pong specify 13/01/22
+                    })
+
+                    // setInputDataIndividualcard({
+                    //     principle: data.singlecard_data[0].principalBalance,
+                    //     Interest: data.singlecard_data[0].InterestKang2,
+                    // })
 
                     setLoanNumber(data.loanrec_data[0].LoanNumber)
                     setLoanID(data.loanrec_data[0].LoanID)
@@ -904,8 +956,10 @@ function AddRecordCourtContract() {
                     setInputDataSubmitIndividual({
                         // ...inputDataSubmitIndividual,
                         principle: data.loanrec_data[0].principle === null ? 0 : data.loanrec_data[0].principle,
-                        OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
-                        OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        // OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
+                        // OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
+                        OldInterest: data.singlecard_data[0].InterestKang2 === null ? 0 : data.singlecard_data[0].InterestKang2,
+                        OldFine: data.singlecard_data[0].FineKang === null ? 0 : data.singlecard_data[0].FineKang, // P'Pong specify 13/01/22
                         Interest: data.loanrec_data[0].Interest === null ? 0 : data.loanrec_data[0].Interest,
                         ChargeRate: data.loanrec_data[0].ChargeRate === null ? 0 : data.loanrec_data[0].ChargeRate,
                     })

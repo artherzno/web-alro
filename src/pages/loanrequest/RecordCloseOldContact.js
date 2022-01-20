@@ -97,6 +97,7 @@ function RecordCloseOldContact() {
         FinesInterest: null,// 1.1,
         FinesInterestDuePaid: null,// 1.1,
         TotalInterest: null,// 1.1,
+        FinesPaid: null,
         FinesOverdue: null,// 1.1,
         TotalPaid: null,// 1.1,
         PrincipleBalance4: null,// 1.1,
@@ -582,6 +583,7 @@ function RecordCloseOldContact() {
             OverdueInterest: 0,
             DueInterest: 0,
             Fines: 0,
+            FinesPaid: 0,
         })
     }
 
@@ -608,6 +610,7 @@ function RecordCloseOldContact() {
         let overdueinterest = parseInterestKang2_first <= 0 ? 0 : parseInterestKang2_first
         let dueinterest = parseInterestKang2_result <= 0 ? 0 : parseInterestKang2_result
         let fines = parseFinekang <= 0 ? 0 : parseFinekang
+        let finespaid = parseFinekang <= 0 ? 0 : parseFinekang
 
         setInputDataReceipt({
             ...inputDataReceipt,
@@ -617,6 +620,7 @@ function RecordCloseOldContact() {
             OverdueInterest: Number(overdueinterest) ,
             DueInterest: Number(dueinterest) ,
             Fines: Number(fines) ,
+            FinesPaid: Number(finespaid) ,
             LoanID: 111
         })
         
@@ -628,6 +632,7 @@ function RecordCloseOldContact() {
             // OverdueInterest: Number(overdueinterest) ,
             DueInterest: Number(dueinterest) ,
             Fines: Number(fines) ,
+            // FinesPaid: Number(finespaid) ,
         })
     }
 
@@ -657,8 +662,12 @@ function RecordCloseOldContact() {
 
         // step1 = (x > zz) ? zz : x
         let step1 = parseTotalPaid > parseInterestKang2_first ? parseInterestKang2_first : parseTotalPaid
-        // step2 = (z > 0 & z > II) ? II : x-z 
-        let step2 = step1 > 0 && step1 > parseInterestKang2_result ? parseInterestKang2_result : parseTotalPaid - step1
+        // ** step2 = (z > 0 & z > II) ? II : x-z ** (wrong version)
+        // let step2 = step1 > 0 && step1 > parseInterestKang2_result ? parseInterestKang2_result : parseTotalPaid - step1
+
+        // 2. I = IF X-(Z+II) >=0 THEN II ELSE X-(Z+II) (by P'Pong 11/01/22)
+        // ** step2 = x-(z+II) >= 0 ? II : x-(z+II)
+        let step2 = parseTotalPaid - (step1 + parseInterestKang2_result) >= 0 ? parseInterestKang2_result : parseTotalPaid - (step1 + parseInterestKang2_result)
         // step3 = z+I
         let step3 = step1 + step2
         // step4 = x - z -I
@@ -674,6 +683,7 @@ function RecordCloseOldContact() {
             OverdueInterest: step1 <= 0 ? 0 : step1,
             DueInterest: step2 <= 0 ? 0 : step2,
             Fines: parseFinekang <= 0 ? 0 : parseFinekang,
+            FinesPaid: parseFinekang <= 0 ? 0 : parseFinekang,
             LoanID: loanId
         })
 
@@ -685,6 +695,7 @@ function RecordCloseOldContact() {
             // OverdueInterest: step1 <= 0 ? 0 : step1,
             DueInterest: step2 <= 0 ? 0 : step2,
             Fines: parseFinekang <= 0 ? 0 : parseFinekang,
+            // FinesPaid: parseFinekang <= 0 ? 0 : parseFinekang,
         })
     }
 
@@ -1172,7 +1183,8 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">ค่าปรับ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled" name="Fines" value={inputDataReceipt.Fines} onChange={handleInputDataReceipt}   />
+                                                            {/* <MuiTextfieldCurrency label=""   inputdisabled="input-disabled" name="Fines" value={inputDataReceipt.Fines} onChange={handleInputDataReceipt}   /> */}
+                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled" name="FinesPaid" value={inputDataReceipt.FinesPaid} onChange={handleInputDataReceipt}   />
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
