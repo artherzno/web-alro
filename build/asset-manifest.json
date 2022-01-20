@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.62f65077.chunk.css",
-    "main.js": "/static/js/main.a6c87dfe.chunk.js",
-    "main.js.map": "/static/js/main.a6c87dfe.chunk.js.map",
+    "main.css": "/static/css/main.9c423796.chunk.css",
+    "main.js": "/static/js/main.f4f8ad54.chunk.js",
+    "main.js.map": "/static/js/main.f4f8ad54.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c48f3c2f.js",
     "runtime-main.js.map": "/static/js/runtime-main.c48f3c2f.js.map",
     "static/js/2.3b5c23b3.chunk.js": "/static/js/2.3b5c23b3.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.975d5181.chunk.js": "/static/js/3.975d5181.chunk.js",
     "static/js/3.975d5181.chunk.js.map": "/static/js/3.975d5181.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.62f65077.chunk.css.map": "/static/css/main.62f65077.chunk.css.map",
+    "static/css/main.9c423796.chunk.css.map": "/static/css/main.9c423796.chunk.css.map",
     "static/js/2.3b5c23b3.chunk.js.LICENSE.txt": "/static/js/2.3b5c23b3.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/static/media/login-bg.f3d3bf69.png",
     "static/media/logo-alro.9306daf2.png": "/static/media/logo-alro.9306daf2.png",
@@ -40,7 +40,7 @@
   "entrypoints": [
     "static/js/runtime-main.c48f3c2f.js",
     "static/js/2.3b5c23b3.chunk.js",
-    "static/css/main.62f65077.chunk.css",
-    "static/js/main.a6c87dfe.chunk.js"
+    "static/css/main.9c423796.chunk.css",
+    "static/js/main.f4f8ad54.chunk.js"
   ]
 }

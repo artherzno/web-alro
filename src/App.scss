@@ -1483,7 +1483,13 @@ input {
 
 // GuaranteeBook A - B & SpouseConsentBook
 .personalForm {
-  display: none;
+  // display: none;
+  &.show {
+    display: block;
+  }
+  &.hide {
+    display: none;
+  }
 }
 
 // Add Role Page ------------------------------//
