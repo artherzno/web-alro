@@ -323,6 +323,7 @@ function RecordRequestPayment() {
                                 formikRef.current.setFieldValue('Item', "")
                                 formikRef.current.setFieldValue('Command', "")
                                 formikRef.current.setFieldValue('CommandDate', "")
+                                formikRef.current.setFieldValue('ExtendID', "")
 
                             }} />
                         </div>
