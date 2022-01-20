@@ -709,7 +709,7 @@ function LoanRequestPrint(props) {
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
-                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode)
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode === '1' ? 0 : data.data[0].LoanPeriodCode === '2' ? 1 : 2)
                         setLoandueDataAPI(null)
                         setIsLoading(false);
                         setApplicantNo(applicantNo);
@@ -872,7 +872,7 @@ function LoanRequestPrint(props) {
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
-                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode)
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode === '1' ? 0 : data.data[0].LoanPeriodCode === '2' ? 1 : 2)
                         setApplicantNo(applicantNo);
                         setIsLoading(false);
                         // setApplicantProjectYear(data.data[0].ProjectPlanYear)

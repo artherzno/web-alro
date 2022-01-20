@@ -1565,7 +1565,7 @@ function LoanRequestContactStep1(props) {
                                     </Grid>
 
                                     {/* Paper 5 - ข้อ4  -------------------------------------------------- */}
-                                    <Grid item xs={12} md={12} className={props.action === 'view' ? 'form-view' : ''}>
+                                    <Grid item xs={12} md={12}>
                                         <Paper className="paper line-top-green paper">
                                             <Grid item xs={12} md={12}>
                                                 <Grid container spacing={2} className="paper-container">
@@ -1576,11 +1576,11 @@ function LoanRequestContactStep1(props) {
                                                         <MuiLabelHeaderCheckbox label="หลักประกันการกู้ยืมเงิน" />
                                                         <RadioGroup name="typeRadio" value={inputData.typeGuarantee} onChange={handleChangeTypeGuarantee}>
                                                             <Grid container spacing={2} className="paper-container">
-                                                                <Grid item xs={12} md={8}>
+                                                                <Grid item xs={12} md={8} className={props.action === 'view' ? 'form-view' : ''}>
                                                                     <p>&nbsp;</p>
                                                                         <FormControlLabel value="1" control={<Radio color="primary" />} label="แบบรายบุคคล" />
                                                                 </Grid>
-                                                                <Grid item xs={12} md={4}>
+                                                                <Grid item xs={12} md={4} className={props.action === 'view' ? 'form-view' : ''}>
                                                                         <MuiSelect label="จำนวนผู้ค้ำประกัน" listsValue={supporterAmountList} lists={supporterAmountList} value={supporterAmount} onChange={handleSupporterAmount}  />
                                                                 </Grid>
                                                             </Grid>
@@ -1658,11 +1658,13 @@ function LoanRequestContactStep1(props) {
                                                                 </div>
                                                             </div>
                                                             
+                                                            <div  className={props.action === 'view' ? 'form-view' : ''}>
                                                             <FormControlLabel value="2" control={<Radio color="primary" />} label="แบบอสังหาริมทรัพย์" />
                                                             <div style={ inputData.typeGuarantee === '2' ? {opacity: '1'} : {opacity: '0.5', pointerEvents: 'none'} }>
                                                                 <div className="radio-group-content">
                                                                     <MuiTextfieldMultiLine label="" row="3" value={inputData.Property} name="Property" onChange={handleInputData} />
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </RadioGroup> 
                                                     </Grid>
