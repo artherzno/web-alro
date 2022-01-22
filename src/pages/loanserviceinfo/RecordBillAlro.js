@@ -880,7 +880,7 @@ function RecordBillAlro() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างปรับ</p>
+                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                     <MuiTextfieldEndAdornment
@@ -890,7 +890,7 @@ function RecordBillAlro() {
                                                                         helperText={errors.RecInterestKang2}
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
-                                                                        placeholder="ดอกเบี้ยค้างปรับ"
+                                                                        placeholder="ดอกเบี้ยค้างรับ"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
