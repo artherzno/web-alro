@@ -266,7 +266,7 @@ parameter.append('YearTo', YearTovalue);
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">ภาค</StyledTableCell>
+                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>

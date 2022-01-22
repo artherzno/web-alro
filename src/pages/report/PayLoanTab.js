@@ -356,7 +356,7 @@ parameter.append('YearTo', YearTovalue);
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.payDate}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.dueDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{formatNumber(farmer.payout)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.payout}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.payFirstInstallment)}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.memStatus}</StyledTableCellLine>
                                             
@@ -365,7 +365,7 @@ parameter.append('YearTo', YearTovalue);
                                     )
                                 })}
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={10} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={9} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
