@@ -532,6 +532,37 @@ const api = {
             params
         })
 
+    }, getTargetByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetTargetByContract",
+            params
+        })
+
+    },
+    getTargetByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetTargetByProject",
+            params
+        })
+
+    },
+    getTargetByProjectY(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetTargetByProjectY",
+            params
+        })
+
+    },
+    getTargetByGroup(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetTargetByGroup",
+            params
+        })
+
     },
     getRequestLoan(params) {
 
