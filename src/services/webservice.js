@@ -509,6 +509,30 @@ const api = {
         })
 
     },
+    getDebtStatusPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtStatusPerContract",
+            params
+        })
+
+    },
+    getDebtStatusPerLoanType(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtStatusPerLoanType",
+            params
+        })
+
+    },
+    getDebtStatusPerProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtStatusPerProject",
+            params
+        })
+
+    },
     getRequestLoan(params) {
 
         return post({
