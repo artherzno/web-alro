@@ -333,7 +333,7 @@ function RecordBillAlro() {
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={6}>
 
-                                <Formik
+                                {!isLoading && <Formik
                                     enableReinitialize={true}
                                     innerRef={formikRef}
                                     initialValues={{
@@ -345,7 +345,7 @@ function RecordBillAlro() {
                                         Reccode: "",
                                         Mindex: selectedData.Mindex,
                                         Time: "",
-                                        RecDate: "",
+                                        RecDate: moment(new Date()).format("YYYY-MM-DD"),
                                         ReceiptDate: "",
                                         CalculateDate: "",
                                         PaidDate: "",
@@ -409,7 +409,7 @@ function RecordBillAlro() {
                                         RecSumInterest: '',
                                         RecOverdueInterest: '',
                                         RecSumPaid: '',
-                                        Status:1
+                                        Status: 1
                                     }}
                                     validate={values => {
                                         const requires = []
@@ -432,11 +432,11 @@ function RecordBillAlro() {
                                     render={(formik) => {
 
                                         const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
-                                        
+
 
                                         return (
                                             <Form>
-                                            
+
                                                 {/* Paper 1 - -------------------------------------------------- */}
                                                 <Paper className="paper line-top-green paper mg-t-20">
                                                     <Grid container spacing={2}>
@@ -1094,7 +1094,7 @@ function RecordBillAlro() {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                 
+
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
@@ -1106,14 +1106,14 @@ function RecordBillAlro() {
                                                                         value={values.TotalPaid}
                                                                         error={errors.TotalPaid}
                                                                         helperText={errors.TotalPaid}
-                                                                        onChange={(e) =>{
+                                                                        onChange={(e) => {
                                                                             handleChange(e)
                                                                             const check = (parseFloat(values.RecSumInterest) + parseFloat(values.RecOverdueInterest) + parseFloat(values.RecPrincipleBalance))
 
 
-                                                                            if (parseFloat(e.target.value) === check){
+                                                                            if (parseFloat(e.target.value) === check) {
                                                                                 setIsShowClose(true)
-                                                                            }else{
+                                                                            } else {
                                                                                 setIsShowClose(false)
                                                                             }
                                                                         }}
@@ -1292,9 +1292,9 @@ function RecordBillAlro() {
                                                             <FormGroup>
                                                                 <FormControlLabel control={<Checkbox label="ปิดสัญญา" checked={checkClose} onChange={(e) => {
                                                                     setCheckClose(e.target.checked)
-                                                                    if(e.target.checked){
-                                                                        setFieldValue("Status",0)
-                                                                    }else{
+                                                                    if (e.target.checked) {
+                                                                        setFieldValue("Status", 0)
+                                                                    } else {
                                                                         setFieldValue("Status", 1)
                                                                     }
                                                                 }} />} label="ปิดสัญญา" /></FormGroup>
@@ -1303,13 +1303,13 @@ function RecordBillAlro() {
 
                                                     </Grid>}
                                                     <Grid item xs={12} md={12}>
-                                                        <ButtonFluidPrimary label="บันทึกการเพิ่ม" onClick={handleSubmit}/>
+                                                        <ButtonFluidPrimary label="บันทึกการเพิ่ม" onClick={handleSubmit} />
                                                     </Grid>
-                                            
+
                                                 </Grid>
                                             </Form>)
                                     }}
-                                />
+                                />}
 
 
 
