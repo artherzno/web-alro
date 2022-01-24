@@ -64,7 +64,7 @@ class CheckBill extends React.Component {
     loadData(page, count) {
 
         const { PaymentDate, BookNo, ProjName, InvoiceNo, Order, Display, } = this.state
-
+  
         const parameter = new FormData()
         parameter.append('PaymentDate', PaymentDate);
         parameter.append('BookNo', BookNo);
@@ -194,7 +194,7 @@ class CheckBill extends React.Component {
 
                                         <Grid item xs={12} md={3}>
 
-                                            <MuiDatePicker label="วันที่รับเงิน" value={this.state.dateSelect} onChange={(event) => {
+                                            <MuiDatePicker label="วันที่ครบกำหนดชำระ" value={this.state.dateSelect} onChange={(event) => {
                                                 this.setState({ PaymentDate: moment(event).format("YYYY-MM-DD"), dateSelect: event }, () => {
 
                                                 })
@@ -205,13 +205,12 @@ class CheckBill extends React.Component {
                                             <MuiTextfield label="เลขที่ใบแจ้งหนี้" onChange={this.onChange("InvoiceNo")} />
                                         </Grid>
 
+                                      
                                         <Grid item xs={12} md={2}>
-                                            <SortCheck onChange={this.onChange("Order")} />
                                         </Grid>
                                         <Grid item xs={12} md={2}>
-                                            <DisplayCheck onChange={this.onChange("Display")} />
-                                        </Grid>
-
+                                            
+                                            </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadData(0, this.state.count) }} />

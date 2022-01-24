@@ -354,7 +354,7 @@ class RequestLoanTab extends React.Component {
                                     <StyledTableCell align="center">เลขที่เอกสารสิทธิ์</StyledTableCell>
                                     <StyledTableCell align="center">ที่ตั้งที่ดิน</StyledTableCell>
                                     <StyledTableCell align="center">ขนาดที่ดินตามเอกสารสิทธิ์ (ไร - งาน - วา)</StyledTableCell>
-                                    <StyledTableCell align="center">ภาระหนี้สิน (บาท)</StyledTableCell>
+                                    <StyledTableCell align="center">ภาระหนี้สิน</StyledTableCell>
                                     <StyledTableCell align="center">จุดประสงค์การกู้ยืม</StyledTableCell>
                                     <StyledTableCell align="center">ประเภทเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">วงเงินกู้ที่ยื่นคำขอ</StyledTableCell>
