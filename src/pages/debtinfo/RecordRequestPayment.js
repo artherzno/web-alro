@@ -106,7 +106,7 @@ function RecordRequestPayment() {
                 formikRef.current.setFieldValue("RemainingPrinciple", recData.principalBalance)
 
                 console.log("selectedExtendData", selectedExtendData)
-                if (selectedExtendData .Extend.length > 0) {
+                if (selectedExtendData.Extend.length > 0) {
                     formikRef.current.setFieldValue("PrintciplePay", selectedExtendData.Extend[0].PrintciplePay)
                     formikRef.current.setFieldValue("InterestOverdue", selectedExtendData.Extend[0].InterestOverdue)
                     formikRef.current.setFieldValue("PaymentPeriodRemain", parseFloat(recData.principalBalance) - parseFloat(selectedExtendData.Extend[0].PrintciplePay))

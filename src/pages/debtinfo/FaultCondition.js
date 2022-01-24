@@ -59,7 +59,6 @@ function FaultCondition() {
 
     useEffect(() => {
         setLoaded(true);
-        getDebtDataByLoan()
 
     }, [])
 
@@ -71,13 +70,14 @@ function FaultCondition() {
         }
 
         const parameter1 = {
-            IDCard: paramIDCard
+            IDCard: paramIDCard,
+            LoanID: paramLoanID
         }
 
         try {
             setIsLoading(true)
-            const res = await Promise.all([api.getDebtDataByLoan(parameter), api.getDebtDataByID(parameter1)])
-            const resultList = res[0].data.concat(res[1].data)
+            const res = await api.getDebtDataByID(parameter1)
+            const resultList = res[0].data.concat(res.data)
             setResultList(resultList)
             setIsLoading(false)
         } catch (error) {
