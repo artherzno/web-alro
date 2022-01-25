@@ -165,12 +165,27 @@ function RecordRequestPayment() {
     function onChangeRealPay(key,value,index){
 
         const realPay = selectedExtendData.RealPay
-        if (realPay && realPay.length -1<= index) {
+        if (realPay && index <= realPay.length -1) {
             realPay[index][key] = value
         }
         setSelectedData({
             ...selectedExtendData,
             RealPay: realPay
+        })
+    }
+
+    function onChangeAccountPay(key, value, index) {
+
+        const accountPay = selectedExtendData.AccountPay
+
+
+        if (accountPay && index <= accountPay.length - 1) {
+
+            accountPay[index][key] = value
+        }
+        setSelectedData({
+            ...selectedExtendData,
+            AccountPay: accountPay
         })
     }
 
@@ -975,7 +990,9 @@ function RecordRequestPayment() {
                                                                                     <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : ''} />
                                                                                 </TableCell>
                                                                                 <TableCell align="left">
-                                                                                    <MuiTextfieldNumber label="" value={row.PAYREC} />
+                                                                                    <MuiTextfieldNumber label="" value={row.PAYREC} onChange={(e) => {
+                                                                                        onChangeAccountPay("PAYREC", e.target.value, i)
+                                                                                    }}/>
                                                                                 </TableCell>
                                                                             </TableRow>
                                                                         ))

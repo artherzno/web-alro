@@ -96,12 +96,27 @@ function RecordInstallmentPayment() {
     function onChangeRealPay(key, value, index) {
 
         const realPay = selectedExtendData.RealPay
-        if (realPay && realPay.length - 1 <= index) {
+        if (realPay && index <= realPay.length - 1 ) {
             realPay[index][key] = value
         }
         setSelectedData({
             ...selectedExtendData,
             RealPay: realPay
+        })
+    }
+
+    function onChangeAccountPay(key, value, index) {
+
+        const accountPay = selectedExtendData.AccountPay
+        
+      
+        if (accountPay && index <= accountPay.length - 1 ) {
+            
+            accountPay[index][key] = value
+        }
+        setSelectedData({
+            ...selectedExtendData,
+            AccountPay: accountPay
         })
     }
 
@@ -896,7 +911,7 @@ function RecordInstallmentPayment() {
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <div className="box-button txt-center">
-                                    <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() => {
+                                    {/* <ButtonFluidPrimary maxWidth="500px" label="+ เพิ่ม" onClick={() => {
 
                                         let realPay = selectedExtendData.RealPay
 
@@ -916,7 +931,7 @@ function RecordInstallmentPayment() {
                                         setSelectedExtendData(dataSave)
 
 
-                                    }} />
+                                    }} /> */}
                                 </div>
                             </Grid>
                         </Grid>
@@ -957,7 +972,9 @@ function RecordInstallmentPayment() {
                                                                 <MuiDatePicker label="" value={(row.DUEDATE && row.DUEDATE != "") ? moment(row.DUEDATE, "YYYY-MM-DD").format("YYYY-MM-DD") : ''} />
                                                             </TableCell>
                                                             <TableCell align="left">
-                                                                <MuiTextfield label="" value={row.PAYREC} />
+                                                                <MuiTextfield label="" value={row.PAYREC} onChange={(e) =>{
+                                                                    onChangeAccountPay("PAYREC", e.target.value, i)
+                                                                }}/>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))
