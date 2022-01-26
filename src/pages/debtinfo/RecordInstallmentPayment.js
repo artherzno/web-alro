@@ -342,12 +342,12 @@ function RecordInstallmentPayment() {
                                 <div className="box-button txt-center">
                                     <br/>
                                     <ButtonFluidPrimary label="เพิ่มคำขอ" maxWidth="320px" onClick={() => {
-                                        formikRef.current.setFieldValue('RelentDateBefore',"")
+                                        formikRef.current.setFieldValue('RelentDateBefore', moment(new Date()).format("YYYY-MM-DD"))
                                         formikRef.current.setFieldValue('RelentNumber', "")
                                         formikRef.current.setFieldValue('Ref2', "")
                                         formikRef.current.setFieldValue('Item', "")
                                         formikRef.current.setFieldValue('Command', "")
-                                        formikRef.current.setFieldValue('CommandDate', "")
+                                        formikRef.current.setFieldValue('CommandDate', moment(new Date()).format("YYYY-MM-DD"))
                                         formikRef.current.setFieldValue('RelentID', "")
 
                                         

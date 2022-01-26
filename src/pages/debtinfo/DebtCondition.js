@@ -269,6 +269,25 @@ function DebtCondition() {
                             </Grid>
                         </Grid>
                     </Container>
+                    <Grid item xs={12} md={12}>
+                        <div className="box-button txt-center">
+                            <br />
+                            <ButtonFluidPrimary label="เพิ่มคำขอ" maxWidth="320px" onClick={() => {
+
+                         
+                                formikRef.current.setFieldValue('ChangeDeptDate', moment(new Date()).format("YYYY-MM-DD"))
+                                formikRef.current.setFieldValue('YEAR', "")
+                                formikRef.current.setFieldValue('ChangeDeptNumber', "")
+                                formikRef.current.setFieldValue('Ref1', "")
+                                formikRef.current.setFieldValue('Ref2', "")
+                                formikRef.current.setFieldValue('Item', "")
+                                formikRef.current.setFieldValue('Command', "")
+                                formikRef.current.setFieldValue('CommandDate', moment(new Date()).format("YYYY-MM-DD"))
+                                formikRef.current.setFieldValue('ChangeDeptID', "")
+
+                            }} />
+                        </div>
+                    </Grid>
 
                     <Formik
                         enableReinitialize={true}
@@ -280,6 +299,8 @@ function DebtCondition() {
                             ChangeDeptCost: 0,
                             ReduceFines:0,
                             InterestReduce:0,
+                            ChangeDeptDate: selectedData.ChangeDeptDate || '',
+                            CommandDate: selectedData.CommandDate || '',
                             PVCODE_LoanNumber: selectedData.PVSCODE ? `${selectedData.PVSCODE}${selectedData.LoanNumber}` : '',
                             YEAR: (selectedData.LoanDate && selectedData.LoanDate != "") ? moment(selectedData.LoanDate, "YYYY-MM-DD").add(543, 'years').format("YYYY") : ''
                         }}

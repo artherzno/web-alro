@@ -334,14 +334,14 @@ function RecordRequestPayment() {
                         <div className="box-button txt-center">
                             <br />
                             <ButtonFluidPrimary label="เพิ่มคำขอ" maxWidth="320px" onClick={() => {
-                                formikRef.current.setFieldValue('ExtendDate', "")
+                                formikRef.current.setFieldValue('ExtendDate', moment(new Date()).format("YYYY-MM-DD"))
                                 formikRef.current.setFieldValue('YEAR', "")
                                 formikRef.current.setFieldValue('ExtendNumber', "")
                                 formikRef.current.setFieldValue('Ref1', "")
                                 formikRef.current.setFieldValue('Ref2', "")
                                 formikRef.current.setFieldValue('Item', "")
                                 formikRef.current.setFieldValue('Command', "")
-                                formikRef.current.setFieldValue('CommandDate', "")
+                                formikRef.current.setFieldValue('CommandDate', moment(new Date()).format("YYYY-MM-DD"))
                                 formikRef.current.setFieldValue('ExtendID', "")
 
                             }} />
