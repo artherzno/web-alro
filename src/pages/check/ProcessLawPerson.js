@@ -201,9 +201,9 @@ class ProcessLawPerson extends React.Component {
                                         <Grid item xs={12} md={3}>
                                             <SortCheck onChange={this.onChange("Order")} />
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
+                                       {/* <Grid item xs={12} md={2}>
                                             <ProcessLawSelect onChange={this.onChange("Process")} />
-                                        </Grid>
+                                        </Grid>*/}
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() =>{
