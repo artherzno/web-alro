@@ -178,7 +178,10 @@ function RecordBillAlro() {
             Rentno: selectedData.LoanNumber,
             Date: values.CalculateDate
         }
-        setIsLoading(true)
+        // setIsLoading(true)
+
+        dialog.showLoading("กำลังประมวลผล")
+
         api.getProcessBeforePay(parameter).then(response => {
 
             setDataBeforeProcess(response.data)
@@ -200,10 +203,12 @@ function RecordBillAlro() {
                 
             }
 
-            setIsLoading(false)
+            // setIsLoading(false)
+            dialog.close()
 
         }).catch(error => {
-            setIsLoading(false)
+            // setIsLoading(false)
+            dialog.close()
         })
 
 
