@@ -346,7 +346,7 @@ function RecordBillAlro() {
                                         LoanID: selectedData.LoanID,
                                         LoanNumber: selectedData.LoanNumber,
                                         ReceiptNumber: "",
-                                        ref_id1: "",
+                                        ref_id1: selectedData.ref_id1 || '',
                                         Reccode: "",
                                         Mindex: selectedData.Mindex,
                                         Time: "",
