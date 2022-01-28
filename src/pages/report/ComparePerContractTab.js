@@ -278,7 +278,7 @@ parameter.append('YearTo', YearTovalue);
                                 <TableRow>
                                    
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>ภาค/จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>รายการ ภาค/จังหวัด</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={5}>กลุ่มที่ 1 (หนี้ค้าง)</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={5}>กลุ่มที่ 2 (หนี้ค้าง + หนี้ครบ)</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={5}>กลุ่มที่ 3 (หนี้ครบ)</StyledTableCell>
