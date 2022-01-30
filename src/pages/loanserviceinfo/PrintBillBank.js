@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
+import { AuthContext } from '../../App';
 
-import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import Divider from '@material-ui/core/Divider';
 
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
@@ -56,20 +51,33 @@ const tableResult = [
 
 function PrintBillBank() {
     const history = useHistory();
+    const auth = useContext(AuthContext);
+    const isMounted = useRef(null);
+
+    let server_hostname = auth.hostname;
+    let server_spkapi = localStorage.getItem('spkapi');
+    let token = localStorage.getItem('token');
+    let siteprint = localStorage.getItem('siteprint')
+    let provincename = localStorage.getItem('provincename');
 
     const [loaded, setLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
+    const [formField, setFormField] = useState(false)
+    const [searchResult, setSearchResult] = useState([])
     const [rows, setRows] = useState([])
 
     const [inputDataSearch, setInputDataSearch] = useState({
-        startDate: null,
-        endDate: null,
-        loanNumber: null,
-        bankFile: null,
+        fromdate: null,
+        todate: null,
+        LoanNumber: null,
+        filename: null,
     })
 
 
     const rowsLabel = [
-        'no',
+        // 'no',
         'date', 
         'pro_code',
         'pro_name',
@@ -81,16 +89,16 @@ function PrintBillBank() {
         'money3', 
         'item', 
         'mindex', 
-        'pcapital', 
-        'pcap1', 
-        'pcap2', 
-        'pint1', 
-        'pint2', 
-        'pcharge', 
+        // 'pcapital', 
+        // 'pcap1', 
+        // 'pcap2', 
+        // 'pint1', 
+        // 'pint2', 
+        // 'pcharge', 
     ]
 
     const headCells = [
-        { id: 'no', numeric: false, disablePadding: true, label: 'รหัสบันทึก' },
+        // { id: 'no', numeric: false, disablePadding: true, label: 'รหัสบันทึก' },
         { id: 'date', numeric: true, disablePadding: false, label: 'วันที่บันทึก' },
         { id: 'pro_code', numeric: true, disablePadding: false, label: 'รหัสโครงการ' },
         { id: 'pro_name', numeric: true, disablePadding: false, label: 'ชื่อโครงการ' },
@@ -102,12 +110,12 @@ function PrintBillBank() {
         { id: 'money3', numeric: true, disablePadding: false, label: 'ค่าปรับ' },
         { id: 'item', numeric: false, disablePadding: true, label: 'item' },
         { id: 'mindex', numeric: true, disablePadding: false, label: 'Mindex' },
-        { id: 'pcapital', numeric: true, disablePadding: false, label: 'Pcapital' },
-        { id: 'pcap1', numeric: true, disablePadding: false, label: 'Pcap_1' },
-        { id: 'pcap2', numeric: true, disablePadding: false, label: 'Pcap_2' },
-        { id: 'pint1', numeric: true, disablePadding: false, label: 'Pint_1' },
-        { id: 'pint2', numeric: true, disablePadding: false, label: 'Pint_2' },
-        { id: 'pcharge', numeric: true, disablePadding: false, label: 'Pcharge' },
+        // { id: 'pcapital', numeric: true, disablePadding: false, label: 'Pcapital' },
+        // { id: 'pcap1', numeric: true, disablePadding: false, label: 'Pcap_1' },
+        // { id: 'pcap2', numeric: true, disablePadding: false, label: 'Pcap_2' },
+        // { id: 'pint1', numeric: true, disablePadding: false, label: 'Pint_1' },
+        // { id: 'pint2', numeric: true, disablePadding: false, label: 'Pint_2' },
+        // { id: 'pcharge', numeric: true, disablePadding: false, label: 'Pcharge' },
     ];
 
     function createData(name, calories, fat, carbs, protein) {
@@ -116,7 +124,75 @@ function PrintBillBank() {
 
     useEffect(() => {
         setLoaded(true);
+
+
     }, [])
+
+    const getSearch = () => {
+        setIsLoading(true)
+        setRows([])
+        setSearchResult([])
+        setFormField(false)
+
+        axios.post(
+            `${server_hostname}/admin/api/search_dattoprint`, 
+            inputDataSearch, 
+            { headers: { "token": token } } 
+        ).then(res => {
+                console.log('getSearch',res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                } else {
+                    console.log('search result',data.data)
+
+                    if(data.length > 0) {
+                        setRows(
+                            data.data.map((item,i)=>
+                                createData(
+                                    i,
+                                    item.FrontName,
+                                    item.Name,
+                                    item.Sirname,
+                                    item.LoanNumber,
+                                    item.GBookID,
+                                    item.LoanID,
+                                    item.WarrantBookOwner1,
+                                    item.WarrantBookIDCard1,
+                                    item.WarrantBookOwner2,
+                                    item.WarrantBookIDCard2,
+                                    item.WarrantBookOwner3,
+                                    item.WarrantBookIDCard3,
+                                    item.WarrantBookOwner4,
+                                    item.WarrantBookIDCard4,
+                                ))
+                        )
+                        setSearchResult(data.data)
+                    } else {
+                        setErr(true);
+                        setErrMsg('ไม่พบข้อมูล')
+                    }
+                }
+                setIsLoading(false)
+                // getSpkAllProject()
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
 
     const handleInputDataSearch = (event) => {
         setInputDataSearch({
@@ -144,6 +220,14 @@ function PrintBillBank() {
         //   setError(true);
         // }
     };
+
+    const handleClosePopup = () => {
+        setErr(false);
+        setIsLoading(false)
+        
+        // history.push('/manageinfo/searchmember');
+
+    };
     
     return (
         <div className="printbillbank-page">
@@ -164,20 +248,20 @@ function PrintBillBank() {
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="จากวันที่" name="startDate" value={inputDataSearch.startDate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, startDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        <MuiDatePicker label="จากวันที่" name="fromdate" value={inputDataSearch.fromdate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, fromdate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="ถึงวันที่" name="endStart" value={inputDataSearch.endDate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, endDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        <MuiDatePicker label="ถึงวันที่" name="todate" value={inputDataSearch.todate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, todate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="เลขที่สัญญา" name="loanNumber" value={inputDataSearch.loanNumber} onChange={handleInputDataSearch} />
+                                        <MuiTextfield label="เลขที่สัญญา" name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ชื่อไฟล์ธนาคาร" name="bankFile" value={inputDataSearch.bankFile} onChange={handleInputDataSearch} />
+                                        <MuiTextfield label="ชื่อไฟล์ธนาคาร" name="filename" value={inputDataSearch.filename} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={()=>getSearch()} />  
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -193,7 +277,7 @@ function PrintBillBank() {
                                         rowsLabel={rowsLabel} 
                                         colSpan={18} 
                                         hasCheckbox={false} 
-                                        hasAction={false}  // show action
+                                        hasAction={true}  // show action
                                         actionCustom={false} 
                                         tableName={'printbillbank'}
                                     />
@@ -206,7 +290,7 @@ function PrintBillBank() {
                         </Grid>
                     </Container>
 
-                    <Container maxWidth="lg">
+                    <Container maxWidth="lg" style={{display: 'none'}}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12}>
 
@@ -625,6 +709,31 @@ function PrintBillBank() {
                     </Container>
                 </div>
             </Fade>
+            
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
 
         </div>
     )
