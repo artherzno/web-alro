@@ -52,6 +52,8 @@ class ProcessByPerson extends React.Component {
             count: 10,
             totalResult: 0,
             dataSummary: {},
+            startDate:'',
+            startDateParam:''
         }
     }
 
@@ -143,15 +145,70 @@ class ProcessByPerson extends React.Component {
 
     }
 
-    getCardPdf(contractNo,index) {
+    getCardPdf(contractNo, index) {
 
         const parameter = new FormData()
         parameter.append('ContractNo', contractNo);
 
 
-        this.setState({ [index]:true})
+        this.setState({ [index]: true })
 
         api.getCardPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({ [index]: false })
+
+        }).catch(error => {
+
+            this.setState({ [index]: false })
+
+        })
+
+    }
+
+    getCardMonthPdf(contractNo, index) {
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', contractNo);
+        parameter.append("StrDate", this.state.startDateParam)
+
+        this.setState({ [index]: true })
+
+        api.getCardMonthPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({ [index]: false })
+
+        }).catch(error => {
+
+            this.setState({ [index]: false })
+
+        })
+
+    }
+
+    getCardYearPdf(contractNo, index) {
+
+        const parameter = new FormData()
+        parameter.append('ContractNo', contractNo);
+        parameter.append("StrDate",this.state.startDateParam)
+
+
+        this.setState({ [index]: true })
+
+        api.getCardYearPdf(parameter).then(response => {
 
             const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
             const link = document.createElement('a');
@@ -220,7 +277,19 @@ class ProcessByPerson extends React.Component {
                                 <Grid item xs={12} md={12} className="mg-t-0">
                                     <Grid container spacing={2}>
 
-                                        <Grid item xs={12} md={10}>
+                                        <Grid item xs={12} md={2}>
+                                            <MuiDatePicker label="วันที่ประมวลผล" defaultValue="" value={this.state.startDate} onChange={value => {
+                                                // setDataParams('StartDate', value.format("YYYY-MM-DD"))
+                                                // setStartDate(value)
+
+                                                this.setState({
+                                                    startDateParam: value.format("YYYY-MM-DD"),
+                                                    startDate: value
+                                                })
+                                            }} />
+                                        </Grid>
+                                        <Grid item xs={12} md={8}>
+                                          
                                         </Grid>
                                         <Grid item xs={12} md={2}>
                                             <p>&nbsp;</p>
@@ -311,7 +380,7 @@ class ProcessByPerson extends React.Component {
                                                     <StyledTableCell align="center">Remarks</StyledTableCell>
                                                     <StyledTableCell align="center">K_capital</StyledTableCell>
                                                     <StyledTableCell align="center">K_interest</StyledTableCell>
-                                                    
+
                                                 </TableRow>
 
                                             </TableHead>
@@ -321,7 +390,10 @@ class ProcessByPerson extends React.Component {
                                                     return (
                                                         <TableRow key={index}>
                                                             <StyledTableCellLine align="left"><Checkbox /></StyledTableCellLine>
-                                                            <StyledTableCellLine align="right" > <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf(element.rentno, index) }} loading={this.state[index]} /></StyledTableCellLine>
+                                                            <StyledTableCellLine align="right" >
+                                                                <ButtonExport label="ดูการ์ดเดือน" handleButtonClick={() => { this.getCardMonthPdf(element.rentno, `${index}01`) }} loading={this.state[`${index}01`]} disabled={this.state.startDate === ''}/>
+                                                                <ButtonExport label="ดูการ์ดปี" handleButtonClick={() => { this.getCardYearPdf(element.rentno, `${index}02`) }} loading={this.state[`${index}02`]} disabled={this.state.startDate === ''}/>
+                                                            </StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mid}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.projcode}</StyledTableCellLine>
@@ -393,7 +465,7 @@ class ProcessByPerson extends React.Component {
                                                             <StyledTableCellLine align="left">{element.remarks}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kCapital)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="right">{formatNumber(element.kInterest)}</StyledTableCellLine>
-                                                            
+
 
 
 
