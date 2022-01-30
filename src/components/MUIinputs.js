@@ -451,6 +451,58 @@ const MuiTextfieldNumber = (props) => {
     );
 }
 
+const MuiTextfieldNumberInt = (props) => {
+    const classes = useStyles();
+    let { topic, label, value, name, onChange, inputdisabled, unit, onValueChange} = props;
+
+    // let unitValue = null;
+    if(unit==='wa') {
+        // console.log('W',value)
+        if(value>99.99) {value = 99.99}
+    } else if(unit==='ngan') {
+        // console.log('N',value)
+        if(value > 3) { value = 3 }
+    }
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            {
+                (label) === '' ? '' :
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <NumberFormat
+                className="input-currency"
+                {...props}
+                value={value}
+                name={name}
+                // mask={mask}
+                customInput={TextField}
+                // prefix={'$'}
+                // format={format || null}
+                type="text"
+                thousandSeparator={true}
+                decimalScale={2}
+                fixedDecimalScale={false}
+                // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+                onValueChange={(e) =>{
+
+                    if (onChange){
+                        onChange({ target: { name, value: e.floatValue } })
+                    }
+                    
+
+                    if (onValueChange){
+                        onValueChange({ target: { name, value: e.floatValue } })
+                    }
+                    
+                }}
+            />
+
+            {/* <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} /> */}
+        </FormControl>
+    );
+}
+
 const MuiTextfieldCurrency = (props) => {
     const classes = useStyles();
     const { topic, label, value, name, onChange, inputdisabled } = props;
@@ -1563,6 +1615,7 @@ export {
     MuiTextfieldMultiLine,
     MuiTextfieldCurrency,
     MuiTextfieldNumber,
+    MuiTextfieldNumberInt,
     MuiTextfieldStartAdornment,
     MuiTextfieldEndAdornment,
     MuiTextNumber,

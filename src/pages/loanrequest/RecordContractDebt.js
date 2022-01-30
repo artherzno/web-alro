@@ -149,6 +149,7 @@ function RecordContractDebt() {
     })
 
     const [inputDataIndividualcard, setInputDataIndividualcard] = useState([])
+    const [inputDataIndividualcardCloseContact, setInputDataIndividualcardCloseContact] = useState([])
 
     const [inputDataSearch, setInputDataSearch] = useState({
         Name: '',
@@ -804,7 +805,7 @@ function RecordContractDebt() {
                             OfficerRank: data.spkinfo_budget[0].Rank,
                             objective1: data.loanrec_data[0].objective1,
                             LoanPeriod: data.loanrec_data[0].LoanPeriod,
-                            LoanobjName: data.loanrec_data[0].LoanObjName,
+                            LoanobjName: data.loanrec_data[0].LoanobjName,
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
                         })
 
@@ -1166,7 +1167,7 @@ function RecordContractDebt() {
                             OfficerRank: data.spkinfo_budget[0].Rank,
                             objective1: data.loanrec_data[0].objective1,
                             LoanPeriod: data.loanrec_data[0].LoanPeriod,
-                            LoanobjName: data.loanrec_data[0].LoanObjName,
+                            LoanobjName: data.loanrec_data[0].LoanobjName,
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
                         })
 
@@ -1386,7 +1387,9 @@ function RecordContractDebt() {
                     }
                 }else {
                     console.log('getIndividualcard',data.singlecard_data[data.singlecard_data.length - 1])
+                    console.log('getIndividualcardCloseContact',data.closecontact_data[0])
                     setInputDataIndividualcard(data.singlecard_data[data.singlecard_data.length - 1])
+                    setInputDataIndividualcardCloseContact(data.closecontact_data[0])
                 }
             }
         ).catch(err => { console.log(err);})
@@ -1738,7 +1741,7 @@ function RecordContractDebt() {
             rowArr.push(
                 <div style={{flex: '1', width: '100%', display: 'flex'}}>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
-                        <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM === null ? '' : inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
+                        <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM === null ? (i+1) : inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
                     </Grid>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
                         <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE === null ? moment(currentDate).add(i, 'year').format('YYYY-MM-DD') : inputDataSubmitLoanDUE[i].DUEDATE } onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
@@ -1973,7 +1976,7 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="PV_NAME"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเดิม" /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled"  /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
@@ -1982,17 +1985,20 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เงินต้นค้างเดิม"  value={inputDataIndividualcard.principalBalance} />
+                                                            <MuiTextfield label="เงินต้นค้างเดิม"  inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.PrincipleBalance ? inputDataIndividualcardCloseContact.PrincipleBalance : 0} /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            {/* <MuiTextfield label="เงินต้นค้างเดิม"  value={inputDataIndividualcard.principalBalance} /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} /> {/* P'Pong specify 13/01/22 */}
+                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.TotalInterest ? inputDataIndividualcardCloseContact.TotalInterest : 0} /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} /> P'Pong specify 13/01/22 */}
                                                             {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.interestKang} /> P'Pong specify 11/01/22 */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataLoanRec.OldFine} /> */}
-                                                            <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataIndividualcard.FineKang} /> {/* P'Pong specify 11/01/22 */}
+                                                            {/* <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataIndividualcard.FineKang} /> P'Pong specify 11/01/22 */}
+                                                            <MuiTextfield label="ค่าปรับค้างเดิม"  inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.Fines ? inputDataIndividualcardCloseContact.Fines : 0} /> {/* Fulor & P'Pong 26/01/22 */}
                                                         </Grid>
                                                             {/* </Grid>
                                                         </Grid> */}

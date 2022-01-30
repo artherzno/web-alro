@@ -40,6 +40,7 @@ import {
     MuiSelectSubDistrict,
     MuiTextfieldCurrency,
     MuiTextfieldNumber,
+    MuiTextfieldNumberInt,
     MuiSelectObj,
     MuiLabelHeader,
     MuiTextfieldEndAdornment,
@@ -219,6 +220,42 @@ function LoanRequestPrint(props) {
         WarrantBookOwner4: '', // "",
         WarrantBook4: '', // "",
         WarrantBookDate4: moment().format(), // "null",
+        WarrantBookOwner5: '', // "",
+        WarrantBook5: '', // "",
+        WarrantBookDate5: moment().format(), // "null",
+        WarrantBookOwner6: '', // "",
+        WarrantBook6: '', // "",
+        WarrantBookDate6: moment().format(), // "null",
+        WarrantBookOwner7: '', // "",
+        WarrantBook7: '', // "",
+        WarrantBookDate7: moment().format(), // "null",
+        WarrantBookOwner8: '', // "",
+        WarrantBook8: '', // "",
+        WarrantBookDate8: moment().format(), // "null",
+        WarrantBookOwner9: '', // "",
+        WarrantBook9: '', // "",
+        WarrantBookDate9: moment().format(), // "null",
+        WarrantBookOwner10: '', // "",
+        WarrantBook10: '', // "",
+        WarrantBookDate10: moment().format(), // "null",
+        WarrantBookOwner11: '', // "",
+        WarrantBook11: '', // "",
+        WarrantBookDate11: moment().format(), // "null",
+        WarrantBookOwner12: '', // "",
+        WarrantBook12: '', // "",
+        WarrantBookDate12: moment().format(), // "null",
+        WarrantBookOwner13: '', // "",
+        WarrantBook13: '', // "",
+        WarrantBookDate13: moment().format(), // "null",
+        WarrantBookOwner14: '', // "",
+        WarrantBook14: '', // "",
+        WarrantBookDate14: moment().format(), // "null",
+        WarrantBookOwner15: '', // "",
+        WarrantBook15: '', // "",
+        WarrantBookDate15: moment().format(), // "null",
+        WarrantBookOwner16: '', // "",
+        WarrantBook16: '', // "",
+        WarrantBookDate16: moment().format(), // "null",
         Free_of_debt_Month: '', // "",
         Free_of_debt_Year: '', // "",
         Free_of_debt_Time: 0, // "",
@@ -772,6 +809,42 @@ function LoanRequestPrint(props) {
                             WarrantBookOwner4: (!!data.data[0].Supporter_Fname4?data.data[0].Supporter_Fname4:'')+' '+(!!data.data[0].Supporter_Lname4?data.data[0].Supporter_Lname4:''), // "",
                             WarrantBook4: '', // "",
                             WarrantBookDate4: moment().format(), // "null",
+                            WarrantBookOwner5: (!!data.data[0].Supporter_Fname5?data.data[0].Supporter_Fname5:'')+' '+(!!data.data[0].Supporter_Lname5?data.data[0].Supporter_Lname5:''), // "",
+                            WarrantBook5: '', // "",
+                            WarrantBookDate5: moment().format(), // "null",
+                            WarrantBookOwner6: (!!data.data[0].Supporter_Fname6?data.data[0].Supporter_Fname6:'')+' '+(!!data.data[0].Supporter_Lname6?data.data[0].Supporter_Lname6:''), // "",
+                            WarrantBook6: '', // "",
+                            WarrantBookDate6: moment().format(), // "null",
+                            WarrantBookOwner7: (!!data.data[0].Supporter_Fname7?data.data[0].Supporter_Fname7:'')+' '+(!!data.data[0].Supporter_Lname7?data.data[0].Supporter_Lname7:''), // "",
+                            WarrantBook7: '', // "",
+                            WarrantBookDate7: moment().format(), // "null",
+                            WarrantBookOwner8: (!!data.data[0].Supporter_Fname8?data.data[0].Supporter_Fname8:'')+' '+(!!data.data[0].Supporter_Lname8?data.data[0].Supporter_Lname8:''), // "",
+                            WarrantBook8: '', // "",
+                            WarrantBookDate8: moment().format(), // "null",
+                            WarrantBookOwner9: (!!data.data[0].Supporter_Fname9?data.data[0].Supporter_Fname9:'')+' '+(!!data.data[0].Supporter_Lname9?data.data[0].Supporter_Lname9:''), // "",
+                            WarrantBook9: '', // "",
+                            WarrantBookDate9: moment().format(), // "null",
+                            WarrantBookOwner10: (!!data.data[0].Supporter_Fname10?data.data[0].Supporter_Fname10:'')+' '+(!!data.data[0].Supporter_Lname10?data.data[0].Supporter_Lname10:''), // "",
+                            WarrantBook10: '', // "",
+                            WarrantBookDate10: moment().format(), // "null",
+                            WarrantBookOwner11: (!!data.data[0].Supporter_Fname11?data.data[0].Supporter_Fname11:'')+' '+(!!data.data[0].Supporter_Lname11?data.data[0].Supporter_Lname11:''), // "",
+                            WarrantBook11: '', // "",
+                            WarrantBookDate11: moment().format(), // "null",
+                            WarrantBookOwner12: (!!data.data[0].Supporter_Fname12?data.data[0].Supporter_Fname12:'')+' '+(!!data.data[0].Supporter_Lname12?data.data[0].Supporter_Lname12:''), // "",
+                            WarrantBook12: '', // "",
+                            WarrantBookDate12: moment().format(), // "null",
+                            WarrantBookOwner13: (!!data.data[0].Supporter_Fname13?data.data[0].Supporter_Fname13:'')+' '+(!!data.data[0].Supporter_Lname13?data.data[0].Supporter_Lname13:''), // "",
+                            WarrantBook13: '', // "",
+                            WarrantBookDate13: moment().format(), // "null",
+                            WarrantBookOwner14: (!!data.data[0].Supporter_Fname14?data.data[0].Supporter_Fname14:'')+' '+(!!data.data[0].Supporter_Lname14?data.data[0].Supporter_Lname14:''), // "",
+                            WarrantBook14: '', // "",
+                            WarrantBookDate14: moment().format(), // "null",
+                            WarrantBookOwner15: (!!data.data[0].Supporter_Fname15?data.data[0].Supporter_Fname15:'')+' '+(!!data.data[0].Supporter_Lname15?data.data[0].Supporter_Lname15:''), // "",
+                            WarrantBook15: '', // "",
+                            WarrantBookDate15: moment().format(), // "null",
+                            WarrantBookOwner16: (!!data.data[0].Supporter_Fname16?data.data[0].Supporter_Fname16:'')+' '+(!!data.data[0].Supporter_Lname16?data.data[0].Supporter_Lname16:''), // "",
+                            WarrantBook16: '', // "",
+                            WarrantBookDate16: moment().format(), // "null",
                             Free_of_debt_Month: '', // "",
                             Free_of_debt_Year: '', // "",
                             Free_of_debt_Time: 0, // "",
@@ -1773,6 +1846,21 @@ console.log('FreeDebtTime',event.target.value)
         setIsLoading(false)
     };
 
+    const gotoGuaranteeBookA = (valNumber, valID) => {
+        console.log('sent loanNumber:',valNumber,', loanID:', valID,' to GuaranteeBookA')
+        if(!!valNumber) {
+            localStorage.setItem('GuaranteeBoookALoanNumber',valNumber)
+            localStorage.setItem('GuaranteeBoookALoanID',valID)
+
+            const win = window.open("/loanrequest/guaranteebooka", "_blank");
+            win.focus();
+            // history.push('/loanrequest/guaranteebooka')
+        } else {
+            setErr(true)
+            setErrMsg('ไม่สามารถทำรายการได้')
+        }
+    }
+
 
     const sumTable = () => {
         // console.log('SumTable:',loandueDataArr)
@@ -2356,7 +2444,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiLabelHeaderCheckbox topic="ค." label="หนังสือสัญญาค้ำประกันของ"/>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="(1)" name="WarrantBookOwner1" value={inputDataSubmit.WarrantBookOwner1}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="(1)" inputdisabled="input-disabled" name="WarrantBookOwner1" value={inputDataSubmit.WarrantBookOwner1}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
@@ -2384,7 +2472,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="(2)" name="WarrantBookOwner2" value={inputDataSubmit.WarrantBookOwner2}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="(2)" inputdisabled="input-disabled" name="WarrantBookOwner2" value={inputDataSubmit.WarrantBookOwner2}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
@@ -2412,7 +2500,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="(3)" name="WarrantBookOwner3" value={inputDataSubmit.WarrantBookOwner3}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="(3)" inputdisabled="input-disabled" name="WarrantBookOwner3" value={inputDataSubmit.WarrantBookOwner3}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
@@ -2440,7 +2528,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield label="(4)" name="WarrantBookOwner4" value={inputDataSubmit.WarrantBookOwner4}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="(4)" inputdisabled="input-disabled" name="WarrantBookOwner4" value={inputDataSubmit.WarrantBookOwner4}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
@@ -2467,6 +2555,214 @@ console.log('FreeDebtTime',event.target.value)
                                                                 <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate4" value={inputDataSubmit.WarrantBookDate4} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate4: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                             </Grid>
                                                         </Grid>
+                                                        {/* Gurantee 5 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(5)" inputdisabled="input-disabled" name="WarrantBookOwner5" value={inputDataSubmit.WarrantBookOwner5}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook5" value={inputDataSubmit.WarrantBook5}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate5" value={inputDataSubmit.WarrantBookDate5} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate5: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 6 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(6)" inputdisabled="input-disabled" name="WarrantBookOwner6" value={inputDataSubmit.WarrantBookOwner6}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook6" value={inputDataSubmit.WarrantBook6}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate6" value={inputDataSubmit.WarrantBookDate6} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate6: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 7 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(7)" inputdisabled="input-disabled" name="WarrantBookOwner7" value={inputDataSubmit.WarrantBookOwner7}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook7" value={inputDataSubmit.WarrantBook7}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate7" value={inputDataSubmit.WarrantBookDate7} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate7: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 8 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(8)" inputdisabled="input-disabled" name="WarrantBookOwner8" value={inputDataSubmit.WarrantBookOwner8}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook8" value={inputDataSubmit.WarrantBook8}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate8" value={inputDataSubmit.WarrantBookDate8} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate8: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 9 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(9)" inputdisabled="input-disabled" name="WarrantBookOwner9" value={inputDataSubmit.WarrantBookOwner9}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook9" value={inputDataSubmit.WarrantBook9}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate9" value={inputDataSubmit.WarrantBookDate9} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate9: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 10 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(10)" inputdisabled="input-disabled" name="WarrantBookOwner10" value={inputDataSubmit.WarrantBookOwner10}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook10" value={inputDataSubmit.WarrantBook10}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate10" value={inputDataSubmit.WarrantBookDate10} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate10: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 11 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(11)" inputdisabled="input-disabled" name="WarrantBookOwner11" value={inputDataSubmit.WarrantBookOwner11}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook11" value={inputDataSubmit.WarrantBook11}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate11" value={inputDataSubmit.WarrantBookDate11} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate11: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 12 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(12)" inputdisabled="input-disabled" name="WarrantBookOwner12" value={inputDataSubmit.WarrantBookOwner12}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook12" value={inputDataSubmit.WarrantBook12}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate12" value={inputDataSubmit.WarrantBookDate12} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate12: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 13 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(13)" inputdisabled="input-disabled" name="WarrantBookOwner13" value={inputDataSubmit.WarrantBookOwner13}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook13" value={inputDataSubmit.WarrantBook13}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate13" value={inputDataSubmit.WarrantBookDate13} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate13: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 14 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(14)" inputdisabled="input-disabled" name="WarrantBookOwner14" value={inputDataSubmit.WarrantBookOwner14}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook14" value={inputDataSubmit.WarrantBook14}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate14" value={inputDataSubmit.WarrantBookDate14} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate14: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 15 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(15)" inputdisabled="input-disabled" name="WarrantBookOwner15" value={inputDataSubmit.WarrantBookOwner15}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook15" value={inputDataSubmit.WarrantBook15}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate15" value={inputDataSubmit.WarrantBookDate15} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate15: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Gurantee 16 */}
+                                                        <Grid item xs={12} md={6}>
+                                                            <MuiTextfield label="(16)" inputdisabled="input-disabled" name="WarrantBookOwner16" value={inputDataSubmit.WarrantBookOwner16}  onChange={handleInputDataSubmit} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <MuiLabelHeaderCheckbox label="ตามหนังสือสัญญาค้ำประกันที่" />
+                                                            <div className="dsp-f">
+                                                                <Grid item xs={12} md={12}>
+                                                                    <MuiTextfield label="" inputdisabled="input-disabled" name="WarrantBook16" value={inputDataSubmit.WarrantBook16}  onChange={handleInputDataSubmit}/>
+                                                                </Grid>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid item xs={12} md={12}>
+                                                                <MuiDatePicker label="ลงวันที่" inputdisabled="input-disabled" name="WarrantBookDate16" value={inputDataSubmit.WarrantBookDate16} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, WarrantBookDate16: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                            </Grid>
+                                                        </Grid>
+
+                                                        {/* <Grid item xs={12} md={13} className="txt-center">
+                                                            <ButtonFluidPrimary maxWidth="300px" label="สร้างหนังสือค้ำประกัน ก"/>  
+                                                        </Grid> */}
                                                     </Grid>
                                                 </Paper>
                                             </Grid>
@@ -2498,7 +2794,7 @@ console.log('FreeDebtTime',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={11} md={2}>
                                                             <p>กำหนดชำระคืนเงินกู้รวม</p>
-                                                            <MuiTextfieldNumber  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
+                                                            <MuiTextfieldNumberInt  label="" name="Free_of_debt_Time" value={inputDataSubmit.Free_of_debt_Time}  onChange={handleInputDataSubmitFreeDebtTime} />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p>&nbsp;</p>
@@ -2869,13 +3165,16 @@ console.log('FreeDebtTime',event.target.value)
                                             }
                                             {/* <p className="txt-red txt-center" style={{width: '100%'}}>กรุณากดปุ่ม "บันทึกชั่วคราว" ทุกครั้งก่อนกดปุ่ม "ยืนยันสร้างสัญญา"</p> */}
                                             {/* Button Row -------------------------------------------------- */}
-                                            <Grid item xs={12} md={4}>
+                                            <Grid item xs={12} md={3}>
                                                 <ButtonFluidPrimary label="บันทึกชั่วคราว" id="" onClick={(event)=>handleSubmit(event, 'draft')} />
                                             </Grid>
-                                            <Grid item xs={12} md={4} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
+                                            <Grid item xs={12} md={3} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
-                                            <Grid item xs={12} md={4} className={drafted || loanID ? '' : 'btn-disabled'} >
+                                            <Grid item xs={12} md={3} className={action==='edit' ? '' : 'btn-disabled'}>
+                                                <ButtonFluidPrimary label="สร้างหนังสือค้ำประกัน ก" onClick={()=>{gotoGuaranteeBookA(loanNumber, loanID)}} />  
+                                            </Grid>
+                                            <Grid item xs={12} md={3} className={drafted || loanID ? '' : 'btn-disabled'} >
                                                 <ButtonFluidIconStartPrimary label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                                             </Grid>
                                         </Grid>

@@ -367,7 +367,7 @@ function LoginPage() {
                         <label>Password</label>
                         <input type="password" name="password" value={dataLogin.password} placeholder="" onChange={handleChange} onFocus={() => setErr(false)} />
                     </div>
-                    <button className="btn btn-blue">เข้าสู่ระบบ</button>
+                    <button className="btn btn-blue" style={{width: '100%'}}>เข้าสู่ระบบ</button>
                     <p className="err font-14">
                         {err ? <span >{errMsg}</span> : ''}
                     </p>
