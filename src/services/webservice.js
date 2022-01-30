@@ -212,6 +212,24 @@ const api = {
             }
         })
     },
+    getCardMonthPdf(params) {
+        return post({
+            path: "api/report/pdf/GetCardMonthPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCardYearPdf(params) {
+        return post({
+            path: "api/report/pdf/GetCardYearPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     getContractPdf(params) {
         return post({
             path: "api/report/pdf/GetContractPdf",
