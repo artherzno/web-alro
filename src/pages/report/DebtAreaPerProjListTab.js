@@ -76,7 +76,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getDebtAreaPerProject(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -276,8 +276,8 @@ parameter.append('YearTo', YearTovalue);
                                 <TableRow>
                                    
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>สัญญา</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>บัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อ - นามสกุล</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ว/ด/ป เก็บเงิน</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>เงินต้นคงเหลือ</StyledTableCell>
@@ -300,35 +300,33 @@ parameter.append('YearTo', YearTovalue);
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                              <StyledTableCellLine align="center" >{farmer.rowNumber}</StyledTableCellLine>
+                                              <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.moneyDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.remainPrincipal)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principalDue)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.principalToDue)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.fullInterest)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
                                             
-                                            
-
-
                                         </TableRow>
                                     )
 
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={5} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right"colSpan={4}  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.remainPrincipal)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalDue)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalToDue)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.fullInterest)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
+ 
                                 </TableRow>
                             </TableBody>
                         </Table>

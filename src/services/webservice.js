@@ -39,6 +39,316 @@ const api = {
         })
 
     },
+    getCashFlow(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetCashFlow",
+            params
+        })
+
+    },
+    getComparePlanResultByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePlanResultByContract",
+            params
+        })
+
+    },
+    getComparePlanResultByCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePlanResultByCode",
+            params
+        })
+
+    }, getComparePlanResultByProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePlanResultByProvince",
+            params
+        })
+
+    },
+    getComparePlanResultByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePlanResultByProject",
+            params
+        })
+
+    },
+    getPlanEstimationByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPlanEstimationByContract",
+            params
+        })
+
+    }, 
+    getPlanEstimationByCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPlanEstimationByCode",
+            params
+        })
+
+    },
+    getPlanEstimationByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPlanEstimationByProject",
+            params
+        })
+
+    },
+    getPlanEstimationByProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPlanEstimationByProvince",
+            params
+        })
+
+    },
+    getPrincipalInterestByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPrincipalInterestByContract",
+            params
+        })
+
+    },
+    getPrincipalInterestByCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPrincipalInterestByCode",
+            params
+        })
+
+    },
+    getPrincipalInterestByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPrincipalInterestByProject",
+            params
+        })
+
+    }, getPrincipalInterestByProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetPrincipalInterestByProvince",
+            params
+        })
+
+    },
+    getGetResultDebtsRemainingByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetResultDebtsRemainingByContract",
+            params
+        })
+
+    },
+    getGetResultDebtsRemainingByCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetResultDebtsRemainingByCode",
+            params
+        })
+
+    },
+    getGetResultDebtsRemainingByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetResultDebtsRemainingByProject",
+            params
+        })
+
+    },
+    getGetResultDebtsRemainingByProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetResultDebtsRemainingByProvince",
+            params
+        })
+
+    },
+    getCalendarDebt(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetCalendarDebt",
+            params
+        })
+
+    },
+    getCalendarDebt1(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetCalendarDebt1",
+            params
+        })
+
+    },
+    getCalendarDebt2(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetCalendarDebt2",
+            params
+        })
+
+    },
+    getDebtAreaPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAreaPerContract",
+            params
+        })
+
+    },
+    getDebtAreaPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAreaPerCode",
+            params
+        })
+
+    },
+    getDebtAreaPerProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAreaPerProject",
+            params
+        })
+
+    },
+    getDebtAreaPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAreaPerProvince",
+            params
+        })
+
+    },
+    getAgeByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetAgeByContract",
+            params
+        })
+
+    },
+    getAgeByDay(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetAgeByDay",
+            params
+        })
+
+    },
+    getAgeByYear(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetAgeByYear",
+            params
+        })
+
+    },
+    getDebtAgeByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAgeByContract",
+            params
+        })
+
+    },
+    getDebtAgeByCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAgeByCode",
+            params
+        })
+
+    },
+    getDebtAgeByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAgeByProject",
+            params
+        })
+
+    },
+    getDebtAgeByProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtAgeByProvince",
+            params
+        })
+
+    },
+    getSttByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetSttByContract",
+            params
+        })
+
+    },
+    getSttByCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetSttByCode",
+            params
+        })
+
+    },
+    getSttByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetSttByProject",
+            params
+        })
+
+    },
+    getSttByProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetSttByProvince",
+            params
+        })
+
+    },
+    getComparePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePerContract",
+            params
+        })
+
+    },
+    getComparePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePerCode",
+            params
+        })
+
+    },
+    getComparePerProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePerProject",
+            params
+        })
+
+    },
+    getComparePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetComparePerProvince",
+            params
+        })
+
+    },
     getSummaryFarmerPayLoan(params) {
 
         return post({

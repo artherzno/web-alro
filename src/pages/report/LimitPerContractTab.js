@@ -77,7 +77,7 @@ class LimitPerContractTab extends React.Component {
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getAgeByContract(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -288,7 +288,6 @@ class LimitPerContractTab extends React.Component {
                             <TableHead>
                                 <TableRow>
                                    
-                                    <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>สัญญาเลขที่</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>ชื่อโครงการ</StyledTableCell>
@@ -327,23 +326,23 @@ class LimitPerContractTab extends React.Component {
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
+                                          
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.day1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.day2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.day3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.day4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding5)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.day5}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding6)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.day6}</StyledTableCellLine>
 
                                               
 
@@ -353,22 +352,23 @@ class LimitPerContractTab extends React.Component {
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={4} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.day1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.day2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.day3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.day4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding5)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.day5}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding6)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.day6}</StyledTableCellLine>
+
                                 </TableRow>
                             </TableBody>
                         </Table>

@@ -67,7 +67,7 @@ class ComparePlanResultPerContractTab extends React.Component {
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -77,7 +77,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getComparePlanResultByContract(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -99,7 +99,7 @@ parameter.append('YearTo', YearTovalue);
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -277,7 +277,8 @@ parameter.append('YearTo', YearTovalue);
                                 <TableRow>
                                    
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>รายการ ภาค/จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ชื่อ - นามสกุล</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>เลขสัญญา</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={4}>แผน/ผลการให้สินเชื่อ</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={10}>แผน/ผลการจัดเก็บหนี้เงินกู้</StyledTableCell>
                                     <StyledTableCell align="center" rowSpan={2}>รวม</StyledTableCell>
@@ -312,22 +313,23 @@ parameter.append('YearTo', YearTovalue);
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.fullname}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.plans)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.list}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.per)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.list1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.target1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.listo1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.per1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.list2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.target2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.listo2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.per2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.total)}</StyledTableCellLine>
                                         
 
                                         </TableRow>
@@ -336,24 +338,24 @@ parameter.append('YearTo', YearTovalue);
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.plans)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.list}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.per)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.list1}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.target1)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.listo1}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result1)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.per1)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.list2}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.target2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.listo2}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.per2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.total)}</StyledTableCellLine>
 
                                 </TableRow>
                             </TableBody>

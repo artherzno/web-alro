@@ -43,6 +43,8 @@ class CashFlowPerContractTab extends React.Component {
             display2: "",
             startDate: "",
             endDate: "",
+            resultRequest: "",
+            resultLabel: "",
             provinceZoneLabel: "",
             montLabel: "",
             yearLabel: "",
@@ -62,7 +64,7 @@ class CashFlowPerContractTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate} = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate, resultRequest} = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -73,12 +75,12 @@ class CashFlowPerContractTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-       
+        parameter.append("Result",resultRequest) 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getCashFlow(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -305,14 +307,14 @@ class CashFlowPerContractTab extends React.Component {
                                     return (
                                         <TableRow key={index}>
                                             
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loan}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.list}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanRecType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.receipt}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.principle}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.overdueInterest}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestPaid}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fines}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.other}</StyledTableCellLine>
                                             
                                             
 
@@ -326,9 +328,12 @@ class CashFlowPerContractTab extends React.Component {
                                     <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.overdueInterest)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestPaid)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.fines)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>
+
                                   
 
                                 </TableRow>
