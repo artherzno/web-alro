@@ -55,6 +55,7 @@ function UploadInfoBaac() {
         fileDatUpload: [],
         uploadDate: moment().format('YYYY-MM-DD'),
     })
+    const [headId, setHeadId] = useState(null)
 
     const [tableResult, setTableResult] = useState([])
     const [rows, setRows] = useState([])
@@ -200,6 +201,7 @@ function UploadInfoBaac() {
                     setHeader(data.data.Header)
                     setTotal(data.data.Total)
                     setTableResult(data.data.Detail)
+                    setHeadId(data.head_id)
 
                     // console.log('data header',data.data.Header)
                     // console.log('data total',data.data.Total)
@@ -239,9 +241,60 @@ function UploadInfoBaac() {
          });
     };
 
+
+    const handleSave = () => {
+        setIsLoading(true)
+        console.log('head_id',headId)
+        
+        axios.post(
+            `${server_hostname}/admin/api/save_datinfo`, {
+                head_id: headId
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                setIsLoading(false)
+                
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0) {
+                    setConfirmDatCode1(false)
+                    setConfirmDatCode9(false)
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                } else {
+                    // Check status code
+                    // console.log('data.code',data.code)
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+
+
+                }
+            }
+        ).catch(err => { 
+            console.log(err)
+            setErr(true);
+            setErrMsg('ไม่สามารถทำรายการได้')
+        })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    };
+
     const handleClosePopup = () => {
         setErr(false);
         setSuccess(false);
+        handleRemoveUploadFile()
+        setIsLoading(false)
     };
 
     const handleCloseTable = () => {
@@ -460,7 +513,7 @@ function UploadInfoBaac() {
                                                     <ButtonFluidOutlinePrimary label="ยกเลิก" onClick={handleCloseTable} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
-                                                    <ButtonFluidPrimary label="ยืนยัน" onClick={handleCloseTable} />
+                                                    <ButtonFluidPrimary label="ยืนยัน" onClick={handleSave} />
                                                 </Grid>
                                             </Grid>
                                         </Container>

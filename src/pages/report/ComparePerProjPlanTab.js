@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect ,TypeContractSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {
@@ -43,6 +43,8 @@ class ComparePerProjPlanTab extends React.Component {
             display2: "",
             startDate: "",
             endDate: "",
+            resultRequest: "",
+            resultLabel: "",
             provinceZoneLabel: "",
             montLabel: "",
             yearLabel: "",
@@ -62,7 +64,7 @@ class ComparePerProjPlanTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate} = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate,resultRequest} = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -73,11 +75,12 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
+        parameter.append("Result",resultRequest) 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getComparePerCode(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -94,7 +97,7 @@ parameter.append('YearTo', YearTovalue);
 
     exportExcel() {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate } = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate,resultRequest } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -105,7 +108,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-        
+        parameter.append("Result",resultRequest) 
 
         this.setState({
             isExporting: true
@@ -245,7 +248,17 @@ parameter.append('YearTo', YearTovalue);
                       
                     </Grid>
                 </Grid>
+                <Grid item>
+                            <TypeContractSelect onChange={(event) =>{
 
+                                this.setState({
+                                    resultRequest: event.target.value,
+                                    resultLabel: event.target.label
+                                }, () => {
+                                })
+
+                            }}/>
+                </Grid>
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
@@ -277,7 +290,7 @@ parameter.append('YearTo', YearTovalue);
                                 <TableRow>
                                    
                                     <StyledTableCell align="center" rowSpan={2}>ลำดับที่</StyledTableCell>
-                                    <StyledTableCell align="center" rowSpan={2}>ภาค/จังหวัด</StyledTableCell>
+                                    <StyledTableCell align="center" rowSpan={2}>ประเภทโครงการ</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={5}>กลุ่มที่ 1 (หนี้ค้าง)</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={5}>กลุ่มที่ 2 (หนี้ค้าง + หนี้ครบ)</StyledTableCell>
                                     <StyledTableCell align="center" colSpan={5}>กลุ่มที่ 3 (หนี้ครบ)</StyledTableCell>
@@ -321,27 +334,27 @@ parameter.append('YearTo', YearTovalue);
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="right"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contract1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.target1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.percentage1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contract2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.target2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.percentage2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contract3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.target3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.percentage3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contract4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.target4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.result4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.percentage4)}</StyledTableCellLine>
 
                                         </TableRow>
                                     )
@@ -352,11 +365,26 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={2} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-                                    <StyledTableCellLine align="left" colSpan={4} className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
-
+                                    <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contract1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.target1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contractNo1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.percentage1)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contract2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.target2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contractNo2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.percentage2)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contract3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.target3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contractNo3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.percentage3)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contract4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.target4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.contractNo4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.result4)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.percentage4)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>

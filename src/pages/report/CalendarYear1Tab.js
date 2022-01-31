@@ -78,7 +78,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getCalendarDebt1(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -295,11 +295,11 @@ parameter.append('YearTo', YearTovalue);
 
                                     return (
                                         <TableRow key={index}>
-                                                 <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{formatNumber(farmer.amount)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left"></StyledTableCellLine>
-                                     
+                                            <StyledTableCellLine align="left" >{farmer.list1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.list2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.outstanding)}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{formatNumber(farmer.fullPayment)}</StyledTableCellLine>
+                                   
                                     
 
                                         </TableRow>
@@ -311,9 +311,9 @@ parameter.append('YearTo', YearTovalue);
                                 <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมเงินที่จะออกใบเตือนหนี้
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                          
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.outstanding)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.fullPayment)}</StyledTableCellLine>
+                                
                                 </TableRow>
                             </TableBody>
                         </Table>

@@ -340,6 +340,33 @@ function RecordCloseOldContact() {
         })
     }
 
+    const handleInputDataReceiptAndCloseContactTotalInterest = (event) => {
+        console.log('TotalInterest',event.target.value)
+        // setInputDataReceipt({
+        //     ...inputDataReceipt,
+        //     InterestPaid: Number(event.target.value),
+        //     TotalInterest: Number(event.target.value)
+        // })
+
+        // setInputDataCloseContact({
+        //     ...inputDataCloseContact,
+        //     TotalInterest: Number(event.target.value)
+        // })
+    }
+
+    const handleInputDataReceiptAndCloseContactPendingInterest = (event) => {
+        console.log('PendingInterest',event.target.value)
+        // setInputDataReceipt({
+        //     ...inputDataReceipt,
+        //     OverdueInterest: Number(event.target.value)
+        // })
+
+        // setInputDataCloseContact({
+        //     ...inputDataCloseContact,
+        //     PendingInterest: Number(event.target.value)
+        // })
+    }
+
     const handleInsertValue = (event) => {
         setInputDataReceipt({
             ...inputDataReceipt,
@@ -353,6 +380,90 @@ function RecordCloseOldContact() {
         setRows([])
         setFormField(false)
         setGetSelectData([])
+        setRadioType('')
+
+        setInputDataCloseContactSelect({
+            // rec: inputDataBeforePay[inputDataBeforePay.length - 1].REC,
+            principleBalance: 0,
+            principle1: 0,
+            interestKang2_first: 0,
+            interestKang2_last: 0,
+            interestKang2_result: 0,
+            finekang: 0,
+            allpay: 0,
+        })
+
+        setInputDataReceipt({
+            ReceiptID: null,// 1,
+            LoanID: null,// 1,
+            ReceiptNumber: null,// "sample string 2",
+            ref_id1: null,// "sample string 3",
+            Reccode: null,// "sample string 4",
+            Mindex: null,// "sample string 5",
+            Time: null,// 1,
+            RecDate: moment().format("YYYY-MM-DD"),// "2021-09-06T16:44:46.2782029+07:00",
+            ReceiptDate: moment().format("YYYY-MM-DD"),// "2021-09-06T16:44:46.279202+07:00",
+            CalculateDate: moment().format("YYYY-MM-DD"),// "2021-09-06T16:44:46.279202+07:00",
+            PaidDate: moment().format("YYYY-MM-DD"),// "2021-09-06T16:44:46.279202+07:00",
+            PrincipleBalance1: null,// 1.1,
+            PrincipleCalculate: null,// 1.1,
+            PaidCalculate: null,// 1.1,
+            PrinciplePaid: null,// 1.1,
+            InterestPaid: null,// 1.1,
+            OverdueInterest: null,// 1.1,
+            DueInterest: null,// 1.1,
+            Fines: null,// 1.1,
+            Other: null,// 1.1,
+            PrincipleBalance2: null,// 1.1,
+            InterestBalance: null,// 1.1,
+            ReceiveInterest: null,// 1.1,
+            Type: null,// "sample string 6",
+            ReceiptTypeID: null,// 1,
+            PrincipleBalance3: null,// 1.1,
+            PrincipleDuePaid: null,// 1.1,
+            FinesInterest: null,// 1.1,
+            FinesInterestDuePaid: null,// 1.1,
+            TotalInterest: null,// 1.1,
+            FinesPaid: null,
+            FinesOverdue: null,// 1.1,
+            TotalPaid: null,// 1.1,
+            PrincipleBalance4: null,// 1.1,
+            Cancel: null,// true,
+            ProvinceID: null,// 1,
+            dCreated: null,// "2021-09-06T16:44:46.2822024+07:00",
+            dUpdated: null,// "2021-09-06T16:44:46.2822024+07:00",
+            admin_nMEMID: null,// 1
+          })
+    
+        setInputDataCloseContact({
+            CloseID: null, // 1,
+            LoanID: null, // 1,
+            FinesRate: null, // 1.1,
+            CreateDate: null, // "2021-09-06T16:44:46.283203+07:00",
+            Comment: null, // "sample string 2",
+            ReceiptNumber: null, // "sample string 3",
+            ReceiptDate: null, // "2021-09-06T16:44:46.283203+07:00",
+            PrincipleBalance: null, // 1.1,
+            PrinciplePaidCalculate: null, // 1.1,
+            PaidCalculate: null, // 1.1,
+            Principle: null, // 1.1,
+            Interest: null, // 1.1,
+            PendingInterest: null, // 1.1,
+            Fines: null, // 1.1,
+            ReceiveInterest: null, // 1.1,
+            Types: null, // "sample string 4",
+            PrincipleBalance2: null, // 1.1,
+            DuePaid: null, // 1.1,
+            Pending_Interest2: null, // 1.1,
+            DueInterest: null, // 1.1,
+            TotalInterest: null, // 1.1,
+            PendingFines: null, // 1.1,
+            TotalPaid: null, // 1.1,
+            TotalBalance: null, // 1.1,
+            dCreated: null, // "2021-09-06T16:44:46.2852027+07:00",
+            dUpdated: null, // "2021-09-06T16:44:46.2862028+07:00",
+            admin_nMEMID: null, // 1
+        })
 
         axios.post(
             `${server_spkapi}/CloseContact/GetData`, {
@@ -454,6 +565,7 @@ function RecordCloseOldContact() {
                 })
                 
                 getProcessBeforePay(loanNumber, )
+                getProcess(loanNumber, )
 
                 setInputDataReceipt({
                     ...inputDataReceipt,
@@ -575,6 +687,55 @@ function RecordCloseOldContact() {
          });
     }
 
+    const getProcess = (loanNumber, rentNo, date) => {
+        setIsLoading(true);
+        // setRows([])
+        setFormField(true)
+
+        axios.post(
+            `${server_spkapi}/CloseContact/GetProcess`, {
+                Username: inputDataSearch.Username.toString(),
+                LoanNumber: loanNumber,
+                Rentno:  loanNumber,
+                Fullname: "",
+                Date: inputDataReceipt.RecDate
+              }, { headers: { "token": token } } 
+        ).then(res => {
+            setIsLoading(false)
+            console.log('GetProcessBeforePay',res)
+            let data = res.data;
+            // setInputData(data)
+            // console.log('inputData',inputData)
+            if(data.code === 0 || res === null || res === undefined || res.Message === 'An error has occurred.') {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                setIsLoading(false)
+                setGetProcessBeforePayData(data[0])
+
+                let dataGetProcess = data
+                console.log('dataGetProcess',dataGetProcess)
+                
+                
+                
+            }
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำการได้'); setFormField(false) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
     const clearCalc = () => {
         setInputDataReceipt({
             ...inputDataReceipt,
@@ -684,7 +845,9 @@ function RecordCloseOldContact() {
             DueInterest: step2 <= 0 ? 0 : step2,
             Fines: parseFinekang <= 0 ? 0 : parseFinekang,
             FinesPaid: parseFinekang <= 0 ? 0 : parseFinekang,
-            LoanID: loanId
+            LoanID: loanId,
+
+            TotalInterest: step3 <= 0 ? 0 : step3
         })
 
         setInputDataCloseContact({
@@ -696,6 +859,9 @@ function RecordCloseOldContact() {
             DueInterest: step2 <= 0 ? 0 : step2,
             Fines: parseFinekang <= 0 ? 0 : parseFinekang,
             // FinesPaid: parseFinekang <= 0 ? 0 : parseFinekang,
+
+            TotalInterest: step3 <= 0 ? 0 : step3,
+            PendingInterest: step1 <= 0 ? 0 : step1,
         })
     }
 
@@ -1163,7 +1329,10 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">ดอกเบี้ย</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="InterestPaid" value={inputDataReceipt.InterestPaid} onChange={handleInputDataReceipt}  />
+                                                            {/*name="TotalInterest"*/} 
+                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  value={inputDataReceipt.InterestPaid} onChange={handleInputDataReceiptAndCloseContactTotalInterest}  /> {/* P'Pong 26-01-65 *** Closecontact only*/}
+                                                        
+                                                            {/* <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="InterestPaid" value={inputDataReceipt.InterestPaid} onChange={handleInputDataReceipt}  /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -1173,7 +1342,10 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="OverdueInterest" value={inputDataReceipt.OverdueInterest} onChange={handleInputDataReceipt}  />
+                                                            {/*name="PendingInterest"*/} 
+                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  value={inputDataReceipt.OverdueInterest} onChange={handleInputDataReceiptAndCloseContactPendingInterest}  /> {/* P'Pong 26-01-65 *** Closecontact only */}
+                                                        
+                                                            {/* <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="OverdueInterest" value={inputDataReceipt.OverdueInterest} onChange={handleInputDataReceipt}  /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

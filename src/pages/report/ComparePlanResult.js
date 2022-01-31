@@ -20,7 +20,7 @@ const tabs = [{
     title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายโครงการ)',
     id: "compareplanresult_per_projlist"
 },{
-    title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายจังหวัด)',
+    title: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้ (รายตำบล)',
     id: "compareplanresult_per_province"
 }]
 

@@ -357,7 +357,7 @@ function SpouseConsentBook () {
                                             {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
                                             <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="Fullname" value={inputDataSearch.Fullname} onChange={handleInputDataSearch} />
                                         </Grid>
-                                        <Grid item xs={12} md={4}>
+                                        <Grid item xs={12} md={3}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา" name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputDataSearch} />
                                         </Grid>
@@ -365,9 +365,9 @@ function SpouseConsentBook () {
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={getSearch} />  
                                         </Grid>
-                                        <Grid item xs={12} md={2}>
+                                        <Grid item xs={12} md={3}>
                                             <p>&nbsp;</p>
-                                            <ButtonFluidPrimary  label="สร้างสัญญา" onClick={()=>gotoAddGuaranteebook()} />
+                                            <ButtonFluidPrimary  label="สร้างหนังสือให้ความยินยอม" onClick={()=>gotoAddGuaranteebook()} />
                                         </Grid>
                                         <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--20"> 
                                             <h2>ผลการค้นหา {(rows.length).toLocaleString('en-US') || 0} รายการ</h2>
