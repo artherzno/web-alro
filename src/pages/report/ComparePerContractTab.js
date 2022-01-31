@@ -262,7 +262,7 @@ parameter.append('YearTo', YearTovalue);
 
                             }}/>
                 </Grid>  
-                {/*<Grid item>
+                <Grid item>
                             <GroupDebtSelect onChange={(event) =>{
 
                                 this.setState({
@@ -272,7 +272,7 @@ parameter.append('YearTo', YearTovalue);
                                 })
 
                             }}/>
-                </Grid>*/}
+                </Grid>
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count)}} />
