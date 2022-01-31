@@ -14,6 +14,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Divider from '@material-ui/core/Divider';
 
 
+import PrintIcon from '@material-ui/icons/Print';
+
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 
@@ -188,7 +190,7 @@ function GuaranteeBookA() {
 
     const [inputData, setInputData] = useState({
         GuaranteeBookTypeID: '1',
-        LoanID: 0,
+        LoanID: '',
         PlaceCreate: '',
         ContactDate: moment(),
 
@@ -200,9 +202,9 @@ function GuaranteeBookA() {
         HouseNumber1: '', // "บ้านเลขที่1",
         Moo1: '', // "หมู่ 1",
         Road1: '', // "ถนน 1",
-        Province1: 0, // "มหาสารคาม1",
-        District1: 0, // "เมือง1",
-        Subdistrict1: 0, // "ในเมือง1",
+        Province1: '', // "มหาสารคาม1",
+        District1: '', // "เมือง1",
+        Subdistrict1: '', // "ในเมือง1",
 
         FrontName2: '', // "นาย2",
         Name2: '', // "ชื่อผู้ค้ำ 2",
@@ -212,9 +214,9 @@ function GuaranteeBookA() {
         HouseNumber2: '', // "บ้านเลขที่2",
         Moo2: '', // "หมู่ 2",
         Road2: '', // "ถนน 2",
-        Province2: 0, // "มหาสารคาม2",
-        District2: 0, // "เมือง2",
-        Subdistrict2: 0, // "ในเมือง2",
+        Province2: '', // "มหาสารคาม2",
+        District2: '', // "เมือง2",
+        Subdistrict2: '', // "ในเมือง2",
 
         FrontName3: '', // "นาย3",
         Name3: '', // "ชื่อผู้ค้ำ 3",
@@ -224,9 +226,9 @@ function GuaranteeBookA() {
         HouseNumber3: '', // "บ้านเลขที่3",
         Moo3: '', // "หมู่ 3",
         Road3: '', // "ถนน 3",
-        Province3: 0, // "มหาสารคาม3",
-        District3: 0, // "เมือง3",
-        Subdistrict3: 0, // "ในเมือง3",
+        Province3: '', // "มหาสารคาม3",
+        District3: '', // "เมือง3",
+        Subdistrict3: '', // "ในเมือง3",
 
         FrontName4: '', // "นาย4",
         Name4: '', // "ชื่อผู้ค้ำ 4",
@@ -236,9 +238,9 @@ function GuaranteeBookA() {
         HouseNumber4: '', // "บ้านเลขที่4",
         Moo4: '', // "หมู่ 4",
         Road4: '', // "ถนน 4",
-        Province4: 0, // "มหาสารคาม4",
-        District4: 0, // "เมือง4",
-        Subdistrict4: 0, // "ในเมือง4",
+        Province4: '', // "มหาสารคาม4",
+        District4: '', // "เมือง4",
+        Subdistrict4: '', // "ในเมือง4",
 
         FrontName5: '', // "นาย5",
         Name5: '', // "ชื่อผู้ค้ำ 5",
@@ -248,9 +250,9 @@ function GuaranteeBookA() {
         HouseNumber5: '', // "บ้านเลขที่5",
         Moo5: '', // "หมู่ 5",
         Road5: '', // "ถนน 5",
-        Province5: 0, // "มหาสารคาม5",
-        District5: 0, // "เมือง5",
-        Subdistrict5: 0, // "ในเมือง5",
+        Province5: '', // "มหาสารคาม5",
+        District5: '', // "เมือง5",
+        Subdistrict5: '', // "ในเมือง5",
 
         FrontName6: '', // "นาย6",
         Name6: '', // "ชื่อผู้ค้ำ 6",
@@ -260,9 +262,9 @@ function GuaranteeBookA() {
         HouseNumber6: '', // "บ้านเลขที่6",
         Moo6: '', // "หมู่ 6",
         Road6: '', // "ถนน 6",
-        Province6: 0, // "มหาสารคาม6",
-        District6: 0, // "เมือง6",
-        Subdistrict6: 0, // "ในเมือง6",
+        Province6: '', // "มหาสารคาม6",
+        District6: '', // "เมือง6",
+        Subdistrict6: '', // "ในเมือง6",
         
         FrontName7: '', // "นาย7",
         Name7: '', // "ชื่อผู้ค้ำ 7",
@@ -272,9 +274,9 @@ function GuaranteeBookA() {
         HouseNumber7: '', // "บ้านเลขที่7",
         Moo7: '', // "หมู่ 7",
         Road7: '', // "ถนน 7",
-        Province7: 0, // "มหาสารคาม7",
-        District7: 0, // "เมือง7",
-        Subdistrict7: 0, // "ในเมือง7",
+        Province7: '', // "มหาสารคาม7",
+        District7: '', // "เมือง7",
+        Subdistrict7: '', // "ในเมือง7",
         
         FrontName8: '', // "นาย8",
         Name8: '', // "ชื่อผู้ค้ำ 8",
@@ -284,9 +286,9 @@ function GuaranteeBookA() {
         HouseNumber8: '', // "บ้านเลขที่8",
         Moo8: '', // "หมู่ 8",
         Road8: '', // "ถนน 8",
-        Province8: 0, // "มหาสารคาม8",
-        District8: 0, // "เมือง8",
-        Subdistrict8: 0, // "ในเมือง8",
+        Province8: '', // "มหาสารคาม8",
+        District8: '', // "เมือง8",
+        Subdistrict8: '', // "ในเมือง8",
         
         FrontName9: '', // "นาย9",
         Name9: '', // "ชื่อผู้ค้ำ 9",
@@ -296,9 +298,9 @@ function GuaranteeBookA() {
         HouseNumber9: '', // "บ้านเลขที่9",
         Moo9: '', // "หมู่ 9",
         Road9: '', // "ถนน 9",
-        Province9: 0, // "มหาสารคาม9",
-        District9: 0, // "เมือง9",
-        Subdistrict9: 0, // "ในเมือง9",
+        Province9: '', // "มหาสารคาม9",
+        District9: '', // "เมือง9",
+        Subdistrict9: '', // "ในเมือง9",
         
         FrontName10: '', // "นาย10",
         Name10: '', // "ชื่อผู้ค้ำ 10",
@@ -308,9 +310,9 @@ function GuaranteeBookA() {
         HouseNumber10: '', // "บ้านเลขที่10",
         Moo10: '', // "หมู่ 10",
         Road10: '', // "ถนน 10",
-        Province10: 0, // "มหาสารคาม10",
-        District10: 0, // "เมือง10",
-        Subdistrict10: 0, // "ในเมือง10",
+        Province10: '', // "มหาสารคาม10",
+        District10: '', // "เมือง10",
+        Subdistrict10: '', // "ในเมือง10",
         
         FrontName11: '', // "นาย11",
         Name11: '', // "ชื่อผู้ค้ำ 11",
@@ -320,9 +322,9 @@ function GuaranteeBookA() {
         HouseNumber11: '', // "บ้านเลขที่11",
         Moo11: '', // "หมู่ 11",
         Road11: '', // "ถนน 11",
-        Province11: 0, // "มหาสารคาม11",
-        District11: 0, // "เมือง11",
-        Subdistrict11: 0, // "ในเมือง11",
+        Province11: '', // "มหาสารคาม11",
+        District11: '', // "เมือง11",
+        Subdistrict11: '', // "ในเมือง11",
         
         FrontName12: '', // "นาย12",
         Name12: '', // "ชื่อผู้ค้ำ 12",
@@ -332,9 +334,9 @@ function GuaranteeBookA() {
         HouseNumber12: '', // "บ้านเลขที่12",
         Moo12: '', // "หมู่ 12",
         Road12: '', // "ถนน 12",
-        Province12: 0, // "มหาสารคาม12",
-        District12: 0, // "เมือง12",
-        Subdistrict12: 0, // "ในเมือง12",
+        Province12: '', // "มหาสารคาม12",
+        District12: '', // "เมือง12",
+        Subdistrict12: '', // "ในเมือง12",
         
         FrontName13: '', // "นาย13",
         Name13: '', // "ชื่อผู้ค้ำ 13",
@@ -344,9 +346,9 @@ function GuaranteeBookA() {
         HouseNumber13: '', // "บ้านเลขที่13",
         Moo13: '', // "หมู่ 13",
         Road13: '', // "ถนน 13",
-        Province13: 0, // "มหาสารคาม13",
-        District13: 0, // "เมือง13",
-        Subdistrict13: 0, // "ในเมือง13",
+        Province13: '', // "มหาสารคาม13",
+        District13: '', // "เมือง13",
+        Subdistrict13: '', // "ในเมือง13",
         
         FrontName14: '', // "นาย14",
         Name14: '', // "ชื่อผู้ค้ำ 14",
@@ -356,9 +358,9 @@ function GuaranteeBookA() {
         HouseNumber14: '', // "บ้านเลขที่14",
         Moo14: '', // "หมู่ 14",
         Road14: '', // "ถนน 14",
-        Province14: 0, // "มหาสารคาม14",
-        District14: 0, // "เมือง14",
-        Subdistrict14: 0, // "ในเมือง14",
+        Province14: '', // "มหาสารคาม14",
+        District14: '', // "เมือง14",
+        Subdistrict14: '', // "ในเมือง14",
         
         FrontName15: '', // "นาย15",
         Name15: '', // "ชื่อผู้ค้ำ 15",
@@ -368,9 +370,9 @@ function GuaranteeBookA() {
         HouseNumber15: '', // "บ้านเลขที่15",
         Moo15: '', // "หมู่ 15",
         Road15: '', // "ถนน 15",
-        Province15: 0, // "มหาสารคาม15",
-        District15: 0, // "เมือง15",
-        Subdistrict15: 0, // "ในเมือง15",
+        Province15: '', // "มหาสารคาม15",
+        District15: '', // "เมือง15",
+        Subdistrict15: '', // "ในเมือง15",
         
         FrontName16: '', // "นาย16",
         Name16: '', // "ชื่อผู้ค้ำ 16",
@@ -380,9 +382,9 @@ function GuaranteeBookA() {
         HouseNumber16: '', // "บ้านเลขที่16",
         Moo16: '', // "หมู่ 16",
         Road16: '', // "ถนน 16",
-        Province16: 0, // "มหาสารคาม16",
-        District16: 0, // "เมือง16",
-        Subdistrict16: 0, // "ในเมือง16",
+        Province16: '', // "มหาสารคาม16",
+        District16: '', // "เมือง16",
+        Subdistrict16: '', // "ในเมือง16",
 
         CoupleFrontName: '',// "",
         CoupleName: '',// "",
@@ -587,6 +589,7 @@ function GuaranteeBookA() {
             { headers: { "token": token } } 
         ).then(res => {
                 console.log('getSearch',res)
+
                 let data = res.data;
                 if(data.code === 0) {
                     setErr(true);
@@ -695,9 +698,9 @@ function GuaranteeBookA() {
                                     HouseNumber1: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo1: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road1: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province1: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District1: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict1: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province1: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District1: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict1: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
                         
@@ -712,9 +715,9 @@ function GuaranteeBookA() {
                                     HouseNumber2: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo2: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road2: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province2: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District2: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict2: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province2: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District2: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict2: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
                     
@@ -729,9 +732,9 @@ function GuaranteeBookA() {
                                     HouseNumber3: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo3: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road3: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province3: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District3: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict3: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province3: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District3: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict3: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
                         
@@ -746,9 +749,9 @@ function GuaranteeBookA() {
                                     HouseNumber4: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo4: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road4: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province4: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District4: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict4: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province4: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District4: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict4: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
                                 
@@ -763,9 +766,9 @@ function GuaranteeBookA() {
                                     HouseNumber5: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo5: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road5: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province5: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District5: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict5: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province5: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District5: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict5: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -780,9 +783,9 @@ function GuaranteeBookA() {
                                     HouseNumber6: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo6: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road6: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province6: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District6: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict6: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province6: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District6: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict6: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -797,9 +800,9 @@ function GuaranteeBookA() {
                                     HouseNumber7: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo7: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road7: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province7: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District7: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict7: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province7: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District7: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict7: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -814,9 +817,9 @@ function GuaranteeBookA() {
                                     HouseNumber8: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo8: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road8: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province8: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District8: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict8: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province8: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District8: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict8: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
                             
@@ -831,9 +834,9 @@ function GuaranteeBookA() {
                                     HouseNumber9: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo9: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road9: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province9: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District9: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict9: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province9: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District9: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict9: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -848,9 +851,9 @@ function GuaranteeBookA() {
                                     HouseNumber10: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo10: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road10: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province10: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District10: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict10: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province10: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District10: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict10: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -865,9 +868,9 @@ function GuaranteeBookA() {
                                     HouseNumber11: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo11: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road11: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province11: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District11: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict11: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province11: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District11: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict11: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -882,9 +885,9 @@ function GuaranteeBookA() {
                                     HouseNumber12: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo12: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road12: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province12: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District12: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict12: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province12: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District12: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict12: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -899,9 +902,9 @@ function GuaranteeBookA() {
                                     HouseNumber13: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo13: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road13: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province13: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District13: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict13: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province13: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District13: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict13: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -916,9 +919,9 @@ function GuaranteeBookA() {
                                     HouseNumber14: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo14: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road14: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province14: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District14: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict14: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province14: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District14: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict14: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -933,9 +936,9 @@ function GuaranteeBookA() {
                                     HouseNumber15: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo15: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road15: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province15: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District15: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict15: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province15: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District15: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict15: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
 
@@ -950,9 +953,9 @@ function GuaranteeBookA() {
                                     HouseNumber16: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                     Moo16: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                     Road16: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                    Province16: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                    District16: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                    Subdistrict16: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                    Province16: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                    District16: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                    Subdistrict16: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                 })
                                 break;
                             
@@ -975,6 +978,246 @@ function GuaranteeBookA() {
     const getView = (gbookID,loanID,ind,fromOtherPage) => {
         console.log(gbookID,loanID,ind)
         setIsLoading(true)
+
+        setInputData({
+            GuaranteeBookTypeID: '1',
+            LoanID: loanID,
+            PlaceCreate: '',
+            ContactDate: moment(),
+    
+            FrontName1: '', // "นาย1",
+            Name1: '', // "ชื่อผู้ค้ำ 1",
+            Sirname1: '', // "นามสกุลผู้ค้ำ 1",
+            AGE1: '', // "11",
+            IDCard1: '', // "3309900111111",
+            HouseNumber1: '', // "บ้านเลขที่1",
+            Moo1: '', // "หมู่ 1",
+            Road1: '', // "ถนน 1",
+            Province1: '', // "มหาสารคาม1",
+            District1: '', // "เมือง1",
+            Subdistrict1: '', // "ในเมือง1",
+    
+            FrontName2: '', // "นาย2",
+            Name2: '', // "ชื่อผู้ค้ำ 2",
+            Sirname2: '', // "นามสกุลผู้ค้ำ 2",
+            AGE2: '', // "22",
+            IDCard2: '', // "3309900111111",
+            HouseNumber2: '', // "บ้านเลขที่2",
+            Moo2: '', // "หมู่ 2",
+            Road2: '', // "ถนน 2",
+            Province2: '', // "มหาสารคาม2",
+            District2: '', // "เมือง2",
+            Subdistrict2: '', // "ในเมือง2",
+    
+            FrontName3: '', // "นาย3",
+            Name3: '', // "ชื่อผู้ค้ำ 3",
+            Sirname3: '', // "นามสกุลผู้ค้ำ 3",
+            AGE3: '', // "33",
+            IDCard3: '', // "3309900111111",
+            HouseNumber3: '', // "บ้านเลขที่3",
+            Moo3: '', // "หมู่ 3",
+            Road3: '', // "ถนน 3",
+            Province3: '', // "มหาสารคาม3",
+            District3: '', // "เมือง3",
+            Subdistrict3: '', // "ในเมือง3",
+    
+            FrontName4: '', // "นาย4",
+            Name4: '', // "ชื่อผู้ค้ำ 4",
+            Sirname4: '', // "นามสกุลผู้ค้ำ 4",
+            AGE4: '', // "44",
+            IDCard4: '', // "3309900111111",
+            HouseNumber4: '', // "บ้านเลขที่4",
+            Moo4: '', // "หมู่ 4",
+            Road4: '', // "ถนน 4",
+            Province4: '', // "มหาสารคาม4",
+            District4: '', // "เมือง4",
+            Subdistrict4: '', // "ในเมือง4",
+    
+            FrontName5: '', // "นาย5",
+            Name5: '', // "ชื่อผู้ค้ำ 5",
+            Sirname5: '', // "นามสกุลผู้ค้ำ 5",
+            AGE5: '', // "55",
+            IDCard5: '', // "3309900111111",
+            HouseNumber5: '', // "บ้านเลขที่5",
+            Moo5: '', // "หมู่ 5",
+            Road5: '', // "ถนน 5",
+            Province5: '', // "มหาสารคาม5",
+            District5: '', // "เมือง5",
+            Subdistrict5: '', // "ในเมือง5",
+    
+            FrontName6: '', // "นาย6",
+            Name6: '', // "ชื่อผู้ค้ำ 6",
+            Sirname6: '', // "นามสกุลผู้ค้ำ 6",
+            AGE6: '', // "66",
+            IDCard6: '', // "3309900111111",
+            HouseNumber6: '', // "บ้านเลขที่6",
+            Moo6: '', // "หมู่ 6",
+            Road6: '', // "ถนน 6",
+            Province6: '', // "มหาสารคาม6",
+            District6: '', // "เมือง6",
+            Subdistrict6: '', // "ในเมือง6",
+            
+            FrontName7: '', // "นาย7",
+            Name7: '', // "ชื่อผู้ค้ำ 7",
+            Sirname7: '', // "นามสกุลผู้ค้ำ 7",
+            AGE7: '', // "57",
+            IDCard7: '', // "3309900111111",
+            HouseNumber7: '', // "บ้านเลขที่7",
+            Moo7: '', // "หมู่ 7",
+            Road7: '', // "ถนน 7",
+            Province7: '', // "มหาสารคาม7",
+            District7: '', // "เมือง7",
+            Subdistrict7: '', // "ในเมือง7",
+            
+            FrontName8: '', // "นาย8",
+            Name8: '', // "ชื่อผู้ค้ำ 8",
+            Sirname8: '', // "นามสกุลผู้ค้ำ 8",
+            AGE8: '', // "58",
+            IDCard8: '', // "3309900111111",
+            HouseNumber8: '', // "บ้านเลขที่8",
+            Moo8: '', // "หมู่ 8",
+            Road8: '', // "ถนน 8",
+            Province8: '', // "มหาสารคาม8",
+            District8: '', // "เมือง8",
+            Subdistrict8: '', // "ในเมือง8",
+            
+            FrontName9: '', // "นาย9",
+            Name9: '', // "ชื่อผู้ค้ำ 9",
+            Sirname9: '', // "นามสกุลผู้ค้ำ 9",
+            AGE9: '', // "59",
+            IDCard9: '', // "3309900111111",
+            HouseNumber9: '', // "บ้านเลขที่9",
+            Moo9: '', // "หมู่ 9",
+            Road9: '', // "ถนน 9",
+            Province9: '', // "มหาสารคาม9",
+            District9: '', // "เมือง9",
+            Subdistrict9: '', // "ในเมือง9",
+            
+            FrontName10: '', // "นาย10",
+            Name10: '', // "ชื่อผู้ค้ำ 10",
+            Sirname10: '', // "นามสกุลผู้ค้ำ 10",
+            AGE10: '', // "510",
+            IDCard10: '', // "33099001111110",
+            HouseNumber10: '', // "บ้านเลขที่10",
+            Moo10: '', // "หมู่ 10",
+            Road10: '', // "ถนน 10",
+            Province10: '', // "มหาสารคาม10",
+            District10: '', // "เมือง10",
+            Subdistrict10: '', // "ในเมือง10",
+            
+            FrontName11: '', // "นาย11",
+            Name11: '', // "ชื่อผู้ค้ำ 11",
+            Sirname11: '', // "นามสกุลผู้ค้ำ 11",
+            AGE11: '', // "511",
+            IDCard11: '', // "3309900111111",
+            HouseNumber11: '', // "บ้านเลขที่11",
+            Moo11: '', // "หมู่ 11",
+            Road11: '', // "ถนน 11",
+            Province11: '', // "มหาสารคาม11",
+            District11: '', // "เมือง11",
+            Subdistrict11: '', // "ในเมือง11",
+            
+            FrontName12: '', // "นาย12",
+            Name12: '', // "ชื่อผู้ค้ำ 12",
+            Sirname12: '', // "นามสกุลผู้ค้ำ 12",
+            AGE12: '', // "55",
+            IDCard12: '', // "3309900111111",
+            HouseNumber12: '', // "บ้านเลขที่12",
+            Moo12: '', // "หมู่ 12",
+            Road12: '', // "ถนน 12",
+            Province12: '', // "มหาสารคาม12",
+            District12: '', // "เมือง12",
+            Subdistrict12: '', // "ในเมือง12",
+            
+            FrontName13: '', // "นาย13",
+            Name13: '', // "ชื่อผู้ค้ำ 13",
+            Sirname13: '', // "นามสกุลผู้ค้ำ 13",
+            AGE13: '', // "513",
+            IDCard13: '', // "3309900111111",
+            HouseNumber13: '', // "บ้านเลขที่13",
+            Moo13: '', // "หมู่ 13",
+            Road13: '', // "ถนน 13",
+            Province13: '', // "มหาสารคาม13",
+            District13: '', // "เมือง13",
+            Subdistrict13: '', // "ในเมือง13",
+            
+            FrontName14: '', // "นาย14",
+            Name14: '', // "ชื่อผู้ค้ำ 14",
+            Sirname14: '', // "นามสกุลผู้ค้ำ 14",
+            AGE14: '', // "514",
+            IDCard14: '', // "3309900111111",
+            HouseNumber14: '', // "บ้านเลขที่14",
+            Moo14: '', // "หมู่ 14",
+            Road14: '', // "ถนน 14",
+            Province14: '', // "มหาสารคาม14",
+            District14: '', // "เมือง14",
+            Subdistrict14: '', // "ในเมือง14",
+            
+            FrontName15: '', // "นาย15",
+            Name15: '', // "ชื่อผู้ค้ำ 15",
+            Sirname15: '', // "นามสกุลผู้ค้ำ 15",
+            AGE15: '', // "515",
+            IDCard15: '', // "3309900111111",
+            HouseNumber15: '', // "บ้านเลขที่15",
+            Moo15: '', // "หมู่ 15",
+            Road15: '', // "ถนน 15",
+            Province15: '', // "มหาสารคาม15",
+            District15: '', // "เมือง15",
+            Subdistrict15: '', // "ในเมือง15",
+            
+            FrontName16: '', // "นาย16",
+            Name16: '', // "ชื่อผู้ค้ำ 16",
+            Sirname16: '', // "นามสกุลผู้ค้ำ 16",
+            AGE16: '', // "516",
+            IDCard16: '', // "3309900111111",
+            HouseNumber16: '', // "บ้านเลขที่16",
+            Moo16: '', // "หมู่ 16",
+            Road16: '', // "ถนน 16",
+            Province16: '', // "มหาสารคาม16",
+            District16: '', // "เมือง16",
+            Subdistrict16: '', // "ในเมือง16",
+    
+            CoupleFrontName: '',// "",
+            CoupleName: '',// "",
+            CoupleSirname: '',// "",
+            CoupleAGE: '',// "",
+            CoupleNationality: '',// "",
+            CoupleHouseNumber: '',// "",
+            CoupleMoo: '',// "",
+            CoupleRoad: '',// "",
+            CoupleProvince: '',// "",
+            CoupleDistrict: '',// "",
+            CoupleSubdistrict: '',// "",
+            CoupleOtherContact: '',// "",
+    
+            WitnessName1: '',// "พยาน1",
+            WitnessAddr1: '',// "ที่อยู่พยาน1",
+            WitnessIDCard1: '',// "1234567891011",
+            WitnessIDCardMake1: '',// "ออกพยาน1",
+            WitnessName2: '',// "พยาน2",
+            WitnessAddr2: '',// "ที่อยู่พยาน2",
+            WitnessIDCard2: '',// "1234567891022",
+            WitnessIDCardMake2: '',// "ออกพยาน2",
+        })
+
+        setSupporterAmount(0)
+
+        setSupporterView1(false)
+        setSupporterView2(false)
+        setSupporterView3(false)
+        setSupporterView4(false)
+        setSupporterView5(false)
+        setSupporterView6(false)
+        setSupporterView7(false)
+        setSupporterView8(false)
+        setSupporterView9(false)
+        setSupporterView10(false)
+        setSupporterView11(false)
+        setSupporterView12(false)
+        setSupporterView13(false)
+        setSupporterView14(false)
+        setSupporterView15(false)
+        setSupporterView16(false)
 
         if(!!fromOtherPage) {
             console.log(searchResultData)
@@ -999,10 +1242,10 @@ function GuaranteeBookA() {
 
         }
         setFormField(false)
-        setInputData({
-            ...inputData,
-            LoanID: loanID,
-        })
+        // setInputData({
+        //     ...inputData,
+        //     LoanID: loanID,
+        // })
 
         // Add new guaranteebook A
         if(gbookID === null) {
@@ -1018,6 +1261,9 @@ function GuaranteeBookA() {
                 { headers: { "token": token } } 
             ).then(res => {
                     console.log('getView',res)
+                    localStorage.removeItem('GuaranteeBoookALoanID')
+                    localStorage.removeItem('GuaranteeBoookALoanNumber')
+
                     let data = res.data;
                     if(data.code === 0) {
                         setErr(true);
@@ -1261,6 +1507,176 @@ function GuaranteeBookA() {
                         let result = data.data[0]
                         console.log('view_GuaranteeBook',result)
                         setFormField(true)
+
+                        for(let i=1; i<=16; i++) {
+
+                            if(i===1 && !(!result.Supporter_IDCard1)) {
+                                    console.log('supporter1')
+                                    setSupporterView1(true)
+                                    getDataSupporter(result.Supporter_IDCard1, 1)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard1: result.Supporter_IDCard1
+                                    // })
+                                    setSupporterAmount(1)
+
+                            } else if(i===2 && !(!result.Supporter_IDCard2)) {
+                                    console.log('supporter2')
+                                    setSupporterView2(true)
+                                    getDataSupporter(result.Supporter_IDCard2, 2)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard2: result.Supporter_IDCard2
+                                    // })
+                                    setSupporterAmount(2)
+
+                                    
+                            } else if(i===3 && !(!result.Supporter_IDCard3)) {
+                                    console.log('supporter3')
+                                    setSupporterView3(true)
+                                    getDataSupporter(result.Supporter_IDCard3, 3)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard3: result.Supporter_IDCard3
+                                    // })
+                                    setSupporterAmount(3)
+
+                                    
+                            } else if(i===4 && !(!result.Supporter_IDCard4)) {
+                                    console.log('supporter4')
+                                    setSupporterView4(true)
+                                    getDataSupporter(result.Supporter_IDCard4, 4)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard4: result.Supporter_IDCard4
+                                    // })
+                                    setSupporterAmount(4)
+
+                                    
+                            } else if(i===5 && !(!result.Supporter_IDCard5)) {
+                                    console.log('supporter5')
+                                    setSupporterView5(true)
+                                    getDataSupporter(result.Supporter_IDCard5, 5)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard5: result.Supporter_IDCard5
+                                    // })
+                                    setSupporterAmount(5)
+                                    
+                            } else if(i===6 && !(!result.Supporter_IDCard6)) {
+                                    console.log('supporter6')
+                                    setSupporterView6(true)
+                                    getDataSupporter(result.Supporter_IDCard6, 6)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard6: result.Supporter_IDCard6
+                                    // })
+                                    setSupporterAmount(6)
+
+                            } else if(i===7 && !(!result.Supporter_IDCard7)) {
+                                    console.log('supporter7')
+                                    setSupporterView7(true)
+                                    getDataSupporter(result.Supporter_IDCard7, 7)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard7: result.Supporter_IDCard7
+                                    // })
+                                    setSupporterAmount(7)
+
+                            } else if(i===8 && !(!result.Supporter_IDCard8)) {
+                                    console.log('supporter8')
+                                    setSupporterView8(true)
+                                    getDataSupporter(result.Supporter_IDCard8, 8)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard8: result.Supporter_IDCard8
+                                    // })
+                                    setSupporterAmount(8)
+
+                            } else if(i===9 && !(!result.Supporter_IDCard9)) {
+                                    console.log('supporter9')
+                                    setSupporterView9(true)
+                                    getDataSupporter(result.Supporter_IDCard9, 9)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard9: result.Supporter_IDCard9
+                                    // })
+                                    setSupporterAmount(9)
+ 
+                            } else if(i===10 && !(!result.Supporter_IDCard10)) {
+                                    console.log('supporter10')
+                                    setSupporterView10(true)
+                                    getDataSupporter(result.Supporter_IDCard10, 10)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard10: result.Supporter_IDCard10
+                                    // })
+                                    setSupporterAmount(10)
+                                    
+                            } else if(i===11 && !(!result.Supporter_IDCard11)) {
+                                    console.log('supporter11')
+                                    setSupporterView11(true)
+                                    getDataSupporter(result.Supporter_IDCard11, 11)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard11: result.Supporter_IDCard11
+                                    // })
+                                    setSupporterAmount(11)
+                                    
+                            } else if(i===12 && !(!result.Supporter_IDCard12)) {
+                                    console.log('supporter12')
+                                    setSupporterView12(true)
+                                    getDataSupporter(result.Supporter_IDCard12, 12)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard12: result.Supporter_IDCard12
+                                    // })
+                                    setSupporterAmount(12)
+                                    
+                            } else if(i===13 && !(!result.Supporter_IDCard13)) {
+                                    console.log('supporter13')
+                                    setSupporterView13(true)
+                                    getDataSupporter(result.Supporter_IDCard13, 13)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard13: result.Supporter_IDCard13
+                                    // })
+                                    setSupporterAmount(13)
+                                    
+                            } else if(i===14 && !(!result.Supporter_IDCard14)) {
+                                    console.log('supporter14')
+                                    setSupporterView14(true)
+                                    getDataSupporter(result.Supporter_IDCard14, 14)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard14: result.Supporter_IDCard14
+                                    // })
+                                    setSupporterAmount(14)
+                                    
+                            } else if(i===15 && !(!result.Supporter_IDCard15)) {
+                                    console.log('supporter15')
+                                    setSupporterView15(true)
+                                    getDataSupporter(result.Supporter_IDCard15, 15)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard15: result.Supporter_IDCard15
+                                    // })
+                                    setSupporterAmount(15)
+                                    
+                            } else if(i===16 && !(!result.Supporter_IDCard16)) {
+                                    console.log('supporter16')
+                                    setSupporterView16(true)
+                                    getDataSupporter(result.Supporter_IDCard16, 16)
+                                    // setInputDataSubmit({
+                                    //     ...inputDataSubmit,
+                                    //     Supporter_IDCard16: result.Supporter_IDCard16
+                                    // })
+                                    setSupporterAmount(16)
+                                    
+                            } 
+
+                        }
+
                         setInputData({
                             ...inputData,
                             LoanID: loanID,
@@ -1275,9 +1691,9 @@ function GuaranteeBookA() {
                             HouseNumber1: result.HouseNumber1 || '', // "บ้านเลขที่1",
                             Moo1: result.Moo1 || '', // "หมู่ 1",
                             Road1: result.Road1 || '', // "ถนน 1",
-                            Province1: result.Province1 || 0, // "มหาสารคาม1",
-                            District1: result.District1 || 0, // "เมือง1",
-                            Subdistrict1: result.Subdistrict1 || 0, // "ในเมือง1",
+                            Province1: result.Province1 || '', // "มหาสารคาม1",
+                            District1: result.District1 || '', // "เมือง1",
+                            Subdistrict1: result.Subdistrict1 || '', // "ในเมือง1",
 
                             
                             FrontName2: result.FrontName2 || '', // "นาย1",
@@ -1288,9 +1704,9 @@ function GuaranteeBookA() {
                             HouseNumber2: result.HouseNumber2 || '', // "บ้านเลขที่1",
                             Moo2: result.Moo2 || '', // "หมู่ 1",
                             Road2: result.Road2 || '', // "ถนน 1",
-                            Province2: result.Province2 || 0, // "มหาสารคาม1",
-                            District2: result.District2 || 0, // "เมือง1",
-                            Subdistrict2: result.Subdistrict2 || 0, // "ในเมือง1",
+                            Province2: result.Province2 || '', // "มหาสารคาม1",
+                            District2: result.District2 || '', // "เมือง1",
+                            Subdistrict2: result.Subdistrict2 || '', // "ในเมือง1",
 
 
                             FrontName3: result.FrontName3 || '', // "นาย1",
@@ -1301,9 +1717,9 @@ function GuaranteeBookA() {
                             HouseNumber3: result.HouseNumber3 || '', // "บ้านเลขที่1",
                             Moo3: result.Moo3 || '', // "หมู่ 1",
                             Road3: result.Road3 || '', // "ถนน 1",
-                            Province3: result.Province3 || 0, // "มหาสารคาม1",
-                            District3: result.District3 || 0, // "เมือง1",
-                            Subdistrict3: result.Subdistrict3 || 0, // "ในเมือง1",
+                            Province3: result.Province3 || '', // "มหาสารคาม1",
+                            District3: result.District3 || '', // "เมือง1",
+                            Subdistrict3: result.Subdistrict3 || '', // "ในเมือง1",
 
                             FrontName4: result.FrontName4 || '', // "นาย1",
                             Name4: result.Name4 || '', // "ชื่อผู้ค้ำ 1",
@@ -1313,9 +1729,9 @@ function GuaranteeBookA() {
                             HouseNumber4: result.HouseNumber4 || '', // "บ้านเลขที่1",
                             Moo4: result.Moo4 || '', // "หมู่ 1",
                             Road4: result.Road4 || '', // "ถนน 1",
-                            Province4: result.Province4 || 0, // "มหาสารคาม1",
-                            District4: result.District4 || 0, // "เมือง1",
-                            Subdistrict4: result.Subdistrict4 || 0, // "ในเมือง1",
+                            Province4: result.Province4 || '', // "มหาสารคาม1",
+                            District4: result.District4 || '', // "เมือง1",
+                            Subdistrict4: result.Subdistrict4 || '', // "ในเมือง1",
 
                             FrontName5: result.FrontName5 || '', // "นาย1",
                             Name5: result.Name5 || '', // "ชื่อผู้ค้ำ 1",
@@ -1325,9 +1741,9 @@ function GuaranteeBookA() {
                             HouseNumber5: result.HouseNumber5 || '', // "บ้านเลขที่1",
                             Moo5: result.Moo5 || '', // "หมู่ 1",
                             Road5: result.Road5 || '', // "ถนน 1",
-                            Province5: result.Province5 || 0, // "มหาสารคาม1",
-                            District5: result.District5 || 0, // "เมือง1",
-                            Subdistrict5: result.Subdistrict5 || 0, // "ในเมือง1",
+                            Province5: result.Province5 || '', // "มหาสารคาม1",
+                            District5: result.District5 || '', // "เมือง1",
+                            Subdistrict5: result.Subdistrict5 || '', // "ในเมือง1",
 
                             FrontName6: result.FrontName6 || '', // "นาย1",
                             Name6: result.Name6 || '', // "ชื่อผู้ค้ำ 1",
@@ -1337,9 +1753,9 @@ function GuaranteeBookA() {
                             HouseNumber6: result.HouseNumber6 || '', // "บ้านเลขที่1",
                             Moo6: result.Moo6 || '', // "หมู่ 1",
                             Road6: result.Road6 || '', // "ถนน 1",
-                            Province6: result.Province6 || 0, // "มหาสารคาม1",
-                            District6: result.District6 || 0, // "เมือง1",
-                            Subdistrict6: result.Subdistrict6 || 0, // "ในเมือง1",
+                            Province6: result.Province6 || '', // "มหาสารคาม1",
+                            District6: result.District6 || '', // "เมือง1",
+                            Subdistrict6: result.Subdistrict6 || '', // "ในเมือง1",
 
                             FrontName7: result.FrontName7 || '', // "นาย1",
                             Name7: result.Name7 || '', // "ชื่อผู้ค้ำ 1",
@@ -1349,9 +1765,9 @@ function GuaranteeBookA() {
                             HouseNumber7: result.HouseNumber7 || '', // "บ้านเลขที่1",
                             Moo7: result.Moo7 || '', // "หมู่ 1",
                             Road7: result.Road7 || '', // "ถนน 1",
-                            Province7: result.Province7 || 0, // "มหาสารคาม1",
-                            District7: result.District7 || 0, // "เมือง1",
-                            Subdistrict7: result.Subdistrict7 || 0, // "ในเมือง1",
+                            Province7: result.Province7 || '', // "มหาสารคาม1",
+                            District7: result.District7 || '', // "เมือง1",
+                            Subdistrict7: result.Subdistrict7 || '', // "ในเมือง1",
 
                             FrontName8: result.FrontName8 || '', // "นาย1",
                             Name8: result.Name8 || '', // "ชื่อผู้ค้ำ 1",
@@ -1361,9 +1777,9 @@ function GuaranteeBookA() {
                             HouseNumber8: result.HouseNumber8 || '', // "บ้านเลขที่1",
                             Moo8: result.Moo8 || '', // "หมู่ 1",
                             Road8: result.Road8 || '', // "ถนน 1",
-                            Province8: result.Province8 || 0, // "มหาสารคาม1",
-                            District8: result.District8 || 0, // "เมือง1",
-                            Subdistrict8: result.Subdistrict8 || 0, // "ในเมือง1",
+                            Province8: result.Province8 || '', // "มหาสารคาม1",
+                            District8: result.District8 || '', // "เมือง1",
+                            Subdistrict8: result.Subdistrict8 || '', // "ในเมือง1",
 
                             FrontName9: result.FrontName9 || '', // "นาย1",
                             Name9: result.Name9 || '', // "ชื่อผู้ค้ำ 1",
@@ -1373,9 +1789,9 @@ function GuaranteeBookA() {
                             HouseNumber9: result.HouseNumber9 || '', // "บ้านเลขที่1",
                             Moo9: result.Moo9 || '', // "หมู่ 1",
                             Road9: result.Road9 || '', // "ถนน 1",
-                            Province9: result.Province9 || 0, // "มหาสารคาม1",
-                            District9: result.District9 || 0, // "เมือง1",
-                            Subdistrict9: result.Subdistrict9 || 0, // "ในเมือง1",
+                            Province9: result.Province9 || '', // "มหาสารคาม1",
+                            District9: result.District9 || '', // "เมือง1",
+                            Subdistrict9: result.Subdistrict9 || '', // "ในเมือง1",
 
                             FrontName10: result.FrontName10 || '', // "นาย1",
                             Name10: result.Name10 || '', // "ชื่อผู้ค้ำ 1",
@@ -1385,9 +1801,9 @@ function GuaranteeBookA() {
                             HouseNumber10: result.HouseNumber10 || '', // "บ้านเลขที่1",
                             Moo10: result.Moo10 || '', // "หมู่ 1",
                             Road10: result.Road10 || '', // "ถนน 1",
-                            Province10: result.Province10 || 0, // "มหาสารคาม1",
-                            District10: result.District10 || 0, // "เมือง1",
-                            Subdistrict10: result.Subdistrict10 || 0, // "ในเมือง1",
+                            Province10: result.Province10 || '', // "มหาสารคาม1",
+                            District10: result.District10 || '', // "เมือง1",
+                            Subdistrict10: result.Subdistrict10 || '', // "ในเมือง1",
 
                             FrontName11: result.FrontName11 || '', // "นาย1",
                             Name11: result.Name11 || '', // "ชื่อผู้ค้ำ 1",
@@ -1397,9 +1813,9 @@ function GuaranteeBookA() {
                             HouseNumber11: result.HouseNumber11 || '', // "บ้านเลขที่1",
                             Moo11: result.Moo11 || '', // "หมู่ 1",
                             Road11: result.Road11 || '', // "ถนน 1",
-                            Province11: result.Province11 || 0, // "มหาสารคาม1",
-                            District11: result.District11 || 0, // "เมือง1",
-                            Subdistrict11: result.Subdistrict11 || 0, // "ในเมือง1",
+                            Province11: result.Province11 || '', // "มหาสารคาม1",
+                            District11: result.District11 || '', // "เมือง1",
+                            Subdistrict11: result.Subdistrict11 || '', // "ในเมือง1",
 
                             FrontName12: result.FrontName12 || '', // "นาย1",
                             Name12: result.Name12 || '', // "ชื่อผู้ค้ำ 1",
@@ -1409,9 +1825,9 @@ function GuaranteeBookA() {
                             HouseNumber12: result.HouseNumber12 || '', // "บ้านเลขที่1",
                             Moo12: result.Moo12 || '', // "หมู่ 1",
                             Road12: result.Road12 || '', // "ถนน 1",
-                            Province12: result.Province12 || 0, // "มหาสารคาม1",
-                            District12: result.District12 || 0, // "เมือง1",
-                            Subdistrict12: result.Subdistrict12 || 0, // "ในเมือง1",
+                            Province12: result.Province12 || '', // "มหาสารคาม1",
+                            District12: result.District12 || '', // "เมือง1",
+                            Subdistrict12: result.Subdistrict12 || '', // "ในเมือง1",
 
                             FrontName13: result.FrontName13 || '', // "นาย1",
                             Name13: result.Name13 || '', // "ชื่อผู้ค้ำ 1",
@@ -1421,9 +1837,9 @@ function GuaranteeBookA() {
                             HouseNumber13: result.HouseNumber13 || '', // "บ้านเลขที่1",
                             Moo13: result.Moo13 || '', // "หมู่ 1",
                             Road13: result.Road13 || '', // "ถนน 1",
-                            Province13: result.Province13 || 0, // "มหาสารคาม1",
-                            District13: result.District13 || 0, // "เมือง1",
-                            Subdistrict13: result.Subdistrict13 || 0, // "ในเมือง1",
+                            Province13: result.Province13 || '', // "มหาสารคาม1",
+                            District13: result.District13 || '', // "เมือง1",
+                            Subdistrict13: result.Subdistrict13 || '', // "ในเมือง1",
 
                             FrontName14: result.FrontName14 || '', // "นาย1",
                             Name14: result.Name14 || '', // "ชื่อผู้ค้ำ 1",
@@ -1433,9 +1849,9 @@ function GuaranteeBookA() {
                             HouseNumber14: result.HouseNumber14 || '', // "บ้านเลขที่1",
                             Moo14: result.Moo14 || '', // "หมู่ 1",
                             Road14: result.Road14 || '', // "ถนน 1",
-                            Province14: result.Province14 || 0, // "มหาสารคาม1",
-                            District14: result.District14 || 0, // "เมือง1",
-                            Subdistrict14: result.Subdistrict14 || 0, // "ในเมือง1",
+                            Province14: result.Province14 || '', // "มหาสารคาม1",
+                            District14: result.District14 || '', // "เมือง1",
+                            Subdistrict14: result.Subdistrict14 || '', // "ในเมือง1",
 
                             FrontName15: result.FrontName15 || '', // "นาย1",
                             Name15: result.Name15 || '', // "ชื่อผู้ค้ำ 1",
@@ -1445,9 +1861,9 @@ function GuaranteeBookA() {
                             HouseNumber15: result.HouseNumber15 || '', // "บ้านเลขที่1",
                             Moo15: result.Moo15 || '', // "หมู่ 1",
                             Road15: result.Road15 || '', // "ถนน 1",
-                            Province15: result.Province15 || 0, // "มหาสารคาม1",
-                            District15: result.District15 || 0, // "เมือง1",
-                            Subdistrict15: result.Subdistrict15 || 0, // "ในเมือง1",
+                            Province15: result.Province15 || '', // "มหาสารคาม1",
+                            District15: result.District15 || '', // "เมือง1",
+                            Subdistrict15: result.Subdistrict15 || '', // "ในเมือง1",
 
                             FrontName16: result.FrontName16 || '', // "นาย1",
                             Name16: result.Name16 || '', // "ชื่อผู้ค้ำ 1",
@@ -1457,9 +1873,9 @@ function GuaranteeBookA() {
                             HouseNumber16: result.HouseNumber16 || '', // "บ้านเลขที่1",
                             Moo16: result.Moo16 || '', // "หมู่ 1",
                             Road16: result.Road16 || '', // "ถนน 1",
-                            Province16: result.Province16 || 0, // "มหาสารคาม1",
-                            District16: result.District16 || 0, // "เมือง1",
-                            Subdistrict16: result.Subdistrict16 || 0, // "ในเมือง1",
+                            Province16: result.Province16 || '', // "มหาสารคาม1",
+                            District16: result.District16 || '', // "เมือง1",
+                            Subdistrict16: result.Subdistrict16 || '', // "ในเมือง1",
 
                             CoupleFrontName: result.CoupleFrontName || '',// "",
                             CoupleName: result.CoupleName || '',// "",
@@ -1493,14 +1909,29 @@ function GuaranteeBookA() {
                             WitnessIDCardMake4: '',// "ออกพยาน2",
                         })
 
+
                         setInputDataSubmit({
                             ...inputDataSubmit,
                             LoanID: loanID,
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
-
-                            Supporter_IDCard1: result.Supporter_IDCard1 || '', // "3309900111111",
+                            Supporter_IDCard1: result.Supporter_IDCard1,
+                            Supporter_IDCard2: result.Supporter_IDCard2,
+                            Supporter_IDCard3: result.Supporter_IDCard3,
+                            Supporter_IDCard4: result.Supporter_IDCard4,
+                            Supporter_IDCard5: result.Supporter_IDCard5,
+                            Supporter_IDCard6: result.Supporter_IDCard6,
+                            Supporter_IDCard7: result.Supporter_IDCard7,
+                            Supporter_IDCard8: result.Supporter_IDCard8,
+                            Supporter_IDCard9: result.Supporter_IDCard9,
+                            Supporter_IDCard10: result.Supporter_IDCard10,
+                            Supporter_IDCard11: result.Supporter_IDCard11,
+                            Supporter_IDCard12: result.Supporter_IDCard12,
+                            Supporter_IDCard13: result.Supporter_IDCard13,
+                            Supporter_IDCard14: result.Supporter_IDCard14,
+                            Supporter_IDCard15: result.Supporter_IDCard15,
+                            Supporter_IDCard16: result.Supporter_IDCard16,
 
                             CoupleFrontName: result.CoupleFrontName || '',// "",
                             CoupleName: result.CoupleName || '',// "",
@@ -2589,9 +3020,9 @@ function GuaranteeBookA() {
                                         HouseNumber1: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo1: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road1: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province1: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District1: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict1: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province1: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District1: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict1: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
                             
@@ -2606,9 +3037,9 @@ function GuaranteeBookA() {
                                         HouseNumber2: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo2: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road2: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province2: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District2: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict2: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province2: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District2: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict2: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
                         
@@ -2623,9 +3054,9 @@ function GuaranteeBookA() {
                                         HouseNumber3: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo3: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road3: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province3: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District3: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict3: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province3: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District3: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict3: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
                             
@@ -2640,9 +3071,9 @@ function GuaranteeBookA() {
                                         HouseNumber4: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo4: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road4: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province4: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District4: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict4: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province4: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District4: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict4: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
                                     
@@ -2657,9 +3088,9 @@ function GuaranteeBookA() {
                                         HouseNumber5: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo5: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road5: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province5: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District5: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict5: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province5: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District5: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict5: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2674,9 +3105,9 @@ function GuaranteeBookA() {
                                         HouseNumber6: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo6: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road6: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province6: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District6: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict6: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province6: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District6: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict6: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2691,9 +3122,9 @@ function GuaranteeBookA() {
                                         HouseNumber7: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo7: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road7: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province7: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District7: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict7: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province7: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District7: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict7: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2708,9 +3139,9 @@ function GuaranteeBookA() {
                                         HouseNumber8: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo8: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road8: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province8: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District8: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict8: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province8: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District8: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict8: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
                                 
@@ -2725,9 +3156,9 @@ function GuaranteeBookA() {
                                         HouseNumber9: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo9: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road9: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province9: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District9: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict9: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province9: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District9: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict9: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2742,9 +3173,9 @@ function GuaranteeBookA() {
                                         HouseNumber10: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo10: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road10: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province10: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District10: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict10: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province10: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District10: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict10: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2759,9 +3190,9 @@ function GuaranteeBookA() {
                                         HouseNumber11: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo11: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road11: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province11: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District11: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict11: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province11: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District11: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict11: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2776,9 +3207,9 @@ function GuaranteeBookA() {
                                         HouseNumber12: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo12: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road12: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province12: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District12: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict12: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province12: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District12: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict12: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2793,9 +3224,9 @@ function GuaranteeBookA() {
                                         HouseNumber13: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo13: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road13: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province13: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District13: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict13: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province13: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District13: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict13: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2810,9 +3241,9 @@ function GuaranteeBookA() {
                                         HouseNumber14: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo14: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road14: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province14: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District14: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict14: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province14: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District14: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict14: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2827,9 +3258,9 @@ function GuaranteeBookA() {
                                         HouseNumber15: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo15: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road15: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province15: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District15: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict15: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province15: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District15: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict15: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
     
@@ -2844,9 +3275,9 @@ function GuaranteeBookA() {
                                         HouseNumber16: data.data[0].IDCARD_AddNo === null ? '' : data.data[0].IDCARD_AddNo, // "บ้านเลขที่16",
                                         Moo16: data.data[0].IDCARD_AddMoo === null ? '' : data.data[0].IDCARD_AddMoo, // "หมู่ 16",
                                         Road16: data.data[0].IDCARD_AddrSoiRoad === null ? '' : data.data[0].IDCARD_AddrSoiRoad, // "ถนน 16",
-                                        Province16: data.data[0].IDCARD_AddrProvinceID === null ? 0 : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
-                                        District16: data.data[0].IDCARD_AddrDistrictID === null ? 0 : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
-                                        Subdistrict16: data.data[0].IDCARD_AddrSubdistrictID === null ? 0 : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
+                                        Province16: data.data[0].IDCARD_AddrProvinceID === null ? '' : getProvince(data.data[0].IDCARD_AddrProvinceID), // "มหาสารคาม16",
+                                        District16: data.data[0].IDCARD_AddrDistrictID === null ? '' : getDistrict(data.data[0].IDCARD_AddrDistrictID), // "เมือง16",
+                                        Subdistrict16: data.data[0].IDCARD_AddrSubdistrictID === null ? '' : getSubDistrict(data.data[0].IDCARD_AddrSubdistrictID), // "ในเมือง16",
                                     })
                                     break;
                                 
@@ -2945,12 +3376,12 @@ function GuaranteeBookA() {
 
     const handleInputDataSubmit = (event) => {
 
-        console.log('',event)
+        // console.log('',event)
         let value = event.target.value
         setInputDataSubmit({...inputDataSubmit,
             [event.target.name]: value
         })
-        console.log('inputDataSubmit',event.target.name, event.target.value, event.target.id)
+        // console.log('inputDataSubmit',event.target.name, event.target.value, event.target.id)
     }
 
 
@@ -3022,6 +3453,36 @@ function GuaranteeBookA() {
 
 
     };
+
+    const handlePrintPDF = () => {
+        console.log('PDF - ContractNo:', loanNumber)
+        console.log('PDF - Username:',localStorage.getItem('provinceid'))
+
+        let formData = new FormData(); 
+        formData.append('ContractNo', loanNumber)
+        formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
+
+        axios({
+        url: `${siteprint}/report/pdf/GetContractPdf`, //your url
+        method: 'POST',
+        data: formData,
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+    }
     
     const handleClosePopup = () => {
         setErr(false);
@@ -3211,7 +3672,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE2" value={inputData.AGE2} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number2-idc" name="IDCard2" value={inputData.IDCard2} onChange={handleInputDataSubmit}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number2-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard2" value={inputDataSubmit.Supporter_IDCard2} onInput={(event)=>{handleInputSupporterData(event,2)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number2-idc" name="IDCard2" value={inputData.IDCard2} onChange={handleInputDataSubmit}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3260,7 +3722,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE3" value={inputData.AGE3} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number3-idc" name="IDCard3" value={inputData.IDCard3} onChange={handleInputDataSubmit}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number3-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard3" value={inputDataSubmit.Supporter_IDCard3} onInput={(event)=>{handleInputSupporterData(event,3)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number3-idc" name="IDCard3" value={inputData.IDCard3} onChange={handleInputDataSubmit}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3308,7 +3771,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE4" value={inputData.AGE4} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number4-idc" name="IDCard4" value={inputData.IDCard4} onChange={handleInputDataSubmit}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number4-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard4" value={inputDataSubmit.Supporter_IDCard4} onInput={(event)=>{handleInputSupporterData(event,4)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number4-idc" name="IDCard4" value={inputData.IDCard4} onChange={handleInputDataSubmit}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3357,7 +3821,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE5" value={inputData.AGE5} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number5-idc" name="IDCard5" value={inputData.IDCard5} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number5-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard5" value={inputDataSubmit.Supporter_IDCard5} onInput={(event)=>{handleInputSupporterData(event,5)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number5-idc" name="IDCard5" value={inputData.IDCard5} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3406,7 +3871,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE6" value={inputData.AGE6} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number6-idc" name="IDCard6" value={inputData.IDCard6} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number6-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard6" value={inputDataSubmit.Supporter_IDCard6} onInput={(event)=>{handleInputSupporterData(event,6)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number6-idc" name="IDCard6" value={inputData.IDCard6} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3455,7 +3921,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE7" value={inputData.AGE7} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number7-idc" name="IDCard7" value={inputData.IDCard7} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number7-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard7" value={inputDataSubmit.Supporter_IDCard7} onInput={(event)=>{handleInputSupporterData(event,7)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number7-idc" name="IDCard7" value={inputData.IDCard7} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3504,7 +3971,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE8" value={inputData.AGE8} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number8-idc" name="IDCard8" value={inputData.IDCard8} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number8-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard8" value={inputDataSubmit.Supporter_IDCard8} onInput={(event)=>{handleInputSupporterData(event,8)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number8-idc" name="IDCard8" value={inputData.IDCard8} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3553,7 +4021,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE9" value={inputData.AGE9} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number9-idc" name="IDCard9" value={inputData.IDCard9} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number9-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard9" value={inputDataSubmit.Supporter_IDCard9} onInput={(event)=>{handleInputSupporterData(event,9)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number9-idc" name="IDCard9" value={inputData.IDCard9} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3602,7 +4071,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE10" value={inputData.AGE10} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number10-idc" name="IDCard10" value={inputData.IDCard10} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number10-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard10" value={inputDataSubmit.Supporter_IDCard10} onInput={(event)=>{handleInputSupporterData(event,10)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number10-idc" name="IDCard10" value={inputData.IDCard10} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3651,7 +4121,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE11" value={inputData.AGE11} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number11-idc" name="IDCard11" value={inputData.IDCard11} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number11-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard11" value={inputDataSubmit.Supporter_IDCard11} onInput={(event)=>{handleInputSupporterData(event,11)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number11-idc" name="IDCard11" value={inputData.IDCard11} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3699,7 +4170,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE12" value={inputData.AGE12} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number12-idc" name="IDCard12" value={inputData.IDCard12} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number12-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard12" value={inputDataSubmit.Supporter_IDCard12} onInput={(event)=>{handleInputSupporterData(event,12)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number12-idc" name="IDCard12" value={inputData.IDCard12} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3748,7 +4220,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE13" value={inputData.AGE13} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number13-idc" name="IDCard13" value={inputData.IDCard13} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number13-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard13" value={inputDataSubmit.Supporter_IDCard13} onInput={(event)=>{handleInputSupporterData(event,13)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number13-idc" name="IDCard13" value={inputData.IDCard13} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3797,7 +4270,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE14" value={inputData.AGE14} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number14-idc" name="IDCard14" value={inputData.IDCard14} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number14-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard14" value={inputDataSubmit.Supporter_IDCard14} onInput={(event)=>{handleInputSupporterData(event,14)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number14-idc" name="IDCard14" value={inputData.IDCard14} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3846,7 +4320,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE15" value={inputData.AGE15} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number15-idc" name="IDCard15" value={inputData.IDCard15} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number15-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard15" value={inputDataSubmit.Supporter_IDCard15} onInput={(event)=>{handleInputSupporterData(event,15)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number15-idc" name="IDCard15" value={inputData.IDCard15} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -3895,7 +4370,8 @@ function GuaranteeBookA() {
                                                                 <MuiTextfield label="อายุ" inputdisabled="input-disabled" name="AGE16" value={inputData.AGE16} onChange={handleInputData}  />
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
-                                                                <MuiTextfield label="เลขบัตรประชาชน" id="number16-idc" name="IDCard16" value={inputData.IDCard16} onChange={handleInputData}   />
+                                                                <MuiTextNumber label="เลขบัตรประชาชน" id="number16-idc" placeholder="ตัวอย่าง 3 8517 13368 44 4"  name="Supporter_IDCard16" value={inputDataSubmit.Supporter_IDCard16} onInput={(event)=>{handleInputSupporterData(event,16)}}  />
+                                                                {/* <MuiTextfield label="เลขบัตรประชาชน" id="number16-idc" name="IDCard16" value={inputData.IDCard16} onChange={handleInputData}   /> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={6}>
                                                                 <p>&nbsp;</p>
@@ -4095,7 +4571,12 @@ function GuaranteeBookA() {
                                     </form>
                                     <Grid container spacing={2} className="btn-row txt-center">
                                         <Grid item xs={12} md={12}>
-                                            <ButtonFluidPrimary label="บันทึกข้อมูล" maxWidth="380px" onClick={handleSubmit} />
+                                            <ButtonFluidPrimary label="บันทึกข้อมูล" maxWidth="280px" onClick={handleSubmit} />
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div style={{opacity: '0.5', display: 'inline-block', width: '280px'}}>
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="280px"  startIcon={<PrintIcon />} />
+                                            </div> 
+                                            
                                         </Grid>
                                     </Grid>
                                 
