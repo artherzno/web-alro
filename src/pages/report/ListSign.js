@@ -39,7 +39,7 @@ class ListSign extends React.Component {
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
 
-                <Box mt={5}>
+                <Box mt={1}>
                     <div >
                         <Box ml={2}>
                             <Grid container spacing={2}>
@@ -62,7 +62,7 @@ class ListSign extends React.Component {
                 </Box>
                 <div className="line-horizontal" />
 
-                <Box mt={5} ml={2} mr={2}>
+                <Box mt={1} ml={2} mr={2}>
                     {this.renderContent()}
                 </Box>
 
