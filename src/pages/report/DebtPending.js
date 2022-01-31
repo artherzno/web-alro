@@ -214,7 +214,7 @@ parameter.append('YearTo', YearTovalue);
                         </Grid>
 
                         <div>
-                            <Box mt={5} mb={5}>
+                            <Box mt={1} mb={5}>
                                 <Typography variant="h6" align="center">รายงานสถานะหนี้เงินรอเรียกคืน</Typography>
                             </Box>
                         </div>

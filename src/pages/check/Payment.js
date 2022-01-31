@@ -368,7 +368,7 @@ class Payment extends React.Component {
                                 </Paper>
                             </Box>
 
-                            <Box mt={5}>
+                            <Box mt={1}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={4} >
                                         <MuiTextfield label="เลขที่สัญญา" value={selectedPayment.contractNo} disabled={true} />

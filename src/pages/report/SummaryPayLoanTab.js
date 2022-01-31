@@ -297,7 +297,7 @@ parameter.append('YearTo', YearTovalue);
             </Grid>
 
             <div>
-                <Box mt={5} mb={5}>
+                <Box mt={1} mb={5}>
                     <Typography variant="h6" align="center">สรุปรายงานการจ่ายเงินกู้ (15 วันทำการ)   {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>

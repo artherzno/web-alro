@@ -169,7 +169,7 @@ class Compensate extends React.Component {
                         </Grid>
 
                         <div>
-                            <Box mt={5} mb={5}>
+                            <Box mt={1} mb={5}>
                                 <Typography variant="h6" align="center">รายงานการชดใช้หนี้แทนเกษตรกร</Typography>
                             </Box>
                         </div>

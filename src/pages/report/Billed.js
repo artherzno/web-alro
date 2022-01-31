@@ -203,7 +203,7 @@ class Billed extends React.Component {
             <OverlayLoading isLoading={this.state.isLoading} />
             <Header bgColor="bg-light-green" status="logged" />
             <Nav />
-            <Box mt={5} ml={2} mr={2}>
+            <Box mt={1} ml={2} mr={2}>
                 <Grid container spacing={2}>
 
                     <Grid item>
@@ -345,7 +345,7 @@ class Billed extends React.Component {
                 </Grid>
 
                 <div>
-                    <Box mt={5} mb={5}>
+                    <Box mt={1} mb={5}>
                         <Typography variant="h6" align="center">รายงานการใช้ใบเสร็จรับเงิน {`${this.state.provinceZoneLabel}`}</Typography>
                         {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                         {this.state.receiptTypeLabel != "" ? <Typography variant="h6" align="center">ประเภทใบเสร็จรับเงิน {`${this.state.receiptTypeLabel} ${this.state.provinceReiptLabel}`}</Typography> : ""}
