@@ -325,8 +325,8 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">จ่ายเงินกู้</StyledTableCell>
                                     <StyledTableCell align="center">ชำระงวดแรก</StyledTableCell>
-                                    <StyledTableCell align="center">รายเดิม</StyledTableCell>
-                                    <StyledTableCell align="center">รายใหม่</StyledTableCell>
+                                   {/* <StyledTableCell align="center">รายเดิม</StyledTableCell>
+                                    <StyledTableCell align="center">รายใหม่</StyledTableCell>*/}
                                     <StyledTableCell align="center">น้อยกว่า 15 วันทำการ</StyledTableCell>
                                     <StyledTableCell align="center">มากกว่า 15 วันทำการ</StyledTableCell>
 
@@ -342,8 +342,8 @@ parameter.append('YearTo', YearTovalue);
                                             <StyledTableCellLine align="right">{farmer.numCase}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanAmount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.firstInstallment)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.original}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.new}</StyledTableCellLine>
+                                           {/* <StyledTableCellLine align="right">{farmer.original}</StyledTableCellLine>
+                                            <StyledTableCellLine align="right">{farmer.new}</StyledTableCellLine>*/}
                                             <StyledTableCellLine align="right">{farmer.lessThan15}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.moreThan15}</StyledTableCellLine>
 
@@ -358,8 +358,8 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.numCase)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.firstInstallment)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.original}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.new}</StyledTableCellLine>
+                                   {/* <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.original}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.new}</StyledTableCellLine>*/}
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.lessThan15}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.moreThan15}</StyledTableCellLine>
 
