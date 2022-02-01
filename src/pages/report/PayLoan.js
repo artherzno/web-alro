@@ -98,11 +98,11 @@ class PayLoan extends React.Component {
             return (
                 <PayLoanTab />
             )
-        } else if (this.state.tabSelected === tabs[2].id) {
+        } else if (this.state.tabSelected === tabs[3].id) {
             return (
                 <SumaryPayLoanTab />
             )
-        } else if (this.state.tabSelected === tabs[3].id) {
+        } else if (this.state.tabSelected === tabs[4].id) {
             return (
                 <SumaryProjectPayLoanTab />
             )
