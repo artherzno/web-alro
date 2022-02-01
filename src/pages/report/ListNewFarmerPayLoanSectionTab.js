@@ -64,7 +64,7 @@ class ListNewFarmerPayLoanSectionTab extends React.Component {
         const parameter = new FormData()
 
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('LevelDisplay', display2);
         parameter.append('StartDate', startDate);
@@ -175,7 +175,7 @@ parameter.append('YearTo', YearTovalue);
 
         return (<div>
             <OverlayLoading isLoading={this.state.isLoading} />
-            <Grid container spacing={2}>
+           {/* <Grid container spacing={2}>
 
                 <Grid item>
                     <DisplayMonthSelect
@@ -236,7 +236,7 @@ parameter.append('YearTo', YearTovalue);
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
                 </Grid>
 
-            </Grid>
+            </Grid>*/}
 
             <div>
                 <Box mt={1} mb={5}>
@@ -262,25 +262,25 @@ parameter.append('YearTo', YearTovalue);
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">ลำดับ</StyledTableCell>
+                                   {/* <StyledTableCell align="center">ลำดับ</StyledTableCell>*/}
                                     <StyledTableCell align="center">ภาค</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>
-                                    <StyledTableCell align="center">จำวนราย</StyledTableCell>
+                                     {/*<StyledTableCell align="center">จำวนราย</StyledTableCell>*/}
                                     <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
                                     <StyledTableCell align="center">อัตราร้อยละ</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 <TableRow >
-                                    <StyledTableCellLine colSpan={2} align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine  align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalProj}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.totalContract}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanPaymentResult)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.total}</StyledTableCellLine>
+                                     {/*<StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{dataSummary.total}</StyledTableCellLine>*/}
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.percentage)}</StyledTableCellLine>
 
@@ -342,14 +342,14 @@ parameter.append('YearTo', YearTovalue);
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine component="th" align="center" scope="row">
+                                           {/*  <StyledTableCellLine component="th" align="center" scope="row">
                                                 {farmer.no}
-                                            </StyledTableCellLine>
+                                            </StyledTableCellLine>*/}
                                             <StyledTableCellLine align="left">{farmer.zone}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalProj}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.total}</StyledTableCellLine>
+                                             {/*<StyledTableCellLine align="right">{farmer.total}</StyledTableCellLine>*/}
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
                                         </TableRow>

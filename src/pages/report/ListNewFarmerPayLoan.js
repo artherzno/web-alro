@@ -10,11 +10,12 @@ import ListNewFarmerPayLoanSectionTab from './ListNewFarmerPayLoanSectionTab'
 const tabs = [{
     title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
     id: "list_new_farmer_pay"
-},
-{
+},{
     title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่ รายภาค',
     id: "list_new_farmer_pay_sector"
 }]
+
+
 
 class ListNewFarmerPayLoan extends React.Component {
 
