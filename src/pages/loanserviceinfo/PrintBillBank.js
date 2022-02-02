@@ -69,8 +69,8 @@ function PrintBillBank() {
     const [rows, setRows] = useState([])
 
     const [inputDataSearch, setInputDataSearch] = useState({
-        fromdate: null,
-        todate: null,
+        fromdate: moment(),
+        todate: moment(),
         LoanNumber: null,
         filename: null,
     })
@@ -78,17 +78,17 @@ function PrintBillBank() {
 
     const rowsLabel = [
         // 'no',
-        'date', 
-        'pro_code',
-        'pro_name',
-        'no_contact', 
-        'date_bill',
-        'no_bill', 
-        'money1', 
-        'money2', 
-        'money3', 
-        'item', 
-        'mindex', 
+        'Recdate', 
+        'ProjectCode',
+        'ProjectName',
+        'LoanNumber', 
+        'ReceiptDate',
+        'ReceiptNumber', 
+        'PrinciplePaid', 
+        'InterestPaid', 
+        'Fines', 
+        'Time', 
+        'Mindex', 
         // 'pcapital', 
         // 'pcap1', 
         // 'pcap2', 
@@ -97,19 +97,31 @@ function PrintBillBank() {
         // 'pcharge', 
     ]
 
+    // item.Recdate,
+    // item.ProjectCode,
+    // item.ProjectName,
+    // item.LoanNumber,
+    // item.ReceiptDate,
+    // item.ReceiptNumber,
+    // item.PrinciplePaid,
+    // item.InterestPaid,
+    // item.Fines,
+    // item.Time,
+    // item.Mindex,
+
     const headCells = [
         // { id: 'no', numeric: false, disablePadding: true, label: 'รหัสบันทึก' },
-        { id: 'date', numeric: true, disablePadding: false, label: 'วันที่บันทึก' },
-        { id: 'pro_code', numeric: true, disablePadding: false, label: 'รหัสโครงการ' },
-        { id: 'pro_name', numeric: true, disablePadding: false, label: 'ชื่อโครงการ' },
-        { id: 'no_contact', numeric: true, disablePadding: false, label: 'สัญญาเลขที่' },
-        { id: 'date_bill', numeric: false, disablePadding: true, label: 'วันที่ใบเสร็จ' },
-        { id: 'no_bill', numeric: true, disablePadding: false, label: 'เลขที่ใบเสร็จ' },
-        { id: 'money1', numeric: true, disablePadding: false, label: 'เงินต้น' },
-        { id: 'money2', numeric: true, disablePadding: false, label: 'ดอกเบี้ย' },
-        { id: 'money3', numeric: true, disablePadding: false, label: 'ค่าปรับ' },
-        { id: 'item', numeric: false, disablePadding: true, label: 'item' },
-        { id: 'mindex', numeric: true, disablePadding: false, label: 'Mindex' },
+        { id: 'Recdate', numeric: true, disablePadding: false, label: 'วันที่บันทึก' },
+        { id: 'ProjectCode', numeric: true, disablePadding: false, label: 'รหัสโครงการ' },
+        { id: 'ProjectName', numeric: true, disablePadding: false, label: 'ชื่อโครงการ' },
+        { id: 'LoanNumber', numeric: true, disablePadding: false, label: 'สัญญาเลขที่' },
+        { id: 'ReceiptDate', numeric: false, disablePadding: true, label: 'วันที่ใบเสร็จ' },
+        { id: 'ReceiptNumber', numeric: true, disablePadding: false, label: 'เลขที่ใบเสร็จ' },
+        { id: 'PrinciplePaid', numeric: true, disablePadding: false, label: 'เงินต้น' },
+        { id: 'InterestPaid', numeric: true, disablePadding: false, label: 'ดอกเบี้ย' },
+        { id: 'Fines', numeric: true, disablePadding: false, label: 'ค่าปรับ' },
+        { id: 'Time', numeric: false, disablePadding: true, label: 'item' },
+        { id: 'Mindex', numeric: true, disablePadding: false, label: 'Mindex' },
         // { id: 'pcapital', numeric: true, disablePadding: false, label: 'Pcapital' },
         // { id: 'pcap1', numeric: true, disablePadding: false, label: 'Pcap_1' },
         // { id: 'pcap2', numeric: true, disablePadding: false, label: 'Pcap_2' },
@@ -118,8 +130,18 @@ function PrintBillBank() {
         // { id: 'pcharge', numeric: true, disablePadding: false, label: 'Pcharge' },
     ];
 
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+    function createData(Recdate, ProjectCode,ProjectName,LoanNumber, ReceiptDate,ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, ) {
+        return { Recdate, 
+    ProjectCode,
+    ProjectName,
+    LoanNumber, 
+    ReceiptDate,
+    ReceiptNumber, 
+    PrinciplePaid, 
+    InterestPaid, 
+    Fines, 
+    Time, 
+    Mindex, };
     }
 
     useEffect(() => {
@@ -160,21 +182,19 @@ function PrintBillBank() {
                         setRows(
                             data.data.map((item,i)=>
                                 createData(
-                                    i,
-                                    item.FrontName,
-                                    item.Name,
-                                    item.Sirname,
+                                    // i,
+                                    item.Recdate,
+                                    item.ProjectCode,
+                                    item.ProjectName,
                                     item.LoanNumber,
-                                    item.GBookID,
-                                    item.LoanID,
-                                    item.WarrantBookOwner1,
-                                    item.WarrantBookIDCard1,
-                                    item.WarrantBookOwner2,
-                                    item.WarrantBookIDCard2,
-                                    item.WarrantBookOwner3,
-                                    item.WarrantBookIDCard3,
-                                    item.WarrantBookOwner4,
-                                    item.WarrantBookIDCard4,
+                                    !!item.ReceiptDate?moment(item.ReceiptDate).format('DD/MM/YYYY'):'',
+                                    item.ReceiptNumber,
+                                    !!item.PrinciplePaid?item.PrinciplePaid:0,
+                                    !!item.InterestPaid?item.InterestPaid:0,
+                                    !!item.Fines?item.Fines:0,
+                                    item.Time,
+                                    item.Mindex,
+
                                 ))
                         )
                         setSearchResult(data.data)
@@ -220,6 +240,11 @@ function PrintBillBank() {
         //   setError(true);
         // }
     };
+
+    const handlePrintPDF = () => {
+        setErr(true)
+        setErrMsg('ไม่สามารถทำรายการได้')
+    }
 
     const handleClosePopup = () => {
         setErr(false);
@@ -278,7 +303,10 @@ function PrintBillBank() {
                                         colSpan={18} 
                                         hasCheckbox={false} 
                                         hasAction={true}  // show action
-                                        actionCustom={false} 
+                                        actionCustom={true} 
+                                        customName={"พิมพ์ใบเสร็จ"}
+                                        customWidth={"140px"}
+                                        customEvent={handlePrintPDF}
                                         tableName={'printbillbank'}
                                     />
                                 </div>
@@ -694,7 +722,7 @@ function PrintBillBank() {
                             </Grid> */}
                             <Grid item xs={12} md={8}>
                                 {/* <ButtonFluidPrimary label="พิมพ์ใบเสร็จรับเงินลงแบบฟอร์ม (ใหม่)" /> */}
-                                <ButtonFluidPrimary label="พิมพ์ใบเสร็จรับเงินลงแบบฟอร์ม" />
+                                {/* <ButtonFluidPrimary label="พิมพ์ใบเสร็จรับเงินลงแบบฟอร์ม" /> */}
                             </Grid>
                             {/* <Grid item xs={12} md={4}>
                                 <ButtonFluidPrimary label="แก้" />

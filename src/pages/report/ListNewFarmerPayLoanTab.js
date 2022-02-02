@@ -178,9 +178,9 @@ parameter.append('YearTo', YearTovalue);
         return (<div>
 
             <OverlayLoading isLoading={this.state.isLoading} />
-            <Grid container spacing={2}>
+      {/* <Grid container spacing={2}>
 
-                <Grid item>
+                  <Grid item>
                     <DisplayMonthSelect
                         onChange={(event) => {
 
@@ -235,11 +235,11 @@ parameter.append('YearTo', YearTovalue);
                     />
                 </Grid>
               
-                <Grid item xs={12} md={2}>
+             <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
                 </Grid>
-            </Grid>
+            </Grid>*/}
 
             <div>
                 <Box mt={1} mb={5}>
@@ -266,11 +266,11 @@ parameter.append('YearTo', YearTovalue);
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">จังหวัด</StyledTableCell>
+                                   {/* <StyledTableCell align="center">จังหวัด</StyledTableCell>*/}
                                     <StyledTableCell align="center">จำนวนโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนสัญญา</StyledTableCell>
                                     <StyledTableCell align="center">ผลการจ่ายเงินกู้ จำนวนเงิน</StyledTableCell>
-                                    <StyledTableCell align="center">จำนวนราย</StyledTableCell>
+                                     {/*<StyledTableCell align="center">จำนวนราย</StyledTableCell>*/}
                                     <StyledTableCell align="center">จำนวนเงิน (เงิน)</StyledTableCell>
                                     <StyledTableCell align="center">อัตราร้อยละ</StyledTableCell>
                                 </TableRow>
@@ -280,13 +280,13 @@ parameter.append('YearTo', YearTovalue);
 
                                     return (
                                         <TableRow key={index}>
-                                            <StyledTableCellLine component="th" align="left" scope="row">
+                                            {/*<StyledTableCellLine component="th" align="left" scope="row">
                                                 {farmer.zone}
-                                            </StyledTableCellLine>
+                                            </StyledTableCellLine>*/}
                                             <StyledTableCellLine align="right">{farmer.totalProj}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{farmer.totalContract}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.loanPaymentResult)}</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">{farmer.total}</StyledTableCellLine>
+                                            {/*<StyledTableCellLine align="right">{farmer.total}</StyledTableCellLine>*/}
                                             <StyledTableCellLine align="right">{formatNumber(farmer.amount)}</StyledTableCellLine>
                                             <StyledTableCellLine align="right">{formatNumber(farmer.percentage)}</StyledTableCellLine>
 

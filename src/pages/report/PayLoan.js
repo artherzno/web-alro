@@ -15,11 +15,11 @@ const tabs = [
     {
         title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่',
         id: "list_new_farmer_pay"
-    },
-    {
+    },{
         title: 'รายงานการจ่ายเงินกู้เกษตรกรรายใหม่ รายภาค',
         id: "list_new_farmer_pay_sector"
-    },{
+    }
+    ,{
     title: 'รายงานการจ่ายเงินกู้',
     id: "pay_loan"
 },
@@ -31,6 +31,7 @@ const tabs = [
     title: 'สรุปโครงการที่จ่ายเงินกู้',
     id: "sum_project_pay_loan"
 }]
+
 
 class PayLoan extends React.Component {
 
@@ -87,7 +88,8 @@ class PayLoan extends React.Component {
             return (
                 <ListNewFarmerPayLoanTab />
             )
-        } else if (this.state.tabSelected === tabs[1].id) {
+        } 
+      else if (this.state.tabSelected === tabs[1].id) {
             return (
                 <ListNewFarmerPayLoanSectionTab />
             )

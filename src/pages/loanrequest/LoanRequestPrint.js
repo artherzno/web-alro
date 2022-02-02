@@ -84,6 +84,8 @@ function LoanRequestPrint(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
+    const [noticeModal, setNoticeModal] = useState(false)
+
     const [applicantProjectYear, setApplicantProjectYear] = useState()
     const [projectList, setProjectList] = useState([]);
     const [projectSubCodeText, setProjectSubCodeText] = useState('')
@@ -457,6 +459,19 @@ function LoanRequestPrint(props) {
         }
 
         checkLogin();
+
+        if(localStorage.getItem('noticeNo')) {
+            setInputDataSearch({
+                ...inputDataSearch,
+                ApplicantNo: localStorage.getItem('noticeNo')
+            })
+
+            getSearchApprovedApplicant()
+        }
+
+        return () => {
+            localStorage.removeItem('noticeNo')
+        };
     }, [])
 
     function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
@@ -537,16 +552,18 @@ function LoanRequestPrint(props) {
         setRows([])
         setProjectSubCodeText('')
         setProjectSubNameText('')
-        
+
         axios.post(
             `${server_hostname}/admin/api/search_approved_applicant`, {
-                ApplicantNo: inputDataSearch.SearchByApplicantNo || '',
+                ApplicantNo: !!localStorage.getItem('noticeNo') ? localStorage.getItem('noticeNo') : inputDataSearch.SearchByApplicantNo || '',
                 LoanNumber: inputDataSearch.SearchByLoanNumber || '',
                 Name: inputDataSearch.SearchByName || '',
             }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
                 console.log(res)
+                localStorage.removeItem('noticeNo')
+                
                 let data = res.data;
                 if(data.code === 0 || res === null || res === undefined) {
                     setErr(true);
@@ -1846,7 +1863,18 @@ console.log('FreeDebtTime',event.target.value)
         setIsLoading(false)
     };
 
+    const handleClosePopupNoticeModal = () => {
+        setErr(false);
+        setSuccess(false);
+        setConfirm(false);
+        setIsLoading(false)
+        setNoticeModal(false)
+        localStorage.setItem('noticeNo',applicantNo)
+        window.location.reload();
+    };
+
     const gotoGuaranteeBookA = (valNumber, valID) => {
+        setNoticeModal(true)
         console.log('sent loanNumber:',valNumber,', loanID:', valID,' to GuaranteeBookA')
         if(!!valNumber) {
             localStorage.setItem('GuaranteeBoookALoanNumber',valNumber)
@@ -3171,7 +3199,7 @@ console.log('FreeDebtTime',event.target.value)
                                             <Grid item xs={12} md={3} className={!!showConfirmButton ? '' : 'btn-disabled'}  >
                                                 <ButtonFluidPrimary label="ยืนยันสร้างสัญญา" onClick={()=>setConfirm(true)}/>
                                             </Grid>
-                                            <Grid item xs={12} md={3} className={action==='edit' ? '' : 'btn-disabled'}>
+                                            <Grid item xs={12} md={3} className={drafted || loanID ? '' : 'btn-disabled'}>
                                                 <ButtonFluidPrimary label="สร้างหนังสือค้ำประกัน ก" onClick={()=>{gotoGuaranteeBookA(loanNumber, loanID)}} />  
                                             </Grid>
                                             <Grid item xs={12} md={3} className={drafted || loanID ? '' : 'btn-disabled'} >
@@ -3253,6 +3281,34 @@ console.log('FreeDebtTime',event.target.value)
                         <Box textAlign='center'>
                             <ButtonFluidOutlinePrimary label="ยกเลิก" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}}/> &nbsp;&nbsp;&nbsp;&nbsp;
                             <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={(event)=>{ handleSubmit(event, 'confirm');}} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
+
+
+            <Dialog
+                open={noticeModal}
+                onClose={handleClosePopupNoticeModal}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-confirm">
+                        <p className="txt-center txt-green" style={{fontSize: '20px'}}>คำแนะนำ</p>
+                        <p className="txt-center txt-black">กรุณาบันทึกข้อมูลหน้า สร้าง/พิมพ์ หนังสือสัญญาค้ำประกัน ก </p>
+                        <p className="txt-center txt-black">แล้วกดปุ่มตกลง ระบบจะค้นหาข้อมูลอีกครั้ง</p>
+                        <p className="txt-center txt-black">เพื่อแสดงข้อมูลล่าสุด</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={()=>handleClosePopupNoticeModal()} color="primary" style={{justifyContent: 'center'}} />
                         </Box>
                     </div>
                     
