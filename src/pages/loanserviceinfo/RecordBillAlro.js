@@ -196,7 +196,7 @@ function RecordBillAlro() {
                 formikRef.current.setFieldValue("RecPrincipleBalance", formatNumber(recData.principalBalance,2))
                 formikRef.current.setFieldValue("RecPrinciple", formatNumber(recData.StuckMoney,2))
                 formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? formatNumber(beforRectData.InterestKang2,2) : 0)
-                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2 ,2): recData.InterestKang2)
+                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2, 2) : formatNumber(recData.InterestKang2,2))
                 formikRef.current.setFieldValue("RecSumInterest", formatNumber(recData.InterestKang2,2))
                 formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
                 formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
