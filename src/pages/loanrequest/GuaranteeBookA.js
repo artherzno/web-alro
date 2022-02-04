@@ -140,7 +140,7 @@ function GuaranteeBookA() {
         GuaranteeBookTypeID: "1",
         LoanID: "",
         PlaceCreate: "",
-        ContactDate: "",
+        ContactDate: null,
         Supporter_IDCard1: "",
         Supporter_IDCard2: "",
         Supporter_IDCard3: "",
@@ -1453,7 +1453,7 @@ function GuaranteeBookA() {
 
                         setInputDataSubmit({
                             ...inputDataSubmit,
-                            LoanID: loanID,
+                            LoanID: Number(loanID),
                             Supporter_IDCard1: result.Supporter_IDCard1,
                             Supporter_IDCard2: result.Supporter_IDCard2,
                             Supporter_IDCard3: result.Supporter_IDCard3,
@@ -1679,7 +1679,7 @@ function GuaranteeBookA() {
 
                         setInputData({
                             ...inputData,
-                            LoanID: loanID,
+                            LoanID: Number(loanID),
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
@@ -1912,7 +1912,7 @@ function GuaranteeBookA() {
 
                         setInputDataSubmit({
                             ...inputDataSubmit,
-                            LoanID: loanID,
+                            LoanID: Number(loanID),
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
@@ -3500,7 +3500,7 @@ function GuaranteeBookA() {
         setConfirm(false);
         setIsLoading(false)
 
-        window.location.reload()
+        // window.location.reload()
         
         // history.push('/manageinfo/searchmember');
 
