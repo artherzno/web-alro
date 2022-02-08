@@ -319,7 +319,7 @@ function AdvanceInvoice(props) {
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() => {
 
                                                 if (startDate === "") {
-                                                    dialog.showDialogFail({ message: 'กรุณากรอกวันที่ครบกำหนดชำระหนี้' })
+                                                    dialog.showDialogFail({ message: 'กรุณาเลือกเงิ่อนไขการค้นหา' })
                                                 } else {
                                                     getAdvanceInvoiceAll()
                                                 }
