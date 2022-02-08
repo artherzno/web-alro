@@ -202,12 +202,19 @@ function DebtReminder() {
 
         setIsLoading(true);
 
+        const provinceid = localStorage.getItem('provinceid')
+        const cUsername = localStorage.getItem('cUsername')
+        const roleID = localStorage.getItem('nROLEID')
+
         axios({
             url: `${server_spkapi}/Invoice/GetTotal`, //your url
             method: 'POST',
             data: {
-                start_date: searchDate, // 2561-08-11
+               start_date: startDateSearch, // 2561-08-11
                 item: amountProcess,
+                Username: provinceid,
+                RoleID: roleID,
+                ProvinceID: provinceid
             }
         }).then(res => {
             console.log(res)
@@ -248,13 +255,19 @@ function DebtReminder() {
 
         setIsLoading(true);
 
-        console.log("startDateSearch", startDateSearch)
+        const provinceid = localStorage.getItem('provinceid')
+        const cUsername = localStorage.getItem('cUsername')
+        const roleID = localStorage.getItem('nROLEID')
+
         axios({
             url: `${server_spkapi}/Invoice/GetAll`, //your url
             method: 'POST',
             data: {
                 start_date: startDateSearch, // 2561-08-11
                 item: amountProcess,
+                Username: provinceid,
+                RoleID: roleID,
+                ProvinceID: provinceid
             }
         }).then(res => {
             console.log(res)
@@ -517,6 +530,7 @@ function DebtReminder() {
 
                                         <MuiDatePicker label="ตรวจสอบวันที่ประมวล" value={startDateSelect} onChange={(event) => {
 
+                                            console.log("event", event)
                                             setStartDateSearch(moment(event).format("YYYY-MM-DD"))
                                             setStartDateSelect(event)
 

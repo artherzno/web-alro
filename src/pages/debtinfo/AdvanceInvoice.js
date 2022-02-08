@@ -137,6 +137,8 @@ function AdvanceInvoice(props) {
         api.getAdvanceInvoiceAll(parameter).then(response => {
             setResultList(response.data)
             setIsLoading(false)
+
+            console.log("response.data", response.data)
         }).catch(error => {
             setIsLoading(false)
         })
