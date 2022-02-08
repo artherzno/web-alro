@@ -622,6 +622,222 @@ const api = {
             }
         })
     },
+    getDebtStatusPerContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtStatusPerContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtStatusPerProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtStatusPerProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    }, 
+    getDebtStatusPerLoanTypePdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtStatusPerLoanTypePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getTargetByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetTargetByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getTargetByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetTargetByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getTargetByProjectYearPdf(params) {
+        return post({
+            path: "api/report/pdf/GetTargetByProjectYearPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getTargetByDebtPdf(params) {
+        return post({
+            path: "api/report/pdf/GetTargetByDebtPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePerContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePerContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePerCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePerCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePerProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePerProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePerProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePerProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSttByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSttByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSttByCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetSttByCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSttByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetSttByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getSttByProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetSttByProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAgeByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAgeByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAgeByCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAgeByCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAgeByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAgeByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAgeByProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAgeByProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCalendarDebtPdf(params) {
+        return post({
+            path: "api/report/pdf/GetCalendarDebtPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCalendarDebt1Pdf(params) {
+        return post({
+            path: "api/report/pdf/GetCalendarDebt1Pdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCalendarDebt2Pdf(params) {
+        return post({
+            path: "api/report/pdf/GetCalendarDebt2Pdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAreaPerContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAreaPerContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAreaPerProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAreaPerProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     getSummaryPayLoanPdf(params) {
         return post({
             path: "api/report/pdf/GetSummaryPayLoanPdf",

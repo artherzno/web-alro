@@ -733,6 +733,7 @@ function RecordCloseOldContact() {
                     OverdueInterest: dataGetProcess.InterestBanche,
                     FinesPaid: dataGetProcess.Fines,
                     DueInterest: dataGetProcess.DueInterest,
+                    PrincipleBalance2: dataGetProcess.principalBalance,
 
                     Fines: dataGetProcess.Fines,
                     // TotalPaid: inputDataReceipt.TotalPaid,
@@ -761,6 +762,7 @@ function RecordCloseOldContact() {
                     Fines: dataGetProcess.Fines,
                     TotalInterest: dataGetProcess.InterestPaid,
                     PendingInterest: dataGetProcess.InterestBanche,
+                    PrincipleBalance:  dataGetProcess.principalBalance
 
                     // TotalPaid: inputDataReceipt.TotalPaid,
                 })
@@ -964,7 +966,7 @@ function RecordCloseOldContact() {
             }
     
             axios.post(
-                `${server_spkapi}/CloseContact/Insert`, 
+                `${server_spkapi}/CloseContact/Inserttt`, 
                     dataSend
                   , { headers: { "token": token } } 
             ).then(res => {
