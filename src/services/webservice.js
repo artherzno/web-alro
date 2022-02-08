@@ -838,6 +838,24 @@ const api = {
             }
         })
     },
+    getDebtAreaPerCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAreaPerCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtAreaPerProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtAreaPerProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     getSummaryPayLoanPdf(params) {
         return post({
             path: "api/report/pdf/GetSummaryPayLoanPdf",
