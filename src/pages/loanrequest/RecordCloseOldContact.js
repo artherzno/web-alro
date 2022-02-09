@@ -552,7 +552,7 @@ function RecordCloseOldContact() {
             }else {
                 setIsLoading(false)
                 setGetSelectData(data[0])
-                console.log('GetSelectData',getSelectData)
+                console.log('GetSelectData',data[0])
                 setInputSelectDate({
                     ...inputSelectDate,
                     loandatedd: data[0].LoanDate === null ? '00': data[0].LoanDate.substring(8,10),
@@ -563,8 +563,6 @@ function RecordCloseOldContact() {
                     loanreceiptdatemm: data[0].LoanReceiptDate === null ? '00': data[0].LoanReceiptDate.substring(5,7),
                     loanreceiptdateyyyy: data[0].LoanReceiptDate === null ? '0000': Number(data[0].LoanReceiptDate.substring(0,4)) + 543,
                 })
-                
-                getProcessBeforePay(data[0].LoanID,loanNumber, )
 
                 // setInputDataReceipt({
                 //     ...inputDataReceipt,
@@ -577,6 +575,37 @@ function RecordCloseOldContact() {
                 //     ...inputDataCloseContact,
                 //     LoanID: data[0].LoanID
                 // })
+
+                if(!data[0].Status) {
+                    setInputDataReceipt({
+                        ...inputDataReceipt,
+                        PrinciplePaid: 0,
+                        InterestPaid: 0,
+                        OverdueInterest: 0,
+                        FinesPaid: 0,
+                        DueInterest: 0,
+                        PrincipleBalance2: 0,
+                        LoanID: data[0].LoanID,
+                        Fines: 0,
+                        TotalPaid: 0,
+                        TotalInterest: 0,
+                    })
+    
+                    setInputDataCloseContact({
+                        ...inputDataCloseContact,
+                        InterestPaid: 0,
+                        DueInterest: 0,
+                        Fines: 0,
+                        TotalInterest: 0,
+                        PendingInterest: 0,
+                        PrincipleBalance:  0,
+                        LoanID: data[0].LoanID,
+                        TotalPaid: 0,
+                    })
+                } else {
+                    getProcessBeforePay(data[0].LoanID,loanNumber, )
+                }
+                
             }
         }).catch(err => { console.log(err); })
         .finally(() => {
@@ -966,7 +995,7 @@ function RecordCloseOldContact() {
             }
     
             axios.post(
-                `${server_spkapi}/CloseContact/Inserttt`, 
+                `${server_spkapi}/CloseContact/Insert`, 
                     dataSend
                   , { headers: { "token": token } } 
             ).then(res => {

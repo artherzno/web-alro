@@ -373,6 +373,13 @@ const MUItable = (props) => {
                   : null
                 }
                 {
+                  tableName === 'spouseconsentbook' && row['GBookID'] === null  ? 
+                  <ButtonFluidPrimary label="สร้างหนังสือให้ความยินยอม" maxWidth="240px" onClick={()=>{guaranteebookEvent(row['GBookID'],row['LoanID'],row['ind']); }} />
+                  : tableName === 'spouseconsentbook' ?
+                  <ButtonFluidPrimary label="แก้ไข" maxWidth="130px" onClick={()=>{guaranteebookEvent(row['GBookID'],row['LoanID'],row['ind']); }} />
+                  : null
+                }
+                {
                   actionRequest ? 
                   <>
                     {
