@@ -1387,9 +1387,18 @@ function RecordContractDebt() {
                     }
                 }else {
                     console.log('getIndividualcard',data.singlecard_data[data.singlecard_data.length - 1])
-                    console.log('getIndividualcardCloseContact',data.closecontact_data[0])
                     setInputDataIndividualcard(data.singlecard_data[data.singlecard_data.length - 1])
-                    setInputDataIndividualcardCloseContact(data.closecontact_data[0])
+                    if(data.closecontact_data[0] === undefined) {
+                        console.log('getIndividualcardCloseContact',data.closecontact_data[0])
+                        setInputDataIndividualcardCloseContact({
+                            Fines: null,
+                            PrincipleBalance: null,
+                            TotalInterest: null
+                        })
+                    } else {
+                        console.log('getIndividualcardCloseContact',data.closecontact_data[0])
+                        setInputDataIndividualcardCloseContact(data.closecontact_data[0])
+                    }
                 }
             }
         ).catch(err => { console.log(err);})
