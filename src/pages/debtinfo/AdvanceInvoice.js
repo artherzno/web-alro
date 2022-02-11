@@ -296,7 +296,7 @@ function AdvanceInvoice(props) {
                                 <form>
                                     <Grid container spacing={2}>
 
-                                        <Grid item xs={12} md={3}>
+                                        {/* <Grid item xs={12} md={3}>
 
                                             <MuiDatePicker label="วันที่ครบกำหนดชำระหนี้" value={startDateSelect} onChange={(event) => {
                                                 setStartDate(moment(event).add(543, 'years').format("YYYY-MM-DD"))
@@ -304,7 +304,7 @@ function AdvanceInvoice(props) {
 
                                             }} />
 
-                                        </Grid>
+                                        </Grid> */}
                                         <Grid item xs={12} md={2}>
                                             <MuiTextfield label="เลขที่สัญญา" onChange={(e) => { setRentNo(e.target.value) }} />
                                         </Grid>
@@ -318,7 +318,7 @@ function AdvanceInvoice(props) {
                                             <p>&nbsp;</p>
                                             <ButtonFluidPrimary label="ค้นหา" onClick={() => {
 
-                                                if (startDate === "") {
+                                                if (startDate === "" && rentno === "" && invoiceno === "") {
                                                     dialog.showDialogFail({ message: 'กรุณาเลือกเงิ่อนไขการค้นหา' })
                                                 } else {
                                                     getAdvanceInvoiceAll()

@@ -657,6 +657,7 @@ function RecordInstallmentPayment() {
                                                                     <Grid item xs={12} md={6}>
                                                                         <Grid item xs={12} md={12}>
                                                                             <Grid container spacing={2}>
+
                                                                                 <Grid item xs={12} md={6}>
                                                                                     <MuiDatePicker
                                                                                         name="RelentDate"
@@ -665,12 +666,18 @@ function RecordInstallmentPayment() {
                                                                                         helperText={errors.RelentDate}
                                                                                         onChange={(event) => {
                                                                                             setFieldValue("RelentDate", moment(event).format("YYYY-MM-DD"))
-                                                                                            getProcessBeforePay(moment(event).format("YYYY-MM-DD"))
+                                                                                           
                                                                                         }}
                                                                                         onChangeDate={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         placeholder="วันที่ประมวล"
                                                                                         label="วันที่ประมวล" />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={4}>
+                                                                                    <div>&nbsp;</div>
+                                                                                    <ButtonFluidPrimary label="ประมวลผล" onClick={() =>{
+                                                                                        getProcessBeforePay(formik.values.RelentDate)
+                                                                                    }} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={12}>
                                                                                     <MuiTextfieldMultiLine
@@ -880,25 +887,49 @@ function RecordInstallmentPayment() {
                                                             <TableCell align="left">
                                                                 {
                                                                     i === 0 ?
-                                                                        <MuiTextfield label="" value={row.PAYREC} onChange={(e) => {
+                                                                        <MuiTextfieldNumber label="" value={row.PAYREC} onValueChange={(e) => {
                                                                             onChangeRealPay("PAYREC", e.target.value, i)
                                                                         }} />
                                                                         :
-                                                                        <MuiTextfieldEndAdornment label="" value={row.PAYREC} onChange={(e) => {
-                                                                            onChangeRealPay("PAYREC", e.target.value, i)
-                                                                        }} endAdornment={<IconButton onClick={() => {
+                                                                         <Grid container>
+                                                                                                <Grid item xs>
+                                                                                                    <MuiTextfieldNumber label="" value={row.PAYREC} onValueChange={(e) => {
+                                                                                                        onChangeRealPay("PAYREC", e.target.value, i)
+                                                                                                    }} />
+                                                                                                </Grid>
 
-                                                                            const realPay = selectedExtendData.RealPay
-                                                                            if (realPay) {
-                                                                                realPay.splice(i, 1)
-                                                                            }
+                                                                                                <Grid item>
+                                                                                                    <IconButton onClick={() => {
 
-                                                                            setSelectedData({
-                                                                                ...selectedExtendData,
-                                                                                RealPay: realPay
-                                                                            })
+                                                                                                        const realPay = selectedExtendData.RealPay
+                                                                                                        if (realPay) {
+                                                                                                            realPay.splice(i, 1)
+                                                                                                        }
 
-                                                                        }} > <CloseIcon className="table-item-del" /></IconButton>} />
+                                                                                                        setSelectedData({
+                                                                                                            ...selectedExtendData,
+                                                                                                            RealPay: realPay
+                                                                                                        })
+
+                                                                                                    }} > <CloseIcon className="table-item-del" /></IconButton>
+                                                                                                </Grid>
+                                                                                            </Grid>
+
+                                                                        // <MuiTextfieldNumber label="" value={row.PAYREC} onValueChange={(e) => {
+                                                                        //     onChangeRealPay("PAYREC", e.target.value, i)
+                                                                        // }} endAdornment={<IconButton onClick={() => {
+
+                                                                        //     const realPay = selectedExtendData.RealPay
+                                                                        //     if (realPay) {
+                                                                        //         realPay.splice(i, 1)
+                                                                        //     }
+
+                                                                        //     setSelectedData({
+                                                                        //         ...selectedExtendData,
+                                                                        //         RealPay: realPay
+                                                                        //     })
+
+                                                                        // }} > <CloseIcon className="table-item-del" /></IconButton>} />
                                                                 }
                                                             </TableCell>
                                                         </TableRow>
