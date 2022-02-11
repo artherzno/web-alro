@@ -671,11 +671,16 @@ function RecordRequestPayment() {
                                                                                         helperText={errors.ExtendDate}
                                                                                         onChange={(event) => {
                                                                                             setFieldValue("ExtendDate", moment(event).format("YYYY-MM-DD"))
-                                                                                            getProcessBeforePay(moment(event).format("YYYY-MM-DD"))
                                                                                         }}
                                                                                         onChangeDate={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                     />
+                                                                                </Grid>
+                                                                                <Grid item xs={12} md={4}>
+                                                                                    <div>&nbsp;</div>
+                                                                                    <ButtonFluidPrimary label="ประมวลผล" onClick={() => {
+                                                                                        getProcessBeforePay(formik.values.ExtendDate)
+                                                                                    }} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={12}>
                                                                                     <MuiTextfieldMultiLine
@@ -889,7 +894,7 @@ function RecordRequestPayment() {
                                                                                 <TableCell align="left">
                                                                                     {
                                                                                         i === 0 ?
-                                                                                            <MuiTextfield label="" value={row.PAYREC} onChange={(e) => {
+                                                                                            <MuiTextfieldNumber label="" value={row.PAYREC} onValueChange={(e) => {
                                                                                                 onChangeRealPay("PAYREC", e.target.value, i)
                                                                                             }} />
                                                                                             :
