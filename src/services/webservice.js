@@ -856,6 +856,186 @@ const api = {
             }
         })
     },
+    getResultDebtsRemainingByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetResultDebtsRemainingByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getResultDebtsRemainingByCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetResultDebtsRemainingByCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getResultDebtsRemainingByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetResultDebtsRemainingByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getResultDebtsRemainingByProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetResultDebtsRemainingByProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPrincipalInterestByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetPrincipalInterestByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPrincipalInterestByCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetPrincipalInterestByCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPrincipalInterestByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetPrincipalInterestByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPrincipalInterestByProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetPrincipalInterestByProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPlanEstimationByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetPlanEstimationByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPlanEstimationByCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetPlanEstimationByCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPlanEstimationByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetPlanEstimationByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getPlanEstimationByProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetPlanEstimationByProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePlanResultByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePlanResultByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePlanResultByCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePlanResultByCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePlanResultByProjectPdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePlanResultByProjectPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getComparePlanResultByProvincePdf(params) {
+        return post({
+            path: "api/report/pdf/GetComparePlanResultByProvincePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCashFlowPdf(params) {
+        return post({
+            path: "api/report/pdf/GetCashFlowPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getAgeByContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetAgeByContractPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getAgeByDayPdf(params) {
+        return post({
+            path: "api/report/pdf/GetAgeByDayPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getAgeByYearPdf(params) {
+        return post({
+            path: "api/report/pdf/GetAgeByYearPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
     getSummaryPayLoanPdf(params) {
         return post({
             path: "api/report/pdf/GetSummaryPayLoanPdf",
