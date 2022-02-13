@@ -115,6 +115,8 @@ function GuaranteeBookB() {
     const [formField, setFormField] = useState(false)
     const [loanNumber, setLoanNumber] = useState(null)
     const [searchResult, setSearchResult] = useState([])
+    const [printActive, setPrintActive] = useState(false)
+
     let searchResultData = {}
     const [dataOwner, setDataOwner] = useState({
         FrontName: '',
@@ -1281,6 +1283,7 @@ function GuaranteeBookB() {
                         let result = data.data[0]
                         console.log('view_GuaranteeApplicant',result)
                         setFormField(true)
+                        setLoanNumber(result.LoanNumber)
 
                         for(let i=1; i<=16; i++) {
 
@@ -1507,6 +1510,7 @@ function GuaranteeBookB() {
                         let result = data.data[0]
                         console.log('view_GuaranteeBook',result)
                         setFormField(true)
+                        setLoanNumber(result.LoanNumber)
 
                         for(let i=1; i<=16; i++) {
 
@@ -3464,7 +3468,7 @@ function GuaranteeBookB() {
         formData.append('RoleID', localStorage.getItem('nROLEID'))
 
         axios({
-        url: `${siteprint}/report/pdf/GetContractPdf`, //your url
+        url: `${siteprint}/report/pdf/GetGuaranteeBookType2Pdf`, //your url
         method: 'POST',
         data: formData,
         responseType: 'blob', // important
@@ -4573,9 +4577,16 @@ function GuaranteeBookB() {
                                         <Grid item xs={12} md={12}>
                                             <ButtonFluidPrimary label="บันทึกข้อมูล" maxWidth="280px" onClick={handleSubmit} />
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <div style={{opacity: '0.5', display: 'inline-block', width: '280px'}}>
-                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="280px"  startIcon={<PrintIcon />} />
-                                            </div> 
+                                            {
+                                                printActive ? 
+
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="280px"  startIcon={<PrintIcon />} onClick={()=>{handlePrintPDF()}} />
+                                                :
+                                                <div style={{opacity: '0.5', display: 'inline-block', width: '280px'}}>
+                                                    <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="280px"  startIcon={<PrintIcon />} />
+                                                </div> 
+
+                                            }
                                             
                                         </Grid>
                                     </Grid>

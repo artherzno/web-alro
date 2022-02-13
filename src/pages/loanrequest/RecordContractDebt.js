@@ -836,6 +836,10 @@ function RecordContractDebt() {
                     setLoanID(data.loanrec_data[0].LoanID)
                     // setTableResult(data.data)
                     // setRows(data.data)
+                    setInputDataNewFarmer({
+                        ...inputDataNewFarmer,
+                        FarmerID: data.farmer_data.FarmerID
+                    })
 
                     console.warn('action',action)
 
@@ -1184,7 +1188,7 @@ function RecordContractDebt() {
                     }
 
                     setInputDataLoanRec({
-                        Old_LoanID: data.closecontact_data[0].LoanNumber, 
+                        Old_LoanID: data.close_oldcontact_data[0].LoanNumber, 
                         // OldFine: data.singlecard_data[0].FineKang 
                         OldFine: data.singlecard_data[0].InterestKang2, // P'Pong specify 13/01/22
                     })
@@ -1271,6 +1275,18 @@ function RecordContractDebt() {
                     setInputDataNewFarmerIDCard(data.farmer_data.IDCard)
 
                     getIndividualcard(data.loanrec_data[0].LoanNumber)
+
+                    if(data.old_priciple_data[0] === undefined) {
+                        console.log('getOldPriciple',data.old_priciple_data[0])
+                        setInputDataIndividualcardCloseContact({
+                            Fines: null,
+                            PrincipleBalance: null,
+                            TotalInterest: null
+                        })
+                    } else {
+                        console.log('getOldPriciple',data.old_priciple_data[0])
+                        setInputDataIndividualcardCloseContact(data.old_priciple_data[0])
+                    }
                     
                 }
             }
@@ -1388,16 +1404,19 @@ function RecordContractDebt() {
                 }else {
                     console.log('getIndividualcard',data.singlecard_data[data.singlecard_data.length - 1])
                     setInputDataIndividualcard(data.singlecard_data[data.singlecard_data.length - 1])
-                    if(data.closecontact_data[0] === undefined) {
-                        console.log('getIndividualcardCloseContact',data.closecontact_data[0])
-                        setInputDataIndividualcardCloseContact({
-                            Fines: null,
-                            PrincipleBalance: null,
-                            TotalInterest: null
-                        })
-                    } else {
-                        console.log('getIndividualcardCloseContact',data.closecontact_data[0])
-                        setInputDataIndividualcardCloseContact(data.closecontact_data[0])
+
+                    if(action === 'add') {
+                        if(data.closecontact_data[0] === undefined) {
+                            console.log('getIndividualcardCloseContact',data.closecontact_data[0])
+                            setInputDataIndividualcardCloseContact({
+                                Fines: null,
+                                PrincipleBalance: null,
+                                TotalInterest: null
+                            })
+                        } else {
+                            console.log('getIndividualcardCloseContact',data.closecontact_data[0])
+                            setInputDataIndividualcardCloseContact(data.closecontact_data[0])
+                        }
                     }
                 }
             }
@@ -1994,11 +2013,13 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="เงินต้นค้างเดิม"  inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.PrincipleBalance ? inputDataIndividualcardCloseContact.PrincipleBalance : 0} /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            <p>เงินต้นค้างเดิม</p>
+                                                            <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.PrincipleBalance ? inputDataIndividualcardCloseContact.PrincipleBalance : 0} onChange={handleInputDataSubmit}  /> {/* Fulor & P'Pong 26/01/22 */}
                                                             {/* <MuiTextfield label="เงินต้นค้างเดิม"  value={inputDataIndividualcard.principalBalance} /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="ดอกเบี้ยค้างเดิม"  inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.TotalInterest ? inputDataIndividualcardCloseContact.TotalInterest : 0} /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            <p>ดอกเบี้ยค้างเดิม</p>
+                                                            <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.TotalInterest ? inputDataIndividualcardCloseContact.TotalInterest : 0}  onChange={handleInputDataSubmit}  /> {/* Fulor & P'Pong 26/01/22 */}
                                                             {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.InterestKang2} /> P'Pong specify 13/01/22 */}
                                                             {/* <MuiTextfield label="ดอกเบี้ยค้างเดิม"  value={inputDataIndividualcard.interestKang} /> P'Pong specify 11/01/22 */}
                                                         </Grid>
@@ -2007,7 +2028,8 @@ function RecordContractDebt() {
                                                         <Grid item xs={12} md={3}>
                                                             {/* <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataLoanRec.OldFine} /> */}
                                                             {/* <MuiTextfield label="ค่าปรับค้างเดิม"  value={inputDataIndividualcard.FineKang} /> P'Pong specify 11/01/22 */}
-                                                            <MuiTextfield label="ค่าปรับค้างเดิม"  inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.Fines ? inputDataIndividualcardCloseContact.Fines : 0} /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            <p>ค่าปรับค้างเดิม</p>
+                                                            <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.Fines ? inputDataIndividualcardCloseContact.Fines : 0} onChange={handleInputDataSubmit}  /> {/* Fulor & P'Pong 26/01/22 */}
                                                         </Grid>
                                                             {/* </Grid>
                                                         </Grid> */}
