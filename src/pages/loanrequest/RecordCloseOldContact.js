@@ -526,7 +526,7 @@ function RecordCloseOldContact() {
             `${server_spkapi}/CloseContact/GetSelectData`, {
                 Username: inputDataSearch.Username.toString(),
                 LoanNumber: loanNumber,
-                Rentno: "",
+                Rentno: loanNumber,
                 Fullname: "",
                 Date: inputDataReceipt.RecDate
               }, { headers: { "token": token } } 

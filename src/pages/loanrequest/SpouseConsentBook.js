@@ -118,7 +118,7 @@ function SpouseConsentBook() {
     const [loanNumber, setLoanNumber] = useState(null)
     const [searchResult, setSearchResult] = useState([])
     const [printActive, setPrintActive] = useState(false)
-    
+
     let searchResultData = {}
     const [dataOwner, setDataOwner] = useState({
         FrontName: '',
@@ -705,6 +705,7 @@ function SpouseConsentBook() {
     }
 
     const getDataSupporter = (idcardNum, orderNum) => {
+        setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_farmer`, {
                 Name: null,
@@ -2339,6 +2340,7 @@ function SpouseConsentBook() {
     };
 
     const handlePrintPDF = () => {
+        setIsLoading(true)
         console.log('PDF - ContractNo:', loanNumber)
         console.log('PDF - Username:',localStorage.getItem('provinceid'))
 
@@ -2360,6 +2362,7 @@ function SpouseConsentBook() {
             // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
+            setIsLoading(false)
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
         .finally(() => {
             if (isMounted.current) {

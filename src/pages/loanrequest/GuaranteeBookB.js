@@ -652,6 +652,7 @@ function GuaranteeBookB() {
     }
 
     const getDataSupporter = (idcardNum, orderNum) => {
+        setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_farmer`, {
                 Name: null,
@@ -1492,6 +1493,7 @@ function GuaranteeBookB() {
                 dataView, 
                 { headers: { "token": token } } 
             ).then(res => {
+                    setIsLoading(true)
                     console.log('getView',res)
                     let data = res.data;
                     if(data.code === 0) {
@@ -1510,6 +1512,7 @@ function GuaranteeBookB() {
                         let result = data.data[0]
                         console.log('view_GuaranteeBook',result)
                         setFormField(true)
+                        setPrintActive(true)
                         setLoanNumber(result.LoanNumber)
 
                         for(let i=1; i<=16; i++) {
@@ -1523,6 +1526,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard1: result.Supporter_IDCard1
                                     // })
                                     setSupporterAmount(1)
+                                    setIsLoading(true)
 
                             } else if(i===2 && !(!result.Supporter_IDCard2)) {
                                     console.log('supporter2')
@@ -1533,6 +1537,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard2: result.Supporter_IDCard2
                                     // })
                                     setSupporterAmount(2)
+                                    setIsLoading(true)
 
                                     
                             } else if(i===3 && !(!result.Supporter_IDCard3)) {
@@ -1544,6 +1549,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard3: result.Supporter_IDCard3
                                     // })
                                     setSupporterAmount(3)
+                                    setIsLoading(true)
 
                                     
                             } else if(i===4 && !(!result.Supporter_IDCard4)) {
@@ -1555,6 +1561,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard4: result.Supporter_IDCard4
                                     // })
                                     setSupporterAmount(4)
+                                    setIsLoading(true)
 
                                     
                             } else if(i===5 && !(!result.Supporter_IDCard5)) {
@@ -1566,6 +1573,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard5: result.Supporter_IDCard5
                                     // })
                                     setSupporterAmount(5)
+                                    setIsLoading(true)
                                     
                             } else if(i===6 && !(!result.Supporter_IDCard6)) {
                                     console.log('supporter6')
@@ -1576,6 +1584,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard6: result.Supporter_IDCard6
                                     // })
                                     setSupporterAmount(6)
+                                    setIsLoading(true)
 
                             } else if(i===7 && !(!result.Supporter_IDCard7)) {
                                     console.log('supporter7')
@@ -1586,6 +1595,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard7: result.Supporter_IDCard7
                                     // })
                                     setSupporterAmount(7)
+                                    setIsLoading(true)
 
                             } else if(i===8 && !(!result.Supporter_IDCard8)) {
                                     console.log('supporter8')
@@ -1596,6 +1606,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard8: result.Supporter_IDCard8
                                     // })
                                     setSupporterAmount(8)
+                                    setIsLoading(true)
 
                             } else if(i===9 && !(!result.Supporter_IDCard9)) {
                                     console.log('supporter9')
@@ -1606,6 +1617,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard9: result.Supporter_IDCard9
                                     // })
                                     setSupporterAmount(9)
+                                    setIsLoading(true)
  
                             } else if(i===10 && !(!result.Supporter_IDCard10)) {
                                     console.log('supporter10')
@@ -1616,6 +1628,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard10: result.Supporter_IDCard10
                                     // })
                                     setSupporterAmount(10)
+                                    setIsLoading(true)
                                     
                             } else if(i===11 && !(!result.Supporter_IDCard11)) {
                                     console.log('supporter11')
@@ -1626,6 +1639,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard11: result.Supporter_IDCard11
                                     // })
                                     setSupporterAmount(11)
+                                    setIsLoading(true)
                                     
                             } else if(i===12 && !(!result.Supporter_IDCard12)) {
                                     console.log('supporter12')
@@ -1636,6 +1650,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard12: result.Supporter_IDCard12
                                     // })
                                     setSupporterAmount(12)
+                                    setIsLoading(true)
                                     
                             } else if(i===13 && !(!result.Supporter_IDCard13)) {
                                     console.log('supporter13')
@@ -1646,6 +1661,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard13: result.Supporter_IDCard13
                                     // })
                                     setSupporterAmount(13)
+                                    setIsLoading(true)
                                     
                             } else if(i===14 && !(!result.Supporter_IDCard14)) {
                                     console.log('supporter14')
@@ -1656,6 +1672,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard14: result.Supporter_IDCard14
                                     // })
                                     setSupporterAmount(14)
+                                    setIsLoading(true)
                                     
                             } else if(i===15 && !(!result.Supporter_IDCard15)) {
                                     console.log('supporter15')
@@ -1666,6 +1683,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard15: result.Supporter_IDCard15
                                     // })
                                     setSupporterAmount(15)
+                                    setIsLoading(true)
                                     
                             } else if(i===16 && !(!result.Supporter_IDCard16)) {
                                     console.log('supporter16')
@@ -1676,6 +1694,7 @@ function GuaranteeBookB() {
                                     //     Supporter_IDCard16: result.Supporter_IDCard16
                                     // })
                                     setSupporterAmount(16)
+                                    setIsLoading(true)
                                     
                             } 
 
@@ -2716,6 +2735,7 @@ function GuaranteeBookB() {
             }
 
         } else if(event.target.value.length === 13) {
+            setIsLoading(true)
             
             axios.post(
                 // `${server_hostname}/admin/api/search_supporter_step1`, {"IDCard": event.target.value}, 
@@ -2732,6 +2752,7 @@ function GuaranteeBookB() {
                 },
                 { headers: { "token": token } } 
             ).then(res => {
+                setIsLoading(false)
                     console.log(res)
                     let data = res.data;
                     if(data.code === 0 || res === null || res === undefined) {
@@ -3446,6 +3467,7 @@ function GuaranteeBookB() {
             }else {
                 setIsLoading(false)
                 setSuccess(true)
+                setPrintActive(true)
             }
         }).catch(err => { console.log(err); })
         .finally(() => {
@@ -3459,6 +3481,7 @@ function GuaranteeBookB() {
     };
 
     const handlePrintPDF = () => {
+        setIsLoading(true)
         console.log('PDF - ContractNo:', loanNumber)
         console.log('PDF - Username:',localStorage.getItem('provinceid'))
 
@@ -3480,6 +3503,7 @@ function GuaranteeBookB() {
             // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
+            setIsLoading(false)
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
         .finally(() => {
             if (isMounted.current) {

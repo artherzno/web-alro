@@ -108,6 +108,7 @@ import PrintForm from './printform/PrintForm';
 import GuaranteeBookA from './loanrequest/GuaranteeBookA';
 import GuaranteeBookB from './loanrequest/GuaranteeBookB';
 import SpouseConsentBook from './loanrequest/SpouseConsentBook';
+import UserHistory from './manageinfo/UserHistory';
 
 
 
@@ -219,6 +220,7 @@ function Main() {
                     <Route path="/manageinfo/debtconditionadjust" component={DebtConditionAdjust} />
                     <Route path="/manageinfo/checkfarmer" component={CheckFarmer} />
                     <Route path="/manageinfo/infofarmer" component={InfoFarmer} />
+                    <Route path="/manageinfo/userhistory" component={UserHistory} />
                     {/* Manage Check Page */}
                     <Route path="/check/bysign" component={BySign} />
                     <Route path="/check/realpay" component={RealPay} />

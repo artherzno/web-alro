@@ -37,6 +37,8 @@ import {
     ButtonFluidOutlinePrimary,
 } from '../../components/MUIinputs';
 
+import { MUItable } from '../../components/MUItable'
+
 // End All Data for DataGrid ---------------------------------------------//
 
 
@@ -128,7 +130,27 @@ function ManageUser() {
         },
       ];
 
-      const [rows, setRows] = useState([])
+    
+      const headCells = [
+        { id: 'userid', numeric: true, disablePadding: false, widthCol: '110px', label: 'UserID' },
+        { id: 'officername', numeric: true, disablePadding: false, widthCol: '120px', label: 'ชื่อ - นามสกุล' },
+        { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'Username' },
+        { id: 'dcreated', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่สร้าง' },
+        { id: 'activestatus', numeric: true, disablePadding: false,  widthCol: '140px',label: 'สถานะ' },
+        { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '160px', label: 'วันที่หมดอายุ' },
+        { id: 'userrole', numeric: true, disablePadding: false, widthCol: '140px', label: 'ตำแหน่ง' },
+    ];
+
+    const rowsLabel = [
+        'userid','officername','username','dcreated','activestatus','expiredate','userrole']
+
+    function createData( userid,officername,username,dcreated,activestatus,expiredate,userrole) {
+        return { 
+            userid,officername,username,dcreated,activestatus,expiredate,userrole
+         };
+    }
+
+    const [rows, setRows] = useState([])
 
     useEffect(() => {
         setLoaded(true);
@@ -251,6 +273,10 @@ function ManageUser() {
         history.push('/manageinfo/managepermission');
     }
 
+    const gotoUserHistory = () => {
+        history.push('/manageinfo/userhistory');
+    }
+
     const handleClosePopup = () => {
         setOpenPopup(false);
     };
@@ -296,6 +322,7 @@ function ManageUser() {
                                 <div className="mg-r-10"><ButtonNormalIconStartPrimary label="เพิ่มเมนู" startIcon={<AddIcon />} onClick={()=>gotoAddMenu()} /></div>
                                 <div className="mg-r-10"><ButtonNormalIconStartPrimary label="จัดการสิทธิ์" startIcon={<SettingsOutlinedIcon />} onClick={()=>gotoManagePermission()} /></div> */}
                                 <div className="mg-l-10"><ButtonNormalIconStartPrimary label="เพิ่มผู้ใช้งาน" startIcon={<AddIcon />} onClick={()=>gotoAddUser()}/></div>
+                                {/* <div className="mg-l-10"><ButtonNormalIconStartPrimary label="ประวัติการใช้งาน" onClick={()=>gotoUserHistory()}/></div> */}
                             </Grid>
 
                             <Grid item xs={12} md={12} className="result-header mg-t-20 mg-b--10"> 
@@ -304,7 +331,18 @@ function ManageUser() {
 
                             <Grid item xs={12} md={12}>
                                 <div style={{  }}>
-                                    <DataGrid
+                                    <MUItable 
+                                        headCells={headCells} 
+                                        rows={rows} 
+                                        rowsLabel={rowsLabel} 
+                                        colSpan={36} 
+                                        hasCheckbox={false} 
+                                        hasAction={true} 
+                                        actionEdit={true}
+                                        editEvent={gotoEditUser}
+                                        editParam={'userid'}
+                                    />
+                                    {/* <DataGrid
                                         rows={rows}
                                         columns={columns}
                                         pageSize={10}
@@ -312,7 +350,9 @@ function ManageUser() {
                                         disableColumnMenu={true}
                                         // checkboxSelection
                                         disableSelectionOnClick
-                                    />
+                                    /> */}
+
+
                                 </div>
                                 {/* <div className="table-box table-allcontractsearch1 mg-t-10">
                                     <TableContainer >

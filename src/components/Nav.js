@@ -306,7 +306,12 @@ const listmenu = [
             },{
                 subtitle: 'จัดการผู้ใช้งาน',
                 subpath: '/manageinfo/manageuser'
-            },{
+            }
+            ,{
+                subtitle: 'ประวัติการใช้งาน',
+                subpath: '/manageinfo/userhistory'
+            }
+            ,{
                 subtitle: 'ข้อมูลจังหวัด',
                 subpath: '/manageinfo/infoprovince'
             },{

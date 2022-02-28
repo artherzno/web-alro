@@ -652,6 +652,7 @@ function GuaranteeBookA() {
     }
 
     const getDataSupporter = (idcardNum, orderNum) => {
+        setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_farmer`, {
                 Name: null,
@@ -2717,7 +2718,7 @@ function GuaranteeBookA() {
             }
 
         } else if(event.target.value.length === 13) {
-            
+            setIsLoading(true)
             axios.post(
                 // `${server_hostname}/admin/api/search_supporter_step1`, {"IDCard": event.target.value}, 
                 `${server_hostname}/admin/api/search_farmer`, {
@@ -2733,6 +2734,7 @@ function GuaranteeBookA() {
                 },
                 { headers: { "token": token } } 
             ).then(res => {
+                    setIsLoading(false)
                     console.log(res)
                     let data = res.data;
                     if(data.code === 0 || res === null || res === undefined) {
@@ -3461,6 +3463,7 @@ function GuaranteeBookA() {
     };
 
     const handlePrintPDF = () => {
+        setIsLoading(true)
         console.log('PDF - ContractNo:', loanNumber)
         console.log('PDF - Username:',localStorage.getItem('provinceid'))
 
@@ -3482,6 +3485,7 @@ function GuaranteeBookA() {
             // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
             document.body.appendChild(link);
             link.click();
+            setIsLoading(false)
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
         .finally(() => {
             if (isMounted.current) {
