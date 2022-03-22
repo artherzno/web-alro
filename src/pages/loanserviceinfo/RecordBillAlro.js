@@ -351,9 +351,9 @@ function RecordBillAlro() {
                                         Mindex: selectedData.Mindex,
                                         Time: "",
                                         RecDate: moment(new Date()).format("YYYY-MM-DD"),
-                                        ReceiptDate: "",
-                                        CalculateDate: "",
-                                        PaidDate: "",
+                                        ReceiptDate: moment(new Date()).format("YYYY-MM-DD"),
+                                        CalculateDate: moment(new Date()).format("YYYY-MM-DD"),
+                                        PaidDate: moment(new Date()).format("YYYY-MM-DD"),
                                         PrincipleBalance1: "",
                                         PrincipleCalculate: "",
                                         PaidCalculate: "",
@@ -445,7 +445,7 @@ function RecordBillAlro() {
                                                 {/* Paper 1 - -------------------------------------------------- */}
                                                 <Paper className="paper line-top-green paper mg-t-20">
                                                     <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={6}>
+                                                        {/* <Grid item xs={12} md={6}>
                                                             <MuiTextfield
                                                                 name="RecNum"
                                                                 value={values.RecNum}
@@ -457,7 +457,7 @@ function RecordBillAlro() {
                                                                 label="เลขที่บันทึก"
                                                                 disabled
                                                             />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={6}>
                                                             <MuiDatePicker
                                                                 name="RecDate"
@@ -473,6 +473,7 @@ function RecordBillAlro() {
                                                                 label="วันที่บันทึก"
                                                             />
                                                         </Grid>
+                                                        <Grid item xs={12} md={6}></Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield
                                                                 name="ProvinceID"

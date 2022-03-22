@@ -264,7 +264,7 @@ function RecordInstallmentPayment() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="left">รหัสบันทึก</TableCell>
+                                                    {/* <TableCell align="left">รหัสบันทึก</TableCell> */}
                                                     <TableCell align="left">วันที่บันทึก</TableCell>
                                                     <TableCell align="left">เลขคำขอ</TableCell>
                                                     <TableCell align="left">อ้างถึง</TableCell>
@@ -292,7 +292,7 @@ function RecordInstallmentPayment() {
                                                             selectDataByLoan(element.RelentNumber ,element.LoanNumber)
                                                             setSelectedItemData(element)
                                                         }}>
-                                                            <StyledTableCellLine align="left">{element.RecordCode}</StyledTableCellLine>
+                                                            {/* <StyledTableCellLine align="left">{element.RecordCode}</StyledTableCellLine> */}
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.RelentNumber}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Ref1}</StyledTableCellLine>

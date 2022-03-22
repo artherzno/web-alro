@@ -181,7 +181,7 @@ function DebtCondition() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="left">รหัสบันทึก</TableCell>
+                                                    {/* <TableCell align="left">รหัสบันทึก</TableCell> */}
                                                     <TableCell align="left">วันที่บันทึก</TableCell>
                                                     <TableCell align="left">เลขคำขอ</TableCell>
                                                     <TableCell align="left">อ้างถึง</TableCell>
@@ -210,7 +210,7 @@ function DebtCondition() {
                                                             // setSelectedData(element)
                                                             selectDataByLoanChangeStructure(element.LoanNumber)
                                                         }}>
-                                                            <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
+                                                            {/* <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine> */}
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.ChangeDeptNumber}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Ref1}</StyledTableCellLine>
