@@ -1010,7 +1010,7 @@ function RecordBillAlro() {
                                                 {/* Paper 2 - -------------------------------------------------- */}
                                                 <Paper className="paper line-top-green paper">
                                                     <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={2}>
+                                                        {/* <Grid item xs={12} md={2}>
                                                             <MuiTextfield
                                                                 name="Time"
                                                                 value={values.Time}
@@ -1026,7 +1026,7 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             <MuiTextfield label="&nbsp;" />
-                                                        </Grid>
+                                                        </Grid> */}
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
                                                             <MuiTextfield
