@@ -69,8 +69,8 @@ function PrintBillBank() {
     const [rows, setRows] = useState([])
 
     const [inputDataSearch, setInputDataSearch] = useState({
-        fromdate: moment(),
-        todate: moment(),
+        fromdate: null, //moment().format('YYYY-MM-DD'),
+        todate: null,  //moment().format('YYYY-MM-DD'),
         LoanNumber: null,
         filename: null,
     })

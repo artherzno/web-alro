@@ -137,6 +137,7 @@ function SpouseConsentBook() {
         // Date: ""
         GuaranteeBookTypeID: "3",
         Name: '',
+        Sirname: '',
         LoanNumber: ''
     })
 
@@ -631,6 +632,7 @@ function SpouseConsentBook() {
                 Username: localStorage.getItem('cUsername'),
                 GuaranteeBookTypeID: "3",
                 Name: '',
+                Sirname: '',
                 LoanNumber: valLoanNumber
             }
         } else {
@@ -2425,9 +2427,14 @@ function SpouseConsentBook() {
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
-                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
+                                            <MuiTextfield label="ค้นหาชื่อ" name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
+                                            <MuiTextfield label="ค้นหานามสกุล" name="Sirname" value={inputDataSearch.Sirname} onChange={handleInputDataSearch} />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา" name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputDataSearch} />
                                         </Grid>

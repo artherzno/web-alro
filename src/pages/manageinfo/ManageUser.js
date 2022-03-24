@@ -89,7 +89,7 @@ function ManageUser() {
             flex: 1,
             editable: false,
         },{
-            field: 'dcreated',
+            field: 'createdate',
             headerName: 'วันที่สร้าง',
             //   width: 120,
             flex: 1,
@@ -135,18 +135,18 @@ function ManageUser() {
         { id: 'userid', numeric: true, disablePadding: false, widthCol: '110px', label: 'UserID' },
         { id: 'officername', numeric: true, disablePadding: false, widthCol: '120px', label: 'ชื่อ - นามสกุล' },
         { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'Username' },
-        { id: 'dcreated', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่สร้าง' },
+        { id: 'createdate', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่สร้าง' },
         { id: 'activestatus', numeric: true, disablePadding: false,  widthCol: '140px',label: 'สถานะ' },
         { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '160px', label: 'วันที่หมดอายุ' },
         { id: 'userrole', numeric: true, disablePadding: false, widthCol: '140px', label: 'ตำแหน่ง' },
     ];
 
     const rowsLabel = [
-        'userid','officername','username','dcreated','activestatus','expiredate','userrole']
+        'userid','officername','username','createdate','activestatus','expiredate','userrole']
 
-    function createData( userid,officername,username,dcreated,activestatus,expiredate,userrole) {
+    function createData( userid,officername,username,createdate,activestatus,expiredate,userrole) {
         return { 
-            userid,officername,username,dcreated,activestatus,expiredate,userrole
+            userid,officername,username,createdate,activestatus,expiredate,userrole
          };
     }
 

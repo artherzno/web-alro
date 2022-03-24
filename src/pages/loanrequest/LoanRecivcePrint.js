@@ -80,6 +80,7 @@ function LoanRecivcePrint() {
 
     const [inputDataSearch, setInputDataSearch] = useState({
         Name: '',
+        Sirname: '',
         LoanNumber: ''
     })
 
@@ -458,6 +459,7 @@ function LoanRecivcePrint() {
         axios.post(
             `${server_hostname}/admin/api/search_loanfarmergetmoney`, {
                 Name: inputDataSearch.Name,
+                Sirname: inputDataSearch.Sirname,
                 LoanNumber: inputDataSearch.LoanNumber,
             }, { headers: { "token": token } } 
         ).then(res => {
@@ -900,7 +902,11 @@ function LoanRecivcePrint() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}
-                                        <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
+                                        <MuiTextfield label="ค้นหาชื่อ"  name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
+                                    </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        {/* Field Text ---------------------------------------------------*/}
+                                        <MuiTextfield label="ค้นหานามสกุล"  name="Sirname" value={inputDataSearch.Sirname} onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         {/* Field Text ---------------------------------------------------*/}

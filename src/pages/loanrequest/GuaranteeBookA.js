@@ -135,12 +135,14 @@ function GuaranteeBookA() {
         // Date: ""
         GuaranteeBookTypeID: "1",
         Name: '',
-        LoanNumber: ''
+        Sirname: '',
+        LoanNumber: '',
     })
 
     const [inputDataSubmit, setInputDataSubmit] = useState({
         GuaranteeBookTypeID: "1",
         LoanID: "",
+        BookNumber: "",
         PlaceCreate: "",
         ContactDate: null,
         Supporter_IDCard1: "",
@@ -193,6 +195,7 @@ function GuaranteeBookA() {
     const [inputData, setInputData] = useState({
         GuaranteeBookTypeID: '1',
         LoanID: '',
+        BookNumber: '',
         PlaceCreate: '',
         ContactDate: moment(),
 
@@ -578,6 +581,7 @@ function GuaranteeBookA() {
                 Username: localStorage.getItem('cUsername'),
                 GuaranteeBookTypeID: "1",
                 Name: '',
+                Sirname: '',
                 LoanNumber: valLoanNumber
             }
         } else {
@@ -985,6 +989,7 @@ function GuaranteeBookA() {
         setInputData({
             GuaranteeBookTypeID: '1',
             LoanID: loanID,
+            BookNumber: '',
             PlaceCreate: '',
             ContactDate: moment(),
     
@@ -1223,7 +1228,7 @@ function GuaranteeBookA() {
         setSupporterView16(false)
 
         if(!!fromOtherPage) {
-            console.log(searchResultData)
+            console.log('from other page:',searchResultData)
             setDataOwner({
                 FrontName: searchResultData[0].FrontName,
                 Name: searchResultData[0].Name,
@@ -1233,7 +1238,7 @@ function GuaranteeBookA() {
                 LoanDate: searchResultData[0].LoanDate,
             })
         } else {
-            console.log(searchResult[ind])
+            console.log('from current page',searchResult[ind])
             setDataOwner({
                     FrontName: searchResult[ind].FrontName,
                     Name: searchResult[ind].Name,
@@ -1686,6 +1691,7 @@ function GuaranteeBookA() {
                         setInputData({
                             ...inputData,
                             LoanID: Number(loanID),
+                            BookNumber: !!result.BookNumber? result.BookNumber : '',
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
@@ -1919,6 +1925,7 @@ function GuaranteeBookA() {
                         setInputDataSubmit({
                             ...inputDataSubmit,
                             LoanID: Number(loanID),
+                            BookNumber: !!result.BookNumber? result.BookNumber : '',
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
@@ -3548,9 +3555,14 @@ function GuaranteeBookA() {
                                         <Grid item xs={12} md={4}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
-                                            <MuiTextfield label="ค้นหาชื่อ-นามสกุล" name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
+                                            <MuiTextfield label="ค้นหาชื่อ" name="Name" value={inputDataSearch.Name} onChange={handleInputDataSearch} />
                                         </Grid>
                                         <Grid item xs={12} md={4}>
+                                            {/* Field Text ---------------------------------------------------*/}
+                                            {/* <MuiTextfield label="ค้นหาชื่อ-นามสกุล"  defaultValue="" /> */}
+                                            <MuiTextfield label="ค้นหานามสกุล" name="Sirname" value={inputDataSearch.Sirname} onChange={handleInputDataSearch} />
+                                        </Grid>
+                                        <Grid item xs={12} md={2}>
                                             {/* Field Text ---------------------------------------------------*/}
                                             <MuiTextfield label="ค้นหาเลขที่สัญญา" name="LoanNumber" value={inputDataSearch.LoanNumber} onChange={handleInputDataSearch} />
                                         </Grid>
@@ -3597,7 +3609,7 @@ function GuaranteeBookA() {
                                         <Paper className="paper line-top-green paper mg-t-20">
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
+                                                        <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
                                                     </Grid>
 
                                                     {/* <Grid item xs={12} md={4}>

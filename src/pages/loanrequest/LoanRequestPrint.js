@@ -99,6 +99,7 @@ function LoanRequestPrint(props) {
         SearchByApplicantNo: '',
         SearchByLoanNumber: '',
         SearchByName: '',
+        SearchBySirname: '',
     })
 
     const [inputSelectDateLoandata, setInputSelectDateLoandata] = useState([
@@ -403,7 +404,7 @@ function LoanRequestPrint(props) {
         'FrontName',
         'Name',
         'Sirname', 
-        'IDCARD_AddNo',
+        'Address',
     ]
 
     const headCells = [
@@ -421,7 +422,7 @@ function LoanRequestPrint(props) {
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
         { id: 'Sirname', numeric: false, disablePadding: false, widthCol: '150px', label: 'นามสกุล' },
-        { id: 'IDCARD_AddNo', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
+        { id: 'Address', numeric: false, disablePadding: false, widthCol: '250px', label: 'ที่อยู่' },
     ]
         // <TableCell align="left">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
                                                             
@@ -474,8 +475,8 @@ function LoanRequestPrint(props) {
         };
     }, [])
 
-    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo) {
-        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, IDCARD_AddNo }
+    function createData(FarmerID, ApplicantID, LoanID,RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Address) {
+        return {FarmerID, ApplicantID, LoanID, RecordCode, RecDate, ApplicantDate, ApplicantNo, ApplicantStatus, ProjectID,ProjectName, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Address }
     }
 
     // New order date 2021-08-23 to 23/08/2564
@@ -558,6 +559,7 @@ function LoanRequestPrint(props) {
                 ApplicantNo: !!localStorage.getItem('noticeNo') ? localStorage.getItem('noticeNo') : inputDataSearch.SearchByApplicantNo || '',
                 LoanNumber: inputDataSearch.SearchByLoanNumber || '',
                 Name: inputDataSearch.SearchByName || '',
+                Sirname: inputDataSearch.SearchBySirname || '',
             }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
@@ -601,7 +603,7 @@ function LoanRequestPrint(props) {
                                     item.FrontName === null ? '' : item.FrontName,
                                     item.Name === null ? '' : item.Name,
                                     item.Sirname === null ? '' : item.Sirname,
-                                    item.IDCARD_AddNo === undefined ? '' : item.IDCARD_AddNo +' '+item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo === undefined ? '' : item.IDCARD_AddMoo+' '+item.IDCARD_AddrSoiRoad === undefined ? '' : item.IDCARD_AddrSoiRoad+' '+item.IDCARD_AddrSubdistrictName === undefined ? '' : item.IDCARD_AddrSubdistrictName+' '+item.IDCARD_AddrDistrictName === undefined ? '' : item.IDCARD_AddrDistrictName+' '+item.IDCARD_AddrProvinceName === undefined ? '' : item.IDCARD_AddrProvinceName+' '+item.IDCARD_Postcode  === undefined ? '' : item.IDCARD_Postcode
+                                    item.Address === undefined ? '' : item.Address,
                                 )
                             )
                         )
@@ -2005,12 +2007,15 @@ console.log('FreeDebtTime',event.target.value)
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ค้นหาชื่อ-นามสกุล" value={inputDataSearch.SearchByName} name="SearchByName" onChange={handleInputDataSearch}  />
+                                        <MuiTextfield label="ค้นหาชื่อ" value={inputDataSearch.SearchByName} name="SearchByName" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={3}>
+                                        <MuiTextfield label="ค้นหานามสกุล" value={inputDataSearch.SearchBySirname} name="SearchBySirname" onChange={handleInputDataSearch}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
                                         <MuiTextfield label="ค้นหาเลขที่คำขอกู้ยืมเงิน" value={inputDataSearch.SearchByApplicantNo} name="SearchByApplicantNo" onChange={handleInputDataSearch} />
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={2}>
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" value={inputDataSearch.SearchByLoanNumber} name="SearchByLoanNumber" onChange={handleInputDataSearch} />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
