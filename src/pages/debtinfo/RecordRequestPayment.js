@@ -260,7 +260,7 @@ function RecordRequestPayment() {
                                         <Table aria-label="normal table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="left">รหัสบันทึก</TableCell>
+                                                    {/* <TableCell align="left">รหัสบันทึก</TableCell> */}
                                                     <TableCell align="left">วันที่บันทึก</TableCell>
                                                     <TableCell align="left">เลขคำขอ</TableCell>
                                                     <TableCell align="left">อ้างถึง</TableCell>
@@ -288,7 +288,7 @@ function RecordRequestPayment() {
                                                             // setSelectedData(element)
                                                             selectDataExtendNumber(element.ExtendNumber, element.LoanNumber)
                                                         }}>
-                                                            <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine>
+                                                            {/* <StyledTableCellLine align="left">{element.RecNum}</StyledTableCellLine> */}
                                                             <StyledTableCellLine align="left">{dateFormatTensiveMenu(element.RecDate)}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.ExtendNumber}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.Ref1}</StyledTableCellLine>
