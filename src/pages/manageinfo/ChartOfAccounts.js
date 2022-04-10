@@ -93,7 +93,7 @@ function ChartOfAccounts() {
         ControlCode4: '',
         ControlCode5: '',
         ControlCode6: '',
-        ControlCode7: '',
+        // ControlCode7: '',
 
         AccountCode1: '',
         AccountCode2: '',
@@ -108,7 +108,7 @@ function ChartOfAccounts() {
         AccountName4: '',
         AccountName5: '',
         AccountName6: '',
-        AccountName7: '',
+        // AccountName7: '',
 
         AccountType: '',
         PrintStatement: '',
@@ -146,9 +146,9 @@ function ChartOfAccounts() {
                         dataArr.push({
                             PBID: data.data[i].PBID,
                             BusinessProject: data.data[i].BusinessProject,
-                            ControlCode: data.data[i].ControlCode1+' '+data.data[i].ControlCode2+' '+data.data[i].ControlCode3+' '+data.data[i].ControlCode4+' '+data.data[i].ControlCode5+' '+data.data[i].ControlCode6+' '+data.data[i].ControlCode7,
+                            ControlCode: data.data[i].ControlCode1+' '+data.data[i].ControlCode2+' '+data.data[i].ControlCode3+' '+data.data[i].ControlCode4+' '+data.data[i].ControlCode5+' '+data.data[i].ControlCode6, // +' '+data.data[i].ControlCode7,
                             AccountCode: data.data[i].AccountCode1+' '+data.data[i].AccountCode2+' '+data.data[i].AccountCode3+' '+data.data[i].AccountCode4+' '+data.data[i].AccountCode5+' '+data.data[i].AccountCode6,
-                            AccountName: !!data.data[i].AccountName1?data.data[i].AccountName1 : !!data.data[i].AccountName2?data.data[i].AccountName2 : !!data.data[i].AccountName3?data.data[i].AccountName3: !!data.data[i].AccountName4?data.data[i].AccountName4 : !!data.data[i].AccountName5?data.data[i].AccountName5 : !!data.data[i].AccountName6?data.data[i].AccountName6 : !!data.data[i].AccountName7?data.data[i].AccountName7 : '',
+                            AccountName: !!data.data[i].AccountName1?data.data[i].AccountName1 : !!data.data[i].AccountName2?data.data[i].AccountName2 : !!data.data[i].AccountName3?data.data[i].AccountName3: !!data.data[i].AccountName4?data.data[i].AccountName4 : !!data.data[i].AccountName5?data.data[i].AccountName5 : !!data.data[i].AccountName6?data.data[i].AccountName6 : '', // !!data.data[i].AccountName7?data.data[i].AccountName7 : '',
                             // AccountName: !!data.data[i].AccountName1?data.data[i].AccountName1 : !!data.data[i].AccountName2?'- '+data.data[i].AccountName2 : !!data.data[i].AccountName3?' -- '+data.data[i].AccountName3: !!data.data[i].AccountName4?' --- '+data.data[i].AccountName4 : !!data.data[i].AccountName5?' ---- '+data.data[i].AccountName5 : !!data.data[i].AccountName6?' ----- '+data.data[i].AccountName6 : !!data.data[i].AccountName7?' ------ '+data.data[i].AccountName7 : '',
                             AccountType: data.data[i].AccountType,
                             PrintStatement: data.data[i].PrintStatement,
@@ -253,7 +253,7 @@ function ChartOfAccounts() {
                 ControlCode4: item.ControlCode4,
                 ControlCode5: item.ControlCode5,
                 ControlCode6: item.ControlCode6,
-                ControlCode7: item.ControlCode7,
+                // ControlCode7: item.ControlCode7,
         
                 AccountCode1: item.AccountCode1,
                 AccountCode2: item.AccountCode2,
@@ -268,7 +268,7 @@ function ChartOfAccounts() {
                 AccountName4: item.AccountName4,
                 AccountName5: item.AccountName5,
                 AccountName6: item.AccountName6,
-                AccountName7: item.AccountName7,
+                // AccountName7: item.AccountName7,
         
                 AccountType: item.AccountType,
                 PrintStatement: item.PrintStatement,
@@ -480,7 +480,7 @@ function ChartOfAccounts() {
                             <Grid container spacing={2} className="btn-row">
                                 {/* Button Row -------------------------------------------------- */}
                                 {/* BusinessProject, ControlCode,AccountCode,AccountName,AccountType,PrintStatement,Explain */}
-                                <Grid item xs={12} md={3}>
+                                <Grid item xs={12} md={4}>
                                     <MuiTextfield label="ธุรกิจ/โครงการ" defaultValue="" name="BusinessProject" value={inputDataSubmit.BusinessProject} onChange={handleInputDataSubmit} />      
                                 </Grid>
 
@@ -508,14 +508,10 @@ function ChartOfAccounts() {
                                     <p>&nbsp;</p>
                                     <MuiTextfieldNumberInt label="" defaultValue="" name="ControlCode6" value={inputDataSubmit.ControlCode6} onChange={handleInputDataSubmit} />      
                                 </Grid>
-                                <Grid item xs={12} md={1}>
+                                {/* <Grid item xs={12} md={1}>
                                     <p>&nbsp;</p>
                                     <MuiTextfieldNumberInt label="" defaultValue="" name="ControlCode7" value={inputDataSubmit.ControlCode7} onChange={handleInputDataSubmit} />      
-                                </Grid>
-
-                                <Grid item xs={12} md={2}>
-                                    <MuiTextfield label="พิมพ์ออกงบ" defaultValue="" name="PrintStatement" value={inputDataSubmit.PrintStatement} onChange={handleInputDataSubmit} />      
-                                </Grid>
+                                </Grid> */}
 
                                 <Grid item xs={12} md={4}>
                                     <MuiTextfield label="ชื่อบัญชี1" defaultValue="" name="AccountName1" value={inputDataSubmit.AccountName1} onChange={handleInputDataSubmit} />      
@@ -535,11 +531,11 @@ function ChartOfAccounts() {
                                 <Grid item xs={12} md={4}>
                                     <MuiTextfield label="ชื่อบัญชี6" defaultValue="" name="AccountName6" value={inputDataSubmit.AccountName6} onChange={handleInputDataSubmit} />      
                                 </Grid>
-                                <Grid item xs={12} md={4}>
+                                {/* <Grid item xs={12} md={4}>
                                     <MuiTextfield label="ชื่อบัญชี7" defaultValue="" name="AccountName7" value={inputDataSubmit.AccountName7} onChange={handleInputDataSubmit} />      
-                                </Grid>
+                                </Grid> */}
 
-                                <Grid item xs={12} md={2}>
+                                <Grid item xs={12} md={3}>
                                     <MuiLabelHeaderCheckbox label="ประเภทบัญชี" />
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={12}>
@@ -570,6 +566,10 @@ function ChartOfAccounts() {
                                             <MuiTextfieldNumberInt label="" defaultValue="" name="AccountCode6" value={inputDataSubmit.AccountCode6} onChange={handleInputDataSubmit} />      
                                         </Grid>
                                     </Grid>
+                                </Grid>
+
+                                <Grid item xs={12} md={3}>
+                                    <MuiTextfield label="พิมพ์ออกงบ" defaultValue="" name="PrintStatement" value={inputDataSubmit.PrintStatement} onChange={handleInputDataSubmit} />      
                                 </Grid>
 
                                 <Grid item xs={12} md={12}>
