@@ -67,6 +67,8 @@ function LoanRequestContactStep1(props) {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
     const [errLandData, setErrLandData] = useState(false)
+    const [debtOwnerList, setDebtOwnerList] = useState('ธ.ก.ส.')
+    const [debtOwnerCondition, setDebtOwnerCondition] = useState(false)
     const [inputDataSupporter, setInputDataSupporter] = useState({
         FrontName: '',
         Name: '',
@@ -188,7 +190,7 @@ function LoanRequestContactStep1(props) {
         LandValue: 0, // 0,
         LandPaidValue: 0, // 0,
         Debt: '', // 0,
-        Debt_Owner: '', // "",
+        Debt_Owner: 'ธ.ก.ส.', // "",
         Debt_Amount: 0, // 0
         dCreated: null,
 
@@ -429,6 +431,17 @@ function LoanRequestContactStep1(props) {
                             Debt_Amount: dataDetail.Debt_Amount || 0, // 0
                             dCreated: dataDetail.dCreated === null ? '-' : newOrderDate(dataDetail.dCreated),
                         })
+
+                        if(dataDetail.Debt_Owner === 'ธ.ก.ส.' || dataDetail.Debt_Owner === 'กองทุนหมู่บ้าน/กองทุนนโยบายรัฐ' || dataDetail.Debt_Owner === 'หนี้สหกรณ์' || dataDetail.Debt_Owner === 'หนี้นอกระบบ' ) {
+                            setDebtOwnerList(dataDetail.Debt_Owner)
+                            setDebtOwnerCondition(false)
+                        } else if(!dataDetail.Debt) {
+                            setDebtOwnerList('ธ.ก.ส.')
+                            setDebtOwnerCondition(false)
+                        } else {
+                            setDebtOwnerList('อื่นๆโปรดระบุ')
+                            setDebtOwnerCondition(true)
+                        }
 
                         setSupporterAmount(!!dataDetail.supporterAmount?dataDetail.supporterAmount: 4)
                         // let resApplicant = res.data.data[0];
@@ -1031,6 +1044,30 @@ function LoanRequestContactStep1(props) {
         // console.log(event)
     }
 
+    const handleInputDataDebtOwnerList = (event) => {
+
+console.log('other:',event.target.value)
+        if(event.target.value === 'อื่นๆโปรดระบุ' ) {
+            setDebtOwnerCondition(true)
+            setInputData({
+                ...inputData,
+                Debt_Owner: ''
+            })
+
+            setDebtOwnerList(event.target.value)
+
+        } else {
+            setDebtOwnerCondition(false)
+console.log('list:',event.target.value)
+            setInputData({
+                ...inputData,
+                Debt_Owner: event.target.value
+            })
+
+            setDebtOwnerList(event.target.value)
+        }
+    }
+
     // Handle Submit ************************************
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -1076,6 +1113,13 @@ function LoanRequestContactStep1(props) {
         formData.set('RecDate',moment(inputData.RecDate).format('YYYY-MM-DD'))
         formData.set('supporterAmount',supporterAmount)
         formData.set('LoanPeriodCode', inputData.LoanPeriodCode === '0' ? 1 : inputData.LoanPeriodCode === '1' ? 2 : 3 )
+
+        if(inputData.Debt==='1') {
+            formData.set('Debt_Owner', inputData.Debt_Owner)
+        } else {
+            formData.delete('Debt_Owner')
+            formData.set('Debt_Amount',0)
+        }
 
         let url = '';
         if(props.action === 'edit') {
@@ -1737,8 +1781,24 @@ function LoanRequestContactStep1(props) {
                                                                     <Grid container spacing={2}>
                                                                         <Grid item xs={12} md={12}>
                                                                             {/* Field Select ---------------------------------------------------*/}
-                                                                            <MuiTextfield label="โดยมีหนี้อยู่กับ" name="Debt_Owner" value={inputData.Debt_Owner}  onChange={handleInputData} />
+                                                                            <MuiSelect 
+                                                                                label="โดยมีหนี้อยู่กับ" 
+                                                                                listsValue={['ธ.ก.ส.' , 'กองทุนหมู่บ้าน/กองทุนนโยบายรัฐ' , 'หนี้สหกรณ์' , 'หนี้นอกระบบ' , 'อื่นๆโปรดระบุ']} 
+                                                                                lists={['ธ.ก.ส.' , 'กองทุนหมู่บ้าน/กองทุนนโยบายรัฐ' , 'หนี้สหกรณ์' , 'หนี้นอกระบบ' , 'อื่นๆโปรดระบุ']} 
+                                                                                name="Debt_Owner" 
+                                                                                value={debtOwnerList} onChange={handleInputDataDebtOwnerList}  
+                                                                            />
+                                                                        
+                                                                        
                                                                         </Grid>
+
+                                                                            {
+                                                                                debtOwnerCondition ? 
+                                                                                <Grid item xs={12} md={12}>
+                                                                                    <MuiTextfield label="ระบุ" name="Debt_Owner" value={inputData.Debt_Owner}  onChange={handleInputData} />
+                                                                                </Grid>
+                                                                                : null
+                                                                            }
                                                                         <Grid item xs={12} md={11}>
                                                                             <p className="">จำนวน</p>
                                                                             <MuiTextfieldCurrency label="" name="Debt_Amount" value={inputData.Debt_Amount} onChange={handleInputData} /> 

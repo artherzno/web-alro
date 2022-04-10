@@ -343,6 +343,10 @@ const listmenu = [
             //     subtitle: 'ตรวจสอบรายละเอียด(เกษตรกร)',
             //     subpath: '/manageinfo/checkfarmer'
             // }
+            ,{
+                subtitle: 'ผังบัญชีแยกประเภทระบบบัญชีกองทุน',
+                subpath: '/manageinfo/chartofaccounts'
+            }
         ]
     },{
         title: 'สัญญาชดใช้หนี้แทนเกษตรกร',

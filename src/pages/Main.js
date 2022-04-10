@@ -109,6 +109,7 @@ import GuaranteeBookA from './loanrequest/GuaranteeBookA';
 import GuaranteeBookB from './loanrequest/GuaranteeBookB';
 import SpouseConsentBook from './loanrequest/SpouseConsentBook';
 import UserHistory from './manageinfo/UserHistory';
+import ChartOfAccounts from './manageinfo/ChartOfAccounts';
 
 
 
@@ -221,6 +222,7 @@ function Main() {
                     <Route path="/manageinfo/checkfarmer" component={CheckFarmer} />
                     <Route path="/manageinfo/infofarmer" component={InfoFarmer} />
                     <Route path="/manageinfo/userhistory" component={UserHistory} />
+                    <Route path="/manageinfo/chartofaccounts" component={ChartOfAccounts} />
                     {/* Manage Check Page */}
                     <Route path="/check/bysign" component={BySign} />
                     <Route path="/check/realpay" component={RealPay} />
