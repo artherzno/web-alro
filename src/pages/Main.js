@@ -110,7 +110,7 @@ import GuaranteeBookB from './loanrequest/GuaranteeBookB';
 import SpouseConsentBook from './loanrequest/SpouseConsentBook';
 import UserHistory from './manageinfo/UserHistory';
 import ChartOfAccounts from './manageinfo/ChartOfAccounts';
-
+import TransferDebt from './transferdebts/TransferDebt'
 
 
 function Main() {
@@ -241,6 +241,8 @@ function Main() {
                     <Route path="/upload/uploadfile" component={UploadFile} />
                     {/* Print Form */}
                     <Route path="/printform/printform" component={PrintForm} />
+                    {/* Transfer Debt */}
+                    <Route path="/transferdebts/transferdebt" component={TransferDebt} />
                     
                 </Switch>
             </Router>
