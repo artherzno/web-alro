@@ -362,6 +362,10 @@ const listmenu = [
             }
         ]
     },{
+        title: 'โอนหนี้',
+        component: 'TransferDebt',
+        path: '/transferdebts/transferdebt',
+    },{
         title: 'UpLoadFile',
         component: 'UpLoadFile',
         path: '/upload/uploadfile',
@@ -384,7 +388,7 @@ const listmenu = [
         //         subpath: '/repaymentcontract/addrepaymentcontract'
         //     }
         // ]
-    },
+    }
 ]
 
 export default function Nav() {

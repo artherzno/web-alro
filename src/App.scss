@@ -643,6 +643,12 @@ table {
   }
 }
 
+.table-transferdebt-summary {
+  td, th {
+    border: none;
+  }
+}
+
 .table-row-disabled {
   pointer-events: none;
   opacity: 0.25;
