@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect } from '../../components/report'
+import { ProvinceSelect, DisplaySelect, DisplayMonthSelect, MonthSelect, YearSelect, TypeBillSelect, SectionSelect, ApproveStatusSelect,TypeContractSelect } from '../../components/report'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {
@@ -43,6 +43,8 @@ class DebtStatusPerContractTab extends React.Component {
             display2: "",
             startDate: "",
             endDate: "",
+            resultRequest: "",
+            resultLabel: "",
             provinceZoneLabel: "",
             montLabel: "",
             yearLabel: "",
@@ -62,7 +64,7 @@ class DebtStatusPerContractTab extends React.Component {
 
     loadPayLoan(page, count) {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate} = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate,resultRequest} = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -73,7 +75,7 @@ class DebtStatusPerContractTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate);
-       
+        parameter.append("Result",resultRequest) 
         parameter.append('Page', page + 1);
         parameter.append('PageCount', count);
 
@@ -136,7 +138,7 @@ class DebtStatusPerContractTab extends React.Component {
     }
     printPDF() {
 
-        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, } = this.state
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate,resultRequest } = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -146,7 +148,7 @@ class DebtStatusPerContractTab extends React.Component {
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
-        parameter.append('Result', "");
+        parameter.append('Result', resultRequest);
         parameter.append('EndDate', endDate);
 
 
@@ -288,7 +290,17 @@ class DebtStatusPerContractTab extends React.Component {
                       
                     </Grid>
                 </Grid>
+                <Grid item>
+                            <TypeContractSelect onChange={(event) =>{
 
+                                this.setState({
+                                    resultRequest: event.target.value,
+                                    resultLabel: event.target.label
+                                }, () => {
+                                })
+
+                            }}/>
+                </Grid>
                 <Grid item xs={12} md={2}>
                     <p>&nbsp;</p>
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count) }} />
