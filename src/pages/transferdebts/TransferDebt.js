@@ -188,7 +188,8 @@ function TransferDebt() {
                             if(typeof data.message === 'object') {
                                 setErrMsg('ไม่สามารถทำรายการได้')
                             } else {
-                                setErrMsg([data.message])
+                                // setErrMsg([data.message])
+                                setErrMsg('ไม่สามารถทำรายการได้')
                             }
                         } else {
                             setErrMsg(['ไม่สามารถทำรายการได้'])
@@ -237,7 +238,8 @@ function TransferDebt() {
                         if(typeof data.message === 'object') {
                             setErrMsg('ไม่สามารถทำรายการได้')
                         } else {
-                            setErrMsg([data.message])
+                            // setErrMsg([data.message])
+                            setErrMsg('ไม่สามารถทำรายการได้')
                         }
                     } else {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
@@ -319,7 +321,9 @@ function TransferDebt() {
 
         axios.post(
             `${server_hostname}/admin/api/add_loantransfer`, 
-            loantransfer, 
+            {
+                "loantransfer": loantransfer
+            }, 
             { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
@@ -332,7 +336,8 @@ function TransferDebt() {
                         if(typeof data.message === 'object') {
                             setErrMsg('ไม่สามารถทำรายการได้')
                         } else {
-                            setErrMsg([data.message])
+                            // setErrMsg([data.message])
+                            setErrMsg('ไม่สามารถทำรายการได้')
                         }
                     } else {
                         setErrMsg(['ไม่สามารถทำรายการได้'])
@@ -385,8 +390,8 @@ function TransferDebt() {
             
             {
                 "nOrder": 4,
-                "LoanID": tableResultLoan[0].LoanID,
-                "Old_LoanID": tableResultLoan[0].Old_LoanID,
+                "LoanID": tableResultLoanCourt[0].LoanID,
+                "Old_LoanID": tableResultLoanCourt[0].Old_LoanID,
                 "List": "ลูกหนี้เงินกู้",
                 "AccountCode": "01-01-06-01-01-01",
                 "DrAmount": null,
@@ -394,8 +399,8 @@ function TransferDebt() {
             },
             {
                 "nOrder": 5,
-                "LoanID": tableResultLoan[0].LoanID,
-                "Old_LoanID": tableResultLoan[0].Old_LoanID,
+                "LoanID": tableResultLoanCourt[0].LoanID,
+                "Old_LoanID": tableResultLoanCourt[0].Old_LoanID,
                 "List": "ดอกเบี้ยค้างรับ",
                 "AccountCode": "01-01-07-01-01-02",
                 "DrAmount": null,
@@ -403,8 +408,8 @@ function TransferDebt() {
             },
             {
                 "nOrder": 6,
-                "LoanID": tableResultLoan[0].LoanID,
-                "Old_LoanID": tableResultLoan[0].Old_LoanID,
+                "LoanID": tableResultLoanCourt[0].LoanID,
+                "Old_LoanID": tableResultLoanCourt[0].Old_LoanID,
                 "List": "ดอกเบี้ยเงินกู้รับ",
                 "AccountCode": "04-02-02-01-01-01",
                 "DrAmount": null,
@@ -412,8 +417,8 @@ function TransferDebt() {
             },
             {
                 "nOrder": 7,
-                "LoanID": tableResultLoan[0].LoanID,
-                "Old_LoanID": tableResultLoan[0].Old_LoanID,
+                "LoanID": tableResultLoanCourt[0].LoanID,
+                "Old_LoanID": tableResultLoanCourt[0].Old_LoanID,
                 "List": "ส่วนเกินทุนจากคำพิพากษา",
                 "AccountCode": "04-02-02-01-01-01",
                 "DrAmount": null,
