@@ -35,6 +35,7 @@ import {
     MuiCheckbox, 
     MuiSelect, 
     MuiSelectObj, 
+    MuiTextfieldNumber,
     MuiSelectObjYear,
     MuiSelectObjYearValue,
     MuiSelectObjProjectYearValue,
@@ -118,6 +119,7 @@ function LoanRequestContactStep1(props) {
 
         ProjectYear: null, // 2564,
         LoanPeriodCode: '', // "ส",
+        LoanPeriodID: '', // 1,2,3
         FarmerID: props.FarmerID, // 1,
         // LandID: '', // 1,
         FarmerProjectName1: '', // "",
@@ -354,7 +356,8 @@ function LoanRequestContactStep1(props) {
                             AppLocation: dataDetail.AppLocation || '',
                             AppTo: dataDetail.AppTo || '',
                             ProjectYear: dataDetail.ProjectYear|| null, // 2564,
-                            LoanPeriodCode: dataDetail.LoanPeriodCode === '2' ? 1 : dataDetail.LoanPeriodCode === '3' ? 2 : 0, // dataDetail.LoanPeriodCode || '', // "ส",
+                            LoanPeriodCode: dataDetail.LoanPeriodCode === 'ส' ? 0 : dataDetail.LoanPeriodCode === 'ก' ? 1 : dataDetail.LoanPeriodCode === 'ย' ? 2 : null, // dataDetail.LoanPeriodCode || '', // "ส",
+                            LoanPeriodID: dataDetail.LoanPeriodID,
                             FarmerID: props.FarmerID, // 1,
                             // LandID: '', // 1,
                             FarmerProjectName1: dataDetail.FarmerProjectName1 || '', // "",
@@ -1112,7 +1115,8 @@ console.log('list:',event.target.value)
         formData.set('ApplicantDate',moment(inputData.ApplicantDate).format('YYYY-MM-DD'))
         formData.set('RecDate',moment(inputData.RecDate).format('YYYY-MM-DD'))
         formData.set('supporterAmount',supporterAmount)
-        formData.set('LoanPeriodCode', inputData.LoanPeriodCode === '0' ? 1 : inputData.LoanPeriodCode === '1' ? 2 : 3 )
+        formData.set('LoanPeriodCode', inputData.LoanPeriodCode === '0' ? 'ส' : inputData.LoanPeriodCode === '1' ? 'ก' : inputData.LoanPeriodCode === '2' ? 'ย' : null )
+        formData.append('LoanPeriodID', inputData.LoanPeriodCode === '0' ? 1 : inputData.LoanPeriodCode === '1' ? 2 : inputData.LoanPeriodCode === '2' ? 3 : null )
 
         if(inputData.Debt==='1') {
             formData.set('Debt_Owner', inputData.Debt_Owner)
@@ -1404,7 +1408,7 @@ console.log('list:',event.target.value)
                                                         <Grid item xs={12} md={4}>
                                                             <MuiTextfield inputdisabled="input-disabled" label="แปลง" id={`Plang`}  value={Plang} />
                                                         </Grid>
-                                                        <Grid item xs={12} md={4}>
+                                                        {/* <Grid item xs={12} md={4}>
                                                             <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="ไร่"  id={`Rai`} value={Rai}  endAdornment="ไร่" />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
@@ -1412,6 +1416,32 @@ console.log('list:',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
                                                             <MuiTextfieldEndAdornment inputdisabled="input-disabled" label="วา" id={`Wa`} value={Wa}  endAdornment="วา" />
+                                                        </Grid>
+
+                                                        <Grid item xs={11} md={4}>
+                                                            <p>เลขที่</p>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`LandNumber`} value={LandNumber}/>
+                                                        </Grid>
+                                                        <Grid item xs={11} md={4}>
+                                                            <p>กลุ่ม</p>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`LandGroup`} value={LandGroup}/>
+                                                        </Grid>
+                                                        <Grid item xs={11} md={4}>
+                                                            <p>แปลง</p>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`Plang`} value={Plang}/>
+                                                        </Grid> */}
+                                                        <Grid item xs={11} md={4}>
+                                                            <p>ไร่</p>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`Rai`} value={Rai}/>
+                                                        </Grid>
+                                                        <Grid item xs={11} md={4}>
+                                                            <p>งาน</p>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`Ngan`} unit="ngan"  value={Ngan} />
+                                                        </Grid>
+
+                                                        <Grid item xs={11} md={4}>
+                                                            <p>วา</p>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`Wa`} unit="wa" value={Wa} />
                                                         </Grid>
                                                     </Grid>
 
