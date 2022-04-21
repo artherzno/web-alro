@@ -60,6 +60,7 @@ function TransferDebt() {
     const [upload, setUpload] = useState(false)
     const [formField, setFormField] = useState(false)
     const [showSum, setShowSum] = useState(false)
+    const [printActive, setPrintActive] = useState(false)
 
     const [inputDataSearch, setInputDataSearch] = useState({
         IDCard: '',
@@ -212,6 +213,7 @@ function TransferDebt() {
         setIsLoading(true)
         setFormField(false)
         setShowSum(false)
+        setPrintActive(false)
         setRows([])
 
         axios.post(
@@ -344,6 +346,7 @@ function TransferDebt() {
                     }
                 }else {
                     setSuccess(true)
+                    setPrintActive(true)
                 }
             }
         ).catch(err => { 
@@ -355,6 +358,35 @@ function TransferDebt() {
               setIsLoading(false)
             }
          });
+    }
+
+    const handlePrintPDF = () => {
+        console.log('PDF - LoanID:', tableResultLoanCourt[0].LoanID)
+        setConfirm(false)
+
+        let formData = new FormData(); 
+        formData.append('LoanID', tableResultLoanCourt[0].LoanID)
+        // formData.append('RoleID', localStorage.getItem('nROLEID'))
+
+        axios({
+        url: `${siteprint}/report/pdf/GetTranferDebtPdf`, //your url
+        method: 'POST',
+        data: formData,
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญา_${loanNumber.toString()}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
     }
 
     const handleExportTransferDebt = () => {
@@ -655,6 +687,16 @@ function TransferDebt() {
                                     </div>
                                     <div className="txt-center mg-t-20">
                                         <ButtonFluidPrimary label="บันทึก" maxWidth="200px" onClick={handleSubmit} color="primary" style={{justifyContent: 'center'}}/> 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        
+                                        {
+                                            printActive ?
+                                            <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="200px" startIcon={<PrintIcon />} onClick={handlePrintPDF}  />
+                                            :
+                                            <div style={{opacity: '0.5', pointerEvents: 'none', display: 'inline'}}>
+                                                <ButtonFluidIconStartPrimary label="พิมพ์ PDF" maxWidth="200px" startIcon={<PrintIcon />} />
+                                            </div>
+                                        }
                                     </div>
                                 </Grid>
                                 : null
