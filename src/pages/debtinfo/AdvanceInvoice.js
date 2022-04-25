@@ -563,6 +563,11 @@ function AdvanceInvoice(props) {
                                     }
                                 });
 
+                                if(!values.save_date && !values.invoice_date){
+
+                                    errors['save_date'] = 'Required';
+                                    errors['invoice_date'] = 'Required';
+                                }
 
                                 return errors;
                             }}
