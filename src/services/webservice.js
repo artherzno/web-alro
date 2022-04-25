@@ -1259,6 +1259,14 @@ const api = {
         })
 
     },
+    exportDebtStatusPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtStatusPerContract",
+            params
+        })
+
+    },
     getDebtStatusPerLoanType(params) {
 
         return post({
@@ -1267,10 +1275,26 @@ const api = {
         })
 
     },
+    exportDebtStatusPerLoanType(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtStatusPerLoanType",
+            params
+        })
+
+    },
     getDebtStatusPerProject(params) {
 
         return post({
             path: "api/api/ReportServices/GetDebtStatusPerProject",
+            params
+        })
+
+    },
+    exportDebtStatusPerProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtStatusPerProject",
             params
         })
 

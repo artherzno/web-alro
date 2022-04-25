@@ -97,7 +97,7 @@ class DebtStatusPerProjectTab extends React.Component {
 
     exportExcel() {
 
-        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate } = this.state
+        const { displaySection, sectionProvince, month, year,  YearTovalue, display2, startDate, endDate ,resultRequest} = this.state
 
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
@@ -108,12 +108,13 @@ class DebtStatusPerProjectTab extends React.Component {
         parameter.append('LevelDisplay2', display2);
         parameter.append('StartDate', startDate);
         parameter.append('EndDate', endDate)
+        parameter.append("Result",resultRequest) 
 
         this.setState({
             isExporting: true
         })
 
-        api.exportRequestLoan(parameter).then(response => {
+        api.exportDebtStatusPerProject(parameter).then(response => {
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
