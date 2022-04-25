@@ -1305,11 +1305,26 @@ const api = {
             params
         })
 
+    }, exportTargetByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByContract",
+            params
+        })
+
     },
     getTargetByProject(params) {
 
         return post({
             path: "api/api/ReportServices/GetTargetByProject",
+            params
+        })
+
+    },
+    exportTargetByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByProject",
             params
         })
 
@@ -1322,10 +1337,26 @@ const api = {
         })
 
     },
+    exportTargetByProjectY(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByProjectY",
+            params
+        })
+
+    },
     getTargetByGroup(params) {
 
         return post({
             path: "api/api/ReportServices/GetTargetByGroup",
+            params
+        })
+
+    },
+    exportTargetByGroup(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByGroup",
             params
         })
 
