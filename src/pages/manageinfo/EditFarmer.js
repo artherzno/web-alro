@@ -1484,7 +1484,7 @@ console.log(BirthDateValue)
                                         </Grid> */}
                                         <Grid item xs={11} md={3}>
                                             <p>เนื้อที่</p>
-                                            <MuiTextfieldNumber  label="" name="Rai" value={Rai}  onChange={handleInputDataLand} />
+                                            <MuiTextfieldNumber  label="" name="Rai" value={Rai} unit="Rai" onChange={handleInputDataLand} />
                                         </Grid>
                                         <Grid item xs={1} md={1}>
                                             <p>&nbsp;</p>
@@ -1895,7 +1895,7 @@ console.log(BirthDateValue)
 
                                                                 <Grid item xs={11} md={3}>
                                                                     <p>เนื้อที่</p>
-                                                                    <MuiTextfieldNumber  label="" name="Rai" value={inputDataLandAdd.Rai}  onChange={handleInputDataLandAdd} />
+                                                                    <MuiTextfieldNumber  label="" name="Rai" unit="Rai" value={inputDataLandAdd.Rai}  onChange={handleInputDataLandAdd} />
                                                                 </Grid>
                                                                 <Grid item xs={1} md={1}>
                                                                     <p>&nbsp;</p>

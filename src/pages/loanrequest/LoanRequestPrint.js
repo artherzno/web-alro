@@ -276,6 +276,14 @@ function LoanRequestPrint(props) {
         WitnessAddr2: '', // "",
         WitnessIDCard2: '', // "",
         WitnessIDCardMade2: '', // "",
+        WitnessName3: '', // "",
+        WitnessAddr3: '', // "",
+        WitnessIDCard3: '', // "",
+        WitnessIDCardMade3: '', // "",
+        WitnessName4: '', // "",
+        WitnessAddr4: '', // "",
+        WitnessIDCard4: '', // "",
+        WitnessIDCardMade4: '', // "",
         ChangeContactCommit: '', // "",
         ChangeContactCommitDate: moment().format(), // "",
         ChangeContactCommitTime: '', // "",
@@ -765,7 +773,7 @@ function LoanRequestPrint(props) {
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
-                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode === '1' ? 0 : data.data[0].LoanPeriodCode === '2' ? 1 : 2)
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode === 'ส' ? 0 : data.data[0].LoanPeriodCode === 'ก' ? 1 : data.data[0].LoanPeriodCode === 'ย' ? 2 : null)
                         setLoandueDataAPI(null)
                         setIsLoading(false);
                         setApplicantNo(applicantNo);
@@ -880,6 +888,14 @@ function LoanRequestPrint(props) {
                             WitnessAddr2: '', // "",
                             WitnessIDCard2: '', // "",
                             WitnessIDCardMade2: '', // "",
+                            WitnessName3: '', // "",
+                            WitnessAddr3: '', // "",
+                            WitnessIDCard3: '', // "",
+                            WitnessIDCardMade3: '', // "",
+                            WitnessName4: '', // "",
+                            WitnessAddr4: '', // "",
+                            WitnessIDCard4: '', // "",
+                            WitnessIDCardMade4: '', // "",
                             ChangeContactCommit: '', // "",
                             ChangeContactCommitDate: moment().format(), // "",
                             ChangeContactCommitTime: '', // "",
@@ -964,7 +980,7 @@ function LoanRequestPrint(props) {
                         setInputDataFarmer(data.Farmer[0])
                         setInputDataLand(data.Land[0])
                         setInputData(data.data[0])
-                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode === '1' ? 0 : data.data[0].LoanPeriodCode === '2' ? 1 : 2)
+                        setLoanPeriodCodeValue(data.data[0].LoanPeriodCode === 'ส' ? 0 : data.data[0].LoanPeriodCode === 'ก' ? 1 : data.data[0].LoanPeriodCode === 'ย' ? 2 : null)
                         setApplicantNo(applicantNo);
                         setIsLoading(false);
                         // setApplicantProjectYear(data.data[0].ProjectPlanYear)
@@ -1550,7 +1566,7 @@ console.log('FreeDebtTime',event.target.value)
     }
 
     const handleInputDataSubmit = (event) => {
-        // console.log('event.target.id',event.target.id)
+        console.log('event.target.id',event.target.id)
         // let name = event.target.name
 
         if(event.target.type === 'number') {
@@ -2938,49 +2954,53 @@ console.log('FreeDebtTime',event.target.value)
                                                 <p className="mg-t-35">หมายเหตุ</p>
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName}  onChange={handleInputDataSubmit}  />
+                                                <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man1-idc" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard}  onInput={handleInputDataSubmit} />
+                                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man1-idc" defaultValue="" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard} onInput={handleInputDataSubmit} />
+                                                {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man1-idc" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard}  onInput={handleInputDataSubmit} /> */}
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2}  onChange={handleInputDataSubmit}  />
+                                                <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man2-idc" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2}  onInput={handleInputDataSubmit} />
+                                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man2-idc" defaultValue="" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2} onInput={handleInputDataSubmit} />
+                                                {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man2-idc" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2}  onInput={handleInputDataSubmit} /> */}
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3}  onChange={handleInputDataSubmit}  />
+                                                <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man3-idc" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3}  onInput={handleInputDataSubmit} />
+                                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man3-idc" defaultValue="" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3} onInput={handleInputDataSubmit} />
+                                                {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man3-idc" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3}  onInput={handleInputDataSubmit} /> */}
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade3" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4}  onChange={handleInputDataSubmit}  />
+                                                <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="บัตรประชาชนเลขที่" id="no-man4-idc" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4}  onInput={handleInputDataSubmit} />
+                                                <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man4-idc" defaultValue="" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4} onInput={handleInputDataSubmit} />
+                                                {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man4-idc" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4}  onInput={handleInputDataSubmit} /> */}
                                             </Grid>
                                             <Grid item xs={12} md={7}>
                                                 <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade4" value={'กรมการปกครอง'}  onChange={handleInputDataSubmit} />

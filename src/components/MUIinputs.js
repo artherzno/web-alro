@@ -429,7 +429,7 @@ const MuiTextfieldNumber = (props) => {
                 // format={format || null}
                 type="text"
                 thousandSeparator={true}
-                decimalScale={2}
+                decimalScale={unit==='ngan' || unit==='Rai' ? false : 2}
                 fixedDecimalScale={true}
                 // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
                 onValueChange={(e) =>{
