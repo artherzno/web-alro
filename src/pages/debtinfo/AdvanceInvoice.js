@@ -414,7 +414,7 @@ function AdvanceInvoice(props) {
                                                 </TableCell>
                                                 <TableCell align="left">ลำดับ</TableCell>
                                                 <TableCell align="left">รหัสจังหวัด</TableCell>
-                                                <TableCell align="left">ลำดับข้อมูล</TableCell>
+                                                {/* <TableCell align="left">ลำดับข้อมูล</TableCell> */}
                                                 <TableCell align="left">รหัสโครงการ</TableCell>
                                                 <TableCell align="left">ชื่อโครงการ</TableCell>
                                                 <TableCell align="left">คำนำหน้า</TableCell>
@@ -481,7 +481,7 @@ function AdvanceInvoice(props) {
                                                         </StyledTableCellLine>
                                                         <StyledTableCellLine align="left" id={element.ROWID}>{element.ROWID}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{element.pv_code}</StyledTableCellLine>
-                                                        <StyledTableCellLine align="left">{element.pindex}</StyledTableCellLine>
+                                                        {/* <StyledTableCellLine align="left">{element.pindex}</StyledTableCellLine> */}
                                                         <StyledTableCellLine align="left">{element.projcode}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{element.projname}</StyledTableCellLine>
                                                         <StyledTableCellLine align="left">{element.sex}</StyledTableCellLine>
