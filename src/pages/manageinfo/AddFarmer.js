@@ -1301,7 +1301,7 @@ function AddFarmer(props) {
                                                     </Grid> */}
                                                     <Grid item xs={11} md={3}>
                                                         <p>เนื้อที่</p>
-                                                        <MuiTextfieldNumber  label="" name="Rai_1" value={inputDataLand1.Rai}  onChange={handleInputDataLand1} />
+                                                        <MuiTextfieldNumber  label="" name="Rai_1" unit="Rai" value={inputDataLand1.Rai}  onChange={handleInputDataLand1} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p>&nbsp;</p>
@@ -1384,7 +1384,7 @@ function AddFarmer(props) {
 
                                                     <Grid item xs={11} md={3}>
                                                         <p>เนื้อที่</p>
-                                                        <MuiTextfieldNumber  label="" name="Rai_2" value={inputDataLand2.Rai}  onChange={handleInputDataLand2} />
+                                                        <MuiTextfieldNumber  label="" name="Rai_2" unit="Rai" value={inputDataLand2.Rai}  onChange={handleInputDataLand2} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p>&nbsp;</p>
@@ -1469,7 +1469,7 @@ function AddFarmer(props) {
 
                                                     <Grid item xs={11} md={3}>
                                                         <p>เนื้อที่</p>
-                                                        <MuiTextfieldNumber  label="" name="Rai_3" value={inputDataLand3.Rai}  onChange={handleInputDataLand3} />
+                                                        <MuiTextfieldNumber  label="" name="Rai_3" unit="Rai" value={inputDataLand3.Rai}  onChange={handleInputDataLand3} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p>&nbsp;</p>
@@ -1553,7 +1553,7 @@ function AddFarmer(props) {
 
                                                     <Grid item xs={11} md={3}>
                                                         <p>เนื้อที่</p>
-                                                        <MuiTextfieldNumber  label="" name="Rai_4" value={inputDataLand4.Rai}  onChange={handleInputDataLand4} />
+                                                        <MuiTextfieldNumber  label="" name="Rai_4" unit="Rai" value={inputDataLand4.Rai}  onChange={handleInputDataLand4} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p>&nbsp;</p>
@@ -1638,7 +1638,7 @@ function AddFarmer(props) {
 
                                                     <Grid item xs={11} md={3}>
                                                         <p>เนื้อที่</p>
-                                                        <MuiTextfieldNumber  label="" name="Rai_5" value={inputDataLand5.Rai}  onChange={handleInputDataLand5} />
+                                                        <MuiTextfieldNumber  label="" name="Rai_5" unit="Rai" value={inputDataLand5.Rai}  onChange={handleInputDataLand5} />
                                                     </Grid>
                                                     <Grid item xs={1} md={1}>
                                                         <p>&nbsp;</p>

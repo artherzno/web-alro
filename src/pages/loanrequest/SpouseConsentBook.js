@@ -2480,9 +2480,9 @@ function SpouseConsentBook() {
                                         {/* Paper 1 - -------------------------------------------------- */}
                                         <Paper className="paper line-top-green paper mg-t-20">
                                                 <Grid container spacing={2}>
-                                                    <Grid item xs={12} md={4}>
+                                                    {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
-                                                    </Grid>
+                                                    </Grid> */}
 
                                                     {/* <Grid item xs={12} md={4}>
                                                         <MuiTextfield label="ทำที่"  name="PlaceCreate" value={inputData.PlaceCreate} onChange={handleInputData}  />

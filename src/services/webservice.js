@@ -1259,10 +1259,26 @@ const api = {
         })
 
     },
+    exportDebtStatusPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtStatusPerContract",
+            params
+        })
+
+    },
     getDebtStatusPerLoanType(params) {
 
         return post({
             path: "api/api/ReportServices/GetDebtStatusPerLoanType",
+            params
+        })
+
+    },
+    exportDebtStatusPerLoanType(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtStatusPerLoanType",
             params
         })
 
@@ -1274,10 +1290,25 @@ const api = {
             params
         })
 
+    },
+    exportDebtStatusPerProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtStatusPerProject",
+            params
+        })
+
     }, getTargetByContract(params) {
 
         return post({
             path: "api/api/ReportServices/GetTargetByContract",
+            params
+        })
+
+    }, exportTargetByContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByContract",
             params
         })
 
@@ -1290,6 +1321,14 @@ const api = {
         })
 
     },
+    exportTargetByProject(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByProject",
+            params
+        })
+
+    },
     getTargetByProjectY(params) {
 
         return post({
@@ -1298,10 +1337,26 @@ const api = {
         })
 
     },
+    exportTargetByProjectY(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByProjectY",
+            params
+        })
+
+    },
     getTargetByGroup(params) {
 
         return post({
             path: "api/api/ReportServices/GetTargetByGroup",
+            params
+        })
+
+    },
+    exportTargetByGroup(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportTargetByGroup",
             params
         })
 

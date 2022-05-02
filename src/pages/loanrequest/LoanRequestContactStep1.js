@@ -1432,7 +1432,7 @@ console.log('list:',event.target.value)
                                                         </Grid> */}
                                                         <Grid item xs={11} md={4}>
                                                             <p>ไร่</p>
-                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`Rai`} value={Rai}/>
+                                                            <MuiTextfieldNumber inputdisabled="input-disabled"  label="" id={`Rai`} unit="Rai" value={Rai}/>
                                                         </Grid>
                                                         <Grid item xs={11} md={4}>
                                                             <p>งาน</p>
