@@ -30,6 +30,7 @@ import Nav from '../../components/Nav';
 import {
     MuiTextfield,
     MuiDatePicker,
+    MuiTextNumber,
     // MuiSelectDay,
     // MuiSelectMonth,
     // MuiSelectYear,
@@ -59,6 +60,7 @@ function LoanRecivcePrint() {
     let token = localStorage.getItem('token');
     let siteprint = localStorage.getItem('siteprint')
     let nROLEID = localStorage.getItem('nROLEID')
+    let provincename = localStorage.getItem('provincename');
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
@@ -124,6 +126,23 @@ function LoanRecivcePrint() {
         LoanReceiptTotal: 0,
         LoanReceiptNumber: '',
         BankID: '',
+
+        WitnessName: '', // "",
+        WitnessAddr: '', // "",
+        WitnessIDCard: '', // "",
+        WitnessIDCardMade: '', // "",
+        WitnessName2: '', // "",
+        WitnessAddr2: '', // "",
+        WitnessIDCard2: '', // "",
+        WitnessIDCardMade2: '', // "",
+        WitnessName3: '', // "",
+        WitnessAddr3: '', // "",
+        WitnessIDCard3: '', // "",
+        WitnessIDCardMade3: '', // "",
+        WitnessName4: '', // "",
+        WitnessAddr4: '', // "",
+        WitnessIDCard4: '', // "",
+        WitnessIDCardMade4: '', // "",
     })
 
     const [inputDataLoanFarmerGetMonehy, setInputDataLoanFarmerGetMonehy] = useState({
@@ -392,17 +411,62 @@ function LoanRecivcePrint() {
     }
 
     const handleInputData = (event) => {
-        event.target.name !== 'BankID'?
-            setInputData({
-                ...inputData,
-                BankID:'',
-                [event.target.name]: event.target.value
-            })
-        :
-            setInputData({
-                ...inputData,
-                [event.target.name]: event.target.value
-            })
+            if(event.target.type === 'number') {
+                let typeNumber = event.target.id.toString().slice(-3);
+                if(typeNumber === 'tel') {
+                    event.target.value = event.target.value.toString().slice(0, 10)
+                    setInputData({
+                        ...inputData,
+                        [event.target.name]: event.target.value
+                    })
+
+                } else if (typeNumber === 'age' || typeNumber === 'year') {
+                    event.target.value = event.target.value.toString().slice(0, 3)
+                    setInputData({
+                        ...inputData,
+                        [event.target.name]: event.target.value
+                    })
+
+                } else if (typeNumber === 'zip') {
+                    event.target.value = event.target.value.toString().slice(0, 5)
+                    setInputData({
+                        ...inputData,
+                        [event.target.name]: event.target.value
+                    })
+
+                } else if (typeNumber === 'idc') {
+                    event.target.value = event.target.value.toString().slice(0, 13)
+                    setInputData({
+                        ...inputData,
+                        [event.target.name]: event.target.value
+                    })
+
+                } else {
+                    setInputData({
+                        ...inputData,
+                        [event.target.name]: event.target.value
+                    })
+
+                }
+            } else {
+
+                if(event.target.name !== 'BankID') {
+                    setInputData({
+                        ...inputData,
+                        BankID:'',
+                        [event.target.name]: event.target.value
+                    }) 
+
+                } else {
+                    setInputData({
+                        ...inputData,
+                        [event.target.name]: event.target.value
+                    })
+                }
+
+            }
+
+        
     }
 
     // Re order date 23-08-2564 to 2021-08-23
@@ -610,6 +674,23 @@ function LoanRecivcePrint() {
                 // BankAccount: inputData.BankAccount,
                 // BankName: inputData.BankName,
                 // BankBranch: inputData.BankBranch,
+
+                WitnessName: inputData.WitnessName, // "",
+                WitnessAddr: `ส.ป.ก.จังหวัด${provincename}`, // "",
+                WitnessIDCard: inputData.WitnessIDCard, // "",
+                WitnessIDCardMade: 'กรมการปกครอง', // "",
+                WitnessName2: inputData.WitnessName2, // "",
+                WitnessAddr2: `ส.ป.ก.จังหวัด${provincename}`, // "",
+                WitnessIDCard2: inputData.WitnessIDCard2, // "",
+                WitnessIDCardMade2: 'กรมการปกครอง', // "",
+                WitnessName3: inputData.WitnessName3, // "",
+                WitnessAddr3: `ส.ป.ก.จังหวัด${provincename}`, // "",
+                WitnessIDCard3: inputData.WitnessIDCard3, // "",
+                WitnessIDCardMade3: 'กรมการปกครอง', // "",
+                WitnessName4: inputData.WitnessName4, // "",
+                WitnessAddr4: `ส.ป.ก.จังหวัด${provincename}`, // "",
+                WitnessIDCard4: inputData.WitnessIDCard4, // "",
+                WitnessIDCardMade4: 'กรมการปกครอง', // "",
             }, { headers: { "token": token } } 
         ).then(res => {
             console.log(res)
@@ -1104,7 +1185,7 @@ function LoanRecivcePrint() {
                                         </Paper>
                                     </Grid>
         
-                                { /* Paper 2 - Table -------------------------------------------------- */}
+                                    { /* Paper 2 - Table -------------------------------------------------- */}
                                     <Grid item xs={12} md={12}>
                                         <div className="table">
                                             <TableContainer className="table-box table-loanrecivecprint1 table-summary">
@@ -1180,6 +1261,60 @@ function LoanRecivcePrint() {
                                                 </Table>
                                             </TableContainer>
                                         </div>
+                                    </Grid>
+
+                                    
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputData.WitnessName}  onChange={handleInputData}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man1-idc" defaultValue="" name="WitnessIDCard" value={inputData.WitnessIDCard} onInput={handleInputData} />
+                                        {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man1-idc" name="WitnessIDCard" value={inputData.WitnessIDCard}  onInput={handleInputData} /> */}
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade" value={'กรมการปกครอง'}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputData.WitnessName2}  onChange={handleInputData}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man2-idc" defaultValue="" name="WitnessIDCard2" value={inputData.WitnessIDCard2} onInput={handleInputData} />
+                                        {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man2-idc" name="WitnessIDCard2" value={inputData.WitnessIDCard2}  onInput={handleInputData} /> */}
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade2" value={'กรมการปกครอง'}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputData.WitnessName3}  onChange={handleInputData}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man3-idc" defaultValue="" name="WitnessIDCard3" value={inputData.WitnessIDCard3} onInput={handleInputData} />
+                                        {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man3-idc" name="WitnessIDCard3" value={inputData.WitnessIDCard3}  onInput={handleInputData} /> */}
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade3" value={'กรมการปกครอง'}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputData.WitnessName4}  onChange={handleInputData}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputData} />
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man4-idc" defaultValue="" name="WitnessIDCard4" value={inputData.WitnessIDCard4} onInput={handleInputData} />
+                                        {/* <MuiTextfield label="บัตรประชาชนเลขที่" id="no-man4-idc" name="WitnessIDCard4" value={inputData.WitnessIDCard4}  onInput={handleInputData} /> */}
+                                    </Grid>
+                                    <Grid item xs={12} md={7}>
+                                        <MuiTextfield inputdisabled="input-disabled" label="สถานที่ออกบัตร" name="WitnessIDCardMade4" value={'กรมการปกครอง'}  onChange={handleInputData} />
                                     </Grid>
                                 </Grid>
                             </Container>

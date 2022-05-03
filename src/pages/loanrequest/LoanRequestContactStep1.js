@@ -1115,8 +1115,8 @@ console.log('list:',event.target.value)
         formData.set('ApplicantDate',moment(inputData.ApplicantDate).format('YYYY-MM-DD'))
         formData.set('RecDate',moment(inputData.RecDate).format('YYYY-MM-DD'))
         formData.set('supporterAmount',supporterAmount)
-        formData.set('LoanPeriodCode', inputData.LoanPeriodCode === '0' ? 'ส' : inputData.LoanPeriodCode === '1' ? 'ก' : inputData.LoanPeriodCode === '2' ? 'ย' : null )
-        formData.append('LoanPeriodID', inputData.LoanPeriodCode === '0' ? 1 : inputData.LoanPeriodCode === '1' ? 2 : inputData.LoanPeriodCode === '2' ? 3 : null )
+        formData.set('LoanPeriodCode', inputData.LoanPeriodCode === '0' || inputData.LoanPeriodCode === 0 ? 'ส' : inputData.LoanPeriodCode === '1' || inputData.LoanPeriodCode === 1 ? 'ก' : inputData.LoanPeriodCode === '2' || inputData.LoanPeriodCode === 2 ? 'ย' : null )
+        formData.append('LoanPeriodID', inputData.LoanPeriodCode === '0' || inputData.LoanPeriodCode === 0 ? 1 : inputData.LoanPeriodCode === '1' || inputData.LoanPeriodCode === 1 ? 2 : inputData.LoanPeriodCode === '2' || inputData.LoanPeriodCode === 2 ? 3 : null )
 
         if(inputData.Debt==='1') {
             formData.set('Debt_Owner', inputData.Debt_Owner)

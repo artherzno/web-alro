@@ -190,7 +190,8 @@ function LoanRequestPrint(props) {
         FarmerInDistrict: '', // "",
         FarmerInProvince: '', // "",
         Officer: '', // "",
-        OfficerRank: localStorage.getItem('provincename'), // "",
+        OfficerProvince: '', // localStorage.getItem('provincename'), 
+        OfficerRank: '',
         SPK_Order: '', // "",
         SPK_OrderDate: moment().format(), // "",
         Loan_Obj1: '', // "",
@@ -808,8 +809,9 @@ function LoanRequestPrint(props) {
                             IDCardMadeProvince: '0', // "",
                             FarmerInDistrict: '', // "",
                             FarmerInProvince: '', // "",
-                            Officer: '', // "",
-                            OfficerRank: localStorage.getItem('provincename'), // "",
+                            Officer: data.officer.Officer, // "",
+                            OfficerProvince: data.officer.OfficerProvince, 
+                            OfficerRank: '', // localStorage.getItem('provincename'), // "",
                             SPK_Order: '', // "",
                             SPK_OrderDate: moment().format(), // "",
                             Loan_Installment1: 0, // "",
@@ -2165,7 +2167,7 @@ console.log('FreeDebtTime',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  name="OfficerRank" value={inputDataSubmit.OfficerRank} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  name="OfficerProvince" value={inputDataSubmit.OfficerProvince} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
