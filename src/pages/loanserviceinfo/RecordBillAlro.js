@@ -1271,7 +1271,7 @@ function RecordBillAlro() {
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <p className="paper-p txt-right">ดอกเบี้ยค้างชำระ</p>
+                                                                    <p className="paper-p txt-right">ดอกเบี้ยคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <MuiTextfield
@@ -1281,7 +1281,7 @@ function RecordBillAlro() {
                                                                         helperText={errors.InterestBalance}
                                                                         onChange={handleChange}
                                                                         onBlur={handleBlur}
-                                                                        placeholder="ดอกเบี้ยค้างชำระ"
+                                                                        placeholder="ดอกเบี้ยคงเหลือ"
                                                                         textAlign='right'
                                                                         label="" />
                                                                 </Grid>
@@ -1397,6 +1397,7 @@ function RecordBillAlro() {
                                                                 <TableCell align="center">เลขที่สัญญา</TableCell>
                                                                 <TableCell align="center">ชื่อโครงการ</TableCell>
                                                                 <TableCell align="center">ปีโครงการ</TableCell>
+                                                                <TableCell align="center">สถานะ</TableCell>
                                                                 <TableCell align="center">วันที่กู้</TableCell>
                                                             </TableRow>
                                                         </TableHead>
@@ -1410,6 +1411,7 @@ function RecordBillAlro() {
                                                                     <StyledTableCellLine align="left">{row.LoanNumber}</StyledTableCellLine>
                                                                     <StyledTableCellLine align="left">{row.ProjectName}</StyledTableCellLine>
                                                                     <StyledTableCellLine align="left">{row.ProjectPlanYear}</StyledTableCellLine>
+                                                                    <StyledTableCellLine align="left">{''}</StyledTableCellLine>
                                                                     <StyledTableCellLine align="left">{moment(row.LoanReceiptDate, "YYYY-MM-DD").add(543, 'year').format("DD-MM-YYYY")}</StyledTableCellLine>
                                                                 </TableRow>
                                                             ))}
