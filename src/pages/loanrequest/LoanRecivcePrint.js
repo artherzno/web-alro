@@ -809,7 +809,8 @@ function LoanRecivcePrint() {
                                 <p className="font-18 txt-blue txt-bold">รายการที่ {i+1}</p>
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <MuiTextfield label="ใบสำคัญรับเงินตามสัญญากู้ยืมเลขที่" inputdisabled="input-disabled" value={inputData.LoanReceiptNumber === undefined || inputData.LoanReceiptNumber === null || inputData.LoanReceiptNumber === '' ? '' : inputData.LoanReceiptNumber}/>
+                                <MuiTextfield label="ใบสำคัญรับเงินตามสัญญากู้ยืมเลขที่" inputdisabled="input-disabled" value={dataInfo.data[0].LoanNumber}/>
+                                {/* <MuiTextfield label="ใบสำคัญรับเงินตามสัญญากู้ยืมเลขที่" inputdisabled="input-disabled" value={inputData.LoanReceiptNumber === undefined || inputData.LoanReceiptNumber === null || inputData.LoanReceiptNumber === '' ? '' : inputData.LoanReceiptNumber}/> // Edit 04-05-2022 order from foolor */}
                                 {/* <MuiTextfield label="ใบสำคัญรับเงิน" inputdisabled="input-disabled" value={dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === undefined || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === null || dataInfo.LoanFarmerGetMoney[i].LoanReceiptNumber === '' ? '' : 0}/> */} 
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -847,7 +848,7 @@ function LoanRecivcePrint() {
                                     nROLEID==='8'||nROLEID==='9'?
                                     <MuiSelect label="ได้รับเงินจากกรม" inputdisabled="input-disabled" lists={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']} listsValue={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']}  name="LoanReceiptfrom" value={dataInfo.data[i].LoanReceiptfrom}  onChange={handleInputData}  />
                                     :
-                                    <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.จังหวัด${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                    <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
                                 }
                             </Grid>
                             {
@@ -1151,7 +1152,7 @@ function LoanRecivcePrint() {
                                                             nROLEID==='8'||nROLEID==='9'?
                                                             <MuiSelect label="ได้รับเงินจากกรม" lists={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']} listsValue={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']}  name="LoanReceiptfrom" value={inputData.LoanReceiptfrom}  onChange={handleInputData}  />
                                                             :
-                                                            <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.จังหวัด${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                                            <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
                                                         }
                                                     </Grid>
                                                     {

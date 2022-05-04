@@ -190,7 +190,7 @@ function LoanRequestPrint(props) {
         FarmerInDistrict: '', // "",
         FarmerInProvince: '', // "",
         Officer: '', // "",
-        OfficerProvince: '', // localStorage.getItem('provincename'), 
+        OfficeProvince: '', // localStorage.getItem('provincename'), 
         OfficerRank: '',
         SPK_Order: '', // "",
         SPK_OrderDate: moment().format(), // "",
@@ -810,7 +810,7 @@ function LoanRequestPrint(props) {
                             FarmerInDistrict: '', // "",
                             FarmerInProvince: '', // "",
                             Officer: data.officer.Officer, // "",
-                            OfficerProvince: data.officer.OfficerProvince, 
+                            OfficeProvince: data.officer.OfficeProvince, 
                             OfficerRank: '', // localStorage.getItem('provincename'), // "",
                             SPK_Order: '', // "",
                             SPK_OrderDate: moment().format(), // "",
@@ -990,6 +990,12 @@ function LoanRequestPrint(props) {
 
                         getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber, data.data[0].ProjectPlanYear, data.data[0].ProjectID)
                         
+
+                        setInputDataSubmit({
+                            ...inputDataSubmit, 
+                            Officer: data.officer.Officer, // "",
+                            OfficeProvince: data.officer.OfficeProvince, 
+                        })
                     }
 
                 }
@@ -2167,7 +2173,7 @@ console.log('FreeDebtTime',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  name="OfficerProvince" value={inputDataSubmit.OfficerProvince} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  name="OfficeProvince" value={inputDataSubmit.OfficeProvince} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
