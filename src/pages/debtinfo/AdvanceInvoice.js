@@ -555,18 +555,12 @@ function AdvanceInvoice(props) {
                                 rentno: ''
                             }}
                             validate={values => {
-                                const requires = ['invoiceno', 'rentno']
                                 let errors = {};
-                                requires.forEach(field => {
-                                    if (!values[field]) {
-                                        errors[field] = 'Required';
-                                    }
-                                });
 
-                                if(!values.save_date && !values.invoice_date){
+                                if (!values.invoiceno && !values.rentno){
 
-                                    errors['save_date'] = 'Required';
-                                    errors['invoice_date'] = 'Required';
+                                    errors['invoiceno'] = 'Required';
+                                    errors['rentno'] = 'Required';
                                 }
 
                                 return errors;
@@ -582,7 +576,7 @@ function AdvanceInvoice(props) {
                                 const { errors, status, values, touched, isSubmitting, setFieldValue, handleChange, handleBlur, submitForm, handleSubmit } = formik
                                 return (
                                     <Form>
-                                        <MuiDatePicker
+                                        {/* <MuiDatePicker
                                             name="save_date"
                                             value={values.save_date}
                                             error={errors.save_date}
@@ -594,7 +588,7 @@ function AdvanceInvoice(props) {
                                             onBlur={handleBlur}
                                             placeholder="วันที่บันทึก"
                                             label="วันที่บันทึก"
-                                        />
+                                        /> */}
                                         <MuiTextfield
                                             name="invoiceno"
                                             value={values.invoiceno}
@@ -619,7 +613,7 @@ function AdvanceInvoice(props) {
                                             requires
                                         />
 
-                                        <MuiDatePicker
+                                        {/* <MuiDatePicker
                                             name="invoice_date"
                                             value={values.invoice_date}
                                             error={errors.invoice_date}
@@ -631,7 +625,7 @@ function AdvanceInvoice(props) {
                                             onBlur={handleBlur}
                                             placeholder="วันที่ออกใบแจ้งหนี้"
                                             label="วันที่ออกใบแจ้งหนี้"
-                                        />
+                                        /> */}
 
                                     </Form>
                                 )
