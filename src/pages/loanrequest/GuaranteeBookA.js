@@ -116,6 +116,7 @@ function GuaranteeBookA() {
     const [loanNumber, setLoanNumber] = useState(null)
     const [searchResult, setSearchResult] = useState([])
     const [printActive, setPrintActive] = useState(false)
+    const [bookNumberActive, setBookNumberActive] = useState(false)
 
     let searchResultData = {}
     const [dataOwner, setDataOwner] = useState({
@@ -1262,6 +1263,8 @@ function GuaranteeBookA() {
                 LoanID: loanID,
                 GuaranteeBookTypeID: "1"
             }
+
+            setBookNumberActive(false)
                         
             axios.post(
                 `${server_hostname}/admin/api/view_GuaranteeApplicant`, 
@@ -1492,6 +1495,8 @@ function GuaranteeBookA() {
             let dataView = {
                 GBookID: gbookID
             }
+
+            setBookNumberActive(true)
 
             axios.post(
                 `${server_hostname}/admin/api/view_GuaranteeBook`, 
@@ -3609,7 +3614,12 @@ function GuaranteeBookA() {
                                         <Paper className="paper line-top-green paper mg-t-20">
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
+                                                        {
+                                                            bookNumberActive ? 
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
+                                                            :
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" inputdisabled="input-disabled" name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
+                                                        }
                                                     </Grid>
 
                                                     {/* <Grid item xs={12} md={4}>

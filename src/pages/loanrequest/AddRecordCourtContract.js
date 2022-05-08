@@ -1506,9 +1506,9 @@ function AddRecordCourtContract() {
                                     <Grid item xs={12} md={2}>
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" value={inputDataSearch.LoanNumber} name="LoanNumber" onChange={handleInputDataSearch} />
                                     </Grid>
-                                    <Grid item xs={12} md={2}>
+                                    {/* <Grid item xs={12} md={2}>
                                         <MuiTextfield label="ค้นหาเลขที่คำขอกู้ยืมเงิน" value={inputDataSearch.LoanID} name="LoanID" onChange={handleInputDataSearch} />
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ค้นหาเลขบัตรประชาชน" value={inputDataSearch.IDCard} name="IDCard" onChange={handleInputDataSearch} />
                                     </Grid>

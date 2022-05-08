@@ -116,6 +116,7 @@ function GuaranteeBookB() {
     const [loanNumber, setLoanNumber] = useState(null)
     const [searchResult, setSearchResult] = useState([])
     const [printActive, setPrintActive] = useState(false)
+    const [bookNumberActive, setBookNumberActive] = useState(false)
 
     let searchResultData = {}
     const [dataOwner, setDataOwner] = useState({
@@ -1259,6 +1260,8 @@ function GuaranteeBookB() {
                 LoanID: loanID,
                 GuaranteeBookTypeID: "2"
             }
+
+            setBookNumberActive(false)
                         
             axios.post(
                 `${server_hostname}/admin/api/view_GuaranteeApplicant`, 
@@ -1489,6 +1492,8 @@ function GuaranteeBookB() {
             let dataView = {
                 GBookID: gbookID
             }
+
+            setBookNumberActive(true)
 
             axios.post(
                 `${server_hostname}/admin/api/view_GuaranteeBook`, 
@@ -3622,7 +3627,12 @@ function GuaranteeBookB() {
                                         <Paper className="paper line-top-green paper mg-t-20">
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={4}>
-                                                        <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
+                                                        {
+                                                            bookNumberActive ? 
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
+                                                            :
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" inputdisabled="input-disabled" name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
+                                                        }
                                                     </Grid>
 
                                                     {/* <Grid item xs={12} md={4}>

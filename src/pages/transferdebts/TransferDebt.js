@@ -27,7 +27,7 @@ import Nav from '../../components/Nav';
 
 import {
     MuiTextfield,
-    MuiUpload,
+    MuiDatePicker,
     MuiTextNumber,
     ButtonFluidPrimary,
     ButtonFluidIconStartPrimary,
@@ -66,6 +66,11 @@ function TransferDebt() {
         IDCard: '',
         LoanNumber: '',
         LoanCourtNumber: '',
+    })
+
+    const [loanData, setLoanData] = useState({
+        LoanNumber: '',
+        LoanDate: moment().format('YYYY-MM-DD'),
     })
 
     const [loantransfer, setLoantransfer] = useState([
@@ -643,7 +648,15 @@ function TransferDebt() {
 
                             {
                                 formField ? 
-                                <Grid item xs={12} md={12}>
+                                <Grid item xs={12} md={12} className="mg-t-20">
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} md={4}>
+                                            <MuiTextfield label="เลขที่ใบโอนหนี้" value={loanData.LoanNumber} onChange={(e)=>setLoanData({...loanData, LoanNumber: e.target.value})} />
+                                        </Grid>
+                                        <Grid item xs={12} md={3}>
+                                            <MuiDatePicker label="วันที่บันทึก" name="LoanReceiptDate" value={loanData.LoanDate} onChange={(newValue)=>{ setLoanData({ ...loanData, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        </Grid>
+                                    </Grid>
                                     <div className="table-box table-recordcontractdebt mg-t-10">
                                         <TableContainer >
                                             <Table aria-label="simple table">

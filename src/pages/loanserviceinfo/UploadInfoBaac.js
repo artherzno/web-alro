@@ -323,7 +323,7 @@ function UploadInfoBaac() {
                                 <Grid item xs={12} md={12} className="mg-t-10">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={7}>
-                                            <MuiDatePicker label="วันที่ upload" id="upload-date-input" name="uploadDate" value={inputData.uploadDate} onChange={(newValue)=>{ setInputData({ ...inputData, uploadDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                            <MuiDatePicker label="วันที่บันทึก" id="upload-date-input" name="uploadDate" value={inputData.uploadDate} onChange={(newValue)=>{ setInputData({ ...inputData, uploadDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                         </Grid>
                                     </Grid>
                                 </Grid> 

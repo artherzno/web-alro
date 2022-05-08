@@ -190,7 +190,8 @@ function LoanRequestPrint(props) {
         FarmerInDistrict: '', // "",
         FarmerInProvince: '', // "",
         Officer: '', // "",
-        OfficerRank: localStorage.getItem('provincename'), // "",
+        OfficeProvince: '', // localStorage.getItem('provincename'), 
+        OfficerRank: '',
         SPK_Order: '', // "",
         SPK_OrderDate: moment().format(), // "",
         Loan_Obj1: '', // "",
@@ -808,8 +809,9 @@ function LoanRequestPrint(props) {
                             IDCardMadeProvince: '0', // "",
                             FarmerInDistrict: '', // "",
                             FarmerInProvince: '', // "",
-                            Officer: '', // "",
-                            OfficerRank: localStorage.getItem('provincename'), // "",
+                            Officer: data.officer.Officer, // "",
+                            OfficeProvince: data.officer.OfficeProvince, 
+                            OfficerRank: '', // localStorage.getItem('provincename'), // "",
                             SPK_Order: '', // "",
                             SPK_OrderDate: moment().format(), // "",
                             Loan_Installment1: 0, // "",
@@ -988,6 +990,12 @@ function LoanRequestPrint(props) {
 
                         getViewDataApprovedApplicant(applicantID, farmerID, applicantNo, loanID, loanNumber, data.data[0].ProjectPlanYear, data.data[0].ProjectID)
                         
+
+                        setInputDataSubmit({
+                            ...inputDataSubmit, 
+                            Officer: data.officer.Officer, // "",
+                            OfficeProvince: data.officer.OfficeProvince, 
+                        })
                     }
 
                 }
@@ -2165,7 +2173,7 @@ console.log('FreeDebtTime',event.target.value)
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  name="OfficerRank" value={inputDataSubmit.OfficerRank} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ตำแหน่งปฏิรูปที่ดินจังหวัด"  name="OfficeProvince" value={inputDataSubmit.OfficeProvince} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}

@@ -83,12 +83,13 @@ function PrintBillBank() {
         'ProjectName',
         'LoanNumber', 
         'ReceiptDate',
+        'ReceiptType',
         'ReceiptNumber', 
         'PrinciplePaid', 
         'InterestPaid', 
         'Fines', 
-        'Time', 
-        'Mindex', 
+        // 'Time', 
+        // 'Mindex', 
         // 'pcapital', 
         // 'pcap1', 
         // 'pcap2', 
@@ -111,17 +112,18 @@ function PrintBillBank() {
 
     const headCells = [
         // { id: 'no', numeric: false, disablePadding: true, label: 'รหัสบันทึก' },
-        { id: 'Recdate', numeric: true, disablePadding: false, label: 'วันที่บันทึก' },
-        { id: 'ProjectCode', numeric: true, disablePadding: false, label: 'รหัสโครงการ' },
-        { id: 'ProjectName', numeric: true, disablePadding: false, label: 'ชื่อโครงการ' },
-        { id: 'LoanNumber', numeric: true, disablePadding: false, label: 'สัญญาเลขที่' },
-        { id: 'ReceiptDate', numeric: false, disablePadding: true, label: 'วันที่ใบเสร็จ' },
-        { id: 'ReceiptNumber', numeric: true, disablePadding: false, label: 'เลขที่ใบเสร็จ' },
-        { id: 'PrinciplePaid', numeric: true, disablePadding: false, label: 'เงินต้น' },
-        { id: 'InterestPaid', numeric: true, disablePadding: false, label: 'ดอกเบี้ย' },
-        { id: 'Fines', numeric: true, disablePadding: false, label: 'ค่าปรับ' },
-        { id: 'Time', numeric: false, disablePadding: true, label: 'item' },
-        { id: 'Mindex', numeric: true, disablePadding: false, label: 'Mindex' },
+        { id: 'Recdate', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่บันทึก' },
+        { id: 'ProjectCode', numeric: true, disablePadding: false, widthCol: '160px', label: 'รหัสโครงการ' },
+        { id: 'ProjectName', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อโครงการ' },
+        { id: 'LoanNumber', numeric: true, disablePadding: false, widthCol: '160px', label: 'สัญญาเลขที่' },
+        { id: 'ReceiptDate', numeric: false, disablePadding: true, widthCol: '160px', label: 'วันที่ใบเสร็จ' },
+        { id: 'ReceiptType', numeric: true, disablePadding: false, widthCol: '160px', label: 'ประเภทใบเสร็จ' },
+        { id: 'ReceiptNumber', numeric: true, disablePadding: false, widthCol: '160px', label: 'เลขที่ใบเสร็จ' },
+        { id: 'PrinciplePaid', numeric: true, disablePadding: false, widthCol: '160px', label: 'เงินต้น' },
+        { id: 'InterestPaid', numeric: true, disablePadding: false, widthCol: '160px', label: 'ดอกเบี้ย' },
+        { id: 'Fines', numeric: true, disablePadding: false, widthCol: '160px', label: 'ค่าปรับ' },
+        // { id: 'Time', numeric: false, disablePadding: true, label: 'item' },
+        // { id: 'Mindex', numeric: true, disablePadding: false, label: 'Mindex' },
         // { id: 'pcapital', numeric: true, disablePadding: false, label: 'Pcapital' },
         // { id: 'pcap1', numeric: true, disablePadding: false, label: 'Pcap_1' },
         // { id: 'pcap2', numeric: true, disablePadding: false, label: 'Pcap_2' },
@@ -130,12 +132,14 @@ function PrintBillBank() {
         // { id: 'pcharge', numeric: true, disablePadding: false, label: 'Pcharge' },
     ];
 
-    function createData(Recdate, ProjectCode,ProjectName,LoanNumber, ReceiptDate,ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, ) {
+    function createData(Recdate, ProjectCode,ProjectName,LoanID, LoanNumber, ReceiptDate, ReceiptType, ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, ) {
         return { Recdate, 
     ProjectCode,
     ProjectName,
+    LoanID,
     LoanNumber, 
     ReceiptDate,
+    ReceiptType,
     ReceiptNumber, 
     PrinciplePaid, 
     InterestPaid, 
@@ -186,8 +190,10 @@ function PrintBillBank() {
                                     item.Recdate,
                                     item.ProjectCode,
                                     item.ProjectName,
+                                    item.LoanID,
                                     item.LoanNumber,
                                     !!item.ReceiptDate?moment(item.ReceiptDate).format('DD/MM/YYYY'):'',
+                                    !!item.BankFile?'ธ.ก.ส.':'สปก.',
                                     item.ReceiptNumber,
                                     !!item.PrinciplePaid?item.PrinciplePaid:0,
                                     !!item.InterestPaid?item.InterestPaid:0,
@@ -241,9 +247,42 @@ function PrintBillBank() {
         // }
     };
 
-    const handlePrintPDF = () => {
-        setErr(true)
-        setErrMsg('ไม่สามารถทำรายการได้')
+    const handlePrintPDF = (contactNo, invoiceNo) => {
+        console.log('PDF - ContractNo:', contactNo)
+        console.log('PDF - InvoiceNo:', invoiceNo)
+        console.log('PDF - UserName:', localStorage.getItem('provinceid'))
+        console.log('PDF - RoleID:', localStorage.getItem('nROLEID'))
+
+        // ContractNo
+        // InvoiceNo
+        // UserName
+        // RoleID
+
+        let formData = new FormData(); 
+        formData.append('ContractNo',contactNo)
+        formData.append('InvoiceNo',invoiceNo)
+        formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
+
+        axios({
+        url: `${siteprint}/report/pdf/GetPrintBillBankPdf`, //your url
+        method: 'POST',
+        data: formData,
+        responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญา_${loanNumber.toString()}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
     }
 
     const handleClosePopup = () => {
@@ -256,6 +295,13 @@ function PrintBillBank() {
     
     return (
         <div className="printbillbank-page">
+            {
+                isLoading ? 
+                    <div className="overlay">
+                        <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                    </div> : 
+                    ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -266,7 +312,8 @@ function PrintBillBank() {
                     <Container maxWidth={false}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>พิมพ์ใบเสร็จรับเงินจากธนาคาร</h1>
+                                <h1>พิมพ์ใบเสร็จรับเงิน</h1>
+                                {/* <h1>พิมพ์ใบเสร็จรับเงินจากธนาคาร</h1> */}
                             </Grid>
 
 
@@ -307,6 +354,8 @@ function PrintBillBank() {
                                         customName={"พิมพ์ใบเสร็จ"}
                                         customWidth={"140px"}
                                         customEvent={handlePrintPDF}
+                                        customParam1={'LoanNumber'}
+                                        customParam2={'ReceiptNumber'}
                                         tableName={'printbillbank'}
                                     />
                                 </div>

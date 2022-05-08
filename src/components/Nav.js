@@ -101,7 +101,8 @@ const listmenu = [
                 subtitle: 'Upload file ข้อมูล ธกส.',
                 subpath: '/loanserviceinfo/uploadinfobaac'
             },{
-                subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
+                subtitle: 'พิมพ์ใบเสร็จรับเงิน',
+                // subtitle: 'พิมพ์ใบเสร็จรับเงินจากธนาคาร',
                 subpath: '/loanserviceinfo/printbillbank'
             },{
                 subtitle: 'ชำระเงินจากธนาคารอื่น',
