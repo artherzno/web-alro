@@ -787,7 +787,7 @@ function RecordBillAlro() {
                                                                 label="วันที่รับเงินกู้" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="principle"
                                                                 value={values.principle}
                                                                 error={errors.principle}
@@ -799,7 +799,7 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="Interest"
                                                                 value={values.Interest}
                                                                 error={errors.Interest}
@@ -811,7 +811,7 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="ChargeRate"
                                                                 value={values.ChargeRate}
                                                                 error={errors.ChargeRate}

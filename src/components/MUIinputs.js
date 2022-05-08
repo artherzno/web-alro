@@ -422,6 +422,7 @@ const MuiTextfieldNumber = (props) => {
                 className="input-currency"
                 {...props}
                 value={value}
+                label=""
                 name={name}
                 // mask={mask}
                 customInput={TextField}

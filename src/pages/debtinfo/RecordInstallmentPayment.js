@@ -557,7 +557,7 @@ function RecordInstallmentPayment() {
                                                                 label="ใช้เงินตามแผนปี" defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="principle"
                                                                 value={values.principle}
                                                                 error={errors.principle}
@@ -568,7 +568,7 @@ function RecordInstallmentPayment() {
                                                                 label="จำนวนเงินให้กู้" defaultValue="" />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="Interest"
                                                                 value={values.Interest}
                                                                 error={errors.Interest}
