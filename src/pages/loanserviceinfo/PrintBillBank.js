@@ -193,7 +193,7 @@ function PrintBillBank() {
                                     item.LoanID,
                                     item.LoanNumber,
                                     !!item.ReceiptDate?moment(item.ReceiptDate).format('DD/MM/YYYY'):'',
-                                    !!item.BankFile?'ธ.ก.ส.':'สปก.',
+                                    !!item.BankFile?'ธ.ก.ส.':'ส.ป.ก.',
                                     item.ReceiptNumber,
                                     !!item.PrinciplePaid?item.PrinciplePaid:0,
                                     !!item.InterestPaid?item.InterestPaid:0,

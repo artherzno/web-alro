@@ -22,6 +22,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DataGrid } from '@material-ui/data-grid';
 
+import PrintIcon from '@material-ui/icons/InsertDriveFile';
+
+
 import AddIcon from '@material-ui/icons/Add';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -33,6 +36,7 @@ import {
     MuiTextfield,
     ButtonFluidPrimary,
     MuiDatePicker,
+    ButtonFluidIconStartPrimary,
 } from '../../components/MUIinputs';
 
 import { MUItable } from '../../components/MUItable'
@@ -241,15 +245,21 @@ function UserHistory() {
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ค้นหา" value={inputDataSearch.SearchByName} name="SearchByName" onChange={handleInputDataSearch}  />
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={2}>
                                         <MuiDatePicker label="จากวันที่" name="startDate" value={inputDataSearch.startDate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, startDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={2}>
                                         <MuiDatePicker label="ถึงวันที่" name="endDate" value={inputDataSearch.endDate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, endDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
                                         <ButtonFluidPrimary label="ค้นหา" />  
+                                    </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        <p>&nbsp;</p>
+                                        <div style={{opacity: '0.5', display: 'inline-block'}}>
+                                            <ButtonFluidIconStartPrimary label="EXPORT TO EXCEL" startIcon={<PrintIcon />} />
+                                        </div> 
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -37,7 +37,10 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(null);
-
+    const [changeEmail, setChangeEmail] = useState('');
+    const [changeEmailCode, setChangeEmailCode] = useState(0);
+    const [changeEmailMsg, setChangeEmailMsg] = useState('')
+ 
     let server_port = auth.port;
     let server_hostname = auth.hostname;
 
@@ -332,6 +335,8 @@ function LoginPage() {
     const handleCloseDialog = () => {
         setForgotDialog(false);
         setChangeDialog(false);
+        setChangeEmailMsg('')
+        setChangeEmail('')
     };
 
     const handleChange = event => {
@@ -350,6 +355,50 @@ function LoginPage() {
                 fetchDataLogin(token);
             });
         });
+    }
+
+    const handleInputChangeEmail = event => {
+        setChangeEmail(event.target.value)
+    }
+
+    const handleSubmitChangeEmail = event => {
+        console.log(changeEmail)
+        axios.post(
+            `${server_hostname}/admin/api/forget_password `, 
+            { Email: changeEmail}, 
+            // { headers: { "token": token } } 
+        ).then(res => {
+                console.log('forget_password',res)
+                console.log(res.data.code)
+                let data = res.data;
+                if(data.code === 0) {
+                    setChangeEmailCode(data.code)
+                    // setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setChangeEmailMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setChangeEmailMsg([data.message])
+                        }
+                    } else {
+                        setChangeEmailMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                    setChangeEmailMsg(data.message)
+                } else {
+                    console.log('forget_password result',data.message, data.code)
+                    setChangeEmailMsg(data.message)
+                    setChangeEmailCode(res.code)
+                }
+                setIsLoading(false)
+                // getSpkAllProject()
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
     }
 
     return (
@@ -372,9 +421,9 @@ function LoginPage() {
                         {err ? <span >{errMsg}</span> : ''}
                     </p>
                     <div className="login-option">
-                        <div className="login-forgot-pwd">
+                        {/* <div className="login-forgot-pwd">
                             <p onClick={() => setChangeDialog(true)}>เปลี่ยนรหัสผ่าน</p>
-                        </div>
+                        </div> */}
                         <div className="login-change-pwd">
                             <p onClick={() => setForgotDialog(true)}>ลืมรหัสผ่าน</p>
                         </div>
@@ -390,25 +439,35 @@ function LoginPage() {
                 fullWidth
                 maxWidth="xs"
             >
-                <DialogTitle id="alert-dialog-title"><p>{"กรุณากรอกอีเมลเพื่อรับรหัสผ่านใหม่"}</p></DialogTitle>
+                <DialogTitle id="alert-dialog-title"><p>{"กรุณากรอกอีเมล์เพื่อตั้งรหัสผ่านใหม่"}</p></DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
+                    
 
                         <form onSubmit={handleSubmit}>
                             <div className="form-input">
-                                <input autoFocus type="text" name="changeemail" placeholder="" />
+                                <input autoFocus type="email" name="changeEmail" placeholder="" onChange={(e)=>handleInputChangeEmail(e)} />
                             </div>
+                            <p className="txt-red txt-center">{changeEmailMsg}</p>
                         </form>
-                    </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseDialog} color="primary">
-                        ยกเลิก
-                    </Button>
-                    <Button onClick={handleCloseDialog} color="primary" autoFocus>
-                        ส่งอีเมล
-                    </Button>
-                </DialogActions>
+                {
+                    changeEmailCode ?
+                    <DialogActions>
+                        <Button onClick={handleCloseDialog} color="primary">
+                            ปิด
+                        </Button>
+                    </DialogActions>
+
+                    :
+                    <DialogActions>
+                        <Button onClick={handleCloseDialog} color="primary">
+                            ยกเลิก
+                        </Button>
+                        <Button onClick={handleSubmitChangeEmail} color="primary" autoFocus >
+                            ส่งอีเมล
+                        </Button>
+                    </DialogActions>
+                }
             </Dialog>
 
             <Dialog
@@ -419,7 +478,7 @@ function LoginPage() {
                 fullWidth
                 maxWidth="xs"
             >
-                <DialogTitle id="alert-dialog-title"><p>{"ลืมรหัสผ่าน"}</p></DialogTitle>
+                <DialogTitle id="alert-dialog-title"><p>{"เปลี่ยนรหัสผ่าน"}</p></DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         <form onSubmit={handleSubmit}>
