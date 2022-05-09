@@ -501,7 +501,7 @@ function DebtCondition() {
                                                                     label="วันที่รับเงินกู้" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield
+                                                                <MuiTextfieldNumber
                                                                     name="principle"
                                                                     value={values.principle}
                                                                     error={errors.principle}
@@ -509,10 +509,11 @@ function DebtCondition() {
                                                                     onChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="จำนวนเงินให้กู้"
-                                                                    label="จำนวนเงินให้กู้" defaultValue="" />
+                                                                    label="จำนวนเงินให้กู้" 
+                                                                    defaultValue="" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield
+                                                                <MuiTextfieldNumber
                                                                     name="Interest"
                                                                     value={values.Interest}
                                                                     error={errors.Interest}
@@ -523,7 +524,7 @@ function DebtCondition() {
                                                                     label="อัตราดอกเบี้ย" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield
+                                                                <MuiTextfieldNumber
                                                                     name="ChargeRate"
                                                                     value={values.ChargeRate}
                                                                     error={errors.ChargeRate}

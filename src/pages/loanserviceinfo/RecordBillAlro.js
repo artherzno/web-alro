@@ -25,6 +25,7 @@ import {
     MuiSelect,
     MuiTextfieldMultiLine,
     ButtonFluidPrimary,
+    MuiTextfieldNumber,
     ButtonFluidIconStartPrimary,
 } from '../../components/MUIinputs';
 
@@ -192,14 +193,23 @@ function RecordBillAlro() {
                 const recData = beforeProcess[beforeProcess.length-1]
                 const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
-                formikRef.current.setFieldValue("PrincipleBalance1", formatNumber(recData.principalBalance,2))
-                formikRef.current.setFieldValue("RecPrincipleBalance", formatNumber(recData.principalBalance,2))
-                formikRef.current.setFieldValue("RecPrinciple", formatNumber(recData.StuckMoney,2))
-                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? formatNumber(beforRectData.InterestKang2,2) : 0)
-                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2, 2) : formatNumber(recData.InterestKang2,2))
-                formikRef.current.setFieldValue("RecSumInterest", formatNumber(recData.InterestKang2,2))
-                formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
-                formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
+                // formikRef.current.setFieldValue("PrincipleBalance1", formatNumber(recData.principalBalance,2))
+                // formikRef.current.setFieldValue("RecPrincipleBalance", formatNumber(recData.principalBalance,2))
+                // formikRef.current.setFieldValue("RecPrinciple", formatNumber(recData.StuckMoney,2))
+                // formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? formatNumber(beforRectData.InterestKang2,2) : 0)
+                // formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2, 2) : formatNumber(recData.InterestKang2,2))
+                // formikRef.current.setFieldValue("RecSumInterest", formatNumber(recData.InterestKang2,2))
+                // formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
+                // formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
+
+                formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrinciple", recData.StuckMoney)
+                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2:0)
+                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
+                formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
+                formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
+                formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
                 
             }
 
@@ -777,7 +787,7 @@ function RecordBillAlro() {
                                                                 label="วันที่รับเงินกู้" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="principle"
                                                                 value={values.principle}
                                                                 error={errors.principle}
@@ -789,7 +799,7 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="Interest"
                                                                 value={values.Interest}
                                                                 error={errors.Interest}
@@ -801,7 +811,7 @@ function RecordBillAlro() {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="ChargeRate"
                                                                 value={values.ChargeRate}
                                                                 error={errors.ChargeRate}
@@ -849,7 +859,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecPrincipleBalance"
                                                                         value={values.RecPrincipleBalance}
                                                                         error={errors.RecPrincipleBalance}
@@ -860,6 +870,18 @@ function RecordBillAlro() {
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         label=""
                                                                         endAdornment="บาท" />
+
+                                                                    {/* <MuiTextfieldNumber
+                                                                        name="ChangeDeptCost"
+                                                                        value={values.ChangeDeptCost}
+                                                                        error={errors.ChangeDeptCost}
+                                                                        helperText={errors.ChangeDeptCost}
+                                                                        onChange={handleChange}
+                                                                        onBlur={handleBlur}
+                                                                        label="" defaultValue="" endAdornment="บาท" /> */}
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -869,7 +891,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecPrinciple"
                                                                         value={values.RecPrinciple}
                                                                         error={errors.RecPrinciple}
@@ -881,6 +903,9 @@ function RecordBillAlro() {
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -889,7 +914,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecInterestKang2"
                                                                         value={values.RecInterestKang2}
                                                                         error={errors.RecInterestKang2}
@@ -901,6 +926,9 @@ function RecordBillAlro() {
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -909,7 +937,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยครบชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecDueInterest"
                                                                         value={values.RecDueInterest}
                                                                         error={errors.RecDueInterest}
@@ -921,6 +949,9 @@ function RecordBillAlro() {
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -929,7 +960,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">รวมดอกเบี้ย</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecSumInterest"
                                                                         value={values.RecSumInterest}
                                                                         error={errors.RecSumInterest}
@@ -941,6 +972,9 @@ function RecordBillAlro() {
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -949,7 +983,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecOverdueInterest"
                                                                         value={values.RecOverdueInterest}
                                                                         error={errors.RecOverdueInterest}
@@ -961,6 +995,9 @@ function RecordBillAlro() {
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -969,7 +1006,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">รวมต้องชำระทั้งสิ้น</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecSumPaid"
                                                                         value={values.RecSumPaid}
                                                                         error={errors.RecSumPaid}
@@ -981,6 +1018,9 @@ function RecordBillAlro() {
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
                                                                 </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -989,7 +1029,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecPrincipleBalance"
                                                                         value={values.RecPrincipleBalance}
                                                                         error={errors.RecPrincipleBalance}
@@ -1000,6 +1040,9 @@ function RecordBillAlro() {
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1087,7 +1130,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="PrincipleBalance1"
                                                                         value={values.PrincipleBalance1}
                                                                         error={errors.PrincipleBalance1}
@@ -1107,7 +1150,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right txt-red">จำนวนเงินที่ชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="TotalPaid"
                                                                         value={values.TotalPaid}
                                                                         error={errors.TotalPaid}
@@ -1141,7 +1184,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้น</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="PrinciplePaid"
                                                                         value={values.PrinciplePaid}
                                                                         error={errors.PrinciplePaid}
@@ -1160,7 +1203,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ย</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="InterestPaid"
                                                                         value={values.InterestPaid}
                                                                         error={errors.InterestPaid}
@@ -1179,7 +1222,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="OverdueInterest"
                                                                         value={values.OverdueInterest}
                                                                         error={errors.OverdueInterest}
@@ -1198,7 +1241,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยครบชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="DueInterest"
                                                                         value={values.DueInterest}
                                                                         error={errors.DueInterest}
@@ -1217,7 +1260,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ค่าปรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="FinesPaid"
                                                                         value={values.FinesPaid}
                                                                         error={errors.FinesPaid}
@@ -1236,7 +1279,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">อื่นๆ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="Other"
                                                                         value={values.Other}
                                                                         error={errors.Other}
@@ -1255,7 +1298,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="PrincipleBalance2"
                                                                         value={values.PrincipleBalance2}
                                                                         error={errors.PrincipleBalance2}
@@ -1274,7 +1317,7 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="InterestBalance"
                                                                         value={values.InterestBalance}
                                                                         error={errors.InterestBalance}
