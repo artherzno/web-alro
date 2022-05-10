@@ -393,8 +393,7 @@ function FaultCondition() {
                                                                     onChangeDate={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="วันที่บันทึก"
-                                                                    label="วันที่บันทึก"
-                                                                label="" />
+                                                                    label="วันที่บันทึก"/>
                                                                 {/* </Box> */}
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
@@ -407,7 +406,7 @@ function FaultCondition() {
 
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} md={12} className="mg-t-20">
-                                                        <h3 className="txt-red txt-center txt-regular">การทำรายงานหน้านี้ต้องประมวลวัน ณ วันที่ต้องการคำนวณการรับสภาพหนี้</h3>
+                                                        {/* <h3 className="txt-red txt-center txt-regular">การทำรายงานหน้านี้ต้องประมวลวัน ณ วันที่ต้องการคำนวณการรับสภาพหนี้</h3> */}
                                                     </Grid>
                                                 </Grid>
 
