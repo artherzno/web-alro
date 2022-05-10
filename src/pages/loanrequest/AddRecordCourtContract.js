@@ -1981,8 +1981,9 @@ function AddRecordCourtContract() {
                                                                                     <p className="paper-p txt-right">เงินต้น สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
+                                                                                    <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.PrincipleBalance ? inputDataIndividualcardCloseContact.PrincipleBalance : 0} onChange={handleInputDataSubmitIndividual}  />
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principalBalance} onChange={handleInputDataSubmitIndividual}/> * edit 10/05/65 P'Pong&Foolur */}
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principle} onChange={handleInputDataSubmitIndividual}/>  */}
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principalBalance} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -1992,7 +1993,9 @@ function AddRecordCourtContract() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> {/* P'Pong specify 11/01/22 */}
+                                                                                    <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.TotalInterest ? inputDataIndividualcardCloseContact.TotalInterest : 0} onChange={handleInputDataSubmitIndividual}  /> 
+                                                            
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> * edit 10/05/65 P'Pong&Foolur * P'Pong specify 11/01/22 */}
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interest} onChange={handleInputDataSubmitIndividual}/>  */}
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.InterestKang2} onChange={handleInputDataSubmitIndividual}/>  */}
                                                                                 </Grid>

@@ -55,10 +55,12 @@ function EditUser(props) {
         Name: '', // "abc",
         Sirname: '', // "def",    
         cUsername: '', // "yyy",
+        Email: '',
         cPasswd: '', // "1234",
         bActive: 1, // 0,
         bIndividual: '', // 0,
         ProvinceID: 0, // 10
+        ExpireDate: null,
     })
 
     const [roleList, setRoleList] = useState([])
@@ -137,11 +139,12 @@ function EditUser(props) {
                         Name: resMember.Name || '', // "abc",
                         Sirname: resMember.Sirname || '', // "def",    
                         cUsername: resMember.cUsername || '', // "yyy",
+                        Email: resMember.Email || '',
                         cPasswd: resMember.cPasswd || '', // "1234",
-                        bActive: resMember.bActive || '', // 0,
+                        bActive: resMember.bActive? 1:0 || '', // 0,
                         bIndividual: resMember.bIndividual || '', // 0,
                         ProvinceID: resMember.ProvinceID || '', // 10
-                        ExpireDate: resMember.ExpireDate || '',
+                        ExpireDate: !!resMember.ExpireDate?resMember.ExpireDate:null || '',
                     })
                     
                 }
@@ -317,6 +320,9 @@ function EditUser(props) {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="Password" defaultValue="" name="cPasswd" value={inputData.cPasswd} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield label="Email" defaultValue="" name="Email" value={inputData.Email} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiSelect label="ActiveStatus" listsValue={[1,0]} lists={['Active', 'Non Active']} name="bActive" value={inputData.bActive} onChange={handleInputData}  />

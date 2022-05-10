@@ -135,6 +135,7 @@ function ManageUser() {
         { id: 'userid', numeric: true, disablePadding: false, widthCol: '110px', label: 'UserID' },
         { id: 'officername', numeric: true, disablePadding: false, widthCol: '120px', label: 'ชื่อ - นามสกุล' },
         { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'Username' },
+        { id: 'email', numeric: true, disablePadding: false, widthCol: '160px', label: 'Email' },
         { id: 'createdate', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่สร้าง' },
         { id: 'activestatus', numeric: true, disablePadding: false,  widthCol: '140px',label: 'สถานะ' },
         { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '160px', label: 'วันที่หมดอายุ' },
@@ -142,11 +143,11 @@ function ManageUser() {
     ];
 
     const rowsLabel = [
-        'userid','officername','username','createdate','activestatus','expiredate','userrole']
+        'userid','officername','username','email','createdate','activestatus','expiredate','userrole']
 
-    function createData( userid,officername,username,createdate,activestatus,expiredate,userrole) {
+    function createData( userid,officername,username,email,createdate,activestatus,expiredate,userrole) {
         return { 
-            userid,officername,username,createdate,activestatus,expiredate,userrole
+            userid,officername,username,email,createdate,activestatus,expiredate,userrole
          };
     }
 
@@ -184,8 +185,10 @@ function ManageUser() {
                             userid: data.data[i].nMEMID,
                             officername: data.data[i].OfficerName,
                             username: data.data[i].cUsername,
+                            email: data.data[i].Email,
                             createdate: (data.data[i].dCreated === null) ? '' : moment(data.data[i].dCreated).format('DD/MM/YYYY'),
-                            activestatus: (data.data[i].bActive === true) ? 1 : (data.data[i].bActive === false) ? 0 : data.data[i].bActive,
+                            // activestatus: (data.data[i].bActive === true) ? 1 : (data.data[i].bActive === false) ? 0 : data.data[i].bActive,
+                            activestatus: (data.data[i].bActive === true) ? 'Active' : (data.data[i].bActive === false) ? 'Non Active' : data.data[i].bActive,
                             expiredate: (data.data[i].ExpireDate === null) ? '' : moment(data.data[i].ExpireDate).format('DD/MM/YYYY'),
                             userrole: data.data[i].nRolename,
                         })
@@ -330,7 +333,7 @@ function ManageUser() {
                             </Grid>
 
                             <Grid item xs={12} md={12}>
-                                <div style={{  }}>
+                                <div style={{ border: '1px solid rgba(224, 224, 224, 1)' }}>
                                     <MUItable 
                                         headCells={headCells} 
                                         rows={rows} 

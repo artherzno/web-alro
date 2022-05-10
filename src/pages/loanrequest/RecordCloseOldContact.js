@@ -1483,7 +1483,7 @@ function RecordCloseOldContact() {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
-                                                <Grid container spacing={2}>
+                                                    <Grid container spacing={2}>
                                                         <Grid item xs={12} md={4}>
                                                             <p className="paper-p txt-right">&nbsp;</p>
                                                         </Grid>
@@ -1492,7 +1492,11 @@ function RecordCloseOldContact() {
                                                         
                                                             {/* /* edit 08/05/22  <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','กทด.','ชดใช้หนี้','ปิดหนี้เพื่อจำหน่ายหนี้ 0']} name="ReceiptTypeID" value={radioType} onChange={handleChangeReceiptTypeID} type="row" /> */}
                                                         </Grid>
-                                                    </Grid></Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiDatePicker label="วันที่ปิดสัญญา" name="CreateDate" value={inputDataCloseContactSelect.CreateDate} onChange={(newValue)=>{  setInputDataCloseContactSelect({...inputDataCloseContactSelect, CreateDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                </Grid>
                                                 
                                             </Grid>
                                         </form>
