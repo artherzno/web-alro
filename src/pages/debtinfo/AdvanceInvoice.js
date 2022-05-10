@@ -65,6 +65,7 @@ function AdvanceInvoice(props) {
     const [pageCount, setPageCount] = useState(10)
     const [resultList, setResultList] = useState([])
 
+
     const [startDate, setStartDate] = useState("")
     const [rentno, setRentNo] = useState("")
     const [invoiceno, setInvoiceno] = useState("")
@@ -135,7 +136,10 @@ function AdvanceInvoice(props) {
         }
         setIsLoading(true)
         api.getAdvanceInvoiceAll(parameter).then(response => {
-            setResultList(response.data)
+            setResultList(response.data.contactdataall)
+            if (response.data.contactdatasum.length > 0){
+                setSelectedData(response.data.contactdatasum[0])
+            }
             setIsLoading(false)
 
             console.log("response.data", response.data)
@@ -196,6 +200,7 @@ function AdvanceInvoice(props) {
 
         const parameter = new FormData()
         parameter.append('invoiceno', values.invoiceno);
+        parameter.append('rentno', values.rentno);
         parameter.append('save_date', values.save_date);
         parameter.append('invoice_date', values.invoice_date);
 
@@ -224,7 +229,6 @@ function AdvanceInvoice(props) {
 
         parameter.append('ref2', ref2);
         parameter.append('contractno', rentno);
-        parameter.append('invoiceno', ref_id);
 
         setIsExporting(true)
 
@@ -447,7 +451,7 @@ function AdvanceInvoice(props) {
                                                         selected={isItemSelected}
                                                         hover={true}
                                                         onClick={(e) => {
-                                                            getAdvanceInvoiceGetTotal(element)
+                                                            // getAdvanceInvoiceGetTotal(element)
 
 
 
