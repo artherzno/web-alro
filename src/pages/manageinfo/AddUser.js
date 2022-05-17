@@ -76,6 +76,7 @@ function AddUser(props) {
         Sirname: '', // "def",    
         cUsername: '', // "yyy",
         cPasswd: '', // "1234",
+        Email: '',
         bActive: 1, // 0,
         bIndividual: '', // 0,
         ProvinceID: 0, // 10
@@ -279,6 +280,9 @@ function AddUser(props) {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiTextfield label="Password" defaultValue="" name="cPasswd" value={inputData.cPasswd} onChange={handleInputData} />
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <MuiTextfield label="Email" defaultValue="" name="Email" value={inputData.Email} onChange={handleInputData} />
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     <MuiSelect label="ActiveStatus" listsValue={['1','0']} lists={['Active', 'Non Active']} name="bActive" value={inputData.bActive} onChange={handleInputData}  />

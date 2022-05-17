@@ -59,89 +59,62 @@ function UserHistory() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
-    const [tableResult, setTableResult] = useState([])
 
     let server_port = auth.port;
     let server_hostname = auth.hostname;
     let token = localStorage.getItem('token');
+    // let siteprint = localStorage.getItem('siteprint')
 
       const headCells = [
-        { id: 'id', numeric: true, disablePadding: false, widthCol: '110px', label: 'ลำดับ' },
-        { id: 'userid', numeric: true, disablePadding: false, widthCol: '140px', label: 'รหัสผู้ใช้งาน' },
-        { id: 'officername', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ - นามสกุล' },
-        { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'รายการ (หน้า)' },
-        { id: 'dcreated', numeric: true, disablePadding: false, widthCol: '160px', label: 'URL' },
-        { id: 'activestatus', numeric: true, disablePadding: false,  widthCol: '110px',label: 'IP' },
-        { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '110px', label: 'LOCATION' },
-        { id: 'userrole', numeric: true, disablePadding: false, widthCol: '110px', label: 'AGENT' },
-        { id: 'userrole', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่ - เวลา' },
+        { id: 'ID', numeric: true, disablePadding: false, widthCol: '110px', label: 'ลำดับ' },
+        { id: 'cUsername', numeric: true, disablePadding: false, widthCol: '140px', label: 'รหัสผู้ใช้งาน' },
+        { id: 'fullname', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ - นามสกุล' },
+        // { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'รายการ (หน้า)' },
+        // { id: 'dcreated', numeric: true, disablePadding: false, widthCol: '160px', label: 'URL' },
+        { id: 'ipaddress', numeric: true, disablePadding: false,  widthCol: '110px',label: 'IP' },
+        // { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '110px', label: 'LOCATION' },
+        // { id: 'userrole', numeric: true, disablePadding: false, widthCol: '110px', label: 'AGENT' },
+        { id: 'ts', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่ - เวลา' },
     ];
 
-    const rowsLabel = [
-        'userid','officername','username','dcreated','activestatus','expiredate','userrole']
+    const rowsLabel = ['ID','cUsername','fullname','ipaddress','ts']
 
-    function createData( userid,officername,username,dcreated,activestatus,expiredate,userrole) {
+    function createData(ID,cUsername,fullname,ipaddress,ts) {
         return { 
-            userid,officername,username,dcreated,activestatus,expiredate,userrole
+            ID,cUsername,fullname,ipaddress,ts
          };
+    }
+
+    // New order date 2021-08-23 to 23/08/2564
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
     }
 
     const [rows, setRows] = useState([])
     const [inputDataSearch, setInputDataSearch] = useState({
-        startDate: '',
-        endDate: '',
-        SearchByName: '',
+        fromdate: '',
+        todate: '',
+        keywords: '',
     })
+
+    const [btnPrintActive, setBtnPrintActive] = useState(false)
+    const [cUsername, setCUsername] = useState('')
 
     useEffect(() => {
         setLoaded(true);
         setOpenPopup(true);
+        setBtnPrintActive(false)
+        setRows([])
+        setInputDataSearch({
+            fromdate: '',
+            todate: '',
+            keywords: '',
+        })
 
-        // axios.post(
-        //     `${server_hostname}/admin/api/search_member`, '', { headers: { "token": token } } 
-        // ).then(res => {
-        //         console.log(res)
-        //         let data = res.data;
-        //         if(data.code === 0 || res === null || res === undefined) {
-        //             setErr(true);
-        //             if(Object.keys(data.message).length !== 0) {
-        //                 console.error(data)
-        //                 if(typeof data.message === 'object') {
-        //                     setErrMsg('ไม่สามารถทำรายการได้')
-        //                 } else {
-        //                     setErrMsg([data.message])
-        //                 }
-        //             } else {
-        //                 setErrMsg(['ไม่สามารถทำรายการได้'])
-        //             }
-        //         }else {
-        //             console.log(data.data)
-        //             setTableResult(data.data)
-        //             let dataArr = [];
-        //             for(let i=0; i<data.data.length; i++) {
-        //                 // console.log(data.data[i].ApplicantID)
-        //                 dataArr.push({
-        //                     id: data.data[i].nMEMID,
-        //                     userid: data.data[i].nMEMID,
-        //                     officername: data.data[i].OfficerName,
-        //                     username: data.data[i].cUsername,
-        //                     createdate: (data.data[i].dCreated === null) ? '' : moment(data.data[i].dCreated).format('DD/MM/YYYY'),
-        //                     activestatus: (data.data[i].bActive === true) ? 1 : (data.data[i].bActive === false) ? 0 : data.data[i].bActive,
-        //                     expiredate: (data.data[i].ExpireDate === null) ? '' : moment(data.data[i].ExpireDate).format('DD/MM/YYYY'),
-        //                     userrole: data.data[i].nRolename,
-        //                 })
-        //             }
-        //             setRows(dataArr)
-        //         }
-        //     }
-        // ).catch(err => { console.log(err); history.push('/') })
-        // .finally(() => {
-        //     if (isMounted.current) {
-        //       setIsLoading(false)
-        //     }
-        //  });
-
-         const checkLogin = () => {
+        const checkLogin = () => {
             axios.post(
                 `${server_hostname}/admin/api/checklogin`, '', { headers: { "token": token } } 
             ).then(res => {
@@ -206,21 +179,84 @@ function UserHistory() {
         history.push('/home');
     };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        // fetchDataLogin();
-        // if(dataLogin.username === 'admin' && dataLogin.password === '1234') {
-        //     setErr(false);
-        //     alert('A name was submitted: ' + dataLogin.username +', '+dataLogin.password);
-        //     history.push('/home');
-        // } else {
-        //     setErr(true);
-        //     setDataLogin({
-        //         ...dataLogin,
-        //         username: '',
-        //         password: ''
-        //     })
-        // }
+    const handleSubmitSearch = event => {
+        setBtnPrintActive(false)
+        setRows([])
+
+        axios.post(
+            `${server_hostname}/admin/api/login_history`,inputDataSearch, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data.data)
+                    // setRows(data.data)
+                    setRows(
+                        data.data.map((item,i)=>
+                            createData(
+                                item.ID,
+                                item.cUsername,
+                                item.Name+' '+item.Sirname,
+                                item.ipaddress,
+                                item.ts ? moment(item.ts).format("DD/MM/YYYY HH:mm:ssน.") : null
+                                // item.ts ? newOrderDate(item.ts) : null,
+                            )
+                        )
+                    )
+
+                    if(data.data.length) {
+                        setBtnPrintActive(true)
+                        setCUsername('_'+inputDataSearch.keywords)
+                    }
+                }
+            }
+        ).catch(err => { console.log(err); setErr(true) })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const handlePrintExcel = () => {
+        
+        let url = `${server_hostname}/admin/api/login_export`; //your url
+
+        axios.post(url, inputDataSearch,
+            {
+                headers:
+                {
+                    'Content-Disposition': "attachment; filename=template.xlsx",
+                    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    "token": token
+                },
+                responseType: 'arraybuffer',
+            }
+        ).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `ประวัติการใช้งาน${cUsername}.xlsx`);
+            document.body.appendChild(link);
+            link.click();
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้');  })
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
     }
     
     return (
@@ -243,23 +279,30 @@ function UserHistory() {
                              <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <MuiTextfield label="ค้นหา" value={inputDataSearch.SearchByName} name="SearchByName" onChange={handleInputDataSearch}  />
+                                        <MuiTextfield label="ค้นหา" value={inputDataSearch.keywords} name="keywords" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="จากวันที่" name="startDate" value={inputDataSearch.startDate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, startDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        <MuiDatePicker label="จากวันที่" name="startDate" value={inputDataSearch.fromdate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, fromdate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
-                                        <MuiDatePicker label="ถึงวันที่" name="endDate" value={inputDataSearch.endDate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, endDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                        <MuiDatePicker label="ถึงวันที่" name="endDate" value={inputDataSearch.todate} onChange={(newValue)=>{ setInputDataSearch({ ...inputDataSearch, todate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="ค้นหา" />  
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={()=>handleSubmitSearch()} />  
                                     </Grid>
                                     <Grid item xs={12} md={3}>
                                         <p>&nbsp;</p>
-                                        <div style={{opacity: '0.5', display: 'inline-block'}}>
-                                            <ButtonFluidIconStartPrimary label="EXPORT TO EXCEL" startIcon={<PrintIcon />} />
-                                        </div> 
+                                        {
+                                            btnPrintActive ?
+                                            <div style={{display: 'inline-block'}}>
+                                                <ButtonFluidIconStartPrimary label="EXPORT TO EXCEL" startIcon={<PrintIcon />} onClick={()=>handlePrintExcel()} />
+                                            </div>
+                                            :
+                                            <div style={{opacity: '0.5', display: 'inline-block'}}>
+                                                <ButtonFluidIconStartPrimary label="EXPORT TO EXCEL" startIcon={<PrintIcon />} />
+                                            </div> 
+                                        }
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -297,6 +297,8 @@ function RecordContractDebt() {
         LoanobjName: '',
         LoanFarmerTypeName: '',
         notation: '',
+
+        OrderNo: '',
     })
 
     const [summaryTable, setSummaryTable] = useState(0)
@@ -1646,6 +1648,8 @@ function RecordContractDebt() {
         formData.set('WitnessAddr4',`ส.ป.ก.จังหวัด${provincename}`)
         formData.set('WitnessIDCardMade4','กรมการปกครอง')
 
+        formData.set('OrderNo', inputDataSubmit.OrderNo)
+
 
         // formData.append('loandue_data', inputDataSubmitLoanDUE)
 
@@ -1915,7 +1919,8 @@ function RecordContractDebt() {
                                                                     <MuiTextfield label="และคำสั่งจังหวัด" inputdisabled="input-disabled"  value={inputDataSpkInfo.Province} onChange={handleInputDataFarmer}  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ที่" value={inputDataLoanRec.ApprovalNo} onChange={handleInputDataFarmer}  />
+                                                                    <MuiTextfield label="ที่" name="OrderNo" value={inputDataLoanRec.OrderNo} onChange={handleInputDataSubmit}  />
+                                                                    {/* <MuiTextfield label="ที่" value={inputDataLoanRec.ApprovalNo} onChange={handleInputDataFarmer}  /> */}
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
                                                                     {/* ApproveDate */}
@@ -2037,10 +2042,14 @@ function RecordContractDebt() {
                                                             <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
+                                                            {/* <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   /> */}
+                                                        
+                                                            <MuiTextfield label="รหัสโครงการ" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
+                                                            {/* <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   /> */}
+                                                        
+                                                            <MuiTextfield label="ชื่อโครงการ" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
                                                             <MuiTextfield label="รหัสโครงการรอง" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  />
@@ -2343,7 +2352,9 @@ function RecordContractDebt() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principle} onChange={handleInputDataSubmitIndividual}/>  */}
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principalBalance} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principalBalance} onChange={handleInputDataSubmitIndividual}/> * edit 10/05/65 P'Pong&Foolur */}
+                                                                                    
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={!!inputDataIndividualcardCloseContact.PrincipleBalance ? inputDataIndividualcardCloseContact.PrincipleBalance : 0} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -2353,7 +2364,9 @@ function RecordContractDebt() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> {/* P'Pong specify 11/01/22 */}
+                                                                                    <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.TotalInterest ? inputDataIndividualcardCloseContact.TotalInterest : 0}  onChange={handleInputDataSubmitIndividual}  /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> * edit 10/05/65 P'Pong&Foolur * P'Pong specify 11/01/22 */}
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.InterestKang2} onChange={handleInputDataSubmitIndividual}/>  */}
                                                                                 </Grid>
                                                                             </Grid>
