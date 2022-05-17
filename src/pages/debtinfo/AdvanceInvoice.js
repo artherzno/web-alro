@@ -137,13 +137,16 @@ function AdvanceInvoice(props) {
         }
         setIsLoading(true)
         api.getAdvanceInvoiceAll(parameter).then(response => {
-            setResultList(response.data.contactdataall)
-            if (response.data.contactdatasum.length > 0){
-                setSelectedData(response.data.contactdatasum[0])
-            }
+            setResultList(response.data.Data)
+            // if (response.data.contactdatasum.length > 0){
+            //     setSelectedData(response.data.contactdatasum[0])
+            // }
             setIsLoading(false)
 
             console.log("response.data", response.data)
+            
+            getAdvanceInvoiceGetTotal()
+
         }).catch(error => {
             setIsLoading(false)
         })
@@ -151,16 +154,23 @@ function AdvanceInvoice(props) {
 
     function getAdvanceInvoiceGetTotal(values) {
 
+        // const parameter = {
+        //     start_date: moment(values.duedate, "YYYY-MM-DD").add(543, 'years').format("YYYY-MM-DD"),
+        //     rentno: values.rentno,
+        //     invoiceno: values.invoiceno,
+        //     farmer: values.idCard,
+        // }
+
         const parameter = {
-            start_date: moment(values.duedate, "YYYY-MM-DD").add(543, 'years').format("YYYY-MM-DD"),
-            rentno: values.rentno,
-            invoiceno: values.invoiceno,
-            farmer: values.idCard,
+            start_date: startDate,
+            rentno: rentno,
+            invoiceno: invoiceno,
+            farmer: farmer,
         }
 
         setIsLoading(true)
         api.getAdvanceInvoiceGetTotal(parameter).then(response => {
-            setSelectedData(response.data.length > 0 ? response.data[0] : {})
+            setSelectedData(response.data.data.length > 0 ? response.data.data[0] : {})
             setIsLoading(false)
         }).catch(error => {
             setIsLoading(false)
@@ -199,37 +209,53 @@ function AdvanceInvoice(props) {
 
     function getAdvanceInvoicePdf(values) {
 
-        const parameter = new FormData()
-        parameter.append('invoiceno', values.invoiceno);
-        parameter.append('rentno', values.rentno);
-        parameter.append('save_date', values.save_date);
-        parameter.append('invoice_date', values.invoice_date);
+        // const parameter = new FormData()
+        // parameter.append('invoiceno', values.invoiceno);
+        // parameter.append('rentno', values.rentno);
+        // parameter.append('save_date', values.save_date);
+        // parameter.append('invoice_date', values.invoice_date);
 
-        let ref2 = ''
-        let rentno = ''
-        let ref_id = ''
+        // let ref2 = ''
+        // let rentno = ''
+        // let ref_id = ''
+        const data = []
+
+        const provinceid = localStorage.getItem('provinceid')
+        const roleID = localStorage.getItem('nROLEID')
 
         selectedCheckbox.forEach((element, index) => {
-            if (selectedCheckbox.length === 1) {
-                ref2 = `${element.rentno}`
-                rentno = `${element.rentno}`
-                ref_id = `${element.ref_id}`
 
-            } else if (index === selectedCheckbox.length - 1) {
-                ref2 += `${element.rentno}`
-                rentno += `${element.rentno}`
-                ref_id += `${element.ref_id}`
+            data.push({
+                "invoiceno": element.ref_id,
+                "contractno": element.rentno,
+                Username: provinceid,
+                ProvinceID: provinceid,
+                RoleID: roleID
+            })
+            // if (selectedCheckbox.length === 1) {
+            //     ref2 = `${element.rentno}`
+            //     rentno = `${element.rentno}`
+            //     ref_id = `${element.ref_id}`
 
-            } else {
-                ref2 += `${element.rentno},`
-                rentno += `${element.rentno},`
-                ref_id += `${element.ref_id},`
-            }
+            // } else if (index === selectedCheckbox.length - 1) {
+            //     ref2 += `${element.rentno}`
+            //     rentno += `${element.rentno}`
+            //     ref_id += `${element.ref_id}`
+
+            // } else {
+            //     ref2 += `${element.rentno},`
+            //     rentno += `${element.rentno},`
+            //     ref_id += `${element.ref_id},`
+            // }
 
         })
 
-        parameter.append('ref2', ref2);
-        parameter.append('contractno', rentno);
+        // parameter.append('ref2', ref2);
+        // parameter.append('contractno', rentno);
+
+        const parameter = {
+            data:data
+        }
 
         setIsExporting(true)
 

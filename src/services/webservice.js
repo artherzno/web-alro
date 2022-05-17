@@ -1984,10 +1984,19 @@ const api = {
     },
     getAdvanceInvoiceGetTotal(params) {
 
+        // return post({
+        //     path: "AdvanceInvoice/GetTotal",
+        //     params,
+        //     config: { baseURL: REACT_APP_API_HOST_1 },
+        // })
+
+        const token = localStorage.getItem('token')
         return post({
-            path: "AdvanceInvoice/GetTotal",
+            path: "nodeapi/api/Invoice/AdvanceInvoice/GetTotal",
             params,
-            config: { baseURL: REACT_APP_API_HOST_1 },
+            config: { baseURL: REACT_APP_API_HOST_2 },
+            token: token,
+            isExternal: true
         })
 
     },
