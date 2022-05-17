@@ -65,6 +65,7 @@ function RecordCloseOldContact() {
     const [formField, setFormField] = useState(false)
     const [loanNumber, setLoanNumber] = useState(null)
     const [loanId, setloanId] = useState(null)
+    const [closeDate, setCloseDate] = useState(moment().format('YYYY-MM-DD'))
 
     const [inputDataReceipt, setInputDataReceipt] = useState({
         ReceiptID: null,// 1,
@@ -616,7 +617,7 @@ function RecordCloseOldContact() {
          });
     }
 
-    const getProcessBeforePay = (loanID, loanNumber, rentNo, date) => {
+    const getProcessBeforePay = (loanID, loanNumber, date, rentNo) => {
         setIsLoading(true);
         // setRows([])
         setFormField(true)
@@ -707,7 +708,7 @@ function RecordCloseOldContact() {
                 
                 
                 
-                getProcess(loanID, loanNumber, )
+                getProcess(loanID, loanNumber, inputDataReceipt.RecDate)
             }
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำการได้'); setFormField(false) })
         .finally(() => {
@@ -717,7 +718,7 @@ function RecordCloseOldContact() {
          });
     }
 
-    const getProcess = (loanID, loanNumber, rentNo, date) => {
+    const getProcess = (loanID, loanNumber, date, rentNo) => {
         setIsLoading(true);
         // setRows([])
         setFormField(true)
@@ -728,7 +729,7 @@ function RecordCloseOldContact() {
                 LoanNumber: loanNumber,
                 Rentno:  loanNumber,
                 Fullname: "",
-                Date: inputDataReceipt.RecDate
+                Date: date,
               }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
@@ -758,16 +759,16 @@ function RecordCloseOldContact() {
                 setInputDataReceipt({
                     ...inputDataReceipt,
                     LoanID: loanID,
-                    PrinciplePaid: dataGetProcess.principalBalance,
-                    InterestPaid: dataGetProcess.InterestPaid,
-                    OverdueInterest: dataGetProcess.InterestBanche,
-                    FinesPaid: dataGetProcess.Fines,
-                    DueInterest: dataGetProcess.DueInterest,
-                    PrincipleBalance2: dataGetProcess.principalBalance,
+                    PrinciplePaid: Number(dataGetProcess.principalBalance),
+                    InterestPaid: Number(dataGetProcess.InterestPaid),
+                    OverdueInterest: Number(dataGetProcess.InterestBanche),
+                    FinesPaid: Number(dataGetProcess.Fines),
+                    DueInterest: Number(dataGetProcess.DueInterest),
+                    PrincipleBalance2: Number(dataGetProcess.principalBalance),
 
-                    Fines: dataGetProcess.Fines,
+                    Fines: Number(dataGetProcess.Fines),
                     // TotalPaid: inputDataReceipt.TotalPaid,
-                    TotalInterest: dataGetProcess.InterestPaid,
+                    TotalInterest: Number(dataGetProcess.InterestPaid),
                 })
 
                 // setInputDataReceipt({
@@ -787,12 +788,12 @@ function RecordCloseOldContact() {
                 setInputDataCloseContact({
                     ...inputDataCloseContact,
                     LoanID: loanID,
-                    InterestPaid: dataGetProcess.InterestPaid,
-                    DueInterest: dataGetProcess.DueInterest,
-                    Fines: dataGetProcess.Fines,
-                    TotalInterest: dataGetProcess.InterestPaid,
-                    PendingInterest: dataGetProcess.InterestBanche,
-                    PrincipleBalance:  dataGetProcess.principalBalance
+                    InterestPaid: Number(dataGetProcess.InterestPaid),
+                    DueInterest: Number(dataGetProcess.DueInterest),
+                    Fines: Number(dataGetProcess.Fines),
+                    TotalInterest: Number(dataGetProcess.InterestPaid),
+                    PendingInterest: Number(dataGetProcess.InterestBanche),
+                    PrincipleBalance:  Number(dataGetProcess.principalBalance)
 
                     // TotalPaid: inputDataReceipt.TotalPaid,
                 })
@@ -1231,8 +1232,21 @@ function RecordCloseOldContact() {
                                      <Paper className="paper line-top-green paper">
                                         <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                             <Grid container spacing={2}>
-                                                <Grid item xs={12} md={12}>
+                                                <Grid item xs={12} md={9}>
                                                     <h1 className="paper-head-green">ประมวลผลก่อนปรับปรุงหนี้ {inputDataCloseContactSelect.rec}</h1>
+                                                </Grid>
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <p className="paper-p txt-right">วันที่ปิดสัญญา</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} onChange={(newValue)=>{ console.log(newValue);  setCloseDate(moment(newValue).format('YYYY-MM-DD')); getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ) }}  />
+                                                        </Grid>
+                                                        <Grid item xs={1} md={1}>
+                                                            <p className="paper-p"></p>
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={12}>
                                                     <Grid container spacing={2}>
@@ -1493,9 +1507,6 @@ function RecordCloseOldContact() {
                                                             {/* /* edit 08/05/22  <MuiRadioButton label="" lists={['คำสั่งศาล','แปลงหนี้','กทด.','ชดใช้หนี้','ปิดหนี้เพื่อจำหน่ายหนี้ 0']} name="ReceiptTypeID" value={radioType} onChange={handleChangeReceiptTypeID} type="row" /> */}
                                                         </Grid>
                                                     </Grid>
-                                                </Grid>
-                                                <Grid item xs={12} md={12}>
-                                                    <MuiDatePicker label="วันที่ปิดสัญญา" name="CreateDate" value={inputDataCloseContactSelect.CreateDate} onChange={(newValue)=>{  setInputDataCloseContactSelect({...inputDataCloseContactSelect, CreateDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                 </Grid>
                                                 
                                             </Grid>

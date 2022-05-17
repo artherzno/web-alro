@@ -143,6 +143,7 @@ function GuaranteeBookB() {
     const [inputDataSubmit, setInputDataSubmit] = useState({
         GuaranteeBookTypeID: "2",
         LoanID: "",
+        BookNumber: "",
         PlaceCreate: "",
         ContactDate: null,
         Supporter_IDCard1: "",
@@ -195,6 +196,7 @@ function GuaranteeBookB() {
     const [inputData, setInputData] = useState({
         GuaranteeBookTypeID: '2',
         LoanID: '',
+        BookNumber: '',
         PlaceCreate: '',
         ContactDate: moment(),
 
@@ -988,6 +990,7 @@ function GuaranteeBookB() {
         setInputData({
             GuaranteeBookTypeID: '2',
             LoanID: loanID,
+            BookNumber: '',
             PlaceCreate: '',
             ContactDate: moment(),
     
@@ -1710,6 +1713,7 @@ function GuaranteeBookB() {
                         setInputData({
                             ...inputData,
                             LoanID: Number(loanID),
+                            BookNumber: !!result.BookNumber? result.BookNumber : '',
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
@@ -1943,6 +1947,7 @@ function GuaranteeBookB() {
                         setInputDataSubmit({
                             ...inputDataSubmit,
                             LoanID: Number(loanID),
+                            BookNumber: !!result.BookNumber? result.BookNumber : '',
                             PlaceCreate: !!result.PlaceCreate? result.PlaceCreate : '',
                             ContactDate: result.ContactDate === 'Invalid date' || result.ContactDate === null ? null : moment(result.ContactDate).format('YYYY-MM-DD'),
 
@@ -3629,9 +3634,9 @@ function GuaranteeBookB() {
                                                     <Grid item xs={12} md={4}>
                                                         {
                                                             bookNumberActive ? 
-                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
                                                             :
-                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" inputdisabled="input-disabled" name="PlaceCreate" value={inputDataSubmit.PlaceCreate} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" inputdisabled="input-disabled" name="BookNumber" value={''} onChange={handleInputDataSubmit}  />
                                                         }
                                                     </Grid>
 
