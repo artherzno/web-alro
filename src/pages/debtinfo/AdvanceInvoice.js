@@ -74,6 +74,7 @@ function AdvanceInvoice(props) {
     const [printActive, setPrintActive] = useState(false)
     const [selectedData, setSelectedData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    const [isChange, setIsChange] = useState(false);
     const [isExporting, setIsExporting] = useState(false)
     const [isExporting1, setIsExporting1] = useState(false)
     const [showModal, setShowModal] = useState(false)
@@ -340,7 +341,9 @@ function AdvanceInvoice(props) {
                                     <Grid item xs={12} md={2}>
                                         <ButtonExport label="พิมพ์ใบแจ้งหนี้" disabled={selectedCheckbox.length <= 0} handleButtonClick={() => {
                                             // exportDebtSettlement() 
-                                            setShowModal(true)
+                                            // setShowModal(true)
+
+                                            getAdvanceInvoicePdf()
 
                                         }} loading={isExporting} />
                                     </Grid>
@@ -439,20 +442,24 @@ function AdvanceInvoice(props) {
                                             </TableRow>}
                                             {resultList.slice(page * pageCount, page * pageCount + pageCount).map((element, index) => {
 
-                                                const isItemSelected = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID) >= 0
-
-
+                                                let isItemSelected = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID) >= 0
+                                           
                                                 return (
                                                     <TableRow
                                                         role="checkbox"
                                                         aria-checked={isItemSelected}
                                                         tabIndex={-1}
-                                                        key={index}
+                                                        key={element.ROWID}
                                                         selected={isItemSelected}
                                                         hover={true}
                                                         onClick={(e) => {
                                                             // getAdvanceInvoiceGetTotal(element)
 
+                                                            setIsChange(true)
+
+                                                            setTimeout(() => {
+                                                                setIsChange(false)
+                                                            }, 200);
 
 
                                                         }}
@@ -462,11 +469,12 @@ function AdvanceInvoice(props) {
                                                                 color="primary"
                                                                 checked={isItemSelected}
                                                                 onChange={(e) => {
-
+                                                                    
                                                                     if (e.target.checked) {
                                                                         const selectBefore = selectedCheckbox
                                                                         selectBefore.push(element)
                                                                         setSelectedCheckbox(selectBefore)
+                                                                        isItemSelected = true
 
                                                                     } else {
 
@@ -475,8 +483,9 @@ function AdvanceInvoice(props) {
                                                                         console.log("indexRemove", indexRemove)
                                                                         selectBefore.splice(indexRemove, 1)
                                                                         setSelectedCheckbox(selectBefore)
-
+                                                                        isItemSelected = false
                                                                     }
+                                                                  
 
                                                                     console.log("selectedCheckbox", selectedCheckbox)
                                                                 }}
