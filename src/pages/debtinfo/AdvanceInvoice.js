@@ -74,6 +74,7 @@ function AdvanceInvoice(props) {
     const [printActive, setPrintActive] = useState(false)
     const [selectedData, setSelectedData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    const [isChange, setIsChange] = useState(false);
     const [isExporting, setIsExporting] = useState(false)
     const [isExporting1, setIsExporting1] = useState(false)
     const [showModal, setShowModal] = useState(false)
@@ -136,13 +137,16 @@ function AdvanceInvoice(props) {
         }
         setIsLoading(true)
         api.getAdvanceInvoiceAll(parameter).then(response => {
-            setResultList(response.data.contactdataall)
-            if (response.data.contactdatasum.length > 0){
-                setSelectedData(response.data.contactdatasum[0])
-            }
+            setResultList(response.data.Data)
+            // if (response.data.contactdatasum.length > 0){
+            //     setSelectedData(response.data.contactdatasum[0])
+            // }
             setIsLoading(false)
 
             console.log("response.data", response.data)
+            
+            getAdvanceInvoiceGetTotal()
+
         }).catch(error => {
             setIsLoading(false)
         })
@@ -150,16 +154,23 @@ function AdvanceInvoice(props) {
 
     function getAdvanceInvoiceGetTotal(values) {
 
+        // const parameter = {
+        //     start_date: moment(values.duedate, "YYYY-MM-DD").add(543, 'years').format("YYYY-MM-DD"),
+        //     rentno: values.rentno,
+        //     invoiceno: values.invoiceno,
+        //     farmer: values.idCard,
+        // }
+
         const parameter = {
-            start_date: moment(values.duedate, "YYYY-MM-DD").add(543, 'years').format("YYYY-MM-DD"),
-            rentno: values.rentno,
-            invoiceno: values.invoiceno,
-            farmer: values.idCard,
+            start_date: startDate,
+            rentno: rentno,
+            invoiceno: invoiceno,
+            farmer: farmer,
         }
 
         setIsLoading(true)
         api.getAdvanceInvoiceGetTotal(parameter).then(response => {
-            setSelectedData(response.data.length > 0 ? response.data[0] : {})
+            setSelectedData(response.data.data.length > 0 ? response.data.data[0] : {})
             setIsLoading(false)
         }).catch(error => {
             setIsLoading(false)
@@ -198,37 +209,53 @@ function AdvanceInvoice(props) {
 
     function getAdvanceInvoicePdf(values) {
 
-        const parameter = new FormData()
-        parameter.append('invoiceno', values.invoiceno);
-        parameter.append('rentno', values.rentno);
-        parameter.append('save_date', values.save_date);
-        parameter.append('invoice_date', values.invoice_date);
+        // const parameter = new FormData()
+        // parameter.append('invoiceno', values.invoiceno);
+        // parameter.append('rentno', values.rentno);
+        // parameter.append('save_date', values.save_date);
+        // parameter.append('invoice_date', values.invoice_date);
 
-        let ref2 = ''
-        let rentno = ''
-        let ref_id = ''
+        // let ref2 = ''
+        // let rentno = ''
+        // let ref_id = ''
+        const data = []
+
+        const provinceid = localStorage.getItem('provinceid')
+        const roleID = localStorage.getItem('nROLEID')
 
         selectedCheckbox.forEach((element, index) => {
-            if (selectedCheckbox.length === 1) {
-                ref2 = `${element.rentno}`
-                rentno = `${element.rentno}`
-                ref_id = `${element.ref_id}`
 
-            } else if (index === selectedCheckbox.length - 1) {
-                ref2 += `${element.rentno}`
-                rentno += `${element.rentno}`
-                ref_id += `${element.ref_id}`
+            data.push({
+                "invoiceno": element.ref_id,
+                "contractno": element.rentno,
+                Username: provinceid,
+                ProvinceID: provinceid,
+                RoleID: roleID
+            })
+            // if (selectedCheckbox.length === 1) {
+            //     ref2 = `${element.rentno}`
+            //     rentno = `${element.rentno}`
+            //     ref_id = `${element.ref_id}`
 
-            } else {
-                ref2 += `${element.rentno},`
-                rentno += `${element.rentno},`
-                ref_id += `${element.ref_id},`
-            }
+            // } else if (index === selectedCheckbox.length - 1) {
+            //     ref2 += `${element.rentno}`
+            //     rentno += `${element.rentno}`
+            //     ref_id += `${element.ref_id}`
+
+            // } else {
+            //     ref2 += `${element.rentno},`
+            //     rentno += `${element.rentno},`
+            //     ref_id += `${element.ref_id},`
+            // }
 
         })
 
-        parameter.append('ref2', ref2);
-        parameter.append('contractno', rentno);
+        // parameter.append('ref2', ref2);
+        // parameter.append('contractno', rentno);
+
+        const parameter = {
+            data:data
+        }
 
         setIsExporting(true)
 
@@ -340,7 +367,9 @@ function AdvanceInvoice(props) {
                                     <Grid item xs={12} md={2}>
                                         <ButtonExport label="พิมพ์ใบแจ้งหนี้" disabled={selectedCheckbox.length <= 0} handleButtonClick={() => {
                                             // exportDebtSettlement() 
-                                            setShowModal(true)
+                                            // setShowModal(true)
+
+                                            getAdvanceInvoicePdf()
 
                                         }} loading={isExporting} />
                                     </Grid>
@@ -439,20 +468,24 @@ function AdvanceInvoice(props) {
                                             </TableRow>}
                                             {resultList.slice(page * pageCount, page * pageCount + pageCount).map((element, index) => {
 
-                                                const isItemSelected = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID) >= 0
-
-
+                                                let isItemSelected = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID) >= 0
+                                           
                                                 return (
                                                     <TableRow
                                                         role="checkbox"
                                                         aria-checked={isItemSelected}
                                                         tabIndex={-1}
-                                                        key={index}
+                                                        key={element.ROWID}
                                                         selected={isItemSelected}
                                                         hover={true}
                                                         onClick={(e) => {
                                                             // getAdvanceInvoiceGetTotal(element)
 
+                                                            setIsChange(true)
+
+                                                            setTimeout(() => {
+                                                                setIsChange(false)
+                                                            }, 200);
 
 
                                                         }}
@@ -462,11 +495,12 @@ function AdvanceInvoice(props) {
                                                                 color="primary"
                                                                 checked={isItemSelected}
                                                                 onChange={(e) => {
-
+                                                                    
                                                                     if (e.target.checked) {
                                                                         const selectBefore = selectedCheckbox
                                                                         selectBefore.push(element)
                                                                         setSelectedCheckbox(selectBefore)
+                                                                        isItemSelected = true
 
                                                                     } else {
 
@@ -475,8 +509,9 @@ function AdvanceInvoice(props) {
                                                                         console.log("indexRemove", indexRemove)
                                                                         selectBefore.splice(indexRemove, 1)
                                                                         setSelectedCheckbox(selectBefore)
-
+                                                                        isItemSelected = false
                                                                     }
+                                                                  
 
                                                                     console.log("selectedCheckbox", selectedCheckbox)
                                                                 }}
