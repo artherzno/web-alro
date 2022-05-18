@@ -1018,13 +1018,13 @@ function AddRecordCourtContract() {
                     }
 
                     // Edit 18/05/65 ปรับค่า เงินต้น,ดอกเบี้ย ให้เท่ากับ เงินต้นค้างเดิม, ดอกเบี้ยค้างเดิม
-                    if(action === 'edit' || action === 'view') {
-                        setInputDataSubmitIndividual({
-                            ...inputDataSubmitIndividual,
-                            principle: data.old_priciple_data[0].PrincipleBalance,
-                            OldInterest: data.old_priciple_data[0].TotalInterest,
-                        })
-                    }
+                    // if(action === 'edit' || action === 'view') {
+                    //     setInputDataSubmitIndividual({
+                    //         ...inputDataSubmitIndividual,
+                    //         principle: data.old_priciple_data[0].PrincipleBalance,
+                    //         OldInterest: data.old_priciple_data[0].TotalInterest,
+                    //     })
+                    // }
                     
                 }
             }
@@ -1130,7 +1130,7 @@ function AddRecordCourtContract() {
                             setInputDataSubmitIndividual({
                                 ...inputDataSubmitIndividual,
                                 principle: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].PrincipleBalance : data.closecontact_data[0].PrincipleBalance,
-                                OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
+                                // OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
                             })
                         }
                     } 
@@ -1138,7 +1138,7 @@ function AddRecordCourtContract() {
                     setInputDataSubmitIndividual({
                         ...inputDataSubmitIndividual,
                         principle: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].PrincipleBalance : data.closecontact_data[0].PrincipleBalance,
-                        OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
+                        // OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
                     })
                 }
             }

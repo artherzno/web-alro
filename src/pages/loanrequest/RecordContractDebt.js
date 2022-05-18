@@ -1723,6 +1723,8 @@ function RecordContractDebt() {
         formData.set('WitnessAddr4',`ส.ป.ก.จังหวัด${provincename}`)
         formData.set('WitnessIDCardMade4','กรมการปกครอง')
 
+        formData.append('ApproveDate', inputDataSubmit.ApproveDate)
+
         // formData.append('OrderNo', inputDataSubmit.OrderNo)
 
 

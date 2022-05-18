@@ -769,6 +769,11 @@ function RecordCloseOldContact() {
                     Fines: Number(dataGetProcess.Fines),
                     // TotalPaid: inputDataReceipt.TotalPaid,
                     TotalInterest: Number(dataGetProcess.InterestPaid),
+
+                    CalculateDate: date,  
+                    PaidDate: date,  
+                    RecDate: date,  
+                    ReceiptDate: date
                 })
 
                 // setInputDataReceipt({
@@ -1241,7 +1246,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">วันที่ปิดสัญญา</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} onChange={(newValue)=>{ console.log(newValue);  setCloseDate(moment(newValue).format('YYYY-MM-DD')); getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ) }}  />
+                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} onChange={(newValue)=>{ console.log(newValue); setCloseDate(moment(newValue).format('YYYY-MM-DD')); getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ) }}  />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p"></p>

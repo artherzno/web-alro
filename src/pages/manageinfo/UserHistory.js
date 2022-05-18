@@ -66,7 +66,7 @@ function UserHistory() {
     // let siteprint = localStorage.getItem('siteprint')
 
       const headCells = [
-        { id: 'ID', numeric: true, disablePadding: false, widthCol: '110px', label: 'ลำดับ' },
+        { id: 'ID', numeric: true, disablePadding: false, widthCol: '110px', label: 'Log ID' },
         { id: 'cUsername', numeric: true, disablePadding: false, widthCol: '140px', label: 'รหัสผู้ใช้งาน' },
         { id: 'fullname', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ - นามสกุล' },
         // { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'รายการ (หน้า)' },
@@ -87,10 +87,13 @@ function UserHistory() {
 
     // New order date 2021-08-23 to 23/08/2564
     const newOrderDate = (val) => {
+        console.log(val)
         let yyyy = Number(val.substring(0,4)) + 543
         let mm = val.substring(5,7)
         let dd = val.substring(8,10)
-        return dd+'/'+mm+'/'+yyyy
+        let HHmm = moment(val).format('HH:mm:ssน.')
+        
+        return dd+'/'+mm+'/'+yyyy+' '+HHmm
     }
 
     const [rows, setRows] = useState([])
@@ -208,9 +211,10 @@ function UserHistory() {
                             createData(
                                 item.ID,
                                 item.cUsername,
-                                item.Name+' '+item.Sirname,
-                                item.ipaddress,
-                                item.ts ? moment(item.ts).format("DD/MM/YYYY HH:mm:ssน.") : null
+                                (!!item.Name?item.Name:'')+' '+(!!item.Sirname?item.Sirname:''),
+                                item.ipaddress, 
+                                newOrderDate(item.ts)
+                                // item.ts ? moment(item.ts).format("DD/MM/YYYY HH:mm:ssน.") : null
                                 // item.ts ? newOrderDate(item.ts) : null,
                             )
                         )
