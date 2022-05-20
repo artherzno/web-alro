@@ -75,8 +75,13 @@ function AddRecordCourtContract() {
 
     const [loanID, setLoanID] = useState(null)
     const [loanNumber, setLoanNumber] = useState('')
+    const [oldLoanNumber, setOldLoanNumber] = useState('')
     const [dueAmount, setDueAmount] = useState(2)
     const dueAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+    const [year, setYear] = useState({
+        CurrentYear: '',
+        RecYear: ''
+    })
 
     // const [provinceList, setprovinceList] = useState(['กรุณาเลือกจังหวัด']);
     let provinceList = JSON.parse(localStorage.getItem('provincelist'))
@@ -578,6 +583,7 @@ function AddRecordCourtContract() {
             { ITEM: null, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
         ])
         setInputDataNewFarmerIDCard([])
+        setInputDataOrderInterest(false)
 
         axios.post(
             `${server_hostname}/admin/api/get_closeloandetail`, {
@@ -648,10 +654,15 @@ function AddRecordCourtContract() {
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
                         })
 
-                        setInputDataLoanRec({
-                            CurrentYear: planYearFull,
+                        setInputDataLoanRec(data.loanrec_data[0],{
+                            // CurrentYear: planYearFull,
                             PV_CODE: data.spkinfo_data[0].ProvinceID,
                             PV_NAME: data.spkinfo_data[0].Province,
+                            // RecYear: planYear
+                        })
+
+                        setYear({
+                            CurrentYear: planYearFull,
                             RecYear: planYear
                         })
 
@@ -660,7 +671,7 @@ function AddRecordCourtContract() {
                         })
                     }
 
-                    setInputDataLoanRec({
+                    setInputDataLoanRec(data.loanrec_data[0],{
                         Old_LoanID: data.closecontact_data[0].LoanNumber, 
                         OldFine: data.singlecard_data[0].FineKang
                     })
@@ -672,6 +683,7 @@ function AddRecordCourtContract() {
 
                     setLoanNumber(data.loanrec_data[0].LoanNumber)
                     setLoanID(data.loanrec_data[0].LoanID)
+                    setOldLoanNumber(data.closecontact_data[0].LoanNumber)
                     // setTableResult(data.data)
                     // setRows(data.data)
 
@@ -811,6 +823,8 @@ function AddRecordCourtContract() {
             { ITEM: null, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
         ])
         setInputDataNewFarmerIDCard([])
+        setInputDataOrderInterest(false)
+        
 
         axios.post(
             `${server_hostname}/admin/api/get_loandetail`, {
@@ -881,10 +895,15 @@ function AddRecordCourtContract() {
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
                         })
 
-                        setInputDataLoanRec({
-                            CurrentYear: planYearFull,
+                        setInputDataLoanRec(data.loanrec_data[0],{
+                            // CurrentYear: planYearFull,
                             PV_CODE: data.spkinfo_data[0].ProvinceID,
                             PV_NAME: data.spkinfo_data[0].Province,
+                            // RecYear: planYear
+                        })
+
+                        setYear({
+                            CurrentYear: planYearFull,
                             RecYear: planYear
                         })
 
@@ -893,7 +912,7 @@ function AddRecordCourtContract() {
                         })
                     }
 
-                    setInputDataLoanRec({
+                    setInputDataLoanRec(data.loanrec_data[0],{
                         Old_LoanID: data.close_oldcontact_data[0].LoanNumber, 
                         // OldFine: data.singlecard_data[0].FineKang 
                         OldFine: data.singlecard_data[0].InterestKang2, // P'Pong specify 13/01/22
@@ -906,6 +925,7 @@ function AddRecordCourtContract() {
 
                     setLoanNumber(data.loanrec_data[0].LoanNumber)
                     setLoanID(data.loanrec_data[0].LoanID)
+                    setOldLoanNumber(data.close_oldcontact_data[0].LoanNumber)
                     // setTableResult(data.data)
                     // setRows(data.data)
 
@@ -996,6 +1016,15 @@ function AddRecordCourtContract() {
                         console.log('getOldPriciple',data.old_priciple_data[0])
                         setInputDataIndividualcardCloseContact(data.old_priciple_data[0])
                     }
+
+                    // Edit 18/05/65 ปรับค่า เงินต้น,ดอกเบี้ย ให้เท่ากับ เงินต้นค้างเดิม, ดอกเบี้ยค้างเดิม
+                    // if(action === 'edit' || action === 'view') {
+                    //     setInputDataSubmitIndividual({
+                    //         ...inputDataSubmitIndividual,
+                    //         principle: data.old_priciple_data[0].PrincipleBalance,
+                    //         OldInterest: data.old_priciple_data[0].TotalInterest,
+                    //     })
+                    // }
                     
                 }
             }
@@ -1097,9 +1126,20 @@ function AddRecordCourtContract() {
                             })
                         } else {
                             console.log('getIndividualcardCloseContact',data.closecontact_data[0])
-                            setInputDataIndividualcardCloseContact(data.closecontact_data[0])
+                            setInputDataIndividualcardCloseContact(data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1] : data.closecontact_data[0])
+                            setInputDataSubmitIndividual({
+                                ...inputDataSubmitIndividual,
+                                principle: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].PrincipleBalance : data.closecontact_data[0].PrincipleBalance,
+                                // OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
+                            })
                         }
-                    }
+                    } 
+                    
+                    setInputDataSubmitIndividual({
+                        ...inputDataSubmitIndividual,
+                        principle: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].PrincipleBalance : data.closecontact_data[0].PrincipleBalance,
+                        // OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
+                    })
                 }
             }
         ).catch(err => { console.log(err);})
@@ -1302,6 +1342,34 @@ function AddRecordCourtContract() {
         setInputDataSubmitLoanDUE(loanDUEArr)
     }
 
+    const handleDataProjectcode = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            Projectcode: e.target.value
+        })
+    }
+    
+    const handleDataProjectName = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            ProjectName: e.target.value
+        })
+    }
+
+    const handleDataProjectSubCode = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            ProjectSubCode: e.target.value
+        })
+    }
+
+    const handleDataProjectSubName = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            ProjectSubName: e.target.value
+        })
+    }
+
     const handleSubmit = (event, loanstatus) => {
         action_loanstatus = loanstatus;
         event.preventDefault();
@@ -1328,6 +1396,14 @@ function AddRecordCourtContract() {
         formData.set('Interest', inputDataSubmitIndividual.Interest)
         formData.set('ChargeRate', inputDataSubmitIndividual.ChargeRate)
         formData.set('OrderInterest', inputDataOrderInterest ? 1 : 0)
+        
+        formData.append('ProjectSubCode',!!inputDataLoanRec.ProjectSubCode?inputDataLoanRec.ProjectSubCode:'')
+        formData.append('ProjectSubName',!!inputDataLoanRec.ProjectSubName?inputDataLoanRec.ProjectSubName:'')
+        formData.append('Projectcode',!!inputDataLoanRec.Projectcode?inputDataLoanRec.Projectcode:'')
+        formData.append('ProjectName',!!inputDataLoanRec.ProjectName?inputDataLoanRec.ProjectName:'')
+
+        formData.set('CurrentYear', year.CurrentYear)
+        formData.set('RecYear', year.RecYear)
 
 
         // formData.append('loandue_data', inputDataSubmitLoanDUE)
@@ -1567,7 +1643,7 @@ function AddRecordCourtContract() {
                                                             <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputDataLoanRec.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="ปีปัจจุบัน" name="CurrentYear" value={inputDataLoanRec.CurrentYear} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ปีปัจจุบัน" name="CurrentYear" value={year.CurrentYear} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="PV_CODE"  name="PV_CODE" value={inputDataLoanRec.PV_CODE} onChange={handleInputDataSubmit}/>
@@ -1576,7 +1652,8 @@ function AddRecordCourtContract() {
                                                             <MuiTextfield label="PV_NAME"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled"  /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled"  /*name="Old_LoanID"*/ value={oldLoanNumber} onChange={handleInputDataSubmit}  />
+                                                            {/* <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled" value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
@@ -1609,16 +1686,20 @@ function AddRecordCourtContract() {
                                                             <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="รหัสโครงการ" value={inputDataLoanRec.Projectcode} onChange={handleDataProjectcode}   />
+                                                            {/* <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการ" value={inputDataLoanRec.ProjectName} onChange={handleDataProjectName}   />
+                                                            {/* <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการรอง" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการรอง" value={inputDataLoanRec.ProjectSubCode} onChange={handleDataProjectSubCode}  />
+                                                            {/* <MuiTextfield label="รหัสโครงการรอง" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการรอง" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการรอง" value={inputDataLoanRec.ProjectSubName} onChange={handleDataProjectSubName}   />
+                                                            {/* <MuiTextfield label="ชื่อโครงการรอง" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="สัญญาเลขที่" value={inputDataLoanRec.LoanNumber} onChange={handleInputDataSubmit} />
@@ -1630,7 +1711,7 @@ function AddRecordCourtContract() {
                                                             <MuiTextfield label="&nbsp;" id='' />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="บันทึกคำสั่งศาลปี" id='' name="RecYear" value={inputDataLoanRec.RecYear} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="บันทึกคำสั่งศาลปี" id='' name="RecYear" value={year.RecYear} onChange={handleInputDataSubmit}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             {/* principle */}
@@ -1645,10 +1726,12 @@ function AddRecordCourtContract() {
                                                             <MuiSelect label="โครงการหลัก"  lists={['โครงการหลัก1','โครงการหลัก2','โครงการหลัก3']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการหลัก" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการหลัก" value={inputDataLoanRec.Projectcode} onChange={handleDataProjectcode}  />
+                                                            {/* <MuiTextfield label="รหัสโครงการหลัก" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการหลัก" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="ชื่อโครงการหลัก" value={inputDataLoanRec.ProjectName} onChange={handleDataProjectName}  />
+                                                            {/* <MuiTextfield label="ชื่อโครงการหลัก" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="วัตถุประสงค์การกู้ยืม"  lists={['วัตถุประสงค์การกู้ยืม1','วัตถุประสงค์การกู้ยืม2','วัตถุประสงค์การกู้ยืม3']} />
