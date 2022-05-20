@@ -401,7 +401,7 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldNumber = (props) => {
     const classes = useStyles();
-    let { topic, label, value, name, onChange, inputdisabled, unit, onValueChange} = props;
+    let { topic, label, value, name, onChange, inputdisabled, unit, onValueChange, field} = props;
 
     // let unitValue = null;
     if(unit==='wa') {
@@ -434,6 +434,7 @@ const MuiTextfieldNumber = (props) => {
                 fixedDecimalScale={true}
                 // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
                 onValueChange={(e) =>{
+
 
                     if (onChange){
                         onChange({ target: { name, value: e.floatValue } })
@@ -486,6 +487,7 @@ const MuiTextfieldNumberInt = (props) => {
                 fixedDecimalScale={false}
                 // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
                 onValueChange={(e) =>{
+                    
 
                     if (onChange){
                         onChange({ target: { name, value: e.floatValue } })
@@ -523,7 +525,7 @@ const MuiTextfieldCurrency = (props) => {
                 customInput={TextField}
                 // prefix={'$'}
                 // format={format || null}
-                type="text"
+                type="number"
                 thousandSeparator={true}
                 decimalScale={2} 
                 fixedDecimalScale={true}

@@ -231,6 +231,8 @@ function RecordBillAlro() {
 
         if(dataBeforeProcess.length > 0){
 
+            console.log("totalPaid cal", totalPaid)
+
             const beforeProcess = dataBeforeProcess[dataBeforeProcess.length - 1]
             console.log("beforeProcess", beforeProcess)
             const beforRectData = dataBeforeProcess.length >= 2 ? dataBeforeProcess[dataBeforeProcess.length - 2] : null
@@ -247,6 +249,10 @@ function RecordBillAlro() {
             const x = parseFloat(totalPaid)
             const i1 = recDueInterest
             const i2 = overdue
+
+            console.log("x",x)
+            console.log("i1", i1)
+            console.log("i2", i2)
 
             // const interestBalance = (x - (i1 + i2)) >= 0 ? 0 :
             //     (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2 - (x - i1) :
@@ -269,25 +275,27 @@ function RecordBillAlro() {
 
             const interest = overdueInterest + dueInterest
 
+            console.log("interest", interest)
+
             const interestBalance = interest - x <= 0 ? 0 : interest - x
             
             const PrinciplePaid = parseFloat(totalPaid) - (i1 + i2) <= 0 ? 0 : parseFloat(totalPaid) - (i1 + i2) //parseFloat(totalPaid) - interest
-            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? formatNumber(PrinciplePaid, 2) : 0)
+            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0)
 
             formikRef.current.setFieldValue("InterestPaid", interest)
 
-            formikRef.current.setFieldValue("FinesPaid", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : formatNumber(overdue, 2))  : 0)
+            formikRef.current.setFieldValue("FinesPaid", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : overdue)  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
             
            
 
             formikRef.current.setFieldValue("OverdueInterest", overdueInterest)
             // formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
-            formikRef.current.setFieldValue("InterestBalance", formatNumber(interestBalance, 2) )
+            formikRef.current.setFieldValue("InterestBalance", interestBalance )
 
             const principalBalance = parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid) <= 0 ? 0 : parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid)
 
-            formikRef.current.setFieldValue("PrincipleBalance2", formatNumber(principalBalance, 2) )
+            formikRef.current.setFieldValue("PrincipleBalance2", principalBalance)
         }else{
             formikRef.current.setFieldValue("InterestPaid", 0)
         }
@@ -384,7 +392,7 @@ function RecordBillAlro() {
                                         FinesInterestDuePaid: "",
                                         TotalInterest: "",
                                         FinesOverdue: "",
-                                        TotalPaid: "",
+                                        TotalPaid: 0,
                                         PrincipleBalance4: "",
                                         Cancel: "",
                                         ProvinceID: selectedData.ProvinceID,
@@ -792,7 +800,7 @@ function RecordBillAlro() {
                                                                 value={values.principle}
                                                                 error={errors.principle}
                                                                 helperText={errors.principle}
-                                                                onChange={handleChange}
+                                                                onValueChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="จำนวนเงินให้กู้"
                                                                 label="จำนวนเงินให้กู้" />
@@ -804,7 +812,7 @@ function RecordBillAlro() {
                                                                 value={values.Interest}
                                                                 error={errors.Interest}
                                                                 helperText={errors.Interest}
-                                                                onChange={handleChange}
+                                                                onValueChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="อัตราดอกเบี้ย"
                                                                 label="อัตราดอกเบี้ย" />
@@ -816,7 +824,7 @@ function RecordBillAlro() {
                                                                 value={values.ChargeRate}
                                                                 error={errors.ChargeRate}
                                                                 helperText={errors.ChargeRate}
-                                                                onChange={handleChange}
+                                                                onValueChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="อัตราค่าปรับ"
                                                                 label="อัตราค่าปรับ" />
@@ -864,7 +872,7 @@ function RecordBillAlro() {
                                                                         value={values.RecPrincipleBalance}
                                                                         error={errors.RecPrincipleBalance}
                                                                         helperText={errors.RecPrincipleBalance}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         textAlign='right'
                                                                         placeholder="เงินต้นคงเหลือ"
@@ -896,7 +904,7 @@ function RecordBillAlro() {
                                                                         value={values.RecPrinciple}
                                                                         error={errors.RecPrinciple}
                                                                         helperText={errors.RecPrinciple}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นครบกำหนดชำระ"
                                                                         label=""
@@ -919,7 +927,7 @@ function RecordBillAlro() {
                                                                         value={values.RecInterestKang2}
                                                                         error={errors.RecInterestKang2}
                                                                         helperText={errors.RecInterestKang2}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างรับ"
                                                                         label=""
@@ -942,7 +950,7 @@ function RecordBillAlro() {
                                                                         value={values.RecDueInterest}
                                                                         error={errors.RecDueInterest}
                                                                         helperText={errors.RecDueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยครบชำระ"
                                                                         label=""
@@ -965,7 +973,7 @@ function RecordBillAlro() {
                                                                         value={values.RecSumInterest}
                                                                         error={errors.RecSumInterest}
                                                                         helperText={errors.RecSumInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="รวมดอกเบี้ย"
                                                                         label=""
@@ -988,7 +996,7 @@ function RecordBillAlro() {
                                                                         value={values.RecOverdueInterest}
                                                                         error={errors.RecOverdueInterest}
                                                                         helperText={errors.RecOverdueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับค้างรับ"
                                                                         label=""
@@ -1011,7 +1019,7 @@ function RecordBillAlro() {
                                                                         value={values.RecSumPaid}
                                                                         error={errors.RecSumPaid}
                                                                         helperText={errors.RecSumPaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="รวมต้องชำระทั้งสิ้น"
                                                                         label=""
@@ -1034,7 +1042,7 @@ function RecordBillAlro() {
                                                                         value={values.RecPrincipleBalance}
                                                                         error={errors.RecPrincipleBalance}
                                                                         helperText={errors.RecPrincipleBalance}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         label=""
@@ -1135,7 +1143,7 @@ function RecordBillAlro() {
                                                                         value={values.PrincipleBalance1}
                                                                         error={errors.PrincipleBalance1}
                                                                         helperText={errors.PrincipleBalance1}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="จำนวนเงินต้นคงเหลือ"
                                                                         textAlign='right'
@@ -1150,12 +1158,16 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right txt-red">จำนวนเงินที่ชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
+                                       
+
                                                                     <MuiTextfieldNumber
                                                                         name="TotalPaid"
                                                                         value={values.TotalPaid}
                                                                         error={errors.TotalPaid}
                                                                         helperText={errors.TotalPaid}
-                                                                        onChange={(e) => {
+                                                                        type="number"
+                                                                        // onChange={handleChange}
+                                                                        onValueChange={(e) => {
                                                                             handleChange(e)
                                                                             const check = (parseFloat(values.RecSumInterest) + parseFloat(values.RecOverdueInterest) + parseFloat(values.RecPrincipleBalance))
 
@@ -1173,6 +1185,9 @@ function RecordBillAlro() {
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <ButtonFluidPrimary label="คำนวณ" onClick={() => {
+
+                                                                        console.log("values.TotalPaid", values.TotalPaid)
+
                                                                         calculatePaid(values.TotalPaid)
                                                                     }} />
                                                                 </Grid>
@@ -1189,7 +1204,7 @@ function RecordBillAlro() {
                                                                         value={values.PrinciplePaid}
                                                                         error={errors.PrinciplePaid}
                                                                         helperText={errors.PrinciplePaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้น"
                                                                         textAlign='right'
@@ -1208,7 +1223,7 @@ function RecordBillAlro() {
                                                                         value={values.InterestPaid}
                                                                         error={errors.InterestPaid}
                                                                         helperText={errors.InterestPaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ย"
                                                                         textAlign='right'
@@ -1227,7 +1242,7 @@ function RecordBillAlro() {
                                                                         value={values.OverdueInterest}
                                                                         error={errors.OverdueInterest}
                                                                         helperText={errors.OverdueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างปรับ"
                                                                         textAlign='right'
@@ -1246,7 +1261,7 @@ function RecordBillAlro() {
                                                                         value={values.DueInterest}
                                                                         error={errors.DueInterest}
                                                                         helperText={errors.DueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยครบชำระ"
                                                                         textAlign='right'
@@ -1265,7 +1280,7 @@ function RecordBillAlro() {
                                                                         value={values.FinesPaid}
                                                                         error={errors.FinesPaid}
                                                                         helperText={errors.FinesPaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับ"
                                                                         textAlign='right'
@@ -1284,7 +1299,7 @@ function RecordBillAlro() {
                                                                         value={values.Other}
                                                                         error={errors.Other}
                                                                         helperText={errors.Other}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="อื่นๆ"
                                                                         textAlign='right'
@@ -1303,7 +1318,7 @@ function RecordBillAlro() {
                                                                         value={values.PrincipleBalance2}
                                                                         error={errors.PrincipleBalance2}
                                                                         helperText={errors.PrincipleBalance2}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         textAlign='right'
@@ -1322,7 +1337,7 @@ function RecordBillAlro() {
                                                                         value={values.InterestBalance}
                                                                         error={errors.InterestBalance}
                                                                         helperText={errors.InterestBalance}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยคงเหลือ"
                                                                         textAlign='right'

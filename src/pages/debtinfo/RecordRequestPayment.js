@@ -561,7 +561,7 @@ function RecordRequestPayment() {
                                                                     value={values.principle}
                                                                     error={errors.principle}
                                                                     helperText={errors.principle}
-                                                                    onChange={handleChange}
+                                                                    onValueChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="จำนวนเงินให้กู้"
                                                                     label="จำนวนเงินให้กู้" defaultValue="" />
@@ -572,7 +572,7 @@ function RecordRequestPayment() {
                                                                     value={values.Interest}
                                                                     error={errors.Interest}
                                                                     helperText={errors.Interest}
-                                                                    onChange={handleChange}
+                                                                    onValueChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="อัตราดอกเบี้ย"
                                                                     label="อัตราดอกเบี้ย" defaultValue="" />
