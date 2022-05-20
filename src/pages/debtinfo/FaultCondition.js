@@ -77,7 +77,8 @@ function FaultCondition() {
         try {
             setIsLoading(true)
             const res = await api.getDebtDataByID(parameter1)
-            const resultList = res.data
+
+            const resultList = res.data.data
             setResultList(resultList)
             setIsLoading(false)
         } catch (error) {

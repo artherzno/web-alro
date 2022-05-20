@@ -1949,10 +1949,19 @@ const api = {
     },
     getDebtDataByID(params) {
 
+        // return post({
+        //     path: "GetDebt/GetDataByID",
+        //     params,
+        //     config: { baseURL: REACT_APP_API_HOST_1 },
+        // })
+
+        const token = localStorage.getItem('token')
         return post({
-            path: "GetDebt/GetDataByID",
+            path: "nodeapi/api/GetDebt/GetDataByID",
             params,
-            config: { baseURL: REACT_APP_API_HOST_1 },
+            config: { baseURL: REACT_APP_API_HOST_2 },
+            token: token,
+            isExternal: true
         })
 
     },
