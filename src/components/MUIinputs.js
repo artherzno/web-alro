@@ -525,6 +525,37 @@ const MuiTextfieldCurrency = (props) => {
                 customInput={TextField}
                 // prefix={'$'}
                 // format={format || null}
+                type="text"
+                thousandSeparator={true}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+            />
+
+            {/* <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} /> */}
+        </FormControl>
+    );
+}
+
+const MuiTextfieldCurrencyNumber = (props) => {
+    const classes = useStyles();
+    const { topic, label, value, name, onChange, inputdisabled } = props;
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            {
+                (label) === '' ? '' :
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <NumberFormat
+                className="input-currency"
+                {...props}
+                value={value}
+                name={name}
+                // mask={mask}
+                customInput={TextField}
+                // prefix={'$'}
+                // format={format || null}
                 type="number"
                 thousandSeparator={true}
                 decimalScale={2} 
@@ -1617,6 +1648,7 @@ export {
     MuiTextfieldValidate,
     MuiTextfieldMultiLine,
     MuiTextfieldCurrency,
+    MuiTextfieldCurrencyNumber,
     MuiTextfieldNumber,
     MuiTextfieldNumberInt,
     MuiTextfieldStartAdornment,
