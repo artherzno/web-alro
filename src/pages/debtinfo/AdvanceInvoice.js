@@ -61,8 +61,9 @@ function AdvanceInvoice(props) {
 
     const [loaded, setLoaded] = useState(false);
 
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
     const [pageCount, setPageCount] = useState(10)
+    const [totalResult, setTotalResult] = useState(0)
     const [resultList, setResultList] = useState([])
 
 
@@ -127,21 +128,25 @@ function AdvanceInvoice(props) {
     }, [])
 
 
-    function getAdvanceInvoiceAll() {
+    function getAdvanceInvoiceAll(page,count) {
 
         const parameter = {
             start_date: startDate,
             rentno: rentno,
             invoiceno: invoiceno,
             farmer: farmer,
+            page: page,
+            pagecount:count || pageCount
         }
         setIsLoading(true)
         api.getAdvanceInvoiceAll(parameter).then(response => {
             setResultList(response.data.Data)
+            setTotalResult(response.data.length)
             // if (response.data.contactdatasum.length > 0){
             //     setSelectedData(response.data.contactdatasum[0])
             // }
             setIsLoading(false)
+            setPage(page)
 
             console.log("response.data", response.data)
             
@@ -352,7 +357,7 @@ function AdvanceInvoice(props) {
                                                 if (startDate === "" && rentno === "" && invoiceno === "") {
                                                     dialog.showDialogFail({ message: 'กรุณาเลือกเงิ่อนไขการค้นหา' })
                                                 } else {
-                                                    getAdvanceInvoiceAll()
+                                                    getAdvanceInvoiceAll(1)
                                                 }
 
                                             }} />
@@ -466,7 +471,7 @@ function AdvanceInvoice(props) {
                                             {resultList.length <= 0 && <TableRow>
                                                 <TableCell colSpan={14} align="left">ไม่พบข้อมูล</TableCell>
                                             </TableRow>}
-                                            {resultList.slice(page * pageCount, page * pageCount + pageCount).map((element, index) => {
+                                            {resultList.map((element, index) => {
 
                                                 let isItemSelected = selectedCheckbox.findIndex(data => data.ROWID === element.ROWID) >= 0
                                            
@@ -545,18 +550,22 @@ function AdvanceInvoice(props) {
                                 <TablePagination
                                     rowsPerPageOptions={[5, 10, 25]}
                                     component="div"
-                                    count={resultList.length}
+                                    count={totalResult}
                                     rowsPerPage={pageCount}
                                     page={page}
                                     onPageChange={(e, newPage) => {
 
-                                        setPage(newPage)
+                                        // setPage(newPage)
+                                        getAdvanceInvoiceAll(newPage)
+                                        console.log("newPage", newPage)
                                     }}
                                     onRowsPerPageChange={(event) => {
 
 
-                                        setPage(0)
-                                        setPageCount(+event.target.value)
+                                        // setPage(0)
+                                        console.log("event.target.value", event.target.value)
+                                        setPageCount(event.target.value)
+                                        getAdvanceInvoiceAll(page, event.target.value)
                                     }}
                                 />
                             </Grid>

@@ -528,7 +528,7 @@ function DebtReminder() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={3}>
 
-                                        <MuiDatePicker label="ตรวจสอบวันที่ประมวล" value={startDateSelect} onChange={(event) => {
+                                        <MuiDatePicker label="เลือกวันที่" value={startDateSelect} onChange={(event) => {
 
                                             console.log("event", event)
                                             setStartDateSearch(moment(event).format("YYYY-MM-DD"))
