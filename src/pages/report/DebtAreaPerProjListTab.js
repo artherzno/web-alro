@@ -280,6 +280,13 @@ parameter.append('YearTo', YearTovalue);
                                         }, () => {
                                         })
                                     }}
+                                    onChangeYearBudget={(event) => {
+                                        this.setState({
+                                            year: event.target.value,
+                                            yearLabel: event.target.value
+                                        }, () => {
+                                        })
+                                    }}
                             />
                         </Grid>
                        
