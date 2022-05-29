@@ -5,6 +5,7 @@ import { MonthSelect, YearSelect, DateRange } from './index'
 
 
 const displayList = [{ value: 0, label: "รายปี" },
+{ value: 3, label: "รายปีงบ" },
 { value: 1, label: "รายเดือน" },
 { value: 2, label: "ช่วงวันที่" }]
 
@@ -13,7 +14,8 @@ export const DisplayMonthSelect = ({
     onChangeYear = () => { },
     onChangeYearEnd = () => { },
     onChangeMonth = () => { },
-    onChangeDate = () => { }
+    onChangeDate = () => { },
+    onChangeYearBudget = () => { }
 }) => {
 
     const [display, setDisplay] = useState(0)
@@ -37,6 +39,7 @@ export const DisplayMonthSelect = ({
                 {parseInt(display) === 1 && <Grid item><MonthSelect onChange={onChangeMonth} /></Grid>}
                 {parseInt(display) === 1 && <Grid item><YearSelect onChange={onChangeYear} /></Grid>}
                 {parseInt(display) === 2 && <Grid item><DateRange onChange={onChangeDate} label="ช่วงเวลา" /></Grid>}
+                {parseInt(display) === 3 && <Grid item><YearSelect label="ปีงบ" onChange={onChangeYearBudget} /></Grid>}
 
             </Grid>
 

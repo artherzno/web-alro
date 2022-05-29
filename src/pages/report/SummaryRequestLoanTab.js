@@ -70,7 +70,7 @@ class SummaryRequestLoanTab extends React.Component {
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -285,6 +285,13 @@ parameter.append('YearTo', YearTovalue);
                                         this.setState({
                                             YearTovalue: event.target.value,
                                             YearToLabel: event.target.value
+                                        }, () => {
+                                        })
+                                    }}
+                                    onChangeYearBudget={(event) => {
+                                        this.setState({
+                                            year: event.target.value,
+                                            yearLabel: event.target.value
                                         }, () => {
                                         })
                                     }}
