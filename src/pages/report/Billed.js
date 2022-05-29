@@ -302,6 +302,13 @@ class Billed extends React.Component {
                                         }, () => {
                                         })
                                     }}
+                                    onChangeYearBudget={(event) => {
+                                        this.setState({
+                                            year: event.target.value,
+                                            yearLabel: event.target.value
+                                        }, () => {
+                                        })
+                                    }}
                                 />
                             </Grid>
 
