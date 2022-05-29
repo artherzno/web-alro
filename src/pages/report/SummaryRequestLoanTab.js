@@ -345,7 +345,7 @@ parameter.append('YearTo', YearTovalue);
                         <Table className={classes.table} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">เดือน</StyledTableCell>
+                                    <StyledTableCell align="center">รายการ</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนคำขอกู้</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนเงินที่ยื่นคำขอ (บาท)</StyledTableCell>
                                     <StyledTableCell align="center">อนุมัติจำนวนคำขอกู้ </StyledTableCell>
