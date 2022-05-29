@@ -247,7 +247,7 @@ const listmenu = [
             }, {
                 subtitle: 'รายงานอายุความ',
                 subpath: '/report/limitation'
-            }, /*{
+            }, {
                 subtitle: 'รายงานสภาพความรับผิด',
                 subpath: '/report/liability'
             }, {
@@ -263,7 +263,7 @@ const listmenu = [
             {
                 subtitle: 'รายงานจัดชั้นหนี้',
                 subpath: '/report/debtclass'
-            },*/ 
+            },
             {
                 subtitle: 'รายงานการออกจัดเก็บหนี้ในพื้นที่',
                 subpath: '/report/debtarea'
