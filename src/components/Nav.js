@@ -468,9 +468,9 @@ export default function Nav() {
                             >
                             <Paper style={{maxHeight:400,overflowY:'scroll'}}>
                                 <ClickAwayListener onClickAway={handleClose}>
-                                            <MenuList  autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                    { subtitle.map((item,i)=><MenuItem key={i} onClick={(event)=>{handleClose(event); goto(item.subpath)}}>{item.subtitle}</MenuItem>)}
-                                </MenuList>
+                                    <MenuList  autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                        { subtitle.map((item,i)=><MenuItem key={i} onClick={(event)=>{handleClose(event); goto(item.subpath)}}>{item.subtitle}</MenuItem>)}
+                                    </MenuList>
                                 </ClickAwayListener>
                             </Paper>
                             </Grow>
@@ -482,9 +482,18 @@ export default function Nav() {
         );
   }
 
+
+
+  const checkRole = () => {
+    const roleArr = ['','role1','role2','role3','role4','role5','role6','role7','role8','role9']
+    const roleCurr = localStorage.getItem('nROLEID')
+
+    return roleArr[Number(roleCurr)]
+}
+
   return (
         <div className={classes.root}>
-            <div className="nav">
+            <div className={`nav ${checkRole()}`}>
                 {  listmenu.map((item,key)=> navItem(item.title, item.submenu, key, item.path)) }
             </div>
         </div>

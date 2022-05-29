@@ -401,7 +401,7 @@ const MuiTextfieldMultiLine = (props) => {
 
 const MuiTextfieldNumber = (props) => {
     const classes = useStyles();
-    let { topic, label, value, name, onChange, inputdisabled, unit, onValueChange} = props;
+    let { topic, label, value, name, onChange, inputdisabled, unit, onValueChange, field} = props;
 
     // let unitValue = null;
     if(unit==='wa') {
@@ -422,6 +422,7 @@ const MuiTextfieldNumber = (props) => {
                 className="input-currency"
                 {...props}
                 value={value}
+                label=""
                 name={name}
                 // mask={mask}
                 customInput={TextField}
@@ -433,6 +434,7 @@ const MuiTextfieldNumber = (props) => {
                 fixedDecimalScale={true}
                 // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
                 onValueChange={(e) =>{
+
 
                     if (onChange){
                         onChange({ target: { name, value: e.floatValue } })
@@ -485,6 +487,7 @@ const MuiTextfieldNumberInt = (props) => {
                 fixedDecimalScale={false}
                 // onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
                 onValueChange={(e) =>{
+                    
 
                     if (onChange){
                         onChange({ target: { name, value: e.floatValue } })
@@ -523,6 +526,37 @@ const MuiTextfieldCurrency = (props) => {
                 // prefix={'$'}
                 // format={format || null}
                 type="text"
+                thousandSeparator={true}
+                decimalScale={2} 
+                fixedDecimalScale={true}
+                onValueChange={({ value: v }) => onChange({ target: { name, value: v } })}
+            />
+
+            {/* <BootstrapInput name={name} type={type} value={value} id={id} onChange={onChange} endAdornment={<InputAdornment position="end">{endAdornment}</InputAdornment>} inputProps={{style: { textAlign: textAlign }}} /> */}
+        </FormControl>
+    );
+}
+
+const MuiTextfieldCurrencyNumber = (props) => {
+    const classes = useStyles();
+    const { topic, label, value, name, onChange, inputdisabled } = props;
+
+    return (
+        <FormControl className={`${classes.textbox} ${inputdisabled}`}>
+            {
+                (label) === '' ? '' :
+                    <label><span className="txt-green">{topic}&nbsp;</span>{label}</label>
+            }
+            <NumberFormat
+                className="input-currency"
+                {...props}
+                value={value}
+                name={name}
+                // mask={mask}
+                customInput={TextField}
+                // prefix={'$'}
+                // format={format || null}
+                type="number"
                 thousandSeparator={true}
                 decimalScale={2} 
                 fixedDecimalScale={true}
@@ -1614,6 +1648,7 @@ export {
     MuiTextfieldValidate,
     MuiTextfieldMultiLine,
     MuiTextfieldCurrency,
+    MuiTextfieldCurrencyNumber,
     MuiTextfieldNumber,
     MuiTextfieldNumberInt,
     MuiTextfieldStartAdornment,

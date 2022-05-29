@@ -190,7 +190,7 @@ function LoanRequestPrint(props) {
         FarmerInDistrict: '', // "",
         FarmerInProvince: '', // "",
         Officer: '', // "",
-        OfficeProvince: '', // localStorage.getItem('provincename'), 
+        OfficeProvince: provincename, // "", // localStorage.getItem('provincename'), 
         OfficerRank: '',
         SPK_Order: '', // "",
         SPK_OrderDate: moment().format(), // "",
@@ -268,7 +268,6 @@ function LoanRequestPrint(props) {
         Interest: 0, // 4,
         ChargeRate: '', // "",
         LastDatePaid: moment().add(1, 'Y').format(), // "null",
-        OfficeProvince: provincename, // "",
         WitnessName: '', // "",
         WitnessAddr: '', // "",
         WitnessIDCard: '', // "",
@@ -800,7 +799,6 @@ function LoanRequestPrint(props) {
                             Loan_Obj2Amount: data.data[0].Loan_amount1 === null ? 0 : data.data[0].Loan_amount2, // "",
                             Loan_Obj3: data.data[0].objective3 === null ? '' : data.data[0].objective3, // "",
                             Loan_Obj3Amount: data.data[0].Loan_amount3 === null ? '' : data.data[0].Loan_amount3, // "",
-                            OfficeProvince: provincename, // "",
                             LoanDate: moment().format(), // "",
                             RecordCode: '', // "",
                             RecDate: moment().format(), // "",
@@ -810,7 +808,7 @@ function LoanRequestPrint(props) {
                             FarmerInDistrict: '', // "",
                             FarmerInProvince: '', // "",
                             Officer: data.officer.Officer, // "",
-                            OfficeProvince: data.officer.OfficeProvince, 
+                            OfficeProvince: !!data.officer.OfficeProvince ? data.officer.OfficeProvince : provincename, // "",
                             OfficerRank: '', // localStorage.getItem('provincename'), // "",
                             SPK_Order: '', // "",
                             SPK_OrderDate: moment().format(), // "",
@@ -2884,7 +2882,7 @@ console.log('FreeDebtTime',event.target.value)
                                                             <MuiDatePicker label="ครบกำหนดงวดสุดท้ายในวันที่" name="LastDatePaid" value={inputDataSubmit.LastDatePaid} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LastDatePaid: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" inputdisabled="input-disabled" name="OfficeProvince" value={inputDataSubmit.OfficeProvince}  onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ผู้กู้ต้องชำระให้แก่ผู้ให้กู้ ณ สำนักงานปฏิรูปที่ดินจังหวัด" inputdisabled="input-disabled" /* name="OfficeProvince" */ value={inputDataSubmit.OfficeProvince}  onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                     </Grid>
                                                 </Paper>

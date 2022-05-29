@@ -25,6 +25,7 @@ import {
     MuiSelect,
     MuiTextfieldMultiLine,
     ButtonFluidPrimary,
+    MuiTextfieldNumber,
     ButtonFluidIconStartPrimary,
 } from '../../components/MUIinputs';
 
@@ -69,19 +70,19 @@ function RecordBillAlro() {
             const parameter = {
                 SPKReceipt: {
                     ...values,
-                    OverdueInterest: `${values.OverdueInterest}`.replace(",", ''),
-                    DueInterest: `${values.DueInterest}`.replace(",", ''),
-                    PrinciplePaid: `${values.PrinciplePaid}`.replace(",", ''),
-                    InterestPaid: `${values.InterestPaid}`.replace(",", ''),
-                    FinesPaid: `${values.FinesPaid}`.replace(",", ''),
-                    PrincipleBalance1: `${values.PrincipleBalance1}`.replace(",", ''),
-                    RecPrincipleBalance: `${values.RecPrincipleBalance}`.replace(",", ''),
-                    RecPrinciple: `${values.RecPrinciple}`.replace(",", ''),
-                    RecInterestKang2: `${values.RecInterestKang2}`.replace(",", ''),
-                    RecDueInterest: `${values.RecDueInterest}`.replace(",", ''),
-                    RecSumInterest: `${values.RecSumInterest}`.replace(",", ''),
-                    RecOverdueInterest: `${values.RecOverdueInterest}`.replace(",", ''),
-                    RecSumPaid: `${values.RecSumPaid}`.replace(",", ''),
+                    OverdueInterest: `${values.OverdueInterest}`,
+                    DueInterest: `${values.DueInterest}`,
+                    PrinciplePaid: `${values.PrinciplePaid}`,
+                    InterestPaid: `${values.InterestPaid}`,
+                    FinesPaid: `${values.FinesPaid}`,
+                    PrincipleBalance1: `${values.PrincipleBalance1}`,
+                    RecPrincipleBalance: `${values.RecPrincipleBalance}`,
+                    RecPrinciple: `${values.RecPrinciple}`,
+                    RecInterestKang2: `${values.RecInterestKang2}`,
+                    RecDueInterest: `${values.RecDueInterest}`,
+                    RecSumInterest: `${values.RecSumInterest}`,
+                    RecOverdueInterest: `${values.RecOverdueInterest}`,
+                    RecSumPaid: `${values.RecSumPaid}`,
                 },
                 CloseContact: values.Status,
                 dCreated: null,
@@ -192,14 +193,23 @@ function RecordBillAlro() {
                 const recData = beforeProcess[beforeProcess.length-1]
                 const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
-                formikRef.current.setFieldValue("PrincipleBalance1", formatNumber(recData.principalBalance,2))
-                formikRef.current.setFieldValue("RecPrincipleBalance", formatNumber(recData.principalBalance,2))
-                formikRef.current.setFieldValue("RecPrinciple", formatNumber(recData.StuckMoney,2))
-                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? formatNumber(beforRectData.InterestKang2,2) : 0)
-                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2, 2) : formatNumber(recData.InterestKang2,2))
-                formikRef.current.setFieldValue("RecSumInterest", formatNumber(recData.InterestKang2,2))
-                formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
-                formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
+                // formikRef.current.setFieldValue("PrincipleBalance1", formatNumber(recData.principalBalance,2))
+                // formikRef.current.setFieldValue("RecPrincipleBalance", formatNumber(recData.principalBalance,2))
+                // formikRef.current.setFieldValue("RecPrinciple", formatNumber(recData.StuckMoney,2))
+                // formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? formatNumber(beforRectData.InterestKang2,2) : 0)
+                // formikRef.current.setFieldValue("RecDueInterest", beforRectData ? formatNumber(recData.InterestKang2 - beforRectData.InterestKang2, 2) : formatNumber(recData.InterestKang2,2))
+                // formikRef.current.setFieldValue("RecSumInterest", formatNumber(recData.InterestKang2,2))
+                // formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
+                // formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
+
+                formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
+                formikRef.current.setFieldValue("RecPrinciple", recData.StuckMoney)
+                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2:0)
+                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
+                formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
+                formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
+                formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
                 
             }
 
@@ -221,6 +231,8 @@ function RecordBillAlro() {
 
         if(dataBeforeProcess.length > 0){
 
+            console.log("totalPaid cal", totalPaid)
+
             const beforeProcess = dataBeforeProcess[dataBeforeProcess.length - 1]
             console.log("beforeProcess", beforeProcess)
             const beforRectData = dataBeforeProcess.length >= 2 ? dataBeforeProcess[dataBeforeProcess.length - 2] : null
@@ -237,6 +249,10 @@ function RecordBillAlro() {
             const x = parseFloat(totalPaid)
             const i1 = recDueInterest
             const i2 = overdue
+
+            console.log("x",x)
+            console.log("i1", i1)
+            console.log("i2", i2)
 
             // const interestBalance = (x - (i1 + i2)) >= 0 ? 0 :
             //     (x - i1 >= 0 && x - (i1 + i2) < 0) ? i2 - (x - i1) :
@@ -259,25 +275,27 @@ function RecordBillAlro() {
 
             const interest = overdueInterest + dueInterest
 
+            console.log("interest", interest)
+
             const interestBalance = interest - x <= 0 ? 0 : interest - x
             
             const PrinciplePaid = parseFloat(totalPaid) - (i1 + i2) <= 0 ? 0 : parseFloat(totalPaid) - (i1 + i2) //parseFloat(totalPaid) - interest
-            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? formatNumber(PrinciplePaid, 2) : 0)
+            formikRef.current.setFieldValue("PrinciplePaid", PrinciplePaid > 0 ? PrinciplePaid : 0)
 
             formikRef.current.setFieldValue("InterestPaid", interest)
 
-            formikRef.current.setFieldValue("FinesPaid", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : formatNumber(overdue, 2))  : 0)
+            formikRef.current.setFieldValue("FinesPaid", overdue > 0 ? (overdue > beforeProcess.FineKang ? beforeProcess.FineKang : overdue)  : 0)
             formikRef.current.setFieldValue("Other", beforeProcess.Other)
             
            
 
             formikRef.current.setFieldValue("OverdueInterest", overdueInterest)
             // formikRef.current.setFieldValue("InterestBalance", interest - parseFloat(totalPaid) <= 0 ? 0 : interest - parseFloat(totalPaid))
-            formikRef.current.setFieldValue("InterestBalance", formatNumber(interestBalance, 2) )
+            formikRef.current.setFieldValue("InterestBalance", interestBalance )
 
             const principalBalance = parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid) <= 0 ? 0 : parseFloat(beforeProcess.principalBalance) - parseFloat(PrinciplePaid)
 
-            formikRef.current.setFieldValue("PrincipleBalance2", formatNumber(principalBalance, 2) )
+            formikRef.current.setFieldValue("PrincipleBalance2", principalBalance)
         }else{
             formikRef.current.setFieldValue("InterestPaid", 0)
         }
@@ -374,7 +392,7 @@ function RecordBillAlro() {
                                         FinesInterestDuePaid: "",
                                         TotalInterest: "",
                                         FinesOverdue: "",
-                                        TotalPaid: "",
+                                        TotalPaid: 0,
                                         PrincipleBalance4: "",
                                         Cancel: "",
                                         ProvinceID: selectedData.ProvinceID,
@@ -777,36 +795,36 @@ function RecordBillAlro() {
                                                                 label="วันที่รับเงินกู้" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="principle"
                                                                 value={values.principle}
                                                                 error={errors.principle}
                                                                 helperText={errors.principle}
-                                                                onChange={handleChange}
+                                                                onValueChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="จำนวนเงินให้กู้"
                                                                 label="จำนวนเงินให้กู้" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="Interest"
                                                                 value={values.Interest}
                                                                 error={errors.Interest}
                                                                 helperText={errors.Interest}
-                                                                onChange={handleChange}
+                                                                onValueChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="อัตราดอกเบี้ย"
                                                                 label="อัตราดอกเบี้ย" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             {/* Field Text ---------------------------------------------------*/}
-                                                            <MuiTextfield
+                                                            <MuiTextfieldNumber
                                                                 name="ChargeRate"
                                                                 value={values.ChargeRate}
                                                                 error={errors.ChargeRate}
                                                                 helperText={errors.ChargeRate}
-                                                                onChange={handleChange}
+                                                                onValueChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 placeholder="อัตราค่าปรับ"
                                                                 label="อัตราค่าปรับ" />
@@ -849,17 +867,29 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecPrincipleBalance"
                                                                         value={values.RecPrincipleBalance}
                                                                         error={errors.RecPrincipleBalance}
                                                                         helperText={errors.RecPrincipleBalance}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         textAlign='right'
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         label=""
                                                                         endAdornment="บาท" />
+
+                                                                    {/* <MuiTextfieldNumber
+                                                                        name="ChangeDeptCost"
+                                                                        value={values.ChangeDeptCost}
+                                                                        error={errors.ChangeDeptCost}
+                                                                        helperText={errors.ChangeDeptCost}
+                                                                        onChange={handleChange}
+                                                                        onBlur={handleBlur}
+                                                                        label="" defaultValue="" endAdornment="บาท" /> */}
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -869,17 +899,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นครบกำหนดชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecPrinciple"
                                                                         value={values.RecPrinciple}
                                                                         error={errors.RecPrinciple}
                                                                         helperText={errors.RecPrinciple}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นครบกำหนดชำระ"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -889,17 +922,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecInterestKang2"
                                                                         value={values.RecInterestKang2}
                                                                         error={errors.RecInterestKang2}
                                                                         helperText={errors.RecInterestKang2}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างรับ"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -909,17 +945,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยครบชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecDueInterest"
                                                                         value={values.RecDueInterest}
                                                                         error={errors.RecDueInterest}
                                                                         helperText={errors.RecDueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยครบชำระ"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -929,17 +968,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">รวมดอกเบี้ย</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecSumInterest"
                                                                         value={values.RecSumInterest}
                                                                         error={errors.RecSumInterest}
                                                                         helperText={errors.RecSumInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="รวมดอกเบี้ย"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -949,17 +991,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ค่าปรับค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecOverdueInterest"
                                                                         value={values.RecOverdueInterest}
                                                                         error={errors.RecOverdueInterest}
                                                                         helperText={errors.RecOverdueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับค้างรับ"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -969,17 +1014,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">รวมต้องชำระทั้งสิ้น</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecSumPaid"
                                                                         value={values.RecSumPaid}
                                                                         error={errors.RecSumPaid}
                                                                         helperText={errors.RecSumPaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="รวมต้องชำระทั้งสิ้น"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -989,17 +1037,20 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldEndAdornment
+                                                                    <MuiTextfieldNumber
                                                                         name="RecPrincipleBalance"
                                                                         value={values.RecPrincipleBalance}
                                                                         error={errors.RecPrincipleBalance}
                                                                         helperText={errors.RecPrincipleBalance}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         label=""
                                                                         textAlign='right'
                                                                         endAdornment="บาท" />
+                                                                </Grid>
+                                                                <Grid item >
+                                                                    <p className="paper-p txt-right">บาท</p>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1087,12 +1138,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">จำนวนเงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="PrincipleBalance1"
                                                                         value={values.PrincipleBalance1}
                                                                         error={errors.PrincipleBalance1}
                                                                         helperText={errors.PrincipleBalance1}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="จำนวนเงินต้นคงเหลือ"
                                                                         textAlign='right'
@@ -1107,12 +1158,16 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right txt-red">จำนวนเงินที่ชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                       
+
+                                                                    <MuiTextfieldNumber
                                                                         name="TotalPaid"
                                                                         value={values.TotalPaid}
                                                                         error={errors.TotalPaid}
                                                                         helperText={errors.TotalPaid}
-                                                                        onChange={(e) => {
+                                                                        type="number"
+                                                                        // onChange={handleChange}
+                                                                        onValueChange={(e) => {
                                                                             handleChange(e)
                                                                             const check = (parseFloat(values.RecSumInterest) + parseFloat(values.RecOverdueInterest) + parseFloat(values.RecPrincipleBalance))
 
@@ -1130,6 +1185,9 @@ function RecordBillAlro() {
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
                                                                     <ButtonFluidPrimary label="คำนวณ" onClick={() => {
+
+                                                                        console.log("values.TotalPaid", values.TotalPaid)
+
                                                                         calculatePaid(values.TotalPaid)
                                                                     }} />
                                                                 </Grid>
@@ -1141,12 +1199,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้น</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="PrinciplePaid"
                                                                         value={values.PrinciplePaid}
                                                                         error={errors.PrinciplePaid}
                                                                         helperText={errors.PrinciplePaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้น"
                                                                         textAlign='right'
@@ -1160,12 +1218,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ย</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="InterestPaid"
                                                                         value={values.InterestPaid}
                                                                         error={errors.InterestPaid}
                                                                         helperText={errors.InterestPaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ย"
                                                                         textAlign='right'
@@ -1179,12 +1237,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยค้างรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="OverdueInterest"
                                                                         value={values.OverdueInterest}
                                                                         error={errors.OverdueInterest}
                                                                         helperText={errors.OverdueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยค้างปรับ"
                                                                         textAlign='right'
@@ -1198,12 +1256,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยครบชำระ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="DueInterest"
                                                                         value={values.DueInterest}
                                                                         error={errors.DueInterest}
                                                                         helperText={errors.DueInterest}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยครบชำระ"
                                                                         textAlign='right'
@@ -1217,12 +1275,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ค่าปรับ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="FinesPaid"
                                                                         value={values.FinesPaid}
                                                                         error={errors.FinesPaid}
                                                                         helperText={errors.FinesPaid}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ค่าปรับ"
                                                                         textAlign='right'
@@ -1236,12 +1294,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">อื่นๆ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="Other"
                                                                         value={values.Other}
                                                                         error={errors.Other}
                                                                         helperText={errors.Other}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="อื่นๆ"
                                                                         textAlign='right'
@@ -1255,12 +1313,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">เงินต้นคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="PrincipleBalance2"
                                                                         value={values.PrincipleBalance2}
                                                                         error={errors.PrincipleBalance2}
                                                                         helperText={errors.PrincipleBalance2}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="เงินต้นคงเหลือ"
                                                                         textAlign='right'
@@ -1274,12 +1332,12 @@ function RecordBillAlro() {
                                                                     <p className="paper-p txt-right">ดอกเบี้ยคงเหลือ</p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4}>
-                                                                    <MuiTextfield
+                                                                    <MuiTextfieldNumber
                                                                         name="InterestBalance"
                                                                         value={values.InterestBalance}
                                                                         error={errors.InterestBalance}
                                                                         helperText={errors.InterestBalance}
-                                                                        onChange={handleChange}
+                                                                        onValueChange={handleChange}
                                                                         onBlur={handleBlur}
                                                                         placeholder="ดอกเบี้ยคงเหลือ"
                                                                         textAlign='right'

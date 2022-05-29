@@ -501,34 +501,35 @@ function DebtCondition() {
                                                                     label="วันที่รับเงินกู้" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield
+                                                                <MuiTextfieldNumber
                                                                     name="principle"
                                                                     value={values.principle}
                                                                     error={errors.principle}
                                                                     helperText={errors.principle}
-                                                                    onChange={handleChange}
+                                                                    onValueChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="จำนวนเงินให้กู้"
-                                                                    label="จำนวนเงินให้กู้" defaultValue="" />
+                                                                    label="จำนวนเงินให้กู้" 
+                                                                    defaultValue="" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield
+                                                                <MuiTextfieldNumber
                                                                     name="Interest"
                                                                     value={values.Interest}
                                                                     error={errors.Interest}
                                                                     helperText={errors.Interest}
-                                                                    onChange={handleChange}
+                                                                    onValueChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="อัตราดอกเบี้ย"
                                                                     label="อัตราดอกเบี้ย" />
                                                             </Grid>
                                                             <Grid item xs={12} md={3}>
-                                                                <MuiTextfield
+                                                                <MuiTextfieldNumber
                                                                     name="ChargeRate"
                                                                     value={values.ChargeRate}
                                                                     error={errors.ChargeRate}
                                                                     helperText={errors.ChargeRate}
-                                                                    onChange={handleChange}
+                                                                    onValueChange={handleChange}
                                                                     onBlur={handleBlur}
                                                                     placeholder="อัตราค่าปรับ"
                                                                     label="อัตราค่าปรับ" defaultValue="" />
@@ -832,6 +833,7 @@ function DebtCondition() {
                                                                                         helperText={errors.ReducePrinciple}
                                                                                         onValueChange={(e) => {
 
+                                                                                   
                                                                                             handleChange(e)
                                                                                             const changeDeptCost = parseFloat(e.target.value) + parseFloat(values.InterestReduce) + parseFloat(values.ReduceFines)
                                                                                             if (changeDeptCost) {
@@ -859,8 +861,8 @@ function DebtCondition() {
                                                                                         value={values.InterestReduce}
                                                                                         error={errors.InterestReduce}
                                                                                         helperText={errors.InterestReduce}
-                                                                                        onChange={(e) => {
-
+                                                                                        onValueChange={(e) => {
+console.log("ddddd",e.target.value)
                                                                                             handleChange(e)
                                                                                             const changeDeptCost = parseFloat(values.ReducePrinciple) + parseFloat(e.target.value) + parseFloat(values.ReduceFines)
                                                                                             if (changeDeptCost) {
@@ -888,7 +890,7 @@ function DebtCondition() {
                                                                                         value={values.ReduceFines}
                                                                                         error={errors.ReduceFines}
                                                                                         helperText={errors.ReduceFines}
-                                                                                        onChange={(e) => {
+                                                                                        onValueChange={(e) => {
 
                                                                                             handleChange(e)
                                                                                             const changeDeptCost = parseFloat(values.ReducePrinciple) + parseFloat(values.InterestReduce) + parseFloat(e.target.value)
@@ -914,7 +916,7 @@ function DebtCondition() {
                                                                                         value={values.ChangeDeptCost}
                                                                                         error={errors.ChangeDeptCost}
                                                                                         helperText={errors.ChangeDeptCost}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" endAdornment="บาท" />
                                                                                 </Grid>
@@ -934,7 +936,7 @@ function DebtCondition() {
                                                                                         value={values.ChangeInterest}
                                                                                         error={errors.ChangeInterest}
                                                                                         helperText={errors.ChangeInterest}
-                                                                                        onChange={handleChange}
+                                                                                        onValueChange={handleChange}
                                                                                         onBlur={handleBlur}
                                                                                         label="" defaultValue="" />
                                                                                 </Grid>

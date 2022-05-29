@@ -62,7 +62,7 @@ export const ButtonExport = (props) => {
                     color="primary"
                     disabled={props.loading || props.disabled}
                     onClick={props.handleButtonClick}
-                    style={{ width: '100%' }}
+                    style={{ width: '100%',...props.style }}
                 >
                     <Box mr={1}></Box>{props.label || "Export to Excel"}
                 </Button>

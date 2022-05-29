@@ -3618,7 +3618,7 @@ function GuaranteeBookA() {
                                                             bookNumberActive ? 
                                                             <MuiTextfield label="หนังสือสัญญาค้ำประกันที่"  name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
                                                             :
-                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" inputdisabled="input-disabled" name="BookNumber" value={inputDataSubmit.BookNumber} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="หนังสือสัญญาค้ำประกันที่" inputdisabled="input-disabled" name="BookNumber" value={''} onChange={handleInputDataSubmit}  />
                                                         }
                                                     </Grid>
 

@@ -391,9 +391,9 @@ class ProcessByPerson extends React.Component {
                                                         <TableRow key={index}>
                                                             <StyledTableCellLine align="left"><Checkbox /></StyledTableCellLine>
                                                             <StyledTableCellLine align="right" >
-                                                                <ButtonExport label="ดูการ์ด" handleButtonClick={() => { this.getCardPdf(element.rentno, `${index}00`) }} loading={this.state[`${index}00`]} disabled={this.state.startDate === ''}/>
-                                                                <ButtonExport label="ดูการ์ดเดือน" handleButtonClick={() => { this.getCardMonthPdf(element.rentno, `${index}01`) }} loading={this.state[`${index}01`]} disabled={this.state.startDate === ''}/>
-                                                                <ButtonExport label="ดูการ์ดปี" handleButtonClick={() => { this.getCardYearPdf(element.rentno, `${index}02`) }} loading={this.state[`${index}02`]} disabled={this.state.startDate === ''}/>
+                                                                <ButtonExport label="ดูการ์ด" style={{ width: 150 }} handleButtonClick={() => { this.getCardPdf(element.rentno, `${index}00`) }} loading={this.state[`${index}00`]} disabled={this.state.startDate === ''}/>
+                                                                <ButtonExport label="ดูการ์ดเดือน" style={{ width: 150 }} handleButtonClick={() => { this.getCardMonthPdf(element.rentno, `${index}01`) }} loading={this.state[`${index}01`]} disabled={this.state.startDate === ''}/>
+                                                                <ButtonExport label="ดูการ์ดปี" style={{ width: 150 }} handleButtonClick={() => { this.getCardYearPdf(element.rentno, `${index}02`) }} loading={this.state[`${index}02`]} disabled={this.state.startDate === ''}/>
                                                             </StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mid}</StyledTableCellLine>
                                                             <StyledTableCellLine align="left">{element.mindex}</StyledTableCellLine>

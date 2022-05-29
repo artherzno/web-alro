@@ -848,7 +848,7 @@ function LoanRecivcePrint() {
                                     nROLEID==='8'||nROLEID==='9'?
                                     <MuiSelect label="ได้รับเงินจากกรม" inputdisabled="input-disabled" lists={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']} listsValue={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']}  name="LoanReceiptfrom" value={dataInfo.data[i].LoanReceiptfrom}  onChange={handleInputData}  />
                                     :
-                                    <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                    <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`ส.ป.ก.${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
                                 }
                             </Grid>
                             {
@@ -1152,7 +1152,7 @@ function LoanRecivcePrint() {
                                                             nROLEID==='8'||nROLEID==='9'?
                                                             <MuiSelect label="ได้รับเงินจากกรม" lists={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']} listsValue={['ได้รับเงินกู้','ได้รับเช็ค','การโอนเงินผ่านธนาคาร']}  name="LoanReceiptfrom" value={inputData.LoanReceiptfrom}  onChange={handleInputData}  />
                                                             :
-                                                            <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`สปก.${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
+                                                            <MuiTextfield label="ได้รับเงินจากกรม" inputdisabled="input-disabled" value={`ส.ป.ก.${localStorage.getItem('provincename')}`} onChange={handleInputData}  />
                                                         }
                                                     </Grid>
                                                     {

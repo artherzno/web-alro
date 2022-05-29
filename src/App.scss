@@ -955,6 +955,46 @@ body {
       z-index: 1;
     }
   }
+
+  &.role2 {
+    .nav-item:nth-child(7), 
+    .nav-item:nth-child(9), 
+    .nav-item:nth-child(10) {
+      // display: none;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  &.role3 {
+    .nav-item:nth-child(2), 
+    .nav-item:nth-child(4),
+    .nav-item:nth-child(6), 
+    .nav-item:nth-child(7), 
+    .nav-item:nth-child(8), 
+    .nav-item:nth-child(9), 
+    .nav-item:nth-child(10) {
+      // display: none;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  &.role8 {
+    .nav-item:nth-child(1), 
+    .nav-item:nth-child(2), 
+    .nav-item:nth-child(3), 
+    .nav-item:nth-child(4),
+    .nav-item:nth-child(6), 
+    .nav-item:nth-child(7), 
+    .nav-item:nth-child(8), 
+    .nav-item:nth-child(9), 
+    .nav-item:nth-child(10) {
+      // display: none;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
 }
 
 .main {

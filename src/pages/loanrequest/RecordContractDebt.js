@@ -74,8 +74,13 @@ function RecordContractDebt() {
 
     const [loanID, setLoanID] = useState(null)
     const [loanNumber, setLoanNumber] = useState('')
+    const [oldLoanNumber, setOldLoanNumber] = useState('')
     const [dueAmount, setDueAmount] = useState(2)
     const dueAmountList = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+    const [year, setYear] = useState({
+        CurrentYear: '',
+        RecYear: ''
+    })
 
     // const [provinceList, setprovinceList] = useState(['กรุณาเลือกจังหวัด']);
     let provinceList = JSON.parse(localStorage.getItem('provincelist'))
@@ -297,40 +302,43 @@ function RecordContractDebt() {
         LoanobjName: '',
         LoanFarmerTypeName: '',
         notation: '',
+
+        OrderNo: '',
+        ApproveDate: moment().format('YYYY-MM-DD'),
     })
 
     const [summaryTable, setSummaryTable] = useState(0)
     const [inputDataSubmitLoanDUE, setInputDataSubmitLoanDUE] = useState([
-        { ITEM: null, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
-        { ITEM: null, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 1, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 2, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 3, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 4, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 5, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 6, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 7, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 8, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 9, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 10, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 11, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 12, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 13, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 14, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 15, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 16, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 17, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 18, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 19, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 20, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 21, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 22, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 23, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 24, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 25, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 26, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 27, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 28, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 29, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
+        { ITEM: 30, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
         // { ITEM: null, DUEDATE: null, PAYREC: null },
         // { ITEM: null, DUEDATE: null, PAYREC: null },
         // { ITEM: null, DUEDATE: null, PAYREC: null },
@@ -574,36 +582,36 @@ function RecordContractDebt() {
         setDueAmount(2)
         setSummaryTable(0)
         setInputDataSubmitLoanDUE([
-            { ITEM: null, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 1, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 2, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 3, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 4, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 5, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 6, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 7, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 8, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 9, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 10, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 11, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 12, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 13, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 14, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 15, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 16, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 17, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 18, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 19, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 20, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 21, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 22, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 23, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 24, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 25, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 26, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 27, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 28, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 29, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 30, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
         ])
         setInputDataNewFarmerIDCard([])
 
@@ -809,10 +817,15 @@ function RecordContractDebt() {
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
                         })
 
-                        setInputDataLoanRec({
-                            CurrentYear: planYearFull,
+                        setInputDataLoanRec(data.loanrec_data[0],{
+                            // CurrentYear: planYearFull,
                             PV_CODE: data.spkinfo_data[0].ProvinceID,
                             PV_NAME: data.spkinfo_data[0].Province,
+                            // RecYear: planYear
+                        })
+
+                        setYear({
+                            CurrentYear: planYearFull,
                             RecYear: planYear
                         })
 
@@ -821,7 +834,7 @@ function RecordContractDebt() {
                         })
                     }
 
-                    setInputDataLoanRec({
+                    setInputDataLoanRec(data.loanrec_data[0],{
                         Old_LoanID: data.closecontact_data[0].LoanNumber, 
                         // OldFine: data.singlecard_data[0].FineKang
                         OldFine: data.singlecard_data[0].InterestKang2 // P'Pong specify 13/01/22
@@ -834,6 +847,7 @@ function RecordContractDebt() {
 
                     setLoanNumber(data.loanrec_data[0].LoanNumber)
                     setLoanID(data.loanrec_data[0].LoanID)
+                    setOldLoanNumber(data.closecontact_data[0].LoanNumber)
                     // setTableResult(data.data)
                     // setRows(data.data)
                     setInputDataNewFarmer({
@@ -941,36 +955,36 @@ function RecordContractDebt() {
         setDueAmount(2)
         setSummaryTable(0)
         setInputDataSubmitLoanDUE([
-            { ITEM: null, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 1, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 2, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 3, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 4, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 5, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 6, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 7, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 8, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 9, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 10, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 11, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 12, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 13, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 14, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 15, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 16, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 17, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 18, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 19, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 20, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 21, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 22, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 23, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 24, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 25, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 26, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 27, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 28, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 29, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 30, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
         ])
         setInputDataNewFarmerIDCard([])
 
@@ -1173,12 +1187,20 @@ function RecordContractDebt() {
                             LoanPeriod: data.loanrec_data[0].LoanPeriod,
                             LoanobjName: data.loanrec_data[0].LoanobjName,
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
+                            
+                            ApproveDate: data.loanrec_data[0].ApproveDate,
+                            OrderNo: data.loanrec_data[0].OrderNo,
                         })
 
-                        setInputDataLoanRec({
-                            CurrentYear: planYearFull,
+                        setInputDataLoanRec(data.loanrec_data[0],{
+                            // CurrentYear: planYearFull,
                             PV_CODE: data.spkinfo_data[0].ProvinceID,
                             PV_NAME: data.spkinfo_data[0].Province,
+                            // RecYear: planYear
+                        })
+
+                        setYear({
+                            CurrentYear: planYearFull,
                             RecYear: planYear
                         })
 
@@ -1187,7 +1209,7 @@ function RecordContractDebt() {
                         })
                     }
 
-                    setInputDataLoanRec({
+                    setInputDataLoanRec(data.loanrec_data[0],{
                         Old_LoanID: data.close_oldcontact_data[0].LoanNumber, 
                         // OldFine: data.singlecard_data[0].FineKang 
                         OldFine: data.singlecard_data[0].InterestKang2, // P'Pong specify 13/01/22
@@ -1201,6 +1223,7 @@ function RecordContractDebt() {
 
                     setLoanNumber(data.loanrec_data[0].LoanNumber)
                     setLoanID(data.loanrec_data[0].LoanID)
+                    setOldLoanNumber(data.close_oldcontact_data[0].LoanNumber)
                     // setTableResult(data.data)
                     // setRows(data.data)
 
@@ -1244,10 +1267,14 @@ function RecordContractDebt() {
                         IDCard: data.loanrec_data[0].IDCard === null ? '' : data.loanrec_data[0].IDCard,
                         LoanChangeDate: data.loanrec_data[0].LoanChangeDate === null ? null : data.loanrec_data[0].LoanChangeDate,
                         DebtEditDate: data.loanrec_data[0].DebtEditDate === null ? null : data.loanrec_data[0].DebtEditDate,
+                    
+                        OrderNo: data.loanrec_data[0].OrderNo === null ? null : data.loanrec_data[0].OrderNo,
+                        ApproveDate: data.loanrec_data[0].ApproveDate  === null ? null : data.loanrec_data[0].ApproveDate,
                     })
 
                     setInputDataSubmitIndividual({
                         // ...inputDataSubmitIndividual,
+                        
                         principle: data.loanrec_data[0].principle === null ? 0 : data.loanrec_data[0].principle,
                         // OldInterest: data.loanrec_data[0].OldInterest === null ? 0 : data.loanrec_data[0].OldInterest,
                         // OldFine: data.loanrec_data[0].OldFine === null ? 0 : data.loanrec_data[0].OldFine,
@@ -1286,6 +1313,15 @@ function RecordContractDebt() {
                     } else {
                         console.log('getOldPriciple',data.old_priciple_data[0])
                         setInputDataIndividualcardCloseContact(data.old_priciple_data[0])
+                    }
+
+                    // Edit 18/05/65 ปรับค่า เงินต้น,ดอกเบี้ย ให้เท่ากับ เงินต้นค้างเดิม, ดอกเบี้ยค้างเดิม
+                    if(action === 'edit' || action === 'view') {
+                        setInputDataSubmitIndividual({
+                            ...inputDataSubmitIndividual,
+                            principle: data.old_priciple_data[0].PrincipleBalance,
+                            OldInterest: data.old_priciple_data[0].TotalInterest,
+                        })
                     }
                     
                 }
@@ -1415,9 +1451,14 @@ function RecordContractDebt() {
                             })
                         } else {
                             console.log('getIndividualcardCloseContact',data.closecontact_data[0])
-                            setInputDataIndividualcardCloseContact(data.closecontact_data[0])
+                            setInputDataIndividualcardCloseContact(data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1] : data.closecontact_data[0])
+                            setInputDataSubmitIndividual({
+                                ...inputDataSubmitIndividual,
+                                principle: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].PrincipleBalance : data.closecontact_data[0].PrincipleBalance,
+                                OldInterest: data.closecontact_data.length > 0 ? data.closecontact_data[data.closecontact_data.length - 1].TotalInterest : data.closecontact_data[0].TotalInterest,
+                            })
                         }
-                    }
+                    } 
                 }
             }
         ).catch(err => { console.log(err);})
@@ -1497,36 +1538,36 @@ function RecordContractDebt() {
         setDueAmount(event.target.value)
         console.log(event.target.value)
         setInputDataSubmitLoanDUE([
-            { ITEM: null, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
-            { ITEM: null, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 1, DUEDATE: moment(currentDate).add(0, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 2, DUEDATE: moment(currentDate).add(1, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 3, DUEDATE: moment(currentDate).add(2, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 4, DUEDATE: moment(currentDate).add(3, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 5, DUEDATE: moment(currentDate).add(4, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 6, DUEDATE: moment(currentDate).add(5, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 7, DUEDATE: moment(currentDate).add(6, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 8, DUEDATE: moment(currentDate).add(7, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 9, DUEDATE: moment(currentDate).add(8, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 10, DUEDATE: moment(currentDate).add(9, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 11, DUEDATE: moment(currentDate).add(10, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 12, DUEDATE: moment(currentDate).add(11, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 13, DUEDATE: moment(currentDate).add(12, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 14, DUEDATE: moment(currentDate).add(13, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 15, DUEDATE: moment(currentDate).add(14, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 16, DUEDATE: moment(currentDate).add(15, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 17, DUEDATE: moment(currentDate).add(16, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 18, DUEDATE: moment(currentDate).add(17, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 19, DUEDATE: moment(currentDate).add(18, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 20, DUEDATE: moment(currentDate).add(19, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 21, DUEDATE: moment(currentDate).add(20, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 22, DUEDATE: moment(currentDate).add(21, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 23, DUEDATE: moment(currentDate).add(22, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 24, DUEDATE: moment(currentDate).add(23, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 25, DUEDATE: moment(currentDate).add(24, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 26, DUEDATE: moment(currentDate).add(25, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 27, DUEDATE: moment(currentDate).add(26, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 28, DUEDATE: moment(currentDate).add(27, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 29, DUEDATE: moment(currentDate).add(28, 'year').format('YYYY-MM-DD'), PAYREC: null },
+            { ITEM: 30, DUEDATE: moment(currentDate).add(29, 'year').format('YYYY-MM-DD'), PAYREC: null },
         ])
     }
 
@@ -1611,6 +1652,34 @@ function RecordContractDebt() {
         setInputDataSubmitLoanDUE(loanDUEArr)
     }
 
+    const handleDataProjectcode = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            Projectcode: e.target.value
+        })
+    }
+    
+    const handleDataProjectName = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            ProjectName: e.target.value
+        })
+    }
+
+    const handleDataProjectSubCode = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            ProjectSubCode: e.target.value
+        })
+    }
+
+    const handleDataProjectSubName = (e) => {
+        setInputDataLoanRec({
+            ...inputDataLoanRec,
+            ProjectSubName: e.target.value
+        })
+    }
+
     const handleSubmit = (event, loanstatus) => {
         action_loanstatus = loanstatus;
         event.preventDefault();
@@ -1637,6 +1706,14 @@ function RecordContractDebt() {
         formData.set('Interest', inputDataSubmitIndividual.Interest)
         formData.set('ChargeRate', inputDataSubmitIndividual.ChargeRate)
 
+        formData.append('ProjectSubCode',!!inputDataLoanRec.ProjectSubCode?inputDataLoanRec.ProjectSubCode:'')
+        formData.append('ProjectSubName',!!inputDataLoanRec.ProjectSubName?inputDataLoanRec.ProjectSubName:'')
+        formData.append('Projectcode',!!inputDataLoanRec.Projectcode?inputDataLoanRec.Projectcode:'')
+        formData.append('ProjectName',!!inputDataLoanRec.ProjectName?inputDataLoanRec.ProjectName:'')
+
+        formData.set('CurrentYear', year.CurrentYear)
+        formData.set('RecYear', year.RecYear)
+
         formData.set('WitnessAddr',`ส.ป.ก.จังหวัด${provincename}`)
         formData.set('WitnessIDCardMade','กรมการปกครอง')
         formData.set('WitnessAddr2',`ส.ป.ก.จังหวัด${provincename}`)
@@ -1645,6 +1722,10 @@ function RecordContractDebt() {
         formData.set('WitnessIDCardMade3','กรมการปกครอง')
         formData.set('WitnessAddr4',`ส.ป.ก.จังหวัด${provincename}`)
         formData.set('WitnessIDCardMade4','กรมการปกครอง')
+
+        formData.append('ApproveDate', inputDataSubmit.ApproveDate)
+
+        // formData.append('OrderNo', inputDataSubmit.OrderNo)
 
 
         // formData.append('loandue_data', inputDataSubmitLoanDUE)
@@ -1769,7 +1850,7 @@ function RecordContractDebt() {
             rowArr.push(
                 <div style={{flex: '1', width: '100%', display: 'flex'}}>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
-                        <MuiTextfield label='' value={inputDataSubmitLoanDUE[i].ITEM === null ? (i+1) : inputDataSubmitLoanDUE[i].ITEM} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
+                        <MuiTextfield label='' value={!!inputDataSubmitLoanDUE[i].ITEM ? inputDataSubmitLoanDUE[i].ITEM : (i+1)} onChange={(event)=>{handleSubmitLoanDUEItem(event,i)}} />
                     </Grid>
                     <Grid item xs={12} md={4} style={{padding: '16px 0 0 16px'}}>
                         <MuiDatePicker label="" value={inputDataSubmitLoanDUE[i].DUEDATE === null ? moment(currentDate).add(i, 'year').format('YYYY-MM-DD') : inputDataSubmitLoanDUE[i].DUEDATE } onChange={(event)=>{handleSubmitLoanDUEDate(event,i)}}  />
@@ -1823,9 +1904,9 @@ function RecordContractDebt() {
                                     <Grid item xs={12} md={2}>
                                         <MuiTextfield label="ค้นหาเลขที่สัญญา" value={inputDataSearch.LoanNumber} name="LoanNumber" onChange={handleInputDataSearch} />
                                     </Grid>
-                                    <Grid item xs={12} md={2}>
+                                    {/* <Grid item xs={12} md={2}>
                                         <MuiTextfield label="ค้นหาเลขที่คำขอกู้ยืมเงิน" value={inputDataSearch.LoanID} name="LoanID" onChange={handleInputDataSearch} />
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ค้นหาเลขบัตรประชาชน" value={inputDataSearch.IDCard} name="IDCard" onChange={handleInputDataSearch} />
                                     </Grid>
@@ -1915,11 +1996,14 @@ function RecordContractDebt() {
                                                                     <MuiTextfield label="และคำสั่งจังหวัด" inputdisabled="input-disabled"  value={inputDataSpkInfo.Province} onChange={handleInputDataFarmer}  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
-                                                                    <MuiTextfield label="ที่" value={inputDataLoanRec.ApprovalNo} onChange={handleInputDataFarmer}  />
+                                                                    <MuiTextfield label="ที่" name="OrderNo" value={inputDataSubmit.OrderNo} onChange={handleInputDataSubmit}  />
+                                                                    {/* <MuiTextfield label="ที่" value={inputDataLoanRec.ApprovalNo} onChange={handleInputDataFarmer}  /> */}
                                                                 </Grid>
                                                                 <Grid item xs={12} md={3}>
                                                                     {/* ApproveDate */}
-                                                                    <MuiDatePicker label="ลงวันที่" value={inputDataLoanRec.ApproveDate} onChange={handleInputDataFarmer}  />
+                                                                    <MuiDatePicker label="ลงวันที่" value={inputDataSubmit.ApproveDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                
+                                                                    {/* <MuiDatePicker label="ลงวันที่" value={inputDataLoanRec.ApproveDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1994,7 +2078,7 @@ function RecordContractDebt() {
                                                             <MuiDatePicker label="วันที่บันทึก" name="RecDate" value={inputDataLoanRec.RecDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, RecDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="ปีปัจจุบัน" name="CurrentYear" value={inputDataLoanRec.CurrentYear} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="ปีปัจจุบัน" name="CurrentYear" value={year.CurrentYear} onChange={handleInputDataSubmit} />
                                                             {/* แสดงปีเต็ม */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
@@ -2004,7 +2088,8 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="PV_NAME"  name="PV_NAME" value={inputDataLoanRec.PV_NAME} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled"  /*name="Old_LoanID"*/ value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled"  /*name="Old_LoanID"*/ value={oldLoanNumber} onChange={handleInputDataSubmit}  />
+                                                            {/* <MuiTextfield label="สัญญาเดิม"  inputdisabled="input-disabled" value={inputDataLoanRec.Old_LoanID} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={1}>
                                                             <MuiTextfield label="&nbsp;" defaultValue='' />
@@ -2037,16 +2122,22 @@ function RecordContractDebt() {
                                                             <MuiSelect label="โครงการ"  lists={['00001','00002','00003']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   />
+                                                            {/* <MuiTextfield label="รหัสโครงการ" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}   /> */}
+                                                        
+                                                            <MuiTextfield label="รหัสโครงการ" value={inputDataLoanRec.Projectcode} onChange={handleDataProjectcode}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   />
+                                                            {/* <MuiTextfield label="ชื่อโครงการ" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}   /> */}
+                                                        
+                                                            <MuiTextfield label="ชื่อโครงการ" value={inputDataLoanRec.ProjectName} onChange={handleDataProjectName}   />
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการรอง" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการรอง" value={inputDataLoanRec.ProjectSubCode} onChange={handleDataProjectSubCode}  />
+                                                            {/* <MuiTextfield label="รหัสโครงการรอง" name="ProjectSubCode" value={inputDataLoanRec.ProjectSubCode} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการรอง" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="ชื่อโครงการรอง" value={inputDataLoanRec.ProjectSubName} onChange={handleDataProjectSubName}   />
+                                                            {/* <MuiTextfield label="ชื่อโครงการรอง" name="ProjectSubName" value={inputDataLoanRec.ProjectSubName} onChange={handleInputDataSubmit}   /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="สัญญาเลขที่" value={inputDataLoanRec.LoanNumber} onChange={handleInputDataSubmit} />
@@ -2058,7 +2149,7 @@ function RecordContractDebt() {
                                                             <MuiTextfield label="&nbsp;" id='' />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" id='' name="RecYear" value={inputDataLoanRec.RecYear} onChange={handleInputDataSubmit}   />
+                                                            <MuiTextfield label="บันทึกแปลงหนี้ปี" id='' name="RecYear" value={year.RecYear} onChange={handleInputDataSubmit}   />
                                                             {/* แสดงเฉพาะ 2หลัก */}
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
@@ -2074,10 +2165,12 @@ function RecordContractDebt() {
                                                             <MuiSelect label="โครงการหลัก"  lists={['โครงการหลัก1','โครงการหลัก2','โครงการหลัก3']} />
                                                         </Grid> */}
                                                         <Grid item xs={12} md={2}>
-                                                            <MuiTextfield label="รหัสโครงการหลัก" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="รหัสโครงการหลัก" value={inputDataLoanRec.Projectcode} onChange={handleDataProjectcode}  />
+                                                            {/* <MuiTextfield label="รหัสโครงการหลัก" name="Projectcode" value={inputDataLoanRec.Projectcode} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfield label="ชื่อโครงการหลัก" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  />
+                                                            <MuiTextfield label="ชื่อโครงการหลัก" value={inputDataLoanRec.ProjectName} onChange={handleDataProjectName}  />
+                                                            {/* <MuiTextfield label="ชื่อโครงการหลัก" name="ProjectName" value={inputDataLoanRec.ProjectName} onChange={handleInputDataSubmit}  /> */}
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={2}>
                                                             <MuiSelect label="วัตถุประสงค์การกู้ยืม"  lists={['วัตถุประสงค์การกู้ยืม1','วัตถุประสงค์การกู้ยืม2','วัตถุประสงค์การกู้ยืม3']} />
@@ -2343,7 +2436,9 @@ function RecordContractDebt() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principle} onChange={handleInputDataSubmitIndividual}/>  */}
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principalBalance} onChange={handleInputDataSubmitIndividual}/> 
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.principalBalance} onChange={handleInputDataSubmitIndividual}/> * edit 10/05/65 P'Pong&Foolur */}
+                                                                                    
+                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={!!inputDataIndividualcardCloseContact.PrincipleBalance ? inputDataIndividualcardCloseContact.PrincipleBalance : 0} onChange={handleInputDataSubmitIndividual}/> 
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -2353,7 +2448,9 @@ function RecordContractDebt() {
                                                                                     <p className="paper-p txt-right">ดอกเบี้ย สัญญาเดิม</p>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={5}>
-                                                                                    <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> {/* P'Pong specify 11/01/22 */}
+                                                                                    <MuiTextfieldCurrency label="" inputdisabled="input-disabled"   value={!!inputDataIndividualcardCloseContact.TotalInterest ? inputDataIndividualcardCloseContact.TotalInterest : 0}  onChange={handleInputDataSubmitIndividual}  /> {/* Fulor & P'Pong 26/01/22 */}
+                                                            
+                                                                                    {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.interestKang} onChange={handleInputDataSubmitIndividual}/> * edit 10/05/65 P'Pong&Foolur * P'Pong specify 11/01/22 */}
                                                                                     {/* <MuiTextfieldCurrency  label="" inputdisabled="input-disabled"  value={inputDataIndividualcard.InterestKang2} onChange={handleInputDataSubmitIndividual}/>  */}
                                                                                 </Grid>
                                                                             </Grid>
