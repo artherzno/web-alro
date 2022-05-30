@@ -4,12 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import { MonthSelect, YearSelect, DateRange } from './index'
 
 
-const displayList = [{ value: 0, label: "รายปี" },
-{ value: 3, label: "รายปีงบ" },
+const displayList = [{ value: 0, label: "รายปีงบ" },
+{ value: 3, label: "รายปีงบ (เดือน)" },
 { value: 1, label: "รายเดือน" },
 { value: 2, label: "ช่วงวันที่" }]
 
-const displayList1 = [{ value: 0, label: "รายปี" },
+const displayList1 = [{ value: 0, label: "รายปีงบ" },
 { value: 1, label: "รายเดือน" },
 { value: 2, label: "ช่วงวันที่" }]
 
