@@ -40,14 +40,7 @@ let AuthData = { port: 3800, hostname: '', portinvoice: 8055, spkapi: '' } ;
 const hostname = window.location.hostname;
 
 // Check Endpoint
-if(hostname !== 'localhost') {
-  console.log('API - PRODUCTION', hostname)
-  AuthData.hostname = 'https://loanfund.alro.go.th/nodeapi';
-  localStorage.setItem('hostname', 'https://loanfund.alro.go.th/nodeapi')// p.hanz
-  localStorage.setItem('spkapi', 'https://loanfund.alro.go.th/api/spkapi')// p.benz
-  localStorage.setItem('siteprint', 'https://loanfund.alro.go.th/api') // j.som
-  localStorage.setItem('siteimage', 'https://loanfund.alro.go.th/') // image
-} else {
+if(hostname === 'localhost') {
   console.log('API - IP', hostname)
   AuthData.hostname ='http://147.50.143.84:5441/nodeapi' // p.hanz
   localStorage.setItem('hostname', 'http://147.50.143.84:5441/nodeapi') // p.hanz
@@ -56,6 +49,13 @@ if(hostname !== 'localhost') {
   localStorage.setItem('siteprint', 'http://147.50.143.84:80/api') // j.som
   localStorage.setItem('siteimage', 'http://147.50.143.84/') // image
 
+} else {
+  console.log('API - PRODUCTION & TEST', hostname)
+  AuthData.hostname = 'https://'+hostname+'/nodeapi';
+  localStorage.setItem('hostname', 'https://'+hostname+'/nodeapi')// p.hanz
+  localStorage.setItem('spkapi', 'https://'+hostname+'/api/spkapi')// p.benz
+  localStorage.setItem('siteprint', 'https://'+hostname+'/api') // j.som
+  localStorage.setItem('siteimage', 'https://'+hostname+'/') // image
 }
 console.warn('hi app')
 

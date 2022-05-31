@@ -78,9 +78,9 @@ function ChartOfAccounts() {
 
     const [rows, setRows] = useState([])
     const [inputDataSearch, setInputDataSearch] = useState({
-        startDate: '',
-        endDate: '',
-        SearchByName: '',
+        ControlCode: '',
+        AccountCode: '',
+        AccountName: '',
     })
 
     const [inputDataSubmit, setInputDataSubmit] = useState({
@@ -211,6 +211,59 @@ function ChartOfAccounts() {
             ...inputDataSearch,
             [event.target.name]: event.target.value
         })
+    }
+
+    const handleSearch = () => {
+        setLoaded(true);
+
+        axios.post(
+            `${server_hostname}/admin/api/search_phungbunshe`, {
+                "ControlCode": inputDataSearch.ControlCode,
+                "AccountCode": inputDataSearch.AccountCode,
+                "AccountName": inputDataSearch.AccountName
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data.data)
+                    setTableResult(data.data)
+                    let dataArr = [];
+                    for(let i=0; i<data.data.length; i++) {
+                        // console.log(data.data[i].ApplicantID)
+                        dataArr.push({
+                            PBID: data.data[i].PBID,
+                            BusinessProject: data.data[i].BusinessProject,
+                            ControlCode: data.data[i].ControlCode1+' '+data.data[i].ControlCode2+' '+data.data[i].ControlCode3+' '+data.data[i].ControlCode4+' '+data.data[i].ControlCode5+' '+data.data[i].ControlCode6, // +' '+data.data[i].ControlCode7,
+                            AccountCode: data.data[i].AccountCode1+' '+data.data[i].AccountCode2+' '+data.data[i].AccountCode3+' '+data.data[i].AccountCode4+' '+data.data[i].AccountCode5+' '+data.data[i].AccountCode6,
+                            AccountName: !!data.data[i].AccountName1?data.data[i].AccountName1 : !!data.data[i].AccountName2?data.data[i].AccountName2 : !!data.data[i].AccountName3?data.data[i].AccountName3: !!data.data[i].AccountName4?data.data[i].AccountName4 : !!data.data[i].AccountName5?data.data[i].AccountName5 : !!data.data[i].AccountName6?data.data[i].AccountName6 : '', // !!data.data[i].AccountName7?data.data[i].AccountName7 : '',
+                            // AccountName: !!data.data[i].AccountName1?data.data[i].AccountName1 : !!data.data[i].AccountName2?'- '+data.data[i].AccountName2 : !!data.data[i].AccountName3?' -- '+data.data[i].AccountName3: !!data.data[i].AccountName4?' --- '+data.data[i].AccountName4 : !!data.data[i].AccountName5?' ---- '+data.data[i].AccountName5 : !!data.data[i].AccountName6?' ----- '+data.data[i].AccountName6 : !!data.data[i].AccountName7?' ------ '+data.data[i].AccountName7 : '',
+                            AccountType: data.data[i].AccountType,
+                            PrintStatement: data.data[i].PrintStatement,
+                            Explain: data.data[i].Explain,
+                        })
+                    }
+                    setRows(dataArr)
+                }
+            }
+        ).catch(err => { console.log(err); history.push('/') })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
     }
 
     const handleInputDataSubmit = (event) => {
@@ -356,8 +409,22 @@ function ChartOfAccounts() {
                             </Grid> */}
                              <Grid item xs={12} md={12}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12} md={10}>&nbsp;</Grid>
                                     <Grid item xs={12} md={2}>
+                                        <MuiTextfield label="รหัสคุม" name="ControlCode" value={inputDataSearch.ControlCode} onChange={handleInputDataSearch}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <MuiTextfield label="รหัสบัญชี" name="AccountCode" value={inputDataSearch.AccountCode} onChange={handleInputDataSearch} />
+                                    </Grid>
+
+                                    <Grid item xs={12} md={3}>
+                                        <MuiTextfield label="ชื่อบัญชี" name="AccountName" value={inputDataSearch.AccountName} onChange={handleInputDataSearch}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="ค้นหา" onClick={handleSearch} /> 
+                                    </Grid>
+                                    <Grid item xs={12} md={3} className="txt-right">
+                                        <p>&nbsp;</p>
                                         <ButtonNormalIconStartPrimary label="เพิ่มผังบัญชี" startIcon={<AddIcon />} onClick={()=>{setOpenPopup(true); setEditStatus(false);}} />
                                     </Grid>
                                 </Grid>
@@ -382,6 +449,8 @@ function ChartOfAccounts() {
                                         actionDelete={true}
                                         deleteEvent={deleteRow}
                                         deleteParam={'PBID'}
+
+                                        rowsPerPageOptionsValue={[5,10,25,50,100,250, {label: 'ทั้งหมด', value: -1}]}
                                     />
                                     {/* <DataGrid
                                         rows={rows}
