@@ -832,13 +832,16 @@ function LoanRecivcePrint() {
                                 <MuiTextfield label="หมู่"  inputdisabled="input-disabled"  value={dataInfo.data[0].IDCARD_AddMoo} />
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={dataInfo.data[0].IDCARD_AddrSubdistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrSubdistrictID} />
+                                <MuiTextfield label="แขวง / ตำบล"  inputdisabled="input-disabled"  value={ getSubDistrict(dataInfo.data[0].IDCARD_AddrSubdistrictID)} />
+                                {/* <MuiSelectSubDistrict inputdisabled="input-disabled" label="แขวง / ตำบล" lists={subdistrictList} value={dataInfo.data[0].IDCARD_AddrSubdistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrSubdistrictID} /> */}
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={dataInfo.data[0].IDCARD_AddrDistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrDistrictID} />
+                                <MuiTextfield label="เขต / อำเภอ"  inputdisabled="input-disabled"  value={ getDistrict(dataInfo.data[0].IDCARD_AddrDistrictID)} />
+                                {/* <MuiSelectDistrict inputdisabled="input-disabled" label="เขต / อำเภอ" lists={districtList} value={dataInfo.data[0].IDCARD_AddrDistrictID === null ? '' : dataInfo.data[i].IDCARD_AddrDistrictID} /> */}
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[0].IDCARD_AddrProvinceID === null ? '' : dataInfo.data[i].IDCARD_AddrProvinceID}/>
+                                <MuiTextfield label="จังหวัด"  inputdisabled="input-disabled"  value={ getProvince(dataInfo.data[0].IDCARD_AddrProvinceID)} />
+                                {/* <MuiSelectProvince inputdisabled="input-disabled" label="จังหวัด" lists={provinceList} value={dataInfo.data[0].IDCARD_AddrProvinceID === null ? '' : dataInfo.data[i].IDCARD_AddrProvinceID}/> */}
                             </Grid>
                             {/* <Grid item xs={12} md={3}>
                                 <MuiTextfield label="ได้รับเงินจากกรม"  inputdisabled="input-disabled"  value={dataInfo.data[0].LoanReceiptfrom} />
