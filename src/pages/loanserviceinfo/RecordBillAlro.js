@@ -1112,6 +1112,7 @@ function RecordBillAlro() {
                                                                 helperText={errors.CalculateDate}
                                                                 onChange={(event) => {
                                                                     setFieldValue("CalculateDate", moment(event).format("YYYY-MM-DD"))
+                                                                    setFieldValue("PaidDate", moment(event).format("YYYY-MM-DD"))
                                                                 }}
                                                                 onChangeDate={handleChange}
                                                                 onBlur={handleBlur}
@@ -1119,18 +1120,7 @@ function RecordBillAlro() {
                                                                 label="วันที่คำนวณ" />
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
-                                                            <MuiDatePicker
-                                                                name="PaidDate"
-                                                                value={values.PaidDate}
-                                                                error={errors.PaidDate}
-                                                                helperText={errors.PaidDate}
-                                                                onChange={(event) => {
-                                                                    setFieldValue("PaidDate", moment(event).format("YYYY-MM-DD"))
-                                                                }}
-                                                                onChangeDate={handleChange}
-                                                                onBlur={handleBlur}
-                                                                placeholder="วันที่ชำระ"
-                                                                label="วันที่ชำระ" />
+                                                            
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
                                                             <Grid container spacing={2}>
