@@ -61,7 +61,7 @@ function AdvanceInvoice(props) {
 
     const [loaded, setLoaded] = useState(false);
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(0)
     const [pageCount, setPageCount] = useState(10)
     const [totalResult, setTotalResult] = useState(0)
     const [resultList, setResultList] = useState([])
@@ -135,7 +135,7 @@ function AdvanceInvoice(props) {
             rentno: rentno,
             invoiceno: invoiceno,
             farmer: farmer,
-            page: page,
+            page: page+1,
             pagecount:count || pageCount
         }
         setIsLoading(true)
@@ -357,7 +357,7 @@ function AdvanceInvoice(props) {
                                                 if (startDate === "" && rentno === "" && invoiceno === "") {
                                                     dialog.showDialogFail({ message: 'กรุณาเลือกเงิ่อนไขการค้นหา' })
                                                 } else {
-                                                    getAdvanceInvoiceAll(1)
+                                                    getAdvanceInvoiceAll(0)
                                                 }
 
                                             }} />
