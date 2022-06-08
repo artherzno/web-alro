@@ -2963,7 +2963,7 @@ console.log('FreeDebtTime',event.target.value)
                                                 <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man1-idc" defaultValue="" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard} onInput={handleInputDataSubmit} />
@@ -2976,7 +2976,7 @@ console.log('FreeDebtTime',event.target.value)
                                                 <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr2" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man2-idc" defaultValue="" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2} onInput={handleInputDataSubmit} />
@@ -2989,7 +2989,7 @@ console.log('FreeDebtTime',event.target.value)
                                                 <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr3" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man3-idc" defaultValue="" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3} onInput={handleInputDataSubmit} />
@@ -3002,7 +3002,7 @@ console.log('FreeDebtTime',event.target.value)
                                                 <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4}  onChange={handleInputDataSubmit}  />
                                             </Grid>
                                             <Grid item xs={12} md={7}>
-                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
+                                                <MuiTextfield inputdisabled="input-disabled" label="ที่อยู่" name="WitnessAddr4" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`}  onChange={handleInputDataSubmit} />
                                             </Grid>
                                             <Grid item xs={12} md={5}>
                                                 <MuiTextNumber label="บัตรประชาชนเลขที่" id="no-man4-idc" defaultValue="" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4} onInput={handleInputDataSubmit} />

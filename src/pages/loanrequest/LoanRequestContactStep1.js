@@ -92,7 +92,7 @@ function LoanRequestContactStep1(props) {
         activityProject: [],
 
         ApplicantNo: '',
-        AppLocation: 'สำนักการปฏิรูปที่ดินจังหวัด'+localStorage.getItem('provincename'),
+        AppLocation: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+localStorage.getItem('provincename'),
         AppTo: 'ปฏิรูปที่ดินจังหวัด'+localStorage.getItem('provincename'),
 
         IDCard: '', // 1234567891017,

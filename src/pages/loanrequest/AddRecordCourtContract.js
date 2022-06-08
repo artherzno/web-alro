@@ -303,6 +303,8 @@ function AddRecordCourtContract() {
         LoanFarmerTypeName: '',
         notation: '',
         OrderInterest: true,
+
+        LoanObjName: '',
     })
 
     const [inputDataOrderInterest, setInputDataOrderInterest] = useState(false)
@@ -348,7 +350,8 @@ function AddRecordCourtContract() {
         // 'FarmerGrade',
         'Status', 
         'LoanNumber',
-        'dCreated',
+        // 'dCreated',
+        'LoanDate',
         'IDCard', 
         'FrontName',
         'Name',
@@ -361,7 +364,8 @@ function AddRecordCourtContract() {
         // { id: 'FarmerGrade', numeric: false, disablePadding: true, widthCol: '0px', label: 'ระดับเกษตรกร' },
         { id: 'Status', numeric: false, disablePadding: false, widthCol: '150px', label: 'สถานะสัญญา' },
         { id: 'LoanNumber', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขที่สัญญา' },
-        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        // { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        { id: 'LoanDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่ทำสัญญา' },
         { id: 'IDCard', numeric: false, disablePadding: false, widthCol: '180px', label: 'เลขบัตรประชาชน' },
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
@@ -369,8 +373,8 @@ function AddRecordCourtContract() {
         { id: 'Tel', numeric: false, disablePadding: false, widthCol: '150px', label: 'โทรศัพท์' },
     ]
 
-    function createData(LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel, LoanRecType) {
-        return {LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel, LoanRecType }
+    function createData(LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,LoanDate, /*dCreated,*/IDCard, FrontName,Name,Sirname, Tel, LoanRecType) {
+        return {LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,LoanDate, /*dCreated,*/IDCard, FrontName,Name,Sirname, Tel, LoanRecType }
     }
 
     // New order date 2021-08-23 to 23/08/2564
@@ -462,7 +466,8 @@ function AddRecordCourtContract() {
                                     item.ApplicantID,
                                     item.Status === null ? 'บันทึกชั่วคราว' : item.Status ? 'คำพิพากษาศาล' : 'ปิด',
                                     item.LoanNumber === null ? '' : item.LoanNumber,
-                                    item.dCreated ? newOrderDate(item.dCreated) : null,
+                                    item.LoanDate ? newOrderDate(item.LoanDate) : null,
+                                    // item.dCreated ? newOrderDate(item.dCreated) : null,
                                     item.IDCard === null ? '' : item.IDCard,
                                     item.FrontName === null ? '' : item.FrontName,
                                     item.Name === null ? '' : item.Name,
@@ -652,6 +657,10 @@ function AddRecordCourtContract() {
                             LoanPeriod: data.loanrec_data[0].LoanPeriod,
                             LoanobjName: data.loanrec_data[0].LoanObjName,
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
+
+                            LoanPeriodName: data.loanrec_data[0].LoanPeriodName,
+                            LoanTypeName: data.loanrec_data[0].LoanTypeName,
+                            LoanObjName: data.loanrec_data[0].LoanObjName,
                         })
 
                         setInputDataLoanRec(data.loanrec_data[0],{
@@ -893,6 +902,10 @@ function AddRecordCourtContract() {
                             LoanPeriod: data.loanrec_data[0].LoanPeriod,
                             LoanobjName: data.loanrec_data[0].LoanObjName,
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
+
+                            LoanPeriodName: data.loanrec_data[0].LoanPeriodName,
+                            LoanTypeName: data.loanrec_data[0].LoanTypeName,
+                            LoanObjName: data.loanrec_data[0].LoanObjName,
                         })
 
                         setInputDataLoanRec(data.loanrec_data[0],{
@@ -970,6 +983,10 @@ function AddRecordCourtContract() {
                         OrderInterest: data.loanrec_data[0].OrderInterest === null ? false : data.loanrec_data[0].OrderInterest === 1 || data.loanrec_data[0].OrderInterest === '1' ? true : false,
                         LoanChangeDate: data.loanrec_data[0].LoanChangeDate === null ? '' : data.loanrec_data[0].LoanChangeDate,
                         DebtEditDate: data.loanrec_data[0].DebtEditDate === null ? '' : data.loanrec_data[0].DebtEditDate,
+
+                        LoanPeriodName: !!data.loanrec_data[0].LoanPeriodName ? data.loanrec_data[0].LoanPeriodName : '',
+                        LoanTypeName: !!data.loanrec_data[0].LoanTypeName ? data.loanrec_data[0].LoanTypeName : '' ,
+                        LoanObjName: !!data.loanrec_data[0].LoanObjName ? data.loanrec_data[0].LoanObjName : '',
                     })
 
                     setInputDataOrderInterest(data.loanrec_data[0].OrderInterest === null ? false : data.loanrec_data[0].OrderInterest === 1 || data.loanrec_data[0].OrderInterest === '1' ? true : false)
@@ -1738,7 +1755,9 @@ function AddRecordCourtContract() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* objective1 */}
-                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataSubmit.objective1} onChange={handleInputDataSubmit} />
+                                                            {/* <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataSubmit.objective1} onChange={handleInputDataSubmit} /> */} {/* P'Hanz edit 05/06/22 */}
+                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} />          
+                                                        
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1748,7 +1767,9 @@ function AddRecordCourtContract() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanPeriod */}
-                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataSubmit.LoanPeriod} onChange={handleInputDataSubmit}  />
+                                                            {/* <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataSubmit.LoanPeriod} onChange={handleInputDataSubmit}  />  */} {/* P'Hanz edit 05/06/22 */}
+                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriodName" value={inputDataSubmit.LoanPeriodName} onChange={handleInputDataSubmit}  /> 
+                                                        
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -1758,7 +1779,8 @@ function AddRecordCourtContract() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanobjName */}
-                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} />
+                                                            {/* <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} /> */} {/* P'Hanz edit 05/06/22 */}
+                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanTypeName" value={inputDataSubmit.LoanTypeName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
