@@ -661,6 +661,8 @@ function AddRecordCourtContract() {
                             LoanPeriodName: data.loanrec_data[0].LoanPeriodName,
                             LoanTypeName: data.loanrec_data[0].LoanTypeName,
                             LoanObjName: data.loanrec_data[0].LoanObjName,
+
+                            LoanDate: data.loanrec_data[0].LoanDate,
                         })
 
                         setInputDataLoanRec(data.loanrec_data[0],{
@@ -1722,7 +1724,7 @@ function AddRecordCourtContract() {
                                                             <MuiTextfield label="สัญญาเลขที่" value={inputDataLoanRec.LoanNumber} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
-                                                            <MuiDatePicker label="วันที่สัญญา" value={inputDataLoanRec.LoanDate} onChange={handleInputDataSubmit} />
+                                                            <MuiDatePicker label="วันที่สัญญา" value={inputDataSubmit.LoanDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, LoanDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;" id='' />
