@@ -193,7 +193,7 @@ function RecordInstallmentPayment() {
             if (beforeProcess.length > 0) {
 
                 const recData = beforeProcess[beforeProcess.length - 1]
-                const beforRectData = beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
+                const beforRectData = recData//beforeProcess.length >= 2 ? beforeProcess[beforeProcess.length - 2] : null
 
                 formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
                 formikRef.current.setFieldValue("RemainingPrinciple", recData.principalBalance)

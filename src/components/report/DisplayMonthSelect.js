@@ -13,6 +13,8 @@ const displayList1 = [{ value: 0, label: "รายปีงบ" },
 { value: 1, label: "รายเดือน" },
 { value: 2, label: "ช่วงวันที่" }]
 
+const displayList2 = [{ value: 2, label: "ช่วงวันที่" }]
+
 export const DisplayMonthSelect = ({
     onChange = () => { },
     onChangeYear = () => { },
@@ -20,7 +22,8 @@ export const DisplayMonthSelect = ({
     onChangeMonth = () => { },
     onChangeDate = () => { },
     onChangeYearBudget = () => { },
-    isShowBudgetYear
+    isShowBudgetYear,
+    isShowDateRang
 }) => {
 
     const [display, setDisplay] = useState(0)
@@ -30,7 +33,7 @@ export const DisplayMonthSelect = ({
             <Grid container spacing={2}>
 
                 <Grid item>
-                    <Select options={isShowBudgetYear ? displayList : displayList1} onChange={(event) => {
+                    <Select options={isShowBudgetYear ? displayList : (isShowDateRang ? displayList2 : displayList1) } onChange={(event) => {
 
                         const displays = isShowBudgetYear ? displayList : displayList1
                         const found = displays.find(element => element.value.toString() === event.target.value)
