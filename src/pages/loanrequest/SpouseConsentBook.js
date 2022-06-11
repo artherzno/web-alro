@@ -175,19 +175,19 @@ function SpouseConsentBook() {
         CoupleSubdistrict: "",
         CoupleOtherContact: "",
         WitnessName1: "",
-        WitnessAddr1: 'ส.ป.ก.จังหวัด'+provincename,
+        WitnessAddr1: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
         WitnessIDCard1: "",
         WitnessIDCardMake1: 'กรมการปกครอง',
         WitnessName2: "",
-        WitnessAddr2: 'ส.ป.ก.จังหวัด'+provincename,
+        WitnessAddr2: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
         WitnessIDCard2: "",
         WitnessIDCardMake2: 'กรมการปกครอง',
         WitnessName3: "",
-        WitnessAddr3: 'ส.ป.ก.จังหวัด'+provincename,
+        WitnessAddr3: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
         WitnessIDCard3: "",
         WitnessIDCardMake3: 'กรมการปกครอง',
         WitnessName4: "",
-        WitnessAddr4: 'ส.ป.ก.จังหวัด'+provincename,
+        WitnessAddr4: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
         WitnessIDCard4: "",
         WitnessIDCardMake4: 'กรมการปกครอง',
         GuaranteeBookType: ""
@@ -606,19 +606,19 @@ function SpouseConsentBook() {
             CoupleSubdistrict: "",
             CoupleOtherContact: "",
             WitnessName1: "",
-            WitnessAddr1: 'ส.ป.ก.จังหวัด'+provincename,
+            WitnessAddr1: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
             WitnessIDCard1: "",
             WitnessIDCardMake1: 'กรมการปกครอง',
             WitnessName2: "",
-            WitnessAddr2: 'ส.ป.ก.จังหวัด'+provincename,
+            WitnessAddr2: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
             WitnessIDCard2: "",
             WitnessIDCardMake2: 'กรมการปกครอง',
             WitnessName3: "",
-            WitnessAddr3: 'ส.ป.ก.จังหวัด'+provincename,
+            WitnessAddr3: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
             WitnessIDCard3: "",
             WitnessIDCardMake3: 'กรมการปกครอง',
             WitnessName4: "",
-            WitnessAddr4: 'ส.ป.ก.จังหวัด'+provincename,
+            WitnessAddr4: 'สำนักงานการปฏิรูปที่ดินจังหวัด'+provincename,
             WitnessIDCard4: "",
             WitnessIDCardMake4: 'กรมการปกครอง',
             GuaranteeBookType: ""
@@ -1529,6 +1529,18 @@ function SpouseConsentBook() {
                             Supporter_IDCard14: result.Supporter_IDCard14,
                             Supporter_IDCard15: result.Supporter_IDCard15,
                             Supporter_IDCard16: result.Supporter_IDCard16,
+                            
+                            WitnessAddr1: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน1",
+                            WitnessIDCardMake1: 'กรมการปกครอง',// "ออกพยาน1",
+                            
+                            WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน2",
+                            WitnessIDCardMake2: 'กรมการปกครอง',// "ออกพยาน2",
+
+                            WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน1",
+                            WitnessIDCardMake3: 'กรมการปกครอง',// "ออกพยาน1",
+                            
+                            WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน2",
+                            WitnessIDCardMake4: 'กรมการปกครอง',// "ออกพยาน2",
                         })
 
                         setIsLoading(false)
@@ -2044,22 +2056,22 @@ function SpouseConsentBook() {
                             CoupleOtherContact: result.CoupleOtherContact || '',// "",
 
                             WitnessName1: result.WitnessName1 || '',// "พยาน1",
-                            WitnessAddr1: '',// "ที่อยู่พยาน1",
+                            WitnessAddr1: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน1",
                             WitnessIDCard1: result.WitnessIDCard1 || '',// "1234567891011",
-                            WitnessIDCardMake1: '',// "ออกพยาน1",
+                            WitnessIDCardMake1: 'กรมการปกครอง',// "ออกพยาน1",
                             WitnessName2: result.WitnessName2 || '',// "พยาน2",
-                            WitnessAddr2: '',// "ที่อยู่พยาน2",
+                            WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน2",
                             WitnessIDCard2: result.WitnessIDCard2 || '',// "1234567891022",
-                            WitnessIDCardMake2: '',// "ออกพยาน2",
+                            WitnessIDCardMake2: 'กรมการปกครอง',// "ออกพยาน2",
 
                             WitnessName3: result.WitnessName3 || '',// "พยาน1",
-                            WitnessAddr3: '',// "ที่อยู่พยาน1",
+                            WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน1",
                             WitnessIDCard3: result.WitnessIDCard3 || '',// "1234567891011",
-                            WitnessIDCardMake3: '',// "ออกพยาน1",
+                            WitnessIDCardMake3: 'กรมการปกครอง',// "ออกพยาน1",
                             WitnessName4: result.WitnessName4 || '',// "พยาน2",
-                            WitnessAddr4: '',// "ที่อยู่พยาน2",
+                            WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,// "ที่อยู่พยาน2",
                             WitnessIDCard4: result.WitnessIDCard4 || '',// "1234567891022",
-                            WitnessIDCardMake4: '',// "ออกพยาน2",
+                            WitnessIDCardMake4: 'กรมการปกครอง',// "ออกพยาน2",
                         })
 
                         // let personalForm = document.getElementsByClassName('personalForm');
@@ -2262,7 +2274,7 @@ function SpouseConsentBook() {
     }
 
     const handleInputDataSubmit = (event) => {
-
+        // console.log(event.target.name, event.target.value)
         // console.log('',event)
         let value = event.target.value
         setInputDataSubmit({...inputDataSubmit,
@@ -2582,52 +2594,52 @@ function SpouseConsentBook() {
                                                     <MuiLabelHeader label="หมายเหตุ" />
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="1. ชื่อพยาน" name="WitnessName1" value={inputData.WitnessName1} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="1. ชื่อพยาน" name="WitnessName1" value={inputDataSubmit.WitnessName1} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr1" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr1" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard1" value={inputData.WitnessIDCard1} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard1" value={inputDataSubmit.WitnessIDCard1} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
                                                     <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake1" value={'กรมการปกครอง'} onChange={handleInputDataSubmit}/>
                                                 </Grid>
 
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputData.WitnessName2} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard2" value={inputData.WitnessIDCard2} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
                                                     <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake2" value={'กรมการปกครอง'} onChange={handleInputDataSubmit}/>
                                                 </Grid>
 
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputData.WitnessName3} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr3" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard3" value={inputData.WitnessIDCard3} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
                                                     <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake3" value={'กรมการปกครอง'} onChange={handleInputDataSubmit}/>
                                                 </Grid>
 
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputData.WitnessName4} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
-                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
+                                                    <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr4" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
                                                 </Grid>
                                                 <Grid item xs={12} md={5}>
-                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard4" value={inputData.WitnessIDCard4} onChange={handleInputDataSubmit} />
+                                                    <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4} onChange={handleInputDataSubmit} />
                                                 </Grid>
                                                 <Grid item xs={12} md={7}>
                                                     <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMake4" value={'กรมการปกครอง'} onChange={handleInputDataSubmit}/>

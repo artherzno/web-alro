@@ -78,9 +78,9 @@ function PrintBillBank() {
 
     const rowsLabel = [
         // 'no',
-        'Recdate', 
-        'ProjectCode',
-        'ProjectName',
+        'RecDate', 
+        'ProjectMainCode',
+        'ProjectMainName',
         'LoanNumber', 
         'ReceiptDate',
         'ReceiptType',
@@ -88,6 +88,9 @@ function PrintBillBank() {
         'PrinciplePaid', 
         'InterestPaid', 
         'Fines', 
+        'FrontName',
+        'Name',
+        'Sirname',
         // 'Time', 
         // 'Mindex', 
         // 'pcapital', 
@@ -98,23 +101,11 @@ function PrintBillBank() {
         // 'pcharge', 
     ]
 
-    // item.Recdate,
-    // item.ProjectCode,
-    // item.ProjectName,
-    // item.LoanNumber,
-    // item.ReceiptDate,
-    // item.ReceiptNumber,
-    // item.PrinciplePaid,
-    // item.InterestPaid,
-    // item.Fines,
-    // item.Time,
-    // item.Mindex,
-
     const headCells = [
         // { id: 'no', numeric: false, disablePadding: true, label: 'รหัสบันทึก' },
-        { id: 'Recdate', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่บันทึก' },
-        { id: 'ProjectCode', numeric: true, disablePadding: false, widthCol: '160px', label: 'รหัสโครงการ' },
-        { id: 'ProjectName', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อโครงการ' },
+        { id: 'RecDate', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่บันทึก' },
+        { id: 'ProjectMainCode', numeric: true, disablePadding: false, widthCol: '160px', label: 'รหัสโครงการ' },
+        { id: 'ProjectMainName', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อโครงการ' },
         { id: 'LoanNumber', numeric: true, disablePadding: false, widthCol: '160px', label: 'สัญญาเลขที่' },
         { id: 'ReceiptDate', numeric: false, disablePadding: true, widthCol: '160px', label: 'วันที่ใบเสร็จ' },
         { id: 'ReceiptType', numeric: true, disablePadding: false, widthCol: '160px', label: 'ประเภทใบเสร็จ' },
@@ -122,6 +113,9 @@ function PrintBillBank() {
         { id: 'PrinciplePaid', numeric: true, disablePadding: false, widthCol: '160px', label: 'เงินต้น' },
         { id: 'InterestPaid', numeric: true, disablePadding: false, widthCol: '160px', label: 'ดอกเบี้ย' },
         { id: 'Fines', numeric: true, disablePadding: false, widthCol: '160px', label: 'ค่าปรับ' },
+        { id: 'FrontName', numeric: true, disablePadding: false, widthCol: '120px', label: 'คำนำหน้า' },
+        { id: 'Name', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อ' },
+        { id: 'Sirname', numeric: true, disablePadding: false, widthCol: '160px', label: 'นามสกุล' },
         // { id: 'Time', numeric: false, disablePadding: true, label: 'item' },
         // { id: 'Mindex', numeric: true, disablePadding: false, label: 'Mindex' },
         // { id: 'pcapital', numeric: true, disablePadding: false, label: 'Pcapital' },
@@ -132,20 +126,24 @@ function PrintBillBank() {
         // { id: 'pcharge', numeric: true, disablePadding: false, label: 'Pcharge' },
     ];
 
-    function createData(Recdate, ProjectCode,ProjectName,LoanID, LoanNumber, ReceiptDate, ReceiptType, ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, ) {
-        return { Recdate, 
-    ProjectCode,
-    ProjectName,
-    LoanID,
-    LoanNumber, 
-    ReceiptDate,
-    ReceiptType,
-    ReceiptNumber, 
-    PrinciplePaid, 
-    InterestPaid, 
-    Fines, 
-    Time, 
-    Mindex, };
+    function createData(RecDate, ProjectMainCode,ProjectMainName,LoanID, LoanNumber, ReceiptDate, ReceiptType, ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, FrontName, Name, Sirname ) {
+        return { RecDate, 
+            ProjectMainCode,
+            ProjectMainName,
+            LoanID,
+            LoanNumber, 
+            ReceiptDate,
+            ReceiptType,
+            ReceiptNumber, 
+            PrinciplePaid, 
+            InterestPaid, 
+            Fines, 
+            Time, 
+            Mindex,
+            FrontName,
+            Name,
+            Sirname,
+        };
     }
 
     useEffect(() => {
@@ -153,6 +151,14 @@ function PrintBillBank() {
 
 
     }, [])
+
+    // New order date 2021-08-23 to 23/08/2564
+    const newOrderDate = (val) => {
+        let yyyy = Number(val.substring(0,4)) + 543
+        let mm = val.substring(5,7)
+        let dd = val.substring(8,10)
+        return dd+'/'+mm+'/'+yyyy
+    }
 
     const getSearch = () => {
         setIsLoading(true)
@@ -187,12 +193,14 @@ function PrintBillBank() {
                             data.data.map((item,i)=>
                                 createData(
                                     // i,
-                                    item.Recdate,
-                                    item.ProjectCode,
-                                    item.ProjectName,
+                                    // item.RecDate?moment(item.RecDate).format('DD/MM/YYYY'):'',
+                                    newOrderDate(item.RecDate),
+                                    item.ProjectMainCode,
+                                    item.ProjectMainName,
                                     item.LoanID,
                                     item.LoanNumber,
-                                    !!item.ReceiptDate?moment(item.ReceiptDate).format('DD/MM/YYYY'):'',
+                                    // !!item.ReceiptDate?moment(item.ReceiptDate).format('DD/MM/YYYY'):'',
+                                    newOrderDate(item.ReceiptDate),
                                     !!item.BankFile?'ธ.ก.ส.':'ส.ป.ก.',
                                     item.ReceiptNumber,
                                     !!item.PrinciplePaid?item.PrinciplePaid:0,
@@ -200,6 +208,9 @@ function PrintBillBank() {
                                     !!item.Fines?item.Fines:0,
                                     item.Time,
                                     item.Mindex,
+                                    item.FrontName,
+                                    item.Name,
+                                    item.Sirname,
 
                                 ))
                         )

@@ -221,7 +221,7 @@ function LoanRequestContactStep3(props) {
                             EstimateImcome: dataViewStep3.EstimateImcome || 0, // 0,
                             Cost: dataViewStep3.Cost || 0, // 0,
                             PayAbility: dataViewStep3.PayAbility || '', // "",
-                            Result: dataViewStep3.Result===1 ? '1' : dataViewStep3.Result===0 ? '0':'', // 0,
+                            Result: !!dataViewStep3.Result===true ? '1' : dataViewStep3.Result===false ? '0':'', // 0,
                             Explain: dataViewStep3.Explain || '', // "",
                             Guarantee1: dataViewStep3.Guarantee1==='1' ? true: false || false, // "",
                             Guarantee2: dataViewStep3.Guarantee2==='1' ? true: false || false,

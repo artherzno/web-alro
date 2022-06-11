@@ -228,19 +228,19 @@ function RecordContractDebt() {
         LastDatePaid: moment(),
         OfficeProvince: '',
         WitnessName: '',
-        WitnessAddr: `ส.ป.ก.จังหวัด${provincename}`,
+        WitnessAddr: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
         WitnessIDCard: '',
         WitnessIDCardMade: 'กรมการปกครอง',
         WitnessName2: '',
-        WitnessAddr2: `ส.ป.ก.จังหวัด${provincename}`,
+        WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
         WitnessIDCard2: '',
         WitnessIDCardMade2: 'กรมการปกครอง',
         WitnessName3: '',
-        WitnessAddr3: `ส.ป.ก.จังหวัด${provincename}`,
+        WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
         WitnessIDCard3: '',
         WitnessIDCardMade3: 'กรมการปกครอง',
         WitnessName4: '',
-        WitnessAddr4: `ส.ป.ก.จังหวัด${provincename}`,
+        WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
         WitnessIDCard4: '',
         WitnessIDCardMade4: 'กรมการปกครอง',
         ChangeContactCommit: '',
@@ -305,6 +305,7 @@ function RecordContractDebt() {
 
         OrderNo: '',
         ApproveDate: moment().format('YYYY-MM-DD'),
+        LoanObjName: '',
     })
 
     const [summaryTable, setSummaryTable] = useState(0)
@@ -378,7 +379,8 @@ function RecordContractDebt() {
         // 'FarmerGrade',
         'Status', 
         'LoanNumber',
-        'dCreated',
+        // 'dCreated',
+        'LoanDate',
         'IDCard', 
         'FrontName',
         'Name',
@@ -391,7 +393,8 @@ function RecordContractDebt() {
         // { id: 'FarmerGrade', numeric: false, disablePadding: true, widthCol: '0px', label: 'ระดับเกษตรกร' },
         { id: 'Status', numeric: false, disablePadding: false, widthCol: '150px', label: 'สถานะสัญญา' },
         { id: 'LoanNumber', numeric: false, disablePadding: false, widthCol: '150px', label: 'เลขที่สัญญา' },
-        { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        // { id: 'dCreated', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่กู้' },
+        { id: 'LoanDate', numeric: false, disablePadding: false, widthCol: '150px', label: 'วันที่ทำสัญญา' },
         { id: 'IDCard', numeric: false, disablePadding: false, widthCol: '180px', label: 'เลขบัตรประชาชน' },
         { id: 'FrontName', numeric: false, disablePadding: false, widthCol: '150px', label: 'คำนำหน้า' },
         { id: 'Name', numeric: false, disablePadding: false, widthCol: '150px', label: 'ชื่อ' },
@@ -399,8 +402,8 @@ function RecordContractDebt() {
         { id: 'Tel', numeric: false, disablePadding: false, widthCol: '150px', label: 'โทรศัพท์' },
     ]
 
-    function createData(LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel, LoanRecType) {
-        return {LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,dCreated,IDCard, FrontName,Name,Sirname, Tel, LoanRecType }
+    function createData(LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,LoanDate/*dCreated*/,IDCard, FrontName,Name,Sirname, Tel, LoanRecType) {
+        return {LoanID, FarmerGrade, ApplicantID, Status, LoanNumber,LoanDate/*dCreated*/,IDCard, FrontName,Name,Sirname, Tel, LoanRecType }
     }
 
     // New order date 2021-08-23 to 23/08/2564
@@ -492,7 +495,8 @@ function RecordContractDebt() {
                                     item.ApplicantID,
                                     item.Status === null ? 'บันทึกชั่วคราว' : item.Status ? 'แปลงหนี้' : 'ปิด',
                                     item.LoanNumber === null ? '' : item.LoanNumber,
-                                    item.dCreated ? newOrderDate(item.dCreated) : null,
+                                    item.LoanDate ? newOrderDate(item.LoanDate) : null,
+                                    // item.dCreated ? newOrderDate(item.dCreated) : null,
                                     item.IDCard === null ? '' : item.IDCard,
                                     item.FrontName === null ? '' : item.FrontName,
                                     item.Name === null ? '' : item.Name,
@@ -671,19 +675,19 @@ function RecordContractDebt() {
             LastDatePaid: moment(),
             OfficeProvince: '',
             WitnessName: '',
-            WitnessAddr: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard: '',
             WitnessIDCardMade: 'กรมการปกครอง',
             WitnessName2: '',
-            WitnessAddr2: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard2: '',
             WitnessIDCardMade2: 'กรมการปกครอง',
             WitnessName3: '',
-            WitnessAddr3: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard3: '',
             WitnessIDCardMade3: 'กรมการปกครอง',
             WitnessName4: '',
-            WitnessAddr4: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard4: '',
             WitnessIDCardMade4: 'กรมการปกครอง',
             ChangeContactCommit: '',
@@ -745,6 +749,7 @@ function RecordContractDebt() {
             LoanobjName: '',
             LoanFarmerTypeName: '',
             notation: '',
+            LoanObjName: '',
         })
 
         axios.post(
@@ -815,6 +820,10 @@ function RecordContractDebt() {
                             LoanPeriod: data.loanrec_data[0].LoanPeriod,
                             LoanobjName: data.loanrec_data[0].LoanobjName,
                             LoanFarmerTypeName: data.loanrec_data[0].LoanFarmerTypeName,
+
+                            LoanPeriodName: data.loanrec_data[0].LoanPeriodName,
+                            LoanTypeName: data.loanrec_data[0].LoanTypeName,
+                            LoanObjName: data.loanrec_data[0].LoanObjName,
                         })
 
                         setInputDataLoanRec(data.loanrec_data[0],{
@@ -1044,19 +1053,19 @@ function RecordContractDebt() {
             LastDatePaid: moment(),
             OfficeProvince: '',
             WitnessName: '',
-            WitnessAddr: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard: '',
             WitnessIDCardMade: 'กรมการปกครอง',
             WitnessName2: '',
-            WitnessAddr2: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard2: '',
             WitnessIDCardMade2: 'กรมการปกครอง',
             WitnessName3: '',
-            WitnessAddr3: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard3: '',
             WitnessIDCardMade3: 'กรมการปกครอง',
             WitnessName4: '',
-            WitnessAddr4: `ส.ป.ก.จังหวัด${provincename}`,
+            WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
             WitnessIDCard4: '',
             WitnessIDCardMade4: 'กรมการปกครอง',
             ChangeContactCommit: '',
@@ -1118,6 +1127,8 @@ function RecordContractDebt() {
             LoanobjName: '',
             LoanFarmerTypeName: '',
             notation: '',
+
+            LoanObjName: '',
         })
 
         axios.post(
@@ -1190,6 +1201,27 @@ function RecordContractDebt() {
                             
                             ApproveDate: data.loanrec_data[0].ApproveDate,
                             OrderNo: data.loanrec_data[0].OrderNo,
+
+                            LoanPeriodName: data.loanrec_data[0].LoanPeriodName,
+                            LoanTypeName: data.loanrec_data[0].LoanTypeName,
+                            LoanObjName: data.loanrec_data[0].LoanObjName,
+
+                            WitnessName: data.loanrec_data[0].WitnessName,
+                            WitnessAddr: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                            WitnessIDCard: data.loanrec_data[0].WitnessIDCard,
+                            WitnessIDCardMade: 'กรมการปกครอง',
+                            WitnessName2: data.loanrec_data[0].WitnessName2,
+                            WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                            WitnessIDCard2: data.loanrec_data[0].WitnessIDCard2,
+                            WitnessIDCardMade2: 'กรมการปกครอง',
+                            WitnessName3: data.loanrec_data[0].WitnessName3,
+                            WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                            WitnessIDCard3: data.loanrec_data[0].WitnessIDCard3,
+                            WitnessIDCardMade3: 'กรมการปกครอง',
+                            WitnessName4: data.loanrec_data[0].WitnessName4,
+                            WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                            WitnessIDCard4: data.loanrec_data[0].WitnessIDCard4,
+                            WitnessIDCardMade4: 'กรมการปกครอง',
                         })
 
                         setInputDataLoanRec(data.loanrec_data[0],{
@@ -1270,6 +1302,27 @@ function RecordContractDebt() {
                     
                         OrderNo: data.loanrec_data[0].OrderNo === null ? null : data.loanrec_data[0].OrderNo,
                         ApproveDate: data.loanrec_data[0].ApproveDate  === null ? null : data.loanrec_data[0].ApproveDate,
+
+                        LoanPeriodName: !!data.loanrec_data[0].LoanPeriodName ? data.loanrec_data[0].LoanPeriodName : '',
+                        LoanTypeName: !!data.loanrec_data[0].LoanTypeName ? data.loanrec_data[0].LoanTypeName : '' ,
+                        LoanObjName: !!data.loanrec_data[0].LoanObjName ? data.loanrec_data[0].LoanObjName : '',
+
+                        WitnessName: data.loanrec_data[0].WitnessName,
+                        WitnessAddr: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                        WitnessIDCard: data.loanrec_data[0].WitnessIDCard,
+                        WitnessIDCardMade: 'กรมการปกครอง',
+                        WitnessName2: data.loanrec_data[0].WitnessName2,
+                        WitnessAddr2: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                        WitnessIDCard2: data.loanrec_data[0].WitnessIDCard2,
+                        WitnessIDCardMade2: 'กรมการปกครอง',
+                        WitnessName3: data.loanrec_data[0].WitnessName3,
+                        WitnessAddr3: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                        WitnessIDCard3: data.loanrec_data[0].WitnessIDCard3,
+                        WitnessIDCardMade3: 'กรมการปกครอง',
+                        WitnessName4: data.loanrec_data[0].WitnessName4,
+                        WitnessAddr4: `สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`,
+                        WitnessIDCard4: data.loanrec_data[0].WitnessIDCard4,
+                        WitnessIDCardMade4: 'กรมการปกครอง',
                     })
 
                     setInputDataSubmitIndividual({
@@ -1321,6 +1374,10 @@ function RecordContractDebt() {
                             ...inputDataSubmitIndividual,
                             principle: data.old_priciple_data[0].PrincipleBalance,
                             OldInterest: data.old_priciple_data[0].TotalInterest,
+
+                            OldFine: data.singlecard_data[0].FineKang === null ? 0 : data.singlecard_data[0].FineKang, // P'Pong specify 13/01/22
+                            Interest: data.loanrec_data[0].Interest === null ? 0 : data.loanrec_data[0].Interest,
+                            ChargeRate: data.loanrec_data[0].ChargeRate === null ? 0 : data.loanrec_data[0].ChargeRate,
                         })
                     }
                     
@@ -1714,13 +1771,13 @@ function RecordContractDebt() {
         formData.set('CurrentYear', year.CurrentYear)
         formData.set('RecYear', year.RecYear)
 
-        formData.set('WitnessAddr',`ส.ป.ก.จังหวัด${provincename}`)
+        formData.set('WitnessAddr',`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`)
         formData.set('WitnessIDCardMade','กรมการปกครอง')
-        formData.set('WitnessAddr2',`ส.ป.ก.จังหวัด${provincename}`)
+        formData.set('WitnessAddr2',`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`)
         formData.set('WitnessIDCardMade2','กรมการปกครอง')
-        formData.set('WitnessAddr3',`ส.ป.ก.จังหวัด${provincename}`)
+        formData.set('WitnessAddr3',`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`)
         formData.set('WitnessIDCardMade3','กรมการปกครอง')
-        formData.set('WitnessAddr4',`ส.ป.ก.จังหวัด${provincename}`)
+        formData.set('WitnessAddr4',`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`)
         formData.set('WitnessIDCardMade4','กรมการปกครอง')
 
         formData.append('ApproveDate', inputDataSubmit.ApproveDate)
@@ -1999,12 +2056,12 @@ function RecordContractDebt() {
                                                                     <MuiTextfield label="ที่" name="OrderNo" value={inputDataSubmit.OrderNo} onChange={handleInputDataSubmit}  />
                                                                     {/* <MuiTextfield label="ที่" value={inputDataLoanRec.ApprovalNo} onChange={handleInputDataFarmer}  /> */}
                                                                 </Grid>
-                                                                <Grid item xs={12} md={3}>
+                                                                {/* <Grid item xs={12} md={3}> */} {/* All edit 07-06-22 */}
                                                                     {/* ApproveDate */}
-                                                                    <MuiDatePicker label="ลงวันที่" value={inputDataSubmit.ApproveDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
+                                                                    {/* <MuiDatePicker label="ลงวันที่" name="" value={inputDataSubmit.ApproveDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
                                                                 
                                                                     {/* <MuiDatePicker label="ลงวันที่" value={inputDataLoanRec.ApproveDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, ApproveDate: moment(newValue).format('YYYY-MM-DD')}) }}  /> */}
-                                                                </Grid>
+                                                                {/* </Grid> */}
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={2} className="txt-center">
@@ -2177,7 +2234,8 @@ function RecordContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* objective1 */}
-                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataSubmit.objective1} onChange={handleInputDataSubmit} />
+                                                            {/* <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="objective1" value={inputDataSubmit.objective1} onChange={handleInputDataSubmit} /> */} {/* P'Hanz edit 05/06/22 */}
+                                                            <MuiTextfield label="วัตถุประสงค์การกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} />          
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -2187,7 +2245,8 @@ function RecordContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanPeriod */}
-                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataSubmit.LoanPeriod} onChange={handleInputDataSubmit}  />
+                                                            {/* <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriod" value={inputDataSubmit.LoanPeriod} onChange={handleInputDataSubmit}  />  */} {/* P'Hanz edit 05/06/22 */}
+                                                            <MuiTextfield label="ประเภทเงินกู้" name="LoanPeriodName" value={inputDataSubmit.LoanPeriodName} onChange={handleInputDataSubmit}  /> 
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -2197,7 +2256,8 @@ function RecordContractDebt() {
                                                         </Grid> */}
                                                         <Grid item xs={12} md={3}>
                                                             {/* LoanobjName */}
-                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} />
+                                                            {/* <MuiTextfield label="ประเภทกู้ยืม" name="LoanobjName" value={inputDataSubmit.LoanobjName} onChange={handleInputDataSubmit} /> */} {/* P'Hanz edit 05/06/22 */}
+                                                            <MuiTextfield label="ประเภทกู้ยืม" name="LoanTypeName" value={inputDataSubmit.LoanTypeName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         {/* <Grid item xs={12} md={3}>
                                                             <MuiTextfield label="&nbsp;"  defaultValue='' />
@@ -2583,49 +2643,49 @@ function RecordContractDebt() {
                                                             <p>หมายเหตุ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputDataLoanRec.WitnessName} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="1. ชื่อพยาน" name="WitnessName" value={inputDataSubmit.WitnessName} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard" value={inputDataLoanRec.WitnessIDCard} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard" value={inputDataSubmit.WitnessIDCard} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade" value={'กรมการปกครอง'} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputDataLoanRec.WitnessName2} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="2. ชื่อพยาน" name="WitnessName2" value={inputDataSubmit.WitnessName2} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={`ส.ป.ก.จังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr2" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard2" value={inputDataLoanRec.WitnessIDCard2} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard2" value={inputDataSubmit.WitnessIDCard2} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade2" value={'กรมการปกครอง'}onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputDataLoanRec.WitnessName3} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="3. ชื่อพยาน" name="WitnessName3" value={inputDataSubmit.WitnessName3} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr3" value={`ส.ป.ก.จังหวัด${provincename}`}onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr3" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`}onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard3" value={inputDataLoanRec.WitnessIDCard3} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard3" value={inputDataSubmit.WitnessIDCard3} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade3" value={'กรมการปกครอง'} onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputDataLoanRec.WitnessName4} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="4. ชื่อพยาน" name="WitnessName4" value={inputDataSubmit.WitnessName4} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
-                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr4" value={`ส.ป.ก.จังหวัด${provincename}`}onChange={handleInputDataSubmit}/>
+                                                            <MuiTextfield label="ที่อยู่" inputdisabled="input-disabled" name="WitnessAddr4" value={`สำนักงานการปฏิรูปที่ดินจังหวัด${provincename}`}onChange={handleInputDataSubmit}/>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
-                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard4" value={inputDataLoanRec.WitnessIDCard4} onChange={handleInputDataSubmit} />
+                                                            <MuiTextfield label="เลขประจำตัวประชาชน" name="WitnessIDCard4" value={inputDataSubmit.WitnessIDCard4} onChange={handleInputDataSubmit} />
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <MuiTextfield label="สถานที่ออกบัตร" inputdisabled="input-disabled" name="WitnessIDCardMade4" value={'กรมการปกครอง'}onChange={handleInputDataSubmit}/>

@@ -93,10 +93,10 @@ const listmenu = [
                 subtitle: 'ตรวจสอบใบเสร็จรับเงิน',
                 subpath: '/loanserviceinfo/recordbillclose'
             },*/
-            // {
-            //     subtitle: 'ยกเลิกใบเสร็จรับเงิน',
-            //     subpath: '/loanserviceinfo/cancelbill'
-            // },
+            {
+                subtitle: 'ยกเลิกใบเสร็จรับเงิน',
+                subpath: '/loanserviceinfo/cancelbill'
+            },
             {
                 subtitle: 'Upload file ข้อมูล ธกส.',
                 subpath: '/loanserviceinfo/uploadinfobaac'
