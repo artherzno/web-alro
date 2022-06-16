@@ -47,6 +47,22 @@ const api = {
         })
 
     },
+    getCashFlow2(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetCashFlow2",
+            params
+        })
+
+    },
+    getCashFlow3(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetCashFlow3",
+            params
+        })
+
+    },
     getComparePlanResultByContract(params) {
 
         return post({
@@ -1003,6 +1019,24 @@ const api = {
     getCashFlowPdf(params) {
         return post({
             path: "api/report/pdf/GetCashFlowPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCashFlow2Pdf(params) {
+        return post({
+            path: "api/report/pdf/GetCashFlow2Pdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getCashFlow3Pdf(params) {
+        return post({
+            path: "api/report/pdf/GetCashFlow3Pdf",
             params,
             config: {
                 responseType: 'arraybuffer',
