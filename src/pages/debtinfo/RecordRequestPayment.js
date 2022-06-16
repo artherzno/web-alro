@@ -94,7 +94,7 @@ function RecordRequestPayment() {
         api.getProcessBeforePay(parameter).then(response => {
 
 
-            const beforeProcess = response.data
+            const beforeProcess = response.data.data
             if (beforeProcess.length > 0) {
 
                 const recData = beforeProcess[beforeProcess.length - 1]

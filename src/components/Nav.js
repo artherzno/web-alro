@@ -283,9 +283,10 @@ const listmenu = [
                 subtitle: 'รายงานเปรียบเทียบแผน-ผลการจ่ายเงินกู้',
                 subpath: '/report/compareplanresult'
             }, {
-                subtitle: 'รายงานสรุปงบกระแสเงินสดรับ-จ่าย',
+                subtitle: 'รายงานสรุปงบกระแสเงินสด',
                 subpath: '/report/cashflow'
             }
+            
             /*, {
                 subtitle: 'รายงานการโอนปรับปรุงทะเบียนสิ้นปี/ระหว่างปี',
                 subpath: '/report/debtclass'
