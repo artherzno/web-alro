@@ -535,7 +535,7 @@ function RecordCloseOldContact() {
                 LoanNumber: loanNumber,
                 Rentno: loanNumber,
                 Fullname: "",
-                Date: inputDataReceipt.RecDate
+                Date: closeDate, // inputDataReceipt.RecDate
               }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
@@ -610,7 +610,7 @@ function RecordCloseOldContact() {
                         TotalPaid: 0,
                     })
                 } else {
-                    getProcessBeforePay(data[0].LoanID,loanNumber, )
+                    getProcessBeforePay(data[0].LoanID,loanNumber, closeDate, 0)
                 }
                 
             }
@@ -622,18 +622,23 @@ function RecordCloseOldContact() {
          });
     }
 
-    const getProcessBeforePay = (loanID, loanNumber, date, rentNo) => {
+    const getProcessBeforePay = (loanID, loanNumber, closeDate, changeCloseDate, rentNo) => {
         setIsLoading(true);
         // setRows([])
         setFormField(true)
+        let apiGetProcessBeforePay = 'GetProcessBeforePay'
+
+        if(changeCloseDate) {
+            apiGetProcessBeforePay = 'GetProcessCalDateClosePay'
+        }
 
         axios.post(
-            `${server_spkapi}/CloseContact/GetProcessBeforePay`, {
+            `${server_spkapi}/CloseContact/${apiGetProcessBeforePay}`, {
                 Username: inputDataSearch.Username.toString(),
                 LoanNumber: loanNumber,
                 Rentno:  loanNumber,
                 Fullname: "",
-                Date: inputDataReceipt.RecDate
+                Date: closeDate, // inputDataReceipt.RecDate
               }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
@@ -716,7 +721,8 @@ function RecordCloseOldContact() {
                 
                 
                 
-                getProcess(loanID, loanNumber, inputDataReceipt.RecDate, Number(dataBeforepay[dataBeforepay.length - 1].principle1))
+                // getProcess(loanID, loanNumber, inputDataReceipt.RecDate, Number(dataBeforepay[dataBeforepay.length - 1].principle1)) // P'noomnoi Edit 15-06-22
+                getProcess(loanID, loanNumber, closeDate, Number(dataBeforepay[dataBeforepay.length - 1].principle1))
             }
         }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำการได้'); setFormField(false) })
         .finally(() => {
@@ -787,7 +793,10 @@ function RecordCloseOldContact() {
                     // TotalPaid: Number(dataGetProcess.principalBalance) + Number(dataGetProcess.InterestPaid) + Number(dataGetProcess.InterestBanche) + Number(dataGetProcess.Fines) + Number(dataGetProcess.DueInterest),
                     
                     // Foolur Edit 07-06-2022
-                    TotalPaid: principle1Value + Number(dataGetProcess.InterestBanche) + Number(dataGetProcess.DueInterest) + Number(dataGetProcess.Fines),
+                   // TotalPaid: principle1Value + Number(dataGetProcess.InterestBanche) + Number(dataGetProcess.DueInterest) + Number(dataGetProcess.Fines),
+
+                    // P'Pong Edit 15-06-2022
+                    TotalPaid: Number(dataGetProcess.principalBalance) + Number(dataGetProcess.InterestPaid) + Number(dataGetProcess.Fines),
                 })
 
                 // setInputDataReceipt({
@@ -820,7 +829,10 @@ function RecordCloseOldContact() {
                     // TotalPaid: Number(dataGetProcess.principalBalance) + Number(dataGetProcess.InterestPaid) + Number(dataGetProcess.InterestBanche) + Number(dataGetProcess.Fines) + Number(dataGetProcess.DueInterest),
                 
                     // Foolur Edit 07-06-2022
-                    TotalPaid: principle1Value + Number(dataGetProcess.InterestBanche) + Number(dataGetProcess.DueInterest) + Number(dataGetProcess.Fines),
+                    //TotalPaid: principle1Value + Number(dataGetProcess.InterestBanche) + Number(dataGetProcess.DueInterest) + Number(dataGetProcess.Fines),
+
+                    // P'Pong Edit 15-06-2022
+                    TotalPaid: Number(dataGetProcess.principalBalance) + Number(dataGetProcess.InterestPaid) + Number(dataGetProcess.Fines),
                 
                 })
         
@@ -1267,7 +1279,14 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">วันที่ปิดสัญญา</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} onChange={(newValue)=>{ console.log(newValue); setCloseDate(moment(newValue).format('YYYY-MM-DD')); getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ); getProcessBeforePay(loanId, loanNumber) }}  />
+                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} 
+                                                                onChange={(newValue)=>{ 
+                                                                    console.log(moment(newValue).format('YYYY-MM-DD')); 
+                                                                    setCloseDate(moment(newValue).format('YYYY-MM-DD')); 
+                                                                    // getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ); 
+                                                                    getProcessBeforePay(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD'), 0) 
+                                                                }}  
+                                                            />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p"></p>
@@ -1322,7 +1341,8 @@ function RecordCloseOldContact() {
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
                                                             {/* <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="interestKang2_result" value={inputDataCloseContactSelect.interestKang2_result}  onChange={handleInputDataCloseContactSelect} /> */}
-                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="interestKang2_result" value={inputDataReceipt.DueInterest}  onChange={handleInputDataCloseContactSelect} /> {/* Foolur Edit 29-05-2022 */}
+                                                            {/* <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="interestKang2_result" value={inputDataReceipt.DueInterest}  onChange={handleInputDataCloseContactSelect} /> Foolur Edit 29-05-2022 */}
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="interestKang2_result" value={inputDataReceipt.InterestPaid - inputDataReceipt.OverdueInterest}  onChange={handleInputDataCloseContactSelect} /> {/* P'Pong Edit 15-06-22 */}
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p">บาท</p>
@@ -1365,7 +1385,8 @@ function RecordCloseOldContact() {
                                                         <Grid item xs={12} md={4}>
                                                             {/* <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="allpay" value={inputDataCloseContactSelect.allpay}  onChange={handleInputDataCloseContactSelect}  /> */}
                                                             {/* <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataReceipt.PrinciplePaid) + Number(inputDataReceipt.InterestPaid) + Number(inputDataReceipt.OverdueInterest) + Number(inputDataReceipt.FinesPaid) + Number(inputDataReceipt.DueInterest)} onChange={handleInputDataCloseContactSelect}  /> Foolur Edit 29-05-2022 */}
-                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataCloseContactSelect.principle1) + Number(inputDataReceipt.OverdueInterest) + Number(inputDataReceipt.DueInterest) + Number(inputDataReceipt.FinesPaid)} onChange={handleInputDataCloseContactSelect}  /> {/* Foolur Edit 07-06-2022 */}
+                                                            {/* <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataCloseContactSelect.principle1) + Number(inputDataReceipt.OverdueInterest) + Number(inputDataReceipt.DueInterest) + Number(inputDataReceipt.FinesPaid)} onChange={handleInputDataCloseContactSelect}  /> {/* Foolur Edit 07-06-2022 */}
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataReceipt.PrinciplePaid) + Number(inputDataReceipt.InterestPaid) + Number(inputDataReceipt.FinesPaid)} onChange={handleInputDataCloseContactSelect}  /> {/* P'Pong Edit 15-06-2022 */}
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p">บาท</p>
@@ -1453,7 +1474,8 @@ function RecordCloseOldContact() {
                                                             {/* <MuiTextfieldCurrency label="" inputdisabled="input-disabled" name="TotalPaid" value={inputDataReceipt.TotalPaid} onChange={handleInputDataReceipt}   /> */}
                                                             {/* <MuiTextfieldCurrency label="" inputdisabled="input-disabled" name="TotalPaid" value={Number(inputDataReceipt.PrinciplePaid) + Number(inputDataReceipt.InterestPaid) + Number(inputDataReceipt.OverdueInterest) + Number(inputDataReceipt.FinesPaid) + Number(inputDataReceipt.DueInterest)} onChange={handleInputDataReceipt}   /> Foolur Edit 29-05-2022 */}
                                                        
-                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataCloseContactSelect.principle1) + Number(inputDataReceipt.OverdueInterest) + Number(inputDataReceipt.DueInterest) + Number(inputDataReceipt.FinesPaid)} onChange={handleInputDataReceipt}  /> {/* Foolur Edit 07-06-2022 */}
+                                                            {/* <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataCloseContactSelect.principle1) + Number(inputDataReceipt.OverdueInterest) + Number(inputDataReceipt.DueInterest) + Number(inputDataReceipt.FinesPaid)} onChange={handleInputDataReceipt}  />  Foolur Edit 07-06-2022 */}
+                                                            <MuiTextfieldCurrency  inputdisabled="input-disabled"  label="" name="TotalPaid" value={Number(inputDataReceipt.PrinciplePaid) + Number(inputDataReceipt.InterestPaid) + Number(inputDataReceipt.FinesPaid)} onChange={handleInputDataReceipt}  /> {/* P'Pong Edit 15-06-2022 */}
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p">บาท</p>
@@ -1525,7 +1547,9 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">ดอกเบี้ยรับ</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="DueInterest" value={inputDataReceipt.DueInterest} onChange={handleInputDataReceipt}  />
+                                                            {/* <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="DueInterest" value={inputDataReceipt.DueInterest} onChange={handleInputDataReceipt}  /> */}
+                                                        
+                                                            <MuiTextfieldCurrency label=""   inputdisabled="input-disabled"  name="DueInterest" value={inputDataReceipt.InterestPaid - inputDataReceipt.OverdueInterest} onChange={handleInputDataReceipt}  /> {/* P'Pong Edit 15-06-2022 */}
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p">บาท</p>
