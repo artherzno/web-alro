@@ -5,11 +5,20 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
 import CashFlowPerContractTab from './CashFlowPerContractTab'
-
+import CashFlowPerProj2Tab from './CashFlowPerProj2Tab'
+import CashFlowPerProj3Tab from './CashFlowPerProj3Tab'
 
 const tabs = [{
     title: 'รายงานสรุปงบกระแสเงินสดรับ-จ่าย',
     id: "cashflow_per_contract"
+},
+{
+    title: 'รายงานสรุปงบกระแสเงินสด (โครงการ)',
+    id: "cashflow_per_proj"
+},
+{
+    title: 'รายงานสรุปงบกระแสเงินสด',
+    id: "cashflow_per_proj2"
 }
 ]
 
@@ -70,7 +79,15 @@ class CashFlow extends React.Component {
                 <CashFlowPerContractTab /> 
             )
         } 
-        
+        else if (this.state.tabSelected === tabs[1].id) {
+            return (
+                <CashFlowPerProj2Tab />
+            )
+        } else if (this.state.tabSelected === tabs[2].id) {
+            return (
+                <CashFlowPerProj3Tab />
+            )
+        }
     }
 }
 

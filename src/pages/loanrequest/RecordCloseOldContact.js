@@ -44,7 +44,8 @@ function RecordCloseOldContact() {
     // const { handleSubmit, control } = useForm();
     
     let server_hostname = auth.hostname;
-    let server_spkapi = localStorage.getItem('spkapi');
+    // let server_spkapi = localStorage.getItem('spkapi');
+    let server_spkapi = localStorage.getItem('hostname')+'/api';
     let token = localStorage.getItem('token');
     let siteprint = localStorage.getItem('siteprint')
 
@@ -481,8 +482,8 @@ function RecordCloseOldContact() {
               }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
-            console.log('GetData',res.data)
-            let data = res.data;
+            console.log('GetData',res.data.data)
+            let data = res.data.data;
             // setInputData(data)
             // console.log('inputData',inputData)
             if(data.code === 0 || res === null || res === undefined) {
@@ -538,8 +539,8 @@ function RecordCloseOldContact() {
               }, { headers: { "token": token } } 
         ).then(res => {
             setIsLoading(false)
-            console.log('GetSelectData',res.data)
-            let data = res.data;
+            console.log('GetSelectData',res.data.data)
+            let data = res.data.data;
             setLoanNumber(loanNumber)
             // setInputData(data)
             // console.log('inputData',inputData)
@@ -637,7 +638,7 @@ function RecordCloseOldContact() {
         ).then(res => {
             setIsLoading(false)
             console.log('GetProcessBeforePay',res)
-            let data = res.data;
+            let data = res.data.data;
             // setInputData(data)
             // console.log('inputData',inputData)
             if(data.code === 0 || res === null || res === undefined || res.Message === 'An error has occurred.') {
@@ -1266,7 +1267,7 @@ function RecordCloseOldContact() {
                                                             <p className="paper-p txt-right">วันที่ปิดสัญญา</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} onChange={(newValue)=>{ console.log(newValue); setCloseDate(moment(newValue).format('YYYY-MM-DD')); getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ) }}  />
+                                                            <MuiDatePicker label="" name="closeDate" value={closeDate} onChange={(newValue)=>{ console.log(newValue); setCloseDate(moment(newValue).format('YYYY-MM-DD')); getProcess(loanId, loanNumber, moment(newValue).format('YYYY-MM-DD') ); getProcessBeforePay(loanId, loanNumber) }}  />
                                                         </Grid>
                                                         <Grid item xs={1} md={1}>
                                                             <p className="paper-p"></p>
