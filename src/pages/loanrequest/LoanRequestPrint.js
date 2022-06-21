@@ -735,6 +735,8 @@ function LoanRequestPrint(props) {
         setProjectSubCodeText('')
         setProjectSubNameText('')
         
+        action = 'add'
+        setDrafted(false)
 
         axios.post(
             `${server_hostname}/admin/api/get_approved_applicant`, {
@@ -1009,6 +1011,7 @@ function LoanRequestPrint(props) {
 
     const getViewDataApprovedApplicant = (applicantID, farmerID, applicantNo,loanID, loanNumber, projectplanyear, projectid) => {
         setIsLoading(true);
+        action = 'edit'
 
         axios.post(
             `${server_hostname}/admin/api/view_loanrec`, {
@@ -1767,7 +1770,7 @@ console.log('FreeDebtTime',event.target.value)
         formData.append('loandue_data', JSON.stringify(loandueDataArrValue));
         let url = '';
         console.log('action_loanstatus:',action_loanstatus)
-        if(action==='edit' || drafted) {
+        if( (action==='edit' && !!loanID) || (drafted && !!loanID)) {
             formData.append('LoanID', loanID)
             url = `${server_hostname}/admin/api/edit_loanrec`
         } else {
@@ -1815,6 +1818,7 @@ console.log('FreeDebtTime',event.target.value)
 
                     // Active button PrintPDF
                     setDrafted(true)
+                    setLoanID(data.LoanID)
                 }
             }
         ).catch(err => { console.log(err); })
