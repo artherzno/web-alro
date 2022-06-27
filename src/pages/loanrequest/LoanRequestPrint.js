@@ -735,7 +735,7 @@ function LoanRequestPrint(props) {
         setProjectSubCodeText('')
         setProjectSubNameText('')
         
-        action = 'add'
+        // action = getAction
         setDrafted(false)
 
         axios.post(
