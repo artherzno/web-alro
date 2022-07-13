@@ -66,28 +66,30 @@ function UserHistory() {
     // let siteprint = localStorage.getItem('siteprint')
 
       const headCells = [
-        { id: 'ID', numeric: true, disablePadding: false, widthCol: '110px', label: 'Log ID' },
+        { id: 'ID', numeric: true, disablePadding: false, widthCol: '40px', label: 'ลำดับ' },
+        // { id: 'ID', numeric: true, disablePadding: false, widthCol: '110px', label: 'Log ID' },
         { id: 'cUsername', numeric: true, disablePadding: false, widthCol: '140px', label: 'รหัสผู้ใช้งาน' },
         { id: 'fullname', numeric: true, disablePadding: false, widthCol: '140px', label: 'ชื่อ - นามสกุล' },
         // { id: 'username', numeric: true, disablePadding: false, widthCol: '160px', label: 'รายการ (หน้า)' },
         // { id: 'dcreated', numeric: true, disablePadding: false, widthCol: '160px', label: 'URL' },
+        { id: 'cAction', numeric: true, disablePadding: false,  widthCol: '110px',label: 'Action' },
         { id: 'ipaddress', numeric: true, disablePadding: false,  widthCol: '110px',label: 'IP' },
         // { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '110px', label: 'LOCATION' },
         // { id: 'userrole', numeric: true, disablePadding: false, widthCol: '110px', label: 'AGENT' },
         { id: 'ts', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่ - เวลา' },
     ];
 
-    const rowsLabel = ['ID','cUsername','fullname','ipaddress','ts']
+    const rowsLabel = ['ID','cUsername','fullname','cAction','ipaddress','ts']
 
-    function createData(ID,cUsername,fullname,ipaddress,ts) {
+    function createData(ID,cUsername,fullname,cAction,ipaddress,ts) {
         return { 
-            ID,cUsername,fullname,ipaddress,ts
+            ID,cUsername,fullname,cAction,ipaddress,ts
          };
     }
 
     // New order date 2021-08-23 to 23/08/2564
     const newOrderDate = (val) => {
-        console.log(val)
+        // console.log(val)
         let yyyy = Number(val.substring(0,4)) + 543
         let mm = val.substring(5,7)
         let dd = val.substring(8,10)
@@ -209,9 +211,11 @@ function UserHistory() {
                     setRows(
                         data.data.map((item,i)=>
                             createData(
-                                item.ID,
+                                i+1,
+                                // item.ID,
                                 item.cUsername,
                                 (!!item.Name?item.Name:'')+' '+(!!item.Sirname?item.Sirname:''),
+                                item.cAction, 
                                 item.ipaddress, 
                                 newOrderDate(item.ts)
                                 // item.ts ? moment(item.ts).format("DD/MM/YYYY HH:mm:ssน.") : null
@@ -327,6 +331,7 @@ function UserHistory() {
                                         actionEdit={false}
                                         editEvent={gotoEditUser}
                                         editParam={'userid'}
+                                        rowsPerPageOptionsValue={[5,10,25,50,100,250]}
                                     />
                                     {/* <DataGrid
                                         rows={rows}
