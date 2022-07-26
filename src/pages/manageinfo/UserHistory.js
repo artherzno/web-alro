@@ -76,7 +76,7 @@ function UserHistory() {
         { id: 'ipaddress', numeric: true, disablePadding: false,  widthCol: '110px',label: 'IP' },
         // { id: 'expiredate', numeric: true, disablePadding: false,  widthCol: '110px', label: 'LOCATION' },
         // { id: 'userrole', numeric: true, disablePadding: false, widthCol: '110px', label: 'AGENT' },
-        { id: 'ts', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่ - เวลา' },
+        { id: 'ts', numeric: true, disablePadding: false, widthCol: '140px', label: 'วันที่ - เวลา เข้าใช้งาน' },
     ];
 
     const rowsLabel = ['ID','cUsername','fullname','cAction','ipaddress','ts']
