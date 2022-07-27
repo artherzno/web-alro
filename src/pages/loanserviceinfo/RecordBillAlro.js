@@ -204,15 +204,15 @@ function RecordBillAlro() {
                 // formikRef.current.setFieldValue("RecOverdueInterest", formatNumber(recData.FineKang,2))
                 // formikRef.current.setFieldValue("RecSumPaid", formatNumber(recData.StuckMoney + recData.InterestKang2 + recData.FineKang,2))
 
-                formikRef.current.setFieldValue("PrincipleBalance1", recData.principalBalance)
-                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
-                formikRef.current.setFieldValue("RecPrinciple", recData.StuckMoney)
-                formikRef.current.setFieldValue("RecInterestKang2", beforRectData ? beforRectData.InterestKang2 : 0)
-                formikRef.current.setFieldValue("RecDueInterest", beforRectData ? recData.InterestKang2 - beforRectData.InterestKang2 : recData.InterestKang2)
+
+                formikRef.current.setFieldValue("RecPrinciple", recData.principle1)
+                formikRef.current.setFieldValue("RecInterestKang2",  beforRectData.interestKang)
+                formikRef.current.setFieldValue("RecDueInterest", recData.InterestKang2 - beforRectData.interestKang )
                 formikRef.current.setFieldValue("RecSumInterest", recData.InterestKang2)
                 formikRef.current.setFieldValue("RecOverdueInterest", recData.FineKang)
-                formikRef.current.setFieldValue("RecSumPaid", recData.StuckMoney + recData.InterestKang2 + recData.FineKang)
-
+                formikRef.current.setFieldValue("RecSumPaid", recData.principle1 + recData.InterestKang2)
+                formikRef.current.setFieldValue("RecPrincipleBalance", recData.principalBalance)
+                
             }
 
             // setIsLoading(false)

@@ -1904,19 +1904,37 @@ const api = {
     },
     getInvoiceAlert(params) {
 
+        // return post({
+        //     path: "Invoice/Alert",
+        //     params,
+        //     config: { baseURL: REACT_APP_API_HOST_1 },
+        // })
+
+        const token = localStorage.getItem('token')
         return post({
-            path: "Invoice/Alert",
+            path: "nodeapi/api/Invoice/Alert",
             params,
-            config: { baseURL: REACT_APP_API_HOST_1 },
+            config: { baseURL: REACT_APP_API_HOST_2 },
+            token: token,
+            isExternal: true
         })
 
     },
     getPrintInvoice(params) {
 
+        // return post({
+        //     path: "Invoice/Print",
+        //     params,
+        //     config: { baseURL: REACT_APP_API_HOST_1 },
+        // })
+
+        const token = localStorage.getItem('token')
         return post({
-            path: "Invoice/Print",
+            path: "nodeapi/api/Invoice/Print",
             params,
-            config: { baseURL: REACT_APP_API_HOST_1 },
+            config: { baseURL: REACT_APP_API_HOST_2 },
+            token: token,
+            isExternal: true
         })
 
     },

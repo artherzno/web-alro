@@ -46,7 +46,7 @@ function PrintInvoice() {
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState('บันทึกข้อมูลเรียบร้อย')
-    const [loaded, setLoaded] = useState(false);
+    const [loaded, setLoaded] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [start_date, setStartDate] = useState(null)
     const [startDateSelect, setStartDateSelect] = useState(null)
@@ -67,8 +67,8 @@ function PrintInvoice() {
     })
 
     useEffect(() => {
-        setLoaded(true);
-        getPrintInvoice()
+        // setLoaded(true);
+        // getPrintInvoice()
     }, [])
 
     const handlePrintExcel = () => {
@@ -113,7 +113,7 @@ function PrintInvoice() {
         setIsLoading(true)
 
         api.getPrintInvoice(parameter).then(response => {
-            setPrintList(response.data)
+            setPrintList(response.data.data)
             setIsLoading(false)
         }).catch(error => {
             setIsLoading(false)

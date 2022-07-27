@@ -93,7 +93,7 @@ const rows = [
 function NoticeInvoice() {
     const history = useHistory();
 
-    const [loaded, setLoaded] = useState(false);
+    const [loaded, setLoaded] = useState(true);
 
     // Variable for Checkbox in Table
     const [selected, setSelected] = React.useState([]);
@@ -123,8 +123,8 @@ function NoticeInvoice() {
     const [isExporting, setIsExporting] = useState(false)
 
     useEffect(() => {
-        setLoaded(true);
-        getInvoiceAlert()
+        // setLoaded(true);
+        // getInvoiceAlert()
 
     }, [])
 
@@ -136,7 +136,7 @@ function NoticeInvoice() {
         setIsLoading(true)
         api.getInvoiceAlert(paramFechtData).then(response => {
 
-            setResultList(response.data)
+            setResultList(response.data.data)
             setIsLoading(false)
         }).catch(error => {
             setIsLoading(false)
