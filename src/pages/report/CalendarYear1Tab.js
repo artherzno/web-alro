@@ -185,7 +185,7 @@ parameter.append('YearTo', YearTovalue);
         return (<div>
 
             <OverlayLoading isLoading={this.state.isLoading} />
-            <Grid container spacing={2}>
+            {/*<Grid container spacing={2}>
 
                 <Grid item>
                     <Grid container spacing={2}>
@@ -303,7 +303,7 @@ parameter.append('YearTo', YearTovalue);
                     <ButtonFluidPrimary label="ค้นหา" onClick={() => { this.loadPayLoan(0, this.state.count)}} />
                 </Grid>
 
-            </Grid>
+            </Grid>*/}
 
             <div>
                 <Box mt={1} mb={5}>

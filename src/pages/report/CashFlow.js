@@ -13,13 +13,14 @@ const tabs = [{
     id: "cashflow_per_contract"
 },
 {
-    title: 'รายงานสรุปงบกระแสเงินสด (โครงการ)',
+    title: 'รายงานรายละเอียดประกอบงบกระแสเงินสด (เดือน)',
     id: "cashflow_per_proj"
 },
 {
-    title: 'รายงานสรุปงบกระแสเงินสด',
+    title: 'รายงานรายละเอียดประกอบงบกระแสเงินสด (สะสม)',
     id: "cashflow_per_proj2"
 }
+
 ]
 
 class CashFlow extends React.Component {

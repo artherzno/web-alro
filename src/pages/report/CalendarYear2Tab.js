@@ -185,7 +185,7 @@ parameter.append('YearTo', YearTovalue);
         return (<div>
 
             <OverlayLoading isLoading={this.state.isLoading} />
-            <Grid container spacing={2}>
+           {/*  <Grid container spacing={2}>
 
                 <Grid item>
                     <Grid container spacing={2}>
@@ -310,7 +310,7 @@ parameter.append('YearTo', YearTovalue);
                     <Typography variant="h6" align="center">รายงานปฎิทินใบเตือนหนี้ต้นครั้งที่ 2 {`${this.state.provinceZoneLabel}`}</Typography>
                     {this.state.dateRangLabel != "" ? <Typography variant="h6" align="center">{`${this.state.dateRangLabel}`}</Typography> : <Typography variant="h6" align="center">{`${this.state.montLabel} ${this.state.yearLabel}`}</Typography>}
                 </Box>
-            </div>
+            </div>*/}
             <Grid container>
                 <Grid item xs>
 

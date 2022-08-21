@@ -314,6 +314,9 @@ parameter.append('YearTo', YearTovalue);
 
                 </Grid>
                 <Grid item>
+                    <ButtonExport label="บัตรสมาชิกผู้กู้" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
+                </Grid>
+                <Grid item>
                     <ButtonExport label="PRINT TO PDF" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
                 </Grid>
                 <Grid item>

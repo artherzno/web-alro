@@ -285,9 +285,6 @@ parameter.append('YearTo', YearTovalue);
                                    
                                     <StyledTableCell align="center">รหัสโครงการ</StyledTableCell>
                                     <StyledTableCell align="center">ชื่อโครงการ</StyledTableCell>
-                                    <StyledTableCell align="center">เลขที่สัญญา</StyledTableCell> 
-                                    <StyledTableCell align="center">ชื่อ-สกุล/ชื่อสถาบันเกษตรกร</StyledTableCell>
-                                    <StyledTableCell align="center">เลขบัตรประชาชน</StyledTableCell>
                                     <StyledTableCell align="center">จำนวนเงินให้กู้	</StyledTableCell>
                                     <StyledTableCell align="center">อัตราดอกเบี้ย</StyledTableCell>
                                     <StyledTableCell align="center">หนี้ค้างชำระ</StyledTableCell>
@@ -302,9 +299,6 @@ parameter.append('YearTo', YearTovalue);
                                           
                                             <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.loanReqStatus}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.age}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
@@ -318,7 +312,7 @@ parameter.append('YearTo', YearTovalue);
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={5} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={2} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
