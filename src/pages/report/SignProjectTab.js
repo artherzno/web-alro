@@ -347,6 +347,7 @@ class SignProjectTab extends React.Component {
                 <Grid item xs>
 
                 </Grid>
+                
                 <Grid item>
                     <ButtonExport label="PRINT TO PDF" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
                 </Grid>

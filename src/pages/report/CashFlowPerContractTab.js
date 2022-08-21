@@ -340,13 +340,11 @@ class CashFlowPerContractTab extends React.Component {
                             <TableHead>
                                 <TableRow>
                                    
-                                    <StyledTableCell align="center">รายการ</StyledTableCell>
-                                    <StyledTableCell align="center">ประเภทสัญญา</StyledTableCell>
-                                    <StyledTableCell align="center">ใบเสร็จรับเงิน</StyledTableCell>
+                                    <StyledTableCell align="center">เดือน</StyledTableCell>
+                                    <StyledTableCell align="center">รับชำระทั้งสิ้น</StyledTableCell>
                                     <StyledTableCell align="center">เงินต้น</StyledTableCell>
                                     <StyledTableCell align="center">ดอกเบี้ยงค้างรับ</StyledTableCell>
                                     <StyledTableCell align="center">ดอกเบี้ยรับ</StyledTableCell>
-                                    <StyledTableCell align="center">ค่าปรับ</StyledTableCell>
                                     <StyledTableCell align="center">อื่นๆ</StyledTableCell>
                                    
                                 </TableRow>
@@ -359,12 +357,10 @@ class CashFlowPerContractTab extends React.Component {
                                         <TableRow key={index}>
                                             
                                             <StyledTableCellLine align="left">{farmer.list}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanRecType}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.receipt}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fines}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.principle}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.overdueInterest}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.interestPaid}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.fines}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.other}</StyledTableCellLine>
                                             
                                             
@@ -376,13 +372,13 @@ class CashFlowPerContractTab extends React.Component {
                                 })}
 
                                 <TableRow>
-                                    <StyledTableCellLine colSpan={3} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
+                                    <StyledTableCellLine colSpan={1} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.fines)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principle)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.overdueInterest)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestPaid)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.fines)}</StyledTableCellLine>
                                     <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.other)}</StyledTableCellLine>
 
                                   
