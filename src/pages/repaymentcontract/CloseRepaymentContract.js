@@ -62,7 +62,7 @@ function CloseRepaymentContract() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [inputDataSearch, setInputDataSearch] = useState({
-        ContractNo: '',
+        LoanNumber: '',
     })
     const [inputData, setInputData] = useState({
         typeLoan: '1',
@@ -70,6 +70,8 @@ function CloseRepaymentContract() {
     })
     const [tableResult, setTableResult] = useState({})
     const [openInfo, setOpenInfo] = useState(true)
+
+    const [viewInfo, setViewInfo] = useState([])
 
     useEffect(() => {
         setLoaded(true);
@@ -108,38 +110,69 @@ function CloseRepaymentContract() {
 
 
     const getSearchCloseRepaymentContract = () => {
-        // axios.post(
-        //     `${server_hostname}/admin/api/search_approved_applicant`, {
-        //         ApplicantNo: parseInt(inputDataSearch.SearchByApplicantNo) || '',
-        //         LoanNumber: inputDataSearch.SearchByLoanNumber || '',
-        //         Name: inputDataSearch.SearchByName || '',
-        //     }, { headers: { "token": token } } 
-        // ).then(res => {
-        //         console.log(res)
-        //         let data = res.data;
-        //         if(data.code === 0 || res === null || res === undefined) {
-        //             setErr(true);
-        //             if(Object.keys(data.message).length !== 0) {
-        //                 console.error(data)
-        //                 if(typeof data.message === 'object') {
-        //                     setErrMsg('ไม่สามารถทำรายการได้')
-        //                 } else {
-        //                     setErrMsg([data.message])
-        //                 }
-        //             } else {
-        //                 setErrMsg(['ไม่สามารถทำรายการได้'])
-        //             }
-        //         }else {
-        //             console.log(data)
-        //             setTableResult(data.data)
-        //         }
-        //     }
-        // ).catch(err => { console.log(err); history.push('/') })
-        // .finally(() => {
-        //     if (isMounted.current) {
-        //       setIsLoading(false)
-        //     }
-        //  });
+        axios.post(
+            `${server_hostname}/admin/api/search_for_loanmisapply`, {
+                LoanNumber: inputDataSearch.LoanNumber || '',
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data)
+                    setTableResult(data.data)
+                }
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+    }
+
+    const getPayerData = () => {
+        axios.post(
+            `${server_hostname}/admin/api/search_for_custFarmer`, {
+                IDCard: '333333333' || '',
+            }, { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                }else {
+                    console.log(data)
+                    // setTableResult(data.data)
+                }
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
     }
 
     const handleChangePage = (event, newPage) => {
@@ -233,7 +266,7 @@ function CloseRepaymentContract() {
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={10}>
-                                        <MuiTextfield label="ค้นหาเลขที่สัญญาที่ต้องปิด * กรุณาใส่ , (Comma) คั่นเลขที่สัญญา กรณีค้นหามากกว่า 1 รายการ" value={inputDataSearch.ContractNo} name="SearchByName" onChange={handleInputDataSearch}  />
+                                        <MuiTextfield label="ค้นหาเลขที่สัญญาที่ต้องปิด * กรุณาใส่ , (Comma) คั่นเลขที่สัญญา กรณีค้นหามากกว่า 1 รายการ" value={inputDataSearch.LoanNumber} name="LoanNumber" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
@@ -265,8 +298,8 @@ function CloseRepaymentContract() {
                                                 <TableCell align="left">เงินต้นคงเหลือ</TableCell>
                                                 <TableCell align="left">ดอกเบี้ย</TableCell>
                                                 <TableCell align="left">ค่าปรับ</TableCell>
-                                                <TableCell align="left">ผู้ชดใช้หนี้แทน</TableCell>
-                                                <TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>&nbsp;</TableCell>
+                                                <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>ผู้ชดใช้หนี้แทน</TableCell>
+                                                {/* <TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>&nbsp;</TableCell> */}
                                             </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -277,19 +310,20 @@ function CloseRepaymentContract() {
                                                             : tableResult
                                                         ).map((cell,i) => (
                                                         <TableRow key={i}>
-                                                            <TableCell align="left">{cell.RecordCode}</TableCell>
-                                                            <TableCell align="left">{cell.RecDate === null ? '' : moment(cell.RecDate).format('DD/MM/YYYY')}</TableCell>
-                                                            <TableCell align="left">{cell.ApplicantNo}</TableCell>
-                                                            <TableCell align="left">{cell.ProjectID === 0 ? '' : cell.ProjectID}</TableCell>
-                                                            <TableCell align="left">{cell.ProjectName}</TableCell>
+                                                            <TableCell align="center">{i+1}</TableCell>
+                                                            <TableCell align="left">
+                                                                <MuiCheckbox label="&nbsp;"  />
+                                                            </TableCell>
+                                                            {/* <TableCell align="left">{cell.RecDate === null ? '' : moment(cell.RecDate).format('DD/MM/YYYY')}</TableCell> */}
                                                             <TableCell align="left">{cell.LoanNumber}</TableCell>
-                                                            <TableCell align="left">{cell.dCreated === null ? '' : moment(cell.dCreated).format('DD/MM/YYYY')}</TableCell>
                                                             <TableCell align="left">{cell.IDCard}</TableCell>
-                                                            <TableCell align="left">{cell.FrontName}</TableCell>
-                                                            <TableCell align="left">{cell.Name}</TableCell>
-                                                            <TableCell align="left">{cell.Sirname}</TableCell>
-                                                            <TableCell align="left">{cell.IDCARD_AddNo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddMoo} {cell.IDCARD_AddrSoiRoad} {cell.IDCARD_AddrDistrictName} {cell.IDCARD_AddrProvinceName} {cell.IDCARD_Postcode}</TableCell>
-                                                            <TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
+                                                            <TableCell align="left">{cell.FrontName} {cell.Name} {cell.Sirname}</TableCell>
+                                                            <TableCell align="left">{!!cell.LoanDate ? moment(cell.LoanDate).format('DD/MM/YYYY') : ''}</TableCell>
+                                                            <TableCell align="left">{!!cell.LastDatePaid ? moment(cell.LastDatePaid).format('DD/MM/YYYY') : ''}</TableCell>
+                                                            <TableCell align="left">{''}</TableCell>
+                                                            <TableCell align="left">{cell.principle}</TableCell>
+                                                            <TableCell align="left">{cell.Interest}</TableCell>
+                                                            <TableCell align="left">{cell.ChargeRate}</TableCell><TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
                                                                 <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>gotoLoanRequestPrint(cell.xxx)} />
                                                             </TableCell>
                                                         </TableRow>
@@ -297,7 +331,7 @@ function CloseRepaymentContract() {
                                                     ))
                                                     : 
                                                     <TableRow>
-                                                        <TableCell colSpan={13} align="left">ไม่พบข้อมูล</TableCell>
+                                                        <TableCell colSpan={12} align="center">ไม่พบข้อมูล</TableCell>
                                                     </TableRow>
                                                 }
                                             </TableBody>
@@ -318,13 +352,13 @@ function CloseRepaymentContract() {
                         </Grid>
                     </Container>
 
-                    <Container  maxWidth="md">
+                    {/* <Container  maxWidth="md">
                         <Grid container spacing={2} className="btn-row txt-center">
                             <Grid item xs={12} md={12}>
                                 <ButtonFluidPrimary label="ปุ่มบันทึกข้อมูลผู้ชดใช้หนี้แทน" maxWidth="380px" />
                             </Grid>
                         </Grid>
-                    </Container>
+                    </Container> */}
                     {
                         openInfo ?
                             <React.Fragment>
@@ -351,15 +385,14 @@ function CloseRepaymentContract() {
                                                                     <MuiDatePicker label="วันที่คำสั่ง" />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={7}>
-                                                                    <MuiTextfield label="ชื่อ-สกุล ผู้ชดใช้หนี้แทน"  />
+                                                                    <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4"  />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={5}>
                                                                     <p>&nbsp;</p>
-                                                                    <ButtonFluidPrimary label="เลือกจากข้อมูลสมาชิก" />
+                                                                    <ButtonFluidPrimary label="เลือกจากข้อมูลสมาชิก" onClick={()=>{getPayerData()}} />
                                                                 </Grid>
                                                                 <Grid item xs={12} md={12}>
-                                                                    <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4"  />
-                                                                </Grid>
+                                                                    <MuiTextfield label="ชื่อ-สกุล ผู้ชดใช้หนี้แทน"  /></Grid>
                                                             </Grid>
                                                         </Grid>
 
