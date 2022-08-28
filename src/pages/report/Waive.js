@@ -8,6 +8,7 @@ import WaivePerContractTab from './WaivePerContractTab'
 import WaivePerCodeTab from './WaivePerCodeTab'
 import WaivePerProjListTab from './WaivePerProjListTab'
 import WaivePerProvinceTab from './WaivePerProvinceTab'
+import WaivePerDateTab from './WaivePerDateTab'
 
 const tabs = [{
     title: 'รายงานการขอผ่อนผัน',
@@ -22,6 +23,10 @@ const tabs = [{
 },{
     title: 'สรุปรายงานการขอผ่อนผัน',
     id: "debtcon _per_province"
+}
+,{
+    title: 'ขอผ่อนผันการชำระหนี้ ณ วันที่ประมวล',
+    id: "debtcon _per_date"
 }]
 
 class Waive extends React.Component {
@@ -91,6 +96,11 @@ class Waive extends React.Component {
         } else if (this.state.tabSelected === tabs[3].id) {
             return (
                 <WaivePerProvinceTab />
+            )
+        } 
+        else if (this.state.tabSelected === tabs[4].id) {
+            return (
+                <WaivePerDateTab />
             )
         } 
     }
