@@ -567,9 +567,10 @@ function TransferDebt() {
                                                         tableResultLoan.map((cell,i) => (
                                                         <TableRow key={i}>
                                                                 <TableCell align="center" className="tb-w-8em">{cell.LoanNumber}</TableCell>
-                                                                <TableCell align="center" className="tb-w-8em">{cell.CreateDate}</TableCell>
+                                                                <TableCell align="center" className="tb-w-8em">{cell.CreateDate ? (moment(cell.CreateDate).format('DD/MM/') + (Number(moment(cell.CreateDate).format('YYYY'))+543)) : ''}</TableCell>
                                                                 <TableCell align="center" className="tb-w-14em">{cell.PrincipleBalance === null ? '' : cell.PrincipleBalance.toLocaleString('en-US')}</TableCell>
-                                                                <TableCell align="center" className="tb-w-12em">{cell.PendingInterest === null ? '' : cell.PendingInterest.toLocaleString('en-US')}</TableCell>
+                                                                <TableCell align="center" className="tb-w-12em">{cell.OverdueInterest === null ? '' : cell.OverdueInterest.toLocaleString('en-US')}</TableCell>
+                                                                {/* <TableCell align="center" className="tb-w-12em">{cell.PendingInterest === null ? '' : cell.PendingInterest.toLocaleString('en-US')}</TableCell>  // Edit by P'numnoit 26/8/2022 */}
                                                                 <TableCell align="center" className="tb-w-12em">{cell.DueInterest === null ? '' : cell.DueInterest.toLocaleString('en-US')}</TableCell>
                                                                 <TableCell align="center" className="tb-w-12em">{((cell.PrincipleBalance === null ? 0 : cell.PrincipleBalance) + (cell.PendingInterest === null ? 0 : cell.PendingInterest) + (cell.DueInterest === null ? 0 : cell.DueInterest)).toLocaleString('en-US')}</TableCell>
                                                         </TableRow>
@@ -617,7 +618,7 @@ function TransferDebt() {
                                                         tableResultLoanCourt.map((cell,i) => (
                                                         <TableRow key={i}>
                                                                 <TableCell align="center" className="tb-w-8em">{cell.LoanNumber}</TableCell>
-                                                                <TableCell align="center" className="tb-w-8em">{cell.CreateDate}</TableCell>
+                                                                <TableCell align="center" className="tb-w-8em">{cell.CreateDate  ? (moment(cell.CreateDate).format('DD/MM/') + (Number(moment(cell.CreateDate).format('YYYY'))+543)) : ''}</TableCell>
                                                                 <TableCell align="center" className="tb-w-14em">{cell.principle === null ? '' : cell.principle.toLocaleString('en-US')}</TableCell>
                                                                 <TableCell align="center" className="tb-w-12em">{cell.OldInterest === null ? '' : cell.OldInterest.toLocaleString('en-US')}</TableCell>
                                                                 <TableCell align="center" className="tb-w-12em">{((cell.principle === null ? 0 : cell.principle) + (cell.OldInterest === null ? 0 : cell.OldInterest)).toLocaleString('en-US')}</TableCell>

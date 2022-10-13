@@ -18,6 +18,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 import CloseIcon from '@material-ui/icons/Close';
 import PrintIcon from '@material-ui/icons/Print';
@@ -64,12 +66,29 @@ function CloseRepaymentContract() {
     const [inputDataSearch, setInputDataSearch] = useState({
         LoanNumber: '',
     })
+    const [inputPayerData, setInputPayerData] = useState('')
+    const [payerDataArr, setPayerDataArr] = useState([
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+        
+    ])
     const [inputData, setInputData] = useState({
         typeLoan: '1',
         typePay: '1',
     })
     const [tableResult, setTableResult] = useState({})
-    const [openInfo, setOpenInfo] = useState(true)
+    const [openInfo, setOpenInfo] = useState(false)
+
+    const [payerDataAmount, setPayerDataAmount] = useState(1)
+    const payerAmountList = [1,2,3,4,5,6,7,8,9,10];
 
     const [viewInfo, setViewInfo] = useState([])
 
@@ -131,7 +150,12 @@ function CloseRepaymentContract() {
                     }
                 }else {
                     console.log(data)
-                    setTableResult(data.data)
+                    if(!!data.length) {
+                        setTableResult(data.data)
+                    } else {
+                        setErr(true)
+                        setErrMsg('ไม่พบข้อมูล')
+                    }
                 }
             }
         ).catch(err => { console.log(err); })
@@ -142,10 +166,11 @@ function CloseRepaymentContract() {
          });
     }
 
-    const getPayerData = () => {
+    const getPayerData = (ind) => {
+        // setPayerDataArr([])
         axios.post(
             `${server_hostname}/admin/api/search_for_custFarmer`, {
-                IDCard: '333333333' || '',
+                IDCard: payerDataArr[ind].FarmerID.toString() || '' // 3770600686521, 3102001204322, 1234789123456, 3730600237298 || '',
             }, { headers: { "token": token } } 
         ).then(res => {
                 console.log(res)
@@ -165,6 +190,16 @@ function CloseRepaymentContract() {
                 }else {
                     console.log(data)
                     // setTableResult(data.data)
+                    if(!!data.length) {
+                        // setPayerDataArr([...payerDataArr, 
+                        //     payerDataArr[ind].fullname = data.data[0].fullname 
+                        // ])
+                        handlePayerDataArr('fullname',data.data[0].fullname,ind)
+                    } else {
+                        handlePayerDataArr('FarmerID','',ind)
+                        setErr(true)
+                        setErrMsg('ไม่พบข้อมูล')
+                    }
                 }
             }
         ).catch(err => { console.log(err); })
@@ -231,6 +266,12 @@ function CloseRepaymentContract() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const dataSubmit = {
+            LoanNumber: inputPayerData.LoanNumber,
+            result: payerDataArr
+        }
+        // console.log(payerDataArr)
+        console.log(dataSubmit)
     
         // if (value === 'best') {
         //   setHelperText('You got it!');
@@ -244,8 +285,136 @@ function CloseRepaymentContract() {
         // }
       };
 
-    const gotoLoanRequestPrint = () => {
+    const gotoCloseRepaymentContract = (loanNumber) => {
+        setPayerDataArr([
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+            
+        ])
+
         setOpenInfo(true);
+        setInputPayerData({...inputPayerData,
+            LoanNumber: loanNumber
+        })
+    }
+
+    const handleClosePopup = () => {
+        setErr(false);
+        setSuccess(false);
+        
+        // history.push('/manageinfo/searchmember');
+
+    };
+
+    const handlePayerDataArr = (name, value, i) => {
+        // console.log(name, value, i)
+        let result = [...payerDataArr]
+        result[i][name] = value
+
+        setPayerDataArr(result)
+    }
+
+    const handlePayerDateDataArr = (name, value, i) => {
+        console.log(name, value, i)
+        let setResultValue = [...payerDataArr]
+        setResultValue[i][name] = value
+
+        setPayerDataArr(setResultValue)
+    }
+
+    const handlePayerDataAmount = (e) => {
+        console.log('handlePayerDataAmount',e.target.value)
+        setPayerDataAmount(e.target.value)
+    }
+
+    const getPayerDataItem = (ind) => {
+        let resultArr = []
+        for(let i=0; i<=(ind-1); i++) {
+            resultArr.push(
+                <React.Fragment key={i+1}>
+                    <Grid item xs={12} md={6}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <p className="txt-green">ลำดับที่ {i+1}</p>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <MuiTextfield label="เลขที่คำสั่ง"  name="OrderNumber" value={payerDataArr[i].OrderNumber} onChange={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}} />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                {/* <MuiDatePicker label="วันที่คำสั่ง" name="OrderDate" value={payerDataArr[i].OrderDate} onChange={(e)=>{handlePayerDataArr(e, i)}}  /> */}
+                                <MuiDatePicker label="วันที่คำสั่ง" name="OrderDate" value={payerDataArr[i].OrderDate} onChange={(newValue)=>{ handlePayerDateDataArr('OrderDate', moment(newValue).format('YYYY-MM-DD'), i) }}   />
+                            </Grid>
+                            <Grid item xs={12} md={7}>
+                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" name="FarmerID" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4"  value={payerDataArr[i].FarmerID} onInput={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}}   />
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                                <p>&nbsp;</p>
+                                <ButtonFluidPrimary label="เลือกจากข้อมูลสมาชิก" onClick={()=>{getPayerData(i)}} />
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <MuiTextfield label="ชื่อ-สกุล ผู้ชดใช้หนี้แทน" inputdisabled="input-disabled" value={payerDataArr[i]?.fullname} /></Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        
+                        <Grid container spacing={2}>
+                        
+                            <Grid item xs={1} md={5}>
+                                <p className="paper-p txt-right">ชดใช้เงินจำนวน</p>
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                                <MuiTextfieldCurrency label=""  name="Total" value={payerDataArr[i].Total} onChange={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}} /> 
+                            </Grid>
+                            <Grid item xs={1} md={2}>
+                                <p className="paper-p">บาท</p>
+                            </Grid>
+
+                            <Grid item xs={1} md={5}>
+                                <p className="paper-p txt-right">อัตราดอกเบี้ย</p>
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                                <MuiTextfieldCurrency label=""   name="Interest" value={payerDataArr[i].Interest} onChange={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}} /> 
+                            </Grid>
+                            <Grid item xs={1} md={2}>
+                                <p className="paper-p">% ต่อปี</p>
+                            </Grid>
+
+                            <Grid item xs={1} md={5}>
+                                <p className="paper-p txt-right">จำนวนงวดที่ผ่อนชำระ</p>
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                                <MuiTextfieldCurrency label=""  name="PaidTime" value={payerDataArr[i].PaidTime} onChange={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}} /> 
+                            </Grid>
+                            <Grid item xs={1} md={2}>
+                                <p className="paper-p">งวด</p>
+                            </Grid>
+
+                            <Grid item xs={1} md={5}>
+                                <p className="paper-p txt-right">เริ่มผ่อนงวดแรกวันที่</p>
+                            </Grid>
+                            <Grid item xs={12} md={5}>
+                                {/* <MuiDatePicker label=""  name="StartPaidDate"  value={payerDataArr[i].StartPaidDate} onChange={(e)=>{handlePayerDataArr(e, i)}}  /> */}
+                                <MuiDatePicker label="" name="StartPaidDate" value={payerDataArr[i].StartPaidDate} onChange={(newValue)=>{ handlePayerDateDataArr('StartPaidDate', moment(newValue).format('YYYY-MM-DD'), i) }} /> 
+                            </Grid>
+                            <Grid item xs={1} md={2}>
+                                <p className="paper-p">&nbsp;</p>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                    <Divider variant="middle" style={{ margin: '20px 0', width: '100%' }} />
+                </React.Fragment>
+            )
+        }
+        return resultArr
     }
 
 
@@ -286,9 +455,9 @@ function CloseRepaymentContract() {
                                             <TableHead>
                                             <TableRow>
                                                  <TableCell align="center">ลำดับที่</TableCell>
-                                                <TableCell align="left">
+                                                {/* <TableCell align="left">
                                                     <MuiCheckbox label="&nbsp;"  />
-                                                </TableCell>
+                                                </TableCell> */}
                                                 <TableCell align="left">สัญญาเลขที่</TableCell>
                                                 <TableCell align="left">เลขประจำตัวประชาชน</TableCell>
                                                 <TableCell align="left">ชื่อ-สกุล เกษตกร</TableCell>
@@ -311,20 +480,20 @@ function CloseRepaymentContract() {
                                                         ).map((cell,i) => (
                                                         <TableRow key={i}>
                                                             <TableCell align="center">{i+1}</TableCell>
-                                                            <TableCell align="left">
-                                                                <MuiCheckbox label="&nbsp;"  />
-                                                            </TableCell>
+                                                            {/* <TableCell align="left">
+                                                                <MuiCheckbox label="&nbsp;" onChange={(e)=>{alert(i); console.log(e.target.checked) }} />
+                                                            </TableCell> */}
                                                             {/* <TableCell align="left">{cell.RecDate === null ? '' : moment(cell.RecDate).format('DD/MM/YYYY')}</TableCell> */}
                                                             <TableCell align="left">{cell.LoanNumber}</TableCell>
                                                             <TableCell align="left">{cell.IDCard}</TableCell>
-                                                            <TableCell align="left">{cell.FrontName} {cell.Name} {cell.Sirname}</TableCell>
+                                                            <TableCell align="left">{cell.fullname}</TableCell>
                                                             <TableCell align="left">{!!cell.LoanDate ? moment(cell.LoanDate).format('DD/MM/YYYY') : ''}</TableCell>
                                                             <TableCell align="left">{!!cell.LastDatePaid ? moment(cell.LastDatePaid).format('DD/MM/YYYY') : ''}</TableCell>
-                                                            <TableCell align="left">{''}</TableCell>
-                                                            <TableCell align="left">{cell.principle}</TableCell>
-                                                            <TableCell align="left">{cell.Interest}</TableCell>
-                                                            <TableCell align="left">{cell.ChargeRate}</TableCell><TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
-                                                                <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>gotoLoanRequestPrint(cell.xxx)} />
+                                                            <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
+                                                            <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
+                                                            <TableCell align="left">{(cell.Interest).toLocaleString('en-US')}</TableCell>
+                                                            <TableCell align="left">{(cell.ChargeRate).toLocaleString('en-US')}</TableCell><TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
+                                                                <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>{gotoCloseRepaymentContract(cell.LoanNumber);}} />
                                                             </TableCell>
                                                         </TableRow>
                                                         
@@ -340,7 +509,7 @@ function CloseRepaymentContract() {
                                     <TablePagination
                                         rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
                                         component="div"
-                                        count={tableResult.length}
+                                        count={tableResult.length || 0}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
                                         onPageChange={handleChangePage}
@@ -370,89 +539,23 @@ function CloseRepaymentContract() {
                                                     <Grid container spacing={2}>
                                                         {/* Right side ----------------------------------- */}
 
-                                                        <Grid item xs={12} md={12}>
+                                                        <Grid item xs={12} md={10}>
                                                             <h1 className="paper-head-green">ข้อมูลผู้ชดใช้หนี้แทน</h1>
                                                         </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid container spacing={2}>
-                                                                <Grid item xs={12} md={12}>
-                                                                    <p className="txt-green">ลำดับที่ 1</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiTextfield label="เลขที่คำสั่ง"  />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <MuiDatePicker label="วันที่คำสั่ง" />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={7}>
-                                                                    <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" id="addmember-idc" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4"  />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <p>&nbsp;</p>
-                                                                    <ButtonFluidPrimary label="เลือกจากข้อมูลสมาชิก" onClick={()=>{getPayerData()}} />
-                                                                </Grid>
-                                                                <Grid item xs={12} md={12}>
-                                                                    <MuiTextfield label="ชื่อ-สกุล ผู้ชดใช้หนี้แทน"  /></Grid>
-                                                            </Grid>
+                                                        <Grid item xs={12} md={2}>
+                                                            <MuiSelect label="จำนวนผู้ชดใช้หนี้แทน" listsValue={payerAmountList} lists={payerAmountList} value={payerDataAmount} onChange={handlePayerDataAmount}  />
                                                         </Grid>
+                                                        {
+                                                            getPayerDataItem(payerDataAmount)
+                                                        }
 
-                                                        {/* Right side ----------------------------------- */}
-                                                        <Grid item xs={12} md={6}>
-                                                            
-                                                            <Grid container spacing={2}>
-                                                            
-                                                                <Grid item xs={1} md={5}>
-                                                                    <p className="paper-p txt-right">ชดใช้เงินจำนวน</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldCurrency label=""  /> 
-                                                                </Grid>
-                                                                <Grid item xs={1} md={2}>
-                                                                    <p className="paper-p">บาท</p>
-                                                                </Grid>
-
-                                                                <Grid item xs={1} md={5}>
-                                                                    <p className="paper-p txt-right">อัตราดอกเบี้ย</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldCurrency label=""  /> 
-                                                                </Grid>
-                                                                <Grid item xs={1} md={2}>
-                                                                    <p className="paper-p">% ต่อปี</p>
-                                                                </Grid>
-
-                                                                <Grid item xs={1} md={5}>
-                                                                    <p className="paper-p txt-right">จำนวนงวดที่ผ่อนชำระ</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <MuiTextfieldCurrency label=""  /> 
-                                                                </Grid>
-                                                                <Grid item xs={1} md={2}>
-                                                                    <p className="paper-p">งวด</p>
-                                                                </Grid>
-
-                                                                <Grid item xs={1} md={5}>
-                                                                    <p className="paper-p txt-right">เริ่มผ่อนงวดแรกวันที่</p>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={5}>
-                                                                    <MuiDatePicker label="" />
-                                                                </Grid>
-                                                                <Grid item xs={1} md={2}>
-                                                                    <p className="paper-p">&nbsp;</p>
-                                                                </Grid>
-
-                                                            </Grid>
-                                                        </Grid>
-                                                    
-                                                        <Divider />
-
-                                                        <Grid item xs={12} md={12} className="txt-center mg-t-20">
+                                                        {/* <Grid item xs={12} md={12} className="txt-center mg-t-0">
                                                                 <Grid container spacing={2}>
                                                                     <Grid item xs={12} md={12}>
-                                                                        <ButtonNormalIconStartPrimary label="เพิ่มผู้ชดใช้หนี้แทน" maxWidth="380px"  startIcon={<AddIcon />}  />
+                                                                        <ButtonNormalIconStartPrimary label="เพิ่มผู้ชดใช้หนี้แทน" maxWidth="380px"  startIcon={<AddIcon />} onClick={()=>{setPayerDataAmount(payerDataAmount+1); console.log(payerDataArr.length)}} />
                                                                     </Grid>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </Grid> */}
                                                     </Grid>
                                                 </form>
                                             </Paper>
@@ -464,7 +567,7 @@ function CloseRepaymentContract() {
                                 <Container  maxWidth="md">
                                     <Grid container spacing={2} className="btn-row txt-center">
                                         <Grid item xs={12} md={12}>
-                                            <ButtonFluidPrimary label="บันทึกข้อมูล" maxWidth="380px" />
+                                            <ButtonFluidPrimary label="บันทึกข้อมูล" maxWidth="380px" onClick={(e)=>{ handleSubmit(e) }} />
                                         </Grid>
                                     </Grid>
                                 </Container>
@@ -474,6 +577,31 @@ function CloseRepaymentContract() {
                 
                 </div>
             </Fade>
+
+            <Dialog
+                open={err}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{errMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
         </div>
     )
 }

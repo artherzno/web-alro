@@ -79,7 +79,7 @@ function PrintBillBank() {
     const rowsLabel = [
         // 'no',
         'RecDate', 
-        'ProjectMainCode',
+        'ProjectCode',
         'ProjectMainName',
         'LoanNumber', 
         'ReceiptDate',
@@ -104,7 +104,7 @@ function PrintBillBank() {
     const headCells = [
         // { id: 'no', numeric: false, disablePadding: true, label: 'รหัสบันทึก' },
         { id: 'RecDate', numeric: true, disablePadding: false, widthCol: '160px', label: 'วันที่บันทึก' },
-        { id: 'ProjectMainCode', numeric: true, disablePadding: false, widthCol: '160px', label: 'รหัสโครงการ' },
+        { id: 'ProjectCode', numeric: true, disablePadding: false, widthCol: '160px', label: 'รหัสโครงการ' },
         { id: 'ProjectMainName', numeric: true, disablePadding: false, widthCol: '160px', label: 'ชื่อโครงการ' },
         { id: 'LoanNumber', numeric: true, disablePadding: false, widthCol: '160px', label: 'สัญญาเลขที่' },
         { id: 'ReceiptDate', numeric: false, disablePadding: true, widthCol: '160px', label: 'วันที่ใบเสร็จ' },
@@ -126,9 +126,9 @@ function PrintBillBank() {
         // { id: 'pcharge', numeric: true, disablePadding: false, label: 'Pcharge' },
     ];
 
-    function createData(RecDate, ProjectMainCode,ProjectMainName,LoanID, LoanNumber, ReceiptDate, ReceiptType, ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, FrontName, Name, Sirname ) {
+    function createData(RecDate, ProjectCode,ProjectMainName,LoanID, LoanNumber, ReceiptDate, ReceiptType, ReceiptNumber, PrinciplePaid, InterestPaid, Fines, Time, Mindex, FrontName, Name, Sirname ) {
         return { RecDate, 
-            ProjectMainCode,
+            ProjectCode,
             ProjectMainName,
             LoanID,
             LoanNumber, 
@@ -154,10 +154,11 @@ function PrintBillBank() {
 
     // New order date 2021-08-23 to 23/08/2564
     const newOrderDate = (val) => {
-        let yyyy = Number(val.substring(0,4)) + 543
-        let mm = val.substring(5,7)
-        let dd = val.substring(8,10)
-        return dd+'/'+mm+'/'+yyyy
+        let result = ''
+        if(!!val) {
+            result = moment(val).format('DD/MM/') + (Number(moment(val).format('YYYY')) + 543)
+        }
+        return result
     }
 
     const getSearch = () => {
@@ -195,7 +196,7 @@ function PrintBillBank() {
                                     // i,
                                     // item.RecDate?moment(item.RecDate).format('DD/MM/YYYY'):'',
                                     newOrderDate(item.RecDate),
-                                    item.ProjectMainCode,
+                                    item.ProjectCode,
                                     item.ProjectMainName,
                                     item.LoanID,
                                     item.LoanNumber,

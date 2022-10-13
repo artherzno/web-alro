@@ -139,6 +139,9 @@ const listmenu = [
                 subtitle: 'เงื่อนไขปรับโครงสร้างหนี้',
                 subpath: '/debtinfo/debtcondition'
             },{
+                subtitle: 'สัญญาปรับโครงสร้างหนี้',
+                subpath: '/home'
+            },{
                 subtitle: 'รับสภาพหนี้/รับสภาพความผิด',
                 subpath: '/debtinfo/faultcondition'
             }

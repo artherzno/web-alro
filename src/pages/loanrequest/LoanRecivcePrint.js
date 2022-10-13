@@ -637,6 +637,7 @@ function LoanRecivcePrint() {
                     setErrMsg('ไม่พบข้อมูล')
                 }else {
                     setInfo(true)
+                    setLoanNumber(data.data[0].LoanNumber)
                     // console.log('data',data)
                     setRowsInfo(data.data)
                     setDataInfo(data)
@@ -805,8 +806,10 @@ function LoanRecivcePrint() {
                 for(let i=0; i<len; i++) {
                     infoArr.push(
                         <React.Fragment key={i}>
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={12} md={12} style={{display: 'flex', alignItems: 'center'}}>
                                 <p className="font-18 txt-blue txt-bold">รายการที่ {i+1}</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <ButtonFluidIconStartPrimary maxWidth="200px" label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF} />
                             </Grid>
                             <Grid item xs={12} md={3}>
                                 <MuiTextfield label="ใบสำคัญรับเงินตามสัญญากู้ยืมเลขที่" inputdisabled="input-disabled" value={dataInfo.data[0].LoanNumber}/>
