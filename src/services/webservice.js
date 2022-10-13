@@ -39,6 +39,14 @@ const api = {
         })
 
     },
+    getExtend(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtend",
+            params
+        })
+
+    },
     getCashFlow(params) {
 
         return post({
