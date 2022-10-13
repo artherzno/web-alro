@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { DatePicker, SortCheck, DisplayCheck, MainProjectSelect, SecondProjectSelect, LoanTypeSelect, LoanderTypeSelect, ObjectiveLoanSelect, LoanPlanSelect, BorrowTypeSelect } from '../../components/check'
 
 import Header from '../../components/Header';
@@ -311,6 +312,11 @@ class CheckSign extends React.Component {
                                     <Grid item xs={12}  md={3}>
                                         <MuiTextfield disabled={true} value={this.state.remainAmount} label="จำนวนเงินเหลือ" />
                                     </Grid>
+
+                                    <Grid item xs={12}  md={3}>
+                                        <p>&nbsp;</p>
+                                        <ButtonFluidPrimary label="บันทึกขอเงินคืน" onClick={() => {this.props.history.push('/check/refundrecord', {LoanNumber: '00000/0000'}); }} />
+                                    </Grid>
                                    
                            
                                 </Grid>
@@ -480,4 +486,5 @@ class CheckSign extends React.Component {
     }
 }
 
-export default withStyles(styles)(CheckSign)
+// export default withStyles(styles)(CheckSign)
+export default withRouter(withStyles(styles)(CheckSign))

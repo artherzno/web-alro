@@ -111,6 +111,7 @@ import SpouseConsentBook from './loanrequest/SpouseConsentBook';
 import UserHistory from './manageinfo/UserHistory';
 import ChartOfAccounts from './manageinfo/ChartOfAccounts';
 import TransferDebt from './transferdebts/TransferDebt'
+import RefundRecord from './check/RefundRecord';
 
 
 function Main() {
@@ -234,6 +235,8 @@ function Main() {
                     <Route path="/check/check-billed" component={CheckBilled} />
                     <Route path="/check/condition-interest" component={ConditionInterest} />
                     <Route path="/check/payment" component={Payment} />
+
+                    <Route path="/check/refundrecord" component={RefundRecord} />
                     {/* Repayment Contract */}
                     <Route path="/repaymentcontract/closerepaymentcontract" component={CloseRepaymentContract} />
                     <Route path="/repaymentcontract/addrepaymentcontract" component={AddRepaymentContract} />

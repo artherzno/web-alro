@@ -272,6 +272,8 @@ function CloseRepaymentContract() {
         }
         // console.log(payerDataArr)
         console.log(dataSubmit)
+        setErrMsg('ไม่สามารถทำรายการได้')
+        setErr(true)
     
         // if (value === 'best') {
         //   setHelperText('You got it!');
