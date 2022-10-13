@@ -267,7 +267,7 @@ function CloseRepaymentContract() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const dataSubmit = {
-            LoanNumber: inputPayerData.LoanNumber,
+            LoanID: inputPayerData.LoanID,
             result: payerDataArr
         }
         // console.log(payerDataArr)
@@ -287,7 +287,7 @@ function CloseRepaymentContract() {
         // }
       };
 
-    const gotoCloseRepaymentContract = (loanNumber) => {
+    const gotoCloseRepaymentContract = (loanID) => {
         setPayerDataArr([
             { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
             { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
@@ -304,7 +304,7 @@ function CloseRepaymentContract() {
 
         setOpenInfo(true);
         setInputPayerData({...inputPayerData,
-            LoanNumber: loanNumber
+            LoanID: loanID
         })
     }
 
@@ -495,7 +495,7 @@ function CloseRepaymentContract() {
                                                             <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
                                                             <TableCell align="left">{(cell.Interest).toLocaleString('en-US')}</TableCell>
                                                             <TableCell align="left">{(cell.ChargeRate).toLocaleString('en-US')}</TableCell><TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
-                                                                <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>{gotoCloseRepaymentContract(cell.LoanNumber);}} />
+                                                                <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>{gotoCloseRepaymentContract(cell.LoanID);}} />
                                                             </TableCell>
                                                         </TableRow>
                                                         

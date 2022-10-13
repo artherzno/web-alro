@@ -112,6 +112,7 @@ import UserHistory from './manageinfo/UserHistory';
 import ChartOfAccounts from './manageinfo/ChartOfAccounts';
 import TransferDebt from './transferdebts/TransferDebt'
 import RefundRecord from './check/RefundRecord';
+import DefaultInterest from './debtinfo/DefaultInterest';
 
 
 function Main() {
@@ -167,6 +168,7 @@ function Main() {
                     <Route path="/debtinfo/recordrequestpayment" component={RecordRequestPayment} />
                     <Route path="/debtinfo/debtcondition" component={DebtCondition} />
                     <Route path="/debtinfo/faultcondition" component={FaultCondition} />
+                    <Route path="/debtinfo/defaultinterest" component={DefaultInterest} />
                     {/* Report Page */}
                     <Route path="/report/requestloan" component={RequestLoan} />
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />

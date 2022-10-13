@@ -315,7 +315,7 @@ class CheckSign extends React.Component {
 
                                     <Grid item xs={12}  md={3}>
                                         <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="บันทึกขอเงินคืน" onClick={() => {this.props.history.push('/check/refundrecord', {LoanNumber: '00000/0000'}); }} />
+                                        <ButtonFluidPrimary label="บันทึกขอคืนเงิน" onClick={() => {this.props.history.push('/check/refundrecord', {LoanNumber: '00000/0000'}); }} />
                                     </Grid>
                                    
                            

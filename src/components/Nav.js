@@ -144,6 +144,9 @@ const listmenu = [
             },{
                 subtitle: 'รับสภาพหนี้/รับสภาพความผิด',
                 subpath: '/debtinfo/faultcondition'
+            },{
+                subtitle: 'การจัดเก็บดอกเบี้ยผิดนัด',
+                subpath: '/debtinfo/defaultinterest'
             }
         ]
     },{
