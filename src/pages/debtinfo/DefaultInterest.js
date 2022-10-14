@@ -262,7 +262,7 @@ function DefaultInterest() {
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="ค้นหาชื่อ" value={inputDataSearch.Name} name="Name" onChange={handleInputDataSearch}  />
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
                                         <ButtonFluidPrimary label="ค้นหา" onClick={getSearchDefaultInterest} />  
                                     </Grid>

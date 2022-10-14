@@ -147,6 +147,9 @@ const listmenu = [
             },{
                 subtitle: 'การจัดเก็บดอกเบี้ยผิดนัด',
                 subpath: '/debtinfo/defaultinterest'
+            },{
+                subtitle: 'สรุปผลการเตือนหนี้ 2 ครั้ง',
+                subpath: '/debtinfo/summarynoticeinvoice'
             }
         ]
     },{

@@ -113,6 +113,7 @@ import ChartOfAccounts from './manageinfo/ChartOfAccounts';
 import TransferDebt from './transferdebts/TransferDebt'
 import RefundRecord from './check/RefundRecord';
 import DefaultInterest from './debtinfo/DefaultInterest';
+import SummaryNoticeInvoice from './debtinfo/SummaryNoticeInvoice';
 
 
 function Main() {
@@ -169,6 +170,7 @@ function Main() {
                     <Route path="/debtinfo/debtcondition" component={DebtCondition} />
                     <Route path="/debtinfo/faultcondition" component={FaultCondition} />
                     <Route path="/debtinfo/defaultinterest" component={DefaultInterest} />
+                    <Route path="/debtinfo/summarynoticeinvoice" component={SummaryNoticeInvoice} />
                     {/* Report Page */}
                     <Route path="/report/requestloan" component={RequestLoan} />
                     <Route path="/report/listfarmerpayloan" component={ListFarmerPayLoan} />

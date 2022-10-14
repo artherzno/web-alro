@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.1b37bc88.chunk.css",
-    "main.js": "/static/js/main.4ec6843d.chunk.js",
-    "main.js.map": "/static/js/main.4ec6843d.chunk.js.map",
+    "main.js": "/static/js/main.0b7b3228.chunk.js",
+    "main.js.map": "/static/js/main.0b7b3228.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.ab9c86b3.js",
     "runtime-main.js.map": "/static/js/runtime-main.ab9c86b3.js.map",
-    "static/js/2.15900e7b.chunk.js": "/static/js/2.15900e7b.chunk.js",
-    "static/js/2.15900e7b.chunk.js.map": "/static/js/2.15900e7b.chunk.js.map",
+    "static/js/2.b504f18b.chunk.js": "/static/js/2.b504f18b.chunk.js",
+    "static/js/2.b504f18b.chunk.js.map": "/static/js/2.b504f18b.chunk.js.map",
     "static/js/3.6a2c2af5.chunk.js": "/static/js/3.6a2c2af5.chunk.js",
     "static/js/3.6a2c2af5.chunk.js.map": "/static/js/3.6a2c2af5.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.1b37bc88.chunk.css.map": "/static/css/main.1b37bc88.chunk.css.map",
-    "static/js/2.15900e7b.chunk.js.LICENSE.txt": "/static/js/2.15900e7b.chunk.js.LICENSE.txt",
+    "static/js/2.b504f18b.chunk.js.LICENSE.txt": "/static/js/2.b504f18b.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/static/media/login-bg.f3d3bf69.png",
     "static/media/logo-alro.9306daf2.png": "/static/media/logo-alro.9306daf2.png",
     "static/media/การขอขยายระยะเวลาการชำระหนี้.3c4d4586.pdf": "/static/media/การขอขยายระยะเวลาการชำระหนี้.3c4d4586.pdf",
@@ -39,8 +39,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.ab9c86b3.js",
-    "static/js/2.15900e7b.chunk.js",
+    "static/js/2.b504f18b.chunk.js",
     "static/css/main.1b37bc88.chunk.css",
-    "static/js/main.4ec6843d.chunk.js"
+    "static/js/main.0b7b3228.chunk.js"
   ]
 }
