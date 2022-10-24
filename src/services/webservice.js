@@ -1351,7 +1351,10 @@ const api = {
 
         return post({
             path: "api/api/ReportServices/ExportTargetByContract",
-            params
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
         })
 
     },
@@ -1367,7 +1370,10 @@ const api = {
 
         return post({
             path: "api/api/ReportServices/ExportTargetByProject",
-            params
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
         })
 
     },
@@ -1383,7 +1389,10 @@ const api = {
 
         return post({
             path: "api/api/ReportServices/ExportTargetByProjectY",
-            params
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
         })
 
     },
@@ -1399,7 +1408,10 @@ const api = {
 
         return post({
             path: "api/api/ReportServices/ExportTargetByGroup",
-            params
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
         })
 
     },
