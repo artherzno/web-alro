@@ -60,13 +60,14 @@ function RefundRecord() {
 
 
     const [inputData, setInputData] = useState({
-        BookNumber: '', // บันทึกเลขที่หนังสือ
-        RefundDate: '', // วันที่ยื่นคำร้องขอคืนเงิน
-        RefundProcessDate: '', // วันที่ดำเนินการคืนเงิน
-        RefundAmount: '', // จำนวนเงินที่คืน
-        LoanNumber: location.state?.LoanNumber || '', // ตามสัญญาเลขที่ *ดึงเลขที่สัญญามาแสดง auto
-        Bank: '', // โอนผ่านบัญชีธนาคารเลขที่ *ดึงจากข้อมูลเลขที่บัญชีเกษตรกรมาแสดง auto
-        Refunder: '', // ชื่อผู้คืนเงิน *ชื่อเจ้าหน้าที่ผู้คืนเงิน
+        "LoanID": '',
+        "Refund": '',
+        "PetitionDate": '',
+        "RefundDate": '',
+        "LoanNumber": '',
+        "RecNumber": '',
+        "RefundBankID": '',
+        "RefunderName": ''
     })
 
 
@@ -111,6 +112,36 @@ function RefundRecord() {
         console.log(inputData)
         setErrMsg('ไม่สามารถทำรายการได้')
         setErr(true)
+
+         // Edit notation
+         axios.post(
+            `${server_hostname}/admin/api/spk_save_refund`, { inputData}, { headers: { "token": token } } 
+        ).then(res=>{
+            console.log(res)
+            let data = res.data;
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                setSuccess(true);
+                setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+            }
+        })
+        .catch(err=>{console.log(err)})
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
     }
 
     const handleInputData = (name, value) => {
@@ -126,6 +157,11 @@ function RefundRecord() {
         // history.push('/manageinfo/searchmember');
 
     };
+
+    const gotoCheckSign = () => {
+        setSuccess(false)
+        history.push('/check/checksign')
+    }
 
 
     return (
@@ -151,25 +187,25 @@ function RefundRecord() {
                                     <form className="root" noValidate autoComplete="off" onSubmit={handleSubmit}>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="บันทึกเลขที่หนังสือ"  name="BookNumber" value={inputData.BookNumber} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
+                                                <MuiTextfield label="บันทึกเลขที่หนังสือ"  name="RecNumber" value={inputData.RecNumber} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
                                                 <MuiTextfield label="ตามสัญญาเลขที่"  name="LoanNumber" value={inputData.LoanNumber} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่ยื่นคำร้องขอคืนเงิน" name="RefundDate" value={inputData.RefundDate} onChange={(newValue)=>{ handleInputData('RefundDate', moment(newValue).format('YYYY-MM-DD')) }}   />
+                                                <MuiDatePicker label="วันที่ยื่นคำร้องขอคืนเงิน" name="PetitionDate" value={inputData.PetitionDate} onChange={(newValue)=>{ handleInputData('PetitionDate', moment(newValue).format('YYYY-MM-DD')) }}   />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiDatePicker label="วันที่ดำเนินการคืนเงิน" name="RefundProcessDate" value={inputData.RefundProcessDate} onChange={(newValue)=>{ handleInputData('RefundProcessDate', moment(newValue).format('YYYY-MM-DD')) }}   />
+                                                <MuiDatePicker label="วันที่ดำเนินการคืนเงิน" name="RefundDate" value={inputData.RefundDate} onChange={(newValue)=>{ handleInputData('RefundDate', moment(newValue).format('YYYY-MM-DD')) }}   />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="จำนวนเงินที่คืน" inputdisabled="input-disabled" name="RefundAmount" value={inputData.RefundAmount} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
+                                                <MuiTextfield label="จำนวนเงินที่คืน" name="Refund" value={inputData.Refund} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="โอนผ่านบัญชีธนาคารเลขที่" inputdisabled="input-disabled" name="Bank" value={inputData.Bank} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
+                                                <MuiTextfield label="โอนผ่านบัญชีธนาคารเลขที่" name="RefundBankID" value={inputData.RefundBankID} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
                                             </Grid>
                                             <Grid item xs={12} md={3}>
-                                                <MuiTextfield label="ชื่อผู้คืนเงิน" inputdisabled="input-disabled" name="Refunder" value={inputData.Refunder} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
+                                                <MuiTextfield label="ชื่อผู้คืนเงิน" name="RefunderName" value={inputData.RefunderName} onChange={(e)=>{handleInputData(e.target.name, e.target.value)}} />
                                             </Grid>
                                         </Grid>
                                     </form>
@@ -189,6 +225,30 @@ function RefundRecord() {
                 
                 </div>
             </Fade>
+
+            <Dialog
+                open={success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+
+                    <div className="dialog-success">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={gotoCheckSign} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
 
             <Dialog
                 open={err}

@@ -67,6 +67,7 @@ function CloseRepaymentContract() {
         LoanNumber: '',
     })
     const [inputPayerData, setInputPayerData] = useState('')
+    const [loanIDDataArr, setLoanIDDataArr] = useState([])
     const [payerDataArr, setPayerDataArr] = useState([
         { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
         { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
@@ -152,9 +153,30 @@ function CloseRepaymentContract() {
                     console.log(data)
                     if(!!data.length) {
                         setTableResult(data.data)
+
+                        let dataArr = []
+                        for(let i=0; i<data.data.length; i++) {
+                            dataArr.push(data.data[i].LoanID)
+                        }
+                        setLoanIDDataArr(dataArr)
                     } else {
                         setErr(true)
                         setErrMsg('ไม่พบข้อมูล')
+                        setTableResult({})
+                        setOpenInfo(false)
+                        setPayerDataArr([
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            
+                        ])
                     }
                 }
             }
@@ -266,12 +288,70 @@ function CloseRepaymentContract() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const dataSubmit = {
-            LoanID: inputPayerData.LoanID,
-            result: payerDataArr
+
+        let resultArr = []
+        for(let i=0; i<payerDataAmount; i++) {
+            resultArr.push(payerDataArr[i])
         }
+
+        const loanmisapply = JSON.stringify({
+            LoanID: loanIDDataArr,
+            result: resultArr
+        })
         // console.log(payerDataArr)
-        console.log(dataSubmit)
+        console.log(loanmisapply)
+
+        
+        axios.post(
+        `${server_hostname}/admin/api/add_loanmisapply`, 
+            {
+                LoanID: loanIDDataArr,
+                result: resultArr
+            },    
+        { headers: { "token": token } } 
+        ).then(res => {
+                console.log(res)
+                let data = res.data;
+                if(data.code === 0 || res === null || res === undefined) {
+                    setErr(true);
+                    if(Object.keys(data.message).length !== 0) {
+                        console.error(data)
+                        if(typeof data.message === 'object') {
+                            setErrMsg('ไม่สามารถทำรายการได้')
+                        } else {
+                            setErrMsg([data.message])
+                        }
+                    } else {
+                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                    }
+                } else {
+                    setSuccess(true);
+                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+
+                    setTableResult({})
+                    setOpenInfo(false)
+                    setPayerDataArr([
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                        
+                    ])
+                }
+            }
+        ).catch(err => { console.log(err); })
+        .finally(() => {
+            if (isMounted.current) {
+              setIsLoading(false)
+            }
+         });
+
         setErrMsg('ไม่สามารถทำรายการได้')
         setErr(true)
     
@@ -285,7 +365,7 @@ function CloseRepaymentContract() {
         //   setHelperText('Please select an option.');
         //   setError(true);
         // }
-      };
+    };
 
     const gotoCloseRepaymentContract = (loanID) => {
         setPayerDataArr([
@@ -469,7 +549,7 @@ function CloseRepaymentContract() {
                                                 <TableCell align="left">เงินต้นคงเหลือ</TableCell>
                                                 <TableCell align="left">ดอกเบี้ย</TableCell>
                                                 <TableCell align="left">ค่าปรับ</TableCell>
-                                                <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>ผู้ชดใช้หนี้แทน</TableCell>
+                                                {/* <TableCell align="center" className="sticky" style={{minWidth: '120px', width: '10em'}}>ผู้ชดใช้หนี้แทน</TableCell> */}
                                                 {/* <TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>&nbsp;</TableCell> */}
                                             </TableRow>
                                             </TableHead>
@@ -494,9 +574,10 @@ function CloseRepaymentContract() {
                                                             <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
                                                             <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
                                                             <TableCell align="left">{(cell.Interest).toLocaleString('en-US')}</TableCell>
-                                                            <TableCell align="left">{(cell.ChargeRate).toLocaleString('en-US')}</TableCell><TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
+                                                            <TableCell align="left">{(cell.ChargeRate).toLocaleString('en-US')}</TableCell>
+                                                            {/* <TableCell align="left">{(cell.ChargeRate).toLocaleString('en-US')}</TableCell><TableCell align="left" className="sticky" style={{minWidth: '120px', width: '10em'}}>
                                                                 <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="100px" onClick={()=>{gotoCloseRepaymentContract(cell.LoanID);}} />
-                                                            </TableCell>
+                                                            </TableCell> */}
                                                         </TableRow>
                                                         
                                                     ))
@@ -522,7 +603,17 @@ function CloseRepaymentContract() {
                             </Grid>
                         </Grid>
                     </Container>
-
+                    {
+                        tableResult.length ? 
+                        <Container  maxWidth="md">
+                            <Grid container spacing={2} className="btn-row txt-center mt-0">
+                                <Grid item xs={12} md={12}>
+                                    <ButtonFluidPrimary label="สร้างสัญญา" maxWidth="380px" onClick={()=>{ gotoCloseRepaymentContract() }} />
+                                </Grid>
+                            </Grid>
+                        </Container>
+                        : null
+                    }
                     {/* <Container  maxWidth="md">
                         <Grid container spacing={2} className="btn-row txt-center">
                             <Grid item xs={12} md={12}>

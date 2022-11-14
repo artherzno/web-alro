@@ -1408,6 +1408,11 @@ input {
         background-color: transparent;
         border-color: $gray-border;
       }
+      #notation {
+        pointer-events: auto;
+        background-color: white;
+        border-color: $gray-border;
+      }
     }
   }
 }

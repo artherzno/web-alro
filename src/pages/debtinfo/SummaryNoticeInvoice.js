@@ -40,6 +40,7 @@ import {
     ButtonFluidPrimary,
     ButtonFluidIconStartPrimary,
     ButtonNormalIconStartPrimary,
+    MuiSelectMonth,
 } from '../../components/MUIinputs';
 
 function SummaryNoticeInvoice() {
@@ -62,6 +63,8 @@ function SummaryNoticeInvoice() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [inputDataSearch, setInputDataSearch] = useState({
+        year: '',
+        month: '',
         ContractNo: '',
         ProcessDate: moment().format('YYYY-MM-DD')
     })
@@ -328,11 +331,19 @@ function SummaryNoticeInvoice() {
 
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
+                                     <Grid item xs={12} md={2}>
+                                        <MuiTextfield label="ปีงบประมาณ" value={inputDataSearch.year} name="year" onChange={handleInputDataSearch}  />
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                        <MuiSelectMonth label="เลือกเดือน" name="month" value={inputDataSearch.month}  onChange={handleInputDataSearch} />
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={2} className="mg-t-10">
                                     <Grid item xs={12} md={3}>
                                         <MuiTextfield label="วันที่ มีผลต่อ ยอดเงิน และ ดอกเบี้ย"  inputdisabled="input-disabled" value={newOrderDate(inputDataSearch.ProcessDate)} name="ProcessDate" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={4}>
-                                        <MuiTextfield label="ค้นหาทุกสัญญา" value={inputDataSearch.ContractNumber} name="ContractNumber" onChange={handleInputDataSearch}  />
+                                        <MuiTextfield label="เลขที่ใบเตือน" value={inputDataSearch.ContractNumber} name="ContractNumber" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
@@ -348,6 +359,73 @@ function SummaryNoticeInvoice() {
                                     </Grid>
                                 </Grid>
                             </Grid> */}
+                        </Grid>
+
+                        <Grid item xs={12} md={12}> 
+                            <div className="table mg-t-20">
+                                <TableContainer className="table-box table-loanrequestprint1 mg-t-10">
+                                    <Table aria-label="normal table">
+                                        <TableHead>
+                                            <TableRow>
+                                                {/* <TableCell align="center">รหัสบันทึก</TableCell> */}
+                                                <TableCell align="left">วันที่บันทึก</TableCell>
+                                                <TableCell align="left">เลขที่ใบสรุป</TableCell>
+                                                <TableCell align="left">ประจำเดือน</TableCell>
+                                                <TableCell align="left">เลขท่ี่ใบเตือน</TableCell>
+                                                <TableCell align="left">วันที่ออกใบเตือน</TableCell>
+                                                {/* <TableCell align="left">ลำดับที่</TableCell> */}
+                                                <TableCell align="left">งวดชำระ</TableCell>
+                                                <TableCell align="left">เงินต้นค้างชำระ</TableCell>
+                                                <TableCell align="left">เงินต้นคงเหลือ</TableCell>
+                                                <TableCell align="left">ดอกเบี้ยต้องชำระ</TableCell>
+                                                <TableCell align="left">ดอกเบี้ยค้างชำระ</TableCell>
+                                                <TableCell align="left">ดอกเบี้ยครบชำระ</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {
+                                                tableResult3.length ? 
+                                                    (rowsPerPage > 0
+                                                        ? tableResult3.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                        : tableResult3
+                                                    ).map((cell,i) => (
+                                                    <TableRow key={i}>
+                                                        {/* <TableCell align="left">{cell.value1}</TableCell> */}
+                                                        <TableCell align="left">{cell.value2}</TableCell>
+                                                        <TableCell align="left">{cell.value3}</TableCell>
+                                                        <TableCell align="left">{cell.value4}</TableCell>
+                                                        <TableCell align="left">{cell.value5}</TableCell>
+                                                        <TableCell align="left">{cell.value6}</TableCell>
+                                                        {/* <TableCell align="left">{cell.value7}</TableCell> */}
+                                                        <TableCell align="left">{cell.value8}</TableCell>
+                                                        <TableCell align="left">{cell.value9}</TableCell>
+                                                        <TableCell align="left">{cell.value10}</TableCell>
+                                                        <TableCell align="left">{cell.value11}</TableCell>
+                                                        <TableCell align="left">{cell.value12}</TableCell>
+                                                        <TableCell align="left">{cell.value13}</TableCell>
+                                                        
+                                                    </TableRow>
+                                                    
+                                                ))
+                                                : 
+                                                <TableRow>
+                                                    <TableCell colSpan={13} align="left">ไม่พบข้อมูล</TableCell>
+                                                </TableRow>
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
+                                    component="div"
+                                    count={tableResult.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                    labelRowsPerPage="แสดงจำนวนแถว"
+                                />
+                            </div>
                         </Grid>
                     </Container>
 
@@ -372,6 +450,9 @@ function SummaryNoticeInvoice() {
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินครบชำระ</p>
                                         <p className="box-blue-body">{!tableTotalResult.value1 ? '0' : parseFloat(tableTotalResult.value1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+                                    
+                                        <p className="box-blue-head">จำนวนราย</p>
+                                        <p className="box-blue-body">7</p>
                                     </Box>
                                     <Box className="box-blue-item">
                                         <p className="box-blue-head">เงินต้นค้างชำระ</p>
@@ -424,7 +505,7 @@ function SummaryNoticeInvoice() {
                                                     <TableCell align="left">ดอกเบี้ยค้าง</TableCell>
                                                     <TableCell align="left">ดอกเบี้ย</TableCell>
                                                     <TableCell align="left">ดอกเบี้ยสะสม</TableCell>
-                                                    <TableCell align="left" className="sticky tb-w-14em">&nbsp;</TableCell>
+                                                    {/* <TableCell align="left" className="sticky tb-w-14em">&nbsp;</TableCell> */}
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -453,9 +534,9 @@ function SummaryNoticeInvoice() {
                                                             <TableCell align="left">{cell.value16}</TableCell>
                                                             <TableCell align="left">{cell.value17}</TableCell>
                                                             <TableCell align="left">{cell.value18}</TableCell>
-                                                            <TableCell align="left" style={{minWidth: '140px', width: '10em', padding: '10px'}} className="sticky tb-w-14em">
+                                                            {/* <TableCell align="left" style={{minWidth: '140px', width: '10em', padding: '10px'}} className="sticky tb-w-14em">
                                                                 <ButtonFluidPrimary label="ดูข้อมูล" maxWidth="120px" onClick={()=>gotoSummary(cell.xxx)} />
-                                                            </TableCell>
+                                                            </TableCell> */}
                                                             
                                                         </TableRow>
                                                         
@@ -479,6 +560,11 @@ function SummaryNoticeInvoice() {
                                         labelRowsPerPage="แสดงจำนวนแถว"
                                     />
                                 </div>
+                            </Grid>
+                            <Grid item xs={12} md={12} className="text-center" style={{margin: 'auto'}}>
+                                <ButtonFluidIconStartPrimary label="พิมพ์ใบสรุป" maxWidth="180px"  startIcon={<PrintIcon />} /> 
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <ButtonFluidIconStartPrimary label="พิมพ์ใบสรุป" maxWidth="180px"  startIcon={<PrintIcon />} /> 
                             </Grid>
 
 
@@ -575,77 +661,6 @@ function SummaryNoticeInvoice() {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-
-                                    {
-                                        openInfo2 ? 
-                                        <Grid item xs={12} md={12}> 
-                                            <div className="table mg-t-10">
-                                                <TableContainer className="table-box table-loanrequestprint1 mg-t-10">
-                                                    <Table aria-label="normal table">
-                                                        <TableHead>
-                                                            <TableRow>
-                                                                <TableCell align="center">รหัสบันทึก</TableCell>
-                                                                <TableCell align="left">วันที่บันทึก</TableCell>
-                                                                <TableCell align="left">เลขที่ใบสรุป</TableCell>
-                                                                <TableCell align="left">ประจำเดือน</TableCell>
-                                                                <TableCell align="left">เลขท่ี่ใบเตือน</TableCell>
-                                                                <TableCell align="left">วันที่ออกใบเตือน</TableCell>
-                                                                <TableCell align="left">ลำดับที่</TableCell>
-                                                                <TableCell align="left">งวดชำระ</TableCell>
-                                                                <TableCell align="left">เงินต้นค้างชำระ</TableCell>
-                                                                <TableCell align="left">เงินต้นคงเหลือ</TableCell>
-                                                                <TableCell align="left">ดอกเบี้ยต้องชำระ</TableCell>
-                                                                <TableCell align="left">ดอกเบี้ยค้างชำระ</TableCell>
-                                                                <TableCell align="left">ดอกเบี้ยครบชำระ</TableCell>
-                                                            </TableRow>
-                                                        </TableHead>
-                                                        <TableBody>
-                                                            {
-                                                                tableResult3.length ? 
-                                                                    (rowsPerPage > 0
-                                                                        ? tableResult3.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                                        : tableResult3
-                                                                    ).map((cell,i) => (
-                                                                    <TableRow key={i}>
-                                                                        <TableCell align="left">{cell.value1}</TableCell>
-                                                                        <TableCell align="left">{cell.value2}</TableCell>
-                                                                        <TableCell align="left">{cell.value3}</TableCell>
-                                                                        <TableCell align="left">{cell.value4}</TableCell>
-                                                                        <TableCell align="left">{cell.value5}</TableCell>
-                                                                        <TableCell align="left">{cell.value6}</TableCell>
-                                                                        <TableCell align="left">{cell.value7}</TableCell>
-                                                                        <TableCell align="left">{cell.value8}</TableCell>
-                                                                        <TableCell align="left">{cell.value9}</TableCell>
-                                                                        <TableCell align="left">{cell.value10}</TableCell>
-                                                                        <TableCell align="left">{cell.value11}</TableCell>
-                                                                        <TableCell align="left">{cell.value12}</TableCell>
-                                                                        <TableCell align="left">{cell.value13}</TableCell>
-                                                                        
-                                                                    </TableRow>
-                                                                    
-                                                                ))
-                                                                : 
-                                                                <TableRow>
-                                                                    <TableCell colSpan={13} align="left">ไม่พบข้อมูล</TableCell>
-                                                                </TableRow>
-                                                            }
-                                                        </TableBody>
-                                                    </Table>
-                                                </TableContainer>
-                                                <TablePagination
-                                                    rowsPerPageOptions={[5, 10, 25, 50, 100, 200]}
-                                                    component="div"
-                                                    count={tableResult.length}
-                                                    rowsPerPage={rowsPerPage}
-                                                    page={page}
-                                                    onPageChange={handleChangePage}
-                                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                                    labelRowsPerPage="แสดงจำนวนแถว"
-                                                />
-                                            </div>
-                                        </Grid>
-                                        : null
-                                    }
                                 </React.Fragment>
                                 : null
                             }

@@ -1442,7 +1442,7 @@ function AddRecordCourtContract() {
         } else {
             url =`${server_hostname}/admin/api/add_loancourt`
         }
-        
+
         axios.post(
             url, formData, { headers: { "token": token } } 
         ).then(res => {
@@ -1473,6 +1473,40 @@ function AddRecordCourtContract() {
             }
         });
     };
+
+    const saveEditNotation = () => {
+         // Edit notation
+         axios.post(
+            `${server_hostname}/admin/api/edit_notation_loancourt`, { 'notation': inputDataSubmit.notation, 'LoanID': loanID}, { headers: { "token": token } } 
+        ).then(res=>{
+            console.log(res)
+            let data = res.data;
+            if(data.code === 0 || res === null || res === undefined) {
+                setErr(true);
+                if(Object.keys(data.message).length !== 0) {
+                    console.error(data)
+                    if(typeof data.message === 'object') {
+                        setErrMsg('ไม่สามารถทำรายการได้')
+                    } else {
+                        setErrMsg([data.message])
+                    }
+                } else {
+                    setErrMsg(['ไม่สามารถทำรายการได้'])
+                }
+            }else {
+                setSuccess(true);
+                setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+                setConfirmSuccessStep1(true)
+            }
+        })
+        .catch(err=>{console.log(err)})
+        .finally(() => {
+            if (isMounted.current) {
+            setIsLoading(false)
+            }
+        });
+        
+    }
 
     const handlePrintPDF = () => {
         console.log('PDF - ContractNo:', loanNumber)
@@ -2024,7 +2058,7 @@ function AddRecordCourtContract() {
                                                                                 <MuiDatePicker label="วันที่รับคำพิพากษาศาล" name="DebtEditDate" value={inputDataSubmit.DebtEditDate} onChange={(newValue)=>{ setInputDataSubmit({ ...inputDataSubmit, DebtEditDate: moment(newValue).format('YYYY-MM-DD')}) }}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
-                                                                                <MuiTextfieldMultiLine label="หมายเหตุ" row="3"  name="notation" value={inputDataSubmit.notation} onChange={handleInputDataSubmit}  />
+                                                                                <MuiTextfieldMultiLine label="หมายเหตุ" row="3" id="notation" name="notation" value={inputDataSubmit.notation} onChange={handleInputDataSubmit}  />
                                                                             </Grid>
                                                                             <Grid item xs={12} md={12}>
                                                                             <Checkbox
@@ -2310,6 +2344,7 @@ function AddRecordCourtContract() {
                                                 {
                                                     action === 'view' ?  
                                                     <Grid item xs={12} md={12}>
+                                                        <ButtonFluidPrimary label="บันทึกแก้ไข" id="" maxWidth="240px" onClick={()=> saveEditNotation() } />
                                                         {/* <ButtonFluidIconStartPrimary maxWidth="240px" label="พิมพ์ PDF" startIcon={<PrintIcon />} onClick={handlePrintPDF}  /> */}
                                                     </Grid> 
                                                     :
