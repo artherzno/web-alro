@@ -117,7 +117,7 @@ parameter.append('YearTo', YearTovalue);
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'รายงานเป้าจัดเก็บรายสัญญา(โครงการ).xlsx');
+            link.setAttribute('download', 'รายงานเป้าจัดเก็บรายสัญญา_โครงการ.xlsx');
             document.body.appendChild(link);
             link.click();
 

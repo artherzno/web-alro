@@ -117,7 +117,7 @@ class TargetPerContractTTab extends React.Component {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'รายงานเป้าจัดเก็บรายสัญญา(ตำบล).xlsx');
+            link.setAttribute('download', 'รายงานเป้าจัดเก็บรายสัญญา_ตำบล.xlsx');
             document.body.appendChild(link);
             link.click();
 
