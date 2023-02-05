@@ -1,32 +1,17 @@
 {
   "files": {
-<<<<<<< HEAD
-    "main.css": "/static/css/main.4db47e86.chunk.css",
-    "main.js": "/static/js/main.48c156f6.chunk.js",
-    "main.js.map": "/static/js/main.48c156f6.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ab9c86b3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ab9c86b3.js.map",
-    "static/js/2.e09d05f8.chunk.js": "/static/js/2.e09d05f8.chunk.js",
-    "static/js/2.e09d05f8.chunk.js.map": "/static/js/2.e09d05f8.chunk.js.map",
-    "static/js/3.6a2c2af5.chunk.js": "/static/js/3.6a2c2af5.chunk.js",
-    "static/js/3.6a2c2af5.chunk.js.map": "/static/js/3.6a2c2af5.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.4db47e86.chunk.css.map": "/static/css/main.4db47e86.chunk.css.map",
-    "static/js/2.e09d05f8.chunk.js.LICENSE.txt": "/static/js/2.e09d05f8.chunk.js.LICENSE.txt",
-=======
-    "main.css": "/static/css/main.65418cd3.chunk.css",
-    "main.js": "/static/js/main.2f3494cb.chunk.js",
-    "main.js.map": "/static/js/main.2f3494cb.chunk.js.map",
+    "main.css": "/static/css/main.0edb3fdf.chunk.css",
+    "main.js": "/static/js/main.e394ee56.chunk.js",
+    "main.js.map": "/static/js/main.e394ee56.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a2298bee.js",
     "runtime-main.js.map": "/static/js/runtime-main.a2298bee.js.map",
-    "static/js/2.71e4558b.chunk.js": "/static/js/2.71e4558b.chunk.js",
-    "static/js/2.71e4558b.chunk.js.map": "/static/js/2.71e4558b.chunk.js.map",
+    "static/js/2.8197aec3.chunk.js": "/static/js/2.8197aec3.chunk.js",
+    "static/js/2.8197aec3.chunk.js.map": "/static/js/2.8197aec3.chunk.js.map",
     "static/js/3.ce4e80a7.chunk.js": "/static/js/3.ce4e80a7.chunk.js",
     "static/js/3.ce4e80a7.chunk.js.map": "/static/js/3.ce4e80a7.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.65418cd3.chunk.css.map": "/static/css/main.65418cd3.chunk.css.map",
-    "static/js/2.71e4558b.chunk.js.LICENSE.txt": "/static/js/2.71e4558b.chunk.js.LICENSE.txt",
->>>>>>> c1b809b02392f4cacfc197c8d9e1491bd1150614
+    "static/css/main.0edb3fdf.chunk.css.map": "/static/css/main.0edb3fdf.chunk.css.map",
+    "static/js/2.8197aec3.chunk.js.LICENSE.txt": "/static/js/2.8197aec3.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/static/media/login-bg.f3d3bf69.png",
     "static/media/logo-alro.9306daf2.png": "/static/media/logo-alro.9306daf2.png",
     "static/media/การขอขยายระยะเวลาการชำระหนี้.3c4d4586.pdf": "/static/media/การขอขยายระยะเวลาการชำระหนี้.3c4d4586.pdf",
@@ -53,16 +38,9 @@
     "static/media/ใบโอนปรับปรุง.90cfa2f8.pdf": "/static/media/ใบโอนปรับปรุง.90cfa2f8.pdf"
   },
   "entrypoints": [
-<<<<<<< HEAD
-    "static/js/runtime-main.ab9c86b3.js",
-    "static/js/2.e09d05f8.chunk.js",
-    "static/css/main.4db47e86.chunk.css",
-    "static/js/main.48c156f6.chunk.js"
-=======
     "static/js/runtime-main.a2298bee.js",
-    "static/js/2.71e4558b.chunk.js",
-    "static/css/main.65418cd3.chunk.css",
-    "static/js/main.2f3494cb.chunk.js"
->>>>>>> c1b809b02392f4cacfc197c8d9e1491bd1150614
+    "static/js/2.8197aec3.chunk.js",
+    "static/css/main.0edb3fdf.chunk.css",
+    "static/js/main.e394ee56.chunk.js"
   ]
 }
