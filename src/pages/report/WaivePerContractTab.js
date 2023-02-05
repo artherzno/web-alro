@@ -78,7 +78,7 @@ class WaivePerContractTab extends React.Component {
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getWaivePerContract(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -300,16 +300,14 @@ class WaivePerContractTab extends React.Component {
                             {this.state.farmerPayLoanList.map((farmer, index) => {
                                     return (
                                         <TableRow key={index}>
-                                          
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
+                                        <StyledTableCellLine align="left">{farmer.projType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                             <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.age}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
-                                          
+                                            <StyledTableCellLine align="left">{farmer.idCard}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.loanAmount}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestRate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.overdueDebt}</StyledTableCellLine>               
                                            
 
 
@@ -322,10 +320,10 @@ class WaivePerContractTab extends React.Component {
                                     <StyledTableCellLine colSpan={5} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loan)}</StyledTableCellLine>
-                         
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.overdueDebt)}</StyledTableCellLine>
+                      
                                 </TableRow>
                             </TableBody>
                         </Table>

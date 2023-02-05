@@ -405,6 +405,38 @@ const api = {
         })
 
     },
+    getWaivePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerContract",
+            params
+        })
+
+    },
+    getWaivePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerCode",
+            params
+        })
+
+    },
+    getWaivePerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerProList",
+            params
+        })
+
+    },
+    getWaivePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerProvince",
+            params
+        })
+
+    },
     getComparePerContract(params) {
 
         return post({
