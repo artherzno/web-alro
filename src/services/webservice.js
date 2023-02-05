@@ -341,6 +341,70 @@ const api = {
         })
 
     },
+    getLiabilityPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerContract",
+            params
+        })
+
+    },
+    getLiabilityPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerCode",
+            params
+        })
+
+    },
+    getLiabilityPerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerProList",
+            params
+        })
+
+    },
+    getLiabilityPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerProvince",
+            params
+        })
+
+    },
+    getDebtConPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerContract",
+            params
+        })
+
+    },
+    getDebtConPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerCode",
+            params
+        })
+
+    },
+    getDebtConPerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerProList",
+            params
+        })
+
+    },
+    getDebtConPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerProvince",
+            params
+        })
+
+    },
     getComparePerContract(params) {
 
         return post({
