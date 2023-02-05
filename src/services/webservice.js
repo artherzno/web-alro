@@ -469,6 +469,22 @@ const api = {
         })
 
     },
+    getDebtClassPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtClassPerContract",
+            params
+        })
+
+    },
+    getDebtClassPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtClassPerCode",
+            params
+        })
+
+    },
     getComparePerContract(params) {
 
         return post({

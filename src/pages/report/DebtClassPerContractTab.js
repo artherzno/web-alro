@@ -77,7 +77,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getDebtClassPerContract(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -320,26 +320,26 @@ parameter.append('YearTo', YearTovalue);
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                           
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">0</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.principalBalance1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang1}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang2}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang3}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang4}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance5}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang5}</StyledTableCellLine>
+                                        
+                                            <StyledTableCellLine align="left">{farmer.debtClass}</StyledTableCellLine>
                                           
 
                                         </TableRow>
@@ -351,19 +351,22 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine colSpan={4} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance1)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang1)}</StyledTableCellLine>
+                                    
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang2)}</StyledTableCellLine>
+                                   
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance3)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang3)}</StyledTableCellLine>
+                               
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance4)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang4)}</StyledTableCellLine>
+                               
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance5)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang5)}</StyledTableCellLine>
+                               
+                                  
                                     <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                 </TableRow>
