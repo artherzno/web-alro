@@ -437,6 +437,38 @@ const api = {
         })
 
     },
+    getExtendtimePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerContract",
+            params
+        })
+
+    },
+    getExtendtimePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerCode",
+            params
+        })
+
+    },
+    getExtendtimePerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerProList",
+            params
+        })
+
+    },
+    getExtendtimePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerProvince",
+            params
+        })
+
+    },
     getComparePerContract(params) {
 
         return post({
