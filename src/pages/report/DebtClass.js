@@ -6,23 +6,25 @@ import Box from '@material-ui/core/Box';
 import { Formik, Form, Field } from 'formik';
 import DebtClassPerContractTab from './DebtClassPerContractTab'
 import DebtClassPerCodeTab from './DebtClassPerCodeTab'
-import DebtClassPerProjListTab from './DebtClassPerProjListTab'
-import DebtClassPerProvinceTab from './DebtClassPerProvinceTab'
+/*import DebtClassPerProjListTab from './DebtClassPerProjListTab'
+import DebtClassPerProvinceTab from './DebtClassPerProvinceTab'*/
 
 const tabs = [{
     title: 'รายงานจัดชั้นหนี้',
     id: "debtclass _per_contract" 
 },
 {
-    title: 'รายงานจัดชั้นหนี้ (รายประเภทโครงการหลัก)',
+    title: 'รายงานจัดชั้นหนี้ (ปกติ,ชั้นดี,สงสัย,สงสัยจะสูญ)',
     id: "debtclass _per_code"
-},{
-    title: 'รายงานจัดชั้นหนี้ (รายโครงการ)',
+}
+/*,{
+    title: 'รายงานจัดชั้นหนี้ (ชั้นดี)',
     id: "debtclass _per_projlist"
 },{
     title: 'สรุปรายงานจัดชั้นหนี้',
     id: "debtclass _per_province"
-}]
+}*/
+]
 
 class DebtClass extends React.Component {
 
@@ -84,7 +86,8 @@ class DebtClass extends React.Component {
             return (
                 <DebtClassPerCodeTab />
             )
-        } else if (this.state.tabSelected === tabs[2].id) {
+        } 
+        /*else if (this.state.tabSelected === tabs[2].id) {
             return (
                 <DebtClassPerProjListTab />
             )
@@ -92,7 +95,7 @@ class DebtClass extends React.Component {
             return (
                 <DebtClassPerProvinceTab />
             )
-        } 
+        } */
     }
 }
 

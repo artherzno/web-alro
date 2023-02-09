@@ -18,7 +18,7 @@ import { makeStyles, withStyles } from '@material-ui/styles';
 import { StyledTableCell, StyledTableCellLine, styles } from '../../components/report/HeaderTable'
 import moment from 'moment'
 import { formatNumber } from '../../utils/Utilities'
-import { ButtonExportExcel } from '../../components'
+import { ButtonExport,ButtonExportExcel } from '../../components'
 import api from '../../services/webservice'
 import TablePagination from '@material-ui/core/TablePagination';
 import { OverlayLoading } from '../../components'
@@ -77,7 +77,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getDebtClassPerContract(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -111,7 +111,7 @@ parameter.append('YearTo', YearTovalue);
             isExporting: true
         })
 
-        api.exportRequestLoan(parameter).then(response => {
+        api.exportDebtClassPerContract(parameter).then(response => {
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
@@ -128,6 +128,50 @@ parameter.append('YearTo', YearTovalue);
 
             this.setState({
                 isExporting: false
+            })
+
+        })
+
+    }
+
+    printPDF() {
+
+        const { displaySection, sectionProvince, month, year, YearTovalue, display2, startDate, endDate, resultRequest } = this.state
+
+        const parameter = new FormData()
+        parameter.append('LevelDisplay1', displaySection);
+        parameter.append('Month', month);
+        parameter.append('YearTo', YearTovalue);
+        parameter.append('Year', year);
+        parameter.append('ZoneProvince', sectionProvince);
+        parameter.append('LevelDisplay2', display2);
+        parameter.append('StartDate', startDate);
+        parameter.append('EndDate', endDate);
+        parameter.append("Result", resultRequest);
+
+      
+
+        this.setState({
+            isPrinting: true
+        })
+
+        api.getDebtClassPerContractPdf(parameter).then(response => {
+
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            document.body.appendChild(link);
+            link.click();
+
+            this.setState({
+                isPrinting: false
+            })
+
+        }).catch(error => {
+
+            this.setState({
+                isPrinting: false
             })
 
         })
@@ -270,7 +314,9 @@ parameter.append('YearTo', YearTovalue);
                 <Grid item xs>
 
                 </Grid>
-
+                <Grid item>
+                    <ButtonExport label="PRINT TO PDF" handleButtonClick={() => { this.printPDF() }} loading={this.state.isPrinting} />
+                </Grid>
                 <Grid item>
                     <ButtonExportExcel handleButtonClick={() => { this.exportExcel() }} loading={this.state.isExporting} />
                 </Grid>
@@ -320,26 +366,26 @@ parameter.append('YearTo', YearTovalue);
                                     return (
                                         <TableRow key={index}>
                                             <StyledTableCellLine align="center" >{farmer.no}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.loanReqNo}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.appDate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.projType}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.fullName}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.contractNo}</StyledTableCellLine>
                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                           
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            
-                                            <StyledTableCellLine align="left">0</StyledTableCellLine>
-                                            <StyledTableCellLine align="right">0</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.principalBalance1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang1}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance2}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang2}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance3}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang3}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance4}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang4}</StyledTableCellLine>
+
+                                            <StyledTableCellLine align="left">{farmer.principalBalance5}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestKang5}</StyledTableCellLine>
+                                        
+                                            <StyledTableCellLine align="left">{farmer.debtClass}</StyledTableCellLine>
                                           
 
                                         </TableRow>
@@ -351,19 +397,22 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine colSpan={4} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(0)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance1)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang1)}</StyledTableCellLine>
+                                    
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance2)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang2)}</StyledTableCellLine>
+                                   
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance3)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang3)}</StyledTableCellLine>
+                               
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance4)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang4)}</StyledTableCellLine>
+                               
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.principalBalance5)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right"  className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestKang5)}</StyledTableCellLine>
+                               
+                                  
                                     <StyledTableCellLine align="left"  className={`${classes.cellBlue} ${classes.cellSummary}`}></StyledTableCellLine>
 
                                 </TableRow>

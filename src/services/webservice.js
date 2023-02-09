@@ -341,6 +341,150 @@ const api = {
         })
 
     },
+    getLiabilityPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerContract",
+            params
+        })
+
+    },
+    getLiabilityPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerCode",
+            params
+        })
+
+    },
+    getLiabilityPerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerProList",
+            params
+        })
+
+    },
+    getLiabilityPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetLiabilityPerProvince",
+            params
+        })
+
+    },
+    getDebtConPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerContract",
+            params
+        })
+
+    },
+    getDebtConPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerCode",
+            params
+        })
+
+    },
+    getDebtConPerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerProList",
+            params
+        })
+
+    },
+    getDebtConPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtConPerProvince",
+            params
+        })
+
+    },
+    getWaivePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerContract",
+            params
+        })
+
+    },
+    getWaivePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerCode",
+            params
+        })
+
+    },
+    getWaivePerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerProList",
+            params
+        })
+
+    },
+    getWaivePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetWaivePerProvince",
+            params
+        })
+
+    },
+    getExtendtimePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerContract",
+            params
+        })
+
+    },
+    getExtendtimePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerCode",
+            params
+        })
+
+    },
+    getExtendtimePerProList(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerProList",
+            params
+        })
+
+    },
+    getExtendtimePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetExtendtimePerProvince",
+            params
+        })
+
+    },
+    getDebtClassPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtClassPerContract",
+            params
+        })
+
+    },
+    getDebtClassPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/GetDebtClassPerCode",
+            params
+        })
+
+    },
     getComparePerContract(params) {
 
         return post({
@@ -540,6 +684,24 @@ const api = {
     getCardPdf(params) {
         return post({
             path: "api/report/pdf/GetCardPdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtClassPerCodePdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtClassPerCodePdf",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    getDebtClassPerContractPdf(params) {
+        return post({
+            path: "api/report/pdf/GetDebtClassPerContractPdf",
             params,
             config: {
                 responseType: 'arraybuffer',
@@ -1197,6 +1359,652 @@ const api = {
             }
         })
 
+    },
+    exportComparePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportComparePerProjPlan(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePerProjPlan",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportComparePerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportComparePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportSttPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportSttPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportSttPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportSttPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportSttPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportSttPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportSttPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportSttPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAgePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAgePerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAgePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAgePerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAgePerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAgePerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAgePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAgePerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLimitPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLimitPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLimitPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLimitPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLimitPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLimitPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLiabilityPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLiabilityPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLiabilityPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLiabilityPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLiabilityPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLiabilityPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportLiabilityPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportLiabilityPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtConPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtConPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtConPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtConPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtConPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtConPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtConPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtConPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportWaivePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportWaivePerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportWaivePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportWaivePerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportWaivePerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportWaivePerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportWaivePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportWaivePerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportWaivePerDate(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportWaivePerDate",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportExtendtimePerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportExtendtimePerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportExtendtimePerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportExtendtimePerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportExtendtimePerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportExtendtimePerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportExtendtimePerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportExtendtimePerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportDebtClassPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtClassPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtClassPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtClassPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAreaPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAreaPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAreaPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAreaPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAreaPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAreaPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportDebtAreaPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportDebtAreaPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportCalendarYear(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportCalendarYear",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportCalendarYear1(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportCalendarYear1",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportCalendarYear2(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportCalendarYear2",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportResultDebtsRemainingPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportResultDebtsRemainingPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportResultDebtsRemainingPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportResultDebtsRemainingPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportResultDebtsRemainingPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportResultDebtsRemainingPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportResultDebtsRemainingPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportResultDebtsRemainingPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportPrincipalInterestPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPrincipalInterestPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportPrincipalInterestPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPrincipalInterestPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportPrincipalInterestPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPrincipalInterestPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportPrincipalInterestPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPrincipalInterestPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportPlanEstimationPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPlanEstimationPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportPlanEstimationPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPlanEstimationPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportPlanEstimationPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPlanEstimationPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportPlanEstimationPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportPlanEstimationPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportComparePlanResultPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePlanResultPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportComparePlanResultPerCode(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePlanResultPerCode",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportComparePlanResultPerProjList(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePlanResultPerProjList",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+
+    },
+    exportComparePlanResultPerProvince(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportComparePlanResultPerProvince",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportCashFlowPerContract(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportCashFlowPerContract",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportCashFlowPerProj2(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportCashFlowPerProj2",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
+    },
+    exportCashFlowPerProj3(params) {
+
+        return post({
+            path: "api/api/ReportServices/ExportCashFlowPerProj3",
+            params,
+            config: {
+                responseType: 'arraybuffer',
+            }
+        })
     },
     getNewFarmerPayLoan(params) {
 

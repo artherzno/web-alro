@@ -78,7 +78,7 @@ parameter.append('YearTo', YearTovalue);
         parameter.append('PageCount', count);
 
         this.setState({ isLoading: true })
-        api.getRequestLoan(parameter).then(response => {
+        api.getLiabilityPerProvince(parameter).then(response => {
 
             this.setState({
                 farmerPayLoanList: response.data.data,
@@ -100,7 +100,7 @@ parameter.append('YearTo', YearTovalue);
         const parameter = new FormData()
         parameter.append('LevelDisplay1', displaySection);
         parameter.append('Month', month);
-parameter.append('YearTo', YearTovalue);
+        parameter.append('YearTo', YearTovalue);
         parameter.append('Year', year);
         parameter.append('ZoneProvince', sectionProvince);
         parameter.append('LevelDisplay2', display2);
@@ -112,7 +112,7 @@ parameter.append('YearTo', YearTovalue);
             isExporting: true
         })
 
-        api.exportRequestLoan(parameter).then(response => {
+        api.exportLiabilityPerProvince(parameter).then(response => {
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
@@ -297,10 +297,10 @@ parameter.append('YearTo', YearTovalue);
                                     return (
                                         <TableRow key={index}>
                                           
-                                            <StyledTableCellLine align="left">{farmer.province}</StyledTableCellLine>      
-                                            <StyledTableCellLine align="left">{farmer.loanReqStatus}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.age}</StyledTableCellLine>
-                                            <StyledTableCellLine align="left">{farmer.address1}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.totalLoan}</StyledTableCellLine>      
+                                            <StyledTableCellLine align="left">{farmer.loanAmount}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.interestRate}</StyledTableCellLine>
+                                            <StyledTableCellLine align="left">{farmer.overdueDebt}</StyledTableCellLine>
                                           
                                            
 
@@ -314,9 +314,9 @@ parameter.append('YearTo', YearTovalue);
                                     <StyledTableCellLine colSpan={1} align="center" className={`${classes.cellBlue} ${classes.cellSummary}`}>
                                         รวมทั้งสิ้น
                                     </StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.amount)}</StyledTableCellLine>
-                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loan)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.loanAmount)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.interestRate)}</StyledTableCellLine>
+                                    <StyledTableCellLine align="right" className={`${classes.cellBlue} ${classes.cellSummary}`}>{formatNumber(dataSummary.overdueDebt)}</StyledTableCellLine>
                                 </TableRow>
                             </TableBody>
                         </Table>

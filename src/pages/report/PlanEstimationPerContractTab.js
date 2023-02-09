@@ -111,7 +111,7 @@ class PlanEstimationPerContractTab extends React.Component {
             isExporting: true
         })
 
-        api.exportRequestLoan(parameter).then(response => {
+        api.exportPlanEstimationPerContract(parameter).then(response => {
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
