@@ -58,6 +58,7 @@ function DefaultInterest() {
     const [isLoaded, setIsLoaded] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingExport, setIsLoadingExport] = useState({});
+    const [isLoadingExport2, setIsLoadingExport2] = useState({});
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
     const [success, setSuccess] = useState(false);
@@ -317,7 +318,7 @@ function DefaultInterest() {
     }
 
     const gotoCardInterest2Times = (contractNumber, ind) => {
-        setIsLoadingExport(prevState => ({
+        setIsLoadingExport2(prevState => ({
             ...prevState,
             [ind]: true
         }))
@@ -342,7 +343,7 @@ function DefaultInterest() {
             document.body.appendChild(link);
             link.click();
 
-            setIsLoadingExport(prevState => ({
+            setIsLoadingExport2(prevState => ({
                 ...prevState,
                 [ind]: false
             }))
@@ -551,7 +552,7 @@ function DefaultInterest() {
                                                                     <ButtonExport label="การ์ดลูกหนี้ปกติ" handleButtonClick={() => { gotoCarddebtorPrint(cell.contractNo, i) }} loading={isLoadingExport[i]} />
                                                                     {/* <ButtonFluidPrimary label="การ์ดลูกหนี้ปกติ" maxWidth="120px" onClick={()=>gotoCarddebtorPrint(cell.contractNo)} /> */}
                                                                     <div style={{height: '10px'}}></div>
-                                                                    <ButtonExport label="การ์ดดอกเบี้ยผิดนัด2งวด" handleButtonClick={() => { gotoCardInterest2Times(cell.contractNo, i) }} loading={isLoadingExport[i]} />
+                                                                    <ButtonExport label="การ์ดดอกเบี้ยผิดนัด2งวด" handleButtonClick={() => { gotoCardInterest2Times(cell.contractNo, i) }} loading={isLoadingExport2[i]} />
                                                                 </TableCell>
                                                                 <TableCell align="left">{cell.contractNo}</TableCell>
                                                                 <TableCell align="left">{cell.projName}</TableCell>
