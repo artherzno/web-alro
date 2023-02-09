@@ -4,7 +4,6 @@ import axios from 'axios';
 import { AuthContext } from '../../App';
 import moment from 'moment';
 
-import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Container from '@material-ui/core/Container';
@@ -21,27 +20,16 @@ import TablePagination from '@material-ui/core/TablePagination';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import CloseIcon from '@material-ui/icons/Close';
-import PrintIcon from '@material-ui/icons/Print';
-import AddIcon from '@material-ui/icons/Add';
-
 import Header from '../../components/Header';
 import Nav from '../../components/Nav';
 
 import {
     MuiTextfield,
-    MuiRadioButton,
+    MuiSelect,
     MuiTextNumber,
     MuiDatePicker,
-    MuiCheckbox,
-    MuiSelect,
-    MuiLabelHeader,
     MuiTextfieldCurrency,
-    MuiTextfieldEndAdornment,
-    MuiLabelHeaderCheckbox,
     ButtonFluidPrimary,
-    ButtonFluidIconStartPrimary,
-    ButtonNormalIconStartPrimary,
 } from '../../components/MUIinputs';
 
 function CloseRepaymentContract() {
@@ -55,7 +43,6 @@ function CloseRepaymentContract() {
     let siteprint = localStorage.getItem('siteprint')
 
     const [loaded, setLoaded] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState(['เกิดข้อผิดพลาด '])
@@ -130,11 +117,13 @@ function CloseRepaymentContract() {
 
 
     const getSearchCloseRepaymentContract = () => {
+        setIsLoading(true)
         axios.post(
             `${server_hostname}/admin/api/search_for_loanmisapply`, {
                 LoanNumber: inputDataSearch.LoanNumber || '',
             }, { headers: { "token": token } } 
         ).then(res => {
+                setIsLoading(false)
                 console.log(res)
                 let data = res.data;
                 if(data.code === 0 || res === null || res === undefined) {
@@ -189,12 +178,14 @@ function CloseRepaymentContract() {
     }
 
     const getPayerData = (ind) => {
+        setIsLoading(true)
         // setPayerDataArr([])
         axios.post(
             `${server_hostname}/admin/api/search_for_custFarmer`, {
-                IDCard: payerDataArr[ind].FarmerID.toString() || '' // 3770600686521, 3102001204322, 1234789123456, 3730600237298 || '',
+                IDCard: payerDataArr[ind].IDCard.toString() || '' // 3770600686521, 3102001204322, 1234789123456, 3730600237298 || '',
             }, { headers: { "token": token } } 
         ).then(res => {
+                setIsLoading(false)
                 console.log(res)
                 let data = res.data;
                 if(data.code === 0 || res === null || res === undefined) {
@@ -217,6 +208,7 @@ function CloseRepaymentContract() {
                         //     payerDataArr[ind].fullname = data.data[0].fullname 
                         // ])
                         handlePayerDataArr('fullname',data.data[0].fullname,ind)
+                        handlePayerDataArr('FarmerID',data.data[0].FarmerID,ind)
                     } else {
                         handlePayerDataArr('FarmerID','',ind)
                         setErr(true)
@@ -289,82 +281,85 @@ function CloseRepaymentContract() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        console.log(payerDataArr)
         let resultArr = []
         for(let i=0; i<payerDataAmount; i++) {
+            console.log(payerDataArr[i])
+            // Convert decimal to number
+            payerDataArr[i].Total = !!payerDataArr[i].Total ? Number(String(payerDataArr[i].Total).replace(/[^\d.]/g, '')) : null
+            payerDataArr[i].IDCard = !!payerDataArr[i].IDCard ? Number(String(payerDataArr[i].IDCard).replace(/[^\d.]/g, '')) : null
+            payerDataArr[i].Interest = !!payerDataArr[i].Interest ? Number(String(payerDataArr[i].Interest).replace(/[^\d.]/g, '')) : null
+            payerDataArr[i].OrderNumber = !!payerDataArr[i].OrderNumber ? Number(String(payerDataArr[i].OrderNumber).replace(/[^\d.]/g, '')) : null
+            payerDataArr[i].PaidTime = !!payerDataArr[i].PaidTime ? Number(String(payerDataArr[i].PaidTime).replace(/[^\d.]/g, '')) : null
+            // console.log(Object.keys(payerDataArr[i]).length)
+            // Assign covert data
             resultArr.push(payerDataArr[i])
         }
 
-        const loanmisapply = JSON.stringify({
-            LoanID: loanIDDataArr,
-            result: resultArr
-        })
-        // console.log(payerDataArr)
-        console.log(loanmisapply)
+        // Validate data
+        let validatePayerDataArr = resultArr.some(element => Object.values(element).some(val => val === null || val === ""))
+        if(validatePayerDataArr) {
+            // Has some data empty 
+            setErr(true)
+            setErrMsg('กรุณากรอกข้อมูลให้ครบทุกช่อง')
+            
+        } else {
+            // Not data empty
 
-        
-        axios.post(
-        `${server_hostname}/admin/api/add_loanmisapply`, 
-            {
-                LoanID: loanIDDataArr,
-                result: resultArr
-            },    
-        { headers: { "token": token } } 
-        ).then(res => {
-                console.log(res)
-                let data = res.data;
-                if(data.code === 0 || res === null || res === undefined) {
-                    setErr(true);
-                    if(Object.keys(data.message).length !== 0) {
-                        console.error(data)
-                        if(typeof data.message === 'object') {
-                            setErrMsg('ไม่สามารถทำรายการได้')
+            setIsLoading(true)
+            axios.post(
+            `${server_hostname}/admin/api/add_loanmisapply`, 
+                {
+                    LoanID: loanIDDataArr,
+                    result: resultArr
+                },    
+            { headers: { "token": token } } 
+            ).then(res => {
+                    setIsLoading(false)
+                    console.log(res)
+                    let data = res.data;
+                    if(data.code === 0 || res === null || res === undefined) {
+                        setErr(true);
+                        if(Object.keys(data.message).length !== 0) {
+                            console.error(data)
+                            if(typeof data.message === 'object') {
+                                setErrMsg('ไม่สามารถทำรายการได้')
+                            } else {
+                                setErrMsg([data.message])
+                            }
                         } else {
-                            setErrMsg([data.message])
+                            setErrMsg(['ไม่สามารถทำรายการได้'])
                         }
                     } else {
-                        setErrMsg(['ไม่สามารถทำรายการได้'])
+                        setSuccess(true);
+                        setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
+
+                        setTableResult({})
+                        setOpenInfo(false)
+                        setPayerDataArr([
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
+                            
+                        ])
+
+                        setPayerDataAmount(1)
                     }
-                } else {
-                    setSuccess(true);
-                    setSuccessMsg('บันทึกข้อมูลเรียบร้อย')
-
-                    setTableResult({})
-                    setOpenInfo(false)
-                    setPayerDataArr([
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        { OrderNumber: '', OrderDate: '', FarmerID: '', fullname: '', Total: '', Interest: '', PaidTime: '', StartPaidDate: '' },
-                        
-                    ])
                 }
-            }
-        ).catch(err => { console.log(err); })
-        .finally(() => {
-            if (isMounted.current) {
-              setIsLoading(false)
-            }
-         });
-
-        setErrMsg('ไม่สามารถทำรายการได้')
-        setErr(true)
-    
-        // if (value === 'best') {
-        //   setHelperText('You got it!');
-        //   setError(false);
-        // } else if (value === 'worst') {
-        //   setHelperText('Sorry, wrong answer!');
-        //   setError(true);
-        // } else {
-        //   setHelperText('Please select an option.');
-        //   setError(true);
-        // }
+            ).catch(err => { console.log(err); })
+            .finally(() => {
+                if (isMounted.current) {
+                setIsLoading(false)
+                }
+            });
+        }
     };
 
     const gotoCloseRepaymentContract = (loanID) => {
@@ -405,7 +400,7 @@ function CloseRepaymentContract() {
     }
 
     const handlePayerDateDataArr = (name, value, i) => {
-        console.log(name, value, i)
+        // console.log(name, value, i)
         let setResultValue = [...payerDataArr]
         setResultValue[i][name] = value
 
@@ -435,7 +430,7 @@ function CloseRepaymentContract() {
                                 <MuiDatePicker label="วันที่คำสั่ง" name="OrderDate" value={payerDataArr[i].OrderDate} onChange={(newValue)=>{ handlePayerDateDataArr('OrderDate', moment(newValue).format('YYYY-MM-DD'), i) }}   />
                             </Grid>
                             <Grid item xs={12} md={7}>
-                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" name="FarmerID" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4"  value={payerDataArr[i].FarmerID} onInput={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}}   />
+                                <MuiTextNumber label="หมายเลขประจำตัว 13 หลัก" name="IDCard" defaultValue="" placeholder="ตัวอย่าง 3 8517 13368 44 4"  value={payerDataArr[i].IDCard} onInput={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}}   />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 <p>&nbsp;</p>
@@ -453,7 +448,7 @@ function CloseRepaymentContract() {
                                 <p className="paper-p txt-right">ชดใช้เงินจำนวน</p>
                             </Grid>
                             <Grid item xs={12} md={5}>
-                                <MuiTextfieldCurrency label=""  name="Total" value={payerDataArr[i].Total} onChange={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}} /> 
+                                <MuiTextfieldCurrency label=""   name="Total" value={payerDataArr[i].Total} onChange={(e)=>{handlePayerDataArr(e.target.name, e.target.value, i)}} /> 
                             </Grid>
                             <Grid item xs={1} md={2}>
                                 <p className="paper-p">บาท</p>
@@ -502,6 +497,13 @@ function CloseRepaymentContract() {
 
     return (
         <div className="loanrequestprint-page">
+            {
+            isLoading ? 
+                <div className="overlay">
+                    <p style={{margin: 'auto', fontSize: '20px'}}>...กำลังค้นหาข้อมูล...</p>
+                </div> : 
+                ''
+            }
             <div className="header-nav">
                 <Header bgColor="bg-light-green" status="logged" />
                 <Nav />
@@ -511,13 +513,13 @@ function CloseRepaymentContract() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>ปิดสัญญาและชดใช้หนี้แทน</h1>
+                                <h1>ยักยอกเงินไปทั้งสัญญา</h1>{/* <h1>ปิดสัญญาและชดใช้หนี้แทน</h1> */}
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={10}>
-                                        <MuiTextfield label="ค้นหาเลขที่สัญญาที่ต้องปิด * กรุณาใส่ , (Comma) คั่นเลขที่สัญญา กรณีค้นหามากกว่า 1 รายการ" value={inputDataSearch.LoanNumber} name="LoanNumber" onChange={handleInputDataSearch}  />
+                                        <MuiTextfield label="ค้นหาเลขที่สัญญาที่ปิดไปแล้วแบบชดใช้หนี้แทน  * ( กรุณาใส่ , (Comma) คั่นเลขที่สัญญา กรณีค้นหามากกว่า 1 รายการ )" value={inputDataSearch.LoanNumber} name="LoanNumber" onChange={handleInputDataSearch}  />
                                     </Grid>
                                     <Grid item xs={12} md={2}>
                                         <p>&nbsp;</p>
@@ -569,8 +571,8 @@ function CloseRepaymentContract() {
                                                             <TableCell align="left">{cell.LoanNumber}</TableCell>
                                                             <TableCell align="left">{cell.IDCard}</TableCell>
                                                             <TableCell align="left">{cell.fullname}</TableCell>
-                                                            <TableCell align="left">{!!cell.LoanDate ? moment(cell.LoanDate).format('DD/MM/YYYY') : ''}</TableCell>
-                                                            <TableCell align="left">{!!cell.LastDatePaid ? moment(cell.LastDatePaid).format('DD/MM/YYYY') : ''}</TableCell>
+                                                            <TableCell align="left">{!!cell.LoanDate ? moment(cell.LoanDate).format('DD/MM/') + (Number(moment(cell.LastDatePaid).format('YYYY'))+543) : ''}</TableCell>
+                                                            <TableCell align="left">{!!cell.LastDatePaid ? moment(cell.LastDatePaid).format('DD/MM/') + (Number(moment(cell.LastDatePaid).format('YYYY'))+543) : ''}</TableCell>
                                                             <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
                                                             <TableCell align="left">{(cell.principle).toLocaleString('en-US')}</TableCell>
                                                             <TableCell align="left">{(cell.Interest).toLocaleString('en-US')}</TableCell>
@@ -670,6 +672,31 @@ function CloseRepaymentContract() {
                 
                 </div>
             </Fade>
+
+            <Dialog
+                open={success}
+                onClose={handleClosePopup}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                fullWidth
+                maxWidth="xs"
+            >
+                {/* <DialogTitle id="alert-dialog-title"></DialogTitle> */}
+                <DialogContent>
+                
+                    <div className="dialog-error">
+                        <p className="txt-center txt-black">{successMsg}</p>
+                        <br/>
+                        <Box textAlign='center'>
+                            
+                            <ButtonFluidPrimary label="ตกลง" maxWidth="100px" onClick={handleClosePopup} color="primary" style={{justifyContent: 'center'}} />
+                        </Box>
+                    </div>
+                    
+                </DialogContent>
+                {/* <DialogActions>
+                </DialogActions> */}
+            </Dialog>
 
             <Dialog
                 open={err}

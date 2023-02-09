@@ -365,10 +365,10 @@ const listmenu = [
         path: '/home',
         submenu: [
             {
-                subtitle: 'ปิดสัญญาและชดใช้หนี้แทน',
+                subtitle: 'ยักยอกเงินไปทั้งสัญญา', // 'ปิดสัญญาและชดใช้หนี้แทน',
                 subpath: '/repaymentcontract/closerepaymentcontract'
             },{
-                subtitle: 'เพิ่มสัญญาชดใช้หนี้แทน',
+                subtitle: 'ยักยอกเงินไปบางส่วนของสัญญา', // 'เพิ่มสัญญาชดใช้หนี้แทน',
                 subpath: '/repaymentcontract/addrepaymentcontract'
             }
         ]

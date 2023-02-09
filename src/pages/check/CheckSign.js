@@ -58,7 +58,9 @@ class CheckSign extends React.Component {
             totalResult: 0,
             data: [],
             page: 0,
-            count: 10
+            count: 10,
+
+            loanNumber: ""
         }
     }
 
@@ -102,8 +104,11 @@ class CheckSign extends React.Component {
                 totalContract: dataSummary.totalContract,
                 isLoading: false,
                 page: page,
-                totalResult: response.data.totalResult
+                totalResult: response.data.totalResult,
+
+                loanNumber: response.data.data[0].loanNumber
             })
+
 
         }).catch(error => {
 
@@ -313,12 +318,14 @@ class CheckSign extends React.Component {
                                         <MuiTextfield disabled={true} value={this.state.remainAmount} label="จำนวนเงินเหลือ" />
                                     </Grid>
 
-                                    <Grid item xs={12}  md={3}>
-                                        <p>&nbsp;</p>
-                                        <ButtonFluidPrimary label="บันทึกขอคืนเงิน" onClick={() => {this.props.history.push('/check/refundrecord', {LoanNumber: '00000/0000'}); }} />
-                                    </Grid>
-                                   
-                           
+                                    {
+                                        data.length === 1 && this.state.remainAmount ?
+                                        <Grid item xs={12}  md={3}>
+                                            <p>&nbsp;</p>
+                                            <ButtonFluidPrimary label="บันทึกขอคืนเงิน" onClick={() => { this.props.history.push('/check/refundrecord', {loanNumber: this.state.loanNumber, contractNo: this.state.ContractNo, remainAmount: this.state.remainAmount}); console.log('loanNumber: ',this.state.loanNumber) }} />
+                                        </Grid>
+                                        : null
+                                    }
                                 </Grid>
                             </Box>
 
