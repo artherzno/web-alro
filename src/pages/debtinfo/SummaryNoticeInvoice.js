@@ -88,6 +88,8 @@ function SummaryNoticeInvoice() {
     const [openDetail, setOpenDetail] = useState(false)
     const [openSummary, setOpenSummary] = useState(false)
 
+    const [isLoadingExport, setIsLoadingExport] = useState({});
+    const [isLoadingExport2, setIsLoadingExport2] = useState({});
 
     const [rows, setRows] = useState([]);
     const [rowsAll, setRowsAll] = useState([]);
@@ -302,6 +304,84 @@ function SummaryNoticeInvoice() {
          });
     }
 
+    const gotoGetSummaryNoticeInvoice1PDF = (noticeInvoiceNumber, ind) => {
+            setIsLoadingExport(prevState => ({
+                ...prevState,
+                [ind]: true
+            }))
+    
+            let formData = new FormData(); 
+            formData.append('NoticeInvoiceNo', noticeInvoiceNumber)
+            formData.append('ProvinceID', localStorage.getItem('provinceid'));
+            formData.append('UserName', localStorage.getItem('provinceid'))
+            formData.append('Username', localStorage.getItem('provinceid'))
+            formData.append('RoleID', localStorage.getItem('nROLEID'))
+    
+            axios({
+                url: `${siteprint}/report/pdf/GetSummaryNoticeInvoice1Pdf`, //your url
+                method: 'POST',
+                data: formData,
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+                const link = document.createElement('a');
+                link.href = url;
+                link.target = '_blank';
+                // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+    
+                setIsLoadingExport(prevState => ({
+                    ...prevState,
+                    [ind]: false
+                }))
+            }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+            .finally(() => {
+                if (isMounted.current) {
+                    setIsLoading(false)
+                }
+            });
+    }
+
+    const gotoGetSummaryNoticeInvoice2PDF = (noticeInvoiceNumber, ind) => {
+        setIsLoadingExport2(prevState => ({
+            ...prevState,
+            [ind]: true
+        }))
+
+        let formData = new FormData(); 
+        formData.append('NoticeInvoiceNo', noticeInvoiceNumber)
+        formData.append('ProvinceID', localStorage.getItem('provinceid'));
+        formData.append('UserName', localStorage.getItem('provinceid'))
+        formData.append('Username', localStorage.getItem('provinceid'))
+        formData.append('RoleID', localStorage.getItem('nROLEID'))
+
+        axios({
+            url: `${siteprint}/report/pdf/GetSummaryNoticeInvoice2Pdf`, //your url
+            method: 'POST',
+            data: formData,
+            responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            // link.setAttribute('download', `พิมพ์สัญญากู้ยืมเงิน_${loanNumber.toString()}.pdf`); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+
+            setIsLoadingExport2(prevState => ({
+                ...prevState,
+                [ind]: false
+            }))
+        }).catch(err => { console.log(err); setErr(true); setErrMsg('ไม่สามารถทำรายการได้'); })
+        .finally(() => {
+            if (isMounted.current) {
+                setIsLoading(false)
+            }
+        });
+}
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
@@ -425,7 +505,7 @@ function SummaryNoticeInvoice() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>สรุปผลการเดือนหนี้ 2 ครั้ง หลังครบกําหนดชําระ 2 เดือน</h1>
+                                <h1>สรุปผลการเตือนหนี้ 2 ครั้ง หลังครบกําหนดชําระ 2 เดือน</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
@@ -640,9 +720,9 @@ function SummaryNoticeInvoice() {
                                 </div> */}
                             </Grid>
                             <Grid item xs={12} md={12} className="text-center" style={{margin: 'auto'}}>
-                                <ButtonFluidIconStartPrimary label="พิมพ์ใบสรุป" maxWidth="180px"  startIcon={<PrintIcon />} /> 
+                                <ButtonFluidIconStartPrimary label="พิมพ์ใบสรุป" maxWidth="180px" startIcon={<PrintIcon />} onClick={()=> gotoGetSummaryNoticeInvoice1PDF(tableTotalResult.เลขที่ใบเตือน,0)} /> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <ButtonFluidIconStartPrimary label="พิมพ์ใบสรุป" maxWidth="180px"  startIcon={<PrintIcon />} /> 
+                                <ButtonFluidIconStartPrimary label="พิมพ์ใบสรุป" maxWidth="180px" startIcon={<PrintIcon />} onClick={()=> gotoGetSummaryNoticeInvoice2PDF(tableTotalResult.เลขที่ใบเตือน,0)} /> 
                             </Grid>
 
 

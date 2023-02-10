@@ -323,7 +323,7 @@ function SummaryNoticeInvoice() {
                     <Container maxWidth="lg">
                         <Grid container spacing={2}>
                             <Grid item xs={12} md={12} className="title-page"> 
-                                <h1>สรุปผลการเดือนหนี้ 2 ครั้ง หลังครบกําหนดชําระ 2 เดือน</h1>
+                                <h1>สรุปผลการเตือนหนี้ 2 ครั้ง หลังครบกําหนดชําระ 2 เดือน</h1>
                             </Grid>
 
                             <Grid item xs={12} md={12} className="mg-t-20">
